@@ -3310,6 +3310,11 @@ export class Sim {
     const invite = this.partyInvites.get(r.meta.entityId);
     if (!invite || invite.expires < this.time) { this.error(r.meta.entityId, 'The invitation has expired.'); return; }
     this.partyInvites.delete(r.meta.entityId);
+    // A player can hold a stale incoming invite while having since joined or
+    // formed a party of their own (inviting others never consumes one's own
+    // pending invite). Accepting now would add them to a second party's member
+    // list, corrupting the "at most one party" invariant.
+    if (this.partyOf(r.meta.entityId)) { this.error(r.meta.entityId, 'You are already in a party.'); return; }
     const leaderMeta = this.players.get(invite.fromPid);
     if (!leaderMeta) return;
     let party = this.partyOf(invite.fromPid);

@@ -253,6 +253,30 @@ describe('parties', () => {
     expect(sim.partyOf(a)).toBe(null);
   });
 
+  it('refuses to accept an invite while already in a party', () => {
+    // A player can become a party leader (by inviting someone who accepts)
+    // while still holding an unconsumed incoming invite — inviting someone
+    // never consumes the inviter's own pending invite. Accepting that stale
+    // invite must NOT leave the player a member of two parties at once.
+    const sim = makeWorld();
+    const a = sim.addPlayer('warrior', 'Aleph');
+    const c = sim.addPlayer('rogue', 'Gimel');
+    const d = sim.addPlayer('mage', 'Dalet');
+    // C invites A while A is solo (stored, unaccepted).
+    sim.partyInvite(a, c);
+    // A forms a party of its own by inviting D, who accepts. A is now leader.
+    sim.partyInvite(d, a);
+    sim.partyAccept(d);
+    expect(sim.partyOf(a)?.leader).toBe(a);
+    const ownParty = sim.partyOf(a)!.id;
+    // A now accepts C's stale invite — this must be rejected.
+    sim.partyAccept(a);
+    // A stays in its own party only; no second membership is created.
+    expect(sim.partyOf(a)?.id).toBe(ownParty);
+    expect(sim.partyOf(c)?.members.includes(a) ?? false).toBe(false);
+    expect(sim.partyOf(a)?.members).toEqual([a, d]);
+  });
+
   it('partyInfo reports per-member combat state for the UI badges', () => {
     const { sim, a, b } = makeDuo();
     // out of combat by default
