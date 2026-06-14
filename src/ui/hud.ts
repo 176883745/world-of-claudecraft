@@ -17,7 +17,7 @@ import { iconDataUrl, QUALITY_COLOR } from './icons';
 import { Keybinds, BIND_ACTIONS, BIND_CATEGORIES, isReservedCode, keyLabel } from '../game/keybinds';
 import { Settings, GameSettings, SETTING_RANGES } from '../game/settings';
 import { chatPlayerContextActions } from './player_context_menu';
-import { placeAbilityOnSlot } from './hotbar';
+import { clearHotbarSlot, placeAbilityOnSlot, syncHotbarSlotMap } from './hotbar';
 
 // hooks main wires after Input exists (the options menu drives input, audio,
 // graphics, and logout, all of which live outside the HUD)
@@ -67,6 +67,8 @@ export class Hud {
   private static readonly BAR_ABILITY_SLOTS = 11; // bar slots 1..11; slot 0 is the fixed Attack toggle
   private abilityButtons: { btn: HTMLButtonElement; label: HTMLSpanElement; keybindEl: HTMLSpanElement; cdOverlay: HTMLDivElement; cdText: HTMLDivElement; lastIcon: string }[] = [];
   private slotMap: (string | null)[] = []; // index = barSlot-1, value = ability id
+  private loadedSlotMapFromStorage = false;
+  private knownAbilityIdsAtLastSlotSync: Set<string> | null = null;
   private dragAbilityId: string | null = null;
   private optionsHooks: OptionsHooks | null = null;
   private reportHooks: ReportHooks | null = null;
@@ -347,6 +349,7 @@ export class Hud {
   private loadSlotMap(): void {
     let arr: unknown = null;
     try { arr = JSON.parse(localStorage.getItem(this.slotMapKey()) ?? 'null'); } catch { /* corrupt */ }
+    this.loadedSlotMapFromStorage = Array.isArray(arr);
     const seen = new Set<string>();
     this.slotMap = Array.from({ length: Hud.BAR_ABILITY_SLOTS }, (_, i) => {
       const v = Array.isArray(arr) ? arr[i] : null;
@@ -363,18 +366,23 @@ export class Hud {
   // Drop unlearned ids; place newly learned abilities in the first empty
   // slot. With empty storage this reproduces the default class-order layout.
   private syncSlotMap(): void {
-    const ids = new Set(this.sim.known.map((k) => k.def.id));
-    let dirty = false;
-    for (let i = 0; i < this.slotMap.length; i++) {
-      const id = this.slotMap[i];
-      if (id !== null && !ids.has(id)) { this.slotMap[i] = null; dirty = true; }
+    const knownAbilityIds = this.sim.known.map((k) => k.def.id);
+    const autoPlaceAbilityIds = new Set<string>();
+    if (this.knownAbilityIdsAtLastSlotSync === null) {
+      if (!this.loadedSlotMapFromStorage) {
+        for (const id of knownAbilityIds) autoPlaceAbilityIds.add(id);
+      }
+    } else {
+      for (const id of knownAbilityIds) {
+        if (!this.knownAbilityIdsAtLastSlotSync.has(id)) autoPlaceAbilityIds.add(id);
+      }
     }
-    for (const k of this.sim.known) {
-      if (this.slotMap.includes(k.def.id)) continue;
-      const empty = this.slotMap.indexOf(null);
-      if (empty !== -1) { this.slotMap[empty] = k.def.id; dirty = true; }
+    const next = syncHotbarSlotMap(this.slotMap, knownAbilityIds, autoPlaceAbilityIds);
+    if (next.some((id, i) => id !== this.slotMap[i])) {
+      this.slotMap = next;
+      this.saveSlotMap();
     }
-    if (dirty) this.saveSlotMap();
+    this.knownAbilityIdsAtLastSlotSync = new Set(knownAbilityIds);
   }
 
   abilityForSlot(barSlot: number): ResolvedAbility | null { // barSlot 1..11
@@ -422,12 +430,32 @@ export class Hud {
           return '<div class="tt-title">Attack</div><div class="tt-sub">Toggle auto-attack on your target.<br>Right-clicking an enemy also attacks.</div>';
         }
         const known = this.abilityForSlot(slot);
-        return known ? this.abilityTooltip(known) : '<div class="tt-sub">Empty slot</div>';
+        return known
+          ? this.abilityTooltip(known) + '<div class="tt-sub">Shift-right-click or Shift-Delete to clear</div>'
+          : '<div class="tt-sub">Empty slot<br>Shift-right-click or Shift-Delete to clear</div>';
       });
       if (slot >= 1) {
         // drag an ability onto another slot to place or swap it;
         // slot 0 (Attack) stays fixed
         btn.draggable = true;
+        const clearSlot = () => {
+          this.slotMap = clearHotbarSlot(this.slotMap, slot - 1);
+          this.saveSlotMap();
+          btn.classList.add('empty');
+          btn.classList.remove('drop-target', 'oor', 'queued', 'unusable');
+          this.hideTooltip();
+        };
+        btn.addEventListener('contextmenu', (e) => {
+          if (!e.shiftKey) return;
+          e.preventDefault();
+          clearSlot();
+        });
+        btn.addEventListener('keydown', (e) => {
+          if (!e.shiftKey || (e.key !== 'Delete' && e.key !== 'Backspace')) return;
+          e.preventDefault();
+          e.stopPropagation();
+          clearSlot();
+        });
         btn.addEventListener('dragstart', (e) => {
           const known = this.abilityForSlot(slot);
           if (!known) { e.preventDefault(); return; }
@@ -588,6 +616,7 @@ export class Hud {
       const known = this.abilityForSlot(i);
       if (!known) {
         ab.btn.classList.add('empty');
+        ab.btn.classList.remove('oor', 'queued', 'unusable');
         if (ab.lastIcon !== '') {
           ab.lastIcon = '';
           ab.label.style.backgroundImage = '';
