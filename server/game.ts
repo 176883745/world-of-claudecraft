@@ -667,6 +667,7 @@ export class GameServer {
           sim.sellItem(msg.item, typeof msg.count === 'number' ? msg.count : undefined, pid);
         }
         break;
+      case 'buyback': if (typeof msg.item === 'string') sim.buyBackItem(msg.item, pid); break;
       case 'release': sim.releaseSpirit(pid); break;
       case 'chat': {
         if (typeof msg.text !== 'string') break;
@@ -951,6 +952,7 @@ export class GameServer {
       }
     };
     maybe('inv', meta.inventory);
+    maybe('buyback', meta.vendorBuyback);
     maybe('equip', meta.equipment);
     maybe('qlog', [...meta.questLog.values()]);
     maybe('qdone', [...meta.questsDone]);

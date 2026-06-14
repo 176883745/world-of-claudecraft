@@ -482,7 +482,7 @@ export type SimEvent = { pid?: number } & (
   | { type: 'comboPoint'; points: number }
   | { type: 'playerDeath' }
   | { type: 'respawn' }
-  | { type: 'vendor'; action: 'buy' | 'sell'; itemId: string }
+  | { type: 'vendor'; action: 'buy' | 'sell' | 'buyback'; itemId: string }
   // say/yell are delivered only to players in range and carry the speaker's
   // entity id so the client can hang a chat bubble over their head; whisper
   // goes to the target (and echoes to the sender with `to` set); general is

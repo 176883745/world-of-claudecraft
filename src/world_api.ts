@@ -143,6 +143,7 @@ export interface IWorld {
   player: Entity;
   moveInput: MoveInput;
   inventory: InvSlot[];
+  vendorBuyback: InvSlot[];
   equipment: Partial<Record<EquipSlot, string>>;
   copper: number;
   xp: number;
@@ -166,6 +167,7 @@ export interface IWorld {
   useItem(itemId: string): void;
   buyItem(npcId: number, itemId: string): void;
   sellItem(itemId: string, count?: number): void;
+  buyBackItem(itemId: string): void;
   releaseSpirit(): void;
   chat(text: string): void;
   // social systems

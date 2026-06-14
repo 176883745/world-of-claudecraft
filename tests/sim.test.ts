@@ -518,6 +518,78 @@ describe('food, drink, vendor', () => {
     expect(sim.countItem('wolf_fang')).toBe(1);
   });
 
+  it('vendor buyback restores recently sold gear for the sale price', () => {
+    const sim = makeSim('warrior');
+    const wilkes = [...sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
+    teleportTo(sim, wilkes.pos.x + 2, wilkes.pos.z);
+    sim.addItem('apprentice_staff', 1);
+
+    sim.sellItem('apprentice_staff');
+
+    expect(sim.countItem('apprentice_staff')).toBe(0);
+    expect(sim.vendorBuyback).toEqual([{ itemId: 'apprentice_staff', count: 1 }]);
+    expect(sim.copper).toBe(120);
+
+    sim.buyBackItem('apprentice_staff');
+
+    expect(sim.countItem('apprentice_staff')).toBe(1);
+    expect(sim.vendorBuyback).toEqual([]);
+    expect(sim.copper).toBe(0);
+  });
+
+  it('vendor buyback round-trips through saved character state', () => {
+    const sim = makeSim('warrior');
+    const wilkes = [...sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
+    teleportTo(sim, wilkes.pos.x + 2, wilkes.pos.z);
+    sim.addItem('apprentice_staff', 1);
+    sim.sellItem('apprentice_staff');
+
+    const state = sim.serializeCharacter(sim.playerId)!;
+    expect(state.vendorBuyback).toEqual([{ itemId: 'apprentice_staff', count: 1 }]);
+
+    const sim2 = new Sim({ seed: 42, playerClass: 'warrior', autoEquip: false });
+    const pid2 = sim2.addPlayer('warrior', 'Saved', { state });
+    const wilkes2 = [...sim2.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
+    teleportTo(sim2, wilkes2.pos.x + 2, wilkes2.pos.z);
+
+    expect(sim2.meta(pid2)!.vendorBuyback).toEqual([{ itemId: 'apprentice_staff', count: 1 }]);
+    sim2.buyBackItem('apprentice_staff', pid2);
+    expect(sim2.countItem('apprentice_staff', pid2)).toBe(1);
+    expect(sim2.meta(pid2)!.vendorBuyback).toEqual([]);
+  });
+
+  it('vendor buyback requires money and keeps only recent sold item groups', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior', autoEquip: false });
+    const wilkes = [...sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
+    teleportTo(sim, wilkes.pos.x + 2, wilkes.pos.z);
+    sim.addItem('wolf_fang', 2);
+    sim.sellItem('wolf_fang');
+    sim.sellItem('wolf_fang');
+    expect(sim.vendorBuyback).toEqual([{ itemId: 'wolf_fang', count: 2 }]);
+    sim.copper = 0;
+
+    sim.buyBackItem('wolf_fang');
+
+    expect(sim.countItem('wolf_fang')).toBe(0);
+    expect(sim.vendorBuyback).toEqual([{ itemId: 'wolf_fang', count: 2 }]);
+    expect(sim.events).toContainEqual({ type: 'error', text: 'Not enough money.', pid: sim.player.id });
+
+    const itemIds = [
+      'bandit_bandana', 'tough_jerky', 'mudfin_scale', 'tallow_candle',
+      'spider_leg', 'bone_fragments', 'linen_scrap', 'baked_bread',
+      'spring_water', 'roasted_boar', 'worn_sword', 'hickory_shortstaff',
+      'apprentice_staff',
+    ];
+    for (const itemId of itemIds) {
+      sim.addItem(itemId, 1);
+      sim.sellItem(itemId);
+    }
+
+    expect(sim.vendorBuyback).toHaveLength(12);
+    expect(sim.vendorBuyback[0]).toEqual({ itemId: 'apprentice_staff', count: 1 });
+    expect(sim.vendorBuyback.some((s) => s.itemId === 'wolf_fang')).toBe(false);
+  });
+
   it('vendor buy rejects stale or invalid merchants with feedback', () => {
     const sim = makeSim('warrior');
     const wilkes = [...sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;

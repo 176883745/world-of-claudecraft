@@ -17,7 +17,7 @@ import { saveCharacterState } from '../server/db';
 import { ClientWorld } from '../src/net/online';
 import type { PlayerClass } from '../src/sim/types';
 
-const DELTA_KEYS = ['inv', 'equip', 'qlog', 'qdone', 'cds', 'stats', 'weapon', 'party', 'trade', 'duel'];
+const DELTA_KEYS = ['inv', 'buyback', 'equip', 'qlog', 'qdone', 'cds', 'stats', 'weapon', 'party', 'trade', 'duel'];
 
 interface FakeClient {
   sent: any[];
@@ -62,6 +62,7 @@ function bareClient(pid: number): ClientWorld {
   c.playerId = pid;
   c.moveInput = {};
   c.inventory = [];
+  c.vendorBuyback = [];
   c.equipment = {};
   c.copper = 0;
   c.xp = 0;
@@ -169,6 +170,33 @@ describe('delta snapshots', () => {
     expect(snap.self.inv.some((s: any) => s.itemId === 'baked_bread')).toBe(true);
     expect(snap.self).not.toHaveProperty('qlog');
     expect(snap.self).not.toHaveProperty('stats');
+  });
+
+  it('mirrors vendor buyback deltas to the client', () => {
+    const wilkes = [...server.sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
+    const player = server.sim.entities.get(session.pid)!;
+    player.pos.x = wilkes.pos.x + 2;
+    player.pos.z = wilkes.pos.z;
+    player.prevPos = { ...player.pos };
+    server.sim.addItem('apprentice_staff', 1, session.pid);
+    broadcast(server);
+    const client = bareClient(session.pid);
+    (client as any).applySnapshot(lastSnap(fc.sent));
+    expect(client.vendorBuyback).toEqual([]);
+    expect(client.consumeInventoryChanged()).toBe(true);
+
+    fc.sent.length = 0;
+    server.handleMessage(session, JSON.stringify({ t: 'cmd', cmd: 'sell', item: 'apprentice_staff' }));
+    broadcast(server);
+    const snap = lastSnap(fc.sent);
+    expect(snap.self).toHaveProperty('buyback');
+    expect(snap.self.buyback).toEqual([{ itemId: 'apprentice_staff', count: 1 }]);
+
+    const buybackOnly = { ...snap, self: { ...snap.self } };
+    delete buybackOnly.self.inv;
+    (client as any).applySnapshot(buybackOnly);
+    expect(client.vendorBuyback).toEqual([{ itemId: 'apprentice_staff', count: 1 }]);
+    expect(client.consumeInventoryChanged()).toBe(true);
   });
 
   it('quest commands force a quest-state resync even when rejected', () => {

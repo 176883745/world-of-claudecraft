@@ -1259,7 +1259,7 @@ export class Hud {
         case 'comboPoint': break;
         case 'loot': {
           this.log(ev.text, '#7fdc4f');
-          if (ev.text.includes('loot') || ev.text.includes('Sold')) audio.coin();
+          if (ev.text.includes('loot') || ev.text.includes('Sold') || ev.text.includes('Bought back')) audio.coin();
           else audio.lootItem();
           if ($('#bags').style.display === 'block') this.renderBags();
           break;
@@ -1672,6 +1672,28 @@ export class Hud {
       this.attachTooltip(row, () => this.itemTooltip(item) + '<div class="tt-sub">Click to buy</div>');
       el.appendChild(row);
     }
+    const buybackTitle = document.createElement('div');
+    buybackTitle.className = 'vendor-section-title';
+    buybackTitle.textContent = 'Buyback';
+    el.appendChild(buybackTitle);
+    const buyback = this.sim.vendorBuyback.filter((s) => ITEMS[s.itemId] && s.count > 0);
+    if (buyback.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'vendor-empty';
+      empty.textContent = 'No items';
+      el.appendChild(empty);
+    }
+    for (const s of buyback) {
+      const item = ITEMS[s.itemId]!;
+      const row = document.createElement('div');
+      row.className = 'vendor-item';
+      row.innerHTML = `${this.itemIcon(item)}<span class="vi-name">${item.name}${s.count > 1 ? ` x${s.count}` : ''}</span><span class="vi-price">${this.moneyHtml(item.sellValue)}</span>`;
+      row.addEventListener('click', () => {
+        this.sim.buyBackItem(s.itemId);
+      });
+      this.attachTooltip(row, () => this.itemTooltip(item) + '<div class="tt-sub">Click to buy back</div>');
+      el.appendChild(row);
+    }
     const hint = document.createElement('div');
     hint.className = 'vendor-hint';
     hint.textContent = 'Click an item in your bags to sell it while this window is open.';
@@ -1912,6 +1934,7 @@ export class Hud {
   // carry inventory separately from the event frames that normally redraw).
   onInventoryChanged(): void {
     if ($('#bags').style.display === 'block') this.renderBags();
+    if (this.openVendorNpcId !== null) this.renderVendor();
   }
 
   renderBags(): void {
