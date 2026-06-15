@@ -198,6 +198,98 @@
     -webkit-text-size-adjust: 100%;
   }
   #game-canvas { position: fixed; left: 0; top: 0; width: var(--app-vw); height: var(--app-vh); display: block; z-index: 0; }
+  .click-move-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 56px;
+    height: 56px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 2;
+    transform: translate(-999px, -999px);
+    transition: opacity 45ms ease-out;
+    filter: drop-shadow(0 2px 5px #000d);
+    --ctm-color: #7ef06b;
+    --ctm-core: #d9ffd1;
+    --ctm-edge: #245f1f;
+  }
+  .click-move-marker.active { opacity: 0.98; }
+  .click-move-marker.entity {
+    --ctm-color: #ffd35a;
+    --ctm-core: #fff0a8;
+    --ctm-edge: #6b4a10;
+  }
+  .click-move-marker::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    background: var(--ctm-core);
+    border: 1px solid var(--ctm-edge);
+    border-radius: 50%;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--ctm-color) 85%, transparent);
+    transform: translate(-50%, -50%);
+  }
+  .click-move-marker::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border: 1px solid color-mix(in srgb, var(--ctm-color) 72%, transparent);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+  .click-move-marker.pulse::after {
+    animation: click-move-core 220ms ease-out both;
+  }
+  .ctm-arrow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    opacity: 0;
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+  .click-move-marker.pulse .ctm-arrow { animation: click-move-collapse 260ms cubic-bezier(.16,1,.3,1) both; }
+  .ctm-arrow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-style: solid;
+    border-color: var(--ctm-core);
+    border-width: 2px 2px 0 0;
+    box-shadow: 1.5px -1.5px 0 color-mix(in srgb, var(--ctm-edge) 58%, transparent);
+  }
+  .ctm-n { --ctm-x0: -5.5px; --ctm-y0: -36px; --ctm-x1: -5.5px; --ctm-y1: -23px; --ctm-r: 135deg; transform: translate(-5.5px, -36px) rotate(135deg); }
+  .ctm-e { --ctm-x0: 25px; --ctm-y0: -5.5px; --ctm-x1: 12px; --ctm-y1: -5.5px; --ctm-r: -135deg; transform: translate(25px, -5.5px) rotate(-135deg); }
+  .ctm-s { --ctm-x0: -5.5px; --ctm-y0: 25px; --ctm-x1: -5.5px; --ctm-y1: 12px; --ctm-r: -45deg; transform: translate(-5.5px, 25px) rotate(-45deg); }
+  .ctm-w { --ctm-x0: -36px; --ctm-y0: -5.5px; --ctm-x1: -23px; --ctm-y1: -5.5px; --ctm-r: 45deg; transform: translate(-36px, -5.5px) rotate(45deg); }
+  @keyframes click-move-collapse {
+    0% { opacity: 0.95; transform: translate(var(--ctm-x0), var(--ctm-y0)) rotate(var(--ctm-r, 0deg)) scale(1.05); }
+    16% { opacity: 1; }
+    72% { opacity: 0.95; transform: translate(var(--ctm-x1), var(--ctm-y1)) rotate(var(--ctm-r, 0deg)) scale(0.78); }
+    100% { opacity: 0; transform: translate(var(--ctm-x1), var(--ctm-y1)) rotate(var(--ctm-r, 0deg)) scale(0.62); }
+  }
+  @keyframes click-move-core {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.35); }
+    50% { opacity: 0.9; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ctm-arrow,
+    .click-move-marker.pulse::after {
+      animation-duration: 0.01ms;
+      animation-iteration-count: 1;
+    }
+  }
 
   /* Pre-game screens use the same hand / sword cursors as in-world (cursors.ts). */
   #start-screen,
@@ -217,6 +309,8 @@
   #nameplates { position: fixed; left: 0; top: 0; width: var(--app-vw); height: var(--app-vh); overflow: hidden; pointer-events: none; z-index: 1; }
   #ui { position: fixed; left: 0; top: 0; width: var(--app-vw); height: var(--app-vh); pointer-events: none; z-index: 10; }
   #ui > * { pointer-events: auto; }
+  #ui > .click-move-marker,
+  #ui > .click-move-marker * { pointer-events: none; }
 
   .panel {
     background: var(--panel-bg);
@@ -917,6 +1011,11 @@
     line-height: 1.2;
     justify-self: start;
     box-sizing: border-box;
+  }
+  .kb-toggle-row .kb-mouse-toggle {
+    width: 98px;
+    min-width: 98px;
+    max-width: 98px;
   }
   .kb-toggle.off { filter: grayscale(0.6) brightness(0.8); color: #b9ac82; }
   .set-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
@@ -3669,6 +3768,12 @@
 
   <template id="game-ui-template">
   <div id="ui">
+    <div id="click-move-marker" class="click-move-marker" aria-hidden="true">
+      <span class="ctm-arrow ctm-n"></span>
+      <span class="ctm-arrow ctm-e"></span>
+      <span class="ctm-arrow ctm-s"></span>
+      <span class="ctm-arrow ctm-w"></span>
+    </div>
     <div id="target-frame" class="unitframe">
       <div class="portrait-wrap">
         <div class="portrait"><canvas id="tf-portrait" width="54" height="54"></canvas></div>

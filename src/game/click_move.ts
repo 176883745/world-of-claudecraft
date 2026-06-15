@@ -23,6 +23,20 @@ export function distance2d(a: Point2, b: Point2): number {
   return Math.sqrt(dx * dx + dz * dz);
 }
 
+export function angleDelta(from: number, to: number): number {
+  let d = to - from;
+  while (d > Math.PI) d -= Math.PI * 2;
+  while (d < -Math.PI) d += Math.PI * 2;
+  return d;
+}
+
+export function stepAngleToward(current: number, target: number, maxStep: number): number {
+  const step = Math.max(0, maxStep);
+  const d = angleDelta(current, target);
+  if (Math.abs(d) <= step) return target;
+  return current + Math.sign(d) * step;
+}
+
 /**
  * Compute one frame of click-to-move toward `target`.
  * @param stopDistance how close counts as "arrived" (e.g. melee range for an
@@ -43,4 +57,20 @@ export function manualMovementOverrides(mi: {
   strafeLeft: boolean; strafeRight: boolean; jump: boolean;
 }): boolean {
   return mi.forward || mi.back || mi.turnLeft || mi.turnRight || mi.strafeLeft || mi.strafeRight || mi.jump;
+}
+
+export function clickMoveShouldCancel(mi: {
+  forward: boolean; back: boolean; turnLeft: boolean; turnRight: boolean;
+  strafeLeft: boolean; strafeRight: boolean; jump: boolean;
+}, state: {
+  mouselook: boolean;
+  movementSuspended: boolean;
+  playerDead: boolean;
+  enabled: boolean;
+}): boolean {
+  return state.mouselook
+    || state.movementSuspended
+    || state.playerDead
+    || !state.enabled
+    || manualMovementOverrides(mi);
 }

@@ -26,6 +26,7 @@ import { buildFoliage, FoliageView } from './foliage';
 import { shouldRenderStealthGhost } from './stealth';
 import { raidMarkerDataUrl } from '../ui/icons';
 import { isProjectedNameplateAnchorVisible } from './nameplate_projection';
+import { stepCameraOcclusion, type CameraOcclusionState } from './camera_collision';
 
 const NAMEPLATE_RANGE = 55;
 const emoteIconUrl = (id: string): string => `/ui/emotes/emote-${id}.png`;
@@ -54,12 +55,19 @@ const LIGHT_BUDGET_RANGE_SQ = 55 * 55;
 const SELECTION_RING_BOOST = 1.5;
 const SPARKLE_BOOST = 1.5;
 const PORTAL_BOOST = 2;
-// Third-person camera collision (see updateCamera). PAD keeps the cam just off
-// the surface; MIN_DIST never slams it onto the player; PULL_OUT_RATE eases the
-// cam back out (per second) so clearing a wall edge doesn't pop.
+// Third-person camera collision (see updateCamera). HARD_PAD keeps the camera
+// just off the surface; SOFT_PAD starts easing before the hard ray hits;
+// MIN_DIST never slams it onto the player. When the hard limit still appears
+// suddenly, lens/FOV compensation smooths the perceived zoom while the physical
+// camera remains clamped outside geometry.
 const CAMERA_COLLIDER_PAD = 0.35;
+const CAMERA_SOFT_COLLIDER_PAD = 1.65;
 const CAMERA_MIN_DIST = 1.2;
+const CAMERA_PULL_IN_RATE = 10;
 const CAMERA_PULL_OUT_RATE = 6;
+const CAMERA_SOFT_PULL_WEIGHT = 0.45;
+const CAMERA_BASE_FOV = 60;
+const CAMERA_MAX_COMP_FOV = 98;
 const SUN_HALO_OPACITY = 0.35; // bloom now supplies most of the halo
 // lighting rig (high/ultra) — IBL supplies ambient, sun carries the key
 const HEMI_INTENSITY = 0.45;
@@ -159,8 +167,8 @@ export class Renderer {
   camYaw = Math.PI;
   camPitch = 0.32;
   camDist = 12;
-  // smoothed chase-cam occlusion fraction (1 = no pull-in); see updateCamera
-  private camPullT = 1;
+  // Smoothed chase-cam occlusion (1 = no pull-in); see updateCamera.
+  private camOcclusion: CameraOcclusionState = { pullT: 1, lensT: 1, fov: CAMERA_BASE_FOV };
   showNameplates = true;
   // settings-menu graphics knobs (applied live)
   private renderScale = 1; // user-requested resolution ceiling on top of the device pixel ratio
@@ -242,7 +250,7 @@ export class Renderer {
     this.webgl.shadowMap.type = THREE.PCFSoftShadowMap;
     this.webgl.toneMapping = THREE.ACESFilmicToneMapping; // OutputPass reads this on the composer path
     this.webgl.toneMappingExposure = this.baseExposure;
-    this.camera = new THREE.PerspectiveCamera(60, this.viewport.width / this.viewport.height, 0.1, 950);
+    this.camera = new THREE.PerspectiveCamera(CAMERA_BASE_FOV, this.viewport.width / this.viewport.height, 0.1, 950);
 
     this.scene.fog = new THREE.Fog(0xa6c6e0, 130, 470);
 
@@ -1328,19 +1336,38 @@ export class Renderer {
     }
     // Camera collision: pull the cam in to the surface of any building/object
     // between the player's head and the desired position so it never sits
-    // inside geometry. Snap inward instantly (don't let a frame clip through a
-    // wall), ease back out (don't pop when an occluder edge clears).
-    let t = cameraOcclusion(seed, px, eyeY, pz, cx, cy, cz, CAMERA_COLLIDER_PAD);
+    // inside geometry. A soft sweep starts the pull slightly before the hard
+    // collider hits; if the hard limit appears suddenly, the physical camera is
+    // clamped safe and the lens eases the perceived zoom instead of clipping.
+    let hardT = cameraOcclusion(seed, px, eyeY, pz, cx, cy, cz, CAMERA_COLLIDER_PAD);
+    let softT = cameraOcclusion(seed, px, eyeY, pz, cx, cy, cz, CAMERA_SOFT_COLLIDER_PAD);
     const segLen = Math.hypot(cx - px, cy - eyeY, cz - pz);
-    if (segLen > 1e-3) t = Math.min(1, Math.max(t, CAMERA_MIN_DIST / segLen));
-    if (t < this.camPullT) this.camPullT = t;
-    else this.camPullT += (t - this.camPullT) * Math.min(1, dt * CAMERA_PULL_OUT_RATE);
-    const ct = this.camPullT;
+    if (segLen > 1e-3) {
+      const minT = CAMERA_MIN_DIST / segLen;
+      hardT = Math.min(1, Math.max(hardT, minT));
+      softT = Math.min(1, Math.max(softT, minT));
+    }
+    stepCameraOcclusion(
+      this.camOcclusion,
+      hardT,
+      softT,
+      dt,
+      CAMERA_PULL_IN_RATE,
+      CAMERA_PULL_OUT_RATE,
+      CAMERA_SOFT_PULL_WEIGHT,
+      CAMERA_BASE_FOV,
+      CAMERA_MAX_COMP_FOV,
+    );
+    const ct = this.camOcclusion.pullT;
     cx = px + (cx - px) * ct;
     cy = eyeY + (cy - eyeY) * ct;
     cz = pz + (cz - pz) * ct;
     const groundY = groundHeight(cx, cz, seed) + 0.6;
     this.camera.position.set(cx, Math.max(cy, groundY), cz);
+    if (Math.abs(this.camera.fov - this.camOcclusion.fov) > 0.01) {
+      this.camera.fov = this.camOcclusion.fov;
+      this.camera.updateProjectionMatrix();
+    }
     this.camera.lookAt(px, eyeY, pz);
     this.camera.updateMatrixWorld();
   }

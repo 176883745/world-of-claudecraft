@@ -18,6 +18,10 @@ export const SETTING_RANGES = {
   // off by default: always-on click-to-move would disrupt the precise melee
   // positioning the team wanted to preserve, so it's opt-in (#95)
   clickToMove: { min: 0, max: 1, def: 0 },
+  // 0 = left mouse button, 2 = right mouse button. Surfaced as a two-state
+  // button in Key Bindings so click-to-move's trigger is remappable without
+  // pretending mouse buttons are keyboard codes.
+  clickToMoveButton: { min: 0, max: 2, def: 0 },
 } as const;
 
 export const BOOL_SETTINGS = {
@@ -42,6 +46,16 @@ function clampNumeric(key: NumericSettingKey, v: number): number {
   const r = SETTING_RANGES[key];
   if (!Number.isFinite(v)) return r.def;
   return Math.min(r.max, Math.max(r.min, v));
+}
+
+export type ClickMoveMouseButton = 0 | 2;
+
+export function normalizeClickMoveButton(value: number): ClickMoveMouseButton {
+  return value >= 1 ? 2 : 0;
+}
+
+export function clickMoveButtonLabel(value: number): string {
+  return normalizeClickMoveButton(value) === 2 ? 'Right Click' : 'Left Click';
 }
 
 export class Settings {

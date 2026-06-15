@@ -9,6 +9,8 @@ export interface MousePickGesture {
   releaseOnCanvas: boolean;
   pointerLocked: boolean;
   dragThreshold?: number;
+  pressDurationMs?: number;
+  maxClickDurationMs?: number;
 }
 
 export interface ClickPick {
@@ -20,8 +22,8 @@ export interface ClickPick {
 export function clickPickFromMouseGesture(g: MousePickGesture): ClickPick | null {
   if (g.button !== g.downButton) return null;
   if (!g.releaseOnCanvas && !g.pointerLocked) return null;
-  const pointerDrag = g.pointerLocked ? 0 : Math.abs(g.upX - g.downX) + Math.abs(g.upY - g.downY);
-  const drag = Math.max(g.movementDrag, pointerDrag);
-  if (drag > (g.dragThreshold ?? 5)) return null;
+  const duration = Number.isFinite(g.pressDurationMs) ? Math.max(0, g.pressDurationMs ?? 0) : Number.POSITIVE_INFINITY;
+  const maxClickDurationMs = g.maxClickDurationMs ?? 280;
+  if (duration > maxClickDurationMs) return null;
   return { x: g.downX, y: g.downY, button: g.button };
 }

@@ -24,7 +24,7 @@ import { music } from '../game/music';
 import { iconDataUrl, iconCanvas, QUALITY_COLOR, raidMarkerDataUrl, RAID_MARKER_NAMES } from './icons';
 import { svgIcon } from './ui_icons';
 import { Keybinds, BIND_ACTIONS, BIND_CATEGORIES, isReservedCode, keyLabel } from '../game/keybinds';
-import { Settings, GameSettings, BoolSettingKey, NumericSettingKey, SETTING_RANGES } from '../game/settings';
+import { Settings, GameSettings, BoolSettingKey, NumericSettingKey, SETTING_RANGES, clickMoveButtonLabel, normalizeClickMoveButton } from '../game/settings';
 import { chatPlayerContextActions } from './player_context_menu';
 import { TouchPeekGuard, TOOLTIP_PEEK_MS } from './touch_peek';
 import {
@@ -573,14 +573,6 @@ export class Hud {
     return OVERHEAD_EMOTES.find((e) => e.id === id)?.label ?? id;
   }
 
-  private emoteWheelKeyLabel(): string {
-    return this.keybinds.primaryLabel('emoteWheel') || 'X';
-  }
-
-  private emoteWheelDisplayLabel(id: OverheadEmoteId): string {
-    return `${this.emoteLabel(id)} (${this.emoteWheelKeyLabel()})`;
-  }
-
   setEmoteWheelOpen(open: boolean): void {
     if (open) {
       if (this.emoteWheelOpen) return;
@@ -630,7 +622,7 @@ export class Hud {
       icon.alt = '';
       const label = document.createElement('span');
       label.className = 'emote-wheel-label';
-      label.textContent = this.emoteWheelDisplayLabel(id);
+      label.textContent = this.emoteLabel(id);
       btn.append(icon, label);
       btn.addEventListener('click', (ev) => {
         ev.preventDefault();
@@ -4655,16 +4647,43 @@ export class Hud {
     parent.appendChild(row);
   }
 
+  private clickMoveMouseButtonRow(parent: HTMLElement): void {
+    const hooks = this.optionsHooks;
+    if (!hooks) return;
+    const row = document.createElement('div');
+    row.className = 'kb-row kb-toggle-row';
+    const name = document.createElement('span');
+    name.className = 'kb-name';
+    name.textContent = 'Click Move Button';
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'btn kb-key kb-toggle kb-mouse-toggle';
+    const sync = () => {
+      toggle.textContent = clickMoveButtonLabel(hooks.settings.get('clickToMoveButton'));
+      toggle.setAttribute('aria-label', `Click Move Button: ${toggle.textContent}`);
+    };
+    sync();
+    toggle.addEventListener('click', () => {
+      audio.click();
+      const next = normalizeClickMoveButton(hooks.settings.get('clickToMoveButton')) === 0 ? 2 : 0;
+      hooks.onSettingChange('clickToMoveButton', next);
+      sync();
+    });
+    row.append(name, toggle);
+    parent.appendChild(row);
+  }
+
   private renderKeybinds(): void {
     const el = $('#options-menu');
     el.innerHTML = `<div class="panel-title"><span>Key Bindings</span><span class="x-btn" data-close>${svgIcon('close')}</span></div>`;
     this.settingToggleKeybind(el, 'Mouse Camera', 'mouseCamera');
     this.settingToggleKeybind(el, 'Click to Move', 'clickToMove');
+    this.clickMoveMouseButtonRow(el);
     this.settingToggleKeybind(el, 'Left-handed Touch', 'leftHandedTouch');
     const note = document.createElement('div');
     note.className = 'kb-note';
     note.textContent = this.keybindNote
-      || 'Mouse Camera off: A/D turns, drag to orbit (classic). On: camera-relative WASD, A/D strafes. Click to Move: left-click the ground or an enemy to walk there. Left-handed Touch mirrors the on-screen joysticks for touch devices. Click a key cell to rebind; Esc cancels.';
+      || 'Mouse Camera off: A/D turns, drag to orbit (classic). On: camera-relative WASD, A/D strafes. Click to Move: choose Left Click or Right Click as the movement command. Left-handed Touch mirrors the on-screen joysticks for touch devices. Click a key cell to rebind; Esc cancels.';
     el.appendChild(note);
     const rows = document.createElement('div');
     rows.className = 'kb-rows';

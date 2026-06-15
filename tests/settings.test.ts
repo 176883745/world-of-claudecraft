@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { Settings, SETTING_RANGES } from '../src/game/settings';
+import { clickMoveButtonLabel, normalizeClickMoveButton, Settings, SETTING_RANGES } from '../src/game/settings';
 
 function installStorage(): void {
   const map = new Map<string, string>();
@@ -21,6 +21,8 @@ describe('Settings', () => {
     expect(s.get('sfxVolume')).toBe(SETTING_RANGES.sfxVolume.def);
     expect(s.get('renderScale')).toBe(1);
     expect(s.get('fullscreen')).toBe(1);
+    expect(s.get('clickToMove')).toBe(0);
+    expect(s.get('clickToMoveButton')).toBe(0);
     expect(s.get('mouseCamera')).toBe(false);
   });
 
@@ -82,6 +84,7 @@ describe('Settings', () => {
     expect(s.get('cameraSpeed')).toBe(SETTING_RANGES.cameraSpeed.def);
     expect(s.get('renderScale')).toBe(SETTING_RANGES.renderScale.def);
     expect(s.get('fullscreen')).toBe(SETTING_RANGES.fullscreen.def);
+    expect(s.get('clickToMoveButton')).toBe(SETTING_RANGES.clickToMoveButton.def);
     expect(s.get('mouseCamera')).toBe(false);
   });
 
@@ -90,5 +93,16 @@ describe('Settings', () => {
     const snap = s.all();
     snap.cameraSpeed = 99;
     expect(s.get('cameraSpeed')).not.toBe(99);
+  });
+});
+
+describe('click-to-move mouse button setting', () => {
+  it('normalizes to left or right click labels', () => {
+    expect(normalizeClickMoveButton(0)).toBe(0);
+    expect(normalizeClickMoveButton(0.4)).toBe(0);
+    expect(normalizeClickMoveButton(1)).toBe(2);
+    expect(normalizeClickMoveButton(2)).toBe(2);
+    expect(clickMoveButtonLabel(0)).toBe('Left Click');
+    expect(clickMoveButtonLabel(2)).toBe('Right Click');
   });
 });

@@ -76,4 +76,45 @@ describe('camera follow', () => {
     });
     expect(next.camYaw).toBe(1);
   });
+
+  it('decouples click-to-move turns from the camera and eases only gently', () => {
+    const next = updateFollowCameraYaw({
+      camYaw: Math.PI,
+      interpFacing: 0,
+      lastInterpFacing: Math.PI - 0.5,
+      frameDt: 1 / 60,
+      mouselook: false,
+      moving: true,
+      clickMoving: true,
+      orbiting: false,
+    });
+    expect(next.camYaw).toBeLessThan(Math.PI);
+    expect(next.camYaw).toBeGreaterThan(Math.PI - 0.04);
+  });
+
+  it('settles click-to-move turns more softly when the facing jump is large', () => {
+    const large = updateFollowCameraYaw({
+      camYaw: Math.PI,
+      interpFacing: 0,
+      lastInterpFacing: Math.PI - 0.5,
+      frameDt: 1 / 60,
+      mouselook: false,
+      moving: true,
+      clickMoving: true,
+      orbiting: false,
+    });
+    const small = updateFollowCameraYaw({
+      camYaw: 0.25,
+      interpFacing: 0,
+      lastInterpFacing: 0.3,
+      frameDt: 1 / 60,
+      mouselook: false,
+      moving: true,
+      clickMoving: true,
+      orbiting: false,
+    });
+    expect(Math.PI - large.camYaw).toBeGreaterThan(0);
+    expect(Math.PI - large.camYaw).toBeLessThan(0.01);
+    expect(0.25 - small.camYaw).toBeGreaterThan(Math.PI - large.camYaw);
+  });
 });

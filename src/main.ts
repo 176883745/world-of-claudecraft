@@ -2,13 +2,13 @@ import { Sim } from './sim/sim';
 import { Renderer } from './render/renderer';
 import { Input } from './game/input';
 import { Keybinds } from './game/keybinds';
-import { Settings, GameSettings, SETTING_RANGES } from './game/settings';
+import { Settings, GameSettings, SETTING_RANGES, normalizeClickMoveButton } from './game/settings';
 import { MobileControls, PHONE_TOUCH_QUERY, isPhoneTouchDevice } from './game/mobile_controls';
 import { Hud } from './ui/hud';
 import { audio } from './game/audio';
 import { music } from './game/music';
 import { handlePickedEntity, hoverCursorKind } from './game/interactions';
-import { clickMoveStep, manualMovementOverrides } from './game/click_move';
+import { clickMoveShouldCancel, clickMoveStep, stepAngleToward } from './game/click_move';
 import { Api, ClientWorld, CharacterSummary } from './net/online';
 import type { IWorld, LeaderboardEntry } from './world_api';
 import { formatXp } from './ui/xp_bar';
@@ -25,6 +25,7 @@ import { updateFollowCameraYaw, wrapAngle } from './game/camera_follow';
 
 
 const WORLD_SEED = 20061; // fixed: World of Claudecraft is a persistent place
+const CLICK_MOVE_TURN_RATE = 4.2; // rad/sec; responsive turning while the camera stays decoupled from click spam
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => document.querySelector(sel) as T;
 let pendingDeleteCharacter: CharacterSummary | null = null;
@@ -360,6 +361,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
   }
 
   const chatInput = $('#chat-input') as unknown as HTMLInputElement;
+  const clickMoveMarker = $('#click-move-marker') as HTMLDivElement;
   const recoverFromMobileKeyboard = (): void => {
     document.body.classList.remove('mobile-chat-open');
     syncAppViewport();
@@ -458,6 +460,12 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
   document.getElementById('mobile-music')?.classList.toggle('mm-muted', !music.enabled);
 
   // apply a setting to its live subsystem (also used to apply all on startup)
+  function syncClickMoveInput(): void {
+    input.setClickMoveMouseButton(settings.get('clickToMove') > 0
+      ? normalizeClickMoveButton(settings.get('clickToMoveButton'))
+      : null);
+  }
+
   function applySetting(key: keyof GameSettings, value: number | boolean): void {
     if (key === 'mouseCamera') {
       const v = settings.set('mouseCamera', !!value);
@@ -477,6 +485,8 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
       case 'brightness': renderer.setBrightness(v); break;
       case 'renderScale': renderer.setRenderScale(v); break;
       case 'fullscreen': v >= 0.5 ? requestPreferredFullscreen() : exitBrowserFullscreen(); break;
+      case 'clickToMove': if (v < 0.5) input.clearClickMove(); syncClickMoveInput(); break;
+      case 'clickToMoveButton': syncClickMoveInput(); break;
     }
   }
   // apply persisted settings to the freshly-built subsystems
@@ -538,24 +548,59 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
   function handlePick(x: number, y: number, button: number): void {
     const id = renderer.pick(x, y);
     const clickToMove = settings.get('clickToMove') > 0 && !world.player.dead;
+    const clickToMoveButton = normalizeClickMoveButton(settings.get('clickToMoveButton'));
+    const isClickMoveButton = clickToMove && button === clickToMoveButton;
     if (id === null) {
       if (button === 0) {
         world.targetEntity(null);
-        // left-click on open ground walks there, if the option is enabled (#95)
-        if (clickToMove) {
-          const g = renderer.groundPoint(x, y, world.player.pos.y);
-          if (g) { input.clickMoveTarget = g; input.clickMoveStop = 0.5; }
-        }
+      }
+      if (isClickMoveButton) {
+        const g = renderer.groundPoint(x, y, world.player.pos.y);
+        if (g) input.setClickMoveTarget(g, 0.5);
       }
       return;
     }
-    // left-click on an entity: approach it (walk into melee range) when
-    // click-to-move is on, in addition to the normal target/interact handling
-    if (clickToMove && button === 0) {
+    // The configured click-to-move mouse button approaches entities while the
+    // regular click handler still performs target/interact behavior.
+    if (isClickMoveButton) {
       const e = world.entities.get(id);
-      if (e && e.id !== world.player.id) { input.clickMoveTarget = { x: e.pos.x, z: e.pos.z }; input.clickMoveStop = 3.5; }
+      if (e && e.id !== world.player.id) input.setClickMoveTarget({ x: e.pos.x, z: e.pos.z }, 3.5, e.id);
     }
     handlePickedEntity(world, hud, id, button, x, y);
+  }
+
+  let lastClickMoveMarkerPulse = -1;
+  let clickMoveMarkerHideAt = 0;
+  function updateClickMoveMarker(nowMs = performance.now()): void {
+    const pulseChanged = lastClickMoveMarkerPulse !== input.clickMovePulse;
+    if (pulseChanged) {
+      lastClickMoveMarkerPulse = input.clickMovePulse;
+      clickMoveMarkerHideAt = nowMs + 300;
+    }
+    const target = input.clickMoveTarget ?? input.clickMovePulseTarget;
+    const show = !!target && settings.get('clickToMove') > 0 && !world.player.dead
+      && (!!input.clickMoveTarget || nowMs < clickMoveMarkerHideAt);
+    if (!show) {
+      clickMoveMarker.classList.remove('active', 'entity', 'pulse');
+      return;
+    }
+    const screen = renderer.worldToScreen(target.x, world.player.pos.y + 0.05, target.z);
+    const offscreen = screen.behind
+      || screen.x < -80 || screen.x > window.innerWidth + 80
+      || screen.y < -80 || screen.y > window.innerHeight + 80;
+    if (offscreen) {
+      clickMoveMarker.classList.remove('active', 'pulse');
+      return;
+    }
+    clickMoveMarker.style.transform = `translate(${screen.x.toFixed(0)}px, ${screen.y.toFixed(0)}px) translate(-50%, -50%)`;
+    clickMoveMarker.classList.toggle('entity', input.clickMoveEntityId !== null);
+    clickMoveMarker.classList.add('active');
+    if (pulseChanged || clickMoveMarker.dataset.pulse !== String(input.clickMovePulse)) {
+      clickMoveMarker.dataset.pulse = String(input.clickMovePulse);
+      clickMoveMarker.classList.remove('pulse');
+      void clickMoveMarker.offsetWidth;
+      clickMoveMarker.classList.add('pulse');
+    }
   }
 
   let last = performance.now();
@@ -569,14 +614,16 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
   let lastInterpFacing: number | null = null;
   function updateCamera(frameDt: number, interpFacing: number): void {
     const mi = input.readMoveInput();
+    const clickMoving = !!input.clickMoveTarget && !input.suspendMovement && !world.player.dead;
     const next = updateFollowCameraYaw({
       camYaw: input.camYaw,
       interpFacing,
       frameDt,
       lastInterpFacing,
       mouselook: input.isMouselookActive(),
-      moving: mi.forward || mi.strafeLeft || mi.strafeRight,
-      orbiting: input.leftDown,
+      moving: mi.forward || mi.strafeLeft || mi.strafeRight || clickMoving,
+      clickMoving,
+      orbiting: input.leftDown && input.isCameraDragActive(),
     });
     input.camYaw = next.camYaw;
     lastInterpFacing = next.lastInterpFacing; // track through mouselook too — no snap on release
@@ -585,21 +632,37 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
   // Resolve this step's movement input, folding in click-to-move (#95). Returns
   // the move flags plus an optional forced facing (mouselook angle, or the
   // bearing toward a click-to-move destination). Any manual movement, an open
-  // modal, mouselook, or the option being switched off cancels click-to-move.
-  function resolveMove(mouselook: boolean, playerPos: { x: number; z: number }):
+  // modal, mouselook, death, or the option being switched off cancels click-to-move.
+  function resolveMove(mouselook: boolean, playerPos: { x: number; z: number }, playerFacing: number):
     { mi: ReturnType<typeof input.readMoveInput>; facing: number | null } {
     const mi = input.readMoveInput();
     let facing: number | null = mouselook ? input.camYaw : null;
     if (input.clickMoveTarget) {
-      if (mouselook || input.suspendMovement || settings.get('clickToMove') <= 0 || manualMovementOverrides(mi)) {
-        input.clickMoveTarget = null;
+      if (clickMoveShouldCancel(mi, {
+        mouselook,
+        movementSuspended: input.suspendMovement,
+        playerDead: world.player.dead,
+        enabled: settings.get('clickToMove') > 0,
+      })) {
+        input.clearClickMove();
       } else {
+        if (input.clickMoveEntityId !== null) {
+          const e = world.entities.get(input.clickMoveEntityId);
+          if (!e || e.dead || e.id === world.player.id) {
+            input.clearClickMove();
+            return { mi, facing };
+          }
+          input.clickMoveTarget = { x: e.pos.x, z: e.pos.z };
+        }
         const step = clickMoveStep(playerPos, input.clickMoveTarget, input.clickMoveStop);
         if (step.arrived) {
-          input.clickMoveTarget = null;
+          input.clearClickMove();
         } else {
           mi.forward = true;
-          facing = step.facing;
+          const fromFacing = input.clickMoveFacing ?? playerFacing;
+          const smoothFacing = stepAngleToward(fromFacing, step.facing, CLICK_MOVE_TURN_RATE * DT);
+          input.clickMoveFacing = smoothFacing;
+          facing = smoothFacing;
         }
       }
     }
@@ -659,7 +722,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
     if (offlineSim) {
       acc += frameDt;
       while (acc >= DT) {
-        const { mi, facing } = resolveMove(mouselook, offlineSim.player.pos);
+        const { mi, facing } = resolveMove(mouselook, offlineSim.player.pos, offlineSim.player.facing);
         Object.assign(offlineSim.moveInput, mi);
         const stepFacing = movementFacing ?? facing;
         if (stepFacing !== null) offlineSim.player.facing = stepFacing;
@@ -675,6 +738,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
       renderer.camDist = input.camDist;
       perf.setNetwork(null);
       perf.time('renderer', () => renderer.sync(acc / DT, frameDt, movementFacing));
+      updateClickMoveMarker();
       perf.markInputVisible(performance.now());
       perf.time('hud', () => hud.update());
       perf.tick(now);
@@ -683,7 +747,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
 
     // online: inputs stream on a timer inside ClientWorld; here we mirror state
     const net = online!;
-    const resolved = resolveMove(mouselook, world.player.pos);
+    const resolved = resolveMove(mouselook, world.player.pos, world.player.facing);
     const netFacing = movementFacing ?? resolved.facing;
     Object.assign(net.moveInput, resolved.mi);
     net.setMouselookFacing(netFacing);
@@ -708,6 +772,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
     renderer.camPitch = input.camPitch;
     renderer.camDist = input.camDist;
     perf.time('renderer', () => renderer.sync(alpha, frameDt, movementFacing));
+    updateClickMoveMarker();
     perf.markInputVisible(performance.now());
     perf.time('hud', () => hud.update());
     perf.tick(now);

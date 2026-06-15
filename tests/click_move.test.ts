@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clickMoveStep, facingToward, manualMovementOverrides } from '../src/game/click_move';
+import { angleDelta, clickMoveShouldCancel, clickMoveStep, facingToward, manualMovementOverrides, stepAngleToward } from '../src/game/click_move';
 
 const NO_INPUT = { forward: false, back: false, turnLeft: false, turnRight: false, strafeLeft: false, strafeRight: false, jump: false };
 
@@ -27,5 +27,30 @@ describe('click-to-move math (#95)', () => {
     expect(manualMovementOverrides({ ...NO_INPUT, forward: true })).toBe(true);
     expect(manualMovementOverrides({ ...NO_INPUT, strafeLeft: true })).toBe(true);
     expect(manualMovementOverrides({ ...NO_INPUT, jump: true })).toBe(true);
+  });
+
+  it('cancels click-to-move when the player dies', () => {
+    expect(clickMoveShouldCancel(NO_INPUT, {
+      mouselook: false,
+      movementSuspended: false,
+      playerDead: true,
+      enabled: true,
+    })).toBe(true);
+  });
+
+  it('keeps click-to-move active while enabled and uninterrupted', () => {
+    expect(clickMoveShouldCancel(NO_INPUT, {
+      mouselook: false,
+      movementSuspended: false,
+      playerDead: false,
+      enabled: true,
+    })).toBe(false);
+  });
+
+  it('steps facing toward the destination along the shortest arc', () => {
+    expect(stepAngleToward(0, Math.PI, 0.25)).toBeCloseTo(0.25);
+    expect(stepAngleToward(0, -Math.PI / 2, 0.25)).toBeCloseTo(-0.25);
+    expect(stepAngleToward(0, 0.1, 0.25)).toBeCloseTo(0.1);
+    expect(angleDelta(Math.PI - 0.1, -Math.PI + 0.1)).toBeCloseTo(0.2);
   });
 });

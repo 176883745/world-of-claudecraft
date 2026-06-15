@@ -13,6 +13,18 @@ import type { MoveInput } from '../sim/types';
 const BASE_LOOK_SENS = 0.0045;
 const TOUCH_LOOK_YAW_RATE = 3.2;
 const TOUCH_LOOK_PITCH_RATE = 2.2;
+const CAMERA_DRAG_START_DISTANCE = 18;
+const CAMERA_DRAG_START_MS = 140;
+
+type FullscreenDocument = Document & {
+  webkitFullscreenElement?: Element | null;
+};
+
+type ContextMenuTarget = {
+  tagName?: string;
+  isContentEditable?: boolean;
+  closest?: (selectors: string) => Element | null;
+};
 
 export interface InputCallbacks {
   onTab(): void;
@@ -47,7 +59,11 @@ export class Input {
   // walks toward it until arrival or until the player takes manual control.
   // null when inactive. clickMoveStop is how close counts as "there".
   clickMoveTarget: { x: number; z: number } | null = null;
+  clickMoveEntityId: number | null = null;
   clickMoveStop = 0.5;
+  clickMoveFacing: number | null = null;
+  clickMovePulse = 0;
+  clickMovePulseTarget: { x: number; z: number } | null = null;
   /** Latest pointer position while over the canvas (for hover pick). */
   hoverX = 0;
   hoverY = 0;
@@ -55,10 +71,13 @@ export class Input {
   private hoverKind: HoverCursorKind = 'default';
   private mouseCameraEnabled = false;
   private dragDistance = 0;
+  private cameraDragActive = false;
+  private clickMoveMouseButton: 0 | 2 | null = null;
   private downButton = -1;
   private pointerLockRequestedForDrag = false;
   private downX = 0;
   private downY = 0;
+  private downAt = 0;
   // one-shot key capture for the rebind UI: the next keydown is delivered here
   // (Escape cancels with null) instead of being dispatched as an action
   private captureCb: ((code: string | null) => void) | null = null;
@@ -85,6 +104,7 @@ export class Input {
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) this.releaseCapture('hidden');
     });
+    document.addEventListener('contextmenu', (e) => this.onContextMenu(e));
     canvas.addEventListener('mousedown', (e) => this.onMouseDown(e));
     window.addEventListener('mouseup', (e) => this.onMouseUp(e));
     window.addEventListener('mousemove', (e) => this.onMouseMove(e));
@@ -102,6 +122,36 @@ export class Input {
     this.updateCursor();
   }
 
+  private onContextMenu(e: MouseEvent): void {
+    if (this.shouldSuppressContextMenu(e.target)) e.preventDefault();
+  }
+
+  private shouldSuppressContextMenu(target: EventTarget | null): boolean {
+    const body = document.body;
+    if (body && !body.classList.contains('game-active')) return false;
+    if (this.isEditableContextTarget(target)) return false;
+    if (!body && target !== this.canvas && !this.isGameSurfaceTarget(target)) return false;
+    return true;
+  }
+
+  private isEditableContextTarget(target: EventTarget | null): boolean {
+    const el = this.contextMenuTarget(target);
+    if (!el) return false;
+    const tag = (el.tagName ?? '').toLowerCase();
+    return tag === 'input' || tag === 'textarea' || tag === 'select'
+      || el.isContentEditable === true
+      || !!el.closest?.('input, textarea, select, [contenteditable=""], [contenteditable="true"]');
+  }
+
+  private isGameSurfaceTarget(target: EventTarget | null): boolean {
+    const el = this.contextMenuTarget(target);
+    return !!el?.closest?.('#ui, #game-canvas, #nameplates');
+  }
+
+  private contextMenuTarget(target: EventTarget | null): ContextMenuTarget | null {
+    return target && typeof target === 'object' ? target as ContextMenuTarget : null;
+  }
+
   /** Move the camera in/out, clamped to the zoom limits. Shared by wheel + touch pinch. */
   zoomBy(delta: number): void {
     this.camDist = Math.min(22, Math.max(3, this.camDist + delta));
@@ -110,6 +160,19 @@ export class Input {
   /** True while a mouse button is held for camera drag. */
   isDragging(): boolean {
     return this.leftDown || this.rightDown;
+  }
+
+  isCameraDragActive(): boolean {
+    return this.cameraDragActive;
+  }
+
+  setClickMoveMouseButton(button: 0 | 2 | null): void {
+    this.clickMoveMouseButton = button;
+    if (button !== null && this.downButton === button) {
+      this.cameraDragActive = false;
+      this.pointerLockRequestedForDrag = false;
+    }
+    this.updateCursor();
   }
 
   /** Update hand / sword / shield cursor from a hover pick (called once per frame). */
@@ -191,7 +254,7 @@ export class Input {
 
   isMouselookActive(): boolean {
     if (this.mouseCameraEnabled) return this.touchLookActive;
-    return this.rightDown || this.touchLookActive;
+    return (this.rightDown && this.cameraDragActive) || this.touchLookActive;
   }
 
   setControllerMoveInput(input: unknown, facing?: unknown): void {
@@ -208,6 +271,25 @@ export class Input {
     this.controllerFacing = null;
   }
 
+  setClickMoveTarget(target: { x: number; z: number }, stopDistance: number, entityId: number | null = null): void {
+    this.clickMoveTarget = target;
+    this.clickMoveStop = stopDistance;
+    this.clickMoveEntityId = entityId;
+    this.clickMoveFacing = null;
+    this.clickMovePulseTarget = target;
+    this.clickMovePulse++;
+    this.autorun = false;
+    this.noteIntent('move');
+  }
+
+  clearClickMove(): void {
+    if (!this.clickMoveTarget && this.clickMoveEntityId === null) return;
+    this.clickMoveTarget = null;
+    this.clickMoveEntityId = null;
+    this.clickMoveFacing = null;
+    this.noteIntent('move');
+  }
+
   controllerFacingOverride(): number | null {
     return this.controllerFacing;
   }
@@ -217,6 +299,7 @@ export class Input {
     // Always drop the mouse-drag state so a button can't stick "held".
     this.leftDown = false;
     this.rightDown = false;
+    this.cameraDragActive = false;
     this.downButton = -1;
     this.pointerLockRequestedForDrag = false;
     // Focus loss (blur / tab hidden) means the OS will swallow the matching
@@ -234,7 +317,12 @@ export class Input {
   }
 
   private updateCursor(): void {
-    this.canvas.style.cursor = cursorForHover(this.hoverKind, this.isDragging() || document.pointerLockElement === this.canvas);
+    this.canvas.style.cursor = cursorForHover(this.hoverKind, this.cameraDragActive || document.pointerLockElement === this.canvas);
+  }
+
+  private isBrowserFullscreen(): boolean {
+    const doc = document as FullscreenDocument;
+    return !!(document.fullscreenElement ?? doc.webkitFullscreenElement);
   }
 
   private onKeyDown(e: KeyboardEvent): void {
@@ -302,11 +390,14 @@ export class Input {
   private onMouseDown(e: MouseEvent): void {
     if (e.button === 0) this.leftDown = true;
     if (e.button === 2) this.rightDown = true;
+    if (e.button === 0 || e.button === 2) e.preventDefault?.();
     if (e.button === 0 || e.button === 2) this.noteIntent(e.button === 2 ? 'look' : 'move');
     this.downButton = e.button;
     this.downX = e.clientX;
     this.downY = e.clientY;
+    this.downAt = performance.now();
     this.dragDistance = 0;
+    this.cameraDragActive = false;
     // Pointer lock is requested lazily once a drag actually begins (see
     // onMouseMove) — NOT on every press, which spammed the browser "mouse
     // capture" banner on every right-click used to attack/look (#116).
@@ -318,7 +409,8 @@ export class Input {
     if (e.button === 0) this.leftDown = false;
     if (e.button === 2) this.rightDown = false;
     if (e.button === 0 || e.button === 2) this.noteIntent(e.button === 2 ? 'look' : 'move');
-    const pick = clickPickFromMouseGesture({
+    const wasCameraDrag = this.cameraDragActive;
+    const pick = wasCameraDrag ? null : clickPickFromMouseGesture({
       button: e.button,
       downButton: this.downButton,
       downX: this.downX,
@@ -328,11 +420,13 @@ export class Input {
       movementDrag: this.dragDistance,
       releaseOnCanvas: e.target === this.canvas || document.pointerLockElement === this.canvas,
       pointerLocked: document.pointerLockElement === this.canvas,
+      pressDurationMs: performance.now() - this.downAt,
     });
     if (!this.mouseCameraEnabled && !this.leftDown && !this.rightDown && document.pointerLockElement) {
       document.exitPointerLock();
     }
     if (pick) this.cb.onClickPick(pick.x, pick.y, pick.button);
+    if (!this.leftDown && !this.rightDown) this.cameraDragActive = false;
     this.downButton = -1;
     this.pointerLockRequestedForDrag = false;
     this.updateCursor();
@@ -344,12 +438,23 @@ export class Input {
       this.hoverY = e.clientY;
     }
     if (!this.leftDown && !this.rightDown) return;
+    if (this.downButton === this.clickMoveMouseButton) return;
     const mx = e.movementX ?? 0, my = e.movementY ?? 0;
     if (mx === 0 && my === 0) return;
     this.dragDistance += Math.abs(mx) + Math.abs(my);
+    if (!this.cameraDragActive) {
+      const heldMs = Math.max(0, performance.now() - this.downAt);
+      if (this.dragDistance < CAMERA_DRAG_START_DISTANCE && heldMs < CAMERA_DRAG_START_MS) return;
+      this.cameraDragActive = true;
+      this.noteIntent('look');
+      this.updateCursor();
+      return;
+    }
     // Engage pointer lock only once the press turns into an actual camera drag —
-    // one banner per drag, none for a plain click (#116).
-    if (!this.mouseCameraEnabled && this.dragDistance > 5 && !this.pointerLockRequestedForDrag) {
+    // one banner per drag, none for a plain click (#116). In fullscreen, Chrome
+    // shows an unavoidable "press and hold esc" prompt for pointer lock, so keep
+    // fullscreen camera drags as regular mouse drags.
+    if (!this.mouseCameraEnabled && !this.pointerLockRequestedForDrag && !this.isBrowserFullscreen()) {
       this.pointerLockRequestedForDrag = true;
       this.canvas.requestPointerLock?.();
     }

@@ -172,7 +172,7 @@ describe('swimming', () => {
     expect(sim.isSwimming(p)).toBe(true);
   });
 
-  it('landlocked mobs refuse to chase into deep water', () => {
+  it('ordinary mobs chase into deep water and keep dealing melee damage', () => {
     const sim = makeSim();
     const wolf = [...sim.entities.values()].find((e) => e.templateId === 'forest_wolf')!;
     // park a chase target in the middle of the lake
@@ -182,8 +182,12 @@ describe('swimming', () => {
     wolf.aggroTargetId = p.id;
     wolf.pos = { ...sim.groundPos(LAKE.x + 24, LAKE.z + 24) };
     wolf.spawnPos = { ...wolf.pos };
-    for (let i = 0; i < 100; i++) sim.tick();
-    expect(groundHeight(wolf.pos.x, wolf.pos.z, SEED)).toBeGreaterThan(WATER_LEVEL - 0.8);
+    wolf.prevPos = { ...wolf.pos };
+    const hpBefore = p.hp;
+    for (let i = 0; i < 160; i++) sim.tick();
+    expect(groundHeight(wolf.pos.x, wolf.pos.z, SEED)).toBeLessThan(WATER_LEVEL - 0.8);
+    expect(wolf.pos.y).toBeGreaterThan(WATER_LEVEL - 1.0);
+    expect(p.hp).toBeLessThan(hpBefore);
   });
 
   it('rare swimmers can chase into deep water', () => {

@@ -470,8 +470,9 @@ export class Sim {
     // Mobs from camps
     for (const camp of CAMPS) {
       const template = MOBS[camp.mobId];
-      // Swimmers may wade in the shallows; everyone else spawns on dry land.
-      const minHeight = this.mobCanSwim(template) ? WATER_LEVEL - 0.5 : WATER_LEVEL + 0.4;
+      // Aquatic/flagged swimmers may wade in the shallows; everyone else
+      // still spawns on dry land even though combat movement can enter water.
+      const minHeight = this.mobCanSpawnInWater(template) ? WATER_LEVEL - 0.5 : WATER_LEVEL + 0.4;
       for (let i = 0; i < camp.count; i++) {
         const ang = this.rng.range(0, Math.PI * 2);
         const r = Math.sqrt(this.rng.next()) * camp.radius;
@@ -1172,6 +1173,9 @@ export class Sim {
     return this.isStunned(e) || e.auras.some((a) => a.kind === 'root');
   }
   private mobCanSwim(template: { family?: string; canSwim?: boolean } | undefined): boolean {
+    return !!template;
+  }
+  private mobCanSpawnInWater(template: { family?: string; canSwim?: boolean } | undefined): boolean {
     return !!template && (template.canSwim === true || template.family === 'murloc');
   }
   private isControlAura(kind: AuraKind): boolean {
@@ -3347,8 +3351,8 @@ export class Sim {
   }
 
   // Step `e` one tick toward `dest`. With `ignoreObstacles`, the mover phases
-  // straight through props and water — used to free a stuck evader, never for
-  // normal locomotion. Returns true on arrival.
+  // straight through props — used to free a stuck evader, never for normal
+  // locomotion. Returns true on arrival.
   private moveToward(e: Entity, dest: Vec3, speed: number, ignoreObstacles = false): boolean {
     const d = dist2d(e.pos, dest);
     if (d < 0.3) return true;
@@ -3365,7 +3369,7 @@ export class Sim {
       return d - step < 0.3;
     }
     const ground = groundHeight(nx, nz, this.cfg.seed);
-    // landlocked creatures stop at the waterline instead of walking under it
+    // swimmers ride the surface instead of walking under the lake bed
     if (!canSwim && ground < WATER_LEVEL - SWIM_DEPTH) return false;
     const resolved = resolvePosition(this.cfg.seed, nx, nz, BODY_RADIUS);
     e.pos.x = resolved.x;
