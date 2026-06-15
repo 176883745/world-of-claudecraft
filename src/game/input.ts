@@ -175,12 +175,18 @@ export class Input {
     return this.controllerFacing;
   }
 
-  private releaseCapture(_reason: string): void {
-    this.keys.clear();
+  private releaseCapture(reason: string): void {
+    // Always drop the mouse-drag state so a button can't stick "held".
     this.leftDown = false;
     this.rightDown = false;
     this.downButton = -1;
     this.pointerLockRequestedForDrag = false;
+    // Focus loss (blur / tab hidden) means the OS will swallow the matching
+    // keyup, so we must forget held movement keys or they'd stick on. A pointer
+    // -lock exit is different: the window still has focus and keyup will fire
+    // normally, so clearing keys here would cancel a walk the instant a camera
+    // drag ends (every right/left-drag exits pointer lock on release).
+    if (reason !== 'pointerlock') this.keys.clear();
     this.updateCursor();
   }
 
