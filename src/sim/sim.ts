@@ -4051,6 +4051,30 @@ export class Sim {
       line = `/w ${replyTo} ${rm[1]}`;
     }
 
+    // "/inspect name" — self-only readout of another online player's level,
+    // class, and health. The first cross-player readout; mirrors WoW's Inspect.
+    const im = /^\/(?:inspect|ins|examine)(?:\s+([\s\S]+))?$/i.exec(raw);
+    if (im) {
+      const targetName = (im[1] ?? '').trim();
+      if (!targetName) { this.error(r.meta.entityId, 'Inspect whom? Usage: /inspect <name>.'); return null; }
+      // resolve by name with the same exact-then-unambiguous-CI rule as /w
+      let target: PlayerMeta | null = null;
+      const ciMatches: PlayerMeta[] = [];
+      const wanted = targetName.toLowerCase();
+      for (const meta of this.players.values()) {
+        if (meta.name === targetName) { target = meta; break; }
+        if (meta.name.toLowerCase() === wanted) ciMatches.push(meta);
+      }
+      if (!target) {
+        if (ciMatches.length === 1) target = ciMatches[0];
+        else if (ciMatches.length > 1) { this.error(r.meta.entityId, `Several players match '${targetName}'. Use exact capitalization.`); return null; }
+      }
+      const te = target ? this.entities.get(target.entityId) : null;
+      if (!target || !te) { this.error(r.meta.entityId, `There is no player named '${targetName}' online.`); return null; }
+      this.error(r.meta.entityId, this.inspectReadout(target, te));
+      return null;
+    }
+
     // "/w name message" — private whisper to an online player
     const wm = /^\/(?:w|whisper|t|tell)\s+(\S+)\s+([\s\S]+)$/i.exec(line);
     if (wm) {
@@ -5430,6 +5454,15 @@ export class Sim {
       'Whisper a player with /w <name> <message>.',
       '/who lists who is online (online play only).',
     ];
+  }
+
+  // One-line readout for /inspect: another player's level, class, and health.
+  private inspectReadout(target: PlayerMeta, e: Entity): string {
+    const cls = CLASSES[target.cls]?.name ?? target.cls;
+    const hp = e.hp <= 0
+      ? 'dead'
+      : `${Math.round(Math.max(0, Math.min(1, e.hp / e.maxHp)) * 100)}%`;
+    return `${target.name}: Level ${e.level} ${cls} — HP ${hp}.`;
   }
 }
 
