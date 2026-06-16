@@ -1,4 +1,4 @@
-import { OVERHEAD_EMOTE_IDS, type Entity, type EquipSlot, type InvSlot, type MoveInput, type OverheadEmoteId, type PlayerClass, type QuestProgress, type QuestState, type ResourceType } from './sim/types';
+import { OVERHEAD_EMOTE_IDS, type Entity, type EquipSlot, type InvSlot, type MoveInput, type OverheadEmoteId, type PetMode, type PlayerClass, type QuestProgress, type QuestState, type ResourceType } from './sim/types';
 import type { ResolvedAbility } from './sim/sim';
 import type { TalentAllocation, SavedLoadout, Role } from './sim/content/talents';
 
@@ -219,6 +219,14 @@ export interface IWorld {
   releaseSpirit(): void;
   chat(text: string): void;
   playEmote(emoteId: OverheadEmoteId): void;
+  abandonPet(): void;
+  renamePet(name: string): void;
+  revivePet(): void;
+  petAttack(): void;
+  petTaunt(): void;
+  feedPet(itemId: string): void;
+  healPet(): void;
+  setPetMode(mode: PetMode): void;
   // social systems
   partyInfo: PartyInfo | null;
   tradeInfo: TradeInfo | null;

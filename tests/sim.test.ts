@@ -3,7 +3,7 @@ import { Sim } from '../src/sim/sim';
 import { applyAction, encodeObs, obsSize, ACTIONS } from '../src/sim/obs';
 import {
   type SimEvent, dist2d, FISHING_CAST_ID, FISHING_CAST_TIME, MAX_LEVEL, xpForLevel, mobXpValue,
-  rageConversion, rageFromDealing, spellHitChance, meleeMissChance,
+  rageConversion, rageFromDealing, rageFromTaking, spellHitChance, meleeMissChance,
 } from '../src/sim/types';
 import { LAKE, QUESTS, abilitiesKnownAt } from '../src/sim/data';
 import { terrainHeight, WATER_LEVEL } from '../src/sim/world';
@@ -66,6 +66,13 @@ describe('classic formulas', () => {
     expect(rageConversion(10)).toBeCloseTo(0.91 + 32.3 + 4.27, 4);
     // a 7.5-damage hit at level 1 generates ~7.5 rage
     expect(rageFromDealing(7.51, 1)).toBeCloseTo(7.5, 1);
+  });
+
+  it('rage from taking damage scales from attacker level', () => {
+    expect(rageFromTaking(90, 60)).toBeCloseTo(1, 5);
+    expect(rageFromTaking(450, 60)).toBeCloseTo(5, 5);
+    expect(rageFromTaking(900, 60)).toBeCloseTo(10, 5);
+    expect(rageFromTaking(30, 20)).toBeCloseTo(1, 5);
   });
 
   it('mob xp follows the 45+5L rule with gray cutoffs', () => {
@@ -247,6 +254,15 @@ describe('combat', () => {
       if (sim.player.resource > 0) break;
     }
     expect(sim.player.resource).toBeGreaterThan(0);
+  });
+
+  it('warrior generates rage when taking damage from enemy level', () => {
+    const sim = makeSim('warrior');
+    const wolf = nearestMob(sim, 'forest_wolf');
+    wolf.level = 20;
+    sim.player.resource = 0;
+    (sim as any).dealDamage(wolf, sim.player, 30, false, 'physical', null, 'hit');
+    expect(sim.player.resource).toBeCloseTo(1, 5);
   });
 
   it('mob can kill the player; release respawns at graveyard', () => {

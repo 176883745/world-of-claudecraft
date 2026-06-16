@@ -59,6 +59,7 @@ function stubEntity(partial: Partial<Entity> & Pick<Entity, 'id' | 'kind'>): Ent
     forcedTargetId: null,
     forcedTargetTimer: 0,
     ownerId: null,
+    petMode: 'defensive',
     petTauntTimer: 0,
     pulseTimer: 0,
     firedSummons: 0,

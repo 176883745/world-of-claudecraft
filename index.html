@@ -375,7 +375,20 @@
   #actionbar-row { display: flex; align-items: flex-end; gap: 8px; }
   /* xp bar stacks directly on the action bar; the taller side-button
      column must not push it up (it used to float ~150px above the bar) */
-  #actionbar-stack { display: flex; flex-direction: column; }
+  #actionbar-stack { display: flex; flex-direction: column; position: relative; }
+  #petbar { display: none; position: absolute; left: 0; top: -52px; gap: 6px; padding: 0; margin: 0;
+    background: transparent; border: 0; outline: 0; box-shadow: none; }
+  .petbar-group { display: flex; gap: 4px; padding: 4px; border: 2px solid #000; outline: 1px solid #5b4618;
+    border-radius: 6px; background: linear-gradient(170deg, #15131fdd, #09080edd); box-shadow: 0 2px 8px #000c; }
+  .pet-btn { width: 38px; height: 38px; padding: 0; border: 2px solid #4a3d1d; border-radius: 6px;
+    background: radial-gradient(circle at 35% 30%, #2c2c3a, #15151f); color: #f3df9a; cursor: pointer;
+    position: relative; box-shadow: inset 0 1px 0 #ffffff18, 0 2px 4px #0009; }
+  .pet-btn .icon-label { position: absolute; inset: 1px; border-radius: 4px; background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; }
+  .pet-btn:hover { border-color: var(--gold); }
+  .pet-btn.active { border-color: var(--gold); box-shadow: inset 0 0 0 1px #ffd10066, 0 0 6px #ffd10033; }
+  .pet-btn.cooldown { filter: grayscale(.8) brightness(.65); cursor: default; }
+  .pet-btn .cdtext { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--gold); text-shadow: 1px 1px 2px #000; font-weight: bold; pointer-events: none; }
   #actionbar { display: flex; gap: 4px; padding: 6px; }
   .action-btn { width: 46px; height: 46px; position: relative; border: 2px solid #4a3d1d; border-radius: 6px;
     background: radial-gradient(circle at 35% 30%, #2c2c3a, #15151f); color: #fff; cursor: pointer;
@@ -2993,6 +3006,16 @@
   }
   body.mobile-touch #castbar .label { display: none; }
   body.mobile-touch #actionbar-row { display: block; }
+  body.mobile-touch #petbar {
+    position: fixed;
+    left: 50%;
+    top: max(8px, env(safe-area-inset-top));
+    transform: translateX(-50%);
+    align-self: auto;
+    margin: 0;
+    z-index: 28;
+    pointer-events: auto;
+  }
   body.mobile-touch #side-buttons { display: none; }
   body.mobile-touch #actionbar {
     display: grid;
@@ -3271,6 +3294,11 @@
       width: min(160px, calc(50vw - 166px));
       min-width: 100px;
       height: 5px;
+    }
+    body.mobile-touch #petbar {
+      top: max(6px, env(safe-area-inset-top));
+      transform: translateX(-50%) scale(0.88);
+      transform-origin: center top;
     }
     body.mobile-touch #community-hud { top: 108px; right: 8px; width: 62px; padding: 4px; gap: 4px; }
     body.mobile-touch .community-link { height: 40px; }
@@ -3729,6 +3757,7 @@
               <div class="bar mana" id="pf-resource"><div class="bar-fill" id="pf-res"></div><div class="bar-text" id="pf-res-text"></div></div>
             </div>
           </div>
+          <div id="petbar" class="panel"></div>
           <div id="xpbar"><div class="fill"></div><div class="ticks"></div><div class="label"></div></div>
           <div id="actionbar" class="panel"></div>
         </div>

@@ -221,7 +221,10 @@ describe('target markers — sim layer', () => {
 
       (sim as unknown as { completeTame(p: Entity, target: Entity): void }).completeTame(hunterE, wolf);
 
-      expect(wolf.ownerId).toBe(hunter); // it really became a pet
+      const pet = sim.petOf(hunter);
+      expect(pet?.ownerId).toBe(hunter); // it created an owned pet copy
+      expect(pet?.id).not.toBe(wolf.id);
+      expect(sim.entities.has(wolf.id)).toBe(false);
       expect(sim.markersFor(hunter)).toEqual({}); // and the stale mark is gone
     });
   });

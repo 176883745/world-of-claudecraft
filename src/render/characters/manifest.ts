@@ -215,8 +215,12 @@ export const VISUALS: Record<string, VisualDef> = {
     clips: animal(['Attack_Headbutt']),
   },
   form_bear: {
-    url: `${CREATURES}/yetialt.glb`, height: 1.9,
+    url: `${CREATURES}/yetialt.glb`, height: 2.4,
     clips: BIPED14, tint: 0x5a4030, tintStrength: 0.55,
+  },
+  form_cat: {
+    url: `${CREATURES}/wolf.glb`, height: 1.6,
+    clips: animal(['Attack']), tint: 0xd08b45, tintStrength: 0.35,
   },
 
   // -- mob families --------------------------------------------------------
@@ -258,6 +262,14 @@ export const VISUALS: Record<string, VisualDef> = {
     // light tint only — heavy washes crush the wyrm to black under the green
     // sanctum torchlight
     clips: FLOATING, tint: 'entity', tintStrength: 0.2,
+  },
+  mob_demon_flying: {
+    url: `${CREATURES}/demon.glb`, height: 1.7, hover: 0.35,
+    clips: FLOATING, tint: 'entity', tintStrength: 0.25,
+  },
+  mob_demonalt: {
+    url: `${CREATURES}/demonalt.glb`, height: 2.1,
+    clips: BIPED14, tint: 'entity', tintStrength: 0.35,
   },
 
   // -- undead (KayKit skeletons, shared 41-joint rig) ------------------------
@@ -358,6 +370,8 @@ export const VISUALS: Record<string, VisualDef> = {
 // ---------------------------------------------------------------------------
 
 const MOB_KEYS: Record<string, string> = {
+  warlock_imp: 'mob_demon_flying',
+  warlock_voidwalker: 'mob_demonalt',
   wild_boar: 'mob_boar',
   elder_bristleback: 'mob_boar',
   // gravecaller cult + necromancers: dark-robed casters
@@ -393,6 +407,7 @@ const FAMILY_KEYS: Record<string, string> = {
   ogre: 'mob_ogre',
   elemental: 'mob_elemental',
   dragonkin: 'mob_dragonkin',
+  demon: 'mob_demonalt',
 };
 
 const NPC_KEYS: Record<string, string> = {

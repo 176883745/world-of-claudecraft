@@ -7,6 +7,7 @@ import { parseMoveInputFrame } from '../src/sim/move_input';
 import { stealthDetectionRadius, threatEntries } from '../src/sim/threat';
 import { zoneAt, DUNGEONS } from '../src/sim/data';
 import { saveCharacterState, openPlaySession, closePlaySession, insertChatLogs, pool, loadMarketState, saveMarketState } from './db';
+import { offensiveName } from './auth';
 import { ChatLogger } from './chat_log';
 import { SocialService } from './social';
 import type { Presence, PresenceStatus, SocialActor, SocialEvent, SocialTransport } from './social';
@@ -184,6 +185,10 @@ function dynamicFields(e: Entity): Record<string, unknown> {
   if (e.overheadEmoteId) {
     out.emo = e.overheadEmoteId;
     out.emoSeq = e.overheadEmoteSeq;
+  }
+  if (e.ownerId !== null) {
+    out.pm = e.petMode;
+    out.pt = round2(e.petTauntTimer);
   }
   // top hate-table entries so the party threat meter shows real numbers
   if (e.kind === 'mob' && !e.dead && e.threat.size > 0) out.thr = threatEntries(e, 8);
@@ -817,6 +822,22 @@ export class GameServer {
       // raid/target markers
       case 'setMarker': if (typeof msg.id === 'number' && typeof msg.marker === 'number') sim.setMarker(msg.id, msg.marker, pid); break;
       case 'clearMarker': if (typeof msg.id === 'number') sim.clearMarker(msg.id, pid); break;
+      // hunter pets
+      case 'pet_abandon': sim.abandonPet(pid); break;
+      case 'pet_rename':
+        if (typeof msg.name === 'string') {
+          if (offensiveName(msg.name)) this.send(session, { t: 'events', list: [{ type: 'error', text: 'Pet name is not allowed.' }] });
+          else sim.renamePet(msg.name, pid);
+        }
+        break;
+      case 'pet_revive': sim.revivePet(pid); break;
+      case 'pet_attack': sim.petAttack(pid); break;
+      case 'pet_taunt': sim.petTaunt(pid); break;
+      case 'pet_feed': if (typeof msg.item === 'string') sim.feedPet(msg.item, pid); break;
+      case 'pet_heal': sim.healPet(pid); break;
+      case 'pet_mode':
+        if (msg.mode === 'passive' || msg.mode === 'defensive' || msg.mode === 'aggressive') sim.setPetMode(msg.mode, pid);
+        break;
       // trade
       case 'trade_req': if (typeof msg.id === 'number') sim.tradeRequest(msg.id, pid); break;
       case 'trade_accept': sim.tradeAccept(pid); break;

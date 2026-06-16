@@ -39,6 +39,23 @@ export const ZONE1_ZONE: ZoneDef = {
 // ---------------------------------------------------------------------------
 
 export const ZONE1_MOBS: Record<string, MobTemplate> = {
+  warlock_imp: {
+    id: 'warlock_imp', name: 'Fire Demon', minLevel: 1, maxLevel: 20, family: 'demon',
+    hpBase: 24, hpPerLevel: 11, dmgBase: 2, dmgPerLevel: 0.7, attackSpeed: 2.0,
+    armorPerLevel: 5, moveSpeed: 8, aggroRadius: 0,
+    loot: [],
+    scale: 0.65, color: 0xff5a2e,
+    petRole: 'ranged_dps',
+    petSpell: { name: 'Firebolt', school: 'fire', min: 8, max: 11, range: 24, every: 2.0 },
+  },
+  warlock_voidwalker: {
+    id: 'warlock_voidwalker', name: 'Void Demon', minLevel: 10, maxLevel: 20, family: 'demon',
+    hpBase: 95, hpPerLevel: 24, dmgBase: 3, dmgPerLevel: 1.0, attackSpeed: 2.4,
+    armorPerLevel: 28, moveSpeed: 7.2, aggroRadius: 0,
+    loot: [],
+    scale: 0.9, color: 0x6b4bb5,
+    petRole: 'melee_tank',
+  },
   forest_wolf: {
     id: 'forest_wolf', name: 'Forest Wolf', minLevel: 1, maxLevel: 2, family: 'beast',
     hpBase: 28, hpPerLevel: 14, dmgBase: 3, dmgPerLevel: 1.6, attackSpeed: 2.0,

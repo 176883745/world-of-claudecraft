@@ -216,7 +216,7 @@ function blankEntity(id: number): Entity {
     chargeTargetId: null, chargeTimeLeft: 0, chargePath: [], followTargetId: null,
     sitting: false, eating: null, drinking: null,
     aiState: 'idle', tappedById: null, pulseTimer: 0, firedSummons: 0, summonedIds: [], enraged: false,
-    threat: new Map(), forcedTargetId: null, forcedTargetTimer: 0, ownerId: null, petTauntTimer: 0,
+    threat: new Map(), forcedTargetId: null, forcedTargetTimer: 0, ownerId: null, petMode: 'defensive', petTauntTimer: 0,
     spawnPos: { x: 0, y: 0, z: 0 }, leashAnchor: null, evadeStall: 0, wanderTarget: null, wanderTimer: 0,
     aggroTargetId: null, respawnTimer: 0, corpseTimer: 0, lootable: false, loot: null,
     xpValue: 0, questIds: [], vendorItems: [], objectItemId: null, dungeonId: null,
@@ -563,6 +563,8 @@ export class ClientWorld implements IWorld {
       e.aggroTargetId = w.aggro ?? null;
       e.tappedById = w.tap ?? null;
       e.ownerId = w.own ?? null;
+      e.petMode = w.pm ?? 'defensive';
+      e.petTauntTimer = w.pt ?? 0;
       e.threat = new Map(w.thr ?? []);
       e.auras = (w.auras ?? []).map((a: any) => ({
         id: a.id, name: a.name, kind: a.kind, remaining: a.rem, duration: a.dur,
@@ -767,6 +769,30 @@ export class ClientWorld implements IWorld {
       this.player.overheadEmoteSeq += 1;
     }
     this.cmd({ cmd: 'emote', emote: emoteId });
+  }
+  abandonPet(): void {
+    this.cmd({ cmd: 'pet_abandon' });
+  }
+  renamePet(name: string): void {
+    this.cmd({ cmd: 'pet_rename', name });
+  }
+  revivePet(): void {
+    this.cmd({ cmd: 'pet_revive' });
+  }
+  petAttack(): void {
+    this.cmd({ cmd: 'pet_attack' });
+  }
+  petTaunt(): void {
+    this.cmd({ cmd: 'pet_taunt' });
+  }
+  feedPet(itemId: string): void {
+    this.cmd({ cmd: 'pet_feed', item: itemId });
+  }
+  healPet(): void {
+    this.cmd({ cmd: 'pet_heal' });
+  }
+  setPetMode(mode: 'passive' | 'defensive' | 'aggressive'): void {
+    this.cmd({ cmd: 'pet_mode', mode });
   }
   // social systems
   partyInvite(targetPid: number): void {
