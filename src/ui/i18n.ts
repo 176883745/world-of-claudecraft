@@ -195,6 +195,7 @@ export const en = {
     caLabel: "$WOC Contract Address",
     caCopied: "Copied!",
     caCopyAria: "Copy contract address",
+    caNote: "WOC is our community token. It is not needed to play. Join Discord to discuss the WOC utility and flywheel.",
   },
   auth: {
     enterRealm: "Enter the Realm",
@@ -329,6 +330,7 @@ export const es: typeof en = {
     caLabel: "Dirección del contrato $WOC",
     caCopied: "¡Copiado!",
     caCopyAria: "Copiar dirección del contrato",
+    caNote: "WOC es nuestro token comunitario. No es necesario para jugar. Únete a Discord para hablar sobre la utilidad de WOC y el flywheel.",
   },
   auth: {
     enterRealm: "Entrar al Reino",
@@ -463,6 +465,7 @@ export const es_ES: typeof en = {
     caLabel: "Dirección del contrato $WOC",
     caCopied: "¡Copiado!",
     caCopyAria: "Copiar dirección del contrato",
+    caNote: "WOC es nuestro token comunitario. No es necesario para jugar. Únete a Discord para hablar sobre la utilidad de WOC y el flywheel.",
   },
   auth: {
     enterRealm: "Entrar al reino",
@@ -597,6 +600,7 @@ export const fr_FR: typeof en = {
     caLabel: "Adresse du contrat $WOC",
     caCopied: "Copié !",
     caCopyAria: "Copier l'adresse du contrat",
+    caNote: "WOC est notre jeton communautaire. Il n'est pas nécessaire pour jouer. Rejoins le Discord pour échanger sur l'utilité de WOC et le flywheel.",
   },
   auth: {
     enterRealm: "Entrer dans le royaume",
@@ -731,6 +735,7 @@ export const fr_CA: typeof en = {
     caLabel: "Adresse du contrat $WOC",
     caCopied: "Copié !",
     caCopyAria: "Copier l'adresse du contrat",
+    caNote: "WOC est notre jeton communautaire. Il n'est pas nécessaire pour jouer. Rejoins le Discord pour échanger sur l'utilité de WOC et le flywheel.",
   },
   auth: {
     enterRealm: "Entrer dans le royaume",
@@ -865,6 +870,7 @@ export const en_CA: typeof en = {
     caLabel: "$WOC Contract Address",
     caCopied: "Copied!",
     caCopyAria: "Copy contract address",
+    caNote: "WOC is our community token. It is not needed to play. Join Discord to discuss the WOC utility and flywheel.",
   },
   auth: {
     enterRealm: "Enter the Realm",
@@ -999,6 +1005,7 @@ export const it_IT: typeof en = {
     caLabel: "Indirizzo del contratto $WOC",
     caCopied: "Copiato!",
     caCopyAria: "Copia l'indirizzo del contratto",
+    caNote: "WOC è il nostro token della community. Non è necessario per giocare. Entra nel Discord per parlare dell'utilità di WOC e del flywheel.",
   },
   auth: {
     enterRealm: "Entra nel reame",
@@ -1133,6 +1140,7 @@ export const de_DE: typeof en = {
     caLabel: "$WOC-Contract-Adresse",
     caCopied: "Kopiert!",
     caCopyAria: "Contract-Adresse kopieren",
+    caNote: "WOC ist unser Community-Token. Es wird zum Spielen nicht benötigt. Komm in den Discord, um über den Nutzen von WOC und den Flywheel zu sprechen.",
   },
   auth: {
     enterRealm: "Realm betreten",
@@ -1267,6 +1275,7 @@ export const zh_CN: typeof en = {
     caLabel: "$WOC 合约地址",
     caCopied: "已复制！",
     caCopyAria: "复制合约地址",
+    caNote: "WOC 是我们的社区代币，游玩并不需要它。加入 Discord，一起讨论 WOC 的用途与飞轮效应。",
   },
   auth: {
     enterRealm: "进入服务器",
@@ -1401,6 +1410,7 @@ export const zh_TW: typeof en = {
     caLabel: "$WOC 合約地址",
     caCopied: "已複製！",
     caCopyAria: "複製合約地址",
+    caNote: "WOC 是我們的社群代幣，遊玩並不需要它。加入 Discord，一起討論 WOC 的用途與飛輪效應。",
   },
   auth: {
     enterRealm: "進入伺服器",
@@ -1535,6 +1545,7 @@ export const ko_KR: typeof en = {
     caLabel: "$WOC 컨트랙트 주소",
     caCopied: "복사됨!",
     caCopyAria: "컨트랙트 주소 복사",
+    caNote: "WOC는 우리의 커뮤니티 토큰입니다. 게임 플레이에 필요하지는 않습니다. Discord에 참여해 WOC의 활용처와 플라이휠에 대해 이야기해 보세요.",
   },
   auth: {
     enterRealm: "렐름 입장",
@@ -1669,6 +1680,7 @@ export const ja_JP: typeof en = {
     caLabel: "$WOC コントラクトアドレス",
     caCopied: "コピーしました！",
     caCopyAria: "コントラクトアドレスをコピー",
+    caNote: "WOC はコミュニティトークンです。プレイに必要ではありません。Discord に参加して、WOC のユーティリティとフライホイールについて語り合いましょう。",
   },
   auth: {
     enterRealm: "レルムに入る",
@@ -1803,6 +1815,7 @@ export const pt_BR: typeof en = {
     caLabel: "Endereço do contrato $WOC",
     caCopied: "Copiado!",
     caCopyAria: "Copiar endereço do contrato",
+    caNote: "WOC é o nosso token da comunidade. Não é necessário para jogar. Entre no Discord para discutir a utilidade do WOC e o flywheel.",
   },
   auth: {
     enterRealm: "Entrar no reino",
@@ -1937,6 +1950,7 @@ export const ru_RU: typeof en = {
     caLabel: "Адрес контракта $WOC",
     caCopied: "Скопировано!",
     caCopyAria: "Скопировать адрес контракта",
+    caNote: "WOC — наш токен сообщества. Он не нужен для игры. Заходите в Discord, чтобы обсудить полезность WOC и его флайвил.",
   },
   auth: {
     enterRealm: "Войти в игровой мир",

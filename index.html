@@ -1693,20 +1693,28 @@
   .token-ca-copy svg { width: 16px; height: 16px; display: block; }
   .token-ca-copy .icon-check { display: none; }
   .token-ca-feedback {
+    display: none;
     font-family: var(--font-sans);
     font-size: 12px;
     color: var(--color-text-success);
-    opacity: 0;
-    transform: translateY(-2px);
-    transition: opacity var(--transition-speed) var(--transition-ease),
-                transform var(--transition-speed) var(--transition-ease);
+  }
+  /* Small print under the pill: token disclaimer + community call-to-action. */
+  .token-ca-note {
+    margin: 0;
+    max-width: 520px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+    text-align: center;
+    text-shadow: 1px 1px 2px #000;
   }
   /* Copied state — swap clipboard glyph for a check, reveal the confirmation. */
   #token-ca.is-copied .token-ca-pill { border-color: var(--color-text-success); }
   #token-ca.is-copied .token-ca-copy { color: var(--color-text-success); }
   #token-ca.is-copied .token-ca-copy .icon-clipboard { display: none; }
   #token-ca.is-copied .token-ca-copy .icon-check { display: block; }
-  #token-ca.is-copied .token-ca-feedback { opacity: 1; transform: translateY(0); }
+  #token-ca.is-copied .token-ca-feedback { display: block; }
   @media (max-width: 520px) {
     .token-ca-addr { font-size: 11px; letter-spacing: 0.2px; }
     .token-ca-pill { padding: 8px var(--spacing-sm); }
@@ -3872,6 +3880,7 @@
                 <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </span>
             </button>
+            <p class="token-ca-note" data-i18n="mode.caNote">WOC is our community token. It is not needed to play. Join Discord to discuss the WOC utility and flywheel.</p>
             <span class="token-ca-feedback" role="status" aria-live="polite" data-i18n="mode.caCopied">Copied!</span>
           </div>
         </div>
