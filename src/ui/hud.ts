@@ -113,8 +113,12 @@ const PET_MODE_DESC_KEYS: Record<PetMode, TranslationKey> = {
 type ItemQuality = NonNullable<ItemDef['quality']>;
 const ITEM_SLOT_LABEL_KEYS: Record<EquipSlot, TranslationKey> = {
   mainhand: 'itemUi.slots.mainhand',
+  helmet: 'itemUi.slots.helmet',
+  shoulder: 'itemUi.slots.shoulder',
   chest: 'itemUi.slots.chest',
+  waist: 'itemUi.slots.waist',
   legs: 'itemUi.slots.legs',
+  gloves: 'itemUi.slots.gloves',
   feet: 'itemUi.slots.feet',
 };
 const ITEM_QUALITY_LABEL_KEYS: Record<ItemQuality, TranslationKey> = {
@@ -3866,10 +3870,14 @@ export class Hud {
     el.querySelector('[data-act="prestige"]')?.addEventListener('click', () => this.openPrestigeDialog());
     const col = el.querySelector('#equip-col')!;
     const slots: { key: EquipSlot; name: string }[] = [
-      { key: 'mainhand', name: itemSlotName('mainhand') },
+      { key: 'helmet', name: itemSlotName('helmet') },
+      { key: 'shoulder', name: itemSlotName('shoulder') },
       { key: 'chest', name: itemSlotName('chest') },
+      { key: 'waist', name: itemSlotName('waist') },
       { key: 'legs', name: itemSlotName('legs') },
+      { key: 'gloves', name: itemSlotName('gloves') },
       { key: 'feet', name: itemSlotName('feet') },
+      { key: 'mainhand', name: itemSlotName('mainhand') },
     ];
     for (const slot of slots) {
       const itemId = sim.equipment[slot.key];

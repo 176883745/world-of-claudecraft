@@ -1249,8 +1249,10 @@ function itemFallback(id: string): IconRecipe | null {
     const prim: PrimitiveName =
       it.slot === 'feet' ? 'boot'
         : it.slot === 'legs' ? 'trousers'
-          : has(name, ['shield', 'bulwark', 'aegis']) ? 'shield'
-            : 'chestplate';
+          : it.slot === 'gloves' ? 'hand'
+            : it.slot === 'shoulder' ? 'pelt'
+              : has(name, ['shield', 'bulwark', 'aegis']) ? 'shield'
+                : 'chestplate'; // helmet/waist reuse the generic armor shape until bespoke painters land
     const pal: PaletteName = isCloth ? 'cloth' : isMetal ? 'steel' : 'leather';
     return r(isCloth ? 'cloth' : isMetal ? 'steel' : 'leather', pal, [{ p: prim, pal }], fx);
   }
