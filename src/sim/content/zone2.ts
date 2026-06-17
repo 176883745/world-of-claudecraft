@@ -108,6 +108,9 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
     id: 'mire_widow', name: 'Mirefen Widow', minLevel: 8, maxLevel: 10, family: 'spider',
     hpBase: 48, hpPerLevel: 19, dmgBase: 8, dmgPerLevel: 2.2, attackSpeed: 1.8,
     armorPerLevel: 10, moveSpeed: 8, aggroRadius: 10,
+    // Find Weakness: the widow's bite leaves the flesh raw, so critical blows
+    // against the victim bite 50% deeper for a few seconds.
+    critVuln: { chance: 0.3, critDamage: 0.5, duration: 8, name: 'Exposed Wound' },
     loot: [
       { copper: 38, chance: 1 },
       { itemId: 'widow_venom_sac', chance: 0.65, questId: 'q_widows' },

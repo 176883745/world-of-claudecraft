@@ -124,7 +124,7 @@ const EMOTE_ALIASES: Record<string, string> = {
 // (buff_*, hot, absorb, imbue, stances, forms, stealth, thorns, attackspeed
 // haste) is treated as helpful/neutral. Used by /targetbuffs to tag each aura.
 const HARMFUL_AURA_KINDS: ReadonlySet<AuraKind> = new Set<AuraKind>([
-  'dot', 'slow', 'stun', 'root', 'incapacitate', 'polymorph', 'sunder',
+  'dot', 'slow', 'stun', 'root', 'incapacitate', 'polymorph', 'sunder', 'critvuln',
 ]);
 
 function isHarmfulAura(kind: AuraKind): boolean {
@@ -186,7 +186,7 @@ const DEMON_HEAL_DURATION = 5;
 const DEMON_HEAL_TICK = 1;
 const TAMED_TARGET_RESPAWN_SECONDS = 60;
 const FRIENDLY_NPC_REJECTED_AURA_KINDS: ReadonlySet<AuraKind> = new Set([
-  'dot', 'slow', 'stun', 'root', 'incapacitate', 'polymorph', 'attackspeed', 'sunder',
+  'dot', 'slow', 'stun', 'root', 'incapacitate', 'polymorph', 'attackspeed', 'sunder', 'critvuln',
 ]);
 
 function isRejectedFriendlyNpcAura(aura: Aura): boolean {
@@ -2103,6 +2103,16 @@ export class Sim {
     return mult < 0 ? 0 : mult;
   }
 
+  // "Find Weakness" vulnerability: the largest active critvuln aura adds its
+  // fraction to the damage of CRITICAL hits the target takes (read in dealDamage).
+  private critVulnBonus(target: Entity): number {
+    let bonus = 0;
+    for (const a of target.auras) {
+      if (a.kind === 'critvuln' && a.value > bonus) bonus = a.value;
+    }
+    return bonus;
+  }
+
   private applyHeal(source: Entity, target: Entity, amount: number, ability: string): void {
     if (target.dead) return;
     const crit = this.rng.chance(this.spellCrit(source));
@@ -3271,6 +3281,14 @@ export class Sim {
       amount = Math.round(amount * 0.9);
     }
 
+    // "Find Weakness": a critvuln debuff makes the target's exposed flesh take
+    // extra damage from CRITICAL hits only (any attacker, any school). Applied
+    // after the defensive-stance reduction, before absorb shields soak it.
+    if (crit && amount > 0 && source && source.id !== target.id) {
+      const bonus = this.critVulnBonus(target);
+      if (bonus > 0) amount = Math.round(amount * (1 + bonus));
+    }
+
     // absorb shields soak damage first
     if (amount > 0) {
       for (let i = target.auras.length - 1; i >= 0 && amount > 0; i--) {
@@ -4167,6 +4185,18 @@ export class Sim {
         id: `silence_${mob.templateId}`, name: silence.name, kind: 'silence',
         remaining: silence.duration, duration: silence.duration, value: 0,
         sourceId: mob.id, school: (silence.school ?? 'shadow') as Aura['school'],
+      });
+    }
+    // Find Weakness: a landed hit can leave the victim's flesh exposed, so the
+    // next critical hits against them bite deeper. Hostile + player-only, like the
+    // other on-hit debuffs, so a friendly pet (mobSwing's other caller) never marks
+    // the party.
+    const cv = MOBS[mob.templateId]?.critVuln;
+    if (cv && mob.hostile && target.kind === 'player' && !target.dead && this.rng.chance(cv.chance)) {
+      this.applyAura(target, {
+        id: `critvuln_${mob.templateId}`, name: cv.name, kind: 'critvuln',
+        remaining: cv.duration, duration: cv.duration, value: cv.critDamage,
+        sourceId: mob.id, school: (cv.school ?? 'physical') as Aura['school'],
       });
     }
     // thorns / lightning shield on the defender
