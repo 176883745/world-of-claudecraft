@@ -918,7 +918,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   "itemUi.stats.critChance": "Prob. critico",
   "itemUi.stats.dodge": "Schivata",
   "itemUi.tooltip.qualityKind": "{kind} {quality}",
-  "itemUi.tooltip.damageSpeed": "{min} - {max} danni  Velocità {speed}",
+  "itemUi.tooltip.damageSpeed": "{min} - {max} danni Velocità {speed}",
   "itemUi.tooltip.dps": "({dps} danni al secondo)",
   "itemUi.tooltip.dagger": "Pugnale",
   "itemUi.tooltip.armorStat": "{value} armatura",

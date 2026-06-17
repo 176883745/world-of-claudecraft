@@ -932,7 +932,7 @@ describe("i18n Localization Key Coverage", () => {
       ["ko_KR", "q_necromancers", "completion", "십일조"],
       ["ja_JP", "q_mistcaller", "text", "百人"],
       ["pt_BR", "q_drogmar", "completion", "comprou um inverno"],
-      ["ru_RU", "q_gravewyrm", "text", "полупроснувшийся Wyrm"],
+      ["ru_RU", "q_gravewyrm", "text", "полупроснувшийся Вирм"],
     ];
 
     for (const [lang, questId, field, expected] of expectations) {
@@ -941,6 +941,31 @@ describe("i18n Localization Key Coverage", () => {
     }
 
     setLanguage("en");
+  });
+
+  // Regression: the gravewyrm-arc lore creature "the Wyrm" was once left as the raw
+  // Latin word inside translated quest prose in every non-Latin-script locale, even
+  // though those locales localize "wyrm" in every item/mob/dungeon name. Release-tier
+  // only: a PR-tier English-filled overlay legitimately contains the English word.
+  it.runIf(RELEASE_TIER)("keeps non-Latin-script quest narratives free of the raw-Latin 'Wyrm'", () => {
+    const nonLatin: Record<string, typeof en> = { zh_CN, zh_TW, ja_JP, ko_KR, ru_RU };
+    const collectStrings = (node: unknown, trail: string, out: Array<[string, string]>): void => {
+      if (typeof node === "string") {
+        out.push([trail, node]);
+      } else if (node && typeof node === "object") {
+        for (const [k, v] of Object.entries(node as Record<string, unknown>)) {
+          collectStrings(v, trail ? `${trail}.${k}` : k, out);
+        }
+      }
+    };
+    for (const [lang, data] of Object.entries(nonLatin)) {
+      const quests = (data as { entities?: { quests?: unknown } }).entities?.quests ?? {};
+      const strings: Array<[string, string]> = [];
+      collectStrings(quests, "entities.quests", strings);
+      for (const [where, value] of strings) {
+        expect(/wyrm/i.test(value), `${lang}.${where} leaks raw-Latin "Wyrm" (should be localized): ${value}`).toBe(false);
+      }
+    }
   });
 
   it("should keep Traditional Chinese world content out of Simplified-only shortcuts", () => {

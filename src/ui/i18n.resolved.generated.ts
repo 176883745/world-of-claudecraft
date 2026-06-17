@@ -1103,7 +1103,7 @@ export const en: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",
-      "damageSpeed": "{min} - {max} Damage  Speed {speed}",
+      "damageSpeed": "{min} - {max} Damage Speed {speed}",
       "dps": "({dps} damage per second)",
       "dagger": "Dagger",
       "armorStat": "{value} Armor",
@@ -4637,7 +4637,7 @@ export const es: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",
-      "damageSpeed": "{min} - {max} de daño  Velocidad {speed}",
+      "damageSpeed": "{min} - {max} de daño Velocidad {speed}",
       "dps": "({dps} de daño por segundo)",
       "dagger": "Daga",
       "armorStat": "{value} de armadura",
@@ -8171,7 +8171,7 @@ export const es_ES: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",
-      "damageSpeed": "{min} - {max} de daño  Velocidad {speed}",
+      "damageSpeed": "{min} - {max} de daño Velocidad {speed}",
       "dps": "({dps} de daño por segundo)",
       "dagger": "Daga",
       "armorStat": "{value} de armadura",
@@ -11705,7 +11705,7 @@ export const fr_FR: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",
-      "damageSpeed": "{min} - {max} points de dégâts  Vitesse {speed}",
+      "damageSpeed": "{min} - {max} points de dégâts Vitesse {speed}",
       "dps": "({dps} dégâts par seconde)",
       "dagger": "Dague",
       "armorStat": "{value} armure",
@@ -15239,7 +15239,7 @@ export const fr_CA: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",
-      "damageSpeed": "{min} - {max} points de dégâts  Vitesse {speed}",
+      "damageSpeed": "{min} - {max} points de dégâts Vitesse {speed}",
       "dps": "({dps} dégâts par seconde)",
       "dagger": "Dague",
       "armorStat": "{value} armure",
@@ -18773,7 +18773,7 @@ export const en_CA: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",
-      "damageSpeed": "{min} - {max} Damage  Speed {speed}",
+      "damageSpeed": "{min} - {max} Damage Speed {speed}",
       "dps": "({dps} damage per second)",
       "dagger": "Dagger",
       "armorStat": "{value} Armor",
@@ -22307,7 +22307,7 @@ export const it_IT: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",
-      "damageSpeed": "{min} - {max} danni  Velocità {speed}",
+      "damageSpeed": "{min} - {max} danni Velocità {speed}",
       "dps": "({dps} danni al secondo)",
       "dagger": "Pugnale",
       "armorStat": "{value} armatura",
@@ -25841,7 +25841,7 @@ export const de_DE: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",
-      "damageSpeed": "{min} - {max} Schaden  Tempo {speed}",
+      "damageSpeed": "{min} - {max} Schaden Tempo {speed}",
       "dps": "({dps} Schaden pro Sekunde)",
       "dagger": "Dolch",
       "armorStat": "{value} Rüstung",
@@ -29375,7 +29375,7 @@ export const zh_CN: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality}{kind}",
-      "damageSpeed": "{min} - {max} 伤害  速度 {speed}",
+      "damageSpeed": "{min} - {max} 伤害 速度 {speed}",
       "dps": "（每秒 {dps} 伤害）",
       "dagger": "匕首",
       "armorStat": "{value} 护甲",
@@ -31326,7 +31326,7 @@ export const zh_CN: EnTranslations = {
       "q_mistcaller": {
         "title": "唤雾者",
         "text": "维尔在堡垒底部等待，他的声音淹死百名旅人来筑军。带四名同伴，终结他，{playerName}。",
-        "completion": "维尔死了，雾第一次散开。但他的遗言让我血冷：{playerName}，Wyrm在群峰下苏醒。",
+        "completion": "维尔死了，雾第一次散开。但他的遗言让我血冷：{playerName}，墓龙在群峰下苏醒。",
         "objectives": {
           "0": {
             "label": "击败唤雾者维尔"
@@ -31335,7 +31335,7 @@ export const zh_CN: EnTranslations = {
       },
       "q_highwatch_summons": {
         "title": "群峰守望",
-        "text": "维尔的遗言仍在我耳边，{playerName}：Wyrm在群峰下苏醒。取下高望召令，告诉瑟萨莉我随后上山。",
+        "text": "维尔的遗言仍在我耳边，{playerName}：墓龙在群峰下苏醒。取下高望召令，告诉瑟萨莉我随后上山。",
         "completion": "奥德里克的消息传得很远。若他亲自上山，事情就和我担心的一样糟。{playerName}，欢迎来到高望。",
         "objectives": {
           "0": {
@@ -31396,7 +31396,7 @@ export const zh_CN: EnTranslations = {
       "q_ogre_totems": {
         "title": "战争图腾",
         "text": "食人魔在营地周围竖起皮与颅骨的图腾，那是集结，不是劫掠。拆下6个带回来。当心外围的碾压者，{playerName}。",
-        "completion": "颅骨、兽皮...还有Wyrm鳞绑带。这些图腾是邪教送的礼，{playerName}。",
+        "completion": "颅骨、兽皮...还有墓龙鳞绑带。这些图腾是邪教送的礼，{playerName}。",
         "objectives": {
           "0": {
             "label": "食人魔战争图腾"
@@ -31575,7 +31575,7 @@ export const zh_CN: EnTranslations = {
       "q_velkhar": {
         "title": "大死灵法师",
         "text": "我们追踪的每条线，莫森、维尔、护命匣，都由一只手编织：大死灵法师维尔卡。终结他，{playerName}。",
-        "completion": "维尔卡死了，仪式失去了头。但你也感觉到了吧？灵魂已经耗尽，Wyrm不再沉睡。",
+        "completion": "维尔卡死了，仪式失去了头。但你也感觉到了吧？灵魂已经耗尽，墓龙不再沉睡。",
         "objectives": {
           "0": {
             "label": "击败大死灵法师维尔卡"
@@ -31584,7 +31584,7 @@ export const zh_CN: EnTranslations = {
       },
       "q_gravewyrm": {
         "title": "墓龙科祖尔",
-        "text": "没有仪式可阻止了，{playerName}，只剩半醒的Wyrm，吞食了谷地和湿地的死者。带同伴进洞，完成我们从礼拜堂开始的事。",
+        "text": "没有仪式可阻止了，{playerName}，只剩半醒的墓龙，吞食了谷地和湿地的死者。带同伴进洞，完成我们从礼拜堂开始的事。",
         "completion": "结束了。三地死者得以安息，山也不再被鬼魂惊扰——今晚从这里到东溪，每一口钟鸣响的，都是你的名字，{playerName}。",
         "objectives": {
           "0": {
@@ -31978,7 +31978,7 @@ export const zh_TW: EnTranslations = {
   "news": {
     "title": "新聞與更新說明",
     "desc": "閱讀最新修補程式說明、遊戲內事件和社群動態。",
-    "loading": "正在載入最新更新…",
+    "loading": "正在載入最新更新...",
     "error": "無法載入更新。請稍後再試。",
     "empty": "目前尚無更新，敬請期待。",
     "prerelease": "搶先版",
@@ -32909,7 +32909,7 @@ export const zh_TW: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality}{kind}",
-      "damageSpeed": "{min} - {max} 傷害  速度 {speed}",
+      "damageSpeed": "{min} - {max} 傷害 速度 {speed}",
       "dps": "（每秒 {dps} 傷害）",
       "dagger": "匕首",
       "armorStat": "{value} 護甲",
@@ -34860,7 +34860,7 @@ export const zh_TW: EnTranslations = {
       "q_mistcaller": {
         "title": "喚霧者",
         "text": "維爾在堡壘底部等待，他的聲音淹死百名旅人來築軍。帶四名同伴，終結他，{playerName}。",
-        "completion": "維爾死了，霧第一次散開。但他的遺言讓我血冷：Wyrm在群峰下甦醒。教派侍奉的東西比我們猜想的更古老，{playerName}。",
+        "completion": "維爾死了，霧第一次散開。但他的遺言讓我血冷：墓龍在群峰下甦醒。教派侍奉的東西比我們猜想的更古老，{playerName}。",
         "objectives": {
           "0": {
             "label": "擊敗喚霧者維爾"
@@ -34869,7 +34869,7 @@ export const zh_TW: EnTranslations = {
       },
       "q_highwatch_summons": {
         "title": "群峰守望",
-        "text": "維爾的遺言仍在我耳邊，{playerName}：Wyrm在群峰下甦醒。取下高望召令，告訴瑟薩莉我隨後上山。",
+        "text": "維爾的遺言仍在我耳邊，{playerName}：墓龍在群峰下甦醒。取下高望召令，告訴瑟薩莉我隨後上山。",
         "completion": "奧德里克的消息傳得很遠。若他親自上山，事情就和我擔心的一樣糟。歡迎來到高望，{playerName}。",
         "objectives": {
           "0": {
@@ -34930,7 +34930,7 @@ export const zh_TW: EnTranslations = {
       "q_ogre_totems": {
         "title": "戰爭圖騰",
         "text": "食人魔在營地周圍豎起皮與顱骨的圖騰，那是集結，不是劫掠。拆下6個帶回來。小心外圍的碾壓者，{playerName}。",
-        "completion": "顱骨、獸皮...還有Wyrm鱗綁帶。這些圖騰是邪教送的禮，{playerName}。",
+        "completion": "顱骨、獸皮...還有墓龍鱗綁帶。這些圖騰是邪教送的禮，{playerName}。",
         "objectives": {
           "0": {
             "label": "食人魔戰爭圖騰"
@@ -35109,7 +35109,7 @@ export const zh_TW: EnTranslations = {
       "q_velkhar": {
         "title": "大死靈法師",
         "text": "我們追蹤的每條線，莫森、維爾、護命匣，都由一隻手編織：大死靈法師維爾卡。終結他，{playerName}。",
-        "completion": "維爾卡死了，儀式失去了頭。但你也感覺到了吧？靈魂已經耗盡，Wyrm不再沉睡。",
+        "completion": "維爾卡死了，儀式失去了頭。但你也感覺到了吧？靈魂已經耗盡，墓龍不再沉睡。",
         "objectives": {
           "0": {
             "label": "擊敗大死靈法師維爾卡"
@@ -35118,7 +35118,7 @@ export const zh_TW: EnTranslations = {
       },
       "q_gravewyrm": {
         "title": "墓龍科祖爾",
-        "text": "沒有儀式可阻止了，{playerName}，只剩半醒的Wyrm，吞食了谷地和濕地的死者。帶同伴進洞，完成我們從禮拜堂開始的事。",
+        "text": "沒有儀式可阻止了，{playerName}，只剩半醒的墓龍，吞食了谷地和濕地的死者。帶同伴進洞，完成我們從禮拜堂開始的事。",
         "completion": "結束了。三地死者得以安息，山也不再被鬼魂驚擾，今晚每一口鐘鳴響的，都是你的名字，{playerName}。",
         "objectives": {
           "0": {
@@ -35381,7 +35381,7 @@ export const ko_KR: EnTranslations = {
       "subtitle": "누적 경험치",
       "rank": "순위",
       "name": "이름",
-      "realmCol": "서버",
+      "realmCol": "렐름",
       "level": "레벨",
       "vlevel": "가상",
       "lifetimeXp": "누적 경험치",
@@ -36443,7 +36443,7 @@ export const ko_KR: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",
-      "damageSpeed": "{min} - {max} 피해  속도 {speed}",
+      "damageSpeed": "{min} - {max} 피해 속도 {speed}",
       "dps": "(초당 피해 {dps})",
       "dagger": "단검",
       "armorStat": "방어도 {value}",
@@ -38394,7 +38394,7 @@ export const ko_KR: EnTranslations = {
       "q_mistcaller": {
         "title": "안개부름",
         "text": "바엘은 요새 밑바닥에서 기다립니다. 백 명의 여행자를 익사시켜 군대를 만든 목소리입니다. 그를 끝내십시오, {playerName}이여. 네 동료와 함께라면 습지의 죽은 자들도 마침내 잠들 것입니다.",
-        "completion": "바엘은 죽었고 안개가 걷힙니다. 그러나 마지막 말이 피를 얼립니다. Wyrm이 봉우리 아래서 꿈틀댄다고 했습니다. {playerName}이여, 할 수 있을 때 쉬십시오. 다음은 산입니다.",
+        "completion": "바엘은 죽었고 안개가 걷힙니다. 그러나 마지막 말이 피를 얼립니다. 고룡이 봉우리 아래서 꿈틀댄다고 했습니다. {playerName}이여, 할 수 있을 때 쉬십시오. 다음은 산입니다.",
         "objectives": {
           "0": {
             "label": "안개부름 바엘 처치"
@@ -38464,7 +38464,7 @@ export const ko_KR: EnTranslations = {
       "q_ogre_totems": {
         "title": "전쟁 토템",
         "text": "오우거들은 가죽과 해골 토템을 세웠습니다. 약탈이 아니라 소집의 표식입니다. 6개를 쓰러뜨려 가져오십시오. 외곽의 분쇄자들을 조심하십시오, {playerName}이여.",
-        "completion": "해골, 가죽... 그리고 Wyrm 비늘 끈입니다. 교단의 선물입니다, {playerName}.",
+        "completion": "해골, 가죽... 그리고 고룡 비늘 끈입니다. 교단의 선물입니다, {playerName}.",
         "objectives": {
           "0": {
             "label": "오우거 전쟁 토템"
@@ -38599,7 +38599,7 @@ export const ko_KR: EnTranslations = {
       },
       "q_breaking_the_seal": {
         "title": "봉인 깨기",
-        "text": "성소의 봉인은 산불로 빚어졌습니다. 같은 불만이 찢지 않고 길을 엽니다. {playerName}이여, 축복받은 불씨 5개를 가져오십시오. 교단이 먼저 문을 열면 조심하지 않을 것이고, Wyrm은 곱게 깨어나지 않을 테니.",
+        "text": "성소의 봉인은 산불로 빚어졌습니다. 같은 불만이 찢지 않고 길을 엽니다. {playerName}이여, 축복받은 불씨 5개를 가져오십시오. 교단이 먼저 문을 열면 조심하지 않을 것이고, 고룡은 곱게 깨어나지 않을 테니.",
         "completion": "푸르고 맑게 탑니다. 산은 오래된 맹세를 기억합니다.",
         "objectives": {
           "0": {
@@ -38643,7 +38643,7 @@ export const ko_KR: EnTranslations = {
       "q_velkhar": {
         "title": "대강령술사",
         "text": "모르덴, 바엘, 성물함까지 모든 실은 대강령술사 벨카르가 엮었습니다. 그를 끝내십시오, {playerName}.",
-        "completion": "벨카르는 죽었고 의식은 머리를 잃었습니다. 하지만 느꼈겠지요. Wyrm은 더 이상 잠들지 않습니다.",
+        "completion": "벨카르는 죽었고 의식은 머리를 잃었습니다. 하지만 느꼈겠지요. 고룡은 더 이상 잠들지 않습니다.",
         "objectives": {
           "0": {
             "label": "대강령술사 벨카르 처치"
@@ -38652,7 +38652,7 @@ export const ko_KR: EnTranslations = {
       },
       "q_gravewyrm": {
         "title": "무덤고룡 코르줄",
-        "text": "멈출 의식은 없습니다, {playerName}. 반쯤 깬 Wyrm뿐입니다. 동료들과 들어가 예배당에서 시작한 일을 끝내십시오.",
+        "text": "멈출 의식은 없습니다, {playerName}. 반쯤 깬 고룡뿐입니다. 동료들과 들어가 예배당에서 시작한 일을 끝내십시오.",
         "completion": "끝났습니다. 세 땅의 죽은 자들이 쉬고 산은 혼령 없이 잠듭니다. 오늘 밤 여기서 이스트브룩까지 모든 종이 울리는 것은 바로 그대의 이름입니다, {playerName}이여.",
         "objectives": {
           "0": {
@@ -39977,7 +39977,7 @@ export const ja_JP: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",
-      "damageSpeed": "{min} - {max} ダメージ  速度 {speed}",
+      "damageSpeed": "{min} - {max} ダメージ 速度 {speed}",
       "dps": "（秒間 {dps} ダメージ）",
       "dagger": "短剣",
       "armorStat": "防御力 {value}",
@@ -41928,7 +41928,7 @@ export const ja_JP: EnTranslations = {
       "q_mistcaller": {
         "title": "霧呼び",
         "text": "ヴァエルは砦の底にいます。百人を溺れさせ、軍を作った声です。四人の仲間と終わらせてください、{playerName}。",
-        "completion": "ヴァエルは死に、霧は晴れています。だが最後の言葉は血を凍らせます。Wyrmが峰の下で動く、と。{playerName}、今のうちに休んでください。次は山です。",
+        "completion": "ヴァエルは死に、霧は晴れています。だが最後の言葉は血を凍らせます。ワームが峰の下で動く、と。{playerName}、今のうちに休んでください。次は山です。",
         "objectives": {
           "0": {
             "label": "霧呼びのヴァエルを討伐"
@@ -41998,7 +41998,7 @@ export const ja_JP: EnTranslations = {
       "q_ogre_totems": {
         "title": "戦のトーテム",
         "text": "オーガは皮と頭蓋のトーテムを立てました。襲撃ではなく集結の印です。6つ倒して持ち帰ってください。{playerName}、周囲の粉砕者に気をつけて。",
-        "completion": "頭蓋、皮...そしてWyrmの鱗の結び。教団の贈り物です、{playerName}。",
+        "completion": "頭蓋、皮...そしてワームの鱗の結び。教団の贈り物です、{playerName}。",
         "objectives": {
           "0": {
             "label": "オーガ戦のトーテム"
@@ -42177,7 +42177,7 @@ export const ja_JP: EnTranslations = {
       "q_velkhar": {
         "title": "大死霊術師",
         "text": "モーセン、ヴァエル、経箱、すべての糸は大死霊術師ヴェルカーが紡ぎました。彼を終わらせてください、{playerName}。",
-        "completion": "ヴェルカーは死に、儀式は頭を失いました。けれど感じたでしょう。Wyrmはもう眠っていません。",
+        "completion": "ヴェルカーは死に、儀式は頭を失いました。けれど感じたでしょう。ワームはもう眠っていません。",
         "objectives": {
           "0": {
             "label": "大死霊術師ヴェルカーを討伐"
@@ -42186,7 +42186,7 @@ export const ja_JP: EnTranslations = {
       },
       "q_gravewyrm": {
         "title": "墓ワームのコルズル",
-        "text": "止める儀式はもうありません、{playerName}。半ば目覚めたWyrmだけです。仲間と入り、礼拝堂で始めたことを終わらせてください。",
+        "text": "止める儀式はもうありません、{playerName}。半ば目覚めたワームだけです。仲間と入り、礼拝堂で始めたことを終わらせてください。",
         "completion": "終わりました。三つの地の死者は休み、山は憑かれずに眠ります。{playerName}、今夜すべての鐘があなたの名を鳴らします。",
         "objectives": {
           "0": {
@@ -43511,7 +43511,7 @@ export const pt_BR: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",
-      "damageSpeed": "{min} - {max} de dano  Velocidade {speed}",
+      "damageSpeed": "{min} - {max} de dano Velocidade {speed}",
       "dps": "({dps} de dano por segundo)",
       "dagger": "Adaga",
       "armorStat": "{value} de armadura",
@@ -47045,7 +47045,7 @@ export const ru_RU: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",
-      "damageSpeed": "{min} - {max} урона  Скорость {speed}",
+      "damageSpeed": "{min} - {max} урона Скорость {speed}",
       "dps": "({dps} урона в секунду)",
       "dagger": "Кинжал",
       "armorStat": "{value} брони",
@@ -48996,7 +48996,7 @@ export const ru_RU: EnTranslations = {
       "q_mistcaller": {
         "title": "Зовущий Туман",
         "text": "Ваэль ждет на дне бастиона, голос, утопивший сотню путников ради армии. Возьмите четырех спутников, не меньше. Покончите с ним, {playerName}, и мертвецы топи наконец упокоятся.",
-        "completion": "Ваэль мертв, и туман поднимается. Но его последние слова леденят кровь: Wyrm шевелится под пиками. Секта служит чему-то древнее, чем мы думали, {playerName}.",
+        "completion": "Ваэль мертв, и туман поднимается. Но его последние слова леденят кровь: Вирм шевелится под пиками. Секта служит чему-то древнее, чем мы думали, {playerName}.",
         "objectives": {
           "0": {
             "label": "Ваэль Зовущий Туман: убито"
@@ -49066,7 +49066,7 @@ export const ru_RU: EnTranslations = {
       "q_ogre_totems": {
         "title": "Тотемы войны",
         "text": "Огры подняли тотемы из кожи и черепов: знак сбора, не набега. Сорвите 6 и принесите мне. Берегитесь дробителей по периметру, {playerName}.",
-        "completion": "Черепа, кожа... и перевязи из чешуи Wyrm. Подарки культа, {playerName}.",
+        "completion": "Черепа, кожа... и перевязи из чешуи Вирма. Подарки культа, {playerName}.",
         "objectives": {
           "0": {
             "label": "Боевой тотем огра"
@@ -49245,7 +49245,7 @@ export const ru_RU: EnTranslations = {
       "q_velkhar": {
         "title": "Верховный некромант",
         "text": "Мортен, Ваэль, филактерии - каждую нить сплел верховный некромант Велхар. Покончите с ним, {playerName}.",
-        "completion": "Велхар мертв, и обряд обезглавлен. Но вы почувствовали это: Wyrm больше не спит.",
+        "completion": "Велхар мертв, и обряд обезглавлен. Но вы почувствовали это: Вирм больше не спит.",
         "objectives": {
           "0": {
             "label": "Верховный некромант Велхар: убито"
@@ -49254,7 +49254,7 @@ export const ru_RU: EnTranslations = {
       },
       "q_gravewyrm": {
         "title": "Корзул Могильный Вирм",
-        "text": "Больше нет обряда, который можно остановить, {playerName}. Есть только полупроснувшийся Wyrm. Войдите со спутниками и завершите то, что началось у часовни.",
+        "text": "Больше нет обряда, который можно остановить, {playerName}. Есть только полупроснувшийся Вирм. Войдите со спутниками и завершите то, что началось у часовни.",
         "completion": "Все кончено. Мертвые трех земель покоятся, гора спит без призраков, и сегодня каждый колокол отсюда до Истбрука звонит твоим именем, {playerName}.",
         "objectives": {
           "0": {
@@ -50612,7 +50612,7 @@ export const en_XA: EnTranslations = {
     },
     "tooltip": {
       "qualityKind": "[{quality} {kind}]",
-      "damageSpeed": "[{min} - {max} Ðáɱáĝé  Šþééð {speed}]",
+      "damageSpeed": "[{min} - {max} Ðáɱáĝé Šþééð {speed}]",
       "dps": "[({dps} ðáɱáĝé þéŕ šéçóñð)]",
       "dagger": "[Ðáĝĝéŕ]",
       "armorStat": "[{value} Áŕɱóŕ]",

@@ -5437,7 +5437,7 @@ const itemStringsEn = {
     },
     tooltip: {
       qualityKind: "{quality} {kind}",
-      damageSpeed: "{min} - {max} Damage  Speed {speed}",
+      damageSpeed: "{min} - {max} Damage Speed {speed}",
       dps: "({dps} damage per second)",
       dagger: "Dagger",
       armorStat: "{value} Armor",

@@ -1373,7 +1373,7 @@ export const it_IT: AdminTranslations = {
   "online.colHp": "HP",
   "online.colSession": "Sessione",
   "online.colLastSave": "Ultimo salvataggio",
-  "online.colAcct": "Acct",
+  "online.colAcct": "Account",
   "common.ago": "{value} fa",
   "charts.registrations": "Registrazioni — ultimi {days} giorni",
   "charts.sessions": "Sessioni di gioco — ultimi {days} giorni",
