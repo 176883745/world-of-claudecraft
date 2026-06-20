@@ -305,6 +305,20 @@ function copyPos(dst: { x: number; y: number; z: number }, src: { x: number; y: 
 // graveyard release). Those are snapped, not interpolated — see applyWire.
 const TELEPORT_SNAP_DIST_SQ = 40 * 40;
 
+// Despawn grace (anti-flicker). The server keeps known entities in interest out
+// to a drop radius (100yd players / 130yd npcs) that is wider than the add
+// radius, but a wandering entity riding that boundary — or a single late or
+// dropped frame, or a distance-tier skip — can still fall out of one snapshot
+// without truly leaving. Deleting it that frame makes the renderer tear down and
+// rebuild its rig a frame later: a visible flash. Instead, hold a briefly-missing
+// entity at its last pose for this window before deleting it. Kept short so a
+// genuine leaver (logout, corpse cleanup) lingers only momentarily.
+const DESPAWN_GRACE_MS = 600;
+// ...but only for entities last seen near/beyond the interest boundary, where
+// that churn happens. A close-range disappearance is intentional (an enemy going
+// stealth) and must hide at once, so anything nearer than this drops immediately.
+const DESPAWN_GRACE_MIN_DIST_SQ = 70 * 70;
+
 function blankEntity(id: number): Entity {
   return {
     id, kind: 'mob', templateId: '', name: '', level: 1, mendTimer: 0, wardTimer: 0, rallyTimer: 0, warcryTimer: 0,
@@ -371,6 +385,9 @@ export class ClientWorld implements IWorld {
   // snapshot interpolation
   lastSnapAt = 0;
   snapInterval = 50; // ms, adapts to measured cadence
+  // entity id -> performance.now() when it first went missing from a snapshot;
+  // used for the despawn grace window (anti-flicker), cleared once it returns
+  private missingSince = new Map<number, number>();
   // camera follow for keyboard turns applied by the main loop
   pendingFacingDelta = 0;
   connected = false;
@@ -811,9 +828,35 @@ export class ClientWorld implements IWorld {
       }
     }
 
-    // prune entities that left our interest area
+    // prune entities that left our interest area. An entity briefly absent from
+    // a single snapshot (interest-boundary churn, a late/dropped frame, a
+    // distance-tier skip) is held at its last pose for a short grace window
+    // rather than deleted outright — deleting and re-creating it a frame later
+    // is what makes distant characters flash in and out. The grace applies only
+    // near/beyond the interest boundary, so a close-range disappearance (an
+    // enemy going stealth) still hides immediately.
+    const self = this.entities.get(this.playerId);
+    const missingSince = (this.missingSince ??= new Map<number, number>());
     for (const [id, e] of this.entities) {
-      if (!seen.has(id)) this.entities.delete(id);
+      if (id === this.playerId) continue;
+      if (seen.has(id)) {
+        missingSince.delete(id);
+        continue;
+      }
+      const dx = self ? e.pos.x - self.pos.x : 0;
+      const dz = self ? e.pos.z - self.pos.z : 0;
+      if (dx * dx + dz * dz < DESPAWN_GRACE_MIN_DIST_SQ) {
+        this.entities.delete(id);
+        missingSince.delete(id);
+        continue;
+      }
+      const since = missingSince.get(id);
+      if (since === undefined) {
+        missingSince.set(id, now);
+      } else if (now - since >= DESPAWN_GRACE_MS) {
+        this.entities.delete(id);
+        missingSince.delete(id);
+      }
     }
   }
 
