@@ -210,7 +210,6 @@ function compactRawSummary(value: Record<string, unknown>): Record<string, unkno
     'rendererFoliage',
     'rendererBudget',
     'rendererQualityBuckets',
-    'network',
     'input',
     'hud',
   ]) {

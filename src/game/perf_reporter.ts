@@ -275,7 +275,6 @@ function payloadFromSnapshot(
         preload: snapshot.assets.preload,
         byType: snapshot.assets.byType,
       },
-      network: snapshot.network,
       input: snapshot.input,
       hud: snapshot.hud,
       ...(snapshot.devTrace ? { devTrace: snapshot.devTrace } : {}),

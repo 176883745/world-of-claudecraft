@@ -573,7 +573,6 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
   let renderer!: Renderer;
   let hud!: Hud;
   const perf = createPerfMonitor(null);
-  online?.setTraceSink((name, startMs, durationMs, detail) => perf.markTraceSpan(name, startMs, durationMs, detail));
   try {
     renderer = new Renderer(world, canvas, nameplates);
     renderer.setAudioSink(sfx);
@@ -1293,8 +1292,8 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
     const netFacing = movementFacing ?? resolved.facing;
     Object.assign(net.moveInput, resolved.mi);
     net.setMouselookFacing(netFacing);
-    if (perf.trace('net.flushInput', () => net.flushInput(), { connected: net.connected })) perf.markInputSent(performance.now());
-    const echoSamples = perf.trace('net.consumeInputEcho', () => net.consumeInputEchoSamples());
+    if (net.flushInput()) perf.markInputSent(performance.now());
+    const echoSamples = net.consumeInputEchoSamples();
     for (const sample of echoSamples) {
       if (Number.isFinite(sample) && sample >= 0) {
         onlineInputEchoMs = onlineInputEchoMs === 0 ? sample : onlineInputEchoMs + 0.2 * (sample - onlineInputEchoMs);
@@ -1302,7 +1301,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
       perf.markInputEcho(sample);
     }
     net.pendingFacingDelta = 0; // superseded by the interpolated follow below
-    const drainedEvents = perf.trace('net.drainEvents', () => net.drainEvents());
+    const drainedEvents = net.drainEvents();
     perf.time('events', () => perf.trace('hud.handleEvents', () => hud.handleEvents(drainedEvents), {
       mode: 'online',
       events: drainedEvents.length,

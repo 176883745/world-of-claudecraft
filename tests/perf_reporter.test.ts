@@ -426,9 +426,9 @@ describe('perf reporter payload', () => {
         startMs: 1110,
         endMs: 1190,
         durationMs: 80,
-        name: 'net.applySnapshot',
+        name: 'renderer.sync',
         kind: 'external',
-        detail: { ents: 42 },
+        detail: { views: 42 },
       }],
       longTasks: [{
         startMs: 1100,
@@ -440,7 +440,7 @@ describe('perf reporter payload', () => {
         nearestFrameAtMs: 1200,
         nearestFrameMs: 80,
         nearestFrameDeltaMs: 65,
-        nearestSpanName: 'net.applySnapshot',
+        nearestSpanName: 'renderer.sync',
         nearestSpanMs: 80,
         nearestSpanDeltaMs: 0,
       }],
@@ -456,8 +456,8 @@ describe('perf reporter payload', () => {
       };
     };
     expect(rawSummary.devTrace.frames[0].renderer.calls).toBe(200);
-    expect(rawSummary.devTrace.spans[0].name).toBe('net.applySnapshot');
-    expect(rawSummary.devTrace.spans[0].detail?.ents).toBe(42);
+    expect(rawSummary.devTrace.spans[0].name).toBe('renderer.sync');
+    expect(rawSummary.devTrace.spans[0].detail?.views).toBe(42);
     expect(rawSummary.devTrace.longTasks[0].nearestFrameMs).toBe(80);
     expect((body.rawSummary as { rendererFoliage?: { grassVisibleChunks?: number } }).rendererFoliage?.grassVisibleChunks).toBe(42);
     expect((body.rawSummary as { rendererBudget?: { levels?: { grass?: number } } }).rendererBudget?.levels?.grass).toBe(1);
