@@ -2101,15 +2101,18 @@ async function refreshCharacters(): Promise<void> {
           $('#charselect-error').textContent = '';
           btn.disabled = true;
           try {
-            // Free the stale/other session, then enter on this character. The
-            // refresh is belt-and-suspenders: if entry is aborted the list now
-            // shows the character as offline and re-enterable.
+            // Free the stale/other session, then enter on this character.
+            // takeOverCharacter awaits the old session's leave() server-side, so
+            // the slot is free by the time enterWorld connects. Pass btn so
+            // enterWorld owns its loading/disabled state and restores it if entry
+            // is aborted before it begins; surface any failure via the catch.
             await api.takeoverCharacter(c.id);
-            await refreshCharacters();
-            void enterWorld({ ...c, online: false });
+            await enterWorld({ ...c, online: false }, btn);
           } catch (err) {
             btn.disabled = false;
             $('#charselect-error').textContent = userFacingApiError(err);
+            // Reflect any state change (e.g. a lost race) back into the list.
+            void refreshCharacters();
           }
         });
       } else {
