@@ -1351,6 +1351,7 @@ export const zh_TW: EnTranslations = {
         "unignoreChat": "取消封鎖聊天",
         "report": "檢舉玩家",
         "removeParty": "移出隊伍",
+        "convertToRaid": "轉換為團隊",
         "cancel": "取消"
       }
     },
@@ -1588,6 +1589,12 @@ export const zh_TW: EnTranslations = {
       "guildTab": "公會",
       "ignoreTab": "忽略",
       "leaveParty": "離開隊伍",
+      "raidTab": "團隊",
+      "raidEmpty": "將隊伍轉換為團隊後，可在這裡管理團隊分組。",
+      "raidGroupEmpty": "此小隊沒有玩家。",
+      "raidGroupTitle": "小隊 {position} ({count}/5)",
+      "raidMoveToGroup": "移動到小隊 {position}",
+      "raidLeader": "團隊領袖",
       "offlineEmpty": "好友、公會和忽略名單僅在線上遊戲中可用。",
       "friendsEmpty": "還沒有好友。請在下方按名稱搜尋。",
       "ignoreEmpty": "你的忽略名單是空的。",
@@ -1825,7 +1832,8 @@ export const zh_TW: EnTranslations = {
       "common": "普通",
       "uncommon": "優秀",
       "rare": "精良",
-      "epic": "史詩"
+      "epic": "史詩",
+      "legendary": "傳說"
     },
     "kind": {
       "weapon": "武器",
@@ -3532,6 +3540,36 @@ export const zh_TW: EnTranslations = {
       "event_skin_token": {
         "name": "神秘外觀寶箱"
       },
+      "deathless_heartwood": {
+        "name": "不朽王冠之心木"
+      },
+      "kingsbane_last_oath": {
+        "name": "弒王者，Thornpeak 最後的誓言"
+      },
+      "crownforged_dreadhelm": {
+        "name": "鑄冠恐懼頭盔"
+      },
+      "crownforged_warspaulders": {
+        "name": "鑄冠戰肩甲"
+      },
+      "nighttalon_crown": {
+        "name": "夜爪之冠"
+      },
+      "nighttalon_shoulderguards": {
+        "name": "夜爪護肩"
+      },
+      "soulflame_cowl": {
+        "name": "魂焰兜帽"
+      },
+      "soulflame_mantle": {
+        "name": "魂焰披肩"
+      },
+      "stormcallers_crown": {
+        "name": "喚雷者之冠"
+      },
+      "stormcallers_spaulders": {
+        "name": "喚雷者肩甲"
+      },
       "unknown_alien_weaponry": {
         "name": "未知異星武器"
       },
@@ -3746,6 +3784,12 @@ export const zh_TW: EnTranslations = {
       },
       "bound_guardian": {
         "name": "受縛守衛者"
+      },
+      "nythraxis_skeleton_warrior": {
+        "name": "復甦王室衛兵"
+      },
+      "nythraxis_scourge_of_thornpeak": {
+        "name": "尼瑟拉克斯，荊峰之災"
       },
       "brightwood_hare": {
         "name": "明木野兔"
@@ -3998,6 +4042,11 @@ export const zh_TW: EnTranslations = {
         "name": "巡林員艾爾溫",
         "title": "林地守護",
         "greeting": "安靜點，{className}，今天林地很平靜，我打算讓它一直這樣。"
+      },
+      "brother_aldric_raid": {
+        "name": "奧德里克修士",
+        "title": "山谷牧師",
+        "greeting": "從禮拜堂墓地到世界屋脊... 線索到這裡結束。我感覺山正在聆聽。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德瑞爾·韋恩",
@@ -4738,6 +4787,16 @@ export const zh_TW: EnTranslations = {
           }
         }
       },
+      "q_nythraxis_scourges_end": {
+        "title": "天譴終結",
+        "text": "印戒已經打開道路，{playerName}，但敞開的陵墓還不是勝利。尼思拉克西斯曾是國王，而索恩峰地下的廢墟仍受他的意志束縛。帶上值得信任的盟友進入墓穴。在那不死王冠的命令傳到上方戰場之前，將它擊碎。",
+        "completion": "王冠終於沉默了。索恩峰仍會背負它的亡者，但山下再沒有國王能召他們重返戰爭。你完成了奧德倫、馬爾里克和沃斯只能暫時封住的事。",
+        "objectives": {
+          "0": {
+            "label": "擊敗尼思拉克西斯"
+          }
+        }
+      },
       "q_brightwood_thinning": {
         "title": "疏減林地",
         "text": "明木林地已經氾濫成災了，{playerName}。棘叢猞猁繁衍的速度比我能撲滅牠們的還快，獸群又踐踏了所剩無幾的牧草。擊殺8隻棘叢猞猁，並帶6張林間獸皮回來，好讓我判斷其餘獸群的健康狀況。",
@@ -5071,6 +5130,11 @@ export const zh_TW: EnTranslations = {
       "nythraxis_crypt": {
         "name": "廢棄墓穴",
         "enterText": "你跨過廢棄墓穴的門檻。",
+        "leaveText": "你回到荊峰的寒冷空氣中。"
+      },
+      "nythraxis_boss_arena": {
+        "name": "尼瑟拉克斯團隊競技場",
+        "enterText": "你穿過封印的王室之門。",
         "leaveText": "你回到荊峰的寒冷空氣中。"
       },
       "drowned_temple": {

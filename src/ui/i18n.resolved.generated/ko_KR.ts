@@ -1351,6 +1351,7 @@ export const ko_KR: EnTranslations = {
         "unignoreChat": "채팅 차단 해제",
         "report": "플레이어 신고",
         "removeParty": "파티에서 제거",
+        "convertToRaid": "공격대로 전환",
         "cancel": "취소"
       }
     },
@@ -1588,6 +1589,12 @@ export const ko_KR: EnTranslations = {
       "guildTab": "길드",
       "ignoreTab": "차단",
       "leaveParty": "파티 떠나기",
+      "raidTab": "공격대",
+      "raidEmpty": "파티를 공격대로 전환하면 여기에서 공격대 조를 관리할 수 있습니다.",
+      "raidGroupEmpty": "이 조에는 플레이어가 없습니다.",
+      "raidGroupTitle": "{position}조 ({count}/5)",
+      "raidMoveToGroup": "{position}조로 이동",
+      "raidLeader": "공격대장",
       "offlineEmpty": "친구, 길드, 차단 목록은 온라인 플레이에서 사용할 수 있습니다.",
       "friendsEmpty": "아직 친구가 없습니다. 아래에서 이름으로 검색하세요.",
       "ignoreEmpty": "차단 목록이 비어 있습니다.",
@@ -1825,7 +1832,8 @@ export const ko_KR: EnTranslations = {
       "common": "일반",
       "uncommon": "고급",
       "rare": "희귀",
-      "epic": "영웅"
+      "epic": "영웅",
+      "legendary": "전설"
     },
     "kind": {
       "weapon": "무기",
@@ -3532,6 +3540,36 @@ export const ko_KR: EnTranslations = {
       "event_skin_token": {
         "name": "신비한 외형 상자"
       },
+      "deathless_heartwood": {
+        "name": "죽지 않는 왕관의 심재"
+      },
+      "kingsbane_last_oath": {
+        "name": "왕살해자, 손피크의 마지막 맹세"
+      },
+      "crownforged_dreadhelm": {
+        "name": "왕관벼림 공포투구"
+      },
+      "crownforged_warspaulders": {
+        "name": "왕관벼림 전쟁 어깨갑옷"
+      },
+      "nighttalon_crown": {
+        "name": "밤발톱 왕관"
+      },
+      "nighttalon_shoulderguards": {
+        "name": "밤발톱 어깨수호대"
+      },
+      "soulflame_cowl": {
+        "name": "영혼불꽃 두건"
+      },
+      "soulflame_mantle": {
+        "name": "영혼불꽃 어깨덮개"
+      },
+      "stormcallers_crown": {
+        "name": "폭풍소환사의 관"
+      },
+      "stormcallers_spaulders": {
+        "name": "폭풍소환사의 어깨갑옷"
+      },
       "unknown_alien_weaponry": {
         "name": "알 수 없는 외계 무기"
       },
@@ -3746,6 +3784,12 @@ export const ko_KR: EnTranslations = {
       },
       "bound_guardian": {
         "name": "속박된 수호자"
+      },
+      "nythraxis_skeleton_warrior": {
+        "name": "되살아난 왕실 근위병"
+      },
+      "nythraxis_scourge_of_thornpeak": {
+        "name": "나이트락시스, 손피크의 재앙"
       },
       "brightwood_hare": {
         "name": "브라이트우드 산토끼"
@@ -3998,6 +4042,11 @@ export const ko_KR: EnTranslations = {
         "name": "순찰병 엘윈",
         "title": "숲의 수호인",
         "greeting": "조용히 하게, {className} - 오늘 숲은 고요하고, 나는 그대로 지킬 생각이네."
+      },
+      "brother_aldric_raid": {
+        "name": "알드릭 수사",
+        "title": "계곡의 사제",
+        "greeting": "예배당 묘지에서 세상의 지붕까지... 흔적은 여기서 끝납니다. 산이 듣고 있음을 느낍니다."
       },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",
@@ -4738,6 +4787,16 @@ export const ko_KR: EnTranslations = {
           }
         }
       },
+      "q_nythraxis_scourges_end": {
+        "title": "스컬지의 끝",
+        "text": "인장 반지가 길을 열었습니다, {playerName}. 하지만 열린 무덤이 승리는 아닙니다. 니트락시스는 한때 왕이었고, 손피크 아래의 폐허는 아직도 그의 의지에 묶여 있습니다. 믿을 수 있는 동료들과 함께 묘실로 들어가십시오. 그 죽지 않는 왕관의 명령이 위의 전장에 닿기 전에 부수어야 합니다.",
+        "completion": "마침내 왕관이 침묵했습니다. 손피크는 여전히 죽은 이들을 품겠지만, 산 아래의 어떤 왕도 다시 그들을 전쟁으로 부르지 못할 것입니다. 당신은 알드렌과 말릭, 보스가 겨우 억눌렀던 일을 끝냈습니다.",
+        "objectives": {
+          "0": {
+            "label": "니트락시스 처치"
+          }
+        }
+      },
       "q_brightwood_thinning": {
         "title": "숲 솎아내기",
         "text": "브라이트우드 숲이 들끓고 있네, {playerName}. 가시덤불 살쾡이는 내가 솎아내는 속도보다 빨리 번식하고, 무리는 얼마 남지 않은 풀밭마저 짓밟고 있어. 가시덤불 살쾡이 8마리를 처치하고 숲속 가죽 6장을 가져오게. 나머지 무리의 상태를 가늠해 보겠네.",
@@ -5071,6 +5130,11 @@ export const ko_KR: EnTranslations = {
       "nythraxis_crypt": {
         "name": "버려진 납골당",
         "enterText": "버려진 납골당의 문턱을 넘습니다.",
+        "leaveText": "Thornpeak의 차가운 공기 속으로 돌아옵니다."
+      },
+      "nythraxis_boss_arena": {
+        "name": "니트락시스 공격대 투기장",
+        "enterText": "봉인된 왕실 문을 지나갑니다.",
         "leaveText": "Thornpeak의 차가운 공기 속으로 돌아옵니다."
       },
       "drowned_temple": {

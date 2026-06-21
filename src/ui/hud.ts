@@ -1,6 +1,7 @@
 import type { ResolvedAbility } from '../sim/sim';
 import { OVERHEAD_EMOTES, isOverheadEmoteId, type ArenaFormat, type FriendInfo, type IWorld, type LeaderboardEntry, type MarketInfo, type OverheadEmoteId } from '../world_api';
 import { Renderer } from '../render/renderer';
+import { castBarState } from '../render/cast_bar';
 import { CharacterPreview } from '../render/characters';
 import { portraitChipHtml, hydratePortraits } from './portrait_chip';
 import { playerPortraitDataUrl, visualPortraitDataUrl, onPortraitsReady } from '../render/characters/portrait';
@@ -18,6 +19,7 @@ import { EVENT_SKIN_TIERS, MECH_CHROMAS, SKIN_RANKS, skinRankOrder, type SkinTie
 import {
   AbilityEffect, CONSUME_DURATION, Entity, FISHING_CAST_ID, GCD, ItemDef, SimEvent,
   dist2d, xpForLevel, MAX_LEVEL, MELEE_RANGE, MILESTONES, virtualLevel, canPrestige, xpUntilNextPrestige,
+  isQuestTurnInNpc,
 } from '../sim/types';
 import { xpBarView, formatXp } from './xp_bar';
 import { lowHealthVignette } from './low_health';
@@ -41,11 +43,13 @@ import { TutorialOverlay } from './tutorial';
 import { audio } from '../game/audio';
 import { sfx } from '../game/sfx';
 import { voice } from '../game/voice';
-import { music, musicZoneForLocation } from '../game/music';
+import { music, musicZoneForLocation, shouldResetMusicForDungeonEntry } from '../game/music';
 import { iconDataUrl, QUALITY_COLOR, raidMarkerDataUrl, RAID_MARKER_NAMES } from './icons';
 import { UnitPortraitPainter } from './unit_portrait_painter';
 import { crestIdForEntity } from './unit_portrait';
 import { svgIcon } from './ui_icons';
+import { shouldPlayCombatImpactForTarget, shouldPlayCritSfxForTarget, shouldPlayMobVoiceSfxForEntity } from './combat_sfx';
+import { nextVoicedYell, voicedYellGain, type VoicedYellState } from './voice_events';
 import { walletDisplayAvailable, walletUiEnabled, wocBalance, wocBalanceVerified, verifiedWocBalance, onWalletUiChange } from './wallet_balance';
 import {
   renderPlayerCardCanvas, cardCanvasToBlob, cardCanvasToUploadBlob, CARD_POSES,
@@ -82,6 +86,7 @@ import { tEntity } from './entity_i18n';
 import { localizeServerText, localizeZone } from './server_i18n';
 import { localizeSimText, localizeSimAuraName } from './sim_i18n';
 import { tTalent, localizeTalentTitle } from './talent_i18n';
+import { armorTypeForItem, weaponArchetypeForItem } from '../sim/equipment_rules';
 import { type ChatClock, clampChatClock, formatChatTimestamp } from './chat_timestamp';
 import {
   talentsFor, computeTalentModifiers, validateAllocation, dormantNodes, pointsSpent,
@@ -214,6 +219,7 @@ const ITEM_QUALITY_LABEL_KEYS: Record<ItemQuality, TranslationKey> = {
   uncommon: 'itemUi.quality.uncommon',
   rare: 'itemUi.quality.rare',
   epic: 'itemUi.quality.epic',
+  legendary: 'itemUi.quality.legendary',
 };
 const ITEM_KIND_LABEL_KEYS: Record<ItemDef['kind'], TranslationKey> = {
   weapon: 'itemUi.kind.weapon',
@@ -363,6 +369,17 @@ function weaponSwingKey(cls: string): string {
   }
 }
 
+// Stable voice-clip key for a spoken yell line. MUST match the generator slug in
+// scripts/voices/extra_lines.mjs (yellKey) so encounter dialogue (e.g. the
+// Nythraxis raid) plays the right clip from the live chat event text.
+function yellVoiceKey(text: string): string {
+  return 'yell__' + text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 60);
+}
+
 export class Hud {
   private static readonly BAR_ABILITY_SLOTS = 11; // bar slots 1..11; slot 0 is the fixed Attack toggle
   private static readonly FORM_TOGGLE_IDS = new Set(['bear_form', 'cat_form']); // shift toggles, castable in any form
@@ -391,6 +408,7 @@ export class Hud {
   private emoteWheelEl: HTMLDivElement | null = null;
   private emoteWheelPinned = false;
   private chatLogEl = $('#chatlog');
+  private lastVoicedYell: VoicedYellState | null = null;
   // Classic "Show Timestamps" interface option — off by default, persisted to
   // localStorage. New chat lines get a bracketed wall-clock prefix when on.
   private chatTimestamps = localStorage.getItem('chatTimestamps') === '1';
@@ -429,6 +447,10 @@ export class Hud {
   private castbarFillEl = this.castbarEl.querySelector('.fill') as HTMLElement;
   private castbarLabelEl = this.castbarEl.querySelector('.label') as HTMLElement;
   private castbarTimerEl = this.castbarEl.querySelector('.timer') as HTMLElement;
+  private targetCastbarEl = $('#tf-castbar');
+  private targetCastbarFillEl = this.targetCastbarEl.querySelector('.fill') as HTMLElement;
+  private targetCastbarLabelEl = this.targetCastbarEl.querySelector('.label') as HTMLElement;
+  private targetCastbarTimerEl = this.targetCastbarEl.querySelector('.timer') as HTMLElement;
   private actionbarEl = $('#actionbar');
   private xpFillEl = $('#xpbar .fill');
   private xpLabelEl = $('#xpbar .label');
@@ -439,6 +461,7 @@ export class Hud {
   private hotDomSkippedWrites = 0;
   private subzoneTimer: number | undefined;
   private lastSubzone: string | null = null;
+  private lastMusicDungeonId: string | null = null;
   private minimapCtx: CanvasRenderingContext2D;
   private minimapBg: HTMLCanvasElement;
   private clockEl: HTMLElement | null = null;
@@ -506,6 +529,7 @@ export class Hud {
   // entity ids with a sustained cast-loop SFX playing, so reconcileSfx can stop
   // loops for casters that left interest mid-channel (no castStop/death arrives).
   private castLoopIds = new Set<number>();
+  private lastNythraxisCombatEventAt = 0;
   private lastResting = false;
   private lastZoneId = '';
   private mapZoneId = ''; // zone the cached map-window canvas was rendered for
@@ -518,7 +542,7 @@ export class Hud {
   private windowObserver: MutationObserver | null = null;
   private windowZ = 50;
   private ignoredChatNames = new Set<string>();
-  private socialTab: 'friends' | 'guild' | 'ignore' = 'friends';
+  private socialTab: 'friends' | 'guild' | 'ignore' | 'raid' = 'friends';
   // split signatures: structural changes (tab, guild membership) rebuild the
   // whole panel; content-only changes (a friend's presence) refresh just the
   // list, so an open typeahead / half-typed name survives a snapshot
@@ -662,6 +686,10 @@ export class Hud {
         // menu never appears for a pet/non-hostile mob where it would be a no-op.
         this.openMarkerMenu(t.id, t.name, (ev as MouseEvent).clientX, (ev as MouseEvent).clientY);
       }
+    });
+    $('#player-frame').addEventListener('contextmenu', (ev) => {
+      ev.preventDefault();
+      this.openSelfContextMenu((ev as MouseEvent).clientX, (ev as MouseEvent).clientY);
     });
     $('#mm-char').addEventListener('click', () => this.toggleChar());
     $('#mm-spell').addEventListener('click', () => this.toggleSpellbook());
@@ -1502,7 +1530,7 @@ export class Hud {
     if (item.potionHp) html += `<div class="tt-desc">${esc(t('itemUi.tooltip.useHealingPotion', { amount: itemNumber(item.potionHp) }))}</div>`;
     if (item.potionMana) html += `<div class="tt-desc">${esc(t('itemUi.tooltip.useManaPotion', { amount: itemNumber(item.potionMana) }))}</div>`;
     if (item.kind === 'quest') html += `<div class="tt-desc">${esc(t('itemUi.tooltip.questItem'))}</div>`;
-    if (item.requiredClass) {
+    if (item.requiredClass && !armorTypeForItem(item) && !weaponArchetypeForItem(item)) {
       html += `<div class="tt-sub">${esc(t('itemUi.tooltip.classes', { classes: item.requiredClass.map(classDisplayName).join(', ') }))}</div>`;
     }
     if (item.sellValue > 0) html += `<div class="tt-sub">${esc(t('itemUi.tooltip.sellPrice', { money: formatLocalizedMoney(item.sellValue) }))}</div>`;
@@ -2390,6 +2418,18 @@ export class Hud {
         }
       }
       this.renderAuras(this.targetDebuffsEl, target, 'debuffs');
+      // target/boss cast bar (e.g. Nythraxis' Deathless Rage) — shown under the
+      // name + HP so the raid sees exactly when to channel the wardstones
+      const tcb = castBarState(target);
+      if (tcb.visible) {
+        this.setDisplay(this.targetCastbarEl, 'block');
+        this.targetCastbarEl.classList.toggle('channel', tcb.channel);
+        this.setWidth(this.targetCastbarFillEl, `${(tcb.fill * 100).toFixed(1)}%`);
+        this.setText(this.targetCastbarLabelEl, tcb.label);
+        this.setText(this.targetCastbarTimerEl, formatNumber(Math.max(0, target.castRemaining), { minimumFractionDigits: 1, maximumFractionDigits: 1 }));
+      } else {
+        this.setDisplay(this.targetCastbarEl, 'none');
+      }
       // combo points
       if (p.resourceType === 'energy') {
         this.setDisplay(this.comboRowEl, 'flex');
@@ -2606,18 +2646,36 @@ export class Hud {
       // Combat = a mob is on us, or we traded blows in the last few seconds
       // (the wire protocol doesn't ship the inCombat flag).
       let aggroed = false;
+      let nythraxisAlive = false;
+      let bossEngaged = false; // the Nythraxis raid boss is pulled -> its own track
+      const dungeon = dungeonAt(p.pos.x);
+      const inNythraxisArena = dungeon?.id === 'nythraxis_boss_arena';
       for (const e of sim.entities.values()) {
-        if (e.kind === 'mob' && !e.dead && e.aggroTargetId === sim.playerId) { aggroed = true; break; }
+        if (e.kind !== 'mob' || e.dead) continue;
+        if (e.aggroTargetId === sim.playerId) aggroed = true;
+        if (e.templateId === 'nythraxis_scourge_of_thornpeak') {
+          nythraxisAlive = true;
+          if (e.aggroTargetId !== null) bossEngaged = true;
+        }
       }
       const inCombat = aggroed || now - this.lastCombatEventAt < 5000;
+      const musicCombat = inCombat || inNythraxisArena;
+      bossEngaged = bossEngaged
+        || inNythraxisArena
+        || now - this.lastNythraxisCombatEventAt < 10000;
       const hub = currentZone.hub;
       const inHub = !inDungeon
         && Math.hypot(p.pos.x - hub.x, p.pos.z - hub.z) < hub.radius + 10;
-      const dungeon = inDungeon ? dungeonAt(p.pos.x) : null;
       const zone = musicZoneForLocation(
-        currentZone.id, currentZone.biome, inHub, inDungeon, dungeon?.id ?? null,
+        currentZone.id, currentZone.biome, inHub, inDungeon || inNythraxisArena, dungeon?.id ?? null,
       );
-      music.update(zone, inCombat);
+      const musicDungeonId = (inDungeon || inNythraxisArena) ? (dungeon?.id ?? null) : null;
+      if (shouldResetMusicForDungeonEntry(this.lastMusicDungeonId, musicDungeonId)) {
+        music.resetForDungeonEntry(musicDungeonId);
+      }
+      this.lastMusicDungeonId = musicDungeonId;
+      music.update(zone, musicCombat);
+      music.setBossCombat(bossEngaged);
 
       // classic combat indicator: crossed swords + red ring on the player portrait
       $('#player-frame').classList.toggle('combat', inCombat);
@@ -2659,10 +2717,10 @@ export class Hud {
       const struct = this.socialStructSig();
       if (struct !== this.lastSocialStruct) {
         this.lastSocialStruct = struct;
-        this.lastSocialContent = JSON.stringify(this.sim.socialInfo);
+        this.lastSocialContent = JSON.stringify({ social: this.sim.socialInfo, party: this.sim.partyInfo });
         this.renderSocial();
       } else {
-        const content = JSON.stringify(this.sim.socialInfo);
+        const content = JSON.stringify({ social: this.sim.socialInfo, party: this.sim.partyInfo });
         if (content !== this.lastSocialContent) { this.lastSocialContent = content; this.refreshSocialList(); }
       }
     }
@@ -2946,7 +3004,7 @@ export class Hud {
         }
       } else if (e.kind === 'npc') {
         const hasAvail = e.questIds.some((q) => QUESTS[q].giverNpcId === e.templateId && this.sim.questState(q) === 'available');
-        const hasReady = e.questIds.some((q) => QUESTS[q].turnInNpcId === e.templateId && this.sim.questState(q) === 'ready');
+        const hasReady = e.questIds.some((q) => isQuestTurnInNpc(QUESTS[q], e.templateId) && this.sim.questState(q) === 'ready');
         ctx.fillStyle = '#ffd100';
         ctx.font = 'bold 11px Georgia';
         ctx.fillText(hasReady ? '?' : hasAvail ? '!' : '•', mx - 2, my + 3);
@@ -3353,7 +3411,7 @@ export class Hud {
       if (e.pos.z < zone.zMin || e.pos.z >= zone.zMax) continue;
       const { mx, my } = toMap(e.pos.x, e.pos.z);
       const hasAvail = e.questIds.some((q) => QUESTS[q].giverNpcId === e.templateId && this.sim.questState(q) === 'available');
-      const hasReady = e.questIds.some((q) => QUESTS[q].turnInNpcId === e.templateId && this.sim.questState(q) === 'ready');
+      const hasReady = e.questIds.some((q) => isQuestTurnInNpc(QUESTS[q], e.templateId) && this.sim.questState(q) === 'ready');
       if (hasAvail || hasReady) {
         ctx.fillStyle = '#ffd100';
         ctx.font = 'bold 15px Georgia';
@@ -3508,14 +3566,16 @@ export class Hud {
         // (camp engage), whether you hit it or it hits you.
         if (tgt.kind === 'mob') this.ensureMobEngaged(tgt);
         const physical = !ev.school || ev.school === 'physical';
-        this.combat(physical ? materialImpactKey(tgt) : `impact_${ev.school}`, tp.x, tp.y, tp.z, 0.75, { cooldown: 0.05 });
-        if (ev.crit) this.combat('combat_crit', tp.x, tp.y, tp.z, 0.7);
+        if (shouldPlayCombatImpactForTarget(tgt)) {
+          this.combat(physical ? materialImpactKey(tgt) : `impact_${ev.school}`, tp.x, tp.y, tp.z, 0.75, { cooldown: 0.05 });
+        }
+        if (ev.crit && shouldPlayCritSfxForTarget(tgt)) this.combat('combat_crit', tp.x, tp.y, tp.z, 0.7);
         // pain vocalization only on a crit — never on ordinary hits.
         if (ev.crit && ev.targetId === sim.playerId) {
           this.combat('player_hurt', tp.x, tp.y, tp.z, 0.55, { cooldown: 0.3 });
-        } else if (ev.crit && tgt.kind === 'mob') {
+        } else if (ev.crit && tgt.kind === 'mob' && shouldPlayCritSfxForTarget(tgt)) {
           const fam = mobVoiceFamily(tgt.templateId);
-          if (fam) this.combat(`mob_${fam}_attack`, tp.x, tp.y, tp.z, 0.6, { rate: 1.25, cooldown: 0.1 });
+          if (fam && shouldPlayMobVoiceSfxForEntity(tgt)) this.combat(`mob_${fam}_attack`, tp.x, tp.y, tp.z, 0.6, { rate: 1.25, cooldown: 0.1 });
         }
         return;
       }
@@ -3551,7 +3611,7 @@ export class Hud {
         if (ent.kind === 'mob') {
           this.mobAggroed.delete(ev.entityId);
           const fam = mobVoiceFamily(ent.templateId);
-          if (fam) this.combat(`mob_${fam}_death`, p.x, p.y, p.z, 0.8);
+          if (fam && shouldPlayMobVoiceSfxForEntity(ent)) this.combat(`mob_${fam}_death`, p.x, p.y, p.z, 0.8);
         } else if (ent.kind === 'player' && ev.entityId !== sim.playerId) {
           this.combat('player_death', p.x, p.y, p.z, 0.7);
         }
@@ -3567,7 +3627,7 @@ export class Hud {
     if (this.mobAggroed.has(mob.id)) return false;
     this.mobAggroed.add(mob.id);
     const fam = mobVoiceFamily(mob.templateId);
-    if (fam) this.combat(`mob_${fam}_aggro`, mob.pos.x, mob.pos.y, mob.pos.z, 0.7);
+    if (fam && shouldPlayMobVoiceSfxForEntity(mob)) this.combat(`mob_${fam}_aggro`, mob.pos.x, mob.pos.y, mob.pos.z, 0.7);
     return true;
   }
 
@@ -3577,10 +3637,24 @@ export class Hud {
     if (src.kind === 'mob') {
       if (this.ensureMobEngaged(src)) return; // just fired the aggro alert
       const fam = mobVoiceFamily(src.templateId);
-      if (fam) this.combat(`mob_${fam}_attack`, src.pos.x, src.pos.y, src.pos.z, 0.55, { cooldown: 0.25 });
+      if (fam && shouldPlayMobVoiceSfxForEntity(src)) this.combat(`mob_${fam}_attack`, src.pos.x, src.pos.y, src.pos.z, 0.55, { cooldown: 0.25 });
     } else if (src.kind === 'player') {
       this.combat(weaponSwingKey(src.templateId), src.pos.x, src.pos.y, src.pos.z, 0.5, { cooldown: 0.08 });
     }
+  }
+
+  private isNythraxisEntity(id: number | null | undefined): boolean {
+    if (id === null || id === undefined) return false;
+    const e = this.sim.entities.get(id);
+    return e?.templateId === 'nythraxis_scourge_of_thornpeak'
+      || e?.templateId === 'nythraxis_skeleton_warrior';
+  }
+
+  private isNythraxisEvent(ev: SimEvent): boolean {
+    if ('sourceId' in ev && this.isNythraxisEntity(ev.sourceId)) return true;
+    if ('targetId' in ev && this.isNythraxisEntity(ev.targetId)) return true;
+    if ('entityId' in ev && this.isNythraxisEntity(ev.entityId)) return true;
+    return false;
   }
 
   handleEvents(events: SimEvent[]): void {
@@ -3591,6 +3665,7 @@ export class Hud {
       this.renderer.handleEvent(ev);
       this.playEventSfx(ev); // positional sound for nearby combat/creatures
       this.meters.onEvent(ev);
+      if (this.isNythraxisEvent(ev)) this.lastNythraxisCombatEventAt = performance.now();
       switch (ev.type) {
         case 'damage': {
           const src = sim.entities.get(ev.sourceId);
@@ -3746,6 +3821,13 @@ export class Hud {
             const masked = this.maskChat(ev.text);
             const bubble = ev.channel === 'emote' ? `${ev.from} ${masked}` : masked;
             this.renderer.showChatBubble(ev.entityId, bubble, ev.channel === 'yell');
+          }
+          // Voiced encounter dialogue (boss/NPC yells) — no-op unless a clip was
+          // generated for this exact line (scripts/voices/extra_lines.mjs).
+          if (ev.channel === 'yell') {
+            const voiced = nextVoicedYell(this.lastVoicedYell, yellVoiceKey(ev.text), performance.now());
+            this.lastVoicedYell = voiced.state;
+            if (voiced.play) voice.play(voiced.state.key, { gain: voicedYellGain(ev.from) });
           }
           break;
         }
@@ -4591,7 +4673,7 @@ export class Hud {
     const interesting = npc.questIds.filter((q) => {
       const st = this.sim.questState(q);
       return (st === 'available' && QUESTS[q].giverNpcId === npc.templateId)
-        || (st === 'ready' && QUESTS[q].turnInNpcId === npc.templateId);
+        || (st === 'ready' && isQuestTurnInNpc(QUESTS[q], npc.templateId));
     });
     const discussionQuests = [...this.sim.questLog.values()]
       .filter((qp) => qp.state === 'active' && npc.questIds.includes(qp.questId))
@@ -4605,7 +4687,7 @@ export class Hud {
     el.setAttribute('aria-modal', 'false');
     el.setAttribute('aria-labelledby', 'quest-dialog-title');
     el.setAttribute('tabindex', '-1');
-    const npcName = npcDisplayName(npc.templateId);
+    const npcName = def ? npcDisplayName(npc.templateId) : mobDisplayName(npc.templateId);
     const npcTitle = def ? npcDisplayTitle(def.id) : '';
     let html = `<div class="panel-title"><span id="quest-dialog-title">${esc(npcName)}<span class="quest-muted"> &lt;${esc(npcTitle)}&gt;</span></span><button type="button" class="x-btn" data-close aria-label="${esc(t('questUi.dialog.close'))}">${svgIcon('close')}</button></div>`;
     html += `<div class="qd-text">"${esc(def ? npcGreeting(def.id, this.sim.cfg.playerClass, this.sim.player.name) : t('questUi.dialog.greetingFallback'))}"</div>`;
@@ -7459,12 +7541,13 @@ export class Hud {
       return;
     }
     const p = this.sim.player;
+    const myGroup = info.members.find((m) => m.pid === this.sim.playerId)?.group ?? 1;
     const others = info.members.map((m) => ({
       ...m,
       oor: !m.dead && Math.hypot(m.x - p.pos.x, m.z - p.pos.z) > PARTY_RANGE_YD,
-    })).filter((m) => m.pid !== this.sim.playerId);
+    })).filter((m) => m.pid !== this.sim.playerId && (!info.raid || m.group === myGroup));
     // include combat/range state so the frames rebuild when a badge changes
-    const sig = others.map((m) => `${m.pid}:${m.hp}/${m.mhp}:${m.res}:${m.dead}:${m.inCombat}:${m.oor ? 1 : 0}:${m.level}`).join('|') + `L${info.leader}`;
+    const sig = others.map((m) => `${m.pid}:${m.group}:${m.hp}/${m.mhp}:${m.res}:${m.dead}:${m.inCombat}:${m.oor ? 1 : 0}:${m.level}`).join('|') + `L${info.leader}:R${info.raid ? 1 : 0}:G${myGroup}`;
     if (sig === this.lastPartySig) return;
     this.lastPartySig = sig;
     el.innerHTML = '';
@@ -7501,6 +7584,27 @@ export class Hud {
   // -------------------------------------------------------------------------
   // Context menu on players
   // -------------------------------------------------------------------------
+
+  private openSelfContextMenu(x: number, y: number): void {
+    const el = $('#ctx-menu');
+    const party = this.sim.partyInfo;
+    const canConvert = !!party && party.leader === this.sim.playerId && !party.raid && party.members.length >= 5;
+    let html = `<div class="ctx-title ctx-title-player">${portraitChipHtml({ cls: this.sim.cfg.playerClass, skin: this.sim.player.skin ?? 0, name: this.sim.player.name, variant: 'sm' })}<span class="ctx-title-name">${esc(this.sim.player.name)}</span></div>`;
+    if (canConvert) html += `<div class="ctx-item" data-act="convert-raid">${esc(t('hud.chat.context.convertToRaid'))}</div>`;
+    html += `<div class="ctx-item" data-act="close">${esc(t('hud.chat.context.cancel'))}</div>`;
+    el.innerHTML = html;
+    hydratePortraits(el);
+    el.style.left = `${Math.min(window.innerWidth - 170, x)}px`;
+    el.style.top = `${Math.min(window.innerHeight - 160, y)}px`;
+    el.style.display = 'block';
+    this.bindContextMenuActions((act) => {
+      if (act === 'convert-raid') {
+        this.sim.convertPartyToRaid();
+        this.socialTab = 'raid';
+        if ($('#social-window').classList.contains('open')) this.renderSocial();
+      }
+    });
+  }
 
   openContextMenu(pid: number, name: string, x: number, y: number): void {
     const el = $('#ctx-menu');
@@ -7864,7 +7968,7 @@ export class Hud {
     el.classList.add('open');
     this.socialNotice = null;
     this.lastSocialStruct = this.socialStructSig();
-    this.lastSocialContent = JSON.stringify(this.sim.socialInfo);
+    this.lastSocialContent = JSON.stringify({ social: this.sim.socialInfo, party: this.sim.partyInfo });
     this.renderSocial();
   }
 
@@ -7873,7 +7977,9 @@ export class Hud {
   // friend's zone, the roster — doesn't count, so it can refresh in place.
   private socialStructSig(): string {
     const g = this.sim.socialInfo?.guild;
-    return `${this.socialTab}|${this.sim.socialInfo !== null}|${g?.id ?? 0}|${g?.rank ?? ''}`;
+    const p = this.sim.partyInfo;
+    const raidSig = p ? `${p.raid ? 1 : 0}:${p.leader}:${p.members.map((m) => `${m.pid}.${m.group}`).join(',')}` : 'solo';
+    return `${this.socialTab}|${this.sim.socialInfo !== null}|${g?.id ?? 0}|${g?.rank ?? ''}|${raidSig}`;
   }
 
   // Full rebuild: title, tabs, body, notice, and the tab's footer (with its
@@ -7889,10 +7995,11 @@ export class Hud {
       + `<button type="button" class="soc-tab ${tab === 'friends' ? 'on' : ''}" data-tab="friends" aria-pressed="${tab === 'friends' ? 'true' : 'false'}">${esc(t('hud.social.friendsTab'))}</button>`
       + `<button type="button" class="soc-tab ${tab === 'guild' ? 'on' : ''}" data-tab="guild" aria-pressed="${tab === 'guild' ? 'true' : 'false'}">${esc(t('hud.social.guildTab'))}</button>`
       + `<button type="button" class="soc-tab ${tab === 'ignore' ? 'on' : ''}" data-tab="ignore" aria-pressed="${tab === 'ignore' ? 'true' : 'false'}">${esc(t('hud.social.ignoreTab'))}</button>`
+      + `<button type="button" class="soc-tab ${tab === 'raid' ? 'on' : ''}" data-tab="raid" aria-pressed="${tab === 'raid' ? 'true' : 'false'}">${esc(t('hud.social.raidTab'))}</button>`
       + `</div>`
       + `<div class="soc-body"></div>`
       + `<div class="soc-notice"></div>`
-      + (online ? this.socialFooter() : '');
+      + (tab === 'raid' ? '' : online ? this.socialFooter() : '');
     this.wireSocialChrome(el);
     this.refreshSocialList();
     this.renderSocialNotice();
@@ -7904,11 +8011,12 @@ export class Hud {
     const body = $('#social-window').querySelector('.soc-body') as HTMLElement | null;
     if (!body) return;
     const online = this.sim.socialInfo !== null;
-    body.innerHTML = !online
-      ? `<div class="soc-empty">${esc(t('hud.social.offlineEmpty'))}</div>`
-      : this.socialTab === 'friends' ? this.friendsHtml()
-        : this.socialTab === 'guild' ? this.guildHtml()
-          : this.ignoreHtml();
+    body.innerHTML = this.socialTab === 'raid' ? this.raidHtml()
+      : !online
+        ? `<div class="soc-empty">${esc(t('hud.social.offlineEmpty'))}</div>`
+        : this.socialTab === 'friends' ? this.friendsHtml()
+          : this.socialTab === 'guild' ? this.guildHtml()
+            : this.ignoreHtml();
     this.wireSocialRows(body);
   }
 
@@ -7978,6 +8086,36 @@ export class Hud {
     return head + rows;
   }
 
+  private raidHtml(): string {
+    const party = this.sim.partyInfo;
+    if (!party?.raid) {
+      const canConvert = !!party && party.leader === this.sim.playerId && party.members.length >= 5;
+      return `<div class="soc-empty">${esc(t('hud.social.raidEmpty'))}${canConvert ? `<div class="soc-empty-action"><button type="button" class="soc-x" data-act="convert-raid">${esc(t('hud.chat.context.convertToRaid'))}</button></div>` : ''}</div>`;
+    }
+    const leader = party.leader === this.sim.playerId;
+    const groups: Record<1 | 2, typeof party.members> = {
+      1: party.members.filter((m) => m.group === 1),
+      2: party.members.filter((m) => m.group === 2),
+    };
+    const groupHtml = (group: 1 | 2): string => {
+      const rows = groups[group].map((m) => {
+        const isLead = m.pid === party.leader;
+        const otherGroup = group === 1 ? 2 : 1;
+        const otherFull = groups[otherGroup].length >= 5;
+        const move = leader && !otherFull
+          ? `<button type="button" class="soc-x" data-act="raid-move" data-pid="${m.pid}" data-group="${otherGroup}" title="${esc(t('hud.social.raidMoveToGroup', { group: formatNumber(otherGroup, { maximumFractionDigits: 0 }) }))}">${esc(formatNumber(otherGroup, { maximumFractionDigits: 0 }))}</button>`
+          : '';
+        return `<div class="soc-row raid-row">`
+          + `<span class="soc-id"><span class="soc-name">${esc(m.name)}${isLead ? `<span class="rank">${esc(t('hud.social.raidLeader'))}</span>` : ''}</span><span class="soc-sub">${esc(t('hud.social.levelClass', { level: formatNumber(m.level, { maximumFractionDigits: 0 }), className: playerClassDisplayName(m.cls) }))}</span></span>`
+          + `<span class="soc-meta">${esc(formatNumber(Math.round((m.hp / Math.max(1, m.mhp)) * 100), { maximumFractionDigits: 0 }))}%</span>`
+          + (move ? `<span class="soc-actions">${move}</span>` : '')
+          + `</div>`;
+      }).join('') || `<div class="soc-empty">${esc(t('hud.social.raidGroupEmpty'))}</div>`;
+      return `<div class="raid-group"><div class="soc-guild-head">${esc(t('hud.social.raidGroupTitle', { position: formatNumber(group, { maximumFractionDigits: 0 }), count: formatNumber(groups[group].length, { maximumFractionDigits: 0 }) }))}</div>${rows}</div>`;
+    };
+    return `<div class="raid-groups">${groupHtml(1)}${groupHtml(2)}</div>`;
+  }
+
   // The add/action row changes with the tab (and guild membership). Inputs
   // tagged data-suggest get the username typeahead.
   private socialFooter(): string {
@@ -8006,7 +8144,7 @@ export class Hud {
   private wireSocialChrome(el: HTMLElement): void {
     el.querySelector('[data-close]')?.addEventListener('click', () => this.toggleSocial());
     el.querySelectorAll('.soc-tab').forEach((t) => t.addEventListener('click', () => {
-      this.socialTab = (t as HTMLElement).dataset.tab as 'friends' | 'guild' | 'ignore';
+      this.socialTab = (t as HTMLElement).dataset.tab as 'friends' | 'guild' | 'ignore' | 'raid';
       this.socialNotice = null;
       this.lastSocialStruct = this.socialStructSig();
       this.renderSocial();
@@ -8041,6 +8179,16 @@ export class Hud {
       else if (act === 'promote') this.sim.guildPromote(name);
       else if (act === 'demote') this.sim.guildDemote(name);
       else if (act === 'gtransfer') this.showPrompt(t('hud.social.transferPrompt', { name: `<b>${esc(name)}</b>` }), t('hud.social.transferConfirm'), () => this.sim.guildTransfer(name), () => { /* keep */ });
+      else if (act === 'raid-move') {
+        const pid = Number((x as HTMLElement).dataset.pid);
+        const group = Number((x as HTMLElement).dataset.group);
+        if (Number.isFinite(pid) && (group === 1 || group === 2)) this.sim.moveRaidMember(pid, group);
+      }
+      else if (act === 'convert-raid') {
+        this.sim.convertPartyToRaid();
+        this.socialTab = 'raid';
+        this.renderSocial();
+      }
     }));
     scope.querySelectorAll('[data-whisper]').forEach((w) => w.addEventListener('click', () => {
       this.startWhisper((w as HTMLElement).dataset.whisper ?? '');

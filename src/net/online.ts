@@ -1122,6 +1122,12 @@ export class ClientWorld implements IWorld {
   partyKick(targetPid: number): void {
     this.cmd({ cmd: 'pkick', id: targetPid });
   }
+  convertPartyToRaid(): void {
+    this.cmd({ cmd: 'praid' });
+  }
+  moveRaidMember(targetPid: number, group: 1 | 2): void {
+    this.cmd({ cmd: 'pmoveRaid', id: targetPid, group });
+  }
   // raid/target markers
   markerFor(entityId: number): number | null {
     return this.markers[entityId] ?? null;

@@ -684,6 +684,15 @@
     color: #fff; text-shadow: 1px 1px 2px #000; font-family: var(--title-font); }
   #castbar .timer { position: absolute; top: 0; right: 6px; line-height: 21px; font-size: 11px;
     color: #fff; text-shadow: 1px 1px 2px #000; font-family: var(--title-font); font-variant-numeric: tabular-nums; }
+  /* target/boss cast bar — sits under the target name+HP so the raid sees the cast */
+  #tf-castbar { position: relative; width: 100%; height: 22px; margin-top: 4px; display: none;
+    border: 2px solid var(--border); outline: 1px solid #000; border-radius: 4px; background: #100606; overflow: hidden; }
+  #tf-castbar .fill { height: 100%; width: 0%; background: linear-gradient(#ff9a8f, #c93024 60%, #73110d); box-shadow: inset 0 1px 0 #fff5; }
+  #tf-castbar.channel .fill { background: linear-gradient(#ff9a8f, #c93024 60%, #73110d); }
+  #tf-castbar .label { position: absolute; inset: 0; text-align: center; font-size: 12px; line-height: 21px;
+    color: #fff; text-shadow: 1px 1px 2px #000; font-family: var(--title-font); }
+  #tf-castbar .timer { position: absolute; top: 0; right: 6px; line-height: 21px; font-size: 11px;
+    color: #fff0d0; text-shadow: 1px 1px 2px #000; font-variant-numeric: tabular-nums; }
   /* swing timer: sits just under the cast bar, steel-on-amber to read as melee */
   #swingbar { position: absolute; left: 50%; transform: translateX(-50%); bottom: 174px; width: 220px;
     height: 12px; display: none; border: 1px solid var(--border); outline: 1px solid #000; border-radius: 3px;
@@ -1330,7 +1339,8 @@
     flex-direction: column;
   }
   #bags .panel-title { flex: none; }
-  #bags .bag-grid { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  #bags .bag-grid { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+    touch-action: pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   #bags .money { flex: none; display: flex; align-items: center; gap: 10px; }
   /* coins stay right-aligned whether or not the $WOC chip is present */
   #bags .money .money-inline { margin-left: auto; }
@@ -1408,8 +1418,13 @@
   .soc-sugg-item:hover, .soc-sugg-item.active { background: #2f2740; }
   .soc-sugg-item.active { box-shadow: inset 2px 0 0 var(--gold); }
   .soc-empty { color: #887c5c; font-size: 12px; padding: 10px 6px; text-align: center; }
+  .soc-empty-action { margin-top: 12px; }
   .soc-guild-head { font-family: var(--title-font); color: var(--gold); font-size: 15px; padding: 2px 4px 6px; }
   .soc-guild-head .gm { color: #998d6a; font-size: 11px; }
+  .raid-groups { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .raid-group { border-top: 1px solid #3d3218; padding-top: 6px; }
+  .raid-group:first-child { border-top: 0; padding-top: 0; }
+  .raid-row .soc-actions { margin-left: 0; }
 
   /* map */
   #map-window { padding: 14px; }
@@ -1507,12 +1522,14 @@
   .mkt-select-chevron { width: 8px; height: 8px; flex: none; border-right: 2px solid #cabb8c; border-bottom: 2px solid #cabb8c; transform: translateY(-2px) rotate(45deg); }
   .mkt-select.open .mkt-select-chevron { transform: translateY(2px) rotate(225deg); }
   .mkt-select-menu { position: absolute; left: 0; top: calc(100% + 4px); width: 100%; max-height: 236px; overflow-y: auto;
+    touch-action: pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
     padding: 5px; border: 1px solid #6f5a2a; border-radius: 6px; background: #140f09f7; box-shadow: 0 10px 24px #000c, inset 0 1px 0 #ffffff12; z-index: 20; }
   .mkt-select-option { width: 100%; display: block; border: 0; border-radius: 4px; background: transparent; color: #f0e4c8;
     font-family: var(--font-ui); font-size: 13px; line-height: 1.2; text-align: left; padding: 7px 8px; cursor: var(--cursor-point); }
   .mkt-select-option:hover, .mkt-select-option:focus-visible { outline: 0; background: #ffffff14; color: #ffe6a8; }
   .mkt-select-option.sel { background: #cc9a3c2e; color: var(--gold); }
-  #market-body { overflow-y: auto; flex: 1; min-height: 0; padding-right: 2px; }
+  #market-body { overflow-y: auto; flex: 1; min-height: 0; padding-right: 2px;
+    touch-action: pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .mkt-note { font-size: 11.5px; color: #b6ad8c; line-height: 1.45; margin: 2px 0 8px; font-family: Georgia, serif; }
   .mkt-row { display: grid; grid-template-columns: 30px 1fr auto auto; gap: 9px; align-items: center;
     padding: 5px 6px; border-radius: 4px; font-size: 12px; }
@@ -5105,7 +5122,12 @@
   #mobile-preflight { display: none; }
   #rotate-device { display: none; }
   body.mobile-touch #game-canvas { touch-action: none; }
-  body.mobile-touch #ui { touch-action: none; }
+  /* The HUD overlay must let one-finger panning reach scrollable windows (Bag,
+     Market, etc.) on iOS — Safari intersects touch-action down the ancestor
+     chain, so `none` here would block child scroll containers and a child's
+     own `pan-y` could not re-enable it. `pan-x pan-y` still blocks pinch/
+     double-tap zoom (also guarded globally in preventMobileZoom). */
+  body.mobile-touch #ui { touch-action: pan-x pan-y; }
   body.mobile-touch.game-active,
   body.mobile-touch.game-active #ui,
   body.mobile-touch.game-active #nameplates,
@@ -7606,6 +7628,7 @@
       <div class="uf-bars">
         <div class="uf-name" id="tf-name"></div>
         <div class="bar hp"><div class="bar-fill" id="tf-hp"></div><div class="bar-absorb" id="tf-absorb"></div><div class="bar-text" id="tf-hp-text"></div></div>
+        <div id="tf-castbar"><div class="fill"></div><div class="label"></div><div class="timer"></div></div>
         <div class="combo-row" id="combo-row"></div>
         <div class="uf-buffs" id="tf-debuffs"></div>
       </div>

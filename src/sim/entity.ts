@@ -119,8 +119,8 @@ export function recalcPlayerStats(e: Entity, cls: PlayerClass, equipment: Player
   s.agi = Math.max(0, s.agi);
   s.armor += s.agi * 2;
   if (bearForm) {
-    s.armor = Math.round(s.armor * 1.65);
-    bonusAp += 15;
+    s.armor = Math.round(s.armor * 1.9);
+    bonusAp += 15 + Math.round(s.agi * 1.5);
   }
   if (catForm) {
     bonusAp += 8 + lvl * 2;
@@ -150,6 +150,7 @@ export function recalcPlayerStats(e: Entity, cls: PlayerClass, equipment: Player
 
   const hpFrac = e.maxHp > 0 ? e.hp / e.maxHp : 1;
   e.maxHp = def.baseHp + def.hpPerLevel * (lvl - 1) + hpFromStamina(s.sta);
+  if (bearForm) e.maxHp = Math.round(e.maxHp * 1.15);
   if (mods?.stats.maxHpPct) e.maxHp = Math.round(e.maxHp * (1 + mods.stats.maxHpPct));
   // Fiesta "Colossus"-style buffs: growing bigger also makes you tankier.
   if (scaleMul > 1) e.maxHp = Math.round(e.maxHp * scaleMul);

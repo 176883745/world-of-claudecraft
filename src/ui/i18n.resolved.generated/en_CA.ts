@@ -1351,6 +1351,7 @@ export const en_CA: EnTranslations = {
         "unignoreChat": "Unignore Chat",
         "report": "Report Player",
         "removeParty": "Remove from Party",
+        "convertToRaid": "Convert to raid",
         "cancel": "Cancel"
       }
     },
@@ -1588,6 +1589,12 @@ export const en_CA: EnTranslations = {
       "guildTab": "Guild",
       "ignoreTab": "Ignore",
       "leaveParty": "Leave Party",
+      "raidTab": "Raid",
+      "raidEmpty": "Convert a party to a raid to manage raid groups here.",
+      "raidGroupEmpty": "No players in this group.",
+      "raidGroupTitle": "Group {position} ({count}/5)",
+      "raidMoveToGroup": "Move to group {position}",
+      "raidLeader": "Raid Leader",
       "offlineEmpty": "Friends, guilds, and ignore lists are available in online play.",
       "friendsEmpty": "No friends yet. Search for someone by name below.",
       "ignoreEmpty": "Your ignore list is empty.",
@@ -1825,7 +1832,8 @@ export const en_CA: EnTranslations = {
       "common": "Common",
       "uncommon": "Uncommon",
       "rare": "Rare",
-      "epic": "Epic"
+      "epic": "Epic",
+      "legendary": "Legendary"
     },
     "kind": {
       "weapon": "Weapon",
@@ -3532,6 +3540,36 @@ export const en_CA: EnTranslations = {
       "event_skin_token": {
         "name": "Mysterious Cosmetic Cache"
       },
+      "deathless_heartwood": {
+        "name": "Heartwood of the Deathless Crown"
+      },
+      "kingsbane_last_oath": {
+        "name": "Kingsbane, Last Oath of Thornpeak"
+      },
+      "crownforged_dreadhelm": {
+        "name": "Crownforged Dreadhelm"
+      },
+      "crownforged_warspaulders": {
+        "name": "Crownforged Warspaulders"
+      },
+      "nighttalon_crown": {
+        "name": "Nighttalon Crown"
+      },
+      "nighttalon_shoulderguards": {
+        "name": "Nighttalon Shoulderguards"
+      },
+      "soulflame_cowl": {
+        "name": "Soulflame Cowl"
+      },
+      "soulflame_mantle": {
+        "name": "Soulflame Mantle"
+      },
+      "stormcallers_crown": {
+        "name": "Stormcaller's Crown"
+      },
+      "stormcallers_spaulders": {
+        "name": "Stormcaller's Spaulders"
+      },
       "unknown_alien_weaponry": {
         "name": "Unknown Alien Weaponry"
       },
@@ -3746,6 +3784,12 @@ export const en_CA: EnTranslations = {
       },
       "bound_guardian": {
         "name": "The Bound Guardian"
+      },
+      "nythraxis_skeleton_warrior": {
+        "name": "Risen Royal Guard"
+      },
+      "nythraxis_scourge_of_thornpeak": {
+        "name": "Nythraxis, Scourge of Thornpeak"
       },
       "brightwood_hare": {
         "name": "Brightwood Hare"
@@ -3998,6 +4042,11 @@ export const en_CA: EnTranslations = {
         "name": "Ranger Elwyn",
         "title": "Glade Warden",
         "greeting": "Quiet, {className} - the glade is calm today, and I mean to keep it that way."
+      },
+      "brother_aldric_raid": {
+        "name": "Brother Aldric",
+        "title": "Priest of the Vale",
+        "greeting": "From a chapel yard in the Vale to the roof of the world... the trail we have followed ends here. I can feel the mountain listening."
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -4725,7 +4774,7 @@ export const en_CA: EnTranslations = {
       "q_nythraxis_bound_guardian": {
         "title": "The Bound Guardian",
         "text": "Voss wrote that the survivors sealed the King's Signet behind an ancient guardian, so no one could reach the tomb of Nythraxis by accident or ambition. Take the Crypt Keystone to the ritual circle on the flat ground east of the abandoned crypt and south-east of the western grave. Use it there, break the guardian, and bring back the signet.",
-        "completion": "The three relics tell the same story: Aldren fought to defend his king, Malric broke the boundary of death, and Voss tried to stop what followed. The seal is weakening, and this signet is the key to Nythraxis's tomb. You are now attuned to enter The Crypt of Nythraxis.",
+        "completion": "The three relics tell the same story: Aldren fought to defend his king, Malric broke the boundary of death, and Voss tried to stop what followed. The seal is weakening, and this signet is the key to Nythraxis's tomb. You are now attuned to enter The Crypt of Nythraxis. Return to the abandoned crypt, unlock the royal door, and face Nythraxis before the old king's rage spills beyond Thornpeak.",
         "objectives": {
           "0": {
             "label": "Crypt Keystone used at the ritual circle"
@@ -4735,6 +4784,16 @@ export const en_CA: EnTranslations = {
           },
           "2": {
             "label": "King's Signet"
+          }
+        }
+      },
+      "q_nythraxis_scourges_end": {
+        "title": "Scourge's End",
+        "text": "The signet has opened the way, {playerName}, but an open tomb is not a victory. Nythraxis was a king once, and the ruin beneath Thornpeak is still bound to his will. Enter the crypt with allies you trust. Break the deathless crown before its command reaches the battlefield above.",
+        "completion": "Then the crown is silent at last. Thornpeak will still carry its dead, but no king below it will call them to war again. You have ended what Aldren, Malric, and Voss could only contain.",
+        "objectives": {
+          "0": {
+            "label": "Nythraxis slain"
           }
         }
       },
@@ -5070,8 +5129,13 @@ export const en_CA: EnTranslations = {
       },
       "nythraxis_crypt": {
         "name": "Abandoned Crypt",
-        "enterText": "You descend into the abandoned crypt beneath the forgotten ruins of Thornpeak.",
-        "leaveText": "You climb back out of the abandoned crypt into the mountain wind."
+        "enterText": "You cross the threshold of the Abandoned Crypt.",
+        "leaveText": "You return to the cold air of Thornpeak."
+      },
+      "nythraxis_boss_arena": {
+        "name": "Nythraxis Raid Arena",
+        "enterText": "You pass through the sealed royal door.",
+        "leaveText": "You return to the cold air of Thornpeak."
       },
       "drowned_temple": {
         "name": "The Drowned Temple",

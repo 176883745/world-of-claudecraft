@@ -45,7 +45,7 @@ import { portraitChipHtml, hydratePortraits } from './ui/portrait_chip';
 import { playerPortraitDataUrl } from './render/characters/portrait';
 import { createPerfMonitor } from './game/perf';
 import { startPerfReporter } from './game/perf_reporter';
-import { updateFollowCameraYaw, wrapAngle } from './game/camera_follow';
+import { cameraFollowShouldSettle, updateFollowCameraYaw, wrapAngle } from './game/camera_follow';
 
 
 const WORLD_SEED = 20061; // fixed: World of ClaudeCraft is a persistent place
@@ -1142,7 +1142,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
       frameDt,
       lastInterpFacing,
       mouselook: input.isMouselookActive(),
-      moving: mi.forward || mi.strafeLeft || mi.strafeRight || clickMoving,
+      moving: cameraFollowShouldSettle(mi, clickMoving),
       clickMoving,
       cameraDriven: input.isMouseCameraMode() && cameraMoveActive(),
       orbiting: input.leftDown && input.isCameraDragActive(),
