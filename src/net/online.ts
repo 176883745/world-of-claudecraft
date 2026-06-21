@@ -7,6 +7,7 @@ import {
   type TalentAllocation, type SavedLoadout, type Role,
 } from '../sim/content/talents';
 import { mechChromaItemId, mechChromaSkinIndex } from '../sim/content/skins';
+import { signChallenge } from '../sim/client_challenge';
 import {
   Entity, EquipSlot, InvSlot, LootRollChoice, MoveInput, PlayerClass, QuestProgress, QuestState, SimEvent,
   emptyMoveInput,
@@ -63,8 +64,8 @@ export function apiUrl(path: string, base = ''): string {
   return origin ? `${origin}${path}` : path;
 }
 
-export function buildWebSocketAuthMessage(token: string, characterId: number): { t: 'auth'; token: string; character: number } {
-  return { t: 'auth', token, character: characterId };
+export function buildWebSocketAuthMessage(token: string, characterId: number, clientSeed = ''): { t: 'auth'; token: string; character: number; clientSeed: string } {
+  return { t: 'auth', token, character: characterId, clientSeed };
 }
 
 export type RealmType = 'Normal' | 'PvP' | 'RP' | 'RP-PvP';
@@ -523,6 +524,7 @@ export class ClientWorld implements IWorld {
   private ws: WebSocket;
   private readonly token: string;
   private readonly base: string;
+  private readonly clientSeed: string;
   private eventQueue: SimEvent[] = [];
   // inventory deltas arrive in snapshots, separate from the event frames the
   // HUD redraws on — the frame loop polls this so open panels re-render
@@ -543,10 +545,11 @@ export class ClientWorld implements IWorld {
   private ackedInputSeq = 0;
   private inputEchoSamples: number[] = [];
 
-  constructor(token: string, characterId: number, cls: PlayerClass, base = '') {
+  constructor(token: string, characterId: number, cls: PlayerClass, base = '', clientSeed = '') {
     this.characterId = characterId;
     this.token = token;
     this.base = normalizeOrigin(base) || NATIVE_API_ORIGIN;
+    this.clientSeed = clientSeed;
     this.cfg = { seed: 20061, playerClass: cls };
     // when a realm was picked, connect to that realm's origin; otherwise the
     // page's own host
@@ -555,7 +558,7 @@ export class ClientWorld implements IWorld {
       : buildWebSocketUrl(location.protocol, location.host);
     this.ws = new WebSocket(wsUrl);
     this.ws.onopen = () => {
-      this.ws.send(JSON.stringify(buildWebSocketAuthMessage(token, characterId)));
+      this.ws.send(JSON.stringify(buildWebSocketAuthMessage(token, characterId, this.clientSeed)));
     };
     this.ws.onmessage = (ev) => this.onMessage(String(ev.data));
     this.ws.onclose = () => {
@@ -717,6 +720,16 @@ export class ClientWorld implements IWorld {
         };
         apply(this.socialInfo.friends);
         if (this.socialInfo.guild) apply(this.socialInfo.guild.members);
+      }
+      return;
+    }
+    if (msg.t === 'challenge') {
+      // Server-presented challenge: solve it and return the answer signed with
+      // this client's seed so the answer is bound to us. WIP not yet interactive.
+      if (typeof msg.nonce === 'string' && typeof msg.challenge === 'string') {
+        const challengeResponse = '42';
+        const signature = signChallenge(msg.nonce, challengeResponse, this.clientSeed);
+        this.cmd({ cmd: 'challengeResponse', n: msg.nonce, r: challengeResponse, sig: signature });
       }
       return;
     }
