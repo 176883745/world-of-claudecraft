@@ -2775,6 +2775,9 @@ export const pt_BR: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Pele de espreitador da crista"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Pele imaculada de espreitador da crista"
+      },
       "glowing_wax": {
         "name": "Cera brilhante"
       },
@@ -3215,6 +3218,9 @@ export const pt_BR: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Botas furtivas de Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Cinta de caça de Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Cetro da maré afogada"

@@ -1726,6 +1726,8 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   "entities.items.deepfen_pearl.name": "Deepfen-Perle",
   "entities.items.highwatch_summons.name": "Einberufung von Highwatch",
   "entities.items.ridge_stalker_pelt.name": "Balg eines Gratpirschers",
+  "entities.items.pristine_ridge_stalker_pelt.name": "Makelloser Balg eines Gratpirschers",
+  "entities.items.cragmaw_huntcord.name": "Jagdgurt von Cragmaw",
   "entities.items.glowing_wax.name": "Glühendes Wachs",
   "entities.items.ogre_war_totem.name": "Ogerkriegstotem",
   "entities.items.storm_core.name": "Sturmkern",

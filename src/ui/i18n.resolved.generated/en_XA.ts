@@ -2775,6 +2775,9 @@ export const en_XA: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "[Ŕíðĝé Šţáļķéŕ Þéļţ]"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "[Þŕíšţíñé Ŕíðĝé Šţáļķéŕ Þéļţ]"
+      },
       "glowing_wax": {
         "name": "[Ĝļóŵíñĝ Ŵáẋ]"
       },
@@ -3215,6 +3218,9 @@ export const en_XA: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "[Çŕáĝɱáŵ Þŕóŵļƀóóţš]"
+      },
+      "cragmaw_huntcord": {
+        "name": "[Çŕáĝɱáŵ'š Ĥúñţçóŕð]"
       },
       "drowned_tide_scepter": {
         "name": "[Ðŕóŵñéð Ţíðé Šçéþţéŕ]"

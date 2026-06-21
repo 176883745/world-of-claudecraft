@@ -2775,6 +2775,9 @@ export const de_DE: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Balg eines Gratpirschers"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Makelloser Balg eines Gratpirschers"
+      },
       "glowing_wax": {
         "name": "Glühendes Wachs"
       },
@@ -3215,6 +3218,9 @@ export const de_DE: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Schleicherstiefel von Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Jagdgurt von Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Zepter der ertrunkenen Flut"

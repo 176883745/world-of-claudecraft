@@ -2775,6 +2775,9 @@ export const it_IT: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Pelliccia di predatore del crinale"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Pelliccia immacolata di predatore del crinale"
+      },
       "glowing_wax": {
         "name": "Cera luminosa"
       },
@@ -3215,6 +3218,9 @@ export const it_IT: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Stivali predatori di Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Cinghia da caccia di Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Scettro della marea annegata"

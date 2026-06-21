@@ -1726,6 +1726,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   "entities.items.deepfen_pearl.name": "딥펜 진주",
   "entities.items.highwatch_summons.name": "하이워치 소환장",
   "entities.items.ridge_stalker_pelt.name": "산등성이 추적자 가죽",
+  "entities.items.pristine_ridge_stalker_pelt.name": "온전한 산등성이 추적자 가죽",
+  "entities.items.cragmaw_huntcord.name": "크래그모의 사냥 허리끈",
   "entities.items.glowing_wax.name": "빛나는 밀랍",
   "entities.items.ogre_war_totem.name": "오우거 전쟁 토템",
   "entities.items.storm_core.name": "폭풍 핵",

@@ -1726,6 +1726,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   "entities.items.deepfen_pearl.name": "深沼珍珠",
   "entities.items.highwatch_summons.name": "高望召令",
   "entities.items.ridge_stalker_pelt.name": "山脊潜伏者毛皮",
+  "entities.items.pristine_ridge_stalker_pelt.name": "无瑕的山脊潜伏者毛皮",
+  "entities.items.cragmaw_huntcord.name": "裂颚的狩猎腰索",
   "entities.items.glowing_wax.name": "发光蜡块",
   "entities.items.ogre_war_totem.name": "食人魔战争图腾",
   "entities.items.storm_core.name": "风暴核心",

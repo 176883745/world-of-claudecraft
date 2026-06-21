@@ -2775,6 +2775,9 @@ export const en: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Ridge Stalker Pelt"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Pristine Ridge Stalker Pelt"
+      },
       "glowing_wax": {
         "name": "Glowing Wax"
       },
@@ -3215,6 +3218,9 @@ export const en: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Cragmaw Prowlboots"
+      },
+      "cragmaw_huntcord": {
+        "name": "Cragmaw's Huntcord"
       },
       "drowned_tide_scepter": {
         "name": "Drowned Tide Scepter"

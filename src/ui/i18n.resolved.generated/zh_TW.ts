@@ -2775,6 +2775,9 @@ export const zh_TW: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "山脊潛伏者毛皮"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "無瑕的山脊潛伏者毛皮"
+      },
       "glowing_wax": {
         "name": "發光蠟塊"
       },
@@ -3215,6 +3218,9 @@ export const zh_TW: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "裂顎潛行靴"
+      },
+      "cragmaw_huntcord": {
+        "name": "裂顎的狩獵腰索"
       },
       "drowned_tide_scepter": {
         "name": "溺亡潮汐權杖"

@@ -1729,6 +1729,8 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   "entities.items.deepfen_pearl.name": "Perle de Deepfen",
   "entities.items.highwatch_summons.name": "Convocation de Highwatch",
   "entities.items.ridge_stalker_pelt.name": "Peau de rôdeur de la crête",
+  "entities.items.pristine_ridge_stalker_pelt.name": "Peau immaculée de rôdeur de la crête",
+  "entities.items.cragmaw_huntcord.name": "Ceinturon de chasse de Cragmaw",
   "entities.items.glowing_wax.name": "Cire luisante",
   "entities.items.ogre_war_totem.name": "Totem de guerre ogre",
   "entities.items.storm_core.name": "Noyau de tempête",

@@ -2775,6 +2775,9 @@ export const ja_JP: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "尾根の追跡者の毛皮"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "極上の尾根の追跡者の毛皮"
+      },
       "glowing_wax": {
         "name": "光る蝋"
       },
@@ -3215,6 +3218,9 @@ export const ja_JP: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "クラッグモウの忍び歩きブーツ"
+      },
+      "cragmaw_huntcord": {
+        "name": "クラッグモウの狩猟帯"
       },
       "drowned_tide_scepter": {
         "name": "溺れた潮の笏"

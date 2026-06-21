@@ -2775,6 +2775,9 @@ export const ko_KR: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "산등성이 추적자 가죽"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "온전한 산등성이 추적자 가죽"
+      },
       "glowing_wax": {
         "name": "빛나는 밀랍"
       },
@@ -3215,6 +3218,9 @@ export const ko_KR: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "크래그모의 잠행 장화"
+      },
+      "cragmaw_huntcord": {
+        "name": "크래그모의 사냥 허리끈"
       },
       "drowned_tide_scepter": {
         "name": "익사한 조수의 셉터"

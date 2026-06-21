@@ -1726,6 +1726,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   "entities.items.deepfen_pearl.name": "ディープフェンの真珠",
   "entities.items.highwatch_summons.name": "ハイウォッチ召喚状",
   "entities.items.ridge_stalker_pelt.name": "尾根の追跡者の毛皮",
+  "entities.items.pristine_ridge_stalker_pelt.name": "極上の尾根の追跡者の毛皮",
+  "entities.items.cragmaw_huntcord.name": "クラッグモウの狩猟帯",
   "entities.items.glowing_wax.name": "光る蝋",
   "entities.items.ogre_war_totem.name": "オーガ戦のトーテム",
   "entities.items.storm_core.name": "嵐の核",

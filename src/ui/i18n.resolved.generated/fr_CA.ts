@@ -2775,6 +2775,9 @@ export const fr_CA: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Peau de rôdeur de la crête"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Peau immaculée de rôdeur de la crête"
+      },
       "glowing_wax": {
         "name": "Cire luisante"
       },
@@ -3215,6 +3218,9 @@ export const fr_CA: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Bottes rôdeuses de Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Ceinturon de chasse de Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Sceptre de la marée noyée"

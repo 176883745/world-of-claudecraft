@@ -2775,6 +2775,9 @@ export const es_ES: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Piel de acechador de la cresta"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Piel prístina de acechador de la cresta"
+      },
       "glowing_wax": {
         "name": "Cera resplandeciente"
       },
@@ -3215,6 +3218,9 @@ export const es_ES: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Botas acechadoras de Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Cinto de caza de Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Cetro de la marea ahogada"
