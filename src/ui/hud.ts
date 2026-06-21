@@ -23,7 +23,9 @@ import { xpBarView, formatXp } from './xp_bar';
 import { lowHealthVignette } from './low_health';
 import { absorbBarView } from './absorb_bar';
 import { itemStatDeltas } from './item_compare';
-import { buildStatTooltip, weaponDps, type StatEffect, type StatId, type StatTooltipModel } from './stat_tooltip';
+import { buildStatTooltip, weaponDps, type StatId, type StatTooltipModel } from './stat_tooltip';
+import { statCellHtml, statTooltipHtml, type StatTooltipI18n } from './stat_tooltip_view';
+import { esc } from './esc';
 import { formatClockTime } from './clock';
 import { formatMinimapCoords } from './coords';
 import { compassView, type CardinalId } from './compass';
@@ -114,12 +116,12 @@ export interface ReportHooks {
 }
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => document.querySelector(sel) as T;
-const esc = (value: unknown): string => String(value ?? '')
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&#39;');
+// The HUD's i18n + number-formatting surface, handed to the pure stat-tooltip
+// view so it can render localized breakdowns without importing the i18n runtime.
+const STAT_VIEW_DEPS: StatTooltipI18n = {
+  t: (key, params) => t(key as TranslationKey, params),
+  fmt: (value, opts) => formatNumber(value, opts),
+};
 const castDisplayName = (id: string): string => {
   if (id === FISHING_CAST_ID) return t('abilityUi.cast.fishing');
   if (id === 'demon_heal') return t('abilityUi.cast.demonHeal');
@@ -1511,8 +1513,11 @@ export class Hud {
     return html;
   }
 
-  // Build the pure stat-breakdown model for the currently-shown player. Shared by the
-  // visual tooltip and the screen-reader description so they read identical numbers.
+  // Build the pure stat-breakdown model for the currently-shown player, the bridge
+  // from the live sim to the host-agnostic stat_tooltip core. The HTML + aria
+  // rendering lives in the unit-tested stat_tooltip_view module; this only feeds
+  // it the current numbers, so the visual tooltip and the screen-reader text read
+  // identical, live values.
   private statModel(stat: StatId): StatTooltipModel {
     const sim = this.sim;
     const p = sim.player;
@@ -1526,83 +1531,6 @@ export class Hud {
       dodgeChance: p.dodgeChance,
       dps: weaponDps(wpn?.weapon, p.attackPower),
     });
-  }
-
-  // The localized "From your N {stat}:" breakdown header, or '' for derived cells.
-  private statBreakdownHeader(model: StatTooltipModel): string {
-    if (!model.isPrimary || !model.effects.length) return '';
-    return t('hudChrome.statInfo.fromYour', {
-      value: formatNumber(model.statValue, { maximumFractionDigits: 0 }),
-      stat: t(`itemUi.stats.${model.stat}` as TranslationKey),
-    });
-  }
-
-  // The localized note lines (minor-for-class / base-chance / dps-estimate).
-  private statNoteTexts(model: StatTooltipModel): string[] {
-    const notes: string[] = [];
-    if (model.minorForClass) notes.push(t('hudChrome.statInfo.notes.minorForClass'));
-    if (model.baseChanceNote) notes.push(t('hudChrome.statInfo.notes.baseChance'));
-    if (model.dpsApproxNote) notes.push(t('hudChrome.statInfo.notes.dpsApprox'));
-    return notes;
-  }
-
-  // Character-sheet stat hover tooltip: a class-aware, live breakdown of what a
-  // stat does for THIS character (e.g. how much attack power / crit / dodge / armor
-  // your Agility is granting right now). The math lives in the pure, unit-tested
-  // stat_tooltip module; this only maps the structured model to localized HTML.
-  private statTooltipHtml(stat: StatId): string {
-    const model = this.statModel(stat);
-    let html = `<div class="tt-title">${esc(t(`itemUi.stats.${stat}` as TranslationKey))}</div>`;
-    html += `<div class="tt-body">${esc(t(`hudChrome.statInfo.desc.${stat}` as TranslationKey))}</div>`;
-    const header = this.statBreakdownHeader(model);
-    if (header) html += `<div class="tt-bd-head">${esc(header)}</div>`;
-    for (const e of model.effects) html += this.statEffectLine(e);
-    for (const note of this.statNoteTexts(model)) html += `<div class="tt-sub">${esc(note)}</div>`;
-    return html;
-  }
-
-  // Plain-text equivalent for assistive tech (aria-describedby): the description, the
-  // live "From your N {stat}" breakdown, and any notes, so screen-reader users get the
-  // same class-aware numbers a sighted user sees in the floating, sighted-only tooltip.
-  private statAriaText(stat: StatId): string {
-    const model = this.statModel(stat);
-    const parts = [t(`hudChrome.statInfo.desc.${stat}` as TranslationKey)];
-    const header = this.statBreakdownHeader(model);
-    if (header) parts.push(header);
-    for (const e of model.effects) parts.push(this.statEffectText(e));
-    parts.push(...this.statNoteTexts(model));
-    return parts.join(' ');
-  }
-
-  // The localized text of one contribution line (no markup), shared by the visual
-  // tooltip and the aria description.
-  private statEffectText(e: StatEffect): string {
-    const int0 = (v: number) => formatNumber(v, { maximumFractionDigits: 0 });
-    const dec1 = (v: number) => formatNumber(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    const key = (k: string) => `hudChrome.statInfo.effects.${k}` as TranslationKey;
-    switch (e.kind) {
-      case 'attackPower': return t(key('attackPower'), { value: int0(e.value) });
-      case 'rangedAttackPower': return t(key('rangedAttackPower'), { value: int0(e.value) });
-      case 'critPct': return t(key('critPct'), { value: dec1(e.value) });
-      case 'dodgePct': return t(key('dodgePct'), { value: dec1(e.value) });
-      case 'armor': return t(key('armor'), { value: int0(e.value) });
-      case 'maxHealth': return t(key('maxHealth'), { value: int0(e.value) });
-      case 'maxMana': return t(key('maxMana'), { value: int0(e.value) });
-      case 'spellCritPct': return t(key('spellCritPct'), { value: dec1(e.value) });
-      case 'healthRegen': return t(key('healthRegen'), { value: int0(e.value) });
-      case 'manaRegen': return t(key('manaRegen'), { value: int0(e.value) });
-      case 'damageReduction': return t(key('damageReduction'), { level: int0(e.level ?? 0), value: dec1(e.value) });
-      case 'dpsFromAp': return t(key('dpsFromAp'), { value: dec1(e.value) });
-    }
-  }
-
-  // Render one contribution line. "+stat" gains read as gains (green); informational
-  // lines (damage reduction, regen, dps) read as neutral facts (white).
-  private statEffectLine(e: StatEffect): string {
-    const gain = e.kind === 'attackPower' || e.kind === 'rangedAttackPower' || e.kind === 'critPct'
-      || e.kind === 'dodgePct' || e.kind === 'armor' || e.kind === 'maxHealth'
-      || e.kind === 'maxMana' || e.kind === 'spellCritPct';
-    return `<div class="${gain ? 'tt-green' : 'tt-stat'}">${esc(this.statEffectText(e))}</div>`;
   }
 
   private questNumber(value: number): string {
@@ -5561,25 +5489,18 @@ export class Hud {
       </div>
       <div class="equip-col equip-col-right" id="equip-col-right"></div>
     </div>`;
-    const wpn = sim.equipment.mainhand ? ITEMS[sim.equipment.mainhand] : null;
-    const dps = weaponDps(wpn?.weapon, p.attackPower);
-    // Each cell is a focusable, hover/long-press target carrying its stat id so the
-    // post-render pass can attach a rich, class-aware breakdown tooltip. The
-    // visually-hidden node carries the SAME class-aware breakdown as plain text
-    // (aria-describedby), so screen-reader users get the live numbers too, not just a
-    // qualitative sentence (the floating tooltip itself is sighted-only).
-    const statCell = (stat: StatId, valueText: string) =>
-      `<span class="stat-cell" data-stat="${stat}" tabindex="0" aria-describedby="statdesc-${stat}">`
-      + `${esc(t(`itemUi.stats.${stat}` as TranslationKey))}: <b>${valueText}</b>`
-      + `<span id="statdesc-${stat}" class="visually-hidden">${esc(this.statAriaText(stat))}</span></span>`;
-    const num0 = (v: number) => formatNumber(v, { maximumFractionDigits: 0 });
-    const pct1 = (v: number) => `${formatNumber(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
+    // Ten focusable stat cells, primaries down the left column and derived stats
+    // down the right. The cell markup, value formatting, and the visually-hidden
+    // aria breakdown all come from the pure, unit-tested stat_tooltip_view module;
+    // each cell's value is read from the model so it cannot drift from the tooltip
+    // it opens, and the post-render pass below attaches the floating breakdown.
+    const statCell = (stat: StatId) => statCellHtml(this.statModel(stat), STAT_VIEW_DEPS);
     html += `<div class="char-stats">
-      ${statCell('str', num0(p.stats.str))}${statCell('armor', num0(p.stats.armor))}
-      ${statCell('agi', num0(p.stats.agi))}${statCell('attackPower', num0(p.attackPower))}
-      ${statCell('sta', num0(p.stats.sta))}${statCell('dps', formatNumber(dps, { minimumFractionDigits: 1, maximumFractionDigits: 1 }))}
-      ${statCell('int', num0(p.stats.int))}${statCell('critChance', pct1(p.critChance * 100))}
-      ${statCell('spi', num0(p.stats.spi))}${statCell('dodge', pct1(p.dodgeChance * 100))}
+      ${statCell('str')}${statCell('armor')}
+      ${statCell('agi')}${statCell('attackPower')}
+      ${statCell('sta')}${statCell('dps')}
+      ${statCell('int')}${statCell('critChance')}
+      ${statCell('spi')}${statCell('dodge')}
     </div>`;
     html += this.talentSummaryHtml();
     html += this.progressionHtml(p.level);
@@ -5622,7 +5543,9 @@ export class Hud {
     for (const slot of rightSlots) rightCol.appendChild(buildSlotRow(slot));
     for (const cell of el.querySelectorAll<HTMLElement>('.char-stats [data-stat]')) {
       const stat = cell.dataset.stat as StatId;
-      this.attachTooltip(cell, () => this.statTooltipHtml(stat));
+      // Resolve the model lazily, on show, so the breakdown reflects the player's
+      // current stats (gear/buffs/talents) at the moment they hover, not at render.
+      this.attachTooltip(cell, () => statTooltipHtml(this.statModel(stat), STAT_VIEW_DEPS));
     }
     this.renderCharPreview();
     this.renderCharSkinPicker();
