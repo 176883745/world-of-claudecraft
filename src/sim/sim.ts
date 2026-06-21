@@ -7087,7 +7087,11 @@ export class Sim {
       && e.templateId === NYTHRAXIS_BOSS_ID
       && !e.dead
       && dist2d(e.spawnPos, ward.pos) < NYTHRAXIS_WARDSTONE_RANGE);
-    if (!boss?.nythraxis || boss.nythraxis.deathlessCastRemaining <= 0) return true;
+    // No Nythraxis boss in range: this is not a raid wardstone but the overworld
+    // "Sunken Bastion" quest ward stone (same item id). Fall through so the normal
+    // quest pickup runs, instead of swallowing the interaction.
+    if (!boss) return false;
+    if (!boss.nythraxis || boss.nythraxis.deathlessCastRemaining <= 0) return true;
     const channel = boss.nythraxis.wardChannels.find((c) => c.objectId === ward.id);
     if (!channel || channel.complete) return true;
     if (channel.playerId === player.id) return true;
