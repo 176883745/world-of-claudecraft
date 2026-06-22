@@ -1074,7 +1074,7 @@ export const de_DE: EnTranslations = {
         "flavor": "Ihr schmiedet Eure eigene Welt: 9 % des Angebots."
       },
       "worldbearer": {
-        "name": "Weltensträger",
+        "name": "Weltenträger",
         "flavor": "Ihr tragt ein Stück der Welt: 10 % des Angebots."
       },
       "sovereign": {
@@ -2606,7 +2606,7 @@ export const de_DE: EnTranslations = {
         "description": "Trifft das Ziel mit einem lähmenden Gift, verursacht {damage} Naturschaden und verringert sein Bewegungstempo 12 Sek. lang um 50%."
       },
       "expose_armor": {
-        "name": "Rüstung zerreißen",
+        "name": "Rüstung entblößen",
         "description": "Finishing-Move, der das Ziel entblößt und seine Rüstung verringert. Mehr eingesetzte Combopunkte führen zu einem tieferen Schnitt."
       },
       "rupture": {
@@ -2707,7 +2707,7 @@ export const de_DE: EnTranslations = {
       },
       "concussive_shot": {
         "name": "Erschütternder Schuss",
-        "description": "Benommen macht das Ziel und verringert sein Bewegungstempo 4 Sek. lang um 50%."
+        "description": "Macht das Ziel benommen und verringert sein Bewegungstempo 4 Sek. lang um 50%."
       },
       "mongoose_bite": {
         "name": "Mungobiss",
@@ -2927,7 +2927,7 @@ export const de_DE: EnTranslations = {
       },
       "travel_form": {
         "name": "Reisegestalt",
-        "description": "Nehmt eine flinke Reisegestalt an, was das Lauftempo um 40% erhöht. Im Kampf nicht einsetzbar."
+        "description": "Nehmt augenblicklich eine flinke Reisegestalt an, was das Lauftempo um 40% erhöht. In dieser Gestalt könnt ihr keine anderen Fähigkeiten einsetzen, aber ihr könnt im Kampf hinein- und herauswechseln. Ideal zur Flucht."
       },
       "enrage": {
         "name": "Wutanfall",
@@ -4187,10 +4187,10 @@ export const de_DE: EnTranslations = {
         "name": "Gebundener Wächter"
       },
       "nythraxis_skeleton_warrior": {
-        "name": "Auferstandene Koenigswache"
+        "name": "Auferstandene Königswache"
       },
       "nythraxis_scourge_of_thornpeak": {
-        "name": "Nythraxis, Geissel von Thornpeak"
+        "name": "Nythraxis, Geißel von Thornpeak"
       },
       "brightwood_hare": {
         "name": "Hellholz-Hase"
@@ -5174,8 +5174,8 @@ export const de_DE: EnTranslations = {
       },
       "q_nythraxis_bound_guardian": {
         "title": "Der Gebundene Wächter",
-        "text": "Voss schrieb, dass die Uberlebenden den Siegelring des Konigs hinter einem uralten Wachter versiegelten, damit niemand Nythraxis Grab durch Zufall oder Ehrgeiz erreicht. Bring den Kryptenschlussel zum Ritualkreis auf dem flachen Boden ostlich der verlassenen Krypta und sudostlich des westlichen Grabes. Benutze ihn dort, brich den Wachter und bring den Ring zuruck.",
-        "completion": "Die drei Relikte erzahlen dieselbe Geschichte: Aldren kampfte, um seinen Konig zu verteidigen, Malric durchbrach die Grenze des Todes, und Voss versuchte aufzuhalten, was folgte. Das Siegel wird schwacher, und dieser Ring ist der Schlussel zu Nythraxis Grab. Du bist nun eingestimmt, die Krypta von Nythraxis zu betreten. Kehrt zur verlassenen Krypta zuruck, offnet die konigliche Tur und stellt Euch Nythraxis, bevor der Zorn des alten Konigs uber Thornpeak hinausbricht.",
+        "text": "Voss schrieb, dass die Überlebenden den Siegelring des Königs hinter einem uralten Wächter versiegelten, damit niemand Nythraxis' Grab durch Zufall oder Ehrgeiz erreicht. Bring den Kryptenschlüssel zum Ritualkreis auf dem flachen Boden östlich der verlassenen Krypta und südöstlich des westlichen Grabes. Benutze ihn dort, brich den Wächter und bring den Ring zurück.",
+        "completion": "Die drei Relikte erzählen dieselbe Geschichte: Aldren kämpfte, um seinen König zu verteidigen, Malric durchbrach die Grenze des Todes, und Voss versuchte aufzuhalten, was folgte. Das Siegel wird schwächer, und dieser Ring ist der Schlüssel zu Nythraxis' Grab. Ihr seid nun eingestimmt, die Krypta von Nythraxis zu betreten. Kehrt zur verlassenen Krypta zurück, öffnet die königliche Tür und stellt Euch Nythraxis, bevor der Zorn des alten Königs über Thornpeak hinausbricht.",
         "objectives": {
           "0": {
             "label": "Schlüsselstein am Ritualkreis benutzt"
@@ -5189,9 +5189,9 @@ export const de_DE: EnTranslations = {
         }
       },
       "q_nythraxis_scourges_end": {
-        "title": "Das Ende der Geissel",
-        "text": "Der Siegelring hat den Weg geoeffnet, {playerName}, doch ein offenes Grab ist kein Sieg. Nythraxis war einst ein Koenig, und die Ruine unter Thornpeak bleibt an seinen Willen gebunden. Betretet die Krypta mit Verbuendeten, denen Ihr vertraut. Brecht die todlose Krone, bevor ihr Befehl das Schlachtfeld darueber erreicht.",
-        "completion": "Dann schweigt die Krone endlich. Thornpeak wird seine Toten weiter tragen, doch kein Koenig unter dem Berg wird sie je wieder in den Krieg rufen. Ihr habt beendet, was Aldren, Malric und Voss nur eindämmen konnten.",
+        "title": "Das Ende der Geißel",
+        "text": "Der Siegelring hat den Weg geöffnet, {playerName}, doch ein offenes Grab ist kein Sieg. Nythraxis war einst ein König, und die Ruine unter Thornpeak bleibt an seinen Willen gebunden. Betretet die Krypta mit Verbündeten, denen Ihr vertraut. Brecht die todlose Krone, bevor ihr Befehl das Schlachtfeld darüber erreicht.",
+        "completion": "Dann schweigt die Krone endlich. Thornpeak wird seine Toten weiter tragen, doch kein König unter dem Berg wird sie je wieder in den Krieg rufen. Ihr habt beendet, was Aldren, Malric und Voss nur eindämmen konnten.",
         "objectives": {
           "0": {
             "label": "Nythraxis besiegt"

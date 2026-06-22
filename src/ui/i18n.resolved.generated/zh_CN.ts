@@ -3945,7 +3945,7 @@ export const zh_CN: EnTranslations = {
         "name": "不朽王冠之心木"
       },
       "kingsbane_last_oath": {
-        "name": "弑王者，Thornpeak 最后的誓言"
+        "name": "弑王者，荆峰的最后誓言"
       },
       "crownforged_dreadhelm": {
         "name": "铸冠恐惧头盔"
@@ -4190,7 +4190,7 @@ export const zh_CN: EnTranslations = {
         "name": "复苏王室卫兵"
       },
       "nythraxis_scourge_of_thornpeak": {
-        "name": "尼瑟拉克斯，荆峰之灾"
+        "name": "尼思拉克西斯，荆峰之灾"
       },
       "brightwood_hare": {
         "name": "明木野兔"
@@ -5534,7 +5534,7 @@ export const zh_CN: EnTranslations = {
         "leaveText": "你爬出废弃墓穴，回到荆峰的山风之中。"
       },
       "nythraxis_boss_arena": {
-        "name": "尼瑟拉克斯团队竞技场",
+        "name": "尼思拉克西斯团队竞技场",
         "enterText": "你穿过封印的王室之门。",
         "leaveText": "你回到荆峰的寒冷空气中。"
       },

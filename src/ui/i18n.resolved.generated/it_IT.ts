@@ -2927,7 +2927,7 @@ export const it_IT: EnTranslations = {
       },
       "travel_form": {
         "name": "Forma da Viaggio",
-        "description": "Assume una rapida forma da viaggio, aumentando la velocità di movimento del 40%. Non utilizzabile in combattimento."
+        "description": "Assume all'istante una rapida forma da viaggio, aumentando la velocità di movimento del 40%. Mentre sei trasformato non puoi usare altre abilità, ma puoi trasformarti dentro o fuori dal combattimento: ideale per fuggire."
       },
       "enrage": {
         "name": "Furia incontrollata",
@@ -4452,7 +4452,7 @@ export const it_IT: EnTranslations = {
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Guardamarea",
-        "greeting": "Lo stagno beve la luce della luna, {className}, e restituisce gli annegati. Sorveglio quel cancello da trenta notti — e stanotte è aperto."
+        "greeting": "Lo stagno beve la luce della luna, {className}, e restituisce gli annegati. Sorveglio quel cancello da trenta notti, e stanotte è aperto."
       }
     },
     "quests": {
@@ -5174,8 +5174,8 @@ export const it_IT: EnTranslations = {
       },
       "q_nythraxis_bound_guardian": {
         "title": "Il Guardiano Vincolato",
-        "text": "Voss scrisse che i sopravvissuti sigillarono l Anello del re dietro un antico guardiano, cosi che nessuno potesse raggiungere la tomba di Nythraxis per caso o ambizione. Porta la Chiave della cripta al cerchio rituale sul terreno piano a est della cripta abbandonata e a sud-est della tomba occidentale. Usala li, spezza il guardiano e riporta l anello.",
-        "completion": "Le tre reliquie raccontano la stessa storia: Aldren combatte per difendere il suo re, Malric spezzo il confine della morte e Voss tento di fermare cio che segui. Il sigillo si indebolisce, e questo anello e la chiave della tomba di Nythraxis. Ora sei armonizzato per entrare nella Cripta di Nythraxis. Torna alla cripta abbandonata, apri la porta reale e affronta Nythraxis prima che la furia del vecchio re trabocchi oltre Thornpeak.",
+        "text": "Voss scrisse che i sopravvissuti sigillarono l'Anello del Re dietro un antico guardiano, così che nessuno potesse raggiungere la tomba di Nythraxis per caso o ambizione. Porta la Chiave di volta della cripta al cerchio rituale sul terreno piano a est della cripta abbandonata e a sud-est della tomba occidentale. Usala lì, spezza il guardiano e riporta l'anello.",
+        "completion": "Le tre reliquie raccontano la stessa storia: Aldren combatté per difendere il suo re, Malric spezzò il confine della morte e Voss tentò di fermare ciò che seguì. Il sigillo si indebolisce, e questo anello è la chiave della tomba di Nythraxis. Ora sei armonizzato per entrare nella Cripta di Nythraxis. Torna alla cripta abbandonata, apri la porta reale e affronta Nythraxis prima che la furia del vecchio re trabocchi oltre Thornpeak.",
         "objectives": {
           "0": {
             "label": "Chiave di volta usata al cerchio rituale"
@@ -5190,8 +5190,8 @@ export const it_IT: EnTranslations = {
       },
       "q_nythraxis_scourges_end": {
         "title": "La fine del Flagello",
-        "text": "L'anello ha aperto la via, {playerName}, ma una tomba aperta non e una vittoria. Nythraxis fu un re, e la rovina sotto Thornpeak e ancora legata alla sua volonta. Entra nella cripta con alleati di fiducia. Spezza la corona immortale prima che il suo comando raggiunga il campo di battaglia sopra di voi.",
-        "completion": "Allora la corona tace finalmente. Thornpeak portera ancora i suoi morti, ma nessun re sotto la montagna li richiamera piu in guerra. Hai concluso cio che Aldren, Malric e Voss poterono soltanto contenere.",
+        "text": "L'anello ha aperto la via, {playerName}, ma una tomba aperta non è una vittoria. Nythraxis un tempo fu un re, e la rovina sotto Thornpeak è ancora legata alla sua volontà. Entra nella cripta con alleati di fiducia. Spezza la corona immortale prima che il suo comando raggiunga il campo di battaglia sopra di voi.",
+        "completion": "Allora la corona tace finalmente. Thornpeak porterà ancora i suoi morti, ma nessun re sotto la montagna li richiamerà più in guerra. Hai concluso ciò che Aldren, Malric e Voss poterono soltanto contenere.",
         "objectives": {
           "0": {
             "label": "Nythraxis sconfitto"

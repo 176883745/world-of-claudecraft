@@ -1576,7 +1576,7 @@ export const ja_JP: EnTranslations = {
       "communityLinks": "コミュニティリンク",
       "mobileControls": "モバイル操作",
       "mobileMove": "移動",
-      "mobileCamera": "カメラ",
+      "mobileCamera": "カメラ（ダブルタップで中央に戻す）",
       "mobileAttack": "攻撃",
       "mobileTarget": "ターゲット",
       "mobileChat": "チャット",
@@ -2927,7 +2927,7 @@ export const ja_JP: EnTranslations = {
       },
       "travel_form": {
         "name": "トラベルフォーム",
-        "description": "素早い移動形態になり、移動速度を40%上昇させます。戦闘中は使用できません。"
+        "description": "素早い移動形態に即座に変身し、移動速度を40%上昇させます。変身中は他のアビリティを使用できませんが、戦闘中でも戦闘外でも変身を切り替えられるため、逃走に最適です。"
       },
       "enrage": {
         "name": "激怒",

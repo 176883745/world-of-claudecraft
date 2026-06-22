@@ -1168,7 +1168,7 @@ export const zh_TW: EnTranslations = {
     "spellbook": "法術書",
     "questLog": "任務日誌",
     "worldMap": "世界地圖",
-    "bags": "背包背包欄",
+    "bags": "背包欄",
     "emoteWheel": "按住表情輪盤",
     "friends": "好友與公會",
     "chat": "開啟對話框"
@@ -3945,7 +3945,7 @@ export const zh_TW: EnTranslations = {
         "name": "不朽王冠之心木"
       },
       "kingsbane_last_oath": {
-        "name": "弒王者，Thornpeak 最後的誓言"
+        "name": "弒王者，荊峰的最後誓言"
       },
       "crownforged_dreadhelm": {
         "name": "鑄冠恐懼頭盔"
@@ -4190,7 +4190,7 @@ export const zh_TW: EnTranslations = {
         "name": "復甦王室衛兵"
       },
       "nythraxis_scourge_of_thornpeak": {
-        "name": "尼瑟拉克斯，荊峰之災"
+        "name": "尼思拉克西斯，荊峰之災"
       },
       "brightwood_hare": {
         "name": "明木野兔"
@@ -5132,8 +5132,8 @@ export const zh_TW: EnTranslations = {
       },
       "q_nythraxis_restless_dead": {
         "title": "骨原的異動",
-        "text": "Thornpeak Heights 出事了，{playerName}。亡者不再漫無目的地遊蕩。他們在 Highwatch 以北的骨原集結並行軍，那裡是舊戰場與峭壁道路交會之處。去那裡調查骨甲亡魂的異動，並帶回任何能說明是什麼驅使它們的證據。",
-        "completion": "每塊碎片上都有同一個標記……一頂王冠。我以前見過它，刻在一些 Eastbrook 記錄中早已遺忘的舊墳上。",
+        "text": "荊峰高地出事了，{playerName}。亡者不再漫無目的地遊蕩。他們在高望以北的骨原集結並行軍，那裡是舊戰場與峭壁道路交會之處。去那裡調查骨甲亡魂的異動，並帶回任何能說明是什麼驅使它們的證據。",
+        "completion": "每塊碎片上都有同一個標記……一頂王冠。我以前見過它，刻在一些東溪記錄中早已遺忘的舊墳上。",
         "objectives": {
           "0": {
             "label": "符文骨片"
@@ -5158,7 +5158,7 @@ export const zh_TW: EnTranslations = {
       },
       "q_nythraxis_sealed_crypt": {
         "title": "廢棄墓穴",
-        "text": "幻象指向西側峭壁中的廢棄墓穴。古老傳說稱，那座墓穴曾安置一位國王。也許在馬爾里克的儀式把他扭曲成不死之物後，Thornpeak 將他封在了下面。進入墓穴，看看裡面還剩下什麼。",
+        "text": "幻象指向西側峭壁中的廢棄墓穴。古老傳說稱，那座墓穴曾安置一位國王。也許在馬爾里克的儀式把他扭曲成不死之物後，荊峰將他封在了下面。進入墓穴，看看裡面還剩下什麼。",
         "completion": "鑰石的兩半合在了一起，而沃斯的日記寫明了它們封印之物：尼思拉克西斯國王的印戒。如果日記屬實，那枚印戒就是通往他陵墓的鑰匙。",
         "objectives": {
           "0": {
@@ -5534,7 +5534,7 @@ export const zh_TW: EnTranslations = {
         "leaveText": "你回到荊峰的寒冷空氣中。"
       },
       "nythraxis_boss_arena": {
-        "name": "尼瑟拉克斯團隊競技場",
+        "name": "尼思拉克西斯團隊競技場",
         "enterText": "你穿過封印的王室之門。",
         "leaveText": "你回到荊峰的寒冷空氣中。"
       },

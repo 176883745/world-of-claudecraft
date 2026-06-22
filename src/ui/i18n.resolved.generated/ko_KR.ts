@@ -1179,7 +1179,7 @@ export const ko_KR: EnTranslations = {
     "practice": "🎉 봇 상대 연습",
     "practiceNote": "오프라인 연습: AI 봇 3기를 소환하고 2대2 Fiesta 대기열에 등록합니다. 다시 클릭하면 중지합니다.",
     "banner": {
-      "wave": "{wave}/{total} 물결 — 증강을 선택하세요!",
+      "wave": "웨이브 {wave}/{total} - 증강을 선택하세요!",
       "augmentGained": "증강 획득: {name}!",
       "powerup": "{name}!"
     },
@@ -1956,7 +1956,7 @@ export const ko_KR: EnTranslations = {
       "healPet": "소환수 치유",
       "passive": "수동",
       "defensive": "방어",
-      "aggressive": "공격",
+      "aggressive": "공격적",
       "petAttackTitle": "소환수 공격",
       "petAttackDesc": "현재 적대적인 대상에게 소환수가 공격하도록 명령합니다.",
       "petTauntTitle": "소환수 도발",
@@ -2758,7 +2758,7 @@ export const ko_KR: EnTranslations = {
         "description": "15초에 걸쳐 대상의 생명력을 {damage}만큼 회복시킵니다."
       },
       "mind_blast": {
-        "name": "정신 분열",
+        "name": "정신의 일격",
         "description": "대상의 정신을 강타해 {damage}의 암흑 피해를 입힙니다."
       },
       "heal": {
@@ -4115,7 +4115,7 @@ export const ko_KR: EnTranslations = {
         "name": "뼈갑옷 망령"
       },
       "crypt_shambler": {
-        "name": "묘실 비틀거림꾼"
+        "name": "묘실 비틀걸음"
       },
       "hollow_acolyte": {
         "name": "공허의 수행사제"
@@ -4163,7 +4163,7 @@ export const ko_KR: EnTranslations = {
         "name": "무덤고룡 코르줄"
       },
       "bog_bloat": {
-        "name": "늪 부푸리"
+        "name": "늪 부푼괴물"
       },
       "fallen_captain_aldren": {
         "name": "타락한 대장 알드렌"
@@ -4316,7 +4316,7 @@ export const ko_KR: EnTranslations = {
         "name": "익사한 신도"
       },
       "glimmermere_wader": {
-        "name": "글리머미어 물거리"
+        "name": "글리머미어 물헤치미"
       },
       "glimmerscale_lurker": {
         "name": "반짝비늘 잠복자"
@@ -5132,8 +5132,8 @@ export const ko_KR: EnTranslations = {
       },
       "q_nythraxis_restless_dead": {
         "title": "뼈 들판의 소요",
-        "text": "Thornpeak Heights에 변화가 생겼습니다, {playerName}. 죽은 자들이 더는 정처 없이 떠돌지 않습니다. 그들은 Highwatch 너머 북쪽 뼈 들판, 옛 전장과 절벽길이 만나는 곳에서 모여 행군합니다. 그곳으로 가서 뼈갑옷 망령들의 소요를 조사하고, 무엇이 그들을 움직이는지 보여 줄 증거를 가져오십시오.",
-        "completion": "모든 조각에 같은 표식이 있습니다... 왕관입니다. Eastbrook 기록이 기억하지 못하는 오래된 무덤에 새겨진 것을 본 적이 있습니다.",
+        "text": "쏜피크 고지에 변화가 생겼습니다, {playerName}. 죽은 자들이 더는 정처 없이 떠돌지 않습니다. 그들은 하이워치 너머 북쪽 뼈 들판, 옛 전장과 절벽길이 만나는 곳에서 모여 행군합니다. 그곳으로 가서 뼈갑옷 망령들의 소요를 조사하고, 무엇이 그들을 움직이는지 보여 줄 증거를 가져오십시오.",
+        "completion": "모든 조각에 같은 표식이 있습니다... 왕관입니다. 이스트브룩 기록이 기억하지 못하는 오래된 무덤에 새겨진 것을 본 적이 있습니다.",
         "objectives": {
           "0": {
             "label": "룬 새긴 뼈 조각"
@@ -5158,7 +5158,7 @@ export const ko_KR: EnTranslations = {
       },
       "q_nythraxis_sealed_crypt": {
         "title": "버려진 납골당",
-        "text": "환영은 서쪽 절벽의 버려진 묘실을 가리킵니다. 그 묘실에 한 왕이 있었다는 옛 전설이 있습니다. 말릭의 의식이 그를 죽지 않는 존재로 뒤틀어 놓은 뒤 Thornpeak가 그를 아래에 봉인했을지도 모릅니다. 묘실에 들어가 안에 무엇이 남아 있는지 확인하십시오.",
+        "text": "환영은 서쪽 절벽의 버려진 묘실을 가리킵니다. 그 묘실에 한 왕이 있었다는 옛 전설이 있습니다. 말릭의 의식이 그를 죽지 않는 존재로 뒤틀어 놓은 뒤 쏜피크가 그를 아래에 봉인했을지도 모릅니다. 묘실에 들어가 안에 무엇이 남아 있는지 확인하십시오.",
         "completion": "열쇠돌의 두 조각이 맞물리고, 보스의 일지는 그것들이 봉인한 것을 밝힙니다. 니트락시스 왕의 인장 반지입니다. 일지가 사실이라면 그 반지가 그의 무덤으로 가는 열쇠입니다.",
         "objectives": {
           "0": {
@@ -5531,12 +5531,12 @@ export const ko_KR: EnTranslations = {
       "nythraxis_crypt": {
         "name": "버려진 납골당",
         "enterText": "버려진 납골당의 문턱을 넘습니다.",
-        "leaveText": "Thornpeak의 차가운 공기 속으로 돌아옵니다."
+        "leaveText": "쏜피크의 차가운 공기 속으로 돌아옵니다."
       },
       "nythraxis_boss_arena": {
         "name": "니트락시스 공격대 투기장",
         "enterText": "봉인된 왕실 문을 지나갑니다.",
-        "leaveText": "Thornpeak의 차가운 공기 속으로 돌아옵니다."
+        "leaveText": "쏜피크의 차가운 공기 속으로 돌아옵니다."
       },
       "drowned_temple": {
         "name": "익사한 신전",

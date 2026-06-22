@@ -914,7 +914,7 @@ export const es: EnTranslations = {
     "serverOfflineSub": "Mundo local instantáneo",
     "caLabel": "Dirección del contrato de $WOC",
     "caCopyAria": "Copiar dirección del contrato",
-    "caNote": "WOC es nuestro token comunitario. No es necesario para jugar. Únete a Discord para hablar sobre la utilidad y el flywheel de WOC."
+    "caNote": "WOC es nuestro token comunitario. No es necesario para jugar. Únete a Discord para hablar sobre la utilidad y el círculo virtuoso de WOC."
   },
   "auth": {
     "enterRealm": "Entrar al Reino",
@@ -4718,7 +4718,7 @@ export const es: EnTranslations = {
         "completion": "Todos los sacos intactos. Tienes manos más firmes que medio sur, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Viuda de Mirefen abatido"
+            "label": "Viuda de Mirefen abatida"
           },
           "1": {
             "label": "Saco de veneno de viuda"
@@ -4731,10 +4731,10 @@ export const es: EnTranslations = {
         "completion": "¿Muerta de verdad? Entonces el matorral vuelve a ser solo árboles. Que la Luz bendiga tu hoja, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Viuda de Mirefen abatido"
+            "label": "Viuda de Mirefen abatida"
           },
           "1": {
-            "label": "La Madre de la nidada abatido"
+            "label": "La Madre de la nidada abatida"
           }
         }
       },
@@ -5174,8 +5174,8 @@ export const es: EnTranslations = {
       },
       "q_nythraxis_bound_guardian": {
         "title": "El Guardián Vinculado",
-        "text": "Voss escribio que los supervivientes sellaron el Anillo del rey tras un guardian antiguo, para que nadie pudiera alcanzar la tumba de Nythraxis por accidente o ambicion. Lleva la Piedra clave de la cripta al circulo ritual en el terreno llano al este de la cripta abandonada y al sureste de la tumba occidental. Usala alli, rompe al guardian y trae el anillo.",
-        "completion": "Las tres reliquias cuentan la misma historia: Aldren lucho para defender a su rey, Malric rompio el limite de la muerte y Voss intento detener lo que vino despues. El sello se debilita, y este anillo es la llave de la tumba de Nythraxis. Ahora estas armonizado para entrar en La Cripta de Nythraxis. Vuelve a la cripta abandonada, abre la puerta real y enfrenta a Nythraxis antes de que la ira del viejo rey desborde Thornpeak.",
+        "text": "Voss escribió que los supervivientes sellaron el Anillo del rey tras un guardián antiguo, para que nadie pudiera alcanzar la tumba de Nythraxis por accidente o ambición. Lleva la Piedra clave de la cripta al círculo ritual en el terreno llano al este de la cripta abandonada y al sureste de la tumba occidental. Úsala allí, rompe al guardián y trae el anillo.",
+        "completion": "Las tres reliquias cuentan la misma historia: Aldren luchó para defender a su rey, Malric rompió el límite de la muerte y Voss intentó detener lo que vino después. El sello se debilita, y este anillo es la llave de la tumba de Nythraxis. Ahora estás armonizado para entrar en La Cripta de Nythraxis. Vuelve a la cripta abandonada, abre la puerta real y enfrenta a Nythraxis antes de que la ira del viejo rey desborde Thornpeak.",
         "objectives": {
           "0": {
             "label": "Piedra clave usada en el círculo ritual"
@@ -5191,7 +5191,7 @@ export const es: EnTranslations = {
       "q_nythraxis_scourges_end": {
         "title": "El fin del Azote",
         "text": "El sello ha abierto el camino, {playerName}, pero una tumba abierta no es una victoria. Nythraxis fue rey una vez, y la ruina bajo Thornpeak sigue ligada a su voluntad. Entra en la cripta con aliados de confianza. Rompe la corona inmortal antes de que su mandato alcance el campo de batalla de arriba.",
-        "completion": "Entonces la corona calla al fin. Thornpeak seguira cargando con sus muertos, pero ningun rey bajo la montana volvera a llamarlos a la guerra. Has terminado lo que Aldren, Malric y Voss solo pudieron contener.",
+        "completion": "Entonces la corona calla al fin. Thornpeak seguirá cargando con sus muertos, pero ningún rey bajo la montaña volverá a llamarlos a la guerra. Has terminado lo que Aldren, Malric y Voss solo pudieron contener.",
         "objectives": {
           "0": {
             "label": "Nythraxis derrotado"

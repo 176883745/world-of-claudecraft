@@ -846,7 +846,7 @@ export const fr_CA: EnTranslations = {
     "wiki": "Wiki",
     "news": "Actualités",
     "download": "Télécharger",
-    "loginRegister": "Se connecter/S'enregistrer",
+    "loginRegister": "Se connecter/S'inscrire",
     "account": "Compte",
     "logout": "Déconnexion",
     "donate": "Faire un don"
@@ -2707,7 +2707,7 @@ export const fr_CA: EnTranslations = {
       },
       "concussive_shot": {
         "name": "Trait de choc",
-        "description": "Hébéte la cible et ralentit son déplacement de 50% pendant 4 s."
+        "description": "Hébète la cible et ralentit son déplacement de 50% pendant 4 s."
       },
       "mongoose_bite": {
         "name": "Morsure de la mangouste",
@@ -5174,8 +5174,8 @@ export const fr_CA: EnTranslations = {
       },
       "q_nythraxis_bound_guardian": {
         "title": "Le Gardien lié",
-        "text": "Voss ecrivit que les survivants scellerent la Chevaliere du roi derriere un gardien ancien, afin que nul n atteigne la tombe de Nythraxis par accident ou par ambition. Portez la Clef de la crypte au cercle rituel sur le terrain plat a l est de la crypte abandonnee et au sud-est de la tombe occidentale. Utilisez-la la-bas, brisez le gardien et rapportez la chevaliere.",
-        "completion": "Les trois reliques racontent la meme histoire: Aldren combattit pour defendre son roi, Malric franchit la frontiere de la mort, et Voss tenta d arreter ce qui suivit. Le sceau faiblit, et cette chevaliere est la clef de la tombe de Nythraxis. Vous etes maintenant harmonise pour entrer dans la Crypte de Nythraxis. Retournez a la crypte abandonnee, ouvrez la porte royale et affrontez Nythraxis avant que la rage du vieux roi ne deborde Thornpeak.",
+        "text": "Voss écrivit que les survivants scellèrent la Chevalière du roi derrière un gardien ancien, afin que nul n'atteigne la tombe de Nythraxis par accident ou par ambition. Portez la Clef de la crypte au cercle rituel sur le terrain plat à l'est de la crypte abandonnée et au sud-est de la tombe occidentale. Utilisez-la là-bas, brisez le gardien et rapportez la chevalière.",
+        "completion": "Les trois reliques racontent la même histoire : Aldren combattit pour défendre son roi, Malric franchit la frontière de la mort, et Voss tenta d'arrêter ce qui suivit. Le sceau faiblit, et cette chevalière est la clef de la tombe de Nythraxis. Vous êtes maintenant harmonisé pour entrer dans la Crypte de Nythraxis. Retournez à la crypte abandonnée, ouvrez la porte royale et affrontez Nythraxis avant que la rage du vieux roi ne déborde Thornpeak.",
         "objectives": {
           "0": {
             "label": "Clef utilisée au cercle rituel"
@@ -5190,8 +5190,8 @@ export const fr_CA: EnTranslations = {
       },
       "q_nythraxis_scourges_end": {
         "title": "La fin du Fléau",
-        "text": "La chevaliere a ouvert la voie, {playerName}, mais une tombe ouverte n'est pas une victoire. Nythraxis fut roi autrefois, et la ruine sous Thornpeak reste liee a sa volonte. Entrez dans la crypte avec des allies de confiance. Brisez la couronne immortelle avant que son ordre n'atteigne le champ de bataille au-dessus.",
-        "completion": "Alors la couronne se tait enfin. Thornpeak portera toujours ses morts, mais aucun roi sous la montagne ne les appellera plus a la guerre. Vous avez acheve ce qu'Aldren, Malric et Voss n'avaient pu que contenir.",
+        "text": "La chevalière a ouvert la voie, {playerName}, mais une tombe ouverte n'est pas une victoire. Nythraxis fut roi autrefois, et la ruine sous Thornpeak reste liée à sa volonté. Entrez dans la crypte avec des alliés de confiance. Brisez la couronne immortelle avant que son ordre n'atteigne le champ de bataille au-dessus.",
+        "completion": "Alors la couronne se tait enfin. Thornpeak portera toujours ses morts, mais aucun roi sous la montagne ne les appellera plus à la guerre. Vous avez achevé ce qu'Aldren, Malric et Voss n'avaient pu que contenir.",
         "objectives": {
           "0": {
             "label": "Nythraxis vaincu"

@@ -59,7 +59,7 @@ export const pt_BR: EnTranslations = {
       "unlocked": "Marco desbloqueado",
       "veteran": "Veterano",
       "champion": "Campeão",
-      "paragon": "Paragão",
+      "paragon": "Paragon",
       "mythic": "Mítico",
       "eternal": "Eterno"
     },
@@ -2927,7 +2927,7 @@ export const pt_BR: EnTranslations = {
       },
       "travel_form": {
         "name": "Forma de Viagem",
-        "description": "Assume uma rápida forma de viagem, aumentando a velocidade de movimento em 40%. Não pode ser usada em combate."
+        "description": "Assume instantaneamente uma rápida forma de viagem, aumentando a velocidade de movimento em 40%. Você não pode usar outras habilidades enquanto transformado, mas pode ativar ou cancelar a forma dentro ou fora de combate: ideal para fugir."
       },
       "enrage": {
         "name": "Enfurecer",
@@ -4392,7 +4392,7 @@ export const pt_BR: EnTranslations = {
       "brother_aldric_fen": {
         "name": "Irmão Aldric",
         "title": "Sacerdote do Vale",
-        "greeting": "Que a Luz mantenha você acima da água, {playerName}. Os mortos deste pântano não dormem: eles vadearam."
+        "greeting": "Que a Luz mantenha você acima da água, {playerName}. Os mortos deste pântano não dormem: eles vadeiam."
       },
       "provisioner_hale": {
         "name": "Fornecedor Hale",
@@ -4718,7 +4718,7 @@ export const pt_BR: EnTranslations = {
         "completion": "Todas inteiras. Você tem mãos mais firmes que metade dos cirurgiões do sul, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Viúva de Mirefen abatido"
+            "label": "Viúva de Mirefen abatida"
           },
           "1": {
             "label": "Bolsa de veneno de viúva"
@@ -4731,10 +4731,10 @@ export const pt_BR: EnTranslations = {
         "completion": "Morta de verdade? Então o matagal volta a ser só árvores. Que a Luz abençoe sua lâmina, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Viúva de Mirefen abatido"
+            "label": "Viúva de Mirefen abatida"
           },
           "1": {
-            "label": "Mãe da ninhada abatido"
+            "label": "Mãe da ninhada abatida"
           }
         }
       },
@@ -5174,8 +5174,8 @@ export const pt_BR: EnTranslations = {
       },
       "q_nythraxis_bound_guardian": {
         "title": "O Guardião Vinculado",
-        "text": "Voss escreveu que os sobreviventes selaram o Anel-sinete do rei atras de um guardiao antigo, para que ninguem chegasse a tumba de Nythraxis por acidente ou ambicao. Leve a Pedra-chave da cripta ao circulo ritual no terreno plano a leste da cripta abandonada e a sudeste da tumba oeste. Use-a ali, quebre o guardiao e traga o anel.",
-        "completion": "As tres reliquias contam a mesma historia: Aldren lutou para defender seu rei, Malric rompeu a fronteira da morte e Voss tentou impedir o que veio depois. O selo esta enfraquecendo, e este anel e a chave da tumba de Nythraxis. Agora voce esta sintonizado para entrar na Cripta de Nythraxis. Volte a cripta abandonada, destranque a porta real e enfrente Nythraxis antes que a furia do velho rei transborde por Thornpeak.",
+        "text": "Voss escreveu que os sobreviventes selaram o Anel-sinete do rei atrás de um guardião antigo, para que ninguém chegasse à tumba de Nythraxis por acidente ou ambição. Leve a Pedra-chave da cripta ao círculo ritual no terreno plano a leste da cripta abandonada e a sudeste da tumba oeste. Use-a ali, quebre o guardião e traga o anel.",
+        "completion": "As três relíquias contam a mesma história: Aldren lutou para defender seu rei, Malric rompeu a fronteira da morte e Voss tentou impedir o que veio depois. O selo está enfraquecendo, e este anel é a chave da tumba de Nythraxis. Agora você está sintonizado para entrar na Cripta de Nythraxis. Volte à cripta abandonada, destranque a porta real e enfrente Nythraxis antes que a fúria do velho rei transborde por Thornpeak.",
         "objectives": {
           "0": {
             "label": "Pedra-chave usada no círculo ritual"
@@ -5190,8 +5190,8 @@ export const pt_BR: EnTranslations = {
       },
       "q_nythraxis_scourges_end": {
         "title": "O fim do Flagelo",
-        "text": "O anel-sinete abriu o caminho, {playerName}, mas uma tumba aberta nao e uma vitoria. Nythraxis ja foi rei, e a ruina sob Thornpeak ainda esta presa a vontade dele. Entre na cripta com aliados em quem confia. Quebre a coroa imortal antes que sua ordem alcance o campo de batalha acima.",
-        "completion": "Entao a coroa finalmente se cala. Thornpeak ainda carregara seus mortos, mas nenhum rei sob a montanha voltara a chama-los para a guerra. Voce terminou aquilo que Aldren, Malric e Voss so conseguiram conter.",
+        "text": "O anel-sinete abriu o caminho, {playerName}, mas uma tumba aberta não é uma vitória. Nythraxis já foi rei, e a ruína sob Thornpeak ainda está presa à vontade dele. Entre na cripta com aliados em quem confia. Quebre a coroa imortal antes que sua ordem alcance o campo de batalha acima.",
+        "completion": "Então a coroa finalmente se cala. Thornpeak ainda carregará seus mortos, mas nenhum rei sob a montanha voltará a chamá-los para a guerra. Você terminou aquilo que Aldren, Malric e Voss só conseguiram conter.",
         "objectives": {
           "0": {
             "label": "Nythraxis derrotado"
