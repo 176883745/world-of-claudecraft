@@ -174,6 +174,28 @@ export const fr_FR: EnTranslations = {
       "title": "Emotes",
       "done": "Terminé"
     },
+    "theme": {
+      "preset": "UI Theme",
+      "customColors": "Custom Colors",
+      "reset": "Reset",
+      "presets": {
+        "classic": "Classic Gold",
+        "midnight": "Midnight",
+        "parchment": "Parchment",
+        "highContrast": "High Contrast"
+      },
+      "knob": {
+        "accent": "Accent",
+        "border": "Border",
+        "panel": "Frame",
+        "text": "Text",
+        "textMuted": "Muted Text",
+        "hp": "Health",
+        "mana": "Mana",
+        "rage": "Rage",
+        "energy": "Energy"
+      }
+    },
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Réduire le suivi des quêtes",
@@ -253,6 +275,8 @@ export const fr_FR: EnTranslations = {
       "interfaceModeNote": "Auto choisit les commandes Desktop ou Touch selon votre appareil. Choisissez Desktop pour forcer le clavier et la souris (utile sur une tablette avec clavier), ou Touch pour les commandes à l'écran.",
       "footstepSounds": "Sons de pas",
       "clickFeedback": "Repère de clic",
+      "lockCursorOnRotate": "Lock Cursor While Rotating",
+      "keybindHelpLockCursorOnRotate": "Keeps the mouse cursor inside the window while you drag to rotate the camera, so it cannot reach the screen edge or move to another monitor. Turn off if you prefer a free cursor.",
       "showWalletOnCharacterScreen": "Afficher le portefeuille sur l’écran des personnages",
       "showWalletOnPlayerCard": "Afficher le portefeuille sur la carte de joueur",
       "uiScale": "Échelle de l’interface",
@@ -479,20 +503,20 @@ export const fr_FR: EnTranslations = {
       "logOutSummary": "Déconnectez-vous de cet appareil."
     },
     "bags": {
-      "filterGroupAria": "Filter bags by category",
-      "filterAll": "All",
-      "filterWeapon": "Weapons",
-      "filterArmor": "Armor",
-      "filterConsumable": "Consumables",
-      "filterMaterial": "Materials",
-      "filterQuest": "Quest",
-      "sortAria": "Sort bag items",
-      "sortRecent": "Recent",
-      "sortQuality": "Quality",
-      "sortName": "Name",
-      "searchPlaceholder": "Search items",
-      "searchAria": "Search bag items by name",
-      "noMatch": "No items match your filters."
+      "filterGroupAria": "Filtrer les sacs par catégorie",
+      "filterAll": "Tous",
+      "filterWeapon": "Armes",
+      "filterArmor": "Armure",
+      "filterConsumable": "Consommables",
+      "filterMaterial": "Matériaux",
+      "filterQuest": "Quête",
+      "sortAria": "Trier les objets du sac",
+      "sortRecent": "Récents",
+      "sortQuality": "Qualité",
+      "sortName": "Nom",
+      "searchPlaceholder": "Rechercher des objets",
+      "searchAria": "Rechercher les objets du sac par nom",
+      "noMatch": "Aucun objet ne correspond à vos filtres."
     }
   },
   "guide": {
@@ -2330,6 +2354,10 @@ export const fr_FR: EnTranslations = {
       "whisperAmbiguous": "Plusieurs joueurs correspondent à '{name}'. Respectez la casse exacte.",
       "whisperMissing": "Aucun joueur nommé '{name}' n'est en ligne.",
       "whisperSelf": "Vous marmonnez pour vous-même. Personne ne l'entend.",
+      "assistSelf": "Vous ne pouvez pas vous assister vous-même.",
+      "assistNoTarget": "{name} n'a pas de cible.",
+      "assistWhom": "Assister qui ? Ciblez un joueur ou utilisez /assist <name>.",
+      "assisting": "Vous assistez {name}.",
       "notInParty": "Vous n'êtes pas dans un groupe.",
       "unknownCommand": "Commande inconnue : {command}. Essayez /s /y /w /p /g.",
       "chatCooldown": "La discussion est en recharge pendant {seconds}s.",
@@ -3789,6 +3817,9 @@ export const fr_FR: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Peau de rôdeur de la crête"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Peau immaculée de rôdeur de la crête"
+      },
       "glowing_wax": {
         "name": "Cire luisante"
       },
@@ -4229,6 +4260,9 @@ export const fr_FR: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Bottes rôdeuses de Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Ceinturon de chasse de Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Sceptre de la marée noyée"

@@ -174,6 +174,28 @@ export const it_IT: EnTranslations = {
       "title": "Emote",
       "done": "Fine"
     },
+    "theme": {
+      "preset": "UI Theme",
+      "customColors": "Custom Colors",
+      "reset": "Reset",
+      "presets": {
+        "classic": "Classic Gold",
+        "midnight": "Midnight",
+        "parchment": "Parchment",
+        "highContrast": "High Contrast"
+      },
+      "knob": {
+        "accent": "Accent",
+        "border": "Border",
+        "panel": "Frame",
+        "text": "Text",
+        "textMuted": "Muted Text",
+        "hp": "Health",
+        "mana": "Mana",
+        "rage": "Rage",
+        "energy": "Energy"
+      }
+    },
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Comprimi il riquadro Missioni",
@@ -253,6 +275,8 @@ export const it_IT: EnTranslations = {
       "interfaceModeNote": "Auto sceglie i controlli Desktop o Touch in base al tuo dispositivo. Scegli Desktop per forzare tastiera e mouse (utile su un tablet con tastiera), oppure Touch per i controlli a schermo.",
       "footstepSounds": "Suoni dei passi",
       "clickFeedback": "Indicatore di clic",
+      "lockCursorOnRotate": "Lock Cursor While Rotating",
+      "keybindHelpLockCursorOnRotate": "Keeps the mouse cursor inside the window while you drag to rotate the camera, so it cannot reach the screen edge or move to another monitor. Turn off if you prefer a free cursor.",
       "showWalletOnCharacterScreen": "Mostra portafoglio nella schermata personaggi",
       "showWalletOnPlayerCard": "Mostra portafoglio nella scheda giocatore",
       "uiScale": "Scala dell'interfaccia",
@@ -479,20 +503,20 @@ export const it_IT: EnTranslations = {
       "logOutSummary": "Disconnettiti da questo dispositivo."
     },
     "bags": {
-      "filterGroupAria": "Filter bags by category",
-      "filterAll": "All",
-      "filterWeapon": "Weapons",
-      "filterArmor": "Armor",
-      "filterConsumable": "Consumables",
-      "filterMaterial": "Materials",
-      "filterQuest": "Quest",
-      "sortAria": "Sort bag items",
-      "sortRecent": "Recent",
-      "sortQuality": "Quality",
-      "sortName": "Name",
-      "searchPlaceholder": "Search items",
-      "searchAria": "Search bag items by name",
-      "noMatch": "No items match your filters."
+      "filterGroupAria": "Filtra le borse per categoria",
+      "filterAll": "Tutti",
+      "filterWeapon": "Armi",
+      "filterArmor": "Armatura",
+      "filterConsumable": "Consumabili",
+      "filterMaterial": "Materiali",
+      "filterQuest": "Missione",
+      "sortAria": "Ordina gli oggetti della borsa",
+      "sortRecent": "Recenti",
+      "sortQuality": "Qualità",
+      "sortName": "Nome",
+      "searchPlaceholder": "Cerca oggetti",
+      "searchAria": "Cerca gli oggetti della borsa per nome",
+      "noMatch": "Nessun oggetto corrisponde ai tuoi filtri."
     }
   },
   "guide": {
@@ -2330,6 +2354,10 @@ export const it_IT: EnTranslations = {
       "whisperAmbiguous": "Più giocatori corrispondono a '{name}'. Usa le maiuscole esatte.",
       "whisperMissing": "Nessun giocatore chiamato '{name}' è online.",
       "whisperSelf": "Mormori tra te e te. Nessuno lo sente.",
+      "assistSelf": "Non puoi assistere te stesso.",
+      "assistNoTarget": "{name} non ha un bersaglio.",
+      "assistWhom": "Assistere chi? Seleziona un giocatore o usa /assist <name>.",
+      "assisting": "Stai assistendo {name}.",
       "notInParty": "Non sei in un gruppo.",
       "unknownCommand": "Comando sconosciuto: {command}. Prova /s /y /w /p /g.",
       "chatCooldown": "La chat è in recupero per {seconds}s.",
@@ -3789,6 +3817,9 @@ export const it_IT: EnTranslations = {
       "ridge_stalker_pelt": {
         "name": "Pelliccia di predatore del crinale"
       },
+      "pristine_ridge_stalker_pelt": {
+        "name": "Pelliccia immacolata di predatore del crinale"
+      },
       "glowing_wax": {
         "name": "Cera luminosa"
       },
@@ -4229,6 +4260,9 @@ export const it_IT: EnTranslations = {
       },
       "cragmaw_prowlboots": {
         "name": "Stivali predatori di Cragmaw"
+      },
+      "cragmaw_huntcord": {
+        "name": "Cinghia da caccia di Cragmaw"
       },
       "drowned_tide_scepter": {
         "name": "Scettro della marea annegata"

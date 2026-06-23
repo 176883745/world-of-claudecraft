@@ -80,6 +80,48 @@ ALTER TABLE accounts ADD COLUMN IF NOT EXISTS last_login_user_agent TEXT;
 ALTER TABLE accounts ADD COLUMN IF NOT EXISTS cosmetics JSONB NOT NULL DEFAULT '{}'::jsonb;
 ALTER TABLE accounts ADD COLUMN IF NOT EXISTS email TEXT;
 ALTER TABLE accounts ADD COLUMN IF NOT EXISTS deactivated_at TIMESTAMPTZ;
+-- Transactional + marketing email support. locale picks the language the server
+-- renders outbound mail in (emails have no client in the loop, so they are
+-- localized server-side, unlike chat which the client re-localizes). The
+-- marketing fields gate non-transactional mail behind explicit opt-in and give
+-- every account a stable unsubscribe token.
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS locale TEXT;
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS email_verified_at TIMESTAMPTZ;
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS marketing_opt_in BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS unsubscribe_token TEXT;
+-- Index + collision guard for the public unsubscribe lookup. Partial (the column
+-- is NULL until an account first opts in) and UNIQUE so two accounts can never
+-- share a token. The token is a low-sensitivity capability (its only power is to
+-- opt the account out of marketing), not an auth credential.
+CREATE UNIQUE INDEX IF NOT EXISTS accounts_unsubscribe_token
+  ON accounts(unsubscribe_token) WHERE unsubscribe_token IS NOT NULL;
+-- Pending email-change verifications. We store only the SHA-256 of the token so
+-- a DB leak cannot be replayed into an inbox hijack. Each row is single-use
+-- (consumed_at) and time-boxed (expires_at).
+CREATE TABLE IF NOT EXISTS email_change_requests (
+  id SERIAL PRIMARY KEY,
+  account_id INT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+  new_email TEXT NOT NULL,
+  token_hash TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  expires_at TIMESTAMPTZ NOT NULL,
+  consumed_at TIMESTAMPTZ
+);
+CREATE INDEX IF NOT EXISTS email_change_requests_token ON email_change_requests(token_hash);
+CREATE INDEX IF NOT EXISTS email_change_requests_account ON email_change_requests(account_id);
+-- Audit trail for every outbound email attempt (success or failure). Doubles as
+-- the source for any future per-account send rate limiting.
+CREATE TABLE IF NOT EXISTS email_log (
+  id BIGSERIAL PRIMARY KEY,
+  account_id INT REFERENCES accounts(id) ON DELETE SET NULL,
+  event TEXT NOT NULL,
+  to_email TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'transactional',
+  ok BOOLEAN NOT NULL,
+  error TEXT,
+  sent_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS email_log_account ON email_log(account_id, sent_at DESC);
 CREATE INDEX IF NOT EXISTS accounts_created_at ON accounts(created_at DESC);
 CREATE INDEX IF NOT EXISTS accounts_created_ip_created ON accounts(created_ip, created_at DESC);
 CREATE INDEX IF NOT EXISTS accounts_created_user_agent_created ON accounts(created_user_agent, created_at DESC);
@@ -480,6 +522,8 @@ export interface AccountInfoRow {
   email: string | null;
   created_at: string;
   deactivated_at: string | null;
+  locale: string | null;
+  marketing_opt_in: boolean;
 }
 
 // Full account record by id — used by the self-service account portal
@@ -487,7 +531,8 @@ export interface AccountInfoRow {
 // which keys on username for the login path.
 export async function accountById(accountId: number): Promise<AccountInfoRow | null> {
   const res = await pool.query(
-    'SELECT id, username, password_hash, email, created_at, deactivated_at FROM accounts WHERE id = $1',
+    `SELECT id, username, password_hash, email, created_at, deactivated_at, locale, marketing_opt_in
+     FROM accounts WHERE id = $1`,
     [accountId],
   );
   return res.rows[0] ?? null;
@@ -532,6 +577,153 @@ export async function setAccountDeactivated(accountId: number, deactivated: bool
     `UPDATE accounts SET deactivated_at = CASE WHEN $2 THEN now() ELSE NULL END WHERE id = $1`,
     [accountId, deactivated],
   );
+}
+
+export async function setAccountLocale(accountId: number, locale: string | null): Promise<void> {
+  await pool.query('UPDATE accounts SET locale = $2 WHERE id = $1', [accountId, locale]);
+}
+
+export async function setAccountMarketingOptIn(accountId: number, optIn: boolean): Promise<void> {
+  await pool.query('UPDATE accounts SET marketing_opt_in = $2 WHERE id = $1', [accountId, optIn]);
+}
+
+// Lazily mint (and return) a stable per-account unsubscribe token. NULL-safe and
+// idempotent: COALESCE keeps the existing token if one is already set, so the
+// same unsubscribe link stays valid for the life of the account.
+export async function ensureUnsubscribeToken(accountId: number, fresh: string): Promise<string> {
+  const res = await pool.query(
+    'UPDATE accounts SET unsubscribe_token = COALESCE(unsubscribe_token, $2) WHERE id = $1 RETURNING unsubscribe_token',
+    [accountId, fresh],
+  );
+  return res.rows[0]?.unsubscribe_token ?? fresh;
+}
+
+export async function accountByUnsubscribeToken(token: string): Promise<number | null> {
+  const res = await pool.query('SELECT id FROM accounts WHERE unsubscribe_token = $1', [token]);
+  return res.rows[0]?.id ?? null;
+}
+
+// Minimal target descriptor for the outbound-mail glue (admin + system paths)
+// that only needs where to send and in what language, not the full record.
+export interface AccountMailTarget {
+  id: number;
+  username: string;
+  email: string | null;
+  locale: string | null;
+  marketing_opt_in: boolean;
+}
+
+export async function accountMailTarget(accountId: number): Promise<AccountMailTarget | null> {
+  const res = await pool.query(
+    'SELECT id, username, email, locale, marketing_opt_in FROM accounts WHERE id = $1',
+    [accountId],
+  );
+  return res.rows[0] ?? null;
+}
+
+export async function createEmailChangeRequest(
+  accountId: number,
+  newEmail: string,
+  tokenHash: string,
+  ttlHours: number,
+): Promise<void> {
+  // Invalidate any still-pending request for this account first: only the most
+  // recent change link should be live (a user who re-requests supersedes the
+  // old address), and this keeps the table from accumulating dead rows.
+  await pool.query(
+    'DELETE FROM email_change_requests WHERE account_id = $1 AND consumed_at IS NULL',
+    [accountId],
+  );
+  await pool.query(
+    `INSERT INTO email_change_requests (account_id, new_email, token_hash, expires_at)
+     VALUES ($1, $2, $3, now() + ($4 || ' hours')::interval)`,
+    [accountId, newEmail, tokenHash, String(ttlHours)],
+  );
+}
+
+// Atomically consume a pending email-change token and apply it. The single
+// UPDATE ... WHERE consumed_at IS NULL AND expires_at > now() is the race guard:
+// a replayed or expired link affects zero rows and returns null, and two
+// concurrent clicks can never both win. On success we also stamp the new address
+// onto the account (verified) in the same call.
+export async function consumeEmailChangeRequest(
+  tokenHash: string,
+): Promise<{ accountId: number; newEmail: string } | null> {
+  // Both writes run in one transaction on a single client: the token is burned
+  // and the address applied atomically, so a failure on the second write can
+  // never leave a consumed-but-unapplied request (a dead verify link with the
+  // email never changed). The claiming UPDATE still row-locks the matched row,
+  // so concurrent/replayed clicks serialize and exactly one wins.
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const claim = await client.query(
+      `UPDATE email_change_requests
+       SET consumed_at = now()
+       WHERE token_hash = $1 AND consumed_at IS NULL AND expires_at > now()
+       RETURNING account_id, new_email`,
+      [tokenHash],
+    );
+    const row = claim.rows[0];
+    if (!row) {
+      await client.query('ROLLBACK');
+      return null;
+    }
+    await client.query(
+      'UPDATE accounts SET email = $2, email_verified_at = now() WHERE id = $1',
+      [row.account_id, row.new_email],
+    );
+    await client.query('COMMIT');
+    return { accountId: row.account_id, newEmail: row.new_email };
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+export interface EmailLogEntry {
+  accountId: number | null;
+  event: string;
+  toEmail: string;
+  category: string;
+  ok: boolean;
+  error?: string | null;
+}
+
+export async function recordEmailLog(entry: EmailLogEntry): Promise<void> {
+  await pool.query(
+    `INSERT INTO email_log (account_id, event, to_email, category, ok, error)
+     VALUES ($1, $2, $3, $4, $5, $6)`,
+    [entry.accountId, entry.event, entry.toEmail, entry.category, entry.ok, entry.error ?? null],
+  );
+}
+
+// GDPR-style data export bundle: the account's own profile plus every character
+// it owns on this realm, as plain JSON. Excludes secrets (password hash, tokens).
+export async function exportAccountData(accountId: number): Promise<Record<string, unknown> | null> {
+  const acct = await accountById(accountId);
+  if (!acct) return null;
+  const characters = await listCharacters(accountId);
+  return {
+    exportedAt: new Date().toISOString(),
+    account: {
+      id: acct.id,
+      username: acct.username,
+      email: acct.email,
+      createdAt: acct.created_at,
+      locale: acct.locale,
+      marketingOptIn: acct.marketing_opt_in,
+    },
+    characters: characters.map((c) => ({
+      id: c.id,
+      name: c.name,
+      class: c.class,
+      level: c.level,
+      state: c.state,
+    })),
+  };
 }
 
 // ── Non-custodial Solana wallet links ──────────────────────────────────────

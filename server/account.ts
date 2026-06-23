@@ -17,11 +17,29 @@ import {
   revokeToken,
   setAccountEmail,
   setAccountDeactivated,
+  setAccountMarketingOptIn,
+  ensureUnsubscribeToken,
+  accountByUnsubscribeToken,
+  createEmailChangeRequest,
+  consumeEmailChangeRequest,
+  exportAccountData,
   listCharacters,
 } from './db';
+import {
+  emailAccountCreated,
+  emailPasswordChanged,
+  emailAccountDeleted,
+  emailDataExport,
+  emailEmailChangeRequested,
+  emailChangeVerifyUrl,
+  makeEmailToken,
+  hashEmailToken,
+} from './email';
 
 const EMAIL_MAX_LENGTH = 254;
 const EMAIL_SHAPE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// How long an email-change verification link stays valid.
+const EMAIL_CHANGE_TTL_HOURS = 24;
 
 // Hooks main.ts injects so the deactivate path can consult and tear down live
 // game sessions without account.ts importing the GameServer (which pulls in the
@@ -81,6 +99,8 @@ export async function handleAccountChangePassword(
   }
   await updatePasswordHash(accountId, await hashPassword(next));
   await revokeTokensExcept(accountId, callerToken);
+  // Best-effort security notice; never blocks the password change on mail state.
+  emailPasswordChanged(acct);
   return json(res, 200, { ok: true });
 }
 
@@ -96,8 +116,11 @@ export async function handleAccountLogout(
   return json(res, 200, { ok: true });
 }
 
-// POST /api/account/email — optional account email; settings-only, lenient, no
-// sending. Empty clears the stored address.
+// POST /api/account/email: optional account email; settings-only, lenient. Empty
+// clears the stored address. When this sets the FIRST email on an account that
+// signed up without one, it fires the welcome mail, so account_created reaches
+// every account that ever provides an email, not only those who gave one at
+// signup.
 export async function handleAccountSetEmail(
   req: http.IncomingMessage,
   res: http.ServerResponse,
@@ -108,7 +131,11 @@ export async function handleAccountSetEmail(
   if (raw.length > EMAIL_MAX_LENGTH || (raw !== '' && !EMAIL_SHAPE.test(raw))) {
     return json(res, 400, { error: 'enter a valid email address' });
   }
+  const prior = await accountById(accountId);
   await setAccountEmail(accountId, raw === '' ? null : raw);
+  if (raw !== '' && prior && !prior.email) {
+    emailAccountCreated({ ...prior, email: raw });
+  }
   return json(res, 200, { email: raw });
 }
 
@@ -143,5 +170,103 @@ export async function handleAccountDeactivate(
   await setAccountDeactivated(accountId, true);
   await revokeTokensExcept(accountId, null);
   hooks.disconnectAccount(accountId, 'This account has been deactivated.');
+  emailAccountDeleted(acct);
+  return json(res, 200, { ok: true });
+}
+
+// POST /api/account/email/change: request a verified email change. Re-confirms
+// the current password (this swaps the account's recovery address, so it must
+// not ride a bare session), then mails a one-time verify link to the NEW address
+// and a security notice to the OLD one. The address only changes on verify.
+export async function handleAccountEmailChange(
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+  accountId: number,
+): Promise<void> {
+  if (rateLimited(req)) return json(res, 429, { error: 'too many attempts, slow down' });
+  const body = await readBody(req);
+  const acct = await accountById(accountId);
+  if (!acct) return json(res, 404, { error: 'account not found' });
+  if (!(await verifyPassword(String(body.password ?? ''), acct.password_hash))) {
+    recordAuthFailure(acct.username);
+    return json(res, 401, { error: 'password is incorrect' });
+  }
+  clearAuthFailures(acct.username);
+  const newEmail = typeof body.newEmail === 'string' ? body.newEmail.trim() : '';
+  if (newEmail.length > EMAIL_MAX_LENGTH || !EMAIL_SHAPE.test(newEmail)) {
+    return json(res, 400, { error: 'enter a valid email address' });
+  }
+  if (newEmail.toLowerCase() === (acct.email ?? '').toLowerCase()) {
+    return json(res, 400, { error: 'that is already your email address' });
+  }
+  const { token, tokenHash } = makeEmailToken();
+  await createEmailChangeRequest(accountId, newEmail, tokenHash, EMAIL_CHANGE_TTL_HOURS);
+  emailEmailChangeRequested(acct, newEmail, emailChangeVerifyUrl(token));
+  return json(res, 200, { ok: true });
+}
+
+// GET /api/account/email/verify?token=... consume a one-time email-change
+// token. Unauthenticated by design: the unguessable token IS the authorization,
+// and the consume is race-safe in the DB layer. No token info leaks: invalid and
+// expired both return the same 400.
+export async function handleAccountEmailVerify(
+  res: http.ServerResponse,
+  token: string,
+): Promise<void> {
+  const raw = typeof token === 'string' ? token.trim() : '';
+  if (!raw) return json(res, 400, { error: 'invalid or expired link' });
+  const applied = await consumeEmailChangeRequest(hashEmailToken(raw));
+  if (!applied) return json(res, 400, { error: 'invalid or expired link' });
+  return json(res, 200, { ok: true, email: applied.newEmail });
+}
+
+// POST /api/account/export: GDPR-style self-service data export. Returns the
+// account profile plus every character it owns as a JSON download, and mails a
+// confirmation so an export the user did not request is noticed.
+export async function handleAccountExport(
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+  accountId: number,
+): Promise<void> {
+  if (rateLimited(req)) return json(res, 429, { error: 'too many attempts, slow down' });
+  const bundle = await exportAccountData(accountId);
+  if (!bundle) return json(res, 404, { error: 'account not found' });
+  const acct = await accountById(accountId);
+  if (acct) emailDataExport(acct);
+  res.writeHead(200, {
+    'content-type': 'application/json',
+    'content-disposition': 'attachment; filename="woc-account-export.json"',
+  });
+  return void res.end(JSON.stringify(bundle, null, 2));
+}
+
+// POST /api/account/marketing: set the marketing opt-in flag. Opting in mints a
+// stable unsubscribe token so every future marketing email can carry a working
+// one-click unsubscribe link.
+export async function handleAccountMarketing(
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+  accountId: number,
+): Promise<void> {
+  if (rateLimited(req)) return json(res, 429, { error: 'too many attempts, slow down' });
+  const body = await readBody(req);
+  const optIn = body.optIn === true;
+  await setAccountMarketingOptIn(accountId, optIn);
+  if (optIn) await ensureUnsubscribeToken(accountId, makeEmailToken().token);
+  return json(res, 200, { optIn });
+}
+
+// GET /api/email/unsubscribe?token=... public one-click marketing unsubscribe.
+// Honours the token without a login (mail clients cannot send bearer auth) and
+// never reveals whether the token matched, to avoid token probing.
+export async function handleEmailUnsubscribe(
+  res: http.ServerResponse,
+  token: string,
+): Promise<void> {
+  const raw = typeof token === 'string' ? token.trim() : '';
+  if (raw) {
+    const accountId = await accountByUnsubscribeToken(raw);
+    if (accountId !== null) await setAccountMarketingOptIn(accountId, false);
+  }
   return json(res, 200, { ok: true });
 }

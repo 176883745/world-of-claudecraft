@@ -66,6 +66,7 @@ import { Keybinds, BIND_ACTIONS, BIND_CATEGORIES, isReservedCode, keyLabel } fro
 import { GAMEPAD_BUTTON_LABELS, GAMEPAD_NONE } from '../game/gamepad_map';
 import { Settings, GameSettings, BoolSettingKey, NumericSettingKey, SETTING_RANGES, normalizeClickMoveButton } from '../game/settings';
 import { PerfOverlaySettingsPanel, type PerfOverlayHooks, type PerfSettingsHost } from './perf_overlay_settings';
+import { PRESET_ORDER, THEME_KNOB_ORDER, THEME_KNOB_LABEL_KEY, resolveTheme, type PresetId, type ThemeKnob, type ThemeState } from './theme';
 import { useTouchInterface, isNativeAppShell } from '../game/mobile_controls';
 import { chatPlayerContextActions } from './player_context_menu';
 import {
@@ -138,10 +139,19 @@ export interface OptionsHooks {
   // feature is off or no wallet is connected/linked.
   refreshWocBalance(): void;
   perfOverlay: PerfOverlayHooks;
+  // UI theming seam — main.ts owns the ThemeStore + live CSS-variable apply.
+  theme: ThemeHooks;
   // Gamepad button-layout seam (the concrete GamepadBindings satisfies it
   // structurally), so the Controller options panel can read & rebind buttons
   // without the HUD importing the manager.
   gamepad: GamepadBindingsHooks;
+}
+
+export interface ThemeHooks {
+  get(): ThemeState;
+  setPreset(id: PresetId): void;
+  setCustom(knob: ThemeKnob, value: string | null): void;
+  resetCustom(): void;
 }
 
 // Read/rebind the gamepad's button→action layout from the options panel.
@@ -4618,6 +4628,8 @@ export class Hud {
       'You cannot afford that.': 'itemUi.errors.cannotAfford',
       'That is not your listing.': 'itemUi.errors.notYourListing',
       'You have nothing to collect.': 'itemUi.errors.nothingToCollect',
+      "You can't assist yourself.": 'hud.errors.assistSelf',
+      'Assist whom? Target a player or use /assist <name>.': 'hud.errors.assistWhom',
     };
     const key = exact[text];
     if (key) return t(key);
@@ -4634,6 +4646,13 @@ export class Hud {
     if (match) return t('hud.errors.whisperAmbiguous', { name: match[1] });
     match = /^There is no player named '(.+)' online\.$/.exec(text);
     if (match) return t('hud.errors.whisperMissing', { name: match[1] });
+    match = /^Assisting (.+)\.$/.exec(text);
+    if (match) return t('hud.errors.assisting', { name: match[1] });
+    // Assist reply only: anchor the name to a single un-punctuated token run so a
+    // future unmapped "... has no target." sim line is not mis-localized with a wrong
+    // {name}. Player names never contain a period, so excluding "." keeps this specific.
+    match = /^([^.]+) has no target\.$/.exec(text);
+    if (match) return t('hud.errors.assistNoTarget', { name: match[1] });
     // Lenient suffix match: the sim's command-help list (". Try /s /y /w /p /g, /me, …")
     // evolves over time; capture the command non-greedily and tolerate any "Try /…" tail
     // so this never silently falls through to raw English again.
@@ -9701,9 +9720,81 @@ export class Hud {
     parent.append(row, status);
   }
 
+  // UI theme picker: a preset selector plus a full-palette custom-colour block.
+  // Preset/custom changes route through OptionsHooks.theme; main.ts persists and
+  // live-applies the resulting CSS variables, so no reload is needed.
+  private renderThemeControls(body: HTMLElement): void {
+    const hooks = this.optionsHooks;
+    if (!hooks) return;
+    const theme = hooks.theme;
+
+    const presetRow = document.createElement('div');
+    presetRow.className = 'set-row';
+    const presetName = document.createElement('span');
+    presetName.className = 'set-name';
+    presetName.textContent = t('hudChrome.theme.preset');
+    const seg = document.createElement('div');
+    seg.className = 'set-seg theme-presets';
+    const presetLabel = (id: PresetId): string => t(`hudChrome.theme.presets.${id}` as TranslationKey);
+    for (const id of PRESET_ORDER) {
+      const btn = document.createElement('button');
+      btn.className = 'btn set-seg-btn';
+      btn.textContent = presetLabel(id);
+      btn.classList.toggle('active', theme.get().preset === id);
+      btn.addEventListener('click', () => {
+        audio.click();
+        theme.setPreset(id);
+        this.renderInterface(); // refresh active state + custom pickers
+      });
+      seg.appendChild(btn);
+    }
+    presetRow.append(presetName, seg);
+    body.appendChild(presetRow);
+
+    // Custom palette: one colour input per knob, seeded with the effective value.
+    const effective = resolveTheme(theme.get());
+    const customCount = Object.keys(theme.get().custom).length;
+    const customRow = document.createElement('div');
+    customRow.className = 'set-row theme-custom-head';
+    const customName = document.createElement('span');
+    customName.className = 'set-name';
+    customName.textContent = t('hudChrome.theme.customColors');
+    const reset = document.createElement('button');
+    reset.className = 'btn set-toggle';
+    reset.textContent = t('hudChrome.theme.reset');
+    reset.disabled = customCount === 0;
+    reset.addEventListener('click', () => {
+      audio.click();
+      theme.resetCustom();
+      this.renderInterface();
+    });
+    customRow.append(customName, reset);
+    body.appendChild(customRow);
+
+    const grid = document.createElement('div');
+    grid.className = 'theme-color-grid';
+    for (const knob of THEME_KNOB_ORDER) {
+      const row = document.createElement('label');
+      row.className = 'theme-color-row';
+      const swatchLabel = document.createElement('span');
+      swatchLabel.textContent = t(`hudChrome.theme.knob.${THEME_KNOB_LABEL_KEY[knob]}` as TranslationKey);
+      const input = document.createElement('input');
+      input.type = 'color';
+      input.value = effective[knob];
+      input.setAttribute('aria-label', swatchLabel.textContent);
+      // 'input' fires continuously while dragging the picker → live preview.
+      input.addEventListener('input', () => theme.setCustom(knob, input.value));
+      input.addEventListener('change', () => { theme.setCustom(knob, input.value); reset.disabled = false; });
+      row.append(input, swatchLabel);
+      grid.appendChild(row);
+    }
+    body.appendChild(grid);
+  }
+
   private renderInterface(): void {
     const body = this.settingsViewShell(t('hud.options.interface'));
     this.languageSelect(body);
+    this.renderThemeControls(body);
     this.settingSlider(body, t('hudChrome.options.uiScale'), 'uiScale');
     this.settingSlider(body, t('hud.options.hudOpacity'), 'hudOpacity');
     this.settingSlider(body, t('hud.options.tooltipScale'), 'tooltipScale');
@@ -9855,7 +9946,7 @@ export class Hud {
   // Toggle row styled for the Key Bindings panel. Handles the bool Mouse Camera
   // setting and the numeric (0/1) Click to Move setting, which both live here
   // alongside the rebindable keys.
-  private settingToggleKeybind(parent: HTMLElement, label: string, key: BoolSettingKey | 'clickToMove'): void {
+  private settingToggleKeybind(parent: HTMLElement, label: string, key: BoolSettingKey | 'clickToMove', help?: string): void {
     const hooks = this.optionsHooks;
     if (!hooks) return;
     const isOn = () => (key === 'clickToMove' ? hooks.settings.get(key) >= 0.5 : hooks.settings.get(key));
@@ -9886,6 +9977,12 @@ export class Hud {
     });
     row.append(name, toggle);
     parent.appendChild(row);
+    if (help) {
+      const hint = document.createElement('div');
+      hint.className = 'kb-note kb-toggle-help';
+      hint.textContent = help;
+      parent.appendChild(hint);
+    }
   }
 
   private clickMoveMouseButtonRow(parent: HTMLElement): void {
@@ -9982,6 +10079,7 @@ export class Hud {
     el.classList.add('kb-wide');
     el.innerHTML = `<div class="panel-title"><span>${esc(t('hud.options.keyBindings'))}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('hud.options.returnToGame'))}">${svgIcon('close')}</button></div>`;
     this.settingToggleKeybind(el, t('hud.options.mouseCamera'), 'mouseCamera');
+    this.settingToggleKeybind(el, t('hudChrome.options.lockCursorOnRotate'), 'lockCursorOnRotate', t('hudChrome.options.keybindHelpLockCursorOnRotate'));
     this.settingToggleKeybind(el, t('hud.options.clickToMove'), 'clickToMove');
     this.clickMoveMouseButtonRow(el);
     this.settingToggleKeybind(el, t('hud.keybinds.actions.attackMove'), 'attackMove');
