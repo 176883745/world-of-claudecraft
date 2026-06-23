@@ -2157,7 +2157,6 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.korgath_the_bound.name': '被縛者科加斯',
   'entities.mobs.grand_necromancer_velkhar.name': '大死靈法師維爾卡',
   'entities.mobs.korzul_the_gravewyrm.name': '墓龍科祖爾',
-  'entities.mobs.elder_bristleback.name': '年長硬鬃',
   'entities.mobs.ironvein_foreman.name': '鐵脈工頭',
   'entities.mobs.ironvein_sapper.name': '鐵脈爆破手',
   'entities.mobs.marrowlord_varkas.name': '髓王瓦爾卡斯',
@@ -2166,8 +2165,6 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mogger.name': '莫格',
   'entities.mobs.mogger_lackey.name': '莫格的爪牙',
   'entities.mobs.nhalia_mourner.name': '娜莉亞哀悼者',
-  'entities.mobs.sableweb_hatchling.name': '黑網幼蛛',
-  'entities.mobs.sableweb_matriarch.name': '黑網主母',
   'entities.mobs.sister_nhalia.name': '娜莉亞修女',
   'entities.mobs.varkas_boneguard.name': '瓦爾卡斯骨衛',
   'entities.mobs.imp.name': '小鬼',
@@ -2886,17 +2883,6 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hud.core.chatChannels.sendingTo': '傳訊至{channel}',
   'hud.options.npcVoices': 'NPC語音',
   'hud.options.voiceVolume': '語音音量',
-  'entities.mobs.bramble_lynx.name': '棘叢猞猁',
-  'entities.mobs.brightwood_hare.name': '明木野兔',
-  'entities.mobs.brightwood_monarch.name': '明木君主',
-  'entities.mobs.brightwood_stag.name': '明木雄鹿',
-  'entities.mobs.dawnmane_doe.name': '曦鬃母鹿',
-  'entities.mobs.glade_fox.name': '林間狐狸',
-  'entities.mobs.grovetusk_boar.name': '林牙野豬',
-  'entities.mobs.meadow_crane.name': '草甸鶴',
-  'entities.mobs.spotted_fawn.name': '斑點幼鹿',
-  'entities.mobs.sunhide_bear.name': '陽皮熊',
-  'entities.mobs.thornpelt_badger.name': '棘毛獾',
   'entities.zones.eastbrook_vale.pois.8.label': '明木林地',
   'fiesta.augment.aug_apex_predator.desc': '+40%物理傷害，+15%暴擊，並回復所造成傷害的12%生命值。',
   'fiesta.augment.aug_apex_predator.name': '頂級掠食者',
@@ -3756,8 +3742,6 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'guide.arenaPage.wavesBody':
     '嘉年華的每一回合都會發給你一份新的選項，而隨著對戰進行，選項也愈來愈大膽。你會一波接一波地堆疊配套，每次從幾個選項中挑一個，並保留到這場對戰結束。',
   'guide.arenaPage.wavesTitle': '強化如波浪般湧來',
-  'guide.bestiary.flavor.brightwood_stag':
-    '一頭高傲的林地雄鹿，會低下牠那頂鹿角王冠橫衝直撞，而且被逼得愈久就愈難對付。',
   'guide.bestiary.flavor.gravecaller_cultist':
     '死亡邪教的長袍僕從，他們的作為玷污了從谷地到群峰的座座墳塚。凡他們聚集之處，亡者便不得安息。',
   'guide.bestiary.flavor.grubjaw':

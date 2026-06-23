@@ -71,6 +71,24 @@ describe('downed party member keeps loot/xp rights (classic group rules)', () =>
     expect(candidates).toContain(survivor);
   });
 
+  it('a fallen member who releases spirit after the kill is still a loot candidate', () => {
+    const { sim, internals, survivor, faller, fE, mob } = setup();
+    const sE = internals.entities.get(survivor)!;
+    for (const e of [sE, fE, mob]) {
+      e.pos = { x: 120, y: 0, z: 120 };
+      e.prevPos = { ...e.pos };
+    }
+    fE.dead = true;
+
+    internals.handleDeath(mob, internals.entities.get(mob.tappedById!) ?? null);
+    expect(mob.lootRecipientIds).toEqual(expect.arrayContaining([survivor, faller]));
+    sim.releaseSpirit(faller);
+
+    const candidates = internals.partyLootCandidatesForMob(mob).map((m) => m.entityId);
+    expect(candidates).toContain(faller);
+    expect(candidates).toContain(survivor);
+  });
+
   it('an alive nearby member still earns XP (no regression)', () => {
     const { internals, faller, mob } = setup();
     // faller stays alive this time

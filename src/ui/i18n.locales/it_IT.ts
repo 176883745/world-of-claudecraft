@@ -2276,7 +2276,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.korgath_the_bound.name': 'Korgath il Vincolato',
   'entities.mobs.grand_necromancer_velkhar.name': 'Grande negromante Velkhar',
   'entities.mobs.korzul_the_gravewyrm.name': 'Korzul il Gravewyrm',
-  'entities.mobs.elder_bristleback.name': 'Bristleback anziano',
   'entities.mobs.ironvein_foreman.name': 'Caposquadra Venaferrata',
   'entities.mobs.ironvein_sapper.name': 'Zappatore Venaferrata',
   'entities.mobs.marrowlord_varkas.name': 'Signore del Midollo Varkas',
@@ -2285,8 +2284,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mogger.name': 'Mogger',
   'entities.mobs.mogger_lackey.name': 'Lacchè di Mogger',
   'entities.mobs.nhalia_mourner.name': 'Piangente di Nhalia',
-  'entities.mobs.sableweb_hatchling.name': 'Piccolo Sableweb',
-  'entities.mobs.sableweb_matriarch.name': 'Matriarca Sableweb',
   'entities.mobs.sister_nhalia.name': 'Sorella Nhalia',
   'entities.mobs.varkas_boneguard.name': "Guardia d'ossa di Varkas",
   'entities.mobs.imp.name': 'Folletto',
@@ -3046,17 +3043,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hud.core.chatChannels.sendingTo': 'Messaggio in {channel}',
   'hud.options.npcVoices': 'Voci dei PNG',
   'hud.options.voiceVolume': 'Volume voci',
-  'entities.mobs.bramble_lynx.name': 'Lince dei rovi',
-  'entities.mobs.brightwood_hare.name': 'Lepre di Brightwood',
-  'entities.mobs.brightwood_monarch.name': 'Il Monarca di Brightwood',
-  'entities.mobs.brightwood_stag.name': 'Cervo di Brightwood',
-  'entities.mobs.dawnmane_doe.name': 'Cerva crindalba',
-  'entities.mobs.glade_fox.name': 'Volpe della radura',
-  'entities.mobs.grovetusk_boar.name': 'Cinghiale zannaboschiva',
-  'entities.mobs.meadow_crane.name': 'Gru del prato',
-  'entities.mobs.spotted_fawn.name': 'Cerbiatto maculato',
-  'entities.mobs.sunhide_bear.name': 'Orso pellesolare',
-  'entities.mobs.thornpelt_badger.name': 'Tasso pellespinosa',
   'entities.zones.eastbrook_vale.pois.8.label': 'Radura di Brightwood',
   'fiesta.augment.aug_apex_predator.desc':
     '+40% danni fisici, +15% critico, cura pari al 12% dei danni inflitti.',
@@ -4044,8 +4030,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'guide.arenaPage.wavesBody':
     "Ogni round di una Fiesta ti offre una nuova scelta, e le scelte si fanno più audaci man mano che la partita procede. Costruisci da un'ondata alla successiva, scegliendo ogni volta una tra poche opzioni e tenendola per il resto dell'incontro.",
   'guide.arenaPage.wavesTitle': 'I potenziamenti arrivano a ondate',
-  'guide.bestiary.flavor.brightwood_stag':
-    'Un fiero cervo della radura che abbassa la sua corona di corna e carica in avanti, diventando più ostico da affrontare quanto più lo si incalza.',
   'guide.bestiary.flavor.gravecaller_cultist':
     'Servi incappucciati del culto della morte la cui opera profana le tombe dalla Valle alle vette. Dove si radunano, i morti non riposano.',
   'guide.bestiary.flavor.grubjaw':

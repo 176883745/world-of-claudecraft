@@ -942,6 +942,7 @@ export interface Entity {
   damageIdleDespawnTimer?: number;
   lootable: boolean;
   loot: CorpseLoot | null;
+  lootRecipientIds?: number[];
   xpValue: number;
   // npc
   questIds: string[];

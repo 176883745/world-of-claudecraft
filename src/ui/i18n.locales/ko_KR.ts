@@ -2246,7 +2246,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.korgath_the_bound.name': '속박된 코르가스',
   'entities.mobs.grand_necromancer_velkhar.name': '대강령술사 벨카르',
   'entities.mobs.korzul_the_gravewyrm.name': '무덤고룡 코르줄',
-  'entities.mobs.elder_bristleback.name': '늙은 뻣센등뼈',
   'entities.mobs.ironvein_foreman.name': '철맥 감독관',
   'entities.mobs.ironvein_sapper.name': '철맥 폭파병',
   'entities.mobs.marrowlord_varkas.name': '골수군주 바르카스',
@@ -2255,8 +2254,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mogger.name': '모거',
   'entities.mobs.mogger_lackey.name': '모거의 졸개',
   'entities.mobs.nhalia_mourner.name': '날리아 애도자',
-  'entities.mobs.sableweb_hatchling.name': '검은그물 새끼',
-  'entities.mobs.sableweb_matriarch.name': '검은그물 우두머리',
   'entities.mobs.sister_nhalia.name': '자매 날리아',
   'entities.mobs.varkas_boneguard.name': '바르카스 뼈수호병',
   'entities.mobs.imp.name': '임프',
@@ -3010,17 +3007,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hud.core.chatChannels.sendingTo': '{channel} 채널에 보내기',
   'hud.options.npcVoices': 'NPC 음성',
   'hud.options.voiceVolume': '음성 음량',
-  'entities.mobs.bramble_lynx.name': '가시덤불 살쾡이',
-  'entities.mobs.brightwood_hare.name': '브라이트우드 산토끼',
-  'entities.mobs.brightwood_monarch.name': '브라이트우드의 군주',
-  'entities.mobs.brightwood_stag.name': '브라이트우드 수사슴',
-  'entities.mobs.dawnmane_doe.name': '여명갈기 암사슴',
-  'entities.mobs.glade_fox.name': '숲속 여우',
-  'entities.mobs.grovetusk_boar.name': '숲엄니 멧돼지',
-  'entities.mobs.meadow_crane.name': '초원 두루미',
-  'entities.mobs.spotted_fawn.name': '얼룩 새끼사슴',
-  'entities.mobs.sunhide_bear.name': '햇살가죽 곰',
-  'entities.mobs.thornpelt_badger.name': '가시털 오소리',
   'entities.zones.eastbrook_vale.pois.8.label': '브라이트우드 숲',
   'fiesta.augment.aug_apex_predator.desc':
     '물리 피해 +40%, 치명타 +15%, 입힌 피해의 12%만큼 회복합니다.',
@@ -3977,8 +3963,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.arenaPage.wavesBody':
     'Fiesta의 매 라운드마다 새로운 선택지가 주어지며, 시합이 진행될수록 그 선택은 점점 대담해집니다. 한 웨이브에서 다음 웨이브로 빌드를 쌓아 가는데, 매번 몇 가지 중 하나를 골라 남은 시합 동안 계속 지니게 됩니다.',
   'guide.arenaPage.wavesTitle': '증강은 웨이브로 찾아옵니다',
-  'guide.bestiary.flavor.brightwood_stag':
-    '뿔로 된 왕관을 낮추고 밀어붙이는 당당한 숲의 사슴으로, 몰아붙일수록 상대하기 더 까다로워집니다.',
   'guide.bestiary.flavor.gravecaller_cultist':
     '골짜기에서 봉우리까지 무덤을 더럽히는 죽음교단의 로브 두른 종복들. 이들이 모이는 곳에서는 죽은 자가 쉬지 못합니다.',
   'guide.bestiary.flavor.grubjaw':

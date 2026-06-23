@@ -2262,6 +2262,12 @@ export class Sim {
     return this.partyOf(mob.tappedById)?.lootStrategies ?? null;
   }
   private partyLootCandidatesForMob(mob: Entity): PlayerMeta[] {
+    if (mob.lootRecipientIds && mob.lootRecipientIds.length > 0) {
+      return mob.lootRecipientIds.flatMap((pid) => {
+        const candidate = this.players.get(pid);
+        return candidate ? [candidate] : [];
+      });
+    }
     if (mob.tappedById === null) return [];
     const party = this.partyOf(mob.tappedById);
     if (!party || party.members.length <= 1) return [];
@@ -2269,11 +2275,9 @@ export class Sim {
     for (const pid of party.members) {
       const candidate = this.players.get(pid);
       const e = this.entities.get(pid);
-      // A member downed during the fight (corpse still in range) keeps loot
-      // rights, exactly like the kill-credit gate in handleDeath. Do not filter
-      // on `e.dead` here: that locked fallen members out of currency splits and
-      // need/greed rolls. Releasing to the graveyard moves the corpse out of
-      // range, which is what actually forfeits the rights.
+      // Before a corpse has a death-time snapshot, fall back to current range.
+      // Do not filter on `e.dead`: a downed member whose corpse is still in
+      // range keeps loot rights.
       if (candidate && e && dist2d(e.pos, mob.pos) <= PARTY_XP_RANGE) candidates.push(candidate);
     }
     return candidates;
@@ -5659,7 +5663,7 @@ export class Sim {
         // members nearby (classic group rules + group bonus). A member downed
         // during the fight still counts while their corpse is in range: classic
         // groups credit fallen members (and their loot rights), they are not
-        // erased for dying. Releasing to the graveyard moves them out of range.
+        // erased for dying or for releasing to the graveyard after the kill.
         const party = this.partyOf(creditEntity.id);
         const eligible: PlayerMeta[] = [];
         if (party) {
@@ -5670,6 +5674,7 @@ export class Sim {
           }
         }
         if (eligible.length === 0) eligible.push(meta);
+        e.lootRecipientIds = eligible.map((member) => member.entityId);
         const bonus = GROUP_XP_BONUS[Math.min(eligible.length, GROUP_XP_BONUS.length) - 1];
 
         meta.counters.kills++;
@@ -8179,6 +8184,7 @@ export class Sim {
     mob.dead = false;
     mob.lootable = false;
     mob.loot = null;
+    mob.lootRecipientIds = undefined;
     mob.tappedById = null;
     mob.ownerId = null;
     mob.hostile = true;
