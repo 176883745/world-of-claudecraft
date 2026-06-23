@@ -175,25 +175,25 @@ export const es: EnTranslations = {
       "done": "Listo"
     },
     "theme": {
-      "preset": "UI Theme",
-      "customColors": "Custom Colors",
-      "reset": "Reset",
+      "preset": "Tema de la interfaz",
+      "customColors": "Colores personalizados",
+      "reset": "Restablecer",
       "presets": {
-        "classic": "Classic Gold",
-        "midnight": "Midnight",
-        "parchment": "Parchment",
-        "highContrast": "High Contrast"
+        "classic": "Oro clásico",
+        "midnight": "Medianoche",
+        "parchment": "Pergamino",
+        "highContrast": "Alto contraste"
       },
       "knob": {
-        "accent": "Accent",
-        "border": "Border",
-        "panel": "Frame",
-        "text": "Text",
-        "textMuted": "Muted Text",
-        "hp": "Health",
-        "mana": "Mana",
-        "rage": "Rage",
-        "energy": "Energy"
+        "accent": "Acento",
+        "border": "Borde",
+        "panel": "Marco",
+        "text": "Texto",
+        "textMuted": "Texto atenuado",
+        "hp": "Salud",
+        "mana": "Maná",
+        "rage": "Ira",
+        "energy": "Energía"
       }
     },
     "questTracker": {
@@ -275,8 +275,8 @@ export const es: EnTranslations = {
       "interfaceModeNote": "Auto elige los controles Desktop o Touch según tu dispositivo. Elige Desktop para forzar teclado y ratón (útil en una tableta con teclado), o Touch para los controles en pantalla.",
       "footstepSounds": "Sonidos de pasos",
       "clickFeedback": "Marcador de clic",
-      "lockCursorOnRotate": "Lock Cursor While Rotating",
-      "keybindHelpLockCursorOnRotate": "Keeps the mouse cursor inside the window while you drag to rotate the camera, so it cannot reach the screen edge or move to another monitor. Turn off if you prefer a free cursor.",
+      "lockCursorOnRotate": "Bloquear cursor al rotar",
+      "keybindHelpLockCursorOnRotate": "Mantiene el cursor del ratón dentro de la ventana mientras arrastras para rotar la cámara, para que no llegue al borde de la pantalla ni pase a otro monitor. Desactívalo si prefieres un cursor libre.",
       "showWalletOnCharacterScreen": "Mostrar cartera en la pantalla de personajes",
       "showWalletOnPlayerCard": "Mostrar cartera en la tarjeta de jugador",
       "uiScale": "Escala de la interfaz",
@@ -550,6 +550,12 @@ export const es: EnTranslations = {
       "searchPlaceholder": "Buscar objetos",
       "searchAria": "Buscar objetos de la bolsa por nombre",
       "noMatch": "Ningún objeto coincide con tus filtros."
+    },
+    "raidConvert": {
+      "toPartyDone": "Your raid has converted back to a party.",
+      "notRaid": "Your group is not a raid.",
+      "leaderOnly": "Only the raid leader may convert to a party.",
+      "tooLarge": "A raid with more than five members cannot convert back to a party."
     }
   },
   "guide": {
@@ -1018,7 +1024,7 @@ export const es: EnTranslations = {
       "marshPlaceNotes": "Fenbridge custodia el único camino seco. Los Juncos del Acechador y los Bajíos de Deepfen rebosan de bestias de la ciénaga y múrlocs; la Espesura de la Viuda está tupida de telarañas; la Capilla Ahogada y los Túmulos de los Troles guardan peligros más antiguos; el Campamento de los Llamatumbas es el culto atrincherado, y el Bastión Sumergido es el corazón instanciado de la ciénaga.",
       "peaksPlaceNotes": "Highwatch defiende el muro. La Cresta del Acechador y las Galerías de Deeprock pertenecen a felinos de las crestas y kobolds; las Estribaciones de los Ogros y el Campamento de Guerra de Drogmar, a brutos a sueldo; Stormcrag crepita de elementales y el Glimmermere reluce a sus pies; las Tiendas del Culto del Vermis y los Campos de los Resucitados rodean el bastión elevado del culto, con el Santuario del Gravewyrm en su cima.",
       "gladeTitle": "Un rincón tranquilo: la arboleda de Brightwood",
-      "gladeBody": "No todas las historias del Valle tratan de los muertos. En el norte, una arboleda bañada por el sol llamada arboleda de Brightwood mantiene su propio ritmo, más apacible, vigilada por una montaraz solitaria que prefiere cuidarla a luchar. Su labor es el equilibrio: aclarar lo que se reproduce en exceso y, cuando su madriguera se vuelve demasiado peligrosa para dejarla estar, dar al viejo ciervo coronado de la arboleda un final respetuoso. Es un suave contrapunto al rastro que sigues, y bien merece el desvío."
+      "gladeBody": "No todas las historias del Valle tratan de los muertos. Al norte, una arboleda soleada llamada arboleda de Brightwood conserva su propio ritmo más amable, con senderos silenciosos, ciervos pastando y bestias cautelosas bajo las ramas. Es un contrapunto suave al rastro que sigues y merece verse cuando el camino te deje espacio para vagar."
     },
     "questsPage": {
       "heading": "Misiones",
@@ -1066,9 +1072,7 @@ export const es: EnTranslations = {
       "aldricRole": "Sacerdote del Valle",
       "aldricBody": "Un humilde sacerdote de aldea que es el primero en nombrar al culto ante una tumba profanada en Eastbrook, y luego sigue su rastro en persona a través de la ciénaga y hasta el muro de Highwatch. Es el corazón firme de toda la campaña.",
       "marenRole": "La exploradora del mariscal",
-      "marenBody": "Una rastreadora de hablar quedo a la que conoces entre los juncos de Mirefen, pura sigilosa de pies ligeros y una hoja corta. También sigue el rastro hacia el norte, y es su oído el que capta las palabras que te envían a los picos.",
-      "elwynRole": "Guardabosques de la arboleda de Brightwood",
-      "elwynBody": "La única guardiana de una arboleda bañada por el sol en el norte del Valle. Su labor es la administración, no la matanza: aclarar lo que se reproduce en exceso y conceder a la bestia más anciana de la arboleda un final más amable del que le darían los lobos."
+      "marenBody": "Una rastreadora de hablar quedo a la que conoces entre los juncos de Mirefen, pura sigilosa de pies ligeros y una hoja corta. También sigue el rastro hacia el norte, y es su oído el que capta las palabras que te envían a los picos."
     },
     "dungeonsPage": {
       "heading": "Mazmorras y bandas",
@@ -1933,11 +1937,11 @@ export const es: EnTranslations = {
     "high": "Alta",
     "medium": "Media",
     "low": "Baja",
-    "popTipLow": "Low population: fewer than 15 players online right now. Plenty of room; great for a fresh start.",
-    "popTipMedium": "Medium population: 15 to 39 players online right now. A healthy, active realm.",
-    "popTipHigh": "High population: 40 to 79 players online right now. Busy, with lots of players around.",
-    "popTipFull": "Full population: 80 or more players online right now. Very busy; you may wait in a login queue.",
-    "popTipOffline": "Offline: this realm is unreachable right now and cannot be joined.",
+    "popTipLow": "Población baja: menos de 15 jugadores conectados ahora. Mucho espacio; ideal para empezar de cero.",
+    "popTipMedium": "Población media: entre 15 y 39 jugadores conectados ahora. Un reino activo y saludable.",
+    "popTipHigh": "Población alta: entre 40 y 79 jugadores conectados ahora. Concurrido, con muchos jugadores cerca.",
+    "popTipFull": "Población llena: 80 o más jugadores conectados ahora. Muy concurrido; puede que esperes en una cola de inicio de sesión.",
+    "popTipOffline": "Sin conexión: este reino no está disponible ahora y no se puede entrar.",
     "characterCountOne": "{count} personaje",
     "characterCountOther": "{count} personajes",
     "selectedRealm": "Reino: {name}",
@@ -2272,6 +2276,7 @@ export const es: EnTranslations = {
         "report": "Reportar jugador",
         "removeParty": "Expulsar del grupo",
         "convertToRaid": "Convertir en banda",
+        "convertToParty": "Convert to party",
         "cancel": "Cancelar"
       }
     },
@@ -4075,9 +4080,6 @@ export const es: EnTranslations = {
       "milepost_boots": {
         "name": "Botas de hito"
       },
-      "glade_pelt": {
-        "name": "Piel del claro"
-      },
       "soft_down": {
         "name": "Mechón de plumón suave"
       },
@@ -4095,9 +4097,6 @@ export const es: EnTranslations = {
       },
       "monarch_crown_helm": {
         "name": "Corona del Monarca"
-      },
-      "monarch_heart": {
-        "name": "El Corazón del Monarca"
       },
       "bristleback_maul": {
         "name": "Maza Bristleback"
@@ -4972,11 +4971,6 @@ export const es: EnTranslations = {
         "title": "Maestro de saber",
         "greeting": "Cuida la pizarra suelta, {className}. La montaña está inquieta últimamente y quiero saber por qué."
       },
-      "ranger_elwyn": {
-        "name": "Montaraz Elwyn",
-        "title": "Guardiana del claro",
-        "greeting": "Silencio, {className}. El claro está tranquilo hoy, y pretendo que siga así."
-      },
       "brother_aldric_raid": {
         "name": "Hermano Aldric",
         "title": "Sacerdote del Valle",
@@ -5728,145 +5722,6 @@ export const es: EnTranslations = {
         "objectives": {
           "0": {
             "label": "Nythraxis derrotado"
-          }
-        }
-      },
-      "q_brightwood_thinning": {
-        "title": "Diezmar el claro",
-        "text": "El Claro de Brightwood está infestado, {playerName}. Los linces de zarzal se reproducen más rápido de lo que puedo sacrificarlos, y las manadas pisotean el poco pasto que queda. Mata 8 Linces de zarzal y tráeme 6 Pieles del claro para que pueda juzgar la salud del resto.",
-        "completion": "Bien. La manada está diezmada y estas pieles están sanas: el claro aguantará otra estación.",
-        "objectives": {
-          "0": {
-            "label": "Linces de zarzal abatidos"
-          },
-          "1": {
-            "label": "Piel del claro"
-          }
-        }
-      },
-      "q_brightwood_monarch": {
-        "title": "El Monarca de Brightwood",
-        "text": "Hay una bestia a la que no le lanzaré una flecha en solitario: el Monarca de Brightwood, el gran ciervo que reina en lo profundo del claro. Se ha vuelto viejo y feroz, corneando a cualquiera que se acerque a su guarida. Es demasiado para un solo cazador: trae a uno o dos amigos. Dale descanso y tráeme su corazón, {playerName}.",
-        "completion": "Así que el viejo rey ha caído. Algo pesado, esto, pero un final más amable que el que le habrían dado los lobos. Lleva esta corona de sus astas con respeto, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "El Corazón del Monarca"
-          }
-        }
-      },
-      "q_ledger_first_duty": {
-        "title": "El primer deber de un guardián",
-        "text": "¿Quieres ganarte el sustento en Eastbrook, {playerName}? Pues empieza donde empieza cada guardián. Los tejones pielespina han excavado sus madrigueras a lo largo del Claro de Brightwood, en el extremo norte pasada la Senda de lobos, y el suelo de la arboleda se está hundiendo en sus túneles. Sacrifica 8 Tejones pielespina y el libro mayor recordará tu nombre.",
-        "completion": "Ocho madrigueras vaciadas y el suelo de la arboleda asentado. Bien. Cada nombre de este libro mayor empezó justo donde tú estás parado.",
-        "objectives": {
-          "0": {
-            "label": "Tejón pielespina sacrificado"
-          }
-        }
-      },
-      "q_ledger_teeth": {
-        "title": "Colmillos en la oscuridad",
-        "text": "Los zorros de la cañada se han vuelto tan audaces como lobos: se cuelan en los gallineros al anochecer y desaparecen antes de que se encienda un farol, y una zorra hambrienta se llevará un cordero con la misma facilidad que una gallina. Diézmalos, {playerName}. Abate a 10 Zorros de la cañada y haz que el resto vuelva a temer a la luz.",
-        "completion": "Diez zorros, y los gallineros vuelven a estar tranquilos al anochecer. El libro mayor se vuelve más amable contigo.",
-        "objectives": {
-          "0": {
-            "label": "Zorros de la cañada abatidos"
-          }
-        }
-      },
-      "q_ledger_reedwater": {
-        "title": "Patrulla del juncal",
-        "text": "¿Te envía Redbrook? Bien, estos viejos huesos ya no pueden vadear los bajíos. Las grullas de la pradera han dado con mis redes, y arponean más de mi captura de lo que jamás hizo el Aletabarro. Diézmalas: 8 Grullas de la pradera, y cuidado con el agua profunda.",
-        "completion": "Eso mantendrá a esas ladronas zancudas lejos de mis redes una estación. Dile al Mariscal que los bajíos vuelven a ser míos.",
-        "objectives": {
-          "0": {
-            "label": "Grullas de la pradera ahuyentadas"
-          }
-        }
-      },
-      "q_ledger_silk": {
-        "title": "Ramoneo y zarza",
-        "text": "El libro mayor marca también los bosques del este como tierra de guardianes, y mis huertos de hierbas medicinales forman parte de ellos. Los cervatos moteados han arrasado mi hoja de plata y mi cardosangre hasta la raíz, y sin esos remedios la mitad de Eastbrook se queda sin medicina. No me complace, pero sacrifica a 8 Cervatos moteados antes de que se pierdan por completo las hierbas de otoño.",
-        "completion": "Los huertos aún podrían recuperarse, gracias a ti. Una piedad dura, pero un niño ardiendo de fiebre necesita los remedios más de lo que el bosque necesita a los ciervos. El libro mayor queda saldado.",
-        "objectives": {
-          "0": {
-            "label": "Cervatos moteados sacrificados"
-          }
-        }
-      },
-      "q_ledger_brood": {
-        "title": "La oscuridad que desova",
-        "text": "Matar a los acechadores solo dejó sitio a la prole. Las crías Sableweb brotan a raudales del nido profundo, y cien colmillos pequeños matan a un viajero tan seguro como uno grande. Aplasta 8 Crías Sableweb antes de que crezcan.",
-        "completion": "Trabajo sombrío, ahogar un nido. Pero la clemencia de ahora son cien funerales evitados después. La cuenta queda saldada.",
-        "objectives": {
-          "0": {
-            "label": "Crías Sableweb aplastadas"
-          }
-        }
-      },
-      "q_ledger_deepvermin": {
-        "title": "Alimañas en lo profundo",
-        "text": "El libro mayor del Mariscal dice que limpias plagas. Pues bien, mi excavación tiene a las peores. Las ratas de túnel se reproducen más rápido de lo que mi cuadrilla puede picar: derriba a 12 Excavadores Rata de Túnel y puede que demos con cobre antes del invierno.",
-        "completion": "¡Doce de las alimañas con velas en la cabeza, fuera! Bien, muchachos, de vuelta al pozo. Te has ganado una buena palabra ante el Mariscal, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Excavadores Rata de Túnel abatidos"
-          }
-        }
-      },
-      "q_ledger_toll": {
-        "title": "El camino de los colmillos",
-        "text": "Los jabalíes colmillobosque han bajado de Brightwood al camino comercial del sureste: grandes bestias colmilludas que cornean a los bueyes de tiro y vuelcan los carros por el grano derramado. El libro mayor pone precio a cada uno de ellos. Reabre el camino: abate a 8 Jabalíes colmillobosque.",
-        "completion": "Ocho bestias menos en el camino, y los carros vuelven a rodar. Ya corre la voz de que el camino comercial tiene un nuevo guardián. El libro mayor sube a tu favor.",
-        "objectives": {
-          "0": {
-            "label": "Jabalíes colmillobosque abatidos"
-          }
-        }
-      },
-      "q_ledger_vigil": {
-        "title": "Vigilia en la capilla",
-        "text": "El Mariscal me envía a sus guardianes cuando el problema está más allá del alcance de las espadas. Los muertos de la capilla no quieren reposar, y yo soy demasiado viejo para aguantar la vigilia nocturna. Hazla por mí, {playerName}: devuelve 10 Huesos inquietos a su descanso.",
-        "completion": "Diez almas devueltas a la tierra, y una noche de paz comprada para la capilla. La Luz recuerda tales vigilias, aunque el libro mayor las olvide.",
-        "objectives": {
-          "0": {
-            "label": "Huesos inquietos devueltos al descanso"
-          }
-        }
-      },
-      "q_ledger_great_boar": {
-        "title": "El gran Bristleback",
-        "text": "Hay un viejo jabalí macho en los matorrales del oeste: el Viejo Bristleback, con la piel como corteza y un genio a juego. Ha corneado a dos de mis curtidores. Derríbalo y elimina a 6 de los Jabalíes salvajes menores que se refugian tras él, y haré que tu nombre figure en lo alto del libro mayor.",
-        "completion": "¡El Viejo Bristleback, muerto por tu mano! Ese cuero por sí solo vale una estación de comercio. Has hecho que el libro mayor se enorgullezca, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Viejo Bristleback abatido"
-          },
-          "1": {
-            "label": "Jabalíes salvajes de la manada abatidos"
-          }
-        }
-      },
-      "q_ledger_outlaw_captain": {
-        "title": "El capitán proscrito",
-        "text": "El último nombre del libro mayor es el que llevo un año queriendo tachar: el Capitán Verlan, que volvió bandidos a media comarca del Valle. Se refugia tras sus lugartenientes en el campamento del sureste. Abate a 6 Bandidos del Valle para llegar a él, y luego acaba con el propio Verlan. No vayas solo.",
-        "completion": "El Capitán Verlan, muerto, y su casaca traída a mi puerta. El libro mayor queda cerrado, {playerName}, y el Valle dirá a los guardianes venideros el nombre de quien lo cerró.",
-        "objectives": {
-          "0": {
-            "label": "Bandidos del Valle abatidos"
-          },
-          "1": {
-            "label": "Capitán Verlan abatido"
-          }
-        }
-      },
-      "q_mogger_tracks": {
-        "title": "El rastro de Mogger",
-        "text": "Antes de tomar el camino al norte, Eastbrook tiene una última espina clavada: Mogger. La bestia pisotea el prado bajo y enloquece a los jabalíes. Limpia la zona de su rastro para que veamos dónde se esconde.",
-        "completion": "Esas huellas son recientes y bastante hondas para juntar lluvia. Mogger no es un cuento de campamento, {playerName}, y está cerca.",
-        "objectives": {
-          "0": {
-            "label": "Jabalí salvaje expulsado del rastro"
           }
         }
       },

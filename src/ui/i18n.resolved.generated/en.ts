@@ -550,6 +550,12 @@ export const en: EnTranslations = {
       "searchPlaceholder": "Search items",
       "searchAria": "Search bag items by name",
       "noMatch": "No items match your filters."
+    },
+    "raidConvert": {
+      "toPartyDone": "Your raid has converted back to a party.",
+      "notRaid": "Your group is not a raid.",
+      "leaderOnly": "Only the raid leader may convert to a party.",
+      "tooLarge": "A raid with more than five members cannot convert back to a party."
     }
   },
   "guide": {
@@ -1018,7 +1024,7 @@ export const en: EnTranslations = {
       "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
       "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
       "gladeTitle": "A quiet corner: Brightwood Glade",
-      "gladeBody": "Not every story in the Vale is about the dead. In the north, a sunlit grove called Brightwood Glade keeps its own gentler rhythm, watched over by a lone ranger who would rather steward it than fight. Her work is balance: thinning what overbreeds, and, when its hollow grows too dangerous to leave be, giving the grove's old crowned stag a respectful end. It is a soft counterpoint to the trail you are following, and worth the detour."
+      "gladeBody": "Not every story in the Vale is about the dead. In the north, a sunlit grove called Brightwood Glade keeps its own gentler rhythm, with quiet paths, grazing deer, and wary beasts under the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander."
     },
     "questsPage": {
       "heading": "Quests",
@@ -1066,9 +1072,7 @@ export const en: EnTranslations = {
       "aldricRole": "Priest of the Vale",
       "aldricBody": "A humble village priest who first names the cult over a defiled grave in Eastbrook, then follows its trail in person through the marsh and up to the wall at Highwatch. He is the steady heart of the whole campaign.",
       "marenRole": "The Marshal's Scout",
-      "marenBody": "A low-talking tracker you meet in the reeds of Mirefen, all quiet feet and a short blade. She follows the trail north too, and it is her ear that catches the words that send you to the peaks.",
-      "elwynRole": "Glade Warden of Brightwood",
-      "elwynBody": "The lone keeper of a sunlit grove in the north of the Vale. Her work is stewardship, not slaughter: thinning what overbreeds and granting the grove's oldest beast a kinder end than the wolves would."
+      "marenBody": "A low-talking tracker you meet in the reeds of Mirefen, all quiet feet and a short blade. She follows the trail north too, and it is her ear that catches the words that send you to the peaks."
     },
     "dungeonsPage": {
       "heading": "Dungeons and Raids",
@@ -2272,6 +2276,7 @@ export const en: EnTranslations = {
         "report": "Report Player",
         "removeParty": "Remove from Party",
         "convertToRaid": "Convert to raid",
+        "convertToParty": "Convert to party",
         "cancel": "Cancel"
       }
     },
@@ -4075,9 +4080,6 @@ export const en: EnTranslations = {
       "milepost_boots": {
         "name": "Milepost Boots"
       },
-      "glade_pelt": {
-        "name": "Glade Pelt"
-      },
       "soft_down": {
         "name": "Soft Down Tuft"
       },
@@ -4095,9 +4097,6 @@ export const en: EnTranslations = {
       },
       "monarch_crown_helm": {
         "name": "Monarch's Crown"
-      },
-      "monarch_heart": {
-        "name": "The Monarch's Heart"
       },
       "bristleback_maul": {
         "name": "Bristleback Maul"
@@ -4972,11 +4971,6 @@ export const en: EnTranslations = {
         "title": "Loremaster",
         "greeting": "Mind the loose shale, {className}. The mountain has been... restless of late. I intend to learn why."
       },
-      "ranger_elwyn": {
-        "name": "Ranger Elwyn",
-        "title": "Glade Warden",
-        "greeting": "Quiet, {className} - the glade is calm today, and I mean to keep it that way."
-      },
       "brother_aldric_raid": {
         "name": "Brother Aldric",
         "title": "Priest of the Vale",
@@ -5728,145 +5722,6 @@ export const en: EnTranslations = {
         "objectives": {
           "0": {
             "label": "Nythraxis slain"
-          }
-        }
-      },
-      "q_brightwood_thinning": {
-        "title": "Thinning the Glade",
-        "text": "Brightwood Glade is overrun, {playerName}. The bramble lynx breed faster than I can cull them, and the herds trample what little grazing is left. Slay 8 Bramble Lynx and bring me 6 Glade Pelts so I can judge the health of the rest.",
-        "completion": "Good. The pride is thinned and these pelts are sound - the glade will hold another season.",
-        "objectives": {
-          "0": {
-            "label": "Bramble Lynx slain"
-          },
-          "1": {
-            "label": "Glade Pelt"
-          }
-        }
-      },
-      "q_brightwood_monarch": {
-        "title": "The Brightwood Monarch",
-        "text": "There is one beast I will not loose an arrow at alone: the Brightwood Monarch, the great stag that rules the deep glade. He has grown old and savage, goring any who near his hollow. He is more than a match for one hunter - bring a friend or two. Lay him to rest and bring me his heart, {playerName}.",
-        "completion": "So the old king has fallen. A heavy thing, this - but a kinder end than the wolves would have given him. Wear this crown of his antlers with respect, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "The Monarch's Heart"
-          }
-        }
-      },
-      "q_ledger_first_duty": {
-        "title": "A Warden's First Duty",
-        "text": "You want to earn your keep in Eastbrook, {playerName}? Then start where every warden starts. The thornpelt badgers have dug their setts clean through the Brightwood Glade, in the far north past Wolf Run, and the grove floor is caving into their burrows. Cull 8 Thornpelt Badgers and the ledger will remember your name.",
-        "completion": "Eight setts emptied and the grove floor settled. Good. Every name in this ledger started just where you are standing.",
-        "objectives": {
-          "0": {
-            "label": "Thornpelt Badger culled"
-          }
-        }
-      },
-      "q_ledger_teeth": {
-        "title": "Teeth in the Dark",
-        "text": "The glade foxes have grown bold as wolves - they slip the henhouses at dusk and are gone before a lantern is lit, and a hungry vixen will take a lamb as soon as a hen. Thin them, {playerName}. Slay 10 Glade Foxes and let the rest learn to fear the light again.",
-        "completion": "Ten foxes, and the henhouses are quiet at dusk again. The ledger grows kinder to you.",
-        "objectives": {
-          "0": {
-            "label": "Glade Fox slain"
-          }
-        }
-      },
-      "q_ledger_reedwater": {
-        "title": "Reedwater Patrol",
-        "text": "Redbrook sent you? Good - these old bones cannot wade the shallows anymore. The meadow cranes have found my nets, and they spear more of my catch than the Mudfin ever did. Thin them: 8 Meadow Cranes, and mind the deep water.",
-        "completion": "That will keep the long-legged thieves off my nets for a season. Tell the Marshal the shallows are mine again.",
-        "objectives": {
-          "0": {
-            "label": "Meadow Crane driven off"
-          }
-        }
-      },
-      "q_ledger_silk": {
-        "title": "Browse and Bramble",
-        "text": "The ledger marks the eastern woods as warden ground too - and my physic-beds are part of it. The spotted fawns have stripped my silverleaf and bloodthistle to the root, and without those simples half of Eastbrook goes without medicine. I take no joy in it, but cull 8 Spotted Fawns before the autumn herbs are lost entirely.",
-        "completion": "The beds may yet recover, thanks to you. A hard mercy - but a child burning with fever needs the simples more than the wood needs the deer. The ledger is square.",
-        "objectives": {
-          "0": {
-            "label": "Spotted Fawn culled"
-          }
-        }
-      },
-      "q_ledger_brood": {
-        "title": "The Spawning Dark",
-        "text": "Killing the lurkers only made room for the brood. The Sableweb hatchlings are pouring out of the deep nest, and a hundred small fangs kill a traveler as surely as one great one. Crush 8 Sableweb Hatchlings before they grow.",
-        "completion": "A grim work, drowning a nest. But mercy now is a hundred funerals spared later. The ledger is square.",
-        "objectives": {
-          "0": {
-            "label": "Sableweb Hatchling crushed"
-          }
-        }
-      },
-      "q_ledger_deepvermin": {
-        "title": "Vermin in the Deep",
-        "text": "The Marshal's ledger says you clear pests. Well, my dig has the worst of them. The tunnel rats breed faster than my crew can swing a pick - put down 12 Tunnel Rat Diggers and maybe we strike copper before winter.",
-        "completion": "Twelve of the candle-headed vermin, gone! Right, lads - back down the shaft. You have earned the Marshal a good word, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Tunnel Rat Digger slain"
-          }
-        }
-      },
-      "q_ledger_toll": {
-        "title": "The Tusked Road",
-        "text": "The grovetusk boars have come down out of the Brightwood and onto the southeast trade road - great tusked brutes that gore the draft oxen and overturn carts for the spilled grain. The ledger has a price on every one. Reopen the road: put down 8 Grovetusk Boars.",
-        "completion": "Eight brutes off the road, and the carts are rolling again. Word is already spreading that the trade road has a new keeper. The ledger climbs in your favor.",
-        "objectives": {
-          "0": {
-            "label": "Grovetusk Boar slain"
-          }
-        }
-      },
-      "q_ledger_vigil": {
-        "title": "Vigil at the Chapel",
-        "text": "The Marshal sends his wardens to me when the trouble is past the reach of swords alone. The chapel dead will not lie still, and I am too old to stand the night vigil. Keep it for me, {playerName} - lay 10 Restless Bones back to their rest.",
-        "completion": "Ten souls returned to the earth, and a night of peace bought for the chapel. The Light remembers such vigils, even when the ledger forgets.",
-        "objectives": {
-          "0": {
-            "label": "Restless Bones laid to rest"
-          }
-        }
-      },
-      "q_ledger_great_boar": {
-        "title": "The Great Bristleback",
-        "text": "There is an old bull boar in the western thickets - the Elder Bristleback, hide like bark and a temper to match. He has gored two of my hide-runners. Bring him down and clear 6 of the lesser Wild Boar that shelter behind him, and I will see your name set high in the ledger.",
-        "completion": "The Elder Bristleback, dead by your hand! That hide alone is worth a season of trade. You have made the ledger proud, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Elder Bristleback slain"
-          },
-          "1": {
-            "label": "Wild Boar of the herd slain"
-          }
-        }
-      },
-      "q_ledger_outlaw_captain": {
-        "title": "The Outlaw Captain",
-        "text": "The last name in the ledger is the one I have wanted crossed out for a year: Captain Verlan, who turned half the Vale to banditry. He shelters behind his lieutenants in the southeast camp. Cut down 6 Vale Bandits to reach him, then end Verlan himself. Do not go alone.",
-        "completion": "Captain Verlan, dead, and his coat brought to my door. The ledger is closed, {playerName} - and the Vale will tell wardens-to-come the name of the one who closed it.",
-        "objectives": {
-          "0": {
-            "label": "Vale Bandit cut down"
-          },
-          "1": {
-            "label": "Captain Verlan slain"
-          }
-        }
-      },
-      "q_mogger_tracks": {
-        "title": "Mogger's Trail",
-        "text": "Before you take the road north, Eastbrook has one last thorn in its side: Mogger. The brute has been trampling the lower meadow and driving the boars mad. Clear the meadow around his trail so we can see where he lairs.",
-        "completion": "Those tracks are fresh and deep enough to hold rain. Mogger is no camp tale, {playerName} - and he is close.",
-        "objectives": {
-          "0": {
-            "label": "Wild Boar driven from the trail"
           }
         }
       },

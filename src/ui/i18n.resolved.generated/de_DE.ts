@@ -175,25 +175,25 @@ export const de_DE: EnTranslations = {
       "done": "Fertig"
     },
     "theme": {
-      "preset": "UI Theme",
-      "customColors": "Custom Colors",
-      "reset": "Reset",
+      "preset": "Oberflächendesign",
+      "customColors": "Eigene Farben",
+      "reset": "Zurücksetzen",
       "presets": {
-        "classic": "Classic Gold",
-        "midnight": "Midnight",
-        "parchment": "Parchment",
-        "highContrast": "High Contrast"
+        "classic": "Klassisches Gold",
+        "midnight": "Mitternacht",
+        "parchment": "Pergament",
+        "highContrast": "Hoher Kontrast"
       },
       "knob": {
-        "accent": "Accent",
-        "border": "Border",
-        "panel": "Frame",
+        "accent": "Akzent",
+        "border": "Rahmen",
+        "panel": "Fensterrahmen",
         "text": "Text",
-        "textMuted": "Muted Text",
-        "hp": "Health",
+        "textMuted": "Gedämpfter Text",
+        "hp": "Gesundheit",
         "mana": "Mana",
-        "rage": "Rage",
-        "energy": "Energy"
+        "rage": "Wut",
+        "energy": "Energie"
       }
     },
     "questTracker": {
@@ -275,8 +275,8 @@ export const de_DE: EnTranslations = {
       "interfaceModeNote": "Auto wählt je nach Gerät die Desktop- oder Touch-Steuerung. Wähle Desktop, um Tastatur und Maus zu erzwingen (praktisch bei einem Tablet mit Tastatur), oder Touch für die Bildschirmsteuerung.",
       "footstepSounds": "Schrittgeräusche",
       "clickFeedback": "Klickmarkierung",
-      "lockCursorOnRotate": "Lock Cursor While Rotating",
-      "keybindHelpLockCursorOnRotate": "Keeps the mouse cursor inside the window while you drag to rotate the camera, so it cannot reach the screen edge or move to another monitor. Turn off if you prefer a free cursor.",
+      "lockCursorOnRotate": "Cursor beim Drehen sperren",
+      "keybindHelpLockCursorOnRotate": "Hält den Mauszeiger im Fenster, während Ihr zum Drehen der Kamera zieht, damit er nicht den Bildschirmrand erreicht oder auf einen anderen Monitor wandert. Schaltet dies aus, wenn Ihr einen freien Cursor bevorzugt.",
       "showWalletOnCharacterScreen": "Wallet auf dem Charakterbildschirm anzeigen",
       "showWalletOnPlayerCard": "Wallet auf der Spielerkarte anzeigen",
       "uiScale": "UI-Skalierung",
@@ -550,6 +550,12 @@ export const de_DE: EnTranslations = {
       "searchPlaceholder": "Gegenstände durchsuchen",
       "searchAria": "Taschengegenstände nach Namen durchsuchen",
       "noMatch": "Keine Gegenstände entsprechen Euren Filtern."
+    },
+    "raidConvert": {
+      "toPartyDone": "Your raid has converted back to a party.",
+      "notRaid": "Your group is not a raid.",
+      "leaderOnly": "Only the raid leader may convert to a party.",
+      "tooLarge": "A raid with more than five members cannot convert back to a party."
     }
   },
   "guide": {
@@ -1018,7 +1024,7 @@ export const de_DE: EnTranslations = {
       "marshPlaceNotes": "Fenbridge bewacht die einzige trockene Straße. Das Pirscherschilf und die Tieffenniederung wimmeln von Moorbestien und Murlocs; das Witwendickicht ist dicht mit Netzen versponnen; die Ertrunkene Kapelle und die Trollhügel beherbergen ältere Gefahren; das Grabruferlager ist der eingegrabene Kult, und die versunkene Bastion ist das instanzierte Herz des Moores.",
       "peaksPlaceNotes": "Highwatch hält die Mauer. Der Pirscherkamm und die Tieffelsbaue gehören Bergkatzen und Kobolden; die Ogervorberge und Drogmars Kriegslager den Schlägern für Sold; Stormcrag knistert vor Elementaren, und der Glimmermere leuchtet darunter; die Wyrmkultzelte und die Wiedergängerfelder umringen das Hochland des Kults, mit dem Gravewyrm-Heiligtum auf seinem Gipfel.",
       "gladeTitle": "Eine stille Ecke: Brightwood Glade",
-      "gladeBody": "Nicht jede Geschichte im Tal handelt von den Toten. Im Norden hält ein sonnenbeschienener Hain namens Brightwood Glade seinen eigenen sanfteren Rhythmus, behütet von einer einsamen Waldläuferin, die ihn lieber pflegt als kämpft. Ihre Arbeit ist Gleichgewicht: zu lichten, was sich überzüchtet, und, wenn seine Aushöhlung zu gefährlich wird, um sie zu belassen, dem alten gekrönten Hirsch des Hains ein würdevolles Ende zu geben. Es ist ein leiser Gegenpol zu der Spur, der du folgst, und den Umweg wert."
+      "gladeBody": "Nicht jede Geschichte im Tal handelt von den Toten. Im Norden bewahrt ein sonnenheller Hain namens Brightwood Glade seinen eigenen, sanfteren Rhythmus, mit stillen Pfaden, grasenden Hirschen und wachsamen Tieren unter den Zweigen. Er ist ein ruhiger Gegenklang zu der Spur, der du folgst, und einen Blick wert, wenn die Straße dir Raum zum Umherstreifen lässt."
     },
     "questsPage": {
       "heading": "Quests",
@@ -1066,9 +1072,7 @@ export const de_DE: EnTranslations = {
       "aldricRole": "Priester des Tals",
       "aldricBody": "Ein bescheidener Dorfpriester, der den Kult zuerst über einem geschändeten Grab in Eastbrook beim Namen nennt und dann seiner Spur höchstpersönlich durch das Moor und hinauf zur Mauer von Highwatch folgt. Er ist das ruhige Herz des ganzen Feldzugs.",
       "marenRole": "Die Späherin des Marschalls",
-      "marenBody": "Eine wortkarge Fährtenleserin, der du im Schilf von Mirefen begegnest, lauter leise Füße und eine kurze Klinge. Auch sie folgt der Spur nach Norden, und es ist ihr Ohr, das die Worte auffängt, die dich zu den Gipfeln schicken.",
-      "elwynRole": "Lichtungswächterin von Brightwood",
-      "elwynBody": "Die einsame Hüterin eines sonnenbeschienenen Hains im Norden des Tals. Ihre Arbeit ist Pflege, nicht Gemetzel: Sie lichtet, was sich überzüchtet, und gewährt dem ältesten Tier des Hains ein gnädigeres Ende, als die Wölfe es ihm bereiten würden."
+      "marenBody": "Eine wortkarge Fährtenleserin, der du im Schilf von Mirefen begegnest, lauter leise Füße und eine kurze Klinge. Auch sie folgt der Spur nach Norden, und es ist ihr Ohr, das die Worte auffängt, die dich zu den Gipfeln schicken."
     },
     "dungeonsPage": {
       "heading": "Dungeons und Schlachtzüge",
@@ -1933,11 +1937,11 @@ export const de_DE: EnTranslations = {
     "high": "Hoch",
     "medium": "Mittel",
     "low": "Niedrig",
-    "popTipLow": "Low population: fewer than 15 players online right now. Plenty of room; great for a fresh start.",
-    "popTipMedium": "Medium population: 15 to 39 players online right now. A healthy, active realm.",
-    "popTipHigh": "High population: 40 to 79 players online right now. Busy, with lots of players around.",
-    "popTipFull": "Full population: 80 or more players online right now. Very busy; you may wait in a login queue.",
-    "popTipOffline": "Offline: this realm is unreachable right now and cannot be joined.",
+    "popTipLow": "Niedrige Bevölkerung: derzeit weniger als 15 Spieler online. Viel Platz; ideal für einen Neustart.",
+    "popTipMedium": "Mittlere Bevölkerung: derzeit 15 bis 39 Spieler online. Ein gesunder, aktiver Realm.",
+    "popTipHigh": "Hohe Bevölkerung: derzeit 40 bis 79 Spieler online. Belebt, mit vielen Spielern in der Nähe.",
+    "popTipFull": "Volle Bevölkerung: derzeit 80 oder mehr Spieler online. Sehr belebt; eventuell müsst Ihr in einer Login-Warteschlange warten.",
+    "popTipOffline": "Offline: Dieser Realm ist derzeit nicht erreichbar und kann nicht betreten werden.",
     "characterCountOne": "{count} Charakter",
     "characterCountOther": "{count} Charaktere",
     "selectedRealm": "Realm: {name}",
@@ -2272,6 +2276,7 @@ export const de_DE: EnTranslations = {
         "report": "Spieler melden",
         "removeParty": "Aus Gruppe entfernen",
         "convertToRaid": "In Schlachtzug umwandeln",
+        "convertToParty": "Convert to party",
         "cancel": "Abbrechen"
       }
     },
@@ -4075,9 +4080,6 @@ export const de_DE: EnTranslations = {
       "milepost_boots": {
         "name": "Meilenstein-Stiefel"
       },
-      "glade_pelt": {
-        "name": "Lichtungsfell"
-      },
       "soft_down": {
         "name": "Weicher Daunenbüschel"
       },
@@ -4095,9 +4097,6 @@ export const de_DE: EnTranslations = {
       },
       "monarch_crown_helm": {
         "name": "Krone des Monarchen"
-      },
-      "monarch_heart": {
-        "name": "Das Herz des Monarchen"
       },
       "bristleback_maul": {
         "name": "Bristleback-Schlägel"
@@ -4972,11 +4971,6 @@ export const de_DE: EnTranslations = {
         "title": "Lehrmeister",
         "greeting": "Achte auf lockeren Schiefer, {className}. Der Berg ist unruhig geworden, und ich will wissen warum."
       },
-      "ranger_elwyn": {
-        "name": "Waldläufer Elwyn",
-        "title": "Hüter der Lichtung",
-        "greeting": "Ruhig, {className} - die Lichtung ist heute friedlich, und das gedenke ich so zu erhalten."
-      },
       "brother_aldric_raid": {
         "name": "Bruder Aldric",
         "title": "Priester des Tals",
@@ -5728,145 +5722,6 @@ export const de_DE: EnTranslations = {
         "objectives": {
           "0": {
             "label": "Nythraxis besiegt"
-          }
-        }
-      },
-      "q_brightwood_thinning": {
-        "title": "Die Lichtung ausdünnen",
-        "text": "Die Hellholz-Lichtung ist überlaufen, {playerName}. Die Dornenluchse vermehren sich schneller, als ich sie ausmerzen kann, und die Herden zertrampeln das wenige Weideland, das noch bleibt. Erlegt 8 Dornenluchse und bringt mir 6 Lichtungsfelle, damit ich über das Wohl der übrigen urteilen kann.",
-        "completion": "Gut. Das Rudel ist ausgedünnt und diese Felle sind heil - die Lichtung wird eine weitere Jahreszeit überstehen.",
-        "objectives": {
-          "0": {
-            "label": "Dornenluchse erlegt"
-          },
-          "1": {
-            "label": "Lichtungsfell"
-          }
-        }
-      },
-      "q_brightwood_monarch": {
-        "title": "Der Hellholz-Monarch",
-        "text": "Es gibt eine Bestie, auf die ich allein keinen Pfeil löse: den Hellholz-Monarchen, den großen Hirsch, der über die tiefe Lichtung herrscht. Er ist alt und wild geworden und spießt jeden auf, der seinem Bau zu nahe kommt. Er ist mehr, als ein einzelner Jäger gewachsen ist - bringt einen Freund oder zwei mit. Bettet ihn zur Ruhe und bringt mir sein Herz, {playerName}.",
-        "completion": "So ist der alte König also gefallen. Eine schwere Sache, dies - doch ein gnädigeres Ende, als die Wölfe ihm beschert hätten. Tragt diese Krone aus seinem Geweih mit Achtung, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Das Herz des Monarchen"
-          }
-        }
-      },
-      "q_ledger_first_duty": {
-        "title": "Eines Hüters erste Pflicht",
-        "text": "Ihr wollt Euch in Eastbrook Euren Unterhalt verdienen, {playerName}? Dann fangt dort an, wo jeder Hüter anfängt. Die Dornpelz-Dachse haben ihre Baue quer durch die Hellholz-Lichtung gegraben, hoch im Norden jenseits des Wolfslaufs, und der Waldboden bricht in ihre Gänge ein. Erlegt 8 Dornpelz-Dachse, und das Verzeichnis wird sich Eures Namens entsinnen.",
-        "completion": "Acht Baue geräumt und der Waldboden hat sich gesetzt. Gut. Jeder Name in diesem Verzeichnis hat genau dort begonnen, wo Ihr jetzt steht.",
-        "objectives": {
-          "0": {
-            "label": "Dornpelz-Dachs erlegt"
-          }
-        }
-      },
-      "q_ledger_teeth": {
-        "title": "Zähne in der Dunkelheit",
-        "text": "Die Lichtungsfüchse sind kühn geworden wie Wölfe - sie schleichen sich in der Dämmerung in die Hühnerställe und sind verschwunden, ehe eine Laterne brennt, und eine hungrige Füchsin reißt ein Lamm so bereitwillig wie ein Huhn. Lichtet ihre Reihen, {playerName}. Erlegt 10 Lichtungsfüchse und lehrt den Rest, das Licht wieder zu fürchten.",
-        "completion": "Zehn Füchse, und die Hühnerställe sind in der Dämmerung wieder still. Das Verzeichnis wird Euch gnädiger.",
-        "objectives": {
-          "0": {
-            "label": "Lichtungsfüchse erlegt"
-          }
-        }
-      },
-      "q_ledger_reedwater": {
-        "title": "Schilfwasser-Patrouille",
-        "text": "Redbrook hat Euch geschickt? Gut - diese alten Knochen können nicht mehr durch die Untiefen waten. Die Wiesenkraniche haben meine Netze entdeckt, und sie spießen mehr von meinem Fang auf, als es die Schlammflossen je taten. Lichtet ihre Reihen: 8 Wiesenkraniche, und hütet Euch vor dem tiefen Wasser.",
-        "completion": "Das hält die langbeinigen Diebe eine Jahreszeit lang von meinen Netzen fern. Sagt dem Marschall, die Untiefen gehören wieder mir.",
-        "objectives": {
-          "0": {
-            "label": "Wiesenkraniche vertrieben"
-          }
-        }
-      },
-      "q_ledger_silk": {
-        "title": "Äsung und Gestrüpp",
-        "text": "Das Verzeichnis weist auch die östlichen Wälder als Hüterland aus - und meine Heilkräuterbeete gehören dazu. Die gefleckten Kitze haben mein Silberblatt und meine Blutdistel bis zur Wurzel abgefressen, und ohne diese Heilkräuter bleibt halb Eastbrook ohne Medizin. Es bereitet mir keine Freude, doch erlegt 8 Gefleckte Kitze, ehe die Herbstkräuter gänzlich verloren sind.",
-        "completion": "Die Beete mögen sich noch erholen, dank Euch. Eine harte Gnade - doch ein Kind, das im Fieber brennt, braucht die Heilkräuter dringender, als der Wald die Rehe braucht. Das Verzeichnis ist beglichen.",
-        "objectives": {
-          "0": {
-            "label": "Gefleckte Kitze erlegt"
-          }
-        }
-      },
-      "q_ledger_brood": {
-        "title": "Die laichende Finsternis",
-        "text": "Die Lauerer zu töten machte nur der Brut Platz. Die Schwarzweber-Brütlinge strömen aus dem tiefen Nest, und hundert kleine Fänge töten einen Reisenden ebenso sicher wie ein großer. Zermalmt 8 Schwarzweber-Brütlinge, ehe sie heranwachsen.",
-        "completion": "Ein grimmiges Werk, ein Nest zu ertränken. Doch Gnade jetzt erspart hundert Begräbnisse später. Die Schuld ist beglichen.",
-        "objectives": {
-          "0": {
-            "label": "Schwarzweber-Brütlinge zermalmt"
-          }
-        }
-      },
-      "q_ledger_deepvermin": {
-        "title": "Ungeziefer in der Tiefe",
-        "text": "Im Verzeichnis des Marschalls steht, Ihr räumt mit Schädlingen auf. Nun, mein Stollen hat die schlimmsten von ihnen. Die Tunnelratten vermehren sich schneller, als meine Mannschaft die Spitzhacke schwingen kann - legt 12 Tunnelratten-Gräber um, und vielleicht stoßen wir vor dem Winter auf Kupfer.",
-        "completion": "Zwölf des kerzenköpfigen Ungeziefers, dahin! Recht so, Burschen - zurück in den Schacht. Ihr habt Euch ein gutes Wort beim Marschall verdient, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Tunnelratten-Gräber erlegt"
-          }
-        }
-      },
-      "q_ledger_toll": {
-        "title": "Die Straße der Hauer",
-        "text": "Die Hainhauer-Keiler sind aus dem Lichtwald herabgekommen und auf die südöstliche Handelsstraße - mächtige, hauerbewehrte Bestien, die die Zugochsen aufspießen und die Karren umstürzen, um das verschüttete Korn zu fressen. Das Verzeichnis hat auf jeden von ihnen einen Preis gesetzt. Macht die Straße wieder frei: streckt 8 Hainhauer-Keiler nieder.",
-        "completion": "Acht Bestien fort von der Straße, und die Karren rollen wieder. Es spricht sich bereits herum, dass die Handelsstraße einen neuen Hüter hat. Das Verzeichnis steigt zu Euren Gunsten.",
-        "objectives": {
-          "0": {
-            "label": "Hainhauer-Keiler erlegt"
-          }
-        }
-      },
-      "q_ledger_vigil": {
-        "title": "Wache an der Kapelle",
-        "text": "Der Marschall schickt seine Hüter zu mir, wenn die Not über die Reichweite von Schwertern allein hinausgeht. Die Toten der Kapelle wollen nicht stillliegen, und ich bin zu alt, um die Nachtwache zu halten. Haltet sie für mich, {playerName} - bettet 10 Ruhelose Gebeine zurück zu ihrer Ruhe.",
-        "completion": "Zehn Seelen der Erde zurückgegeben und eine Nacht des Friedens für die Kapelle erkauft. Das Licht entsinnt sich solcher Wachen, selbst wenn das Verzeichnis sie vergisst.",
-        "objectives": {
-          "0": {
-            "label": "Ruhelose Gebeine zur Ruhe gebettet"
-          }
-        }
-      },
-      "q_ledger_great_boar": {
-        "title": "Der Große Borstenrücken",
-        "text": "In den westlichen Dickichten haust ein alter Eberbulle - der Alte Borstenrücken, mit einer Haut wie Borke und einem Gemüt, das dazu passt. Er hat zwei meiner Fellläufer aufgespießt. Bringt ihn zur Strecke und räumt 6 der geringeren Wildschweine fort, die sich hinter ihm verbergen, und ich werde Euren Namen hoch oben im Verzeichnis eintragen.",
-        "completion": "Der Alte Borstenrücken, von Eurer Hand erschlagen! Allein dieses Fell ist eine Handelssaison wert. Ihr habt das Verzeichnis stolz gemacht, {playerName}.",
-        "objectives": {
-          "0": {
-            "label": "Alter Borstenrücken erlegt"
-          },
-          "1": {
-            "label": "Wildschweine der Rotte erlegt"
-          }
-        }
-      },
-      "q_ledger_outlaw_captain": {
-        "title": "Der Räuberhauptmann",
-        "text": "Der letzte Name im Verzeichnis ist der, den ich seit einem Jahr gestrichen sehen will: Hauptmann Verlan, der das halbe Tal in die Räuberei trieb. Er verschanzt sich hinter seinen Leutnants im südöstlichen Lager. Streckt 6 Talbanditen nieder, um zu ihm vorzudringen, und macht dann Verlan selbst ein Ende. Geht nicht allein.",
-        "completion": "Hauptmann Verlan, tot, und sein Mantel vor meiner Tür. Das Verzeichnis ist geschlossen, {playerName} - und das Tal wird den Hütern, die nach Euch kommen, den Namen dessen nennen, der es geschlossen hat.",
-        "objectives": {
-          "0": {
-            "label": "Talbanditen niedergestreckt"
-          },
-          "1": {
-            "label": "Hauptmann Verlan erlegt"
-          }
-        }
-      },
-      "q_mogger_tracks": {
-        "title": "Moggers Spur",
-        "text": "Bevor du die Straße nach Norden nimmst, hat Eastbrook noch einen letzten Dorn im Fleisch: Mogger. Der Grobian zertrampelt die untere Wiese und treibt die Eber in den Wahnsinn. Säubere die Wiese um seine Spur, damit wir sehen, wo er haust.",
-        "completion": "Diese Spuren sind frisch und tief genug, um Regen zu halten. Mogger ist kein Lagerfeuermärchen, {playerName}, und er ist nah.",
-        "objectives": {
-          "0": {
-            "label": "Wilder Eber von der Spur vertrieben"
           }
         }
       },

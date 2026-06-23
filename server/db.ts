@@ -1,11 +1,14 @@
 import { Pool } from 'pg';
-import { isUniqueViolation } from './http_util';
+import { LEADERBOARD_MAX } from '../src/sim/leaderboard_page';
+import { sanitizeRemovedZone1Content } from '../src/sim/removed_zone1_content';
 import type { CharacterState, MarketSave } from '../src/sim/sim';
 import type { ArenaFormat, PlayerClass } from '../src/sim/types';
-import type { ChatLogRow } from './chat_log';
-import { SOCIAL_SCHEMA } from './social_db';
 import { seedChatFilterDefaults } from './chat_filter_db';
+import type { ChatLogRow } from './chat_log';
+import { isUniqueViolation } from './http_util';
 import { REALM } from './realm';
+import { chooseArchiveName } from './reclaim_name';
+import { SOCIAL_SCHEMA } from './social_db';
 
 try {
   process.loadEnvFile?.();
@@ -23,8 +26,11 @@ try {
 }
 
 export const DATABASE_URL =
-  process.env.DATABASE_URL ?? (() => {
-    throw new Error('DATABASE_URL is required. For local dev, copy .env.example to .env and run through docker compose.');
+  process.env.DATABASE_URL ??
+  (() => {
+    throw new Error(
+      'DATABASE_URL is required. For local dev, copy .env.example to .env and run through docker compose.',
+    );
   })();
 
 export const pool = new Pool({ connectionString: DATABASE_URL, max: 10 });
@@ -450,7 +456,7 @@ function uniqueStrings(value: unknown): string[] {
 }
 
 export function normalizeAccountCosmetics(value: unknown): AccountCosmetics {
-  const src = value && typeof value === 'object' ? value as Record<string, unknown> : {};
+  const src = value && typeof value === 'object' ? (value as Record<string, unknown>) : {};
   return {
     completedQuestIds: uniqueStrings(src.completedQuestIds),
     mechChromaIds: uniqueStrings(src.mechChromaIds),
@@ -462,7 +468,10 @@ export async function loadAccountCosmetics(accountId: number): Promise<AccountCo
   return normalizeAccountCosmetics(res.rows[0]?.cosmetics);
 }
 
-async function saveAccountCosmetics(accountId: number, cosmetics: AccountCosmetics): Promise<AccountCosmetics> {
+async function saveAccountCosmetics(
+  accountId: number,
+  cosmetics: AccountCosmetics,
+): Promise<AccountCosmetics> {
   const res = await pool.query(
     'UPDATE accounts SET cosmetics = $2 WHERE id = $1 RETURNING cosmetics',
     [accountId, cosmetics],
@@ -470,7 +479,10 @@ async function saveAccountCosmetics(accountId: number, cosmetics: AccountCosmeti
   return normalizeAccountCosmetics(res.rows[0]?.cosmetics ?? cosmetics);
 }
 
-export async function markAccountQuestComplete(accountId: number, questId: string): Promise<AccountCosmetics> {
+export async function markAccountQuestComplete(
+  accountId: number,
+  questId: string,
+): Promise<AccountCosmetics> {
   const cosmetics = await loadAccountCosmetics(accountId);
   const completedQuestIds = cosmetics.completedQuestIds.includes(questId)
     ? cosmetics.completedQuestIds
@@ -478,7 +490,10 @@ export async function markAccountQuestComplete(accountId: number, questId: strin
   return saveAccountCosmetics(accountId, { ...cosmetics, completedQuestIds });
 }
 
-export async function grantAccountMechChroma(accountId: number, chromaId: string): Promise<AccountCosmetics> {
+export async function grantAccountMechChroma(
+  accountId: number,
+  chromaId: string,
+): Promise<AccountCosmetics> {
   const cosmetics = await loadAccountCosmetics(accountId);
   const mechChromaIds = cosmetics.mechChromaIds.includes(chromaId)
     ? cosmetics.mechChromaIds
@@ -486,7 +501,10 @@ export async function grantAccountMechChroma(accountId: number, chromaId: string
   return saveAccountCosmetics(accountId, { ...cosmetics, mechChromaIds });
 }
 
-export async function revokeAccountMechChroma(accountId: number, chromaId: string): Promise<AccountCosmetics> {
+export async function revokeAccountMechChroma(
+  accountId: number,
+  chromaId: string,
+): Promise<AccountCosmetics> {
   const cosmetics = await loadAccountCosmetics(accountId);
   const mechChromaIds = cosmetics.mechChromaIds.filter((id) => id !== chromaId);
   return saveAccountCosmetics(accountId, { ...cosmetics, mechChromaIds });
@@ -497,12 +515,21 @@ function cleanMetadataText(value: string | null | undefined, max: number): strin
   return text ? text.slice(0, max) : null;
 }
 
-export async function createAccount(username: string, passwordHash: string, meta: RequestMetadata = {}): Promise<AccountRow> {
+export async function createAccount(
+  username: string,
+  passwordHash: string,
+  meta: RequestMetadata = {},
+): Promise<AccountRow> {
   const res = await pool.query(
     `INSERT INTO accounts (username, password_hash, created_ip, created_user_agent)
      VALUES ($1, $2, $3, $4)
      RETURNING id, username, password_hash`,
-    [username, passwordHash, cleanMetadataText(meta.ip, 128), cleanMetadataText(meta.userAgent, 512)],
+    [
+      username,
+      passwordHash,
+      cleanMetadataText(meta.ip, 128),
+      cleanMetadataText(meta.userAgent, 512),
+    ],
   );
   return res.rows[0];
 }
@@ -521,7 +548,6 @@ export async function getAccountsCount(): Promise<number> {
   return res.rows[0]?.count ?? 0;
 }
 
-
 export async function touchLogin(accountId: number, meta: RequestMetadata = {}): Promise<void> {
   await pool.query(
     `UPDATE accounts
@@ -531,7 +557,11 @@ export async function touchLogin(accountId: number, meta: RequestMetadata = {}):
   );
 }
 
-export async function saveToken(token: string, accountId: number, ttlHours = 24 * 7): Promise<void> {
+export async function saveToken(
+  token: string,
+  accountId: number,
+  ttlHours = 24 * 7,
+): Promise<void> {
   await pool.query(
     `INSERT INTO auth_tokens (token, account_id, expires_at) VALUES ($1, $2, now() + ($3 || ' hours')::interval)`,
     [token, accountId, String(ttlHours)],
@@ -581,15 +611,24 @@ export async function characterCountForAccount(accountId: number): Promise<numbe
 }
 
 export async function updatePasswordHash(accountId: number, passwordHash: string): Promise<void> {
-  await pool.query('UPDATE accounts SET password_hash = $2 WHERE id = $1', [accountId, passwordHash]);
+  await pool.query('UPDATE accounts SET password_hash = $2 WHERE id = $1', [
+    accountId,
+    passwordHash,
+  ]);
 }
 
 // Revoke every token for an account except (optionally) the one in hand.
 // A password change keeps the current device signed in (pass its token);
 // a deactivate revokes everything (pass null).
-export async function revokeTokensExcept(accountId: number, keepToken: string | null): Promise<void> {
+export async function revokeTokensExcept(
+  accountId: number,
+  keepToken: string | null,
+): Promise<void> {
   if (keepToken) {
-    await pool.query('DELETE FROM auth_tokens WHERE account_id = $1 AND token <> $2', [accountId, keepToken]);
+    await pool.query('DELETE FROM auth_tokens WHERE account_id = $1 AND token <> $2', [
+      accountId,
+      keepToken,
+    ]);
   } else {
     await pool.query('DELETE FROM auth_tokens WHERE account_id = $1', [accountId]);
   }
@@ -603,7 +642,10 @@ export async function setAccountEmail(accountId: number, email: string | null): 
   await pool.query('UPDATE accounts SET email = $2 WHERE id = $1', [accountId, email]);
 }
 
-export async function setAccountDeactivated(accountId: number, deactivated: boolean): Promise<void> {
+export async function setAccountDeactivated(
+  accountId: number,
+  deactivated: boolean,
+): Promise<void> {
   await pool.query(
     `UPDATE accounts SET deactivated_at = CASE WHEN $2 THEN now() ELSE NULL END WHERE id = $1`,
     [accountId, deactivated],
@@ -700,10 +742,10 @@ export async function consumeEmailChangeRequest(
       await client.query('ROLLBACK');
       return null;
     }
-    await client.query(
-      'UPDATE accounts SET email = $2, email_verified_at = now() WHERE id = $1',
-      [row.account_id, row.new_email],
-    );
+    await client.query('UPDATE accounts SET email = $2, email_verified_at = now() WHERE id = $1', [
+      row.account_id,
+      row.new_email,
+    ]);
     await client.query('COMMIT');
     return { accountId: row.account_id, newEmail: row.new_email };
   } catch (err) {
@@ -752,7 +794,10 @@ export async function getTotpState(accountId: number): Promise<TotpState | null>
     secret: row.totp_secret ?? null,
     pendingSecret: row.totp_pending_secret ?? null,
     enabledAt: row.totp_enabled_at ?? null,
-    lastWindow: row.totp_last_window === null || row.totp_last_window === undefined ? null : Number(row.totp_last_window),
+    lastWindow:
+      row.totp_last_window === null || row.totp_last_window === undefined
+        ? null
+        : Number(row.totp_last_window),
   };
 }
 
@@ -764,12 +809,19 @@ export async function accountTwoFactorEnabled(accountId: number): Promise<boolea
 // Stash a not-yet-confirmed secret from the setup step. Clears any prior pending
 // secret so a re-run of setup always supersedes an abandoned one.
 export async function setTotpPending(accountId: number, secret: string): Promise<void> {
-  await pool.query('UPDATE accounts SET totp_pending_secret = $2 WHERE id = $1', [accountId, secret]);
+  await pool.query('UPDATE accounts SET totp_pending_secret = $2 WHERE id = $1', [
+    accountId,
+    secret,
+  ]);
 }
 
 // Promote the pending secret to active in one transaction with a fresh batch of
 // recovery codes, so enabling 2FA and its recovery codes can never half-apply.
-export async function enableTotp(accountId: number, secret: string, recoveryHashes: string[]): Promise<void> {
+export async function enableTotp(
+  accountId: number,
+  secret: string,
+  recoveryHashes: string[],
+): Promise<void> {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -845,7 +897,9 @@ export async function consumeRecoveryCode(accountId: number, codeHash: string): 
 
 // GDPR-style data export bundle: the account's own profile plus every character
 // it owns on this realm, as plain JSON. Excludes secrets (password hash, tokens).
-export async function exportAccountData(accountId: number): Promise<Record<string, unknown> | null> {
+export async function exportAccountData(
+  accountId: number,
+): Promise<Record<string, unknown> | null> {
   const acct = await accountById(accountId);
   if (!acct) return null;
   const characters = await listCharacters(accountId);
@@ -987,7 +1041,16 @@ export async function upsertPlayerCard(card: {
      ON CONFLICT (character_id)
      DO UPDATE SET slug = EXCLUDED.slug, png = EXCLUDED.png, title = EXCLUDED.title,
                    description = EXCLUDED.description, locale = EXCLUDED.locale, updated_at = now()`,
-    [card.characterId, card.accountId, card.slug, card.png, card.title, card.description, card.locale, REALM],
+    [
+      card.characterId,
+      card.accountId,
+      card.slug,
+      card.png,
+      card.title,
+      card.description,
+      card.locale,
+      REALM,
+    ],
   );
 }
 
@@ -1010,10 +1073,17 @@ export async function getPlayerCardBySlug(slug: string): Promise<PlayerCardRow |
 
 // Metadata-only read for the OG-unfurl HTML page, which doesn't need the (up to
 // ~4 MB) PNG bytes — keeps getPlayerCardBySlug's heavy SELECT for the image route.
-export async function getPlayerCardMetaBySlug(slug: string): Promise<{ title: string; description: string; locale: string } | null> {
-  const res = await pool.query('SELECT title, description, locale FROM player_cards WHERE slug = $1', [slug]);
+export async function getPlayerCardMetaBySlug(
+  slug: string,
+): Promise<{ title: string; description: string; locale: string } | null> {
+  const res = await pool.query(
+    'SELECT title, description, locale FROM player_cards WHERE slug = $1',
+    [slug],
+  );
   const row = res.rows[0];
-  return row ? { title: row.title ?? '', description: row.description ?? '', locale: row.locale ?? 'en' } : null;
+  return row
+    ? { title: row.title ?? '', description: row.description ?? '', locale: row.locale ?? 'en' }
+    : null;
 }
 
 // The account that owns a card slug — i.e. the referrer credited when someone
@@ -1025,7 +1095,11 @@ export async function accountForSlug(slug: string): Promise<number | null> {
 
 // Record that `referee` joined via `referrer`'s `slug`. Idempotent: only the
 // first referral for a given referee is kept (PK on referee_account_id).
-export async function recordReferral(refereeAccountId: number, referrerAccountId: number, slug: string): Promise<void> {
+export async function recordReferral(
+  refereeAccountId: number,
+  referrerAccountId: number,
+  slug: string,
+): Promise<void> {
   await pool.query(
     `INSERT INTO referrals (referee_account_id, referrer_account_id, slug)
      VALUES ($1, $2, $3)
@@ -1078,7 +1152,9 @@ export async function lifetimeXpStanding(
   return { rank: (res.rows[0]?.ahead ?? 0) + 1, total: res.rows[0]?.total ?? 0 };
 }
 
-export async function moderationStatusForAccount(accountId: number): Promise<AccountModerationStatus> {
+export async function moderationStatusForAccount(
+  accountId: number,
+): Promise<AccountModerationStatus> {
   const res = await pool.query(
     `SELECT banned_at, suspended_until, moderation_reason, chat_muted_until, chat_strikes, deactivated_at
      FROM accounts WHERE id = $1`,
@@ -1086,12 +1162,19 @@ export async function moderationStatusForAccount(accountId: number): Promise<Acc
   );
   const row = res.rows[0];
   if (!row) {
-    return { locked: false, banned: false, suspendedUntil: null, reason: '', message: '', chatMutedUntil: null, chatStrikes: 0 };
+    return {
+      locked: false,
+      banned: false,
+      suspendedUntil: null,
+      reason: '',
+      message: '',
+      chatMutedUntil: null,
+      chatStrikes: 0,
+    };
   }
   const mutedUntilDate = row.chat_muted_until ? new Date(row.chat_muted_until) : null;
-  const chatMutedUntil = mutedUntilDate && mutedUntilDate.getTime() > Date.now()
-    ? mutedUntilDate.toISOString()
-    : null;
+  const chatMutedUntil =
+    mutedUntilDate && mutedUntilDate.getTime() > Date.now() ? mutedUntilDate.toISOString() : null;
   const chatStrikes = Number(row.chat_strikes ?? 0);
   // Admin-imposed states (ban, then active suspension) outrank a self-imposed
   // deactivation: a banned+deactivated account must still surface the ban reason
@@ -1132,7 +1215,15 @@ export async function moderationStatusForAccount(accountId: number): Promise<Acc
       chatStrikes,
     };
   }
-  return { locked: false, banned: false, suspendedUntil: null, reason: '', message: '', chatMutedUntil, chatStrikes };
+  return {
+    locked: false,
+    banned: false,
+    suspendedUntil: null,
+    reason: '',
+    message: '',
+    chatMutedUntil,
+    chatStrikes,
+  };
 }
 
 export async function chatMuteStatusForAccount(accountId: number): Promise<AccountChatMuteStatus> {
@@ -1172,7 +1263,10 @@ export async function listCharacters(accountId: number): Promise<CharacterRow[]>
   return res.rows;
 }
 
-export async function getCharacter(accountId: number, characterId: number): Promise<CharacterRow | null> {
+export async function getCharacter(
+  accountId: number,
+  characterId: number,
+): Promise<CharacterRow | null> {
   const res = await pool.query(
     'SELECT id, account_id, name, class, level, state, is_gm, force_rename FROM characters WHERE id = $1 AND account_id = $2 AND realm = $3',
     [characterId, accountId, REALM],
@@ -1180,7 +1274,9 @@ export async function getCharacter(accountId: number, characterId: number): Prom
   return res.rows[0] ?? null;
 }
 
-export async function findCharacterReportTargetByName(name: string): Promise<{ accountId: number; characterId: number; characterName: string } | null> {
+export async function findCharacterReportTargetByName(
+  name: string,
+): Promise<{ accountId: number; characterId: number; characterName: string } | null> {
   const term = name.trim();
   if (!term) return null;
   const res = await pool.query(
@@ -1191,10 +1287,17 @@ export async function findCharacterReportTargetByName(name: string): Promise<{ a
     [REALM, term],
   );
   const row = res.rows[0];
-  return row ? { accountId: Number(row.account_id), characterId: Number(row.id), characterName: row.name } : null;
+  return row
+    ? { accountId: Number(row.account_id), characterId: Number(row.id), characterName: row.name }
+    : null;
 }
 
-export async function createCharacter(accountId: number, name: string, cls: PlayerClass, state: CharacterState | null = null): Promise<CharacterRow> {
+export async function createCharacter(
+  accountId: number,
+  name: string,
+  cls: PlayerClass,
+  state: CharacterState | null = null,
+): Promise<CharacterRow> {
   const res = await pool.query(
     'INSERT INTO characters (account_id, name, class, realm, state) VALUES ($1, $2, $3, $4, $5) RETURNING id, account_id, name, class, level, state, is_gm, force_rename',
     [accountId, name, cls, REALM, state ? JSON.stringify(state) : null],
@@ -1212,13 +1315,21 @@ export async function createCharacterCapped(
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    const account = await client.query('SELECT id FROM accounts WHERE id = $1 FOR UPDATE', [accountId]);
-    if ((account.rowCount ?? 0) === 0) { await client.query('ROLLBACK'); return null; }
+    const account = await client.query('SELECT id FROM accounts WHERE id = $1 FOR UPDATE', [
+      accountId,
+    ]);
+    if ((account.rowCount ?? 0) === 0) {
+      await client.query('ROLLBACK');
+      return null;
+    }
     const count = await client.query(
       'SELECT count(*)::int AS n FROM characters WHERE account_id = $1 AND realm = $2',
       [accountId, REALM],
     );
-    if (Number(count.rows[0]?.n ?? 0) >= limit) { await client.query('ROLLBACK'); return null; }
+    if (Number(count.rows[0]?.n ?? 0) >= limit) {
+      await client.query('ROLLBACK');
+      return null;
+    }
     const res = await client.query(
       'INSERT INTO characters (account_id, name, class, realm, state) VALUES ($1, $2, $3, $4, $5) RETURNING id, account_id, name, class, level, state, is_gm, force_rename',
       [accountId, name, cls, REALM, state ? JSON.stringify(state) : null],
@@ -1233,8 +1344,66 @@ export async function createCharacterCapped(
   }
 }
 
+// Reclaim a character name abandoned by a deactivated ("invalid") account.
+// Character names are unique per (realm, lower(name)), and deactivation is a
+// soft delete (accounts.deactivated_at) that leaves the account's characters in
+// place — so an abandoned name stays reserved forever, blocking the original
+// player from recreating it on a new account. Classic MMOs free the names of
+// deactivated/deleted accounts; this releases such a name by archiving the
+// orphaned character (a suffixed placeholder name + force_rename) so its row
+// stays valid and the original owner is prompted to pick a new name if they
+// ever reactivate. A name held by a live account, or by a banned account (a
+// moderation hold we must not undo), is left reserved. Returns whether a name
+// was released; the caller then retries the create. Race-safe: the holder row
+// is locked FOR UPDATE and the (realm, lower(name)) unique index is the real
+// guard on the subsequent insert.
+export async function reclaimDeactivatedName(name: string): Promise<boolean> {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const holder = await client.query(
+      `SELECT c.id, c.name, a.deactivated_at, a.banned_at
+         FROM characters c JOIN accounts a ON a.id = c.account_id
+        WHERE c.realm = $1 AND lower(c.name) = lower($2)
+        FOR UPDATE OF c`,
+      [REALM, name],
+    );
+    const row = holder.rows[0];
+    // Free already, held by a live account, or under a moderation ban: nothing to reclaim.
+    if (!row || row.deactivated_at == null || row.banned_at != null) {
+      await client.query('ROLLBACK');
+      return false;
+    }
+    // Find an archival placeholder for the orphaned character that collides with
+    // no other name in this realm (case-insensitive), mirroring the dedupe scheme.
+    // The scan/increment/fallback decision lives in the pure chooseArchiveName;
+    // here we just supply the SQL-backed "is this candidate already taken?" probe.
+    const freed = await chooseArchiveName(row.name, row.id, async (candidate) => {
+      const clash = await client.query(
+        `SELECT 1 FROM characters WHERE realm = $1 AND lower(name) = lower($2) AND id <> $3 LIMIT 1`,
+        [REALM, candidate, row.id],
+      );
+      return (clash.rowCount ?? 0) > 0;
+    });
+    await client.query(
+      `UPDATE characters SET name = $2, force_rename = TRUE, updated_at = now() WHERE id = $1`,
+      [row.id, freed],
+    );
+    await client.query('COMMIT');
+    return true;
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 export async function deleteCharacter(accountId: number, characterId: number): Promise<boolean> {
-  const res = await pool.query('DELETE FROM characters WHERE id = $1 AND account_id = $2 AND realm = $3', [characterId, accountId, REALM]);
+  const res = await pool.query(
+    'DELETE FROM characters WHERE id = $1 AND account_id = $2 AND realm = $3',
+    [characterId, accountId, REALM],
+  );
   return (res.rowCount ?? 0) > 0;
 }
 
@@ -1271,7 +1440,11 @@ export async function searchCharacters(prefix: string, limit = 8): Promise<Chara
   return res.rows;
 }
 
-export async function renameCharacter(accountId: number, characterId: number, name: string): Promise<CharacterRow | null> {
+export async function renameCharacter(
+  accountId: number,
+  characterId: number,
+  name: string,
+): Promise<CharacterRow | null> {
   // A rename is only ever sanctioned by a moderator's "Force name change", which
   // sets force_rename. Gating the UPDATE on `force_rename = TRUE` makes the server
   // authoritative (the UI hides the control, but the API must not trust that) and
@@ -1287,10 +1460,15 @@ export async function renameCharacter(accountId: number, characterId: number, na
   return res.rows[0] ?? null;
 }
 
-export async function saveCharacterState(characterId: number, level: number, state: CharacterState): Promise<void> {
+export async function saveCharacterState(
+  characterId: number,
+  level: number,
+  state: CharacterState,
+): Promise<void> {
+  const cleanState = sanitizeRemovedZone1Content(state).state;
   await pool.query(
     'UPDATE characters SET level = $2, state = $3, updated_at = now() WHERE id = $1',
-    [characterId, level, JSON.stringify(state)],
+    [characterId, level, JSON.stringify(cleanState)],
   );
 }
 
@@ -1314,17 +1492,23 @@ export interface ArenaLeaderRow {
   losses: number;
 }
 
-export async function topArenaRatings(limit = 20, format: ArenaFormat = '1v1'): Promise<ArenaLeaderRow[]> {
+export async function topArenaRatings(
+  limit = 20,
+  format: ArenaFormat = '1v1',
+): Promise<ArenaLeaderRow[]> {
   const fmt: ArenaFormat = format === '2v2' ? '2v2' : '1v1';
-  const ratingExpr = fmt === '2v2'
-    ? "COALESCE((state->>'arena2v2Rating')::int, 1500)"
-    : "COALESCE((state->>'arena1v1Rating')::int, (state->>'arenaRating')::int, 1500)";
-  const winsExpr = fmt === '2v2'
-    ? "COALESCE((state->>'arena2v2Wins')::int, 0)"
-    : "COALESCE((state->>'arena1v1Wins')::int, (state->>'arenaWins')::int, 0)";
-  const lossesExpr = fmt === '2v2'
-    ? "COALESCE((state->>'arena2v2Losses')::int, 0)"
-    : "COALESCE((state->>'arena1v1Losses')::int, (state->>'arenaLosses')::int, 0)";
+  const ratingExpr =
+    fmt === '2v2'
+      ? "COALESCE((state->>'arena2v2Rating')::int, 1500)"
+      : "COALESCE((state->>'arena1v1Rating')::int, (state->>'arenaRating')::int, 1500)";
+  const winsExpr =
+    fmt === '2v2'
+      ? "COALESCE((state->>'arena2v2Wins')::int, 0)"
+      : "COALESCE((state->>'arena1v1Wins')::int, (state->>'arenaWins')::int, 0)";
+  const lossesExpr =
+    fmt === '2v2'
+      ? "COALESCE((state->>'arena2v2Losses')::int, 0)"
+      : "COALESCE((state->>'arena1v1Losses')::int, (state->>'arenaLosses')::int, 0)";
   const res = await pool.query(
     `SELECT name, class, level,
             ${ratingExpr} AS rating,
@@ -1339,8 +1523,12 @@ export async function topArenaRatings(limit = 20, format: ArenaFormat = '1v1'): 
     [REALM, Math.max(1, Math.min(100, limit))],
   );
   return res.rows.map((r) => ({
-    name: r.name, class: r.class, level: r.level,
-    rating: Number(r.rating), wins: Number(r.wins), losses: Number(r.losses),
+    name: r.name,
+    class: r.class,
+    level: r.level,
+    rating: Number(r.rating),
+    wins: Number(r.wins),
+    losses: Number(r.losses),
   }));
 }
 
@@ -1363,8 +1551,13 @@ export interface LifetimeXpLeaderRow {
 // `global: true` ranks across every realm (for the home-page board); otherwise
 // it is scoped to this process's realm (the in-game panel). Both paths sort on
 // the indexed lifetime-XP expression and are read through the main.ts cache.
-export async function topLifetimeXp(limit = 100, opts: { global?: boolean } = {}): Promise<LifetimeXpLeaderRow[]> {
-  const cap = Math.max(1, Math.min(100, limit));
+export async function topLifetimeXp(
+  limit = 100,
+  opts: { global?: boolean } = {},
+): Promise<LifetimeXpLeaderRow[]> {
+  // Capped at LEADERBOARD_MAX (1000): the in-game board pages through this whole
+  // cached window, so a realm with hundreds of max-level players is fully ranked.
+  const cap = Math.max(1, Math.min(LEADERBOARD_MAX, limit));
   const res = opts.global
     ? await pool.query(
         `SELECT name, class, level, realm,
@@ -1389,8 +1582,12 @@ export async function topLifetimeXp(limit = 100, opts: { global?: boolean } = {}
         [REALM, cap],
       );
   return res.rows.map((r) => ({
-    name: r.name, class: r.class, level: r.level, realm: r.realm,
-    lifetimeXp: Number(r.lifetime_xp), prestigeRank: Number(r.prestige_rank),
+    name: r.name,
+    class: r.class,
+    level: r.level,
+    realm: r.realm,
+    lifetimeXp: Number(r.lifetime_xp),
+    prestigeRank: Number(r.prestige_rank),
   }));
 }
 
@@ -1461,13 +1658,43 @@ export async function insertClientPerfReport(row: ClientPerfReportInsert): Promi
        $32, $33, $34, $35, $36, $37, $38
      )`,
     [
-      row.schemaVersion, row.releaseVersion, row.buildId, row.sessionId, row.accountId, row.characterId, row.realm,
-      row.graphicsPreset, row.gfxTier, row.autoGovernor, row.targetFps, row.renderScale, row.effectiveRenderScale,
-      row.fpsAvg, row.frameP95Ms, row.frameP99Ms, row.longFrameCount,
-      row.rendererCalls, row.rendererTriangles, row.rendererTextures, row.rendererPrograms, row.contextLostCount,
-      row.longTaskCount, row.longTaskP95Ms, row.memoryUsedMb, row.memoryLimitMb,
-      row.dpr, row.viewportBucket, row.deviceMemory, row.hardwareConcurrency, row.mobileTouch,
-      row.browserFamily, row.osFamily, row.glVendor, row.glRendererBucket, row.zoneOrScenario, row.source,
+      row.schemaVersion,
+      row.releaseVersion,
+      row.buildId,
+      row.sessionId,
+      row.accountId,
+      row.characterId,
+      row.realm,
+      row.graphicsPreset,
+      row.gfxTier,
+      row.autoGovernor,
+      row.targetFps,
+      row.renderScale,
+      row.effectiveRenderScale,
+      row.fpsAvg,
+      row.frameP95Ms,
+      row.frameP99Ms,
+      row.longFrameCount,
+      row.rendererCalls,
+      row.rendererTriangles,
+      row.rendererTextures,
+      row.rendererPrograms,
+      row.contextLostCount,
+      row.longTaskCount,
+      row.longTaskP95Ms,
+      row.memoryUsedMb,
+      row.memoryLimitMb,
+      row.dpr,
+      row.viewportBucket,
+      row.deviceMemory,
+      row.hardwareConcurrency,
+      row.mobileTouch,
+      row.browserFamily,
+      row.osFamily,
+      row.glVendor,
+      row.glRendererBucket,
+      row.zoneOrScenario,
+      row.source,
       JSON.stringify(row.rawSummary),
     ],
   );
@@ -1528,13 +1755,21 @@ export async function openPlaySession(
     `INSERT INTO play_sessions (account_id, character_id, character_name, ip_address, user_agent)
      VALUES ($1, $2, $3, $4, $5)
      RETURNING id`,
-    [accountId, characterId, characterName, cleanMetadataText(meta.ip, 128), cleanMetadataText(meta.userAgent, 512)],
+    [
+      accountId,
+      characterId,
+      characterName,
+      cleanMetadataText(meta.ip, 128),
+      cleanMetadataText(meta.userAgent, 512),
+    ],
   );
   return res.rows[0].id;
 }
 
 export async function closePlaySession(sessionId: number): Promise<void> {
-  await pool.query('UPDATE play_sessions SET ended_at = now() WHERE id = $1 AND ended_at IS NULL', [sessionId]);
+  await pool.query('UPDATE play_sessions SET ended_at = now() WHERE id = $1 AND ended_at IS NULL', [
+    sessionId,
+  ]);
 }
 
 // Sessions left open by a crash have an unknown duration; close them at their

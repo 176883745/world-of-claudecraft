@@ -1338,7 +1338,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 2,
         "rare": false,
         "templateId": "brightwood_hare",
-        "model": "mob_critter",
+        "model": "mob_wolf",
         "tint": "#c8a972"
       },
       {
@@ -1356,7 +1356,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 3,
         "rare": false,
         "templateId": "glade_fox",
-        "model": "mob_fox",
+        "model": "mob_wolf",
         "tint": "#d2691e"
       },
       {
@@ -1365,7 +1365,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 3,
         "rare": false,
         "templateId": "spotted_fawn",
-        "model": "mob_stag",
+        "model": "mob_wolf",
         "tint": "#b5895f"
       },
       {
@@ -1383,7 +1383,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 4,
         "rare": false,
         "templateId": "dawnmane_doe",
-        "model": "mob_stag",
+        "model": "mob_wolf",
         "tint": "#a9763f"
       },
       {
@@ -1401,7 +1401,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 4,
         "rare": false,
         "templateId": "thornpelt_badger",
-        "model": "mob_critter",
+        "model": "mob_wolf",
         "tint": "#5d5d5d"
       },
       {
@@ -1419,7 +1419,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 5,
         "rare": false,
         "templateId": "brightwood_stag",
-        "model": "mob_stag",
+        "model": "mob_wolf",
         "tint": "#946638"
       },
       {
@@ -1437,7 +1437,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 6,
         "rare": false,
         "templateId": "grovetusk_boar",
-        "model": "mob_boar",
+        "model": "mob_wolf",
         "tint": "#6b4423"
       },
       {
@@ -1446,8 +1446,8 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "max": 6,
         "rare": false,
         "templateId": "sunhide_bear",
-        "model": "mob_bear",
-        "tint": "#5a4030"
+        "model": "mob_wolf",
+        "tint": "#c99a4b"
       },
       {
         "name": "Mire Prowler",
@@ -1944,30 +1944,6 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "idle": "Idle_Combat",
     "height": 2.5,
     "tintStrength": 0.25
-  },
-  "mob_critter": {
-    "url": "models/creatures/fox.glb",
-    "idle": "Idle",
-    "height": 0.7,
-    "tintStrength": 0.35
-  },
-  "mob_fox": {
-    "url": "models/creatures/fox.glb",
-    "idle": "Idle",
-    "height": 1,
-    "tintStrength": 0.35
-  },
-  "mob_stag": {
-    "url": "models/creatures/stag.glb",
-    "idle": "Idle",
-    "height": 1.9,
-    "tintStrength": 0.35
-  },
-  "mob_bear": {
-    "url": "models/creatures/yetialt.glb",
-    "idle": "Idle",
-    "height": 2.2,
-    "tintStrength": 0.5
   },
   "mob_troll": {
     "url": "models/creatures/orc.glb",

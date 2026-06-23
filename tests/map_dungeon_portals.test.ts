@@ -1,13 +1,21 @@
-import { describe, it, expect } from 'vitest';
-import { overworldDungeonPortals } from '../src/ui/map_dungeon_portals';
+import { describe, expect, it } from 'vitest';
 import { DUNGEON_LIST } from '../src/sim/data';
 import type { DungeonDef } from '../src/sim/types';
+import { overworldDungeonPortals } from '../src/ui/map_dungeon_portals';
 
 // A dungeon-shaped fixture; only the fields the portal filter reads matter.
 const def = (over: Partial<DungeonDef>): DungeonDef => ({
-  id: 'x', name: 'X', index: 0, doorPos: { x: 0, z: 0 },
-  entry: { x: 0, z: 0 }, exitOffset: { x: 0, z: 0 }, spawns: [],
-  interior: 'crypt', suggestedPlayers: 5, enterText: '', leaveText: '',
+  id: 'x',
+  name: 'X',
+  index: 0,
+  doorPos: { x: 0, z: 0 },
+  entry: { x: 0, z: 0 },
+  exitOffset: { x: 0, z: 0 },
+  spawns: [],
+  interior: 'crypt',
+  suggestedPlayers: 5,
+  enterText: '',
+  leaveText: '',
   ...over,
 });
 

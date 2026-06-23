@@ -185,6 +185,18 @@ export type CurrencyLootStrategy = 'looter-takes-all' | 'fair-split';
 export type LootRollChoice = 'need' | 'greed' | 'pass';
 export type ItemLootStrategy = 'looter-takes-all' | 'need-greed';
 
+// An open need-greed roll a player may still answer. Carried both on the
+// transient `lootRoll` SimEvent and (for reliable re-delivery) on the self
+// snapshot, so a client that missed the event can re-show the prompt from
+// authoritative state rather than losing the roll permanently.
+export interface LootRollPrompt {
+  rollId: number;
+  itemId: string;
+  itemName: string;
+  quality: ItemDef['quality'];
+  expiresAt: number;
+}
+
 export interface LootStrategies {
   currency: CurrencyLootStrategy;
   commonItems: ItemLootStrategy;

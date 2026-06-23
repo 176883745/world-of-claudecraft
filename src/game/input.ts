@@ -707,7 +707,13 @@ export class Input {
 
   readMoveInput(): MoveInput {
     if (this.suspendMovement) {
-      return { forward: false, back: false, turnLeft: false, turnRight: false, strafeLeft: false, strafeRight: false, jump: false };
+      // A game menu / modal is open (or chat is focused). Suppress held keys and
+      // pointer/touch/gamepad movement so menu keystrokes never leak into the
+      // world, but keep the latched autorun running: in a classic MMO the world
+      // never pauses, so opening the Esc menu lets you keep auto-running while
+      // you change a setting. The latch itself is untouched, and the next manual
+      // forward/back key press still clears it.
+      return { forward: this.autorun, back: false, turnLeft: false, turnRight: false, strafeLeft: false, strafeRight: false, jump: false };
     }
     if (this.controllerMoveInput) return { ...this.controllerMoveInput };
     const held = (id: string) => this.heldAction(id);
