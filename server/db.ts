@@ -176,6 +176,32 @@ ALTER TABLE play_sessions ADD COLUMN IF NOT EXISTS ip_address TEXT;
 ALTER TABLE play_sessions ADD COLUMN IF NOT EXISTS user_agent TEXT;
 CREATE INDEX IF NOT EXISTS play_sessions_account ON play_sessions(account_id);
 CREATE INDEX IF NOT EXISTS play_sessions_started ON play_sessions(started_at);
+CREATE TABLE IF NOT EXISTS admin_online_samples (
+  id BIGSERIAL PRIMARY KEY,
+  realm TEXT NOT NULL DEFAULT '${REALM_SQL_DEFAULT}',
+  sampled_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  online_players INT NOT NULL,
+  online_accounts INT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS admin_online_samples_realm_sampled
+  ON admin_online_samples(realm, sampled_at DESC);
+CREATE TABLE IF NOT EXISTS site_presence_sessions (
+  visitor_id TEXT PRIMARY KEY,
+  page TEXT NOT NULL DEFAULT 'unknown',
+  first_seen_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  ip_hash TEXT NOT NULL DEFAULT '',
+  user_agent_hash TEXT NOT NULL DEFAULT ''
+);
+CREATE INDEX IF NOT EXISTS site_presence_sessions_last_seen
+  ON site_presence_sessions(last_seen_at DESC);
+CREATE TABLE IF NOT EXISTS admin_site_presence_samples (
+  id BIGSERIAL PRIMARY KEY,
+  sampled_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  active_visitors INT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS admin_site_presence_samples_sampled
+  ON admin_site_presence_samples(sampled_at DESC);
 CREATE TABLE IF NOT EXISTS chat_logs (
   id BIGSERIAL PRIMARY KEY,
   account_id INT REFERENCES accounts(id) ON DELETE SET NULL,

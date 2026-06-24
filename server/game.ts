@@ -18,6 +18,7 @@ import {
   type SimEvent,
 } from '../src/sim/types';
 import { isOverheadEmoteId } from '../src/world_api';
+import { recordOnlineSample } from './admin_db';
 import { offensiveName } from './auth';
 import type { BotDetector, BotTrackingContext } from './bot_detector/contract';
 import { ChatFilter } from './chat_filter';
@@ -172,6 +173,7 @@ interface SentEntityVersions {
 
 export interface AdminServerStats {
   online: number;
+  onlineAccounts: number;
   peakOnline: number;
   uptimeSeconds: number;
   tickMsAvg: number;
@@ -853,6 +855,7 @@ export class GameServer {
     this.clients.set(pid, session);
     this.sessionsByCharacterId.set(characterId, session);
     this.peakOnline = Math.max(this.peakOnline, this.clients.size);
+    void this.recordOnlineSnapshot();
     openPlaySession(accountId, characterId, name, meta)
       .then((id) => {
         session.dbSessionId = id;
@@ -942,6 +945,7 @@ export class GameServer {
       if (prev <= 1) this.ipSessionCounts.delete(session.ip);
       else this.ipSessionCounts.set(session.ip, prev - 1);
     }
+    void this.recordOnlineSnapshot();
     this.devTierPids.delete(session.pid);
     this.social.forget(session.characterId);
     // delete from clients first so friends see them as offline in the notice
@@ -1069,6 +1073,7 @@ export class GameServer {
     const mem = process.memoryUsage();
     return {
       online: this.clients.size,
+      onlineAccounts: this.liveAccountIds().size,
       peakOnline: this.peakOnline,
       uptimeSeconds: Math.round((Date.now() - this.startedAt) / 1000),
       tickMsAvg: Math.round(this.tickMsAvg * 100) / 100,
@@ -1121,6 +1126,12 @@ export class GameServer {
 
   liveAccountIds(): Set<number> {
     return new Set([...this.clients.values()].map((s) => s.accountId));
+  }
+
+  async recordOnlineSnapshot(): Promise<void> {
+    await recordOnlineSample(this.clients.size, this.liveAccountIds().size).catch((err) =>
+      console.error('failed to record online sample:', err),
+    );
   }
 
   reportTargetForPid(

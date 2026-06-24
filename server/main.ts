@@ -28,6 +28,7 @@ import {
   verifyLoginTwoFactor,
 } from './account';
 import { handleAdminApi } from './admin';
+import { currentSitePresenceUsers, recordSitePresenceSample } from './admin_db';
 import {
   hashPassword,
   newToken,
@@ -127,6 +128,7 @@ import {
   REALM_ORIGINS,
 } from './realm';
 import { resolveReportTarget } from './report_target';
+import { handleSitePresenceHeartbeat } from './site_presence';
 import { cacheControlFor, etagFor, isNotModified } from './static_cache';
 import { verifyTurnstile } from './turnstile';
 import {
@@ -178,6 +180,7 @@ const CHAT_LOG_RETENTION_DAYS = Number(process.env.CHAT_LOG_RETENTION_DAYS ?? 90
 // Client performance reports are operational telemetry, not permanent records.
 // Keep enough history for tuning runs while bounding table growth.
 const PERF_REPORT_RETENTION_DAYS = Number(process.env.PERF_REPORT_RETENTION_DAYS ?? 14);
+const ADMIN_ONLINE_SAMPLE_MS = 60_000;
 // Cloudflare Turnstile secret. When unset (local dev / tests) registration and
 // login skip human verification entirely — see requireTurnstile below.
 const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET ?? '';
@@ -594,6 +597,9 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       const body = await readBody(req);
       const action = typeof body.action === 'string' ? body.action : 'auth';
       return json(res, 200, createNativeAttestationChallenge(req, action));
+    }
+    if (url === '/api/site-presence') {
+      return await handleSitePresenceHeartbeat(req, res);
     }
     if (
       REQUIRE_WEB_LOGIN &&
@@ -1321,6 +1327,10 @@ async function main(): Promise<void> {
   await game.loadMarket();
   await game.loadChatFilter();
   await game.loadBlockedIps();
+  void game.recordOnlineSnapshot();
+  void currentSitePresenceUsers()
+    .then((count) => recordSitePresenceSample(count))
+    .catch((err) => console.error('site presence sample failed:', err));
   setInterval(
     () => {
       void pruneChatLogs(CHAT_LOG_RETENTION_DAYS).catch((err) =>
@@ -1335,6 +1345,12 @@ async function main(): Promise<void> {
     },
     24 * 3600 * 1000,
   ).unref();
+  setInterval(() => {
+    void game.recordOnlineSnapshot();
+    void currentSitePresenceUsers()
+      .then((count) => recordSitePresenceSample(count))
+      .catch((err) => console.error('site presence sample failed:', err));
+  }, ADMIN_ONLINE_SAMPLE_MS).unref();
   setInterval(() => {
     void pruneExpiredBlockedIps().catch((err) => console.error('blocked IP prune failed:', err));
     void game

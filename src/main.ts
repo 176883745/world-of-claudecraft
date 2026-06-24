@@ -80,6 +80,7 @@ import { Sim } from './sim/sim';
 import { TAB_NEAR_RADIUS, TAB_QUERY_RADIUS, tabConeHalfAt } from './sim/tab_target';
 import { DT, dist2d, INTERACT_RANGE, MELEE_RANGE, type PlayerClass, RUN_SPEED } from './sim/types';
 import { zoneBiomeAt } from './sim/world';
+import { startSitePresence } from './site_presence';
 import {
   accountPortalModel,
   deactivateConfirmReady,
@@ -6217,5 +6218,6 @@ function fadeOutHomepageMusic(durationMs = 1600): void {
   }
 })();
 
+startSitePresence('home');
 wireStartScreens();
 initHomepageMusic();
