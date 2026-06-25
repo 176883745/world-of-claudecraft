@@ -123,6 +123,8 @@ function makeCtx() {
     delveRunForPlayer: vi.fn(() => null),
     delveModuleEntry: vi.fn(() => ({ x: 0, y: 0, z: 0 })),
     failDelveRun: vi.fn(),
+    error: vi.fn(),
+    refreshKnownAbilities: vi.fn(),
   };
   const ctx = createSimContext(host);
   return {

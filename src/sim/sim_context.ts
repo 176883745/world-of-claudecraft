@@ -138,6 +138,18 @@ export interface SimContextCallbacks {
   delveModuleEntry(run: DelveRun): Vec3;
   failDelveRun(run: DelveRun): void;
   pulseGroundAoE(effect: GroundAoE, threatOpts?: { flat?: number; mult?: number }): void;
+
+  // G1a talent application (progression/talents.ts) consumes these; both STAY on Sim.
+  // `error` is the validation-toast sink (emits an `error` SimEvent);
+  // `refreshKnownAbilities` re-resolves the known-ability list after an allocation
+  // change (the talent path always passes announce=false: a silent re-resolve, no
+  // learnAbility spam). The talent PUBLIC API (applyTalents/spendTalent/setSpec/respec/
+  // saveLoadout/switchLoadout/deleteLoadout/talentPoints) is NOT on this seam: nothing
+  // reaches it through the context (server/HUD/tests call the `Sim` facade directly), so
+  // per "add only the callbacks the slice needs" Sim keeps thin wrapper methods that
+  // delegate into the module instead.
+  error(pid: number, text: string): void;
+  refreshKnownAbilities(meta: PlayerMeta, announce: boolean): void;
 }
 
 // The seam consumed by extracted modules.
@@ -228,5 +240,7 @@ export function createSimContext(host: SimContextHost): SimContext {
     delveModuleEntry: host.delveModuleEntry,
     failDelveRun: host.failDelveRun,
     pulseGroundAoE: host.pulseGroundAoE,
+    error: host.error,
+    refreshKnownAbilities: host.refreshKnownAbilities,
   };
 }

@@ -123,6 +123,8 @@ function makeFakeHost() {
     delveModuleEntry: vi.fn(() => ({ x: 0, y: 0, z: 0 })),
     failDelveRun: vi.fn(),
     pulseGroundAoE: vi.fn(),
+    error: vi.fn(),
+    refreshKnownAbilities: vi.fn(),
   };
   return { host, rng, entities, clock };
 }
