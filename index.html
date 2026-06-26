@@ -242,6 +242,10 @@
     <div id="minimap-wrap">
       <div id="zone-label" data-i18n="entities.zones.eastbrook_vale.name">Eastbrook Vale</div>
       <div id="minimap-disc">
+        <!-- Decorative canvas (decision 10): the minimap pixels are not screen-readable, so the
+             canvas is aria-hidden, like #nameplates/#swingbar and the FCT nodes. Its textual
+             surface is the adjacent #zone-label + #minimap-coords (role=status), with the fully
+             accessible #map-window as the alternative, per the P12b zone-label decision. -->
         <canvas id="minimap" width="162" height="162" aria-hidden="true"></canvas>
         <button id="raid-lockout" type="button" hidden data-i18n-title="hudChrome.raidLockout.title" data-i18n-aria="hudChrome.raidLockout.title" title="Raid Lockouts" aria-label="Raid Lockouts"></button>
       </div>

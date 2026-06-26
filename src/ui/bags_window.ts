@@ -450,6 +450,11 @@ export class BagsWindow {
       close();
       this.deps.hideTooltip();
       this.render();
+      // Return focus into the bags window on the confirm path too (WCAG 2.4.3): cancel
+      // and Escape already return via closeAndReturn, but render() innerHTML-rebuilds the
+      // grid, detaching the opener slot, so land on the always-present window close
+      // button rather than letting focus fall to <body>.
+      (this.deps.root().querySelector('[data-close]') as HTMLElement | null)?.focus();
     };
     confirm.addEventListener('click', submit);
     prompt.append(confirm, cancel);
@@ -503,6 +508,10 @@ export class BagsWindow {
       const count = Math.max(1, Math.min(maxCount, Math.floor(Number(input.value) || 0)));
       this.deps.world().sellItem(itemId, count);
       close();
+      // Return focus to the vendor cell that opened the prompt on confirm too (WCAG
+      // 2.4.3): it survives the sell, so unlike discard there is no rebuild to dodge
+      // (cancel and Escape already return via closeAndReturn).
+      opener?.focus();
     };
     confirm.addEventListener('click', submit);
     prompt.append(input, confirm, cancel);

@@ -1850,7 +1850,14 @@
   .tal-choice-opt:focus-visible {
     background: #ffffff10;
     border-color: #6f5a2a;
-    outline: none;
+  }
+  /* The roving choice-menu option is the P15b keyboard centerpiece, so the focused
+     option gets the same steady, tokenized outline ring the rest of the chrome draws
+     on :focus-visible (decision 10), not just the hover tint, so keyboard roving is
+     clearly visible. Inset offset keeps the ring inside the popup's scroll edge. */
+  .tal-choice-opt:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: -2px;
   }
   .tal-choice-opt.sel {
     background: #2c2410;
