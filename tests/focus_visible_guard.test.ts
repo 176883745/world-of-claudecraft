@@ -10,9 +10,13 @@
 // raw hex literal (the focus token is var(--color-border-focus); forced-colors uses the
 // Highlight system keyword).
 //
-// This is a pure source scan, so it stays in the default Node suite (no browser): the live
-// computed-style version of the same check lives in the opt-in browser suite (npm run
-// test:browser), but this guard always runs and is cheap.
+// This is a pure source scan, so it stays in the default Node suite (no browser) and always
+// runs cheaply. It is OUTLINE-scoped by design: it guards the steady, tokenized outline ring
+// the chrome draws on :focus-visible. A focus indicator carried instead by a box-shadow /
+// border (a few pre-game shell controls do this) is out of scope here: the forced-colors net
+// forces a steady system outline on every :focus-visible regardless, so those stay steady for
+// high-contrast users. A live computed-style version over the box-shadow indicators would
+// belong to the opt-in browser suite (npm run test:browser) and is not yet wired.
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

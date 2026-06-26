@@ -25,7 +25,12 @@ import { QuestLogWindow } from '../../src/ui/questlog_window';
 import { SocialWindow } from '../../src/ui/social_window';
 import { SpellbookWindow } from '../../src/ui/spellbook_window';
 import { TalentsWindow } from '../../src/ui/talents_window';
-import type { LeaderboardEntry, LeaderboardPage, MarketInfo } from '../../src/world_api';
+import type {
+  LeaderboardEntry,
+  LeaderboardPage,
+  MarketInfo,
+  MarketListingView,
+} from '../../src/world_api';
 import {
   axeSeriousViolations,
   cleanup,
@@ -392,9 +397,21 @@ describe('axe: character window', () => {
 // ---------------------------------------------------------------------------
 
 function marketInfo(shape: WorldShape): MarketInfo {
+  // A populated listing so the Browse body renders real rows (the buy button + the row
+  // controls), not the empty-state short-circuit: an empty window passes axe vacuously
+  // (the phase's own populated-fixture requirement), so axe must see the row controls.
+  const listing: MarketListingView = {
+    id: 1,
+    sellerName: 'Bramblefoot',
+    itemId: Object.keys(ITEMS)[0],
+    count: 1,
+    price: 1234,
+    mine: false,
+    house: false,
+  };
   const base: MarketInfo = {
-    listings: [],
-    totalCount: 0,
+    listings: [listing],
+    totalCount: 1,
     filter: 'all',
     collectionCopper: 0,
     collectionItems: [],
