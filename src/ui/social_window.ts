@@ -24,7 +24,7 @@ import { CLASSES } from '../sim/data';
 import type { PlayerClass } from '../sim/types';
 import type { IWorld } from '../world_api';
 import { markDialogRoot } from './dialog_root';
-import { tEntity } from './entity_i18n';
+import { classDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import { formatNumber, t, tPlural } from './i18n';
 import { rovingTarget } from './roving_index';
@@ -71,10 +71,6 @@ export interface SocialWindowDeps {
 
 function cap(s: string): string {
   return s ? s[0].toUpperCase() + s.slice(1) : s;
-}
-
-function classDisplayName(cls: PlayerClass): string {
-  return tEntity({ kind: 'class', id: cls, field: 'name' });
 }
 
 function playerClassDisplayName(value: string): string {

@@ -18,10 +18,9 @@
 // hud.update()'s per-frame path.
 
 import { LEADERBOARD_PAGE_SIZE } from '../sim/leaderboard_page';
-import type { PlayerClass } from '../sim/types';
 import type { IWorld, LeaderboardPage } from '../world_api';
 import { markDialogRoot } from './dialog_root';
-import { tEntity } from './entity_i18n';
+import { classDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import { formatNumber, t } from './i18n';
 import {
@@ -181,7 +180,7 @@ export class LeaderboardWindow {
       r.prestigeRank > 0
         ? `<span class="lb-prestige" title="${esc(`${t('game.prestige.rank')} ${r.prestigeRank}`)}">&starf;${r.prestigeRank}</span> `
         : '';
-    const title = r.knownClass ? ` title="${esc(this.classDisplayName(r.cls))}"` : '';
+    const title = r.knownClass ? ` title="${esc(classDisplayName(r.cls))}"` : '';
     const you = r.me ? ` <span class="lb-you">(${esc(t('game.leaderboard.you'))})</span>` : '';
     return (
       `<div class="lb-row${r.me ? ' lb-mine' : ''}"><span class="lb-rank">${r.rank}</span>` +
@@ -246,9 +245,5 @@ export class LeaderboardWindow {
   private focusCloseAfterPage(focus: FocusTarget): void {
     if (focus !== 'prev' && focus !== 'next') return;
     (this.deps.root().querySelector('[data-close]') as HTMLElement | null)?.focus();
-  }
-
-  private classDisplayName(cls: PlayerClass): string {
-    return tEntity({ kind: 'class', id: cls, field: 'name' });
   }
 }

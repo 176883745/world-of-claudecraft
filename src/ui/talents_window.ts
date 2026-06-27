@@ -33,7 +33,7 @@ import {
 import { ABILITIES } from '../sim/data';
 import { MAX_LEVEL, type PlayerClass } from '../sim/types';
 import { markDialogRoot } from './dialog_root';
-import { tEntity } from './entity_i18n';
+import { classDisplayName, tEntity } from './entity_i18n';
 import { esc } from './esc';
 import { t } from './i18n';
 import type { PainterHostPresentation } from './painter_host';
@@ -119,9 +119,6 @@ const TAL_COLOR = {
   dormant: 'var(--color-talent-dormant)',
 } as const;
 
-function classDisplayName(cls: PlayerClass): string {
-  return tEntity({ kind: 'class', id: cls, field: 'name' });
-}
 function signatureName(abilityId: string): string {
   return ABILITIES[abilityId]
     ? tEntity({ kind: 'ability', id: abilityId, field: 'name' })

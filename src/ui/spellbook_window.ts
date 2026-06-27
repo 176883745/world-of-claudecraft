@@ -22,7 +22,7 @@ import type { ResolvedAbility } from '../sim/sim';
 import type { AbilityDef, PlayerClass } from '../sim/types';
 import type { IWorld } from '../world_api';
 import { markDialogRoot } from './dialog_root';
-import { tEntity } from './entity_i18n';
+import { classDisplayName, tEntity } from './entity_i18n';
 import { esc } from './esc';
 import { encodeHotbarAction, HOTBAR_ACTION_MIME } from './hotbar';
 import { formatNumber, t } from './i18n';
@@ -112,7 +112,7 @@ export class SpellbookWindow {
       hasFreeSlot: this.deps.hasFreeSlot(),
       hasFormBars: this.deps.hasFormBars(),
     });
-    const className = this.classDisplayName(view.classId);
+    const className = classDisplayName(view.classId);
     markDialogRoot(el, { label: t('abilityUi.spellbook.title') });
     // "Reset bar" only applies to classes with per-form bars (druid); other classes
     // have a single bar, so the button is omitted for them.
@@ -262,9 +262,5 @@ export class SpellbookWindow {
 
   private formatAbilityNumber(value: number): string {
     return formatNumber(value, { maximumFractionDigits: 1 });
-  }
-
-  private classDisplayName(cls: PlayerClass): string {
-    return tEntity({ kind: 'class', id: cls, field: 'name' });
   }
 }

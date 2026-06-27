@@ -19,11 +19,11 @@
 
 import { audio } from '../game/audio';
 import { ITEMS } from '../sim/data';
-import type { EquipSlot, PlayerClass } from '../sim/types';
+import type { EquipSlot } from '../sim/types';
 import type { IWorld } from '../world_api';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
 import { markDialogRoot } from './dialog_root';
-import { itemDisplayName, tEntity } from './entity_i18n';
+import { classDisplayName, itemDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import { formatNumber, t } from './i18n';
 import { iconDataUrl, QUALITY_COLOR } from './icons';
@@ -56,10 +56,6 @@ const STAT_GRID: readonly StatId[] = [
   'spi',
   'dodge',
 ];
-
-function classDisplayName(cls: PlayerClass): string {
-  return tEntity({ kind: 'class', id: cls, field: 'name' });
-}
 
 /**
  * Hud-supplied glue. Composes the shared PainterHostPresentation bag

@@ -21,7 +21,7 @@
 import type { ZoneDef } from '../sim/data';
 import { type Decoration, generateDecorations } from '../sim/world';
 import type { IWorld } from '../world_api';
-import { tEntity } from './entity_i18n';
+import { dungeonDisplayName, zoneDisplayName, zonePoiLabel } from './entity_i18n';
 import {
   buildOverworldMapModel,
   type MapDetail,
@@ -278,16 +278,4 @@ export class MapWindowPainter {
       ctx.fill();
     }
   }
-}
-
-// The localized labels the painter resolves (the pure model carries only ids). All
-// are thin wrappers over tEntity, matching hud.ts's module-level display helpers.
-function zoneDisplayName(zoneId: string): string {
-  return tEntity({ kind: 'zone', id: zoneId, field: 'name' });
-}
-function zonePoiLabel(zoneId: string, poiIndex: number): string {
-  return tEntity({ kind: 'zonePoi', zoneId, poiIndex, field: 'label' });
-}
-function dungeonDisplayName(dungeonId: string): string {
-  return tEntity({ kind: 'dungeon', id: dungeonId, field: 'name' });
 }
