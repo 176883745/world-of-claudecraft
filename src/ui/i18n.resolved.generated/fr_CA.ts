@@ -223,19 +223,19 @@ export const fr_CA: EnTranslations = {
       "resting": "Au repos"
     },
     "unitFrame": {
-      "playerLabel": "Your Hero",
-      "targetLabel": "Your Mark",
-      "targetAnnounce": "Mark {name}",
-      "partyLabel": "Your Band",
-      "partyGroup": "Group {n}",
+      "playerLabel": "Votre personnage",
+      "targetLabel": "Votre cible",
+      "targetAnnounce": "Cible : {name}",
+      "partyLabel": "Votre groupe",
+      "partyGroup": "Groupe {n}",
       "durationUnitSeconds": "s"
     },
     "character": {
-      "modelPreview": "Character Model Preview"
+      "modelPreview": "Aperçu du modèle du personnage"
     },
     "skipLinks": {
-      "mainHud": "Skip to Main HUD",
-      "chat": "Skip to Chat"
+      "mainHud": "Aller à l'interface principale",
+      "chat": "Aller à la discussion"
     },
     "mobile": {
       "autorun": "Course automatique",
@@ -260,11 +260,11 @@ export const fr_CA: EnTranslations = {
       "minimapZoom": "Zoom de la minicarte"
     },
     "castBar": {
-      "playerAria": "Your Cast Bar",
-      "targetAria": "Unit Cast Bar"
+      "playerAria": "Votre barre d'incantation",
+      "targetAria": "Barre d'incantation de la cible"
     },
     "leaderboard": {
-      "close": "Close"
+      "close": "Fermer"
     },
     "raidLockout": {
       "title": "Verrous de raid",
@@ -605,6 +605,17 @@ export const fr_CA: EnTranslations = {
       "notRaid": "Votre groupe n'est pas un raid.",
       "leaderOnly": "Seul le chef de raid peut convertir en groupe.",
       "tooLarge": "Un raid de plus de cinq membres ne peut pas être reconverti en groupe."
+    },
+    "loot": {
+      "chestTitle": "Coffre"
+    },
+    "spellbook": {
+      "addToBarAria": "Ajouter {name} à la barre d'action",
+      "removeFromBarAria": "Retirer {name} de la barre d'action"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {
@@ -2432,8 +2443,8 @@ export const fr_CA: EnTranslations = {
       "closeMap": "Fermer la carte",
       "zoomIn": "Zoom avant",
       "zoomOut": "Zoom arrière",
-      "mapCanvasLabel": "Map",
-      "mapSummary": "Map of {zone}."
+      "mapCanvasLabel": "Carte",
+      "mapSummary": "Carte de {zone}."
     },
     "options": {
       "gameMenu": "Menu du jeu",

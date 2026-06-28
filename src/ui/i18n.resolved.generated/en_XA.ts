@@ -605,6 +605,17 @@ export const en_XA: EnTranslations = {
       "notRaid": "[Ýóúŕ ĝŕóúþ íš ñóţ á ŕáíð.]",
       "leaderOnly": "[Óñļý ţĥé ŕáíð ļéáðéŕ ɱáý çóñʋéŕţ ţó á þáŕţý.]",
       "tooLarge": "[Á ŕáíð ŵíţĥ ɱóŕé ţĥáñ ƒíʋé ɱéɱƀéŕš çáññóţ çóñʋéŕţ ƀáçķ ţó á þáŕţý.]"
+    },
+    "loot": {
+      "chestTitle": "[Çĥéšţ]"
+    },
+    "spellbook": {
+      "addToBarAria": "[Áðð {name} ţó áçţíóñ ƀáŕ]",
+      "removeFromBarAria": "[Ŕéɱóʋé {name} ƒŕóɱ áçţíóñ ƀáŕ]"
+    },
+    "nameplate": {
+      "mob": "[[{level}] {name}]",
+      "mobElite": "[[{level}+] {name}]"
     }
   },
   "guide": {

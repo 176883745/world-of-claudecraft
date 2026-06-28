@@ -3615,6 +3615,7 @@ export class Hud {
         abilityName: abilityDisplayName,
         itemName: itemDisplayName,
         slotLabel: (i) => formatAbilityNumber(i + 1),
+        formatCount: (n) => formatNumber(n, { maximumFractionDigits: 0 }),
       },
     );
     this.actionBarPainter = new ActionBarPainter(
@@ -4917,10 +4918,10 @@ export class Hud {
     this.openLootChestId = chestId;
     const chest = this.sim.entities.get(chestId);
     const el = $('#loot-window');
-    let html = `<div class="panel-title"><span>${esc(chest ? entityDisplayName(chest) : 'Chest')}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('itemUi.loot.close'))}">${svgIcon('close')}</button></div>`;
+    let html = `<div class="panel-title"><span>${esc(chest ? entityDisplayName(chest) : t('hudChrome.loot.chestTitle'))}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('itemUi.loot.close'))}">${svgIcon('close')}</button></div>`;
     for (const s of items) {
       const item = ITEMS[s.itemId];
-      html += `<div class="loot-item" data-item="${s.itemId}">${this.itemIcon(item)}<span style="font-size:12px">${esc(itemDisplayName(item))}${s.count > 1 ? ` x${s.count}` : ''}</span></div>`;
+      html += `<div class="loot-item" data-item="${s.itemId}">${this.itemIcon(item)}<span style="font-size:12px">${esc(itemDisplayName(item))}${s.count > 1 ? ` ${esc(t('itemUi.bags.stackCount', { count: formatNumber(s.count, { maximumFractionDigits: 0 }) }))}` : ''}</span></div>`;
     }
     el.innerHTML = html;
     el.querySelectorAll('[data-item]').forEach((row) => {
@@ -5854,8 +5855,8 @@ export class Hud {
         }
         case 'virtualLevelUp': {
           // cosmetic post-cap "level up" — reuses the levelup banner + sound
-          this.showBanner(`${t('game.progression.virtualLevelUp')} ${ev.level}!`);
-          this.log(`${t('game.progression.virtualLevelUp')} ${ev.level}!`, '#ffd100');
+          this.showBanner(`${t('game.progression.virtualLevelUp')} ${formatNumber(ev.level, { maximumFractionDigits: 0 })}!`);
+          this.log(`${t('game.progression.virtualLevelUp')} ${formatNumber(ev.level, { maximumFractionDigits: 0 })}!`, '#ffd100');
           audio.levelUp();
           break;
         }
@@ -7760,7 +7761,7 @@ export class Hud {
     }
     for (const s of visibleItems) {
       const item = ITEMS[s.itemId];
-      html += `<div class="loot-item" data-item="${s.itemId}">${this.itemIcon(item)}<span style="font-size:12px">${esc(itemDisplayName(item))}${s.count > 1 ? ` x${s.count}` : ''}</span></div>`;
+      html += `<div class="loot-item" data-item="${s.itemId}">${this.itemIcon(item)}<span style="font-size:12px">${esc(itemDisplayName(item))}${s.count > 1 ? ` ${esc(t('itemUi.bags.stackCount', { count: formatNumber(s.count, { maximumFractionDigits: 0 }) }))}` : ''}</span></div>`;
     }
     el.innerHTML = html;
     el.querySelectorAll('[data-item]').forEach((row) => {

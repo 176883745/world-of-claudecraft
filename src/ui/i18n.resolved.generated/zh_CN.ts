@@ -223,19 +223,19 @@ export const zh_CN: EnTranslations = {
       "resting": "休息中"
     },
     "unitFrame": {
-      "playerLabel": "Your Hero",
-      "targetLabel": "Your Mark",
-      "targetAnnounce": "Mark {name}",
-      "partyLabel": "Your Band",
+      "playerLabel": "你的角色",
+      "targetLabel": "你的目标",
+      "targetAnnounce": "目标：{name}",
+      "partyLabel": "你的队伍",
       "partyGroup": "小队 {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "秒"
     },
     "character": {
       "modelPreview": "角色模型预览"
     },
     "skipLinks": {
-      "mainHud": "Skip to Main HUD",
-      "chat": "Skip to Chat"
+      "mainHud": "跳转到主界面",
+      "chat": "跳转到聊天"
     },
     "mobile": {
       "autorun": "自动奔跑",
@@ -260,8 +260,8 @@ export const zh_CN: EnTranslations = {
       "minimapZoom": "小地图缩放"
     },
     "castBar": {
-      "playerAria": "Your Cast Bar",
-      "targetAria": "Unit Cast Bar"
+      "playerAria": "你的施法条",
+      "targetAria": "目标施法条"
     },
     "leaderboard": {
       "close": "关闭"
@@ -605,6 +605,17 @@ export const zh_CN: EnTranslations = {
       "notRaid": "你的队伍不是团队。",
       "leaderOnly": "只有团队领袖可以转换为队伍。",
       "tooLarge": "成员超过五人的团队无法转换回队伍。"
+    },
+    "loot": {
+      "chestTitle": "宝箱"
+    },
+    "spellbook": {
+      "addToBarAria": "将{name}添加到动作条",
+      "removeFromBarAria": "从动作条移除{name}"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {
@@ -2432,8 +2443,8 @@ export const zh_CN: EnTranslations = {
       "closeMap": "关闭地图",
       "zoomIn": "放大",
       "zoomOut": "缩小",
-      "mapCanvasLabel": "Map",
-      "mapSummary": "Map of {zone}."
+      "mapCanvasLabel": "地图",
+      "mapSummary": "{zone}的地图。"
     },
     "options": {
       "gameMenu": "游戏菜单",

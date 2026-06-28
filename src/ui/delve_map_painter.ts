@@ -131,6 +131,7 @@ export function delveDrawModel(
   pad: number,
   delveName: string,
   moduleName: string,
+  northLabel = 'N',
 ): DelveDrawModel | null {
   const run = world.delveRun;
   if (!run) return null;
@@ -139,7 +140,7 @@ export function delveDrawModel(
   const layoutId = (modId ?? DEFAULT_DELVE_MODULE) as DelveModuleId;
   const layout = DELVE_MODULE_LAYOUTS[layoutId] ?? DELVE_MODULE_LAYOUTS[DEFAULT_DELVE_MODULE];
 
-  const schematic = delveSchematicStatic(layout, canvasSize, pad);
+  const schematic = delveSchematicStatic(layout, canvasSize, pad, northLabel);
 
   const mobs: DelveMobMarker[] = [];
   for (const e of world.entities.values()) {
@@ -354,7 +355,14 @@ export class DelveMapPainter {
     const run = world.delveRun;
     if (!run) return;
     const { delveName, moduleName } = this.resolveNames(run);
-    const model = delveDrawModel(world, size, MINIMAP_PAD, delveName, moduleName);
+    const model = delveDrawModel(
+      world,
+      size,
+      MINIMAP_PAD,
+      delveName,
+      moduleName,
+      t('hudChrome.compass.N'),
+    );
     if (!model) return;
     // The one DOM write this Canvas pilot routes through the write-elision facet.
     this.writers.setText(zoneLabelEl, model.areaLabel);
@@ -386,7 +394,7 @@ export class DelveMapPainter {
     if (!run) return;
     const { delveName, moduleName } = this.resolveNames(run);
     const pad = Math.round(size * WORLD_MAP_PAD_RATIO);
-    const model = delveDrawModel(world, size, pad, delveName, moduleName);
+    const model = delveDrawModel(world, size, pad, delveName, moduleName, t('hudChrome.compass.N'));
     if (!model) return;
     const colors = this.resolveColors();
 

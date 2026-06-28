@@ -223,19 +223,19 @@ export const ru_RU: EnTranslations = {
       "resting": "Отдых"
     },
     "unitFrame": {
-      "playerLabel": "Your Hero",
-      "targetLabel": "Your Mark",
-      "targetAnnounce": "Mark {name}",
-      "partyLabel": "Your Band",
+      "playerLabel": "Ваш персонаж",
+      "targetLabel": "Ваша цель",
+      "targetAnnounce": "Цель: {name}",
+      "partyLabel": "Ваша группа",
       "partyGroup": "Группа {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "с"
     },
     "character": {
       "modelPreview": "Предпросмотр модели персонажа"
     },
     "skipLinks": {
-      "mainHud": "Skip to Main HUD",
-      "chat": "Skip to Chat"
+      "mainHud": "Перейти к основному интерфейсу",
+      "chat": "Перейти к чату"
     },
     "mobile": {
       "autorun": "Автобег",
@@ -260,8 +260,8 @@ export const ru_RU: EnTranslations = {
       "minimapZoom": "Масштаб миникарты"
     },
     "castBar": {
-      "playerAria": "Your Cast Bar",
-      "targetAria": "Unit Cast Bar"
+      "playerAria": "Ваша полоса применения",
+      "targetAria": "Полоса применения цели"
     },
     "leaderboard": {
       "close": "Закрыть"
@@ -605,6 +605,17 @@ export const ru_RU: EnTranslations = {
       "notRaid": "Ваша группа не является рейдом.",
       "leaderOnly": "Только лидер рейда может преобразовать рейд в группу.",
       "tooLarge": "Рейд, в котором более пяти участников, нельзя преобразовать обратно в группу."
+    },
+    "loot": {
+      "chestTitle": "Сундук"
+    },
+    "spellbook": {
+      "addToBarAria": "Добавить {name} на панель действий",
+      "removeFromBarAria": "Убрать {name} с панели действий"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {
@@ -2432,8 +2443,8 @@ export const ru_RU: EnTranslations = {
       "closeMap": "Закрыть карту",
       "zoomIn": "Приблизить",
       "zoomOut": "Отдалить",
-      "mapCanvasLabel": "Map",
-      "mapSummary": "Map of {zone}."
+      "mapCanvasLabel": "Карта",
+      "mapSummary": "Карта зоны {zone}."
     },
     "options": {
       "gameMenu": "Меню игры",

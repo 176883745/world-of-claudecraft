@@ -605,6 +605,17 @@ export const en: EnTranslations = {
       "notRaid": "Your group is not a raid.",
       "leaderOnly": "Only the raid leader may convert to a party.",
       "tooLarge": "A raid with more than five members cannot convert back to a party."
+    },
+    "loot": {
+      "chestTitle": "Chest"
+    },
+    "spellbook": {
+      "addToBarAria": "Add {name} to action bar",
+      "removeFromBarAria": "Remove {name} from action bar"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {

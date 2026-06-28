@@ -14,6 +14,22 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const ru_RU: Partial<Record<TranslationKey, string>> = {
+  'hudChrome.loot.chestTitle': 'Сундук',
+  'hudChrome.spellbook.addToBarAria': 'Добавить {name} на панель действий',
+  'hudChrome.spellbook.removeFromBarAria': 'Убрать {name} с панели действий',
+  'hudChrome.nameplate.mob': '[{level}] {name}',
+  'hudChrome.nameplate.mobElite': '[{level}+] {name}',
+  'hud.core.mapCanvasLabel': 'Карта',
+  'hud.core.mapSummary': 'Карта зоны {zone}.',
+  'hudChrome.castBar.playerAria': 'Ваша полоса применения',
+  'hudChrome.castBar.targetAria': 'Полоса применения цели',
+  'hudChrome.skipLinks.chat': 'Перейти к чату',
+  'hudChrome.skipLinks.mainHud': 'Перейти к основному интерфейсу',
+  'hudChrome.unitFrame.durationUnitSeconds': 'с',
+  'hudChrome.unitFrame.partyLabel': 'Ваша группа',
+  'hudChrome.unitFrame.playerLabel': 'Ваш персонаж',
+  'hudChrome.unitFrame.targetAnnounce': 'Цель: {name}',
+  'hudChrome.unitFrame.targetLabel': 'Ваша цель',
   'seo.officialLabel': 'Официальный сайт World of ClaudeCraft',
   'seo.officialBody':
     'worldofclaudecraft.com - официальная бесплатная браузерная MMO для мира Claudemoon. Играйте онлайн с постоянным персонажем, исследуйте мир в одиночку офлайн, читайте wiki и переходите по проверенным ссылкам сообщества с этого сайта.',

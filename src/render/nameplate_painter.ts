@@ -25,7 +25,7 @@ import {
   holderTierByIndex,
   holderTierDisplayName,
 } from '../ui/holder_tier';
-import { t } from '../ui/i18n';
+import { formatNumber, t } from '../ui/i18n';
 import { raidMarkerDataUrl } from '../ui/icons';
 import { type IWorld, OVERHEAD_EMOTES } from '../world_api';
 import { castBarState } from './cast_bar';
@@ -230,7 +230,10 @@ export class NameplatePainter {
         const mobName = e.ownerId !== null ? e.name : mobDisplayName(e.templateId);
         const name = e.dead
           ? t('worldContent.corpseName', { name: mobName })
-          : `[${e.level}${elite ? '+' : ''}] ${mobName}`;
+          : t(elite ? 'hudChrome.nameplate.mobElite' : 'hudChrome.nameplate.mob', {
+              level: formatNumber(e.level, { maximumFractionDigits: 0 }),
+              name: mobName,
+            });
         const hpDisplay = e.dead ? 'none' : '';
         const marker = e.lootable ? '$' : elite && !e.dead ? '◆' : '';
         // classic "dragon frame" cue: gold bar frame for elites, red for bosses (live mobs only)

@@ -223,19 +223,19 @@ export const ja_JP: EnTranslations = {
       "resting": "休息中"
     },
     "unitFrame": {
-      "playerLabel": "Your Hero",
-      "targetLabel": "Your Mark",
-      "targetAnnounce": "Mark {name}",
-      "partyLabel": "Your Band",
+      "playerLabel": "あなたのキャラクター",
+      "targetLabel": "あなたのターゲット",
+      "targetAnnounce": "ターゲット：{name}",
+      "partyLabel": "あなたのパーティ",
       "partyGroup": "グループ {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "秒"
     },
     "character": {
       "modelPreview": "キャラクターモデルプレビュー"
     },
     "skipLinks": {
-      "mainHud": "Skip to Main HUD",
-      "chat": "Skip to Chat"
+      "mainHud": "メインHUDへスキップ",
+      "chat": "チャットへスキップ"
     },
     "mobile": {
       "autorun": "オートラン",
@@ -260,8 +260,8 @@ export const ja_JP: EnTranslations = {
       "minimapZoom": "ミニマップのズーム"
     },
     "castBar": {
-      "playerAria": "Your Cast Bar",
-      "targetAria": "Unit Cast Bar"
+      "playerAria": "あなたの詠唱バー",
+      "targetAria": "ターゲットの詠唱バー"
     },
     "leaderboard": {
       "close": "閉じる"
@@ -605,6 +605,17 @@ export const ja_JP: EnTranslations = {
       "notRaid": "パーティはレイドではありません。",
       "leaderOnly": "パーティに変換できるのはレイドリーダーだけです。",
       "tooLarge": "メンバーが5人を超えるレイドはパーティに戻せません。"
+    },
+    "loot": {
+      "chestTitle": "宝箱"
+    },
+    "spellbook": {
+      "addToBarAria": "{name}をアクションバーに追加",
+      "removeFromBarAria": "{name}をアクションバーから削除"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {
@@ -2432,8 +2443,8 @@ export const ja_JP: EnTranslations = {
       "closeMap": "マップを閉じる",
       "zoomIn": "ズームイン",
       "zoomOut": "ズームアウト",
-      "mapCanvasLabel": "Map",
-      "mapSummary": "Map of {zone}."
+      "mapCanvasLabel": "マップ",
+      "mapSummary": "{zone}のマップ。"
     },
     "options": {
       "gameMenu": "ゲームメニュー",

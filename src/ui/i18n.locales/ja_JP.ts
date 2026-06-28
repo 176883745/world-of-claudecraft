@@ -14,6 +14,22 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const ja_JP: Partial<Record<TranslationKey, string>> = {
+  'hudChrome.loot.chestTitle': '宝箱',
+  'hudChrome.spellbook.addToBarAria': '{name}をアクションバーに追加',
+  'hudChrome.spellbook.removeFromBarAria': '{name}をアクションバーから削除',
+  'hudChrome.nameplate.mob': '[{level}] {name}',
+  'hudChrome.nameplate.mobElite': '[{level}+] {name}',
+  'hud.core.mapCanvasLabel': 'マップ',
+  'hud.core.mapSummary': '{zone}のマップ。',
+  'hudChrome.castBar.playerAria': 'あなたの詠唱バー',
+  'hudChrome.castBar.targetAria': 'ターゲットの詠唱バー',
+  'hudChrome.skipLinks.chat': 'チャットへスキップ',
+  'hudChrome.skipLinks.mainHud': 'メインHUDへスキップ',
+  'hudChrome.unitFrame.durationUnitSeconds': '秒',
+  'hudChrome.unitFrame.partyLabel': 'あなたのパーティ',
+  'hudChrome.unitFrame.playerLabel': 'あなたのキャラクター',
+  'hudChrome.unitFrame.targetAnnounce': 'ターゲット：{name}',
+  'hudChrome.unitFrame.targetLabel': 'あなたのターゲット',
   'seo.officialLabel': 'World of ClaudeCraft 公式サイト',
   'seo.officialBody':
     'worldofclaudecraft.com は Claudemoon レルムの公式無料ブラウザMMOです。永続キャラクターでオンラインプレイし、オフラインでソロ探索し、wikiを読み、このサイトから確認済みのコミュニティリンクをたどれます。',

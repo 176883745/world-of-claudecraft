@@ -14,6 +14,22 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const zh_CN: Partial<Record<TranslationKey, string>> = {
+  'hudChrome.loot.chestTitle': '宝箱',
+  'hudChrome.spellbook.addToBarAria': '将{name}添加到动作条',
+  'hudChrome.spellbook.removeFromBarAria': '从动作条移除{name}',
+  'hudChrome.nameplate.mob': '[{level}] {name}',
+  'hudChrome.nameplate.mobElite': '[{level}+] {name}',
+  'hud.core.mapCanvasLabel': '地图',
+  'hud.core.mapSummary': '{zone}的地图。',
+  'hudChrome.castBar.playerAria': '你的施法条',
+  'hudChrome.castBar.targetAria': '目标施法条',
+  'hudChrome.skipLinks.chat': '跳转到聊天',
+  'hudChrome.skipLinks.mainHud': '跳转到主界面',
+  'hudChrome.unitFrame.durationUnitSeconds': '秒',
+  'hudChrome.unitFrame.partyLabel': '你的队伍',
+  'hudChrome.unitFrame.playerLabel': '你的角色',
+  'hudChrome.unitFrame.targetAnnounce': '目标：{name}',
+  'hudChrome.unitFrame.targetLabel': '你的目标',
   'seo.officialLabel': 'World of ClaudeCraft 官方网站',
   'seo.officialBody':
     'worldofclaudecraft.com 是 Claudemoon 服务器的官方免费浏览器 MMO。你可以用持久角色在线游玩，也可以离线单人探索，阅读 wiki，并从本站访问已验证的社区链接。',

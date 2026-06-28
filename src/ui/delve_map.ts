@@ -92,11 +92,15 @@ export function delveLocalToCanvas(
   return { cx, cy };
 }
 
-/** The static schematic primitives for a module (floor + walls + pillars + tombs + dais + exit). */
+/** The static schematic primitives for a module (floor + walls + pillars + tombs + dais + exit).
+ *  `northLabel` is the localized compass-north glyph drawn at the exit (the caller
+ *  injects t('hudChrome.compass.N'); it is locale-dependent, e.g. ru С, zh/ja 北, ko 북).
+ *  Defaults to the cartographic 'N' for non-rendering callers (tests / direct use). */
 export function delveSchematicStatic(
   layout: DungeonLayout,
   canvasSize: number,
   pad: number,
+  northLabel = 'N',
 ): SchematicPrimitive[] {
   const prims: SchematicPrimitive[] = [];
 
@@ -198,7 +202,7 @@ export function delveSchematicStatic(
     kind: 'text',
     cx: exCx,
     cy: exCy - Math.max(5, canvasSize * 0.05),
-    text: 'N',
+    text: northLabel,
     fill: '#b090e8',
     font: `bold ${Math.max(8, Math.round(canvasSize * 0.08))}px Georgia`,
   });

@@ -223,19 +223,19 @@ export const de_DE: EnTranslations = {
       "resting": "Erholung"
     },
     "unitFrame": {
-      "playerLabel": "Your Hero",
-      "targetLabel": "Your Mark",
-      "targetAnnounce": "Mark {name}",
-      "partyLabel": "Your Band",
-      "partyGroup": "Group {n}",
+      "playerLabel": "Euer Charakter",
+      "targetLabel": "Euer Ziel",
+      "targetAnnounce": "Ziel: {name}",
+      "partyLabel": "Eure Gruppe",
+      "partyGroup": "Gruppe {n}",
       "durationUnitSeconds": "s"
     },
     "character": {
-      "modelPreview": "Character Model Preview"
+      "modelPreview": "Charaktermodell-Vorschau"
     },
     "skipLinks": {
-      "mainHud": "Skip to Main HUD",
-      "chat": "Skip to Chat"
+      "mainHud": "Zum Haupt-HUD springen",
+      "chat": "Zum Chat springen"
     },
     "mobile": {
       "autorun": "Auto-Laufen",
@@ -260,11 +260,11 @@ export const de_DE: EnTranslations = {
       "minimapZoom": "Minikarten-Zoom"
     },
     "castBar": {
-      "playerAria": "Your Cast Bar",
-      "targetAria": "Unit Cast Bar"
+      "playerAria": "Eure Zauberleiste",
+      "targetAria": "Zauberleiste des Ziels"
     },
     "leaderboard": {
-      "close": "Close"
+      "close": "Schließen"
     },
     "raidLockout": {
       "title": "Schlachtzug-Sperren",
@@ -605,6 +605,17 @@ export const de_DE: EnTranslations = {
       "notRaid": "Eure Gruppe ist kein Schlachtzug.",
       "leaderOnly": "Nur der Schlachtzugsleiter darf in eine Gruppe umwandeln.",
       "tooLarge": "Ein Schlachtzug mit mehr als fünf Mitgliedern kann nicht wieder in eine Gruppe umgewandelt werden."
+    },
+    "loot": {
+      "chestTitle": "Truhe"
+    },
+    "spellbook": {
+      "addToBarAria": "{name} zur Aktionsleiste hinzufügen",
+      "removeFromBarAria": "{name} von der Aktionsleiste entfernen"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {
@@ -2432,8 +2443,8 @@ export const de_DE: EnTranslations = {
       "closeMap": "Karte schließen",
       "zoomIn": "Heranzoomen",
       "zoomOut": "Herauszoomen",
-      "mapCanvasLabel": "Map",
-      "mapSummary": "Map of {zone}."
+      "mapCanvasLabel": "Karte",
+      "mapSummary": "Karte von {zone}."
     },
     "options": {
       "gameMenu": "Spielmenü",

@@ -182,6 +182,7 @@ function fakeDeps(): ActionBarDeps {
     abilityName: (def) => def.id,
     itemName: (i) => i.id,
     slotLabel: (slotIndex) => `${slotIndex + 1}`,
+    formatCount: (n) => String(n),
   };
 }
 

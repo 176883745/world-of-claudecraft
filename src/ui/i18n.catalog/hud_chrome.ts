@@ -630,4 +630,24 @@ export const hudChromeStrings = {
     leaderOnly: 'Only the raid leader may convert to a party.',
     tooLarge: 'A raid with more than five members cannot convert back to a party.',
   },
+  // Loot window title shown only when the chest entity is missing (the normal path
+  // uses the chest's localized entity name); replaces a former hard-coded 'Chest'.
+  loot: {
+    chestTitle: 'Chest',
+  },
+  // Spellbook action-bar toggle accessible names. The visible glyph is +/-; the
+  // accessible name states the action so a screen reader is not left with a bare
+  // symbol. {name} is the (already localized) ability name.
+  spellbook: {
+    addToBarAria: 'Add {name} to action bar',
+    removeFromBarAria: 'Remove {name} from action bar',
+  },
+  // Live overworld mob nameplate label: a bracketed level then the localized mob
+  // name (mirrors the corpse branch's worldContent.corpseName template). {level}
+  // runs through formatNumber; {name} is already localized. Format-only (brackets /
+  // order may reorder per locale), kept here so an English-only add compiles.
+  nameplate: {
+    mob: '[{level}] {name}',
+    mobElite: '[{level}+] {name}',
+  },
 };

@@ -9,7 +9,7 @@
 
 import { itemDisplayName } from './entity_i18n';
 import { esc } from './esc';
-import { formatMoney as formatLocalizedMoney, t } from './i18n';
+import { formatMoney as formatLocalizedMoney, formatNumber, t } from './i18n';
 import type { PainterHostPresentation } from './painter_host';
 import { svgIcon } from './ui_icons';
 import type { VendorView } from './vendor_view';
@@ -101,7 +101,7 @@ export function renderVendorWindow(
     const price = formatLocalizedMoney(priceCopper);
     const itemName = itemDisplayName(item);
     row.setAttribute('aria-label', t('itemUi.vendor.buybackAria', { item: itemName, price }));
-    row.innerHTML = `${deps.itemIcon(item)}<span class="vi-name">${esc(itemName)}${count > 1 ? ` x${count}` : ''}</span><span class="vi-price">${deps.moneyHtml(priceCopper)}</span>`;
+    row.innerHTML = `${deps.itemIcon(item)}<span class="vi-name">${esc(itemName)}${count > 1 ? ` ${esc(t('itemUi.bags.stackCount', { count: formatNumber(count, { maximumFractionDigits: 0 }) }))}` : ''}</span><span class="vi-price">${deps.moneyHtml(priceCopper)}</span>`;
     row.addEventListener('click', () => deps.onBuyBack(itemId));
     deps.attachTooltip(
       row,

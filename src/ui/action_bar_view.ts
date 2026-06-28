@@ -98,6 +98,9 @@ export interface ActionBarDeps {
   abilityName(def: AbilityDef): string;
   itemName(item: ItemDef): string;
   slotLabel(slotIndex: number): string;
+  /** Localized integer formatter (the item stack count and cooldown digits go
+   *  through this, per the "numbers go through formatNumber" invariant). */
+  formatCount(n: number): string;
 }
 
 /** The player fields the bar reads; a structural subset both worlds mirror. */
@@ -267,7 +270,7 @@ export function createActionBarView(
           slot.cooldownTotal = 0;
           slot.cooldownPercent = 0;
           slot.cdText = '';
-          slot.count = String(count);
+          slot.count = deps.formatCount(count);
           slot.usable = !(count <= 0 || player.dead);
           slot.outOfRange = false;
           slot.queued = false;
@@ -300,7 +303,7 @@ export function createActionBarView(
                 (shown / Math.max(COOLDOWN_DENOM_FLOOR, denom)) * MAX_COOLDOWN_PERCENT,
               )
             : 0;
-        slot.cdText = cd > COOLDOWN_TEXT_THRESHOLD ? Math.ceil(cd).toString() : '';
+        slot.cdText = cd > COOLDOWN_TEXT_THRESHOLD ? deps.formatCount(Math.ceil(cd)) : '';
         slot.count = '';
         slot.usable = !(player.resource < ability.cost);
         slot.outOfRange =

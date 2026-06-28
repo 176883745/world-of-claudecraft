@@ -223,19 +223,19 @@ export const zh_TW: EnTranslations = {
       "resting": "休息中"
     },
     "unitFrame": {
-      "playerLabel": "Your Hero",
-      "targetLabel": "Your Mark",
-      "targetAnnounce": "Mark {name}",
-      "partyLabel": "Your Band",
+      "playerLabel": "你的角色",
+      "targetLabel": "你的目標",
+      "targetAnnounce": "目標：{name}",
+      "partyLabel": "你的隊伍",
       "partyGroup": "小隊 {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "秒"
     },
     "character": {
       "modelPreview": "角色模型預覽"
     },
     "skipLinks": {
-      "mainHud": "Skip to Main HUD",
-      "chat": "Skip to Chat"
+      "mainHud": "跳至主介面",
+      "chat": "跳至聊天"
     },
     "mobile": {
       "autorun": "自動奔跑",
@@ -260,8 +260,8 @@ export const zh_TW: EnTranslations = {
       "minimapZoom": "小地圖縮放"
     },
     "castBar": {
-      "playerAria": "Your Cast Bar",
-      "targetAria": "Unit Cast Bar"
+      "playerAria": "你的施法條",
+      "targetAria": "目標施法條"
     },
     "leaderboard": {
       "close": "關閉"
@@ -605,6 +605,17 @@ export const zh_TW: EnTranslations = {
       "notRaid": "你的隊伍並非團隊。",
       "leaderOnly": "只有團隊領袖可以轉換為隊伍。",
       "tooLarge": "超過五名成員的團隊無法轉換回隊伍。"
+    },
+    "loot": {
+      "chestTitle": "寶箱"
+    },
+    "spellbook": {
+      "addToBarAria": "將 {name} 加入動作列",
+      "removeFromBarAria": "將 {name} 從動作列移除"
+    },
+    "nameplate": {
+      "mob": "[{level}] {name}",
+      "mobElite": "[{level}+] {name}"
     }
   },
   "guide": {
@@ -2432,8 +2443,8 @@ export const zh_TW: EnTranslations = {
       "closeMap": "關閉地圖",
       "zoomIn": "放大",
       "zoomOut": "縮小",
-      "mapCanvasLabel": "Map",
-      "mapSummary": "Map of {zone}."
+      "mapCanvasLabel": "地圖",
+      "mapSummary": "{zone}的地圖。"
     },
     "options": {
       "gameMenu": "遊戲選單",

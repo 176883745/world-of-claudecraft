@@ -526,6 +526,7 @@ function actionBarDeps(): ActionBarDeps {
     abilityName: (def) => def.id,
     itemName: (item) => item.id,
     slotLabel: (slotIndex) => `${slotIndex + 1}`,
+    formatCount: (n) => String(n),
   };
 }
 

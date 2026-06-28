@@ -167,10 +167,17 @@ export class SpellbookWindow {
           btn.textContent = onBar ? '-' : '+';
           btn.classList.toggle('remove', onBar);
           btn.setAttribute('aria-pressed', onBar ? 'true' : 'false');
-          // Keep the accessible name in sync with the toggle state: appendRow
-          // sets `${name} +/-`. Same symbol-concat format as appendRow.
+          // Keep the accessible name in sync with the toggle state: a spoken
+          // action ("Add/Remove {name} to action bar"), not a bare +/- glyph.
+          // Same key pair as appendRow.
           const def = ABILITIES[id];
-          if (def) btn.setAttribute('aria-label', `${this.abilityName(def)} ${onBar ? '-' : '+'}`);
+          if (def)
+            btn.setAttribute(
+              'aria-label',
+              t(onBar ? 'hudChrome.spellbook.removeFromBarAria' : 'hudChrome.spellbook.addToBarAria', {
+                name: this.abilityName(def),
+              }),
+            );
         }
         btn.disabled = !onBar && !hasFree;
       });
@@ -206,7 +213,12 @@ export class SpellbookWindow {
       toggle.className = `spell-hotbar-toggle${row.onBar ? ' remove' : ''}`;
       toggle.dataset.abilityId = known.def.id;
       toggle.textContent = row.onBar ? '-' : '+';
-      toggle.setAttribute('aria-label', `${name} ${row.onBar ? '-' : '+'}`);
+      toggle.setAttribute(
+        'aria-label',
+        t(row.onBar ? 'hudChrome.spellbook.removeFromBarAria' : 'hudChrome.spellbook.addToBarAria', {
+          name,
+        }),
+      );
       toggle.setAttribute('aria-pressed', row.onBar ? 'true' : 'false');
       toggle.disabled = row.toggleDisabled;
       toggle.addEventListener('pointerdown', (ev) => ev.stopPropagation());

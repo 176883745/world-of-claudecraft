@@ -75,6 +75,7 @@ function fakeDeps(): ActionBarDeps {
     abilityName: (def) => `ability:${def.id}`,
     itemName: (i) => `item:${i.id}`,
     slotLabel: (slotIndex) => `${slotIndex + 1}`,
+    formatCount: (n) => String(n),
   };
 }
 
