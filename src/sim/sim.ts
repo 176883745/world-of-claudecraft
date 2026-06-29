@@ -64,14 +64,12 @@ import {
   computeTalentModifiers,
   emptyAllocation,
   emptyModifiers,
-  FIRST_TALENT_LEVEL,
-  pointsSpent,
-  repairAllocation,
-  talentPointsAtLevel,
   type Role,
+  repairAllocation,
   type SavedLoadout,
   type TalentAllocation,
   type TalentModifiers,
+  talentPointsAtLevel,
 } from './content/talents';
 import { applyCooldowns, type SavedCooldowns, serializeCooldowns } from './cooldown_persist';
 import type { DelveShopGate, DelveShopOffer } from './data';

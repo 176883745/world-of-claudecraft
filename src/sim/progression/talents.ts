@@ -272,11 +272,7 @@ export function deleteTalentLoadout(ctx: SimContext, index: number, pid?: number
       // This is an AUTO-apply (no user gate), so repair against the level budget
       // first: switchTalentLoadout validates on its path, but here a stale or
       // tampered next loadout would otherwise be baked into live mods wholesale.
-      r.meta.talents = repairAllocation(
-        r.meta.cls,
-        next.alloc,
-        talentPointsAtLevel(r.e.level),
-      );
+      r.meta.talents = repairAllocation(r.meta.cls, next.alloc, talentPointsAtLevel(r.e.level));
       recomputeTalents(ctx, r.meta);
     }
   } else if (r.meta.activeLoadout > index) r.meta.activeLoadout -= 1;
