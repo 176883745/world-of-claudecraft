@@ -85,6 +85,7 @@ const DEFAULT_CHARACTER_CAP = 10;
 const DEFAULT_SEARCH_LIMIT = 8;
 const DEFAULT_TOP_LIMIT = 100;
 const DEFAULT_ARENA_TOP_LIMIT = 20;
+const DEFAULT_SITEMAP_LIMIT = 50000;
 
 export class FakeCharactersDb implements CharactersDb {
   // Keyed by character id, the in-memory equivalent of the characters table.
@@ -235,7 +236,7 @@ export class FakeCharactersDb implements CharactersDb {
     return row ? { accountId: row.account_id, characterId: row.id, characterName: row.name } : null;
   }
 
-  async listCharacterNamesForSitemap(limit = 50000): Promise<string[]> {
+  async listCharacterNamesForSitemap(limit = DEFAULT_SITEMAP_LIMIT): Promise<string[]> {
     return [...this.rows.values()].map((r) => r.name).slice(0, Math.max(0, limit));
   }
 }
