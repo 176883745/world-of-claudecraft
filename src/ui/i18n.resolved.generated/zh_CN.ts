@@ -151,6 +151,9 @@ export const zh_CN: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "正在观察 {name}"
+    },
     "emotes": {
       "wave": "挥手",
       "laugh": "大笑",

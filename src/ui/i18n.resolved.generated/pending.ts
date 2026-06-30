@@ -9,24 +9,52 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "hudChrome.spectate.banner"
+  ],
+  "es_ES": [
+    "hudChrome.spectate.banner"
+  ],
+  "fr_FR": [
+    "hudChrome.spectate.banner"
+  ],
+  "fr_CA": [
+    "hudChrome.spectate.banner"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
+  "it_IT": [
+    "hudChrome.spectate.banner"
+  ],
+  "de_DE": [
+    "hudChrome.spectate.banner"
+  ],
   "zh_CN": [],
   "zh_TW": [],
   "ko_KR": [],
   "ja_JP": [],
-  "pt_BR": [],
+  "pt_BR": [
+    "hudChrome.spectate.banner"
+  ],
   "ru_RU": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "nl_NL": [
+    "hudChrome.spectate.banner"
+  ],
+  "pl_PL": [
+    "hudChrome.spectate.banner"
+  ],
+  "id_ID": [
+    "hudChrome.spectate.banner"
+  ],
+  "tr_TR": [
+    "hudChrome.spectate.banner"
+  ],
+  "sv_SE": [
+    "hudChrome.spectate.banner"
+  ],
+  "vi_VN": [
+    "hudChrome.spectate.banner"
+  ],
+  "da_DK": [
+    "hudChrome.spectate.banner"
+  ]
 };

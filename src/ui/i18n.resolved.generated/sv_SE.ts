@@ -151,6 +151,9 @@ export const sv_SE: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "Spectating {name}"
+    },
     "emotes": {
       "wave": "Vinka",
       "laugh": "LOL",

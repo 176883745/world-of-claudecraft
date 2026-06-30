@@ -151,6 +151,9 @@ export const tr_TR: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "Spectating {name}"
+    },
     "emotes": {
       "wave": "El Salla",
       "laugh": "LOL",

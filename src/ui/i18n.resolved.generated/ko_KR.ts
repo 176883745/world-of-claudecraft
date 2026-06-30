@@ -151,6 +151,9 @@ export const ko_KR: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "{name} 관전 중"
+    },
     "emotes": {
       "wave": "손인사",
       "laugh": "ㅋㅋ",

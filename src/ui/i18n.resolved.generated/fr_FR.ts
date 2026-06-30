@@ -151,6 +151,9 @@ export const fr_FR: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "Spectating {name}"
+    },
     "emotes": {
       "wave": "Saluer de la main",
       "laugh": "MDR",

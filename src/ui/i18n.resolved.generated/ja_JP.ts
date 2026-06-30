@@ -151,6 +151,9 @@ export const ja_JP: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "{name}を観戦中"
+    },
     "emotes": {
       "wave": "手を振る",
       "laugh": "大笑い",

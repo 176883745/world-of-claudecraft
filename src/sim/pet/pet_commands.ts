@@ -355,6 +355,24 @@ export function despawnPersistentPet(ctx: SimContext, pet: Entity): void {
   ctx.dropEntity(pet.id);
 }
 
+export function stowPetForSpectate(ctx: SimContext, ownerPid: number): PetState | null {
+  const pet = petOf(ctx, ownerPid, true);
+  if (!pet) return null;
+  const state = serializePet(ctx, ownerPid);
+  despawnPersistentPet(ctx, pet);
+  return state;
+}
+
+export function restorePetAfterSpectate(
+  ctx: SimContext,
+  ownerPid: number,
+  state: PetState | null,
+): void {
+  if (!state || petOf(ctx, ownerPid, true)) return;
+  const owner = ctx.entities.get(ownerPid);
+  if (owner) restorePet(ctx, owner, state);
+}
+
 export function applyDemonHealTick(ctx: SimContext, owner: Entity): void {
   const pet = petOf(ctx, owner.id);
   if (!pet) {

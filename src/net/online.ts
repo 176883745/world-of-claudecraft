@@ -13,7 +13,7 @@ import {
   type TalentAllocation,
   talentPointsAtLevel,
 } from '../sim/content/talents';
-import { abilitiesKnownAt, NPCS, resolveDelveShopOffers } from '../sim/data';
+import { abilitiesKnownAt, CLASSES, NPCS, resolveDelveShopOffers } from '../sim/data';
 import { deadTargetSelectable } from '../sim/dead_target';
 import { LEADERBOARD_PAGE_SIZE } from '../sim/leaderboard_page';
 import type { Ante, PickAction } from '../sim/lockpick';
@@ -728,6 +728,9 @@ export class ClientWorld implements IWorld {
   cfg: { seed: number; playerClass: PlayerClass };
   entities = new Map<number, Entity>();
   playerId = -1;
+  private ownPlayerId = -1;
+  private readonly ownPlayerClass: PlayerClass;
+  spectating: string | null = null;
   moveInput: MoveInput = emptyMoveInput();
   known: ResolvedAbility[] = [];
   realm = '';
@@ -830,12 +833,15 @@ export class ClientWorld implements IWorld {
   private pendingInputSeqSentAt = new Map<number, number>();
   private ackedInputSeq = 0;
   private inputEchoSamples: number[] = [];
+  private spectateFacingPending = false;
+  private pendingSpectateFacing: number | null = null;
 
   constructor(token: string, characterId: number, cls: PlayerClass, base = '', clientSeed = '') {
     this.characterId = characterId;
     this.token = token;
     this.base = normalizeOrigin(base) || NATIVE_API_ORIGIN;
     this.clientSeed = clientSeed;
+    this.ownPlayerClass = cls;
     this.cfg = { seed: 20061, playerClass: cls };
     // when a realm was picked, connect to that realm's origin; otherwise the
     // page's own host
@@ -891,6 +897,12 @@ export class ClientWorld implements IWorld {
     return samples;
   }
 
+  consumeSpectateFacing(): number | null {
+    const facing = this.pendingSpectateFacing;
+    this.pendingSpectateFacing = null;
+    return facing;
+  }
+
   // -----------------------------------------------------------------------
   // Socket
   // -----------------------------------------------------------------------
@@ -912,7 +924,13 @@ export class ClientWorld implements IWorld {
   }
 
   private sendInput(now = performance.now(), changedOnly = false): boolean {
-    if (!this.connected || this.ws.readyState !== WebSocket.OPEN) return false;
+    if (
+      typeof this.spectating === 'string' ||
+      !this.connected ||
+      this.ws.readyState !== WebSocket.OPEN
+    ) {
+      return false;
+    }
     const sig = this.inputSignature();
     if (changedOnly) {
       if (sig === this.lastInputSig) return false;
@@ -961,6 +979,7 @@ export class ClientWorld implements IWorld {
   // guarantee rather than a runtime hope: a send of an unknown or dispatch-only
   // token fails `tsc`. The raw escape hatch (devCmd) stays untyped on purpose.
   private cmd(payload: { cmd: ClientCommand } & Record<string, unknown>): void {
+    if (typeof this.spectating === 'string' && payload.cmd !== 'chat') return;
     this.rawCmd(payload);
   }
 
@@ -978,6 +997,7 @@ export class ClientWorld implements IWorld {
     }
     if (msg.t === 'hello') {
       this.playerId = msg.pid;
+      this.ownPlayerId = msg.pid;
       this.cfg.seed = msg.seed;
       if (typeof msg.realm === 'string') this.realm = msg.realm;
       if (Array.isArray(msg.softWords)) {
@@ -987,6 +1007,20 @@ export class ClientWorld implements IWorld {
         this.profanityDirty = true;
       }
       this.connected = true;
+      return;
+    }
+    if (msg.t === 'spectate') {
+      this.spectating = typeof msg.name === 'string' ? msg.name : null;
+      this.spectateFacingPending = true;
+      this.pendingSpectateFacing = null;
+      this.pendingInputSeqSentAt.clear();
+      this.inputEchoSamples = [];
+      if (typeof this.spectating !== 'string') {
+        this.playerId = this.ownPlayerId;
+        this.cfg.playerClass = this.ownPlayerClass;
+      }
+      Object.assign(this.moveInput, emptyMoveInput());
+      this.mouselookFacing = null;
       return;
     }
     if (msg.t === 'censor') {
@@ -1073,6 +1107,9 @@ export class ClientWorld implements IWorld {
 
   private applySnapshot(snap: any): void {
     const now = performance.now();
+    if (typeof this.spectating === 'string' && typeof snap.self?.id === 'number') {
+      this.playerId = snap.self.id;
+    }
     // the interpolation alpha the render loop reached on its last frame
     // (same formula and caps as main.ts); used below to re-anchor the new
     // interpolation segment at the pose currently on screen
@@ -1089,6 +1126,7 @@ export class ClientWorld implements IWorld {
     const seen = new Set<number>();
     const prevSelf = this.entities.get(this.playerId);
     const prevSelfFacing = prevSelf?.facing;
+    const prevSelfDead = prevSelf?.dead ?? false;
 
     const applyWire = (w: any): Entity | null => {
       let e = this.entities.get(w.id);
@@ -1237,6 +1275,15 @@ export class ClientWorld implements IWorld {
     const s = snap.self;
     const e = s ? applyWire(s) : null;
     if (s && e) {
+      if (typeof this.spectating === 'string' && e.kind === 'player' && e.templateId in CLASSES) {
+        this.cfg.playerClass = e.templateId as PlayerClass;
+      }
+      if (this.spectateFacingPending) {
+        this.pendingSpectateFacing = e.facing;
+        this.spectateFacingPending = false;
+      } else if (typeof this.spectating === 'string' && prevSelf && prevSelfDead && !e.dead) {
+        this.pendingSpectateFacing = e.facing;
+      }
       seen.add(s.id);
       if (typeof s.ack === 'number' && s.ack > this.ackedInputSeq) {
         for (let seq = this.ackedInputSeq + 1; seq <= s.ack; seq++) {
@@ -1367,6 +1414,14 @@ export class ClientWorld implements IWorld {
     const missingSince = this.missingSince;
     for (const [id, e] of this.entities) {
       if (id === this.playerId) continue;
+      // Keep the moderator's last own-self record while a different player is
+      // presented as self. The spectate-clear frame can then restore the original
+      // identity immediately instead of exposing a blank entity before the next
+      // server snapshot arrives.
+      if (typeof this.spectating === 'string' && id === this.ownPlayerId) {
+        missingSince.delete(id);
+        continue;
+      }
       if (seen.has(id)) {
         missingSince.delete(id);
         continue;

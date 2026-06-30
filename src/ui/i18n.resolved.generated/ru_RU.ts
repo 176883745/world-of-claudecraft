@@ -151,6 +151,9 @@ export const ru_RU: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "Наблюдение за {name}"
+    },
     "emotes": {
       "wave": "Помахать",
       "laugh": "Смех",

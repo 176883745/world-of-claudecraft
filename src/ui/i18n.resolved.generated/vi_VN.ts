@@ -151,6 +151,9 @@ export const vi_VN: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "Spectating {name}"
+    },
     "emotes": {
       "wave": "Vẫy Tay",
       "laugh": "Cười Lớn",

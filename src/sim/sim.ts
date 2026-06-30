@@ -2179,9 +2179,9 @@ export class Sim {
 
   // Mark a player as a GM: invulnerable (see dealDamage). Server-side only —
   // set at join time from the characters.is_gm column.
-  setGm(pid?: number): void {
+  setGm(pid?: number, enabled = true): void {
     const r = this.resolve(pid);
-    if (r) r.e.gm = true;
+    if (r) r.e.gm = enabled;
   }
 
   // Dev/test convenience: jump a player to a level (learns abilities, recalcs stats).
@@ -3202,6 +3202,14 @@ export class Sim {
   // despawnPersistentPet/despawnPet/clearNonPlayerStatAuras into the module.
   petOf(ownerPid: number, includeDead = false): Entity | null {
     return petCommands.petOf(this.ctx, ownerPid, includeDead);
+  }
+
+  stowPetForSpectate(ownerPid: number): PetState | null {
+    return petCommands.stowPetForSpectate(this.ctx, ownerPid);
+  }
+
+  restorePetAfterSpectate(ownerPid: number, state: PetState | null): void {
+    petCommands.restorePetAfterSpectate(this.ctx, ownerPid, state);
   }
 
   private serializePet(ownerPid: number): PetState | null {

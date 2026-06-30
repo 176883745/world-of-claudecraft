@@ -151,6 +151,9 @@ export const da_DK: EnTranslations = {
     }
   },
   "hudChrome": {
+    "spectate": {
+      "banner": "Spectating {name}"
+    },
     "emotes": {
       "wave": "Vink",
       "laugh": "LOL",

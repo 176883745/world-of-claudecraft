@@ -135,6 +135,7 @@ import {
 } from './ui/player_card_share';
 import { hydratePortraits, portraitChipHtml } from './ui/portrait_chip';
 import { tServer } from './ui/server_i18n';
+import { createSpectateBadge } from './ui/spectate_badge';
 import { type PresetId, type ThemeKnob, ThemeStore } from './ui/theme';
 import {
   classifyAuthCode,
@@ -847,6 +848,7 @@ async function startGame(
     fatalOverlay(t('loading.assetsFailed', { error: technicalErrorMessage(err) }));
     return;
   }
+  const spectateBadge = createSpectateBadge();
   setLoadingStatus(t('loading.enteringWorld'));
   // Let the final status + full progress bar paint before the synchronous
   // Renderer/Hud build freezes the main thread for a beat.
@@ -2193,6 +2195,9 @@ async function startGame(
 
     // online: inputs stream on a timer inside ClientWorld; here we mirror state
     const net = online!;
+    spectateBadge.update(net.spectating);
+    const spectateFacing = net.consumeSpectateFacing();
+    if (spectateFacing !== null) input.camYaw = spectateFacing;
     const resolved = resolveMove(
       mouselook,
       world.player.pos,
@@ -2269,7 +2274,13 @@ async function startGame(
     perf.time('renderer', () =>
       perf.trace(
         'renderer.sync',
-        () => renderer.sync(alpha, frameDt, movementFacing, ONLINE_SELF_RENDER_ALPHA_LEAD),
+        () =>
+          renderer.sync(
+            alpha,
+            frameDt,
+            net.spectating === null ? movementFacing : null,
+            ONLINE_SELF_RENDER_ALPHA_LEAD,
+          ),
         {
           mode: 'online',
           views: renderer.views.size,

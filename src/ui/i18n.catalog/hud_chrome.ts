@@ -8,6 +8,9 @@
 // own module (no per-locale blocks) so new chrome keys are an English-only add.
 
 export const hudChromeStrings = {
+  spectate: {
+    banner: 'Spectating {name}',
+  },
   // Overhead emote display names (wheel tooltips/labels, editor items, overhead
   // bubble text). Source ids/order mirror OVERHEAD_EMOTES in world_api.ts.
   emotes: {
