@@ -20,8 +20,8 @@ Mark a row's Status as "In progress" or "Done" and fill Started / Completed
 | Phase 03 QA | Done | 2026-06-30 | 2026-06-30 |
 | Phase 04 | Done | 2026-06-30 | 2026-06-30 |
 | Phase 04 QA | Done | 2026-06-30 | 2026-06-30 |
-| Phase 05 | Not started |  |  |
-| Phase 05 QA | Not started |  |  |
+| Phase 05 | Done | 2026-06-30 | 2026-06-30 |
+| Phase 05 QA | Done | 2026-06-30 | 2026-06-30 |
 | Phase 06 | Not started |  |  |
 | Phase 06 QA | Not started |  |  |
 | Phase 07 | Not started |  |  |
@@ -292,6 +292,37 @@ returned PASS with every acceptance criterion met by a regression-sensitive test
 - Re-validation after the fixes + 5 added tests: tsc clean; the two http files 37 tests pass; full
   `npm test` green; build:env/build:server/build all exit 0; Biome on the 4 changed files clean;
   ASCII-clean. Next: Phase 05 QA (phase-05-qa.md).
+
+QA (phase-05-qa.md) verdict: PASS-WITH-FOLLOWUPS-RESOLVED. Audited by a context Explore pass + 4
+parallel auditors (correctness, coverage, dead-code, privacy-security-review) each adversarially
+re-verified by an independent skeptic (9 raw -> 6 confirmed, 1 refuted). 1 BLOCKING defect (counted
+twice, code + masking test), 2 SHOULD-FIX, 2 NIT, all applied (apply-all-findings rule):
+- BLOCKING (privacy, buildUrl): the in-phase host-injection fix was INCOMPLETE. Rebuilding via
+  `new URL(parsed.pathname + parsed.search, PLACEHOLDER_ORIGIN)` still adopts a CLIENT host for a
+  plain origin-form target whose normalized path begins with `//`: `/..//evil.com` collapses to
+  `//evil.com`, which the second `new URL` re-reads as a protocol-relative AUTHORITY, so
+  `ctx.url.host` becomes `evil.com` (and `/..//evil.com:8443/x` -> `evil.com:8443`). Verified
+  empirically. The absolute-form-only pinning test masked it (its path was the safe single-slash
+  `/api/foo`). Fixed by ASSIGNING `url.pathname`/`url.search` onto a fresh fixed-authority `URL`
+  object (the setters cannot move the authority); host stays `localhost` for every `//`, backslash,
+  encoded-slash, and userinfo vector tested. Pinned by two new regression tests that fail on the old code.
+- SHOULD-FIX (coverage, compose sync-throw): the existing sync-throw test put the thrower at index 1
+  behind an async parent, so it passed even with compose's entry-frame try/catch removed; its inline
+  comment claimed otherwise. Corrected the comment and added a test that a FIRST middleware throwing
+  synchronously yields a rejected promise, not a synchronous throw (the only case that exercises the guard).
+- SHOULD-FIX (coverage, finalizeResponse net): the catch-swallow branch ("runOnion must never throw
+  out of its net") was dead across the suite. Added a test injecting a res whose writeHead/end throw
+  while writableEnded is false (a destroyed socket); runOnion must still resolve.
+- NIT (coverage): added a clean short-circuit test (a middleware resolves WITHOUT calling next();
+  downstream never runs) and a runOnion test where an inner middleware ends the response and an outer
+  one then throws (the writableEnded early-return on the throw path keeps the 200, no 500 clobber).
+- NIT (dead-code, comments): reconciled the Phase 7 vs Phase 8 attribution in compose.ts (the RFC 9457
+  envelope and codes are Phase 7; the withErrors middleware that emits them is Phase 8).
+- REFUTED: "double-next is only exercised from the outermost frame" - the guard (`i <= lastIndex`,
+  one monotonic closure var) is frame-agnostic, so a deeper-frame case would re-assert identical logic.
+- Re-validation: tsc clean; the two http files 43 tests pass (was 37, +6); full `npm test` green;
+  build:env/build:server/build all exit 0; Biome on the 4 changed files clean; ASCII-clean.
+  Next: Phase 06 (typed schema validator, phase-06-schema-validator.md).
 
 ## Phase 06: Typed schema validator (schema.ts)
 
