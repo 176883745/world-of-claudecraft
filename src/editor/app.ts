@@ -9,6 +9,7 @@
 // working document, registers it via setActiveWorldContent, and every terrain
 // sample (renderer chunks, procgen, smooth/flatten sampling) reads through it.
 
+import { invalidateStaticColliders } from '../sim/colliders';
 import { BUILTIN_WORLD, MOBS, PLAYER_START, setActiveWorldContent } from '../sim/data';
 import { MAX_TERRAIN_EDITS } from '../sim/map_doc';
 import type { CampDef, HeightStamp, WorldContent } from '../sim/types';
@@ -484,6 +485,9 @@ export class EditorApp {
       case 'smooth':
       case 'flatten':
         this.strokeCommit();
+        // The stroke mutated terrainEdits in place on the ACTIVE content, so
+        // the cached collider grid's ground-derived fields are stale.
+        invalidateStaticColliders();
         break;
       case 'paint':
         this.paintCommit();

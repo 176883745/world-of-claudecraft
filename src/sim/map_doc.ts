@@ -181,6 +181,32 @@ function zoneIsUsable(v: unknown): boolean {
   );
 }
 
+// Def-fill the nested zone sub-fields the terrain function and the editor
+// model iterate (lakes/pois arrays, hub radius/name, a valid biome), keeping
+// the never-throws contract: a minimal-but-usable zone loads instead of
+// crashing a viewer's editor tab. Mutates the zone object in place (it was
+// freshly JSON.parsed; nothing else holds a reference).
+function fillZoneDefaults(v: unknown): ZoneDef {
+  const z = v as Record<string, unknown>;
+  if (typeof z.id !== 'string') z.id = 'zone';
+  if (typeof z.name !== 'string') z.name = 'Zone';
+  if (!Array.isArray(z.lakes)) z.lakes = [];
+  if (!Array.isArray(z.pois)) z.pois = [];
+  if (typeof z.welcome !== 'string') z.welcome = '';
+  if (typeof z.biome !== 'string' || !BIOME_BY_ID.includes(z.biome as ZoneDef['biome'])) {
+    z.biome = 'vale';
+  }
+  if (!Array.isArray(z.levelRange)) z.levelRange = [1, 10];
+  const hub = z.hub as Record<string, unknown>;
+  if (typeof hub.radius !== 'number' || !Number.isFinite(hub.radius)) hub.radius = 20;
+  if (typeof hub.name !== 'string') hub.name = '';
+  const gy = z.graveyard as Record<string, unknown> | undefined;
+  if (!gy || typeof gy.x !== 'number' || typeof gy.z !== 'number') {
+    z.graveyard = { x: hub.x, z: hub.z };
+  }
+  return z as unknown as ZoneDef;
+}
+
 function sanitizeRoads(v: unknown): { x: number; z: number }[][] {
   const roads: { x: number; z: number }[][] = [];
   for (const road of arr(v).slice(0, MAX_ROADS)) {
@@ -215,7 +241,7 @@ export function sanitizeMapDoc(raw: unknown): MapDoc | null {
     string,
     unknown
   >;
-  const zones = arr(content.zones).filter(zoneIsUsable).slice(0, MAX_ZONES);
+  const zones = arr(content.zones).filter(zoneIsUsable).slice(0, MAX_ZONES).map(fillZoneDefaults);
   if (zones.length === 0) return null; // nothing to render/play
   const npcsRaw = content.npcs && typeof content.npcs === 'object' ? (content.npcs as object) : {};
   const npcs = Object.fromEntries(Object.entries(npcsRaw).slice(0, MAX_NPCS));
@@ -225,7 +251,7 @@ export function sanitizeMapDoc(raw: unknown): MapDoc | null {
     content: {
       // Zones/camps/npcs/objects keep their full shape (the editor and engine
       // read many fields); we only gate zones on the load-bearing ones above.
-      zones: zones as ZoneDef[],
+      zones,
       camps: arr(content.camps).slice(0, MAX_CAMPS) as CampDef[],
       npcs: npcs as Record<string, NpcDef>,
       objects: arr(content.objects).slice(0, MAX_OBJECTS) as GroundObjectDef[],

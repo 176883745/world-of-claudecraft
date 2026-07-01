@@ -15,7 +15,7 @@ import { SFX_CLIPS } from './sfx_manifest.generated';
 const SAMPLE_GAIN = 0.85; // base level for sampled clips; sfxVolume multiplies this
 const MAX_VOICES = 24; // concurrent one-shot sources (frame-budget guard)
 const REF_DISTANCE = 5; // world units at which a sound is at full volume
-const MAX_DISTANCE = 46; // hard cutoff — beyond this, sources are silent/skipped
+const MAX_DISTANCE = 46; // hard cutoff: beyond this, sources are silent/skipped
 const MAX_DISTANCE_SQ = MAX_DISTANCE * MAX_DISTANCE;
 
 export interface PlayOpts {
@@ -101,7 +101,7 @@ class Sfx {
           const buf = await ctx.decodeAudioData(await res.arrayBuffer());
           this.buffers.set(key, buf);
         } catch {
-          /* missing/corrupt clip — that key just stays silent */
+          /* missing/corrupt clip: that key just stays silent */
         }
       }),
     );

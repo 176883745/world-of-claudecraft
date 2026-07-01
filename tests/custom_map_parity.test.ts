@@ -221,6 +221,32 @@ describe('custom-map terrain seam', () => {
     expect(sanitizeMapDoc({ content: { zones: [] } })).toBeNull();
   });
 
+  it('sanitizeMapDoc def-fills nested zone sub-fields (QA finding)', () => {
+    const doc = sanitizeMapDoc({
+      content: {
+        zones: [{ zMin: -10, zMax: 10, hub: { x: 0, z: 0 } }],
+        camps: [],
+        npcs: {},
+        objects: [],
+        roads: [],
+      },
+    });
+    const zone = doc?.content.zones[0];
+    expect(zone?.lakes).toEqual([]);
+    expect(zone?.pois).toEqual([]);
+    expect(zone?.biome).toBe('vale');
+    expect(zone?.hub.radius).toBeGreaterThan(0);
+    expect(zone?.graveyard).toEqual({ x: 0, z: 0 });
+    // A minimal zone must sample terrain without throwing.
+    setActiveWorldContent({
+      ...BUILTIN_WORLD,
+      zones: doc?.content.zones ?? [],
+      camps: [],
+      roads: [],
+    });
+    expect(() => terrainHeight(0, 0, SEED)).not.toThrow();
+  });
+
   it('sanitizeMapDoc caps npcs and objects (review hardening)', () => {
     const npcs: Record<string, unknown> = {};
     for (let i = 0; i < 500; i++) npcs[`npc${i}`] = { id: `npc${i}`, pos: { x: 0, z: 0 } };
