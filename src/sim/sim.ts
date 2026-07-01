@@ -1282,6 +1282,10 @@ export class Sim {
     // Restore ability/potion cooldowns so a relog cannot reset them (see
     // cooldown_persist.ts). Re-anchored to this sim's clock; a fresh character has none.
     player.potionCooldownUntil = applyCooldowns(savedState?.cooldowns, player.cooldowns, this.time);
+    // Re-derive the display copy from the restored authority; otherwise a relog inside
+    // the shared potion cooldown paints the action bar as READY (no swipe) while the
+    // use-gate (which reads potionCooldownUntil) still rejects the quaff.
+    player.potionCdRemaining = Math.max(0, player.potionCooldownUntil - this.time);
     if (savedState?.pet) this.restorePet(player, savedState.pet);
     return player.id;
   }

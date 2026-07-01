@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import * as items from '../src/sim/items';
 import { Sim } from '../src/sim/sim';
 import type { SimContext } from '../src/sim/sim_context';
-import type { Entity, SimEvent } from '../src/sim/types';
+import { type Entity, POTION_COOLDOWN, type SimEvent } from '../src/sim/types';
 
 // Direct tests for the extracted inventory/vendor module (W2). They call the module
 // functions with the real SimContext the Sim built in its ctor (the same seam the thin
@@ -125,6 +125,34 @@ describe('items.useItem', () => {
     expect(p.hp).toBe(p.maxHp); // 90 potion clamped to the 50 deficit
     expect(p.potionCooldownUntil).toBeGreaterThan(0);
     expect(sim.countItem('minor_healing_potion', pid)).toBe(0);
+  });
+
+  it('shares one 2-minute cooldown across all potions and materializes the remaining timer', () => {
+    const sim = makeWorld();
+    const { pid, p } = vendorPlayer(sim);
+    const ctx = ctxOf(sim);
+    sim.addItem('minor_healing_potion', 1, pid);
+    sim.addItem('minor_mana_potion', 1, pid);
+    p.hp = p.maxHp - 50;
+    p.resourceType = 'mana';
+    p.resource = p.maxResource - 50;
+
+    items.useItem(ctx, 'minor_healing_potion', pid);
+    // the shared cooldown is the classic 2 minutes, armed off the sim clock, and the
+    // remaining time is materialized for the action-bar swipe.
+    expect(POTION_COOLDOWN).toBe(120);
+    expect(p.potionCooldownUntil).toBeCloseTo(ctx.time + POTION_COOLDOWN, 5);
+    expect(p.potionCdRemaining).toBe(POTION_COOLDOWN);
+
+    // a DIFFERENT potion is refused while the shared cooldown runs (not consumed).
+    items.useItem(ctx, 'minor_mana_potion', pid);
+    expect(sim.countItem('minor_mana_potion', pid)).toBe(1);
+    expect(p.resource).toBe(p.maxResource - 50);
+
+    // updateTimers counts the materialized remaining down each tick.
+    sim.tick();
+    expect(p.potionCdRemaining).toBeLessThan(POTION_COOLDOWN);
+    expect(p.potionCdRemaining).toBeGreaterThan(0);
   });
 
   it('elixir applies the battle-elixir buff aura', () => {

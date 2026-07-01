@@ -389,7 +389,19 @@ describe('delta snapshots', () => {
       expect(snap.self, `self.${key} resent although unchanged`).not.toHaveProperty(key);
     }
     // the always-on fields are still present every snapshot
-    for (const key of ['x', 'z', 'hp', 'mhp', 'res', 'gcd', 'swing', 'xp', 'copper', 'target']) {
+    for (const key of [
+      'x',
+      'z',
+      'hp',
+      'mhp',
+      'res',
+      'gcd',
+      'pcd',
+      'swing',
+      'xp',
+      'copper',
+      'target',
+    ]) {
       expect(snap.self).toHaveProperty(key);
     }
   });
@@ -403,6 +415,17 @@ describe('delta snapshots', () => {
     const client = bareClient(session.pid);
     (client as any).applySnapshot(snap);
     expect(client.player.swingTimer).toBeCloseTo(1.7, 1);
+  });
+
+  it('mirrors the shared potion cooldown to the online client for the action-bar swipe', () => {
+    const player = server.sim.entities.get(session.pid)!;
+    player.potionCdRemaining = 95.5;
+    broadcast(server);
+    const snap = lastSnap(fc.sent);
+    expect(snap.self.pcd).toBeCloseTo(95.5, 1);
+    const client = bareClient(session.pid);
+    (client as any).applySnapshot(snap);
+    expect(client.player.potionCdRemaining).toBeCloseTo(95.5, 1);
   });
 
   it('includes live aura and movement diagnostics in admin online rows', () => {
