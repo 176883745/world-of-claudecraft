@@ -5649,6 +5649,11 @@ export const fr_FR: EnTranslations = {
         "title": "Maître du savoir",
         "greeting": "Méfiez-vous des schistes instables, {className}. La montagne est agitée ces temps-ci, et je veux savoir pourquoi."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Frère Aldric",
         "title": "Prêtre du Val",

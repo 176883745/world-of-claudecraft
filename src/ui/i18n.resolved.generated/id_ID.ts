@@ -5649,6 +5649,11 @@ export const id_ID: EnTranslations = {
         "title": "Ahli Sejarah",
         "greeting": "Hati-hati dengan batu serpih yang longgar, {className}. Gunung ini... gelisah belakangan ini. Aku berniat mencari tahu sebabnya."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Bruder Aldric",
         "title": "Pendeta Lembah",

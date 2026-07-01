@@ -5649,6 +5649,11 @@ export const tr_TR: EnTranslations = {
         "title": "İrfan Ustası",
         "greeting": "Gevşek kayalara dikkat et, {className}. Dağ son zamanlarda... huzursuz. Nedenini öğrenmeye niyetliyim."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Birader Aldric",
         "title": "Vadi Rahibi",

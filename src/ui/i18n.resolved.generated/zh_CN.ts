@@ -5649,6 +5649,11 @@ export const zh_CN: EnTranslations = {
         "title": "博学者",
         "greeting": "小心松动的页岩，{className}。这座山近来不安，我想知道原因。"
       },
+      "auctioneer_voss": {
+        "name": "拍卖师沃斯",
+        "title": "世界市场守护者",
+        "greeting": "世界市场在此亦可使用，{className}。从王国各地的冒险者手中购买，或出售你自己的货物。"
+      },
       "brother_aldric_raid": {
         "name": "奥德里克修士",
         "title": "山谷牧师",

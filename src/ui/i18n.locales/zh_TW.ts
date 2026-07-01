@@ -2334,6 +2334,10 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.loremaster_caddis.title': '博學者',
   'entities.npcs.loremaster_caddis.greeting':
     '小心鬆動的頁岩，{className}。這座山近來不安，我想知道原因。',
+  'entities.npcs.auctioneer_voss.name': '拍賣師沃斯',
+  'entities.npcs.auctioneer_voss.title': '世界市場守護者',
+  'entities.npcs.auctioneer_voss.greeting':
+    '世界市場在此亦可使用，{className}。從王國各地的冒險者手中購買，或出售你自己的貨物。',
   'entities.npcs.tidewatcher_ondrel.name': '翁德瑞爾·韋恩',
   'entities.npcs.tidewatcher_ondrel.title': '守潮者',
   'entities.npcs.tidewatcher_ondrel.greeting':

@@ -2433,6 +2433,10 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.loremaster_caddis.title': '현자',
   'entities.npcs.loremaster_caddis.greeting':
     '느슨한 혈암을 조심하십시오, {className}. 산이 요즘 불안정해졌고, 나는 그 이유를 알고 싶습니다.',
+  'entities.npcs.auctioneer_voss.name': '경매인 보스',
+  'entities.npcs.auctioneer_voss.title': '세계 시장 관리자',
+  'entities.npcs.auctioneer_voss.greeting':
+    '세계 시장은 이곳에서도 이용할 수 있습니다, {className}. 왕국의 모험가들에게서 물건을 사거나 자신의 물건을 내놓으십시오.',
   'entities.npcs.tidewatcher_ondrel.name': '온드렐 베인',
   'entities.npcs.tidewatcher_ondrel.title': '조수지기',
   'entities.npcs.tidewatcher_ondrel.greeting':

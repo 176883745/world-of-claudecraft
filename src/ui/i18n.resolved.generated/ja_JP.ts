@@ -5649,6 +5649,11 @@ export const ja_JP: EnTranslations = {
         "title": "博識者",
         "greeting": "崩れやすい頁岩に気をつけてください、{className}。山は近ごろ落ち着きがなく、その理由を知りたいのです。"
       },
+      "auctioneer_voss": {
+        "name": "競売人ヴォス",
+        "title": "世界市場の守り手",
+        "greeting": "世界市場はここでも利用できます、{className}。王国中の冒険者から買うことも、自分の品を売ることもできます。"
+      },
       "brother_aldric_raid": {
         "name": "アルドリック修道士",
         "title": "谷の司祭",

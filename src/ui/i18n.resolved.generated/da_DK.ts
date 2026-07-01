@@ -5649,6 +5649,11 @@ export const da_DK: EnTranslations = {
         "title": "Lærdomsmester",
         "greeting": "Pas på det løse skifer, {className}. Bjerget har været... rastløst på det seneste. Jeg agter at finde ud af hvorfor."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Broder Aldric",
         "title": "Dalens Præst",

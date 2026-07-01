@@ -5649,6 +5649,11 @@ export const en_CA: EnTranslations = {
         "title": "Loremaster",
         "greeting": "Mind the loose shale, {className}. The mountain has been... restless of late. I intend to learn why."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Brother Aldric",
         "title": "Priest of the Vale",

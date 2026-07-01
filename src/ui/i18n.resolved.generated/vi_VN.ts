@@ -5649,6 +5649,11 @@ export const vi_VN: EnTranslations = {
         "title": "Sử Gia",
         "greeting": "Coi chừng đá phiến lỏng lẻo, {className}. Ngọn núi gần đây... bất an. Ta định tìm hiểu lý do."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Tu Huynh Aldric",
         "title": "Tu Sĩ Thung Lũng",

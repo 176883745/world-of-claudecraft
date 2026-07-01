@@ -5649,6 +5649,11 @@ export const es_ES: EnTranslations = {
         "title": "Maestro de saber",
         "greeting": "Cuida la pizarra suelta, {className}. La montaña está inquieta últimamente y quiero saber por qué."
       },
+      "auctioneer_voss": {
+        "name": "Auctioneer Voss",
+        "title": "Keeper of the World Market",
+        "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
+      },
       "brother_aldric_raid": {
         "name": "Hermano Aldric",
         "title": "Sacerdote del Valle",
