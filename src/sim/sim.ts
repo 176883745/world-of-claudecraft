@@ -6568,10 +6568,6 @@ export class Sim {
 
   get professionsState(): PlayerProfessionsView {
     return this.professionsStateFor(this.primaryId);
-  // Stub read surface for #1164: professions skill tracking + recipes land in
-  // later issues (#1119/#1120). Always empty until then.
-  get professionsState(): PlayerProfessionsView {
-    return { skills: [] };
   }
 }
 
