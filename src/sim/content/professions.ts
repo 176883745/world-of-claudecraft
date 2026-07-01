@@ -54,10 +54,14 @@ export const GATHERING_PROFESSION_IDS: GatheringProfessionId[] = ['mining', 'log
 
 // Tool effect slotting (#1136): a slottable bonus layered on top of a base
 // gathering tool's tier (see ../professions/tools.ts). Each effect carries its
-// own starting durability, separate from the base tool's tier gating, and a
-// per-use depletion chance: durability only drops on a losing roll, not on
-// every use, so the effect's lifespan is itself probabilistic. `kind` selects
-// which harvest/craft outcome field the bonus adjusts.
+// own starting durability, separate from the base tool's tier gating. Whether
+// a given use spends a charge is NOT a fixed per-effect chance: it is rolled
+// from the rarity-scaled consumption curve (#1139,
+// `../professions/tools.ts` `effectConsumptionChance`), comparing the tool's
+// own rarity against the rarity of what it is being used on, so the same
+// effect sips charges against a low-rarity target and spends them every use
+// against an equal-or-higher-rarity one. `kind` selects which harvest/craft
+// outcome field the bonus adjusts.
 export type ToolEffectId = 'gatherers_cache' | 'artisans_eye' | 'quickening_charm';
 
 export interface ToolEffectDef {
@@ -70,8 +74,6 @@ export interface ToolEffectDef {
   bonus: number;
   /** Charges the effect starts with when freshly slotted onto a tool. */
   startingDurability: number;
-  /** Chance per use that this effect's durability decrements by 1 (0 to 1). */
-  depletionChance: number;
 }
 
 export const TOOL_EFFECTS: Record<ToolEffectId, ToolEffectDef> = {
@@ -83,7 +85,6 @@ export const TOOL_EFFECTS: Record<ToolEffectId, ToolEffectDef> = {
     kind: 'quantity',
     bonus: 1,
     startingDurability: 20,
-    depletionChance: 0.5,
   },
   artisans_eye: {
     id: 'artisans_eye',
@@ -93,7 +94,6 @@ export const TOOL_EFFECTS: Record<ToolEffectId, ToolEffectDef> = {
     kind: 'quality',
     bonus: 1,
     startingDurability: 20,
-    depletionChance: 0.5,
   },
   quickening_charm: {
     id: 'quickening_charm',
@@ -103,7 +103,6 @@ export const TOOL_EFFECTS: Record<ToolEffectId, ToolEffectDef> = {
     kind: 'respawnSpeed',
     bonus: 1,
     startingDurability: 20,
-    depletionChance: 0.5,
   },
 };
 

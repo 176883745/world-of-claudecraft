@@ -238,13 +238,21 @@ describe('tool effect slotting with durability and depletion (#1136)', () => {
     expect(applyEffectBonus(undefined, baseOutcome)).toEqual(baseOutcome);
   });
 
+  // Tool rarity 'epic' vs target rarity 'rare' is a one-tier gap, which the
+  // rarity-scaled consumption curve (#1139) rolls at 60% (see
+  // professions_effect_consumption.test.ts for the full curve coverage); used
+  // here purely as a non-trivial, non-0/100% probability to exercise the
+  // probabilistic depletion mechanics themselves.
+  const TOOL_RARITY = 'epic';
+  const TARGET_RARITY = 'rare';
+
   it('depleteEffect decrements durability only on a losing roll, via Rng, deterministically under a fixed seed', () => {
     const runSequence = (seed: number): number[] => {
       const rng = new Rng(seed);
       const slot = slotEffect('gatherers_cache');
       const history: number[] = [];
       for (let i = 0; i < 30; i++) {
-        depleteEffect(slot, rng);
+        depleteEffect(slot, TOOL_RARITY, TARGET_RARITY, rng);
         history.push(slot.durability);
       }
       return history;
@@ -258,13 +266,13 @@ describe('tool effect slotting with durability and depletion (#1136)', () => {
     expect(a).not.toEqual(c);
     // Durability never goes negative across enough uses.
     expect(Math.min(...a)).toBeGreaterThanOrEqual(0);
-    // At a 50% chance, 30 draws almost always exhaust a 20-charge effect.
+    // At a 60% chance, 200 draws almost always exhaust a 20-charge effect.
     const runToZero = (seed: number): number[] => {
       const rng = new Rng(seed);
       const slot = slotEffect('gatherers_cache');
       const history: number[] = [];
       for (let i = 0; i < 200; i++) {
-        depleteEffect(slot, rng);
+        depleteEffect(slot, TOOL_RARITY, TARGET_RARITY, rng);
         history.push(slot.durability);
       }
       return history;
@@ -276,16 +284,25 @@ describe('tool effect slotting with durability and depletion (#1136)', () => {
     const rng = new Rng(1);
     const slot = slotEffect('artisans_eye');
     slot.durability = 0;
-    depleteEffect(slot, rng);
+    depleteEffect(slot, TOOL_RARITY, TARGET_RARITY, rng);
     expect(slot.durability).toBe(0);
   });
 
   it('re-slotting an effect resets it to full durability', () => {
     const slot = slotEffect('quickening_charm');
     const rng = new Rng(7);
-    for (let i = 0; i < 50; i++) depleteEffect(slot, rng);
+    for (let i = 0; i < 50; i++) depleteEffect(slot, TOOL_RARITY, TARGET_RARITY, rng);
     expect(slot.durability).toBe(0);
     const fresh = slotEffect('quickening_charm');
     expect(fresh.durability).toBeGreaterThan(0);
+  });
+
+  it('depleteEffect always spends a charge against an equal-or-higher rarity target', () => {
+    const rng = new Rng(2024);
+    const slot = slotEffect('gatherers_cache');
+    const before = slot.durability;
+    const spent = depleteEffect(slot, 'rare', 'rare', rng);
+    expect(spent).toBe(true);
+    expect(slot.durability).toBe(before - 1);
   });
 });

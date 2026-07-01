@@ -17,6 +17,7 @@ import {
 } from '../content/professions';
 import type { Rng } from '../rng';
 import type { ItemDef, ItemUse } from '../types';
+import type { MaterialRarity } from './gathering';
 
 export interface GatherToolUse {
   type: 'gatherTool';
@@ -116,17 +117,64 @@ export function applyEffectBonus(
   }
 }
 
+// Rarity-scaled effect durability consumption curve (#1139). The standard
+// rarity ladder (MaterialRarity: common/uncommon/rare/epic/legendary, see
+// gathering.ts) orders both a tool's own rarity (ItemDef `quality`) and the
+// rarity of the target being worked (a harvested material's rolled rarity, a
+// node's rarity, or any future rarity-bearing target). This fixed order is
+// the only input to the consumption roll below.
+const RARITY_ORDER: readonly MaterialRarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
+
+function rarityTierIndex(rarity: MaterialRarity): number {
+  return RARITY_ORDER.indexOf(rarity);
+}
+
+// Chance floor: even a tool many tiers above its target still spends a charge
+// sometimes, so a high-end tool never becomes fully "free" against trash
+// targets.
+export const CONSUMPTION_CHANCE_FLOOR = 0.1;
+
+// Chance lost per tier of gap between the tool's rarity and the (lower)
+// target's rarity. Tuned to the issue's worked example for an epic tool:
+//   epic vs epic   (tierGap 0, tool NOT above target): 100% (1 - 0.4*0, but
+//                    clamped to 1 below since a non-positive gap always consumes)
+//   epic vs rare   (tierGap 1): 1 - 0.4*1 = 0.6  (60%)
+//   epic vs common (tierGap 3): 1 - 0.4*3 = -0.2, floored to 0.1 (10%)
+// A two-tier gap (e.g. epic vs uncommon) lands at 1 - 0.4*2 = 0.2 (20%),
+// interpolating smoothly between the worked example's anchor points.
+const CONSUMPTION_CHANCE_STEP = 0.4;
+
+// Pure: the chance a single use spends one durability charge, given the
+// tool's rarity and the rarity of what it is being used on. Against an
+// equal-or-higher-rarity target (tierGap <= 0) a charge is ALWAYS spent: the
+// curve only ever discounts consumption when the tool outclasses its target,
+// never the reverse. See the worked example above for the anchor values this
+// formula was tuned against.
+export function effectConsumptionChance(
+  toolRarity: MaterialRarity,
+  targetRarity: MaterialRarity,
+): number {
+  const tierGap = rarityTierIndex(toolRarity) - rarityTierIndex(targetRarity);
+  if (tierGap <= 0) return 1;
+  return Math.max(CONSUMPTION_CHANCE_FLOOR, 1 - CONSUMPTION_CHANCE_STEP * tierGap);
+}
+
 // Rolls whether this use depletes the slotted effect by one charge. Depletion
-// is PROBABILISTIC (per the effect's `depletionChance`), not a flat -1 per
-// use, so every decrement goes through `Rng.chance` (never Math.random): the
-// draw always happens (even at durability 0, where it is a no-op) so calling
-// this in a fixed order across a fixed rng seed always produces the same
-// depletion sequence, independent of an effect's remaining charges. Mutates
-// `slot.durability` in place and returns whether it decremented this call.
-export function depleteEffect(slot: ToolEffectSlot | undefined, rng: Rng): boolean {
+// is PROBABILISTIC (per `effectConsumptionChance(toolRarity, targetRarity)`),
+// not a flat -1 per use, so every decrement goes through `Rng.chance` (never
+// Math.random): the draw always happens (even at durability 0, where it is a
+// no-op) so calling this in a fixed order across a fixed rng seed always
+// produces the same depletion sequence, independent of an effect's remaining
+// charges. Mutates `slot.durability` in place and returns whether it
+// decremented this call.
+export function depleteEffect(
+  slot: ToolEffectSlot | undefined,
+  toolRarity: MaterialRarity,
+  targetRarity: MaterialRarity,
+  rng: Rng,
+): boolean {
   if (!slot) return false;
-  const def = TOOL_EFFECTS[slot.effectId];
-  const rolled = rng.chance(def.depletionChance);
+  const rolled = rng.chance(effectConsumptionChance(toolRarity, targetRarity));
   if (rolled && slot.durability > 0) {
     slot.durability -= 1;
     return true;
@@ -134,12 +182,15 @@ export function depleteEffect(slot: ToolEffectSlot | undefined, rng: Rng): boole
   return false;
 }
 
-// INTEGRATION NOTE (#1136): the node-harvest outcome path (#1121) and the
-// recipe-crafting outcome path (#1127) are not present on this branch (this
-// branch is stacked directly on #1135, the crafted-tool-tiers PR), so there is
-// no live call site to wire `applyEffectBonus`/`depleteEffect` into yet. Once
-// either lands, its outcome-producing function should: build the base
-// HarvestOutcome, call `applyEffectBonus(slot, outcome)` to get the bonused
-// result, then call `depleteEffect(slot, rng)` using the SAME `Rng` the caller
-// already draws from (never a fresh one) so the depletion roll takes its place
-// in the one shared draw order.
+// INTEGRATION NOTE (#1136, consumption curve added by #1139): the node-harvest
+// outcome path (#1121) and the recipe-crafting outcome path (#1127) are not
+// present on this branch (this branch is stacked directly on #1135, the
+// crafted-tool-tiers PR), so there is no live call site to wire
+// `applyEffectBonus`/`depleteEffect` into yet. Once either lands, its
+// outcome-producing function should: build the base HarvestOutcome, call
+// `applyEffectBonus(slot, outcome)` to get the bonused result, then call
+// `depleteEffect(slot, toolRarity, targetRarity, rng)` using the SAME `Rng`
+// the caller already draws from (never a fresh one) so the consumption roll
+// takes its place in the one shared draw order. `toolRarity` is the base
+// tool's own `ItemDef.quality`; `targetRarity` is the rarity of whatever is
+// being worked (e.g. the harvested material's `rollMaterialRarity` result).
