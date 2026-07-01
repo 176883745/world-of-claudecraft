@@ -4847,4 +4847,13 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.dailyRewards.remainingMinutes': '{minutes}分',
   'hudChrome.dailyRewards.sol': '{amount} SOL',
   'hudChrome.dailyRewards.usd': '{amount} USD',
+  'hudChrome.crafting.title': '制作',
+  'hudChrome.crafting.close': '关闭制作',
+  'hudChrome.crafting.craft': '制作',
+  'hudChrome.crafting.reagentsNeeded': '需要:',
+  'hudChrome.crafting.empty': '尚无已知配方。',
+  'hudChrome.crafting.resultAria': '制作{name}',
+  'hudChrome.crafting.craftedToast': '已制作:{name}',
+  'hudChrome.crafting.insufficientMaterials': '你没有足够的材料。',
+  'hudChrome.crafting.unknownRecipe': '该配方不存在。',
 };

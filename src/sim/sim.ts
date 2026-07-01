@@ -84,6 +84,7 @@ import {
   arenaOrigin,
   CAMPS,
   CLASSES,
+  COMMON_RECIPES,
   DEEPFEN_SHALLOWS_LAKE,
   DELVE_COMPANIONS,
   DELVE_LIST,
@@ -182,22 +183,23 @@ import {
 } from './pathfind';
 import * as petAi from './pet/pet_ai';
 import * as petCommands from './pet/pet_commands';
+import { type CraftResult, craftItem as craftItemImpl } from './professions/crafting';
 import {
   drainGatheringGrants,
   emptyGatheringProficiency,
   gatheringSkillsView,
-  normalizeGatheringProficiency,
-} from './professions/gathering';
-  craftSkillsFor,
-  emptyCraftSkills,
-  gainCraftSkill,
-  normalizeCraftSkills,
-} from './professions/wheel';
   gatherNodeById,
   harvestNode as harvestNodeImpl,
   isNodeHarvestableBy,
   normalizeGatheringProficiency,
 } from './professions/gathering';
+import type { ProfessionRecipeRecord as RecipeDef } from './professions/types';
+import {
+  craftSkillsFor,
+  emptyCraftSkills,
+  gainCraftSkill,
+  normalizeCraftSkills,
+} from './professions/wheel';
 import {
   applyTalentAllocation,
   deleteTalentLoadout,
@@ -709,6 +711,11 @@ export interface PlayerMeta {
   // persisted, and never shared across players: see
   // src/sim/professions/gathering.ts (isNodeHarvestableBy/resolveHarvest).
   nodeHarvestReadyAt: Record<string, number>;
+  // Outcome of this player's most recent craftItem command (#1127). Session-only,
+  // never persisted: the IWorld craft-result surface for the client to render a
+  // toast/log line off, without deciding the outcome itself. Null until the
+  // player's first craft attempt.
+  lastCraftResult: CraftResult | null;
   known: ResolvedAbility[];
   questLog: Map<string, QuestProgress>;
   questsDone: Set<string>;
@@ -1327,6 +1334,7 @@ export class Sim {
       gatheringProficiency: emptyGatheringProficiency(),
       pendingGatherGrants: [],
       nodeHarvestReadyAt: {},
+      lastCraftResult: null,
       known: [],
       questLog: new Map(),
       questsDone: new Set(),
@@ -4801,6 +4809,40 @@ export class Sim {
     return this.nodeHarvestableByMeFor(nodeId, this.primaryId);
   }
 
+  // IWorld read surface (IWorldProfessions, #1127): the static common-tier
+  // recipe list, a plain content read (no per-player state), same shape both
+  // worlds can serve without a wire round-trip.
+  get recipeList(): readonly RecipeDef[] {
+    return COMMON_RECIPES;
+  }
+
+  // Common-tier crafting command (#1127): a thin delegate onto
+  // src/sim/professions/crafting.ts, resolved on the deterministic tick the
+  // command arrives on, same as harvestNode/buyItem/useItem above. Stashes
+  // the outcome on the resolved player's PlayerMeta so the IWorld
+  // lastCraftResult read surface (below) reflects it.
+  craftItem(recipeId: string, pid?: number): void {
+    const result = craftItemImpl(this.ctx, recipeId, pid);
+    const meta = this.players.get(pid ?? this.primaryId);
+    if (meta) meta.lastCraftResult = result;
+    this.emit({
+      type: 'craftResult',
+      ok: result.ok,
+      recipeId: result.recipeId,
+      itemId: result.itemId,
+      count: result.count,
+      quality: result.quality,
+      reason: result.reason,
+      pid: meta?.entityId,
+    });
+  }
+
+  // IWorld read surface (IWorldProfessions, #1127): the local viewer's most
+  // recent craft-result, or null before their first craft attempt this session.
+  get lastCraftResult(): CraftResult | null {
+    return this.players.get(this.primaryId)?.lastCraftResult ?? null;
+  }
+
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {
     const def = ITEMS[itemId];
     if (!def?.slot) return;
@@ -6159,9 +6201,9 @@ export class Sim {
 
   get craftSkills(): Record<string, number> {
     return this.craftSkillsFor(this.primaryId);
-  // Read-only gathering-profession proficiency surface for IWorld. Stubbed
-  // directly on IWorld pending issue #1164 (a broader professions facet); see
-  // that issue for the eventual reconciliation.
+  }
+
+  // Read-only gathering-profession proficiency surface for IWorld.
   gatheringProficiencyFor(pid: number): Record<string, number> {
     return { ...(this.players.get(pid)?.gatheringProficiency ?? emptyGatheringProficiency()) };
   }
@@ -6189,10 +6231,6 @@ export class Sim {
 
   get professionsState(): PlayerProfessionsView {
     return this.professionsStateFor(this.primaryId);
-  // Stub read surface for #1164: professions skill tracking + recipes land in
-  // later issues (#1119/#1120). Always empty until then.
-  get professionsState(): PlayerProfessionsView {
-    return { skills: [] };
   }
 }
 

@@ -55,7 +55,8 @@ export interface InputCallbacks {
       | 'social'
       | 'arena'
       | 'leaderboard'
-      | 'discord',
+      | 'discord'
+      | 'crafting',
   ): void;
   onEmoteWheel(open: boolean): void;
   onClickPick(x: number, y: number, button: number): void;
@@ -714,6 +715,9 @@ export class Input {
         return;
       case 'bags':
         this.cb.onUiKey('bags');
+        return;
+      case 'crafting':
+        this.cb.onUiKey('crafting');
         return;
       case 'char':
         this.cb.onUiKey('char');
