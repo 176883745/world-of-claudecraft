@@ -17,6 +17,7 @@ import { verifyLoginTwoFactor } from './account';
 import { hashPassword, newToken, offensiveName, validPassword, verifyPassword } from './auth';
 import {
   type AccountRow,
+  accountAndScopeForToken,
   accountById,
   createAccount,
   findAccount,
@@ -24,6 +25,7 @@ import {
   moderationStatusForAccount,
   pool,
   saveToken,
+  scopeAllowsMutation,
   touchLogin,
   updatePasswordHash,
 } from './db';
@@ -64,6 +66,15 @@ import {
   parseTokenResponse,
   pkceChallengeFromVerifier,
 } from './discord_oauth';
+import { ctxAccountId } from './http/context';
+import {
+  type BearerActiveGuardDb,
+  bearerToken,
+  createActiveGuard,
+  NOT_AUTHENTICATED,
+  READ_ONLY_TOKEN,
+} from './http/middleware/bearer_active_guard';
+import type { Ctx, Middleware, Next, RouteDef } from './http/types';
 import { isUniqueViolation, json } from './http_util';
 import {
   authThrottled,
@@ -877,3 +888,277 @@ function bouncePage(res: http.ServerResponse, status: number, payload: BouncePay
   res.writeHead(status, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end(html);
 }
+
+// ===========================================================================
+// Route layer, ported onto RouteDefs (Phase 16 of docs/api-pipeline/).
+//
+// The seven Discord endpoints move off the inline handleApi ladder in
+// server/main.ts onto the shared server/http/ pipeline the Phase 9 dispatcher
+// serves under API_DISPATCH 'new':
+//   POST   /api/auth/discord/start       OAuth start (JSON { url })
+//   GET    /api/auth/discord/callback    OAuth callback (HTML bounce; NON-JSON)
+//   POST   /api/auth/discord/login/new   first-login "create new" chooser (JSON)
+//   POST   /api/auth/discord/login/link  first-login "link existing" chooser (JSON)
+//   GET    /api/discord                  link status (JSON)
+//   DELETE /api/discord                  unlink (JSON)
+//   POST   /api/discord/swag/claim       swag claim (JSON; previously ORPHANED)
+// The legacy handleApi arms stay in main.ts as the flag-off rollback path until
+// Phase 25. This follows the server/reports.ts + server/wallet.ts template:
+//
+//  - PARITY-FIRST bodies. The migrated handlers reuse the SAME handleDiscord*
+//    functions UNCHANGED, so every response is the legacy { error } / { ok } /
+//    { url } / HTML-bounce body byte-for-byte (RFC 9457 is Phase 22; the client
+//    prose-matcher in src/main.ts userFacingApiError, the choice-panel matcher,
+//    and the popup bounce handler key on the exact legacy prose until then). The
+//    auth gate on the mutating legs is the shared legacy-body createActiveGuard
+//    (mirrors bearerActiveAccount: full session, read-only 403, moderation 403),
+//    NOT the problem+json requireAccount, so the status/unlink no-auth 401 goldens
+//    ({ error: 'not authenticated' }) replay byte-identically.
+//
+//  - RATE LIMIT stays legacy prose. The Discord rate-limit keying is entangled
+//    with handler logic (start resolves an account only in link mode; four
+//    handlers self-limit internally), so it stays in-handler / a legacy-prose
+//    middleware writing { error: 'rate limited' } (the Phase 10/11 in-handler-guard
+//    pattern), NOT the coded rateLimit(DISCORD_POLICY) adapter (which would emit
+//    problem+json rate_limit.exceeded, a Phase-22 end-state). The pre-seeded
+//    DISCORD_POLICY (server/http/middleware/rate_limit.ts) stays UNMOUNTED until
+//    Phase 22 wires the client code-matcher. start's legacy double-count (the
+//    PR #1044 nit: main.ts pre-checked AND handleDiscordStart self-checks) drops
+//    to a single count on the new path (the RouteDef does not pre-check; the
+//    handler self-limits once). status/unlink carry the discordActiveRateGuard
+//    (the check the legacy arm ran in main.ts, moved behind the auth guard);
+//    swag self-limits inside handleSwagClaim, so it carries NO rate guard.
+//
+//  - isIpBlocked GAP CLOSED (the PR #1044 / #1075 review finding). A blocked IP
+//    must not open the OAuth flow (start mints state; the login-mode callback mints
+//    a returning-user session), exactly as /api/register and /api/login refuse one.
+//    isIpBlocked is applied on start (opaque 429 { error: 'rate limited' }, matching
+//    login/new + login/link) and on callback (an opaque HTML bounce reusing the
+//    existing 'server_error' vocabulary, so the block is never revealed and the
+//    callback stays HTML). login/new + login/link already carried isIpBlocked.
+//    passesTurnstile is DELIBERATELY not added: the Discord flow carries no
+//    turnstile token (the widget renders only on the login/register form), so a
+//    turnstile gate would 403 every Discord login in production; the Discord OAuth
+//    itself is the human-check, which is why login/new + login/link use only
+//    isIpBlocked. This matches the family's existing anti-bot posture.
+//
+//  - CALLBACK stays HTML, never problem+json. The RouteDef carries
+//    meta.envelope 'html', so even an UNEXPECTED throw escaping handleDiscordCallback
+//    serializes through the Phase 7/8 boundary as an HTML error (never problem+json,
+//    which would break window.opener.postMessage in the popup). Its normal responses
+//    are the self-written bouncePage. Frozen by a contract test.
+//
+//  - RUNTIME injection. The isIpBlocked check and the swag live-cosmetic grant are
+//    main.ts-local game-session singletons, injected once at boot via
+//    configureDiscordRuntime so `export const routes` stays a static array
+//    registry.ts spreads (avoiding a main -> registry -> discord -> main cycle). The
+//    guard's bearer + moderation reads are bundled behind setDiscordDbForTests.
+// ===========================================================================
+
+/** The main.ts game-session hooks the Discord routes need (boot-injected). */
+export interface DiscordGameHooks {
+  /** True when the client IP is on the moderation IP-block list (game.isIpBlocked). */
+  isIpBlocked(ip: string): boolean;
+  /** Best-effort live grant of a mech-chroma cosmetic to an account (swag claim). */
+  grantCosmetic(accountId: number, chromaId: string): void;
+}
+
+let runtime: DiscordGameHooks | null = null;
+
+/** Inject the main.ts game-session hooks the Discord routes need (boot). */
+export function configureDiscordRuntime(rt: DiscordGameHooks): void {
+  runtime = rt;
+}
+
+/** Clear the injected runtime so a unit test can install its own fake. */
+export function resetDiscordRuntimeForTests(): void {
+  runtime = null;
+}
+
+/** The injected runtime, or a loud failure if a request somehow beat boot wiring. */
+function useRuntime(): DiscordGameHooks {
+  if (runtime === null) {
+    throw new Error('discord runtime is not configured; call configureDiscordRuntime');
+  }
+  return runtime;
+}
+
+// The bearer + moderation reads the guard (and start's link-mode resolver) need,
+// bundled behind a test-only setter so they can be driven with a fake and no
+// Postgres; production never calls the setter.
+const REAL_DISCORD_DB = { accountAndScopeForToken, moderationStatusForAccount };
+let discordDb: BearerActiveGuardDb = REAL_DISCORD_DB;
+
+/** Override the Discord guard db with a fake (test-only; merges over the real reads). */
+export function setDiscordDbForTests(overrides: Partial<typeof REAL_DISCORD_DB>): void {
+  discordDb = { ...REAL_DISCORD_DB, ...overrides };
+}
+
+/** Restore the real Discord guard db after a setDiscordDbForTests override (test-only). */
+export function resetDiscordDbForTests(): void {
+  discordDb = REAL_DISCORD_DB;
+}
+
+/** Mutating + account-scoped gate for status/unlink/swag (mirrors bearerActiveAccount). */
+const activeGuard = createActiveGuard(() => discordDb);
+
+/**
+ * Resolve the caller's active account inline for start's LINK mode (login mode is
+ * unauthenticated, so the shared activeGuard cannot be a plain route middleware
+ * here). Mirrors bearerActiveAccount / createActiveGuard EXACTLY: 401
+ * { error: 'not authenticated' } no/bad/unknown token, 403 { error: 'this token is
+ * read-only' } read-only scope, 403 { error: status.message } moderation-locked, in
+ * that order; writes the legacy body and returns null on any reject. (A candidate
+ * for the Phase 22/25 shared bearer-resolver consolidation, alongside the three
+ * inline activeGuard copies.)
+ */
+async function resolveActiveAccount(ctx: Ctx): Promise<number | null> {
+  const token = bearerToken(ctx.req);
+  const info = token === null ? null : await discordDb.accountAndScopeForToken(token);
+  if (info === null) {
+    json(ctx.res, 401, NOT_AUTHENTICATED);
+    return null;
+  }
+  if (!scopeAllowsMutation(info.scope)) {
+    json(ctx.res, 403, READ_ONLY_TOKEN);
+    return null;
+  }
+  const status = await discordDb.moderationStatusForAccount(info.accountId);
+  if (status.locked) {
+    json(ctx.res, 403, { error: status.message });
+    return null;
+  }
+  return info.accountId;
+}
+
+/**
+ * The status/unlink rate-limit the legacy arm ran in main.ts (after the bearer
+ * resolve), moved behind the auth guard. Legacy prose { error: 'rate limited' } 429,
+ * keyed ip+account via discordRateLimited (ip recorded before account). swag is NOT
+ * mounted here (handleSwagClaim self-limits with the same call).
+ */
+const discordActiveRateGuard: Middleware = async (ctx: Ctx, next: Next) => {
+  if (discordRateLimited(ctx.req, ctxAccountId(ctx))) {
+    json(ctx.res, 429, { error: 'rate limited' });
+    return;
+  }
+  await next();
+};
+
+// ---------------------------------------------------------------------------
+// Thin Ctx handlers. Each delegates to the existing handleDiscord* function
+// UNCHANGED, so every ported body is byte-identical.
+// ---------------------------------------------------------------------------
+
+/** POST /api/auth/discord/start: OAuth start (link mode resolves the caller first). */
+async function discordStartHandler(ctx: Ctx): Promise<void> {
+  const mode: DiscordLinkMode = ctx.url.searchParams.get('mode') === 'link' ? 'link' : 'login';
+  let accountId: number | null = null;
+  if (mode === 'link') {
+    accountId = await resolveActiveAccount(ctx);
+    if (accountId === null) return;
+  }
+  // A blocked IP must not open the OAuth flow (login mode can provision an account
+  // via the callback). Opaque 429, matching login/new + login/link.
+  if (useRuntime().isIpBlocked(ctx.ip)) return json(ctx.res, 429, { error: 'rate limited' });
+  return handleDiscordStart(ctx.req, ctx.res, { mode, accountId });
+}
+
+/** GET /api/auth/discord/callback: OAuth callback (HTML bounce; never problem+json). */
+async function discordCallbackHandler(ctx: Ctx): Promise<void> {
+  // A blocked IP must not mint a returning-user session through the callback. Opaque
+  // HTML bounce (the existing 'server_error' the SPA already handles), so the block
+  // is never revealed and the response stays HTML, not problem+json.
+  if (useRuntime().isIpBlocked(ctx.ip)) {
+    return bouncePage(ctx.res, 403, { ok: false, mode: 'login', error: 'server_error' });
+  }
+  return handleDiscordCallback(ctx.req, ctx.res);
+}
+
+/** POST /api/auth/discord/login/new: first-login "create new account" chooser. */
+async function discordLoginNewHandler(ctx: Ctx): Promise<void> {
+  return handleDiscordLoginNew(ctx.req, ctx.res, useRuntime().isIpBlocked);
+}
+
+/** POST /api/auth/discord/login/link: first-login "link existing account" chooser. */
+async function discordLoginLinkHandler(ctx: Ctx): Promise<void> {
+  return handleDiscordLoginLink(ctx.req, ctx.res, useRuntime().isIpBlocked);
+}
+
+/** GET /api/discord: link status + presence for the HUD widget. */
+async function discordStatusHandler(ctx: Ctx): Promise<void> {
+  return handleDiscordStatus(ctx.req, ctx.res, ctxAccountId(ctx));
+}
+
+/** DELETE /api/discord: unlink (account-scoped; sets a password first if needed). */
+async function discordUnlinkHandler(ctx: Ctx): Promise<void> {
+  return handleDiscordUnlink(ctx.req, ctx.res, ctxAccountId(ctx));
+}
+
+/** POST /api/discord/swag/claim: server-authoritative swag claim (previously orphaned). */
+async function discordSwagClaimHandler(ctx: Ctx): Promise<void> {
+  const accountId = ctxAccountId(ctx);
+  return handleSwagClaim(ctx.req, ctx.res, accountId, (chromaId) =>
+    useRuntime().grantCosmetic(accountId, chromaId),
+  );
+}
+
+// ---------------------------------------------------------------------------
+// The route table. registry.ts spreads this into apiRoutes. start/callback/login-new/
+// login-link carry no auth middleware (start resolves the account inline for link
+// mode; the others authorize via the single-use pending-login token / OAuth state);
+// status/unlink are [activeGuard, discordActiveRateGuard]; swag is [activeGuard] (it
+// self-limits). All registered so an unsupported method delegates to the legacy
+// ladder (the dispatcher delegates a methodNotAllowed resolve until Phase 25).
+// ---------------------------------------------------------------------------
+
+export const routes: RouteDef[] = [
+  {
+    method: 'POST',
+    path: '/api/auth/discord/start',
+    surface: 'api',
+    handler: discordStartHandler,
+  },
+  {
+    method: 'GET',
+    path: '/api/auth/discord/callback',
+    surface: 'api',
+    // HTML bounce page, never problem+json: an escaping throw serializes as an HTML
+    // error (dispatch.ts threads meta.envelope into withErrors -> mapError).
+    meta: { envelope: 'html' },
+    handler: discordCallbackHandler,
+  },
+  {
+    method: 'POST',
+    path: '/api/auth/discord/login/new',
+    surface: 'api',
+    handler: discordLoginNewHandler,
+  },
+  {
+    method: 'POST',
+    path: '/api/auth/discord/login/link',
+    surface: 'api',
+    handler: discordLoginLinkHandler,
+  },
+  {
+    method: 'GET',
+    path: '/api/discord',
+    surface: 'api',
+    middleware: [activeGuard, discordActiveRateGuard],
+    handler: discordStatusHandler,
+  },
+  {
+    method: 'DELETE',
+    path: '/api/discord',
+    surface: 'api',
+    middleware: [activeGuard, discordActiveRateGuard],
+    handler: discordUnlinkHandler,
+  },
+  {
+    method: 'POST',
+    path: '/api/discord/swag/claim',
+    surface: 'api',
+    middleware: [activeGuard],
+    handler: discordSwagClaimHandler,
+  },
+];

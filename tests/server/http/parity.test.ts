@@ -458,6 +458,63 @@ describe('/api dispatch parity (legacy flag vs new flag)', () => {
     expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
   });
 
+  // ---- Phase 16 Discord re-pins ------------------------------------------
+  // The newLimiterDiscord deviation lists /api/auth/discord/start,
+  // /api/auth/discord/callback and /api/discord, so the aggregate path-scoped filter
+  // masks EVERY divergence on those paths. The four discord corpus fixtures never hit
+  // the limiter / isIpBlocked / a DB read (start + callback answer from a null
+  // discordConfig; status + unlink 401 at the guard DB-free), so each must stay
+  // byte-identical old-vs-new; these dedicated captureBothModes assertions re-pin that
+  // identity the masking would otherwise hide (mirrors the reports/card re-pins).
+
+  it('POST /api/auth/discord/start unconfigured is identical old-vs-new and is a 503 (re-pins masked /start)', async () => {
+    // No DISCORD_CLIENT_ID in the harness env, so discordConfig() is null and
+    // handleDiscordStart answers 503 { error: 'Discord integration is not configured' }
+    // before the rate-limit; the new-path isIpBlocked gate passes (the harness IP is
+    // not blocked), so both flags land the identical 503.
+    const { oldCap, newCap } = await captureBothModes(() =>
+      makeReq({ method: 'POST', url: '/api/auth/discord/start', body: {} }),
+    );
+    expect(oldCap.status).toBe(503);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('GET /api/auth/discord/callback unconfigured is identical old-vs-new HTML bounce (re-pins masked /callback)', async () => {
+    // discordConfig() null -> handleDiscordCallback answers the HTML bouncePage 503
+    // { ok: false, mode: 'login', error: 'not_configured' } (never problem+json). The
+    // new path passes the isIpBlocked gate first, so the bounce is byte-identical.
+    const { oldCap, newCap } = await captureBothModes(() =>
+      makeReq({ method: 'GET', url: '/api/auth/discord/callback' }),
+    );
+    expect(oldCap.status).toBe(503);
+    expect(oldCap.headers['content-type']).toContain('text/html');
+    expect(newCap.headers['content-type']).toContain('text/html');
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('GET /api/discord with no auth is identical old-vs-new and is a 401 (re-pins masked /api/discord)', async () => {
+    // A no-bearer status read 401s at the shared activeGuard (DB-free) with
+    // { error: 'not authenticated' }, byte-identical on both flags.
+    const { oldCap, newCap } = await captureBothModes(() =>
+      makeReq({ method: 'GET', url: '/api/discord' }),
+    );
+    expect(oldCap.status).toBe(401);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('DELETE /api/discord with no auth is identical old-vs-new and is a 401 (completes the masked /api/discord re-pin)', async () => {
+    // The unlink arm shares the same guard; a no-bearer DELETE 401s DB-free, so the
+    // masking cannot hide an auth-shape break on either method of /api/discord.
+    const { oldCap, newCap } = await captureBothModes(() =>
+      makeReq({ method: 'DELETE', url: '/api/discord' }),
+    );
+    expect(oldCap.status).toBe(401);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
   it('CORS + OPTIONS preflight is byte-identical old-vs-new for an /api route and a public-cors path', async () => {
     // Representative /api route: maybeCors reflects the Origin, the 204 short-circuit
     // returns before the ladder.

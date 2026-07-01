@@ -168,7 +168,7 @@ describe('registry completeness: the legacy /api ladder is fully covered', () =>
   });
 });
 
-describe('registry completeness: migrated baseline (Phase 10 public reads + Phase 11 auth + Phase 12 characters + Phase 13 account + Phase 14 wallet + Phase 15 reports/telemetry)', () => {
+describe('registry completeness: migrated baseline (Phase 10 public reads + Phase 11 auth + Phase 12 characters + Phase 13 account + Phase 14 wallet + Phase 15 reports/telemetry + Phase 16 discord)', () => {
   // The exact routes migrated onto RouteDefs so far: Phase 10 moved the public
   // reads (GET, server/leaderboard.ts), Phase 11 the auth credential surface (POST,
   // server/auth_routes.ts), Phase 12 the owner-gated character surface
@@ -237,6 +237,16 @@ describe('registry completeness: migrated baseline (Phase 10 public reads + Phas
     { method: 'POST', path: '/api/bug-reports' },
     { method: 'POST', path: '/api/perf-report' },
     { method: 'POST', path: '/api/site-presence' },
+    // Phase 16: the Discord family (server/discord.ts). The OAuth start/callback
+    // pair, the two first-login chooser routes, the GET/DELETE /api/discord status +
+    // unlink pair, and the previously-orphaned swag claim (now reachable).
+    { method: 'POST', path: '/api/auth/discord/start' },
+    { method: 'GET', path: '/api/auth/discord/callback' },
+    { method: 'POST', path: '/api/auth/discord/login/new' },
+    { method: 'POST', path: '/api/auth/discord/login/link' },
+    { method: 'GET', path: '/api/discord' },
+    { method: 'DELETE', path: '/api/discord' },
+    { method: 'POST', path: '/api/discord/swag/claim' },
   ];
   const MIGRATED_PATHS = MIGRATED_ROUTES.map((r) => r.path);
 
@@ -255,6 +265,17 @@ describe('registry completeness: migrated baseline (Phase 10 public reads + Phas
     // Each migrated route must also be an inventory ladder route AND retain its
     // legacy arm (rollback), so the flag can roll each one back per route.
     for (const route of MIGRATED_ROUTES) {
+      // The Phase 16 swag-claim is the one exception: it was an unreachable orphan
+      // (no legacy arm ever existed), so Phase 16 registers it router-owned ONLY.
+      // It has no rollback arm to retain, so assert the orphan shape (router-owned,
+      // NOT legacy-served) and skip the must-be-a-ladder-route requirement. Its
+      // dedicated 'excludes the documented unreachable swag-claim orphan' test pins
+      // the SURFACE_INVENTORY unreachable flag + the deviation.
+      if (EXCLUDED_PATHS.has(route.path)) {
+        expect(isRouterOwned(apiRegistry, route)).toBe(true);
+        expect(legacyServes(route, legacyServed)).toBe(false);
+        continue;
+      }
       const row = legacyLadder.find((r) => r.path === route.path && r.method === route.method);
       expect(
         row,

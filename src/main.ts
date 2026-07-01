@@ -287,6 +287,10 @@ function userFacingApiError(err: unknown): string {
 
   const normalized = text.toLowerCase();
   if (normalized.startsWith('too many attempts')) return t('errors.api.tooManyAttempts');
+  // The Discord rate-limit bucket (server/discord.ts) answers a bare { error: 'rate
+  // limited' } 429; resolve it to the same "slow down" message rather than leaking the
+  // raw English (the discordRateLimited gap the choice panel already handled inline).
+  if (normalized === 'rate limited') return t('errors.api.tooManyAttempts');
   if (normalized === 'username must be 3-24 chars (letters, digits, _)')
     return t('errors.api.usernameShape');
   if (normalized === 'username is not allowed') return t('errors.api.usernameNotAllowed');

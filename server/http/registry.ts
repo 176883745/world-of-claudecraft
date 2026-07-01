@@ -25,6 +25,7 @@
 import { routes as accountRoutes } from '../account';
 import { routes as authRoutes } from '../auth_routes';
 import { routes as characterRoutes } from '../characters';
+import { routes as discordRoutes } from '../discord';
 import { routes as leaderboardRoutes } from '../leaderboard';
 import { routes as reportsRoutes } from '../reports';
 import { routes as walletRoutes } from '../wallet';
@@ -67,7 +68,11 @@ export interface ApiRegistry {
  * family, GET /api/wallet, the public GET /api/woc/balance, the binary POST
  * /api/card, and GET /api/referrals). Phase 15 adds the reports + telemetry surface
  * (server/reports.ts: POST /api/reports, POST /api/bug-reports, and the public
- * beacons POST /api/perf-report and POST /api/site-presence).
+ * beacons POST /api/perf-report and POST /api/site-presence). Phase 16 adds the
+ * Discord family (server/discord.ts: the OAuth start/callback pair, the two
+ * first-login chooser routes login/new + login/link, the GET/DELETE /api/discord
+ * link status + unlink pair, and the previously-orphaned POST
+ * /api/discord/swag/claim).
  */
 export const apiRoutes: readonly RouteDef[] = [
   ...leaderboardRoutes,
@@ -76,6 +81,7 @@ export const apiRoutes: readonly RouteDef[] = [
   ...accountRoutes,
   ...walletRoutes,
   ...reportsRoutes,
+  ...discordRoutes,
 ];
 
 /**

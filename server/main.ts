@@ -89,6 +89,7 @@ import {
   touchLogin,
 } from './db';
 import {
+  configureDiscordRuntime,
   handleDiscordCallback,
   handleDiscordLoginLink,
   handleDiscordLoginNew,
@@ -1550,6 +1551,16 @@ configureWalletRuntime({
 // stay intact as the flag-off rollback path.
 configureReportsRuntime({
   reportTargetForPid: (pid) => game.reportTargetForPid(pid),
+});
+
+// Inject the two main.ts-local game-session hooks the ported Discord routes
+// (server/discord.ts) need but cannot import without a cycle: the moderation
+// IP-block check (applied on start + callback to close the PR #1044/#1075 review
+// gap) and the live mech-chroma grant for a cosmetic swag claim. The legacy
+// handleApi Discord arms stay intact as the flag-off rollback path.
+configureDiscordRuntime({
+  isIpBlocked: (ip) => game.isIpBlocked(ip),
+  grantCosmetic: (accountId, chromaId) => game.grantMechChromaToAccount(accountId, chromaId),
 });
 
 // The in-house dispatcher that fronts the legacy handleApi ladder via a per-path
