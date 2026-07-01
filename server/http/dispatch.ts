@@ -18,6 +18,7 @@
 
 import type * as http from 'node:http';
 import { runOnion } from './compose';
+import type { DispatchMode } from './config';
 import { buildContext } from './context';
 import { type MetricSink, noopMetricSink, withMetrics } from './middleware/metric_sink';
 import { withErrors } from './middleware/with_errors';
@@ -104,7 +105,7 @@ function runHandler(route: RouteDef): Middleware {
  * 'new' is Phase 25's deliverable, not this phase's.
  */
 export function selectApiEntry(
-  mode: 'legacy' | 'new',
+  mode: DispatchMode,
   newDispatcher: ApiDispatcher,
   legacy: ApiDelegate,
 ): ApiDispatcher {

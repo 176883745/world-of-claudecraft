@@ -96,7 +96,7 @@ import { pruneDiscordOAuthStates, pruneDiscordPendingLogins } from './discord_db
 import { emailAccountCreated } from './email';
 import { GameServer } from './game';
 import { handleClientError } from './http/client_error';
-import { DEFAULT_DISPATCH, loadConfig } from './http/config';
+import { DEFAULT_DISPATCH, type DispatchMode, loadConfig } from './http/config';
 import { type ApiDispatcher, createApiDispatcher, selectApiEntry } from './http/dispatch';
 import { apiRegistry } from './http/registry';
 import { isUniqueViolation, json, readBody } from './http_util';
@@ -1431,14 +1431,14 @@ const apiDispatcher = createApiDispatcher({ registry: apiRegistry, delegate: han
 // flag via loadConfig once at boot. Flipping the production default to 'new' is Phase 25.
 let apiEntry: ApiDispatcher = selectApiEntry(DEFAULT_DISPATCH, apiDispatcher, handleApi);
 
-function setApiDispatchMode(mode: 'legacy' | 'new'): void {
+function setApiDispatchMode(mode: DispatchMode): void {
   apiEntry = selectApiEntry(mode, apiDispatcher, handleApi);
 }
 
 // Test-only override so the parity harness can drive routeHttpRequest under both
 // flag values in-process. The flag is boot-time only in production (API_DISPATCH),
 // so this throws there, mirroring ratelimit.setRateLimitClock.
-export function setApiDispatchModeForTests(mode: 'legacy' | 'new'): void {
+export function setApiDispatchModeForTests(mode: DispatchMode): void {
   if (process.env.NODE_ENV === 'production') {
     throw new Error('setApiDispatchModeForTests must not be called in production');
   }

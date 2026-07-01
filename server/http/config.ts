@@ -8,11 +8,16 @@
 // No magic values: every default lives in a named const below, single-sourced.
 // The loader never logs the env or echoes any secret (notably DATABASE_URL).
 
+// The two accepted API dispatch modes, single-sourced so the boot wiring
+// (server/main.ts) and the dispatcher (server/http/dispatch.ts) share ONE type
+// rather than re-typing the literal union at each call site.
+export type DispatchMode = 'legacy' | 'new';
+
 export interface Config {
   // The SINGLE all-or-nothing API dispatch flag (canonical env name API_DISPATCH).
   // 'legacy' keeps the existing route handling; 'new' selects the re-architected
   // pipeline. A later phase wires this in and flips the default to 'new'.
-  readonly dispatch: 'legacy' | 'new';
+  readonly dispatch: DispatchMode;
   readonly databaseUrl: string;
   readonly port: number;
   readonly allowDevCommands: boolean;
@@ -32,7 +37,7 @@ const DISPATCH_NEW = 'new' as const;
 // wiring (server/main.ts) uses the SAME default for its pre-boot/test-import value
 // as loadConfig uses when API_DISPATCH is unset, rather than re-typing the literal.
 // Phase 25 flips this to 'new'.
-export const DEFAULT_DISPATCH: Config['dispatch'] = DISPATCH_LEGACY;
+export const DEFAULT_DISPATCH: DispatchMode = DISPATCH_LEGACY;
 
 // The literal env value that turns the dev-command cheats on. Anything else
 // (including unset) leaves them off; production must never set this.
@@ -57,7 +62,7 @@ function numberOr(value: string | undefined, fallback: number): number {
 
 // Accept exactly 'legacy' or 'new'; anything else (including unset) falls back to
 // the default. The `as const` literal consts let the comparison narrow the result.
-function parseDispatch(value: string | undefined): Config['dispatch'] {
+function parseDispatch(value: string | undefined): DispatchMode {
   return value === DISPATCH_NEW || value === DISPATCH_LEGACY ? value : DEFAULT_DISPATCH;
 }
 
