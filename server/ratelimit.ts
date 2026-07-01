@@ -366,6 +366,50 @@ export function resetPublicReadRateLimits(): void {
   publicReadIpAttempts.clear();
 }
 
+// Per-account character-mutation throttle (create / rename / delete / takeover).
+// These deliberate, rare actions had NO dedicated limiter before the API-pipeline
+// migration (they were gated only by the full session). A new per-action, per-(IP
+// AND account) bucket bounds a burst without spilling into the login/register budget
+// (its own maps, decoupled from `attempts`). Keyed BY ACTION so one action's flood
+// cannot exhaust another's allowance, and generous (a real player never creates or
+// renames twenty characters a minute); the deeper two-tier rework is a later phase.
+export const CHARACTER_MUTATION_MAX_PER_MINUTE = 20;
+
+/** The character mutations that each carry a dedicated per-account limiter bucket. */
+export type CharacterMutationAction = 'create' | 'rename' | 'delete' | 'takeover';
+
+const characterMutationIpAttempts = new Map<string, number[]>();
+const characterMutationAccountAttempts = new Map<string, number[]>();
+
+/**
+ * Throttle a character mutation per action on its OWN (IP AND account) buckets. The
+ * key is prefixed with the action so create/rename/delete/takeover never share a
+ * window. Mirrors cardUploadRateLimited: an IP flood OR an account flood limits.
+ */
+export function characterMutationRateLimited(
+  req: http.IncomingMessage,
+  accountId: number,
+  action: CharacterMutationAction,
+): boolean {
+  const ipLimited = recordSlidingWindowAttempt(
+    characterMutationIpAttempts,
+    `${action}:${requestIp(req)}`,
+    CHARACTER_MUTATION_MAX_PER_MINUTE,
+  );
+  const accountLimited = recordSlidingWindowAttempt(
+    characterMutationAccountAttempts,
+    `${action}:${accountId}`,
+    CHARACTER_MUTATION_MAX_PER_MINUTE,
+  );
+  return ipLimited || accountLimited;
+}
+
+/** Reset character-mutation throttles. Test-only: keeps scoped buckets isolated. */
+export function resetCharacterMutationRateLimits(): void {
+  characterMutationIpAttempts.clear();
+  characterMutationAccountAttempts.clear();
+}
+
 // ---------------------------------------------------------------------------
 // Per-account failed-login throttle (#93)
 //

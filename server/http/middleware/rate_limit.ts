@@ -6,6 +6,7 @@
 
 import {
   cardUploadRateLimited,
+  characterMutationRateLimited,
   discordRateLimited,
   publicReadRateLimited,
   WINDOW_MS,
@@ -81,6 +82,40 @@ export const WALLET_LINK_POLICY: RateLimitPolicy = {
   name: 'wallet_link',
   keyClass: 'ip+account',
   limited: (ctx) => walletLinkRateLimited(ctx.req, accountIdOf(ctx)),
+  retryAfterSeconds: RETRY_AFTER_SECONDS,
+};
+
+// The character-mutation policies (Phase 12). Each is 'ip+account' (so it must be
+// mounted BEHIND the route's auth guard, which populates ctx.account) and runs the
+// per-action limiter keyed on its own bucket, so create/rename/delete/takeover never
+// share a window. These are NEW limiters (character mutations had none before): a 429
+// is now possible where none was, recorded as the newLimiterCharacterMutations known
+// deviation. They reuse the existing 'rate_limit.exceeded' code (no catalog append).
+export const CHARACTER_CREATE_POLICY: RateLimitPolicy = {
+  name: 'character_create',
+  keyClass: 'ip+account',
+  limited: (ctx) => characterMutationRateLimited(ctx.req, accountIdOf(ctx), 'create'),
+  retryAfterSeconds: RETRY_AFTER_SECONDS,
+};
+
+export const CHARACTER_RENAME_POLICY: RateLimitPolicy = {
+  name: 'character_rename',
+  keyClass: 'ip+account',
+  limited: (ctx) => characterMutationRateLimited(ctx.req, accountIdOf(ctx), 'rename'),
+  retryAfterSeconds: RETRY_AFTER_SECONDS,
+};
+
+export const CHARACTER_DELETE_POLICY: RateLimitPolicy = {
+  name: 'character_delete',
+  keyClass: 'ip+account',
+  limited: (ctx) => characterMutationRateLimited(ctx.req, accountIdOf(ctx), 'delete'),
+  retryAfterSeconds: RETRY_AFTER_SECONDS,
+};
+
+export const CHARACTER_TAKEOVER_POLICY: RateLimitPolicy = {
+  name: 'character_takeover',
+  keyClass: 'ip+account',
+  limited: (ctx) => characterMutationRateLimited(ctx.req, accountIdOf(ctx), 'takeover'),
   retryAfterSeconds: RETRY_AFTER_SECONDS,
 };
 
