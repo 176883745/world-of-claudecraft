@@ -28,6 +28,7 @@ export const DEVIATION_ID = {
   planned405BeforeAuth: 'planned-405-before-auth',
   validationStatusRemap: 'validation-status-remap-422-400-413',
   statusNameListTrim: 'status-name-list-trim',
+  realmsSearchAuthzGapClose: 'realms-search-authz-gap-close',
   newLimiterCharacterMutations: 'new-limiter-character-mutations',
   newLimiterReportsCreate: 'new-limiter-reports-create',
   newLimiterDiscord: 'new-limiter-discord',
@@ -199,6 +200,33 @@ export const KNOWN_DEVIATIONS: readonly KnownDeviation[] = [
       'The public status endpoint currently exposes a names[] list of online ' +
       'players; Phase 10 trims it to counts only.',
     goldenFixtures: ['tests/server/fixtures/main/status_get.json'],
+  },
+  {
+    id: DEVIATION_ID.realmsSearchAuthzGapClose,
+    routes: ['/api/realms', '/api/search'],
+    currentBehavior:
+      'GET /api/realms treats a present-but-invalid bearer token the same as no ' +
+      'token (silently anonymous, empty counts), never validating it; GET ' +
+      '/api/search requires a token and answers 401 to any request without one.',
+    intendedBehavior:
+      'Phase 10 applies the anonymous-friendly bearer resolver to both: a request ' +
+      'with NO token still serves (realms with empty counts, search with results), ' +
+      'but a request that PRESENTS a token has it validated (an invalid token is ' +
+      'rejected 401 auth.token_invalid) and moderation-gated (a banned/suspended ' +
+      'account is rejected 403, which the legacy bearerAccount did not check). ' +
+      'Search additionally becomes anonymous-friendly (a missing token no longer ' +
+      '401s) and, being now an anonymous DB-hitting read, is rate-limited in-handler ' +
+      'with the same publicReadRateLimited per-IP budget the public sheet uses.',
+    introducedInPhase: 10,
+    reason:
+      'Both routes had an authz gap: realms never validated a present token, and ' +
+      "search's token requirement was inconsistent with the rest of the public-read " +
+      'surface. Phase 10 closes the gap by validating a present token while keeping ' +
+      'the no-token path serving.',
+    goldenFixtures: [
+      'tests/server/fixtures/main/realms_get_noauth.json',
+      'tests/server/fixtures/main/search_get_noauth_401.json',
+    ],
   },
   {
     id: DEVIATION_ID.newLimiterCharacterMutations,

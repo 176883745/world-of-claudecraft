@@ -152,32 +152,70 @@ describe('registry completeness: the legacy /api ladder is fully covered', () =>
     expect(uncovered).toEqual([]);
   });
 
-  it('never double-serves: no ladder path is both router-owned and legacy-served', () => {
-    // A migration that adds a route to the registry MUST remove its legacy arm.
-    // Empty this phase, but a real guard for the migration phases (Phase 10 on).
-    const doubleServed = legacyLadder
-      .filter((r) => isRouterOwned(apiRegistry, r) && legacyServes(r, legacyServed))
+  it('retains the legacy rollback arm for every migrated (router-owned) route', () => {
+    // A migrated route is deliberately BOTH router-owned (flag 'new') and
+    // legacy-served (flag 'legacy'): Phase 10 keeps each migrated route's legacy
+    // handleApi arm as the flag-off rollback path (removed only in Phase 25). That
+    // is not a runtime double-serve, since the dispatcher runs exactly one arm per
+    // request (the API_DISPATCH flag picks) and the parity harness proves the two
+    // arms are byte-identical. The real migration hazard is a rollback arm removed
+    // too early (which would 404 under flag 'legacy'), so the invariant flips: every
+    // router-owned ladder path MUST still be legacy-served until Phase 25.
+    const missingRollbackArm = legacyLadder
+      .filter((r) => isRouterOwned(apiRegistry, r) && !legacyServes(r, legacyServed))
       .map((r) => `${r.method} ${r.path}`);
-    expect(doubleServed).toEqual([]);
+    expect(missingRollbackArm).toEqual([]);
   });
 });
 
-describe('registry completeness: this-phase seed baseline', () => {
-  it('ships an empty registry so every ladder path resolves to a non-matched kind', () => {
-    expect(apiRoutes).toHaveLength(0);
-    for (const r of legacyLadder) {
-      expect(apiRegistry.resolve(r.method, concretePath(r.path)).kind).not.toBe('matched');
+describe('registry completeness: Phase 10 migrated baseline (public reads)', () => {
+  // The exact public-read paths Phase 10 moved onto RouteDefs (server/leaderboard.ts).
+  // The router owns them under flag 'new'; their legacy arms stay for rollback.
+  const MIGRATED_PATHS = [
+    '/api/leaderboard',
+    '/api/arena/leaderboard',
+    '/api/releases',
+    '/api/project-stats',
+    '/api/status',
+    '/api/perf',
+    '/api/search',
+    '/api/realms',
+    '/api/public/characters/:name/sheet',
+  ];
+
+  it('registers exactly the Phase 10 public-read routes (one RouteDef per path)', () => {
+    const registered = [...apiRoutes].map((r) => r.path).sort();
+    expect(registered).toEqual([...MIGRATED_PATHS].sort());
+  });
+
+  it('the router OWNS every migrated public-read path (GET resolves to matched)', () => {
+    for (const path of MIGRATED_PATHS) {
+      expect(apiRegistry.resolve('GET', concretePath(path)).kind).toBe('matched');
     }
   });
 
-  it('is 100% delegate-served and 0% router-owned, and the union covers the ladder', () => {
-    const routerOwned = legacyLadder.filter((r) => isRouterOwned(apiRegistry, r));
-    const delegateServed = legacyLadder.filter((r) => legacyServes(r, legacyServed));
-    // Pre-migration: the registry owns nothing, so every ladder path is served by
-    // the legacy delegate.
-    expect(routerOwned).toEqual([]);
-    expect(delegateServed.length).toBe(legacyLadder.length);
-    // Union (router-owned UNION delegate-served) covers the full ladder, no gap.
+  it('every migrated path is a mainApi ladder route that stays delegate-served', () => {
+    // Each migrated path must also be an inventory ladder route AND retain its
+    // legacy arm (rollback), so the flag can roll each one back per route.
+    for (const path of MIGRATED_PATHS) {
+      const row = legacyLadder.find((r) => r.path === path);
+      expect(row, `migrated path ${path} must be a mainApi ladder route`).toBeDefined();
+      if (row) {
+        expect(isRouterOwned(apiRegistry, row)).toBe(true);
+        expect(legacyServes(row, legacyServed)).toBe(true);
+      }
+    }
+  });
+
+  it('leaves every un-migrated ladder path delegate-only (not router-owned)', () => {
+    const migrated = new Set(MIGRATED_PATHS);
+    const wronglyOwned = legacyLadder
+      .filter((r) => !migrated.has(r.path) && isRouterOwned(apiRegistry, r))
+      .map((r) => `${r.method} ${r.path}`);
+    expect(wronglyOwned).toEqual([]);
+  });
+
+  it('the router-owned UNION delegate-served set still covers the whole ladder', () => {
     const covered = legacyLadder.filter((r) => isCovered(r, apiRegistry, legacyServed));
     expect(covered.length).toBe(legacyLadder.length);
   });

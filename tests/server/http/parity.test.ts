@@ -6,14 +6,14 @@
 // to 'new' via the test-only setter) and diffs status + normalized body +
 // contracted headers with the shared runParity driver.
 //
-// Why ZERO divergences is the expectation THIS phase: Phase 9 migrates ZERO
-// routes, so the new dispatcher is built with an EMPTY registry and delegates
-// EVERY /api path to the legacy handleApi ladder UNCHANGED. Old and new therefore
-// resolve through the exact same handler, so the two normalized responses must be
-// identical for every fixture. The known-deviations filter below is a
-// FORWARD-FACING safety net for later phases that migrate real routes; this phase
-// should never trip it, and it should never even reach it (the raw divergence list
-// is expected empty too).
+// The parity contract as routes migrate: an un-migrated /api path still delegates
+// to the legacy handleApi ladder UNCHANGED, so old and new resolve through the
+// exact same handler and are byte-identical. A migrated route is byte-identical
+// too UNLESS it carries a labeled known deviation. Phase 10 (public reads) is the
+// first migration and lands two deviations: the /api/status name-list trim and the
+// /api/realms + /api/search authz-gap-close. So the raw old-vs-new divergence list
+// is no longer empty; the known-deviations filter removes exactly those, and any
+// residual divergence is a real parity break.
 //
 // Determinism rules this file obeys (mirrors characterization.test.ts):
 //   - It replays ONLY the db-free CONTRACT requests characterization.test.ts uses
@@ -169,7 +169,12 @@ const API_REQUEST_CORPUS: readonly ApiRequestSpec[] = [
   { name: 'wallet_get_noauth_401', method: 'GET', url: '/api/wallet' },
   { name: 'referrals_get_noauth_401', method: 'GET', url: '/api/referrals' },
   { name: 'reports_post_noauth_401', method: 'POST', url: '/api/reports', body: {} },
-  { name: 'search_get_noauth_401', method: 'GET', url: '/api/search?q=ab' },
+  // Phase 10 authz-gap-close: /api/search is now anonymous-friendly, so a no-token
+  // request serves 200 { results: [] } (empty query) instead of the legacy 401.
+  // The query is intentionally dropped so the served path stays db-free (a
+  // non-empty ?q would reach searchCharacters); old 401 vs new 200 is the
+  // realmsSearchAuthzGapClose deviation the filter below expects.
+  { name: 'search_get_noauth', method: 'GET', url: '/api/search' },
   { name: 'owner_sheet_get_noauth_401', method: 'GET', url: '/api/characters/1/sheet' },
   { name: 'standing_get_noauth_401', method: 'GET', url: '/api/characters/1/standing' },
 
@@ -303,22 +308,34 @@ afterAll(async () => {
   else process.env[DEV_COMMANDS_ENV] = savedDevCommands;
 });
 
-describe('phase 9 /api dispatch parity (legacy flag vs new flag)', () => {
-  it('has zero unexpected divergences across the whole corpus (after the known-deviations filter)', () => {
-    // The new dispatcher's empty registry delegates every path to handleApi, so no
-    // divergence should exist at all; the known-deviations filter is the
-    // forward-facing net for later phases that migrate real routes.
+describe('/api dispatch parity (legacy flag vs new flag)', () => {
+  it('has zero UNEXPECTED divergences across the whole corpus (after the known-deviations filter)', () => {
+    // Phase 10 migrates real routes onto the new dispatcher. For an un-migrated or a
+    // parity-clean migrated route old-vs-new is byte-identical; the only permitted
+    // divergences are the labeled known deviations (the /api/status name-list trim
+    // and the /api/realms + /api/search authz-gap-close). A divergence on any other
+    // route is a real parity break.
     const unexpected = report.divergences.filter(
       (d) => !isKnownDeviationPath(PATH_FOR_FIXTURE.get(d.fixture) ?? ''),
     );
     expect(unexpected, stableStringify(unexpected, 2)).toEqual([]);
   });
 
-  it('reports zero divergences at all this phase (empty registry => byte-identical delegation)', () => {
-    // Phase 9 migrates zero routes, so old-vs-new is byte-identical everywhere; the
-    // raw divergence list (not just the filtered one) must be empty.
-    expect(report.ok, stableStringify(report.divergences, 2)).toBe(true);
-    expect(report.divergences).toEqual([]);
+  it('the labeled deviations actually fire (the harness is not silently passing)', () => {
+    // Positive control: the /api/status trim and the /api/search authz-gap-close
+    // must each produce a raw old-vs-new divergence in the corpus, so the filtered
+    // assertion above is meaningfully green rather than green because nothing ran.
+    // (/api/realms does not appear here: its no-token body is unchanged; only a
+    // present-invalid token, which this db-free corpus does not exercise, differs.)
+    const deviatingPaths = new Set(
+      report.divergences.map((d) => PATH_FOR_FIXTURE.get(d.fixture) ?? ''),
+    );
+    expect(deviatingPaths.has('/api/status'), stableStringify(report.divergences, 2)).toBe(true);
+    expect(deviatingPaths.has('/api/search'), stableStringify(report.divergences, 2)).toBe(true);
+    // Every raw divergence is a registered known-deviation path (no stray break).
+    for (const path of deviatingPaths) {
+      expect(isKnownDeviationPath(path), `unexpected divergence on ${path}`).toBe(true);
+    }
   });
 
   // The wrong-method 405 { ok: false } heartbeat contract. NOTE on the request:

@@ -103,6 +103,7 @@ import { isUniqueViolation, json, readBody } from './http_util';
 import { handleInternalApi } from './internal';
 import { isConnectionRefused } from './ip_block';
 import { pruneExpiredBlockedIps } from './ip_block_db';
+import { configureLeaderboardRuntime, type ReleaseEntry } from './leaderboard';
 import {
   cleanReportReason,
   createPlayerReport,
@@ -315,15 +316,8 @@ const RELEASES_TTL_MS = 15 * 60_000; // 15 min — releases change rarely
 const RELEASES_SIZE = 20;
 const RELEASE_BODY_MAX = 8_000; // guard against a pathologically long body
 
-export interface ReleaseEntry {
-  id: number;
-  tag: string;
-  name: string;
-  body: string;
-  url: string;
-  prerelease: boolean;
-  publishedAt: string; // ISO 8601
-}
+// ReleaseEntry is defined in server/leaderboard.ts (the module that owns the
+// public /api/releases route) and imported above; the fetch + cache stay here.
 
 let releasesCache: { at: number; entries: ReleaseEntry[] } | null = null;
 setUsageCacheSize('github.releases', 0, RELEASES_SIZE);
@@ -1419,9 +1413,27 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
 // The /api dispatch seam (Phase 9 of docs/api-pipeline/)
 // ---------------------------------------------------------------------------
 
+// Inject the main.ts runtime the ported public-read handlers (server/leaderboard.ts)
+// need but cannot import without a cycle: the live online count + dev perf profile
+// off the GameServer, the three cache-fronted readers (unchanged: the same TTL
+// caches the legacy arms use), the releases feed's repo + cap, and the two
+// request-shaped helpers. Done at module load, before any request, so the static
+// `routes` array registry.ts already spread in can serve.
+configureLeaderboardRuntime({
+  playersOnline: () => game.clients.size,
+  perfProfile: () => game.perfProfile(),
+  getLeaderboard,
+  getGuildLeaderboard,
+  getReleases,
+  githubRepo: GITHUB_REPO,
+  releasesMaxLimit: RELEASES_SIZE,
+  publicOrigin,
+  toSheetRank,
+});
+
 // The in-house dispatcher that fronts the legacy handleApi ladder via a per-path
-// delegate. Built once; with an empty registry (this phase) every path delegates
-// to handleApi UNCHANGED, so behavior is byte-for-byte identical to today.
+// delegate. Built once; a path the registry owns (Phase 10 migrated the public
+// reads) runs the onion, every un-migrated path delegates to handleApi UNCHANGED.
 const apiDispatcher = createApiDispatcher({ registry: apiRegistry, delegate: handleApi });
 
 // The bound /api entry for the current dispatch mode, recomputed only when the

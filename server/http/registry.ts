@@ -22,6 +22,7 @@
 // interceptable by an earlier, non-owned catch-all that would skip its ownership
 // loader.
 
+import { routes as leaderboardRoutes } from '../leaderboard';
 import { type CompiledPattern, compilePattern } from './path_pattern';
 import { createRouter, type MatchResult } from './router';
 import type { OwnerScope, RouteDef } from './types';
@@ -44,12 +45,15 @@ export interface ApiRegistry {
 }
 
 /**
- * The single flat list of API routes. EMPTY this phase: Phase 9 migrates ZERO
- * routes, so every /api path delegates to the legacy handler. The migration
- * phases (Phase 10 onward) populate it by spreading their per-domain
- * `routes: RouteDef[]` arrays here, one domain at a time.
+ * The single flat list of API routes. The migration phases populate it by
+ * spreading their per-domain `routes: RouteDef[]` arrays here, one domain at a
+ * time. Phase 10 adds the first domain: the public-read surface
+ * (server/leaderboard.ts). Every un-migrated /api path is not in this list, so
+ * the Phase 9 dispatcher delegates it to the legacy handleApi ladder unchanged.
+ * A migrated route stays served by its legacy arm too (the flag-off rollback
+ * path) until Phase 25 removes the ladder.
  */
-export const apiRoutes: readonly RouteDef[] = [];
+export const apiRoutes: readonly RouteDef[] = [...leaderboardRoutes];
 
 /**
  * Build a registry from a route list (defaults to apiRoutes). Ordering happens

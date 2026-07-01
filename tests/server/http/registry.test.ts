@@ -147,8 +147,15 @@ describe('assertNoOwnedRouteShadowing', () => {
 });
 
 describe('apiRoutes / apiRegistry defaults', () => {
-  it('ships empty this phase and the default registry matches nothing', () => {
-    expect(apiRoutes).toHaveLength(0);
+  it('registers the Phase 10 public-read domain and matches its paths', () => {
+    // Phase 10 migrated the first domain (server/leaderboard.ts public reads), so
+    // apiRoutes is no longer empty; the default registry now owns those GET paths.
+    expect(apiRoutes.length).toBeGreaterThan(0);
+    expect(apiRegistry.resolve('GET', '/api/leaderboard').kind).toBe('matched');
+    expect(apiRegistry.resolve('GET', '/api/public/characters/someone/sheet').kind).toBe('matched');
+  });
+
+  it('still delegates (notFound) for a path no migrated domain owns', () => {
     expect(apiRegistry.resolve('GET', '/api/anything').kind).toBe('notFound');
   });
 });
