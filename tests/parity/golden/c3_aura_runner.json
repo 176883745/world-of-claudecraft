@@ -17,7 +17,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 390,
-      "state": "5a3cb892",
+      "state": "e60ca16e",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -40,6 +40,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -102,7 +103,7 @@
       "tick": 2,
       "time": 0.1,
       "nextId": 391,
-      "state": "e0bf90e5",
+      "state": "6c4f6f11",
       "events": "c2508482",
       "rng": {
         "draws": 2,
@@ -125,6 +126,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 167200,
           "talents": {
             "choices": {},
@@ -237,7 +239,7 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 391,
-      "state": "401e0780",
+      "state": "2934df94",
       "events": "741638a5",
       "rng": {
         "draws": 2,
@@ -248,7 +250,7 @@
       "tick": 10,
       "time": 0.5,
       "nextId": 391,
-      "state": "282e2ff3",
+      "state": "4f8b3127",
       "events": "741638a5",
       "rng": {
         "draws": 2,
@@ -259,7 +261,7 @@
       "tick": 15,
       "time": 0.75,
       "nextId": 391,
-      "state": "4da9cda0",
+      "state": "5e77ec74",
       "events": "741638a5",
       "rng": {
         "draws": 2,
@@ -270,7 +272,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 391,
-      "state": "ec6c5b77",
+      "state": "8d61db93",
       "events": "741638a5",
       "rng": {
         "draws": 2,
@@ -281,7 +283,7 @@
       "tick": 25,
       "time": 1.25,
       "nextId": 391,
-      "state": "5f983c15",
+      "state": "f4053681",
       "events": "741638a5",
       "rng": {
         "draws": 2,
@@ -292,7 +294,7 @@
       "tick": 30,
       "time": 1.5,
       "nextId": 391,
-      "state": "8b2317a4",
+      "state": "8323b470",
       "events": "741638a5",
       "rng": {
         "draws": 2,
@@ -303,7 +305,7 @@
       "tick": 35,
       "time": 1.75,
       "nextId": 391,
-      "state": "b805e81e",
+      "state": "66d1aba2",
       "events": "66005467",
       "rng": {
         "draws": 2,
@@ -314,7 +316,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 391,
-      "state": "6e3aafd9",
+      "state": "3c6e8dfd",
       "events": "7c405608",
       "rng": {
         "draws": 2,
@@ -325,7 +327,7 @@
       "tick": 45,
       "time": 2.25,
       "nextId": 391,
-      "state": "03dc9bdd",
+      "state": "cab10769",
       "events": "741638a5",
       "rng": {
         "draws": 20,
@@ -336,7 +338,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 391,
-      "state": "f038de8b",
+      "state": "42fad39f",
       "events": "741638a5",
       "rng": {
         "draws": 44,
@@ -347,7 +349,7 @@
       "tick": 55,
       "time": 2.75,
       "nextId": 391,
-      "state": "248aaa3d",
+      "state": "bc1ca889",
       "events": "741638a5",
       "rng": {
         "draws": 62,
@@ -358,7 +360,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 391,
-      "state": "e00c9217",
+      "state": "8e4d9673",
       "events": "741638a5",
       "rng": {
         "draws": 78,
@@ -369,7 +371,7 @@
       "tick": 62,
       "time": 3.1,
       "nextId": 391,
-      "state": "e6e50391",
+      "state": "f6e29bd5",
       "events": "741638a5",
       "rng": {
         "draws": 85,
@@ -392,6 +394,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 167200,
           "talents": {
             "choices": {},
@@ -516,7 +519,7 @@
       "tick": 65,
       "time": 3.25,
       "nextId": 393,
-      "state": "f646028b",
+      "state": "7b54179f",
       "events": "f2cfe59b",
       "rng": {
         "draws": 104,
@@ -527,7 +530,7 @@
       "tick": 70,
       "time": 3.5,
       "nextId": 393,
-      "state": "b41739c7",
+      "state": "e4cb3ee3",
       "events": "741638a5",
       "rng": {
         "draws": 125,
@@ -538,7 +541,7 @@
       "tick": 75,
       "time": 3.75,
       "nextId": 393,
-      "state": "a70f0986",
+      "state": "b4618c6a",
       "events": "741638a5",
       "rng": {
         "draws": 152,
@@ -549,7 +552,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 393,
-      "state": "2d136a66",
+      "state": "52e44a8a",
       "events": "741638a5",
       "rng": {
         "draws": 156,
@@ -560,7 +563,7 @@
       "tick": 85,
       "time": 4.25,
       "nextId": 393,
-      "state": "8b672fd7",
+      "state": "aa921733",
       "events": "741638a5",
       "rng": {
         "draws": 192,
@@ -571,7 +574,7 @@
       "tick": 90,
       "time": 4.5,
       "nextId": 393,
-      "state": "cce03841",
+      "state": "66d74185",
       "events": "741638a5",
       "rng": {
         "draws": 219,
@@ -582,7 +585,7 @@
       "tick": 95,
       "time": 4.75,
       "nextId": 393,
-      "state": "2cb211ae",
+      "state": "6e71e5b2",
       "events": "741638a5",
       "rng": {
         "draws": 259,
@@ -593,7 +596,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 393,
-      "state": "afe49dd9",
+      "state": "e7d66bfd",
       "events": "741638a5",
       "rng": {
         "draws": 280,
@@ -604,7 +607,7 @@
       "tick": 105,
       "time": 5.25,
       "nextId": 393,
-      "state": "c0df81cc",
+      "state": "7170ced8",
       "events": "e50ed03e",
       "rng": {
         "draws": 307,
@@ -615,7 +618,7 @@
       "tick": 110,
       "time": 5.5,
       "nextId": 393,
-      "state": "a699af62",
+      "state": "93f487ae",
       "events": "741638a5",
       "rng": {
         "draws": 329,
@@ -626,7 +629,7 @@
       "tick": 115,
       "time": 5.75,
       "nextId": 393,
-      "state": "f42b2c87",
+      "state": "6630e4a3",
       "events": "741638a5",
       "rng": {
         "draws": 362,
@@ -637,7 +640,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 393,
-      "state": "2599a599",
+      "state": "631143bd",
       "events": "741638a5",
       "rng": {
         "draws": 388,
@@ -648,7 +651,7 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 393,
-      "state": "42b53987",
+      "state": "7fdf19a3",
       "events": "741638a5",
       "rng": {
         "draws": 432,
@@ -659,7 +662,7 @@
       "tick": 130,
       "time": 6.5,
       "nextId": 393,
-      "state": "11956f0b",
+      "state": "1ac1481f",
       "events": "741638a5",
       "rng": {
         "draws": 463,
@@ -670,7 +673,7 @@
       "tick": 135,
       "time": 6.75,
       "nextId": 393,
-      "state": "61d7edec",
+      "state": "298aa9b8",
       "events": "741638a5",
       "rng": {
         "draws": 494,
@@ -681,7 +684,7 @@
       "tick": 140,
       "time": 7,
       "nextId": 393,
-      "state": "4e996bf8",
+      "state": "b4d4c7ec",
       "events": "741638a5",
       "rng": {
         "draws": 526,
@@ -692,7 +695,7 @@
       "tick": 145,
       "time": 7.25,
       "nextId": 393,
-      "state": "351b45c7",
+      "state": "0850aae3",
       "events": "91b45538",
       "rng": {
         "draws": 555,
@@ -703,7 +706,7 @@
       "tick": 150,
       "time": 7.5,
       "nextId": 393,
-      "state": "25efe529",
+      "state": "8db6544d",
       "events": "741638a5",
       "rng": {
         "draws": 589,
@@ -714,7 +717,7 @@
       "tick": 155,
       "time": 7.75,
       "nextId": 393,
-      "state": "f1951f60",
+      "state": "3f831f34",
       "events": "741638a5",
       "rng": {
         "draws": 628,
@@ -725,7 +728,7 @@
       "tick": 160,
       "time": 8,
       "nextId": 393,
-      "state": "7bdfa30a",
+      "state": "178d0b96",
       "events": "741638a5",
       "rng": {
         "draws": 655,
@@ -736,7 +739,7 @@
       "tick": 165,
       "time": 8.25,
       "nextId": 393,
-      "state": "1cafb010",
+      "state": "21c110a4",
       "events": "741638a5",
       "rng": {
         "draws": 681,
@@ -747,7 +750,7 @@
       "tick": 170,
       "time": 8.5,
       "nextId": 393,
-      "state": "03179b2c",
+      "state": "09a637f8",
       "events": "741638a5",
       "rng": {
         "draws": 708,
@@ -758,7 +761,7 @@
       "tick": 175,
       "time": 8.75,
       "nextId": 393,
-      "state": "6214db1b",
+      "state": "af7cbc6f",
       "events": "741638a5",
       "rng": {
         "draws": 746,
@@ -769,7 +772,7 @@
       "tick": 180,
       "time": 9,
       "nextId": 393,
-      "state": "e7e0f937",
+      "state": "283e0c53",
       "events": "741638a5",
       "rng": {
         "draws": 786,
@@ -780,7 +783,7 @@
       "tick": 182,
       "time": 9.1,
       "nextId": 393,
-      "state": "42fa63a2",
+      "state": "c63513ee",
       "events": "6efb5b1e",
       "rng": {
         "draws": 799,
@@ -806,6 +809,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 167200,
           "talents": {
             "choices": {},

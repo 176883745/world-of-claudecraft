@@ -327,13 +327,8 @@ beforeAll(() => {
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
     expect(IWORLD_MEMBERS.length).toBe(149);
-<<<<<<< HEAD
-    expect(DATA_MEMBERS.length).toBe(36);
-    expect(METHOD_MEMBERS.length).toBe(112);
-=======
     expect(DATA_MEMBERS.length).toBe(37);
-    expect(METHOD_MEMBERS.length).toBe(111);
->>>>>>> 3fb4a4b7 (feat(professions): add per-player gathering proficiency tracking (#1119))
+    expect(METHOD_MEMBERS.length).toBe(112);
   });
 
   it('has no duplicate member names', () => {

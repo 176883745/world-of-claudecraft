@@ -32,7 +32,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 391,
-      "state": "9baf4cc3",
+      "state": "20e69617",
       "events": "17704495",
       "rng": {
         "draws": 4,
@@ -56,6 +56,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -162,7 +163,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 392,
-      "state": "a7f3308b",
+      "state": "62fda41f",
       "events": "dd7c5476",
       "rng": {
         "draws": 8,
@@ -186,6 +187,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -346,7 +348,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 393,
-      "state": "271402c4",
+      "state": "08a9d460",
       "events": "556479b4",
       "rng": {
         "draws": 13,
@@ -370,6 +372,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -585,7 +588,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 394,
-      "state": "75fb820e",
+      "state": "33ce6e42",
       "events": "741638a5",
       "rng": {
         "draws": 15,
@@ -609,6 +612,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -871,7 +875,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 395,
-      "state": "d0537866",
+      "state": "8e91e21a",
       "events": "741638a5",
       "rng": {
         "draws": 16,
@@ -895,6 +899,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1198,7 +1203,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 396,
-      "state": "d5d2f3f9",
+      "state": "972feedd",
       "events": "514349f0",
       "rng": {
         "draws": 16,
@@ -1222,6 +1227,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1569,7 +1575,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 396,
-      "state": "135c12a0",
+      "state": "069813f4",
       "events": "741638a5",
       "rng": {
         "draws": 16,
@@ -1593,6 +1599,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1941,7 +1948,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 396,
-      "state": "135c12a0",
+      "state": "069813f4",
       "events": "741638a5",
       "rng": {
         "draws": 16,
@@ -1965,6 +1972,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}

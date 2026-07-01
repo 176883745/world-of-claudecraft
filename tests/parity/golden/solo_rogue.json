@@ -15,7 +15,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 390,
-      "state": "c2464a3c",
+      "state": "bbd2f6b8",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -38,6 +38,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -101,7 +102,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 391,
-      "state": "caa96f4b",
+      "state": "2ad74b77",
       "events": "046941dc",
       "rng": {
         "draws": 9,
@@ -112,7 +113,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 391,
-      "state": "33c6d348",
+      "state": "0fba256c",
       "events": "731af17e",
       "rng": {
         "draws": 15,
@@ -123,7 +124,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 391,
-      "state": "ea2c90af",
+      "state": "57b26633",
       "events": "f2487ec0",
       "rng": {
         "draws": 90,
@@ -134,7 +135,7 @@
       "tick": 72,
       "time": 3.6,
       "nextId": 391,
-      "state": "c50fcbfb",
+      "state": "a2af1867",
       "events": "741638a5",
       "rng": {
         "draws": 143,
@@ -160,6 +161,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 27600,
           "talents": {
             "choices": {},

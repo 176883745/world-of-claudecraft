@@ -16,7 +16,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 390,
-      "state": "969c1dc9",
+      "state": "8a1e9a6d",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -39,6 +39,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -100,7 +101,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 390,
-      "state": "fbb7708c",
+      "state": "b50207f8",
       "events": "d8fe6d87",
       "rng": {
         "draws": 0,
@@ -123,6 +124,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 27600,
           "questLog": [
             [
@@ -197,7 +199,7 @@
       "tick": 8,
       "time": 0.4,
       "nextId": 398,
-      "state": "2b85e8a4",
+      "state": "bfd0ddb8",
       "events": "68debff8",
       "rng": {
         "draws": 32,
@@ -224,6 +226,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 27600,
           "questLog": [
             [
@@ -299,7 +302,7 @@
       "tick": 8,
       "time": 0.4,
       "nextId": 398,
-      "state": "3430e915",
+      "state": "649bcc61",
       "events": "d91c55b7",
       "rng": {
         "draws": 32,
@@ -329,6 +332,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 27850,
           "questsDone": [
             "q_wolves"
@@ -396,7 +400,7 @@
       "tick": 10,
       "time": 0.5,
       "nextId": 398,
-      "state": "d0facdc1",
+      "state": "4fa183e5",
       "events": "741638a5",
       "rng": {
         "draws": 32,
@@ -426,6 +430,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 27850,
           "questsDone": [
             "q_wolves"

@@ -15,7 +15,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 390,
-      "state": "f2893d06",
+      "state": "1adfb3fa",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -38,6 +38,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "rusty_hatchet"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -101,7 +102,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 393,
-      "state": "ad95ed51",
+      "state": "585340dd",
       "events": "a23edd09",
       "rng": {
         "draws": 6,
@@ -112,7 +113,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 393,
-      "state": "01e5851d",
+      "state": "b76bbde1",
       "events": "741638a5",
       "rng": {
         "draws": 6,
@@ -123,7 +124,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 393,
-      "state": "7ed7ad53",
+      "state": "5c439987",
       "events": "16b6719a",
       "rng": {
         "draws": 96,
@@ -134,7 +135,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 393,
-      "state": "5c8b59cf",
+      "state": "69b43f6b",
       "events": "741638a5",
       "rng": {
         "draws": 195,
@@ -145,7 +146,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 393,
-      "state": "7fda187d",
+      "state": "062e1401",
       "events": "7c92ca7b",
       "rng": {
         "draws": 294,
@@ -156,7 +157,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 393,
-      "state": "668f895d",
+      "state": "72107421",
       "events": "741638a5",
       "rng": {
         "draws": 398,
@@ -167,7 +168,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 393,
-      "state": "668f895d",
+      "state": "72107421",
       "events": "741638a5",
       "rng": {
         "draws": 398,
@@ -190,6 +191,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "rusty_hatchet"
           },
+          "gatheringProficiency": {},
           "lifetimeXp": 44000,
           "talents": {
             "choices": {},

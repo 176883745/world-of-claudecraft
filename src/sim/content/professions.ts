@@ -1,8 +1,9 @@
 // Gathering profession content (data-as-code, exempt from module-first size
 // rules per root CLAUDE.md: this is a declarative table, not logic). Starter
 // set is Mining, Logging, Herbalism; the state and gain logic live in
-// ../professions/gathering.ts behind the SimContext seam. Icon glyphs follow
-// the same convention as talent nodes (content, rendered directly).
+// ../professions/gathering.ts behind the SimContext seam. `icon` is a plain
+// identifier (no emoji glyph, per the repo copy rule); a future UI surface
+// resolves it to a procedural icon the same way ability/item icons do.
 export type GatheringProfessionId = 'mining' | 'logging' | 'herbalism';
 
 export interface GatheringProfessionDef {
@@ -16,19 +17,19 @@ export const GATHERING_PROFESSIONS: Record<GatheringProfessionId, GatheringProfe
   mining: {
     id: 'mining',
     name: 'Mining',
-    icon: '⛏',
+    icon: 'mining',
     description: 'Extracting ore and stone from nodes found in the wild.',
   },
   logging: {
     id: 'logging',
     name: 'Logging',
-    icon: '🪓',
+    icon: 'logging',
     description: 'Felling timber from trees found across the zones.',
   },
   herbalism: {
     id: 'herbalism',
     name: 'Herbalism',
-    icon: '🌿',
+    icon: 'herbalism',
     description: 'Collecting herbs and plants growing in the wild.',
   },
 };

@@ -34,7 +34,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 398,
-      "state": "dfc2169b",
+      "state": "22a903e7",
       "events": "2fb262b7",
       "rng": {
         "draws": 6,
@@ -56,6 +56,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -75,6 +76,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -94,6 +96,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "gnarled_staff"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -113,6 +116,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -132,6 +136,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -629,7 +634,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 398,
-      "state": "1ccbe17f",
+      "state": "3ebe2f3b",
       "events": "19aa9b1e",
       "rng": {
         "draws": 6,
@@ -651,6 +656,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -670,6 +676,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -691,6 +698,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "gnarled_staff"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -710,6 +718,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -729,6 +738,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1244,7 +1254,7 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 398,
-      "state": "91ab1392",
+      "state": "1dfacb86",
       "events": "e7cecad5",
       "rng": {
         "draws": 10,
@@ -1255,7 +1265,7 @@
       "tick": 8,
       "time": 0.4,
       "nextId": 398,
-      "state": "7e99b18f",
+      "state": "867f8dcb",
       "events": "e7cecad5",
       "rng": {
         "draws": 10,
@@ -1277,6 +1287,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1296,6 +1307,7 @@
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1317,6 +1329,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "gnarled_staff"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1336,6 +1349,7 @@
             "chest": "footpad_jerkin",
             "mainhand": "training_mace"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1355,6 +1369,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "gatheringProficiency": {},
           "talents": {
             "choices": {},
             "ranks": {}
