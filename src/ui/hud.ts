@@ -113,6 +113,7 @@ import { abilityStartsAutoAttack, hasAutoAttackTarget } from './attack_on_abilit
 import { type AuraEffectInput, auraEffectDescriptor } from './aura_effect';
 import { AurasPainter, type AurasPainterDeps } from './auras_painter';
 import { type AurasDeps, createAurasView } from './auras_view';
+import { attachAvatarFallback } from './avatar_fallback';
 import { BagsWindow } from './bags_window';
 import { CastBarPainter } from './cast_bar_painter';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
@@ -9975,6 +9976,10 @@ export class Hud {
       parts.push(`<span class="uf-dc-chip rank">${esc(discordStatusDisplayName(tier))}</span>`);
     }
     el.innerHTML = parts.join('');
+    // Hide the external Discord avatar if its CDN image fails to load, so the line
+    // never shows the browser's broken-image placeholder (the nickname stays).
+    const dcAvatar = el.querySelector<HTMLImageElement>('.uf-dc-name img');
+    if (dcAvatar) attachAvatarFallback(dcAvatar);
     el.classList.add('show');
   }
 
@@ -10062,6 +10067,11 @@ export class Hud {
       `<div class="equip-col equip-col-right" id="inspect-equip-right"></div>` +
       `</div></div>`;
     hydratePortraits(el);
+    // If the linked-Discord avatar fails to load from the CDN, fall back to the
+    // status-tier badge (the same image shown when the player has no custom avatar)
+    // instead of the browser's broken-image placeholder.
+    const inspectPfp = el.querySelector<HTMLImageElement>('.inspect-discord-pfp');
+    if (inspectPfp) attachAvatarFallback(inspectPfp, discordStatusBadgeDataUrl(discordTierIdx));
     const view = buildPaperdollView(e.equippedItems, ITEMS);
     const leftCol = el.querySelector('#inspect-equip-left');
     const rightCol = el.querySelector('#inspect-equip-right');
