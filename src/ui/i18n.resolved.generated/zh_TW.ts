@@ -2638,6 +2638,7 @@ export const zh_TW: EnTranslations = {
       "usernameTaken": "此使用者名稱已被使用。",
       "invalidCredentials": "使用者名稱或密碼無效。",
       "verificationFailed": "驗證失敗，請重試。",
+      "desktopCodeInvalid": "桌面版登入代碼無效或已過期，請重試。",
       "invalidCharacterName": "角色名稱無效。請使用 2-16 個字母。",
       "characterNameNotAllowed": "此角色名稱不可使用。",
       "invalidClass": "職業無效。",
@@ -2654,6 +2655,21 @@ export const zh_TW: EnTranslations = {
       "takenOver": "你的角色已被另一個工作階段接管。",
       "renameBeforeEntering": "此角色必須先更名才能進入世界。",
       "renameNotPermitted": "不允許為此角色更名。"
+    }
+  },
+  "desktop": {
+    "update": {
+      "downloading": "正在下載更新 {version}...",
+      "ready": "更新 {version} 已就緒。離開遊戲時將自動安裝，也可立即重新啟動。",
+      "restart": "立即重新啟動",
+      "later": "稍後"
+    },
+    "crash": {
+      "title": "World of ClaudeCraft",
+      "body": "遊戲畫面已停止運作。要重新載入嗎？",
+      "reload": "重新載入",
+      "quit": "離開",
+      "fatalBody": "World of ClaudeCraft 發生未預期的錯誤，必須關閉。"
     }
   },
   "realm": {

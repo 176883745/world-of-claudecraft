@@ -2638,6 +2638,7 @@ export const ja_JP: EnTranslations = {
       "usernameTaken": "そのユーザー名は既に使われています。",
       "invalidCredentials": "ユーザー名またはパスワードが正しくありません。",
       "verificationFailed": "確認に失敗しました。もう一度お試しください。",
+      "desktopCodeInvalid": "デスクトップ版のログインコードが無効か期限切れです。もう一度お試しください。",
       "invalidCharacterName": "キャラクター名が無効です。2-16文字の英字を使用してください。",
       "characterNameNotAllowed": "そのキャラクター名は使用できません。",
       "invalidClass": "無効なクラスです。",
@@ -2654,6 +2655,21 @@ export const ja_JP: EnTranslations = {
       "takenOver": "あなたのキャラクターは別のセッションに引き継がれました。",
       "renameBeforeEntering": "このキャラクターは世界に入る前に名前変更が必要です。",
       "renameNotPermitted": "このキャラクターの名前変更は許可されていません。"
+    }
+  },
+  "desktop": {
+    "update": {
+      "downloading": "アップデート {version} をダウンロード中...",
+      "ready": "アップデート {version} の準備ができました。ゲーム終了時に自動でインストールされます。今すぐ再起動もできます。",
+      "restart": "今すぐ再起動",
+      "later": "後で"
+    },
+    "crash": {
+      "title": "World of ClaudeCraft",
+      "body": "ゲーム画面が停止しました。再読み込みしますか？",
+      "reload": "再読み込み",
+      "quit": "終了",
+      "fatalBody": "World of ClaudeCraft で予期しないエラーが発生したため、終了します。"
     }
   },
   "realm": {
