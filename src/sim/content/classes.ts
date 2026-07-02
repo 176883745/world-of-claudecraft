@@ -3589,6 +3589,11 @@ function applyTalentMods(entry: KnownAbility, mods: TalentModifiers): void {
   const dmgMult = 1 + globalDmg + (am?.dmgPct ?? 0);
   const healMult = 1 + mods.global.healPct + (am?.dmgPct ?? 0);
   const flat = am?.flatDmg ?? 0;
+  if (am?.addEffects.length) {
+    // Append copies before the scaling pass so added effects inherit the same
+    // global and per-ability damage/heal modifiers as native effects.
+    entry.effects = [...entry.effects, ...am.addEffects.map((e) => ({ ...e }))];
+  }
   if (dmgMult !== 1 || healMult !== 1 || flat !== 0) {
     entry.effects = entry.effects.map((e) => scaleEffect(e, dmgMult, healMult, flat));
   }

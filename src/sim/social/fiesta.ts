@@ -143,6 +143,7 @@ export function mergeAugmentMods(base: TalentModifiers, augIds: string[]): Talen
       g.spellDmgPct += e.spellDmgPct ?? 0;
       g.healPct += e.healPct ?? 0;
       g.threatPct += e.threatPct ?? 0;
+      g.critVsRooted += e.critVsRooted ?? 0;
     }
     for (const am of eff.ability ?? []) {
       if (!m.abilities[am.ability]) {
@@ -154,6 +155,7 @@ export function mergeAugmentMods(base: TalentModifiers, augIds: string[]): Talen
           castPct: 0,
           buffPct: 0,
           castWhileMoving: false,
+          addEffects: [],
         };
       }
       const cur = m.abilities[am.ability];
@@ -164,6 +166,7 @@ export function mergeAugmentMods(base: TalentModifiers, augIds: string[]): Talen
       cur.castPct += am.castPct ?? 0;
       cur.buffPct += am.buffPct ?? 0;
       if (am.castWhileMoving) cur.castWhileMoving = true;
+      if (am.addEffects) cur.addEffects.push(...am.addEffects);
     }
     if (eff.grant) m.grants.push({ ability: eff.grant.ability, rank: eff.grant.rank ?? 1 });
   }

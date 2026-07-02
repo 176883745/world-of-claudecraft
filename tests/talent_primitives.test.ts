@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { runEffects } from '../src/sim/combat/effect_dispatch';
 import { ABILITIES, abilitiesKnownAt } from '../src/sim/content/classes';
 import { emptyModifiers } from '../src/sim/content/talents';
-import { runEffects } from '../src/sim/combat/effect_dispatch';
 import { MOBS } from '../src/sim/data';
 import { createMob } from '../src/sim/entity';
 import type { PlayerMeta, ResolvedAbility } from '../src/sim/sim';
@@ -472,10 +472,89 @@ describe('talent primitive P2: cast while moving', () => {
       castPct: 0,
       buffPct: 0,
       castWhileMoving: true,
+      addEffects: [],
     };
     const fb = abilitiesKnownAt('mage', 20, mods).find((k) => k.def.id === 'fireball');
     expect(fb?.castWhileMoving).toBe(true);
     const plain = abilitiesKnownAt('mage', 20).find((k) => k.def.id === 'fireball');
     expect(plain?.castWhileMoving).toBeUndefined();
+  });
+});
+
+describe('talent primitives P4/P5', () => {
+  function damageAmount(rooted: boolean): number {
+    const { sim, p } = makeSim('warrior', 20, 4242);
+    const target = spawnTarget(sim, p);
+    target.stats.armor = 0;
+    p.critChance = 0;
+    if (rooted) target.auras.push(aura('root'));
+    const res = fixedDamageRes('test_vs_rooted', 'warrior', 'physical');
+    res.effects = [{ type: 'directDamage', min: 10, max: 10, vsRootedMult: 2 }];
+    runEffects(sim.ctx, p, metaOf(sim, p), target, res);
+    const ev = sim.drainEvents().find((e) => e.type === 'damage' && e.ability === 'test_vs_rooted');
+    if (ev?.type !== 'damage') throw new Error('missing damage event');
+    expect(ev.crit).toBe(false);
+    return ev.amount;
+  }
+
+  it('vsRootedMult multiplies direct damage only when the target is rooted', () => {
+    const normal = damageAmount(false);
+    const rooted = damageAmount(true);
+    expect(rooted).toBe(normal * 2);
+  });
+
+  it('critVsRooted adds spell crit chance only against rooted targets without extra draws', () => {
+    const run = (rooted: boolean): { crit: boolean; draws: number } => {
+      const { sim, p } = makeSim('mage', 20, 991);
+      const target = spawnTarget(sim, p);
+      p.stats.int = -62.5;
+      metaOf(sim, p).talentMods.global.critVsRooted = 1;
+      if (rooted) target.auras.push(aura('root'));
+      let draws = 0;
+      sim.rng.setObserver(() => {
+        draws++;
+      });
+      runEffects(
+        sim.ctx,
+        p,
+        metaOf(sim, p),
+        target,
+        fixedDamageRes('test_shatter', 'mage', 'frost'),
+      );
+      sim.rng.setObserver(null);
+      const ev = sim.drainEvents().find((e) => e.type === 'damage' && e.ability === 'test_shatter');
+      if (ev?.type !== 'damage') throw new Error('missing damage event');
+      return { crit: ev.crit, draws };
+    };
+
+    const normal = run(false);
+    const rooted = run(true);
+    expect(normal.draws).toBe(rooted.draws);
+    expect(normal.crit).toBe(false);
+    expect(rooted.crit).toBe(true);
+  });
+
+  it('addEffects appends copied effects during ability resolution without mutating content', () => {
+    const mods = emptyModifiers();
+    const added = { type: 'dot', total: 30, duration: 6, interval: 2 } as const;
+    const originalEffects = ABILITIES.fireball.effects;
+    mods.abilities.fireball = {
+      dmgPct: 0,
+      flatDmg: 0,
+      costPct: 0,
+      cooldownPct: 0,
+      castPct: 0,
+      buffPct: 0,
+      castWhileMoving: false,
+      addEffects: [added],
+    };
+
+    const fireball = abilitiesKnownAt('mage', 20, mods).find((k) => k.def.id === 'fireball');
+
+    expect(fireball).toBeDefined();
+    expect(fireball?.effects.at(-1)).toEqual(added);
+    expect(fireball?.effects.at(-1)).not.toBe(added);
+    expect(ABILITIES.fireball.effects).toBe(originalEffects);
+    expect(ABILITIES.fireball.effects).not.toContain(added);
   });
 });

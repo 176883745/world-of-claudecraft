@@ -999,7 +999,7 @@ export type AbilityEffect =
       requiresBehind?: boolean;
       weaponMult?: number;
     } // instant special attack (sinister strike, overpower, backstab)
-  | { type: 'directDamage'; min: number; max: number }
+  | { type: 'directDamage'; min: number; max: number; vsRootedMult?: number }
   | { type: 'interrupt'; lockout: number }
   | { type: 'heal'; min: number; max: number } // friendly target (or self)
   | { type: 'hot'; total: number; duration: number; interval: number } // renew, rejuvenation

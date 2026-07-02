@@ -31,6 +31,7 @@ import { stunDrCategory } from '../stun_dr';
 import { addThreat } from '../threat';
 import type { AbilityDef, Entity } from '../types';
 import { armorReduction, FISHING_CAST_ID, meleeMissChance } from '../types';
+import { isRooted } from './cc';
 import { consumeNextAttackCrit } from './empower_next';
 import { exclusiveAuraConflicts } from './exclusive_aura';
 
@@ -79,13 +80,20 @@ export function runEffects(
       }
       case 'directDamage': {
         if (!target) break;
-        const critChance = isSpell ? ctx.spellCrit(p) : p.critChance;
+        const rooted = isRooted(target);
+        const critChance =
+          isSpell && rooted
+            ? ctx.spellCrit(p) + ctx.playerMods(meta).global.critVsRooted
+            : isSpell
+              ? ctx.spellCrit(p)
+              : p.critChance;
         let dmg = ctx.rng.range(eff.min, eff.max);
         // The flat rider scales with the school's rating: Spell Power for spells,
         // Ranged AP for hunter shots, melee Attack Power for physical specials.
         // abilityScalingPower picks the rating; powerScale (inside directHitBonus)
         // applies the AP scale-down. A non-scaling effect just contributes 0.
         dmg += directHitBonus(abilityScalingPower(p, ability), ability, res.castTime);
+        if (eff.vsRootedMult !== undefined && rooted) dmg *= eff.vsRootedMult;
         const crit = ctx.rng.chance(consumeNextAttackCrit(ctx, p) ? 1 : critChance);
         if (crit) dmg *= isSpell ? 1.5 : 2;
         if (!isSpell) dmg *= 1 - armorReduction(ctx.effectiveArmor(target), p.level);

@@ -26,6 +26,7 @@ function modsFor(
     castPct: 0,
     buffPct: 0,
     castWhileMoving: false,
+    addEffects: [],
     ...mod,
   };
   return m;
