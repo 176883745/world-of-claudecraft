@@ -23,14 +23,10 @@ import { SOCIAL_SCHEMA } from './social_db';
 
 // The realm-market key helpers and the backfill marker key live in
 // server/market_backfill.ts (a *_db-style module with no db.ts dependency, so
-// db.ts can import it without a cycle). Re-export them so existing consumers
-// (server/game.ts, the market tests) keep importing them from ./db unchanged.
-export {
-  LEGACY_MARKET_KEY,
-  MARKET_BACKFILL_MARKER_KEY,
-  MARKET_KEY_PREFIX,
-  marketStateKey,
-} from './market_backfill';
+// db.ts can import it without a cycle). Only marketStateKey was ever part of
+// db.ts's public surface; re-export just that one so its pre-existing
+// consumers (the market tests) keep importing it from ./db unchanged.
+export { marketStateKey } from './market_backfill';
 
 try {
   process.loadEnvFile?.();
@@ -1321,7 +1317,7 @@ export async function linkWalletToAccount(accountId: number, pubkey: string): Pr
   } catch (err) {
     // TOCTOU: another account claimed this pubkey between the check above and
     // here. The pubkey column is UNIQUE (not the ON CONFLICT target), so that
-    // races to a 23505: treat it as "already owned" (→ 409), not a 500.
+    // races to a 23505: treat it as "already owned" (409), not a 500.
     if (isUniqueViolation(err)) return false;
     throw err;
   }
