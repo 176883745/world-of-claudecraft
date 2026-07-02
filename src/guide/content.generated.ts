@@ -92,19 +92,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "arms",
-        "name": "Arms",
+        "name": "Battlecraft",
         "role": "dps",
         "signature": "mortal_strike"
       },
       {
         "id": "fury",
-        "name": "Fury",
+        "name": "Bloodrush",
         "role": "dps",
         "signature": "bloodthirst"
       },
       {
         "id": "prot",
-        "name": "Protection",
+        "name": "Ironguard",
         "role": "tank",
         "signature": "shield_slam"
       }
@@ -216,19 +216,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "holy",
-        "name": "Holy",
+        "name": "Sacrament",
         "role": "healer",
         "signature": "flash_of_light"
       },
       {
         "id": "protection",
-        "name": "Protection",
+        "name": "Vigil",
         "role": "tank",
         "signature": "righteous_fury"
       },
       {
         "id": "retribution",
-        "name": "Retribution",
+        "name": "Requital",
         "role": "dps",
         "signature": "judgement"
       }
@@ -326,19 +326,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "beast_mastery",
-        "name": "Beast Mastery",
+        "name": "Packlord",
         "role": "dps",
         "signature": "tame_beast"
       },
       {
         "id": "marksmanship",
-        "name": "Marksmanship",
+        "name": "Coldsight",
         "role": "dps",
         "signature": "aimed_shot"
       },
       {
         "id": "survival",
-        "name": "Survival",
+        "name": "Fieldcraft",
         "role": "dps",
         "signature": "wing_clip"
       }
@@ -440,19 +440,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "assassination",
-        "name": "Assassination",
+        "name": "Knifework",
         "role": "dps",
         "signature": "eviscerate"
       },
       {
         "id": "combat",
-        "name": "Combat",
+        "name": "Thuggery",
         "role": "dps",
         "signature": "adrenaline_rush"
       },
       {
         "id": "subtlety",
-        "name": "Subtlety",
+        "name": "Skulduggery",
         "role": "dps",
         "signature": "ambush"
       }
@@ -583,19 +583,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "discipline",
-        "name": "Discipline",
+        "name": "Doctrine",
         "role": "healer",
         "signature": "power_word_shield"
       },
       {
         "id": "holy",
-        "name": "Holy",
+        "name": "Benison",
         "role": "healer",
         "signature": "flash_heal"
       },
       {
         "id": "shadow",
-        "name": "Shadow",
+        "name": "Vespers",
         "role": "dps",
         "signature": "mind_flay"
       }
@@ -683,19 +683,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "elemental",
-        "name": "Elemental",
+        "name": "Thundercall",
         "role": "dps",
         "signature": "lightning_bolt"
       },
       {
         "id": "enhancement",
-        "name": "Enhancement",
+        "name": "Warspirit",
         "role": "dps",
         "signature": "stormstrike"
       },
       {
         "id": "restoration",
-        "name": "Restoration",
+        "name": "Spiritmend",
         "role": "healer",
         "signature": "healing_wave"
       }
@@ -786,19 +786,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "arcane",
-        "name": "Arcane",
+        "name": "Aethermancy",
         "role": "dps",
         "signature": "arcane_missiles"
       },
       {
         "id": "fire",
-        "name": "Fire",
+        "name": "Pyromancy",
         "role": "dps",
         "signature": "scorch"
       },
       {
         "id": "frost",
-        "name": "Frost",
+        "name": "Cryomancy",
         "role": "dps",
         "signature": "ice_barrier"
       }
@@ -900,19 +900,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "affliction",
-        "name": "Affliction",
+        "name": "Hexcraft",
         "role": "dps",
         "signature": "drain_life"
       },
       {
         "id": "demonology",
-        "name": "Demonology",
+        "name": "Pactbound",
         "role": "dps",
         "signature": "demon_skin"
       },
       {
         "id": "destruction",
-        "name": "Destruction",
+        "name": "Ruination",
         "role": "dps",
         "signature": "shadowburn"
       }
@@ -1029,19 +1029,19 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
     "specs": [
       {
         "id": "balance",
-        "name": "Balance",
+        "name": "Moongrove",
         "role": "dps",
         "signature": "starfire"
       },
       {
         "id": "feral",
-        "name": "Feral",
+        "name": "Wildfang",
         "role": "tank",
         "signature": "bear_form"
       },
       {
         "id": "restoration",
-        "name": "Restoration",
+        "name": "Groveheart",
         "role": "healer",
         "signature": "regrowth"
       }

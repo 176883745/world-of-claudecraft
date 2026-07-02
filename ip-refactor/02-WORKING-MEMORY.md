@@ -16,7 +16,7 @@
 | G0 | De-IP gate + verbatim-name scanner | Spine | plain | done-on-track (2026-07-02; scanner RED by design: 142 baseline violations; all behavior gates green) | feature/ip-pivot @ G0 commit |
 | G1 | Generate + lock the NAME-MAP | Spine | ULTRACODE | done-on-track (2026-07-02; 588 map rows, 603 names adversarially screened, 2 skeptic refutations fixed; scanner arms the full map: 812 RED baseline; old-column 100% hit-verified; AWAITING OPERATOR LOCK) | feature/ip-pivot @ G1 commit |
 | V1 | Ability / spell rename | Vocab | plain | done-on-track (2026-07-02; all 146 ability renames + amendment #2 applied; 20 V1 scanner rows cleared (zero abilities.* hits); goldens re-minted via UPDATE_PARITY=1; reverse-map re-digest proof green 49/49 (tests/parity/rename_state_proof.test.ts, RENAME_PROOF=1); inspector --allow-state-hashes: violations 0) | track/ip-vocab @ V1 commit |
-| V2 | Talent + spec/tree rename | Vocab | plain | not-started | — |
+| V2 | Talent + spec/tree rename | Vocab | plain | done-on-track (2026-07-02; all 387 map rows applied: 27 trees + 26 masteries + 196 talents + 138 choices, kept-originals untouched; ids proven frozen; talent descriptions re-pointed at V1 ability names; talent_i18n titleOverrides re-keyed to new English keys across 19 locales, stale values kept for Z1; V1 QA 7 orphaned talent names resolved, tests/localization_fixes GREEN; parity goldens BYTE-IDENTICAL (no re-mint; inspector 0 changed / 0 violations); talents.* scanner 453 -> 7 (all 22 V2 worklist rows cleared; residuals are map-mandated collisions, see V2 slice notes); authorized gate-text edit in tests/talent_tooltip_accuracy.test.ts (Arcane Shot / Concussive Shot -> Fell Shot / Rattling Shot)) | track/ip-vocab @ V2 commit |
 | C1 | Creatures + coined family-id sweep | Creatures | ULTRACODE | not-started | — |
 | C2 | Warlock demon-pet re-theme + pet-id sweep | Creatures | ULTRACODE | not-started | — |
 | W1 | Item / set / augment rename | World | plain | not-started | — |
@@ -111,28 +111,28 @@ Overpower, Frost Nova, Arcane Intellect, Holy Light, Arcane Shot, Frost Shock, F
 | Lay on Hands (ability-name fields) | V1 | 2 | [x] |
 | Consecration | V1 | 2 | [x] |
 | Mind Blast (ability-name fields) | V1 | 2 | [x] |
-| Arcane (tree, whole-value) | V2 | 1 | [ ] |
-| Fire (tree, whole-value) | V2 | 1 | [ ] |
-| Frost (tree, whole-value) | V2 | 1 | [ ] |
-| Holy (tree, whole-value) | V2 | 2 | [ ] |
-| Blessing of Sanctuary | V2 | 1 | [ ] |
-| Ardent Defender | V2 | 1 | [ ] |
-| Improved Fireball | V2 | 1 | [ ] |
-| Heroic Strike (talent-name fields) | V2 | 1 | [ ] |
-| Mortal Strike (talent-name fields) | V2 | 1 | [ ] |
-| Sinister Strike (talent-name fields) | V2 | 1 | [ ] |
-| Sunder Armor (talent-name fields) | V2 | 1 | [ ] |
-| Thunder Clap (talent-name fields) | V2 | 2 | [ ] |
-| Bloodthirst (talent-name fields) | V2 | 1 | [ ] |
-| Shield Slam (talent-name fields) | V2 | 1 | [ ] |
-| Fireball (talent-name fields) | V2 | 1 | [ ] |
-| Frostbolt (talent-name fields) | V2 | 1 | [ ] |
-| Arcane Missiles (talent-name fields) | V2 | 1 | [ ] |
-| Polymorph (talent-name fields) | V2 | 1 | [ ] |
-| Ice Barrier (talent-name fields) | V2 | 1 | [ ] |
-| Eviscerate (talent-name fields) | V2 | 1 | [ ] |
-| Judgement (talent-name fields) | V2 | 2 | [ ] |
-| Lay on Hands (talent-name fields) | V2 | 1 | [ ] |
+| Arcane (tree, whole-value) | V2 | 1 | [x] |
+| Fire (tree, whole-value) | V2 | 1 | [x] |
+| Frost (tree, whole-value) | V2 | 1 | [x] |
+| Holy (tree, whole-value) | V2 | 2 | [x] |
+| Blessing of Sanctuary | V2 | 1 | [x] |
+| Ardent Defender | V2 | 1 | [x] |
+| Improved Fireball | V2 | 1 | [x] |
+| Heroic Strike (talent-name fields) | V2 | 1 | [x] |
+| Mortal Strike (talent-name fields) | V2 | 1 | [x] |
+| Sinister Strike (talent-name fields) | V2 | 1 | [x] |
+| Sunder Armor (talent-name fields) | V2 | 1 | [x] |
+| Thunder Clap (talent-name fields) | V2 | 2 | [x] |
+| Bloodthirst (talent-name fields) | V2 | 1 | [x] |
+| Shield Slam (talent-name fields) | V2 | 1 | [x] |
+| Fireball (talent-name fields) | V2 | 1 | [x] |
+| Frostbolt (talent-name fields) | V2 | 1 | [x] |
+| Arcane Missiles (talent-name fields) | V2 | 1 | [x] |
+| Polymorph (talent-name fields) | V2 | 1 | [x] |
+| Ice Barrier (talent-name fields) | V2 | 1 | [x] |
+| Eviscerate (talent-name fields) | V2 | 1 | [x] |
+| Judgement (talent-name fields) | V2 | 2 | [x] |
+| Lay on Hands (talent-name fields) | V2 | 1 | [x] |
 | Murloc | C1 | 2 | [ ] |
 | murloc (prose, word-boundary) | C1 | 6 | [ ] |
 | Slimy Murloc Scale | C1 | 2 | [ ] |
@@ -170,7 +170,38 @@ Overpower, Frost Nova, Arcane Intellect, Holy Light, Arcane Shot, Frost Shock, F
 |---|---|
 | `src/ui/i18n.resolved.generated/*` | V1 (track/ip-vocab, 2026-07-02) |
 | `src/ui/i18n.resolved.sha256` | V1 (track/ip-vocab, 2026-07-02) |
-| `src/guide/content.generated.ts` | V1 (track/ip-vocab, 2026-07-02) |
+| `src/guide/content.generated.ts` | V2 (track/ip-vocab, 2026-07-02; V2 also re-ran i18n:gen + i18n:hash --write: resolved table + sha came out byte-identical - talents have no catalog mirror) |
+
+## V2 slice notes (2026-07-02) - residual scanner hits NEEDING AN OPERATOR RULING
+V2 cleared 446 of 453 talents.* scanner hits (604 -> 158 total). The 7 residual talents.* hits
+are MAP-MANDATED and cannot be cleared by V2 without violating the LOCKED map or editing the
+scanner (both forbidden). Two mechanisms, both from single-generic-word old names armed by the
+map's own old column (word-boundary matching inside longer talent names):
+1. Operator-KEPT names that another armed row word-matches: 'Weapon Mastery' (kept at warrior
+   arms_tactical_mastery + rogue combat_weapon_mastery; armed by shaman enh_choice_weapon's old
+   column) and 'Vile Precision' (kept at rogue ass_choice_vile; armed by rogue combat_precision
+   old 'Precision').
+2. LOCKED new names containing an armed old word from a DIFFERENT row: 'Grim Vigor' (ass_vigor)
+   + 'Blackblood Vigor' (wlk_pact_demonology) vs armed 'Vigor' (rog_vigor old); 'Latent Charge'
+   (sha_convection) vs armed 'Charge' (warrior ability old); 'Cold Reckoning' (bal_vengeance)
+   vs armed 'Reckoning' (prot_choice_reckoning old).
+All 7 fields were already RED in the pre-V2 baseline (same or predecessor entries). Options for
+the operator: arm single-word old names as whole-value like tree entries (scanner-semantics
+refinement, Mogger-precedent edit), or amend the 6 affected map rows. None of the 22 seeded V2
+worklist rows is affected - all ticked.
+Other V2 notes:
+- Parity goldens stayed BYTE-IDENTICAL (talent names do not reach golden digests): no re-mint,
+  no UPDATE_PARITY, proof test not triggered; inspector run anyway: 0 changed / 0 violations.
+- tests/talent_tooltip_accuracy.test.ts regression lock hardcoded 'Arcane Shot'/'Concussive
+  Shot': updated to Fell Shot / Rattling Shot (same authorized gate-text class as V1's
+  tests/parity/coverage.test.ts edit).
+- Talent DESCRIPTIONS: proper ability-name references re-pointed at V1 new names (168 literals,
+  incl. 'Grants X:' and 'Choose one <spec> refinement.'); school/attributive words kept per V1
+  precedent ('Arcane spell costs', 'Shadow spell costs', 'Holy power', 'Fire spells',
+  'Affliction spell costs', 'Balance spells cost', warrior/mage flavor 'whirlwind of blows').
+  T1/Z1 may re-judge the attributive uses.
+- talents_warrior.ts header comment still says 'Arms / Fury dps, Protection tank' (comments are
+  T1's surface).
 
 ## Decisions & gotchas (honor across all sessions)
 - **Reword-staleness trap (Z1 + release):** rewording an existing English key does NOT flip its
