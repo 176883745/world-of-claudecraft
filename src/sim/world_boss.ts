@@ -78,7 +78,8 @@ export function isWorldBossLootEligible(meta: PlayerMeta, bossId: string, utcDay
 }
 
 // Record that this player looted this boss today (so they cannot loot it again
-// until the daily reset). A no-op when the calendar day is unknown.
+// until the daily reset). Called from lootCorpse when a personal world-boss slot
+// is actually taken, NOT at kill/roll time. A no-op when the calendar day is unknown.
 export function markWorldBossLooted(meta: PlayerMeta, bossId: string, utcDay: string): void {
   if (!utcDay) return;
   refreshWorldBossDaily(meta, utcDay);
@@ -124,9 +125,13 @@ export function rollWorldBossLoot(ctx: SimContext, mob: Entity, contributors: Pl
   const copper = mob.loot?.copper ?? 0;
   // contributors arrive sorted by entityId (worldBossContributors); iterate in that
   // fixed order so the rng draw order is deterministic for the parity gate.
+  // Eligibility is checked here, but the daily lockout is consumed only when the
+  // player actually LOOTS a personal slot (lootCorpse in interaction.ts): a
+  // contributor who dies or never reaches the corpse inside the loot window keeps
+  // their daily and can try again at the next spawn. Corpse windows (300s) never
+  // overlap the 3h cadence, so at most one corpse is ever lootable at a time.
   for (const meta of contributors) {
     if (!isWorldBossLootEligible(meta, mob.templateId, ctx.utcDay)) continue;
-    markWorldBossLooted(meta, mob.templateId, ctx.utcDay);
     const rolledGroups = new Set<string>();
     for (const entry of template.loot) {
       if (entry.rollGroup) {

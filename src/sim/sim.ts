@@ -3773,10 +3773,13 @@ export class Sim {
       const run = this.delveRunForPlayer(target.id);
       if (run) this.maybeCompanionBark(run, target.id, 'boss_pull');
     }
-    // Boss engage bark: once per pull, on the first player aggro (yelledEngage
-    // resets with the other per-pull state on evade/respawn).
+    // Boss engage bark: once per pull, on the first player-driven aggro. A
+    // player-owned pet pull counts (a hunter opening with the pet still wakes
+    // the boss); yelledEngage resets with the other per-pull state on
+    // evade/respawn.
     const engageYell = MOBS[mob.templateId]?.yells?.engage;
-    if (engageYell && target.kind === 'player' && !mob.yelledEngage) {
+    const playerPull = target.kind === 'player' || target.ownerId !== null;
+    if (engageYell && playerPull && !mob.yelledEngage) {
       mob.yelledEngage = true;
       emitMobYell(this.ctx, mob, engageYell);
     }

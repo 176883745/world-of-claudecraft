@@ -145,6 +145,30 @@ describe('world boss raid-tier combat (melee, Stormcall hardcast, yells)', () =>
     expect(yells).toHaveLength(0);
   });
 
+  it('a player-owned pet pull triggers the engage yell too', () => {
+    const sim = makeSim();
+    const pid = sim.addPlayer('hunter', 'Ada');
+    const { boss } = spawnBossNow(sim);
+    const p = (sim as any).entities.get(pid) as Entity;
+    p.pos = { ...boss.pos };
+    p.pos.x += 5;
+    // Minimal stand-in for a controlled pet: aggroMob reads only kind/ownerId/id
+    // off the pulling target.
+    const pet = {
+      id: 987_654,
+      kind: 'mob',
+      ownerId: pid,
+      dead: false,
+      pos: { ...boss.pos },
+    } as unknown as Entity;
+    (sim as any).aggroMob(boss, pet, false);
+    const yells = chatYells(sim.tick()).filter((e) =>
+      /You wake the mountain/.test((e as any).text),
+    );
+    expect(yells).toHaveLength(1);
+    expect((yells[0] as any).pid).toBe(pid);
+  });
+
   it('hardcasts Stormcall on a visible cast bar, then novas players in range', () => {
     const sim = makeSim();
     const pid = sim.addPlayer('warrior', 'Ada');
@@ -263,18 +287,27 @@ describe('world boss personal loot', () => {
       expect(slot.personalFor && slot.personalFor.length === 1).toBe(true);
       expect(slot.openToAll).toBeFalsy();
     }
-    // Both contributors are now locked out for the day.
+    // The KILL does not consume the daily: only actually looting a personal
+    // slot does. p1 walks over and loots; p2 never does.
+    expect((sim as any).players.get(p1).worldBossDaily.looted.has(BOSS_ID)).toBe(false);
+    expect((sim as any).players.get(p2).worldBossDaily.looted.has(BOSS_ID)).toBe(false);
+    const e1 = (sim as any).entities.get(p1) as Entity;
+    e1.pos = { ...boss.pos };
+    sim.lootCorpse(boss.id, p1);
     expect((sim as any).players.get(p1).worldBossDaily.looted.has(BOSS_ID)).toBe(true);
-    expect((sim as any).players.get(p2).worldBossDaily.looted.has(BOSS_ID)).toBe(true);
+    expect((sim as any).players.get(p2).worldBossDaily.looted.has(BOSS_ID)).toBe(false);
   });
 
-  it('gives a contributor no loot from a second boss the same day', () => {
+  it('gives a contributor who LOOTED a boss no loot from a second boss the same day', () => {
     const sim = makeSim();
     sim.utcDay = DAY;
     const p1 = sim.addPlayer('warrior', 'Ada');
     const first = spawnBossNow(sim);
     killWith(sim, first.boss, [p1]);
     expect((first.boss.loot?.items ?? []).length).toBeGreaterThan(0);
+    const e1 = (sim as any).entities.get(p1) as Entity;
+    e1.pos = { ...first.boss.pos };
+    sim.lootCorpse(first.boss.id, p1); // consumes the daily
 
     // Remove the first corpse, then spawn + kill a second boss the same UTC day.
     (sim as any).worldBossEntityIds[0] = null;
@@ -282,6 +315,22 @@ describe('world boss personal loot', () => {
     killWith(sim, second.boss, [p1]);
     const ownedBySecond = (second.boss.loot?.items ?? []).flatMap((s) => s.personalFor ?? []);
     expect(ownedBySecond).not.toContain(p1);
+  });
+
+  it('keeps the daily for a contributor who never looted the corpse', () => {
+    const sim = makeSim();
+    sim.utcDay = DAY;
+    const p1 = sim.addPlayer('warrior', 'Ada');
+    const first = spawnBossNow(sim);
+    killWith(sim, first.boss, [p1]);
+    expect((first.boss.loot?.items ?? []).length).toBeGreaterThan(0);
+    // p1 dies / walks away: the corpse window lapses unlooted.
+
+    (sim as any).worldBossEntityIds[0] = null;
+    const second = spawnBossNow(sim);
+    killWith(sim, second.boss, [p1]);
+    const ownedBySecond = (second.boss.loot?.items ?? []).flatMap((s) => s.personalFor ?? []);
+    expect(ownedBySecond).toContain(p1); // still eligible: the kill alone burned nothing
   });
 
   it('produces identical personal loot for the same seed (determinism)', () => {
