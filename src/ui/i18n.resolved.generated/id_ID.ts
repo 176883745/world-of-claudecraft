@@ -178,45 +178,45 @@ export const id_ID: EnTranslations = {
       "done": "Selesai"
     },
     "dailyRewards": {
-      "title": "Daily Rewards",
-      "close": "Close daily rewards",
-      "loading": "Loading daily rewards...",
-      "error": "Could not load daily rewards.",
-      "intro": "Hold enough WOC in your verified wallet to unlock daily rewards. Earn points with one daily spin and rotating tasks, then climb the daily leaderboard for a share of the prize pool.",
-      "prize": "Prize Pool",
-      "reset": "Reset",
-      "endsIn": "Ends in {time}",
+      "title": "Hadiah Harian",
+      "close": "Tutup hadiah harian",
+      "loading": "Memuat hadiah harian...",
+      "error": "Tidak dapat memuat hadiah harian.",
+      "intro": "Simpan cukup WOC di dompet terverifikasimu untuk membuka hadiah harian. Kumpulkan poin lewat satu putaran harian dan tugas yang bergilir, lalu naiki papan peringkat harian untuk mendapat bagian dari kolam hadiah.",
+      "prize": "Kolam Hadiah",
+      "reset": "Atur Ulang",
+      "endsIn": "Berakhir dalam {time}",
       "remainingLessThanMinute": "<1m",
       "remainingMinutes": "{minutes}m",
-      "remainingHoursMinutes": "{hours}h {minutes}m",
-      "score": "Score",
-      "walletValue": "Wallet Value (WOC)",
+      "remainingHoursMinutes": "{hours}j {minutes}m",
+      "score": "Skor",
+      "walletValue": "Nilai Dompet (WOC)",
       "usd": "{amount} USD",
       "sol": "{amount} SOL",
-      "unknown": "Unknown",
-      "spinTitle": "Daily Spin",
-      "spinDialogTitle": "Daily Reward Spin",
-      "spinClose": "Close daily spin",
-      "spinReady": "One spin is ready.",
-      "spinClaimed": "Claimed: +{points} points.",
-      "spinResult": "+{points} points",
-      "spinButton": "Spin",
-      "tasks": "Tasks",
-      "leaderboard": "Daily Leaderboard",
-      "history": "Past Winners",
-      "noLeaders": "No points yet.",
-      "noHistory": "No payouts yet.",
-      "walletConnectTitle": "Verify Wallet",
-      "walletConnectBody": "Verify a Solana wallet with WOC to unlock daily rewards.",
-      "walletConnectButton": "Verify Wallet",
-      "walletHoldTitle": "Hold WOC",
-      "walletHoldBody": "Hold at least {amount} USD in WOC to unlock daily rewards.",
-      "walletPriceBody": "WOC pricing is unavailable right now. Check back shortly.",
+      "unknown": "Tidak diketahui",
+      "spinTitle": "Putaran Harian",
+      "spinDialogTitle": "Putaran Hadiah Harian",
+      "spinClose": "Tutup putaran harian",
+      "spinReady": "Satu putaran siap.",
+      "spinClaimed": "Diklaim: +{points} poin.",
+      "spinResult": "+{points} poin",
+      "spinButton": "Putar",
+      "tasks": "Tugas",
+      "leaderboard": "Papan Peringkat Harian",
+      "history": "Pemenang Sebelumnya",
+      "noLeaders": "Belum ada poin.",
+      "noHistory": "Belum ada pembayaran.",
+      "walletConnectTitle": "Verifikasi Dompet",
+      "walletConnectBody": "Verifikasi dompet Solana berisi WOC untuk membuka hadiah harian.",
+      "walletConnectButton": "Verifikasi Dompet",
+      "walletHoldTitle": "Simpan WOC",
+      "walletHoldBody": "Simpan minimal {amount} USD dalam WOC untuk membuka hadiah harian.",
+      "walletPriceBody": "Harga WOC tidak tersedia saat ini. Silakan cek kembali sebentar lagi.",
       "reason": {
-        "eligible": "Rewards unlocked.",
-        "no_wallet": "Connect a wallet with at least $20 USD in WOC.",
-        "under_minimum": "Wallet is below the $20 USD WOC minimum.",
-        "price_unavailable": "WOC price is unavailable, rewards are temporarily locked."
+        "eligible": "Hadiah terbuka.",
+        "no_wallet": "Hubungkan dompet dengan setidaknya $20 USD dalam WOC.",
+        "under_minimum": "Dompet di bawah batas minimum $20 USD WOC.",
+        "price_unavailable": "Harga WOC tidak tersedia, hadiah terkunci sementara."
       }
     },
     "theme": {
@@ -308,11 +308,11 @@ export const id_ID: EnTranslations = {
       "minimapZoom": "Zoom peta mini"
     },
     "nativeUpdate": {
-      "title": "Update Available",
-      "body": "A new version of World of ClaudeCraft is available. Update now for the latest fixes and improvements.",
-      "bodyWithVersion": "Version {version} of World of ClaudeCraft is available. Update now for the latest fixes and improvements.",
-      "notNow": "Not now",
-      "update": "Update"
+      "title": "Pembaruan Tersedia",
+      "body": "Versi baru World of ClaudeCraft tersedia. Perbarui sekarang untuk perbaikan dan peningkatan terbaru.",
+      "bodyWithVersion": "Versi {version} World of ClaudeCraft tersedia. Perbarui sekarang untuk perbaikan dan peningkatan terbaru.",
+      "notNow": "Jangan sekarang",
+      "update": "Perbarui"
     },
     "castBar": {
       "playerAria": "Bilah Rapal Anda",
@@ -389,6 +389,7 @@ export const id_ID: EnTranslations = {
       "uiScale": "Skala UI",
       "highContrastBackground": "Latar Kontras Tinggi",
       "startAttackOnAbility": "Serangan Otomatis Saat Memakai Kemampuan",
+      "groundReticle": "Retikel bidik darat",
       "showItemLevel": "Tampilkan Level Item",
       "itemLevelLine": "Level Item {level}",
       "itemScoreLine": "Skor {score}",
@@ -2675,7 +2676,7 @@ export const id_ID: EnTranslations = {
       "usernameTaken": "Nama pengguna itu sudah dipakai.",
       "invalidCredentials": "Nama pengguna atau kata sandi salah.",
       "verificationFailed": "Verifikasi gagal. Silakan coba lagi.",
-      "desktopCodeInvalid": "Desktop login code is invalid or expired. Please try again.",
+      "desktopCodeInvalid": "Kode masuk desktop tidak valid atau kedaluwarsa. Silakan coba lagi.",
       "invalidCharacterName": "Nama karakter tidak valid. Gunakan 2-16 huruf.",
       "characterNameNotAllowed": "Nama karakter itu tidak diperbolehkan.",
       "invalidClass": "Kelas tidak valid.",
@@ -2696,17 +2697,17 @@ export const id_ID: EnTranslations = {
   },
   "desktop": {
     "update": {
-      "downloading": "Downloading update {version}...",
-      "ready": "Update {version} is ready. It installs when you quit, or restart now.",
-      "restart": "Restart now",
-      "later": "Later"
+      "downloading": "Mengunduh pembaruan {version}...",
+      "ready": "Pembaruan {version} siap. Akan terpasang saat kamu keluar, atau mulai ulang sekarang.",
+      "restart": "Mulai Ulang Sekarang",
+      "later": "Nanti"
     },
     "crash": {
       "title": "World of ClaudeCraft",
-      "body": "The game view stopped working. Reload it?",
-      "reload": "Reload",
-      "quit": "Quit",
-      "fatalBody": "World of ClaudeCraft hit an unexpected error and needs to close."
+      "body": "Tampilan gim berhenti bekerja. Muat ulang?",
+      "reload": "Muat Ulang",
+      "quit": "Keluar",
+      "fatalBody": "World of ClaudeCraft mengalami kesalahan tak terduga dan perlu ditutup."
     }
   },
   "realm": {
@@ -3757,6 +3758,26 @@ export const id_ID: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "flamestrike": {
+        "name": "Hantaman Api",
+        "description": "Memanggil ledakan api di area sasaran, memberikan {damage} kerusakan Api kepada musuh yang terkena ledakan."
+      },
+      "rain_of_fire": {
+        "name": "Hujan Api",
+        "description": "Menurunkan hujan api di area sasaran, membakar musuh sebesar {damage} kerusakan Api."
+      },
+      "volley": {
+        "name": "Hujan Panah",
+        "description": "Menghujani area sasaran dengan panah, memberi {damage} kerusakan kepada musuh di dalamnya."
+      },
+      "hurricane": {
+        "name": "Badai",
+        "description": "Mendatangkan badai di area sasaran, menghantam musuh sebesar {damage} kerusakan Alam."
+      },
+      "earthquake": {
+        "name": "Gempa Bumi",
+        "description": "Mengguncang area sasaran, menghantam musuh sebesar {damage} kerusakan Alam."
+      },
       "heroic_strike": {
         "name": "Serangan Heroik",
         "description": "Serangan kuat yang meningkatkan kerusakan jarak dekat sebesar {damage}. Aktif pada ayunan berikutnya."

@@ -185,10 +185,10 @@ export const ja_JP: EnTranslations = {
       "intro": "認証済みウォレットに十分なWOCを保有すると、デイリー報酬が解放されます。1日1回のスピンとローテーションするタスクでポイントを獲得し、デイリーランキングを駆け上がって賞金プールの分け前を狙いましょう。",
       "prize": "賞金プール",
       "reset": "リセット",
-      "endsIn": "Ends in {time}",
-      "remainingLessThanMinute": "<1m",
-      "remainingMinutes": "{minutes}m",
-      "remainingHoursMinutes": "{hours}h {minutes}m",
+      "endsIn": "終了まで{time}",
+      "remainingLessThanMinute": "1分未満",
+      "remainingMinutes": "{minutes}分",
+      "remainingHoursMinutes": "{hours}時間{minutes}分",
       "score": "スコア",
       "walletValue": "ウォレット価値 (WOC)",
       "usd": "{amount} USD",
@@ -389,6 +389,7 @@ export const ja_JP: EnTranslations = {
       "uiScale": "UIスケール",
       "highContrastBackground": "高コントラスト背景",
       "startAttackOnAbility": "アビリティ使用時に自動攻撃",
+      "groundReticle": "地面ターゲットのレティクル",
       "showItemLevel": "アイテムレベルを表示",
       "itemLevelLine": "アイテムレベル {level}",
       "itemScoreLine": "スコア {score}",
@@ -3757,6 +3758,26 @@ export const ja_JP: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "flamestrike": {
+        "name": "フレイムストライク",
+        "description": "対象地点に炎の爆発を呼び出し、爆発に巻き込まれた敵に{damage}の火炎ダメージを与えます。"
+      },
+      "rain_of_fire": {
+        "name": "火炎の雨",
+        "description": "対象地点に火の雨を降らせ、敵に{damage}の火炎ダメージを与えます。"
+      },
+      "volley": {
+        "name": "乱射",
+        "description": "対象地点に矢を降らせ、範囲内の敵に{damage}のダメージを与えます。"
+      },
+      "hurricane": {
+        "name": "ハリケーン",
+        "description": "対象地点にハリケーンを呼び起こし、敵に{damage}の自然ダメージを与えます。"
+      },
+      "earthquake": {
+        "name": "地震",
+        "description": "対象地点を揺るがし、敵に{damage}の自然ダメージを与えます。"
+      },
       "heroic_strike": {
         "name": "英雄の一撃",
         "description": "強力な攻撃で近接ダメージが {damage} 増加します。次のスイングで発動します。"

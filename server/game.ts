@@ -2229,6 +2229,19 @@ export class GameServer {
       case 'castSlot':
         if (typeof msg.slot === 'number') sim.castAbilityBySlot(msg.slot | 0, pid);
         break;
+      case 'castAt':
+        // Ground-targeted cast: the client proposes a world point; the sim clamps
+        // it to the ability's range from the caster (server-authoritative).
+        if (
+          typeof msg.ability === 'string' &&
+          typeof msg.x === 'number' &&
+          typeof msg.z === 'number' &&
+          Number.isFinite(msg.x) &&
+          Number.isFinite(msg.z)
+        ) {
+          sim.castAbility(msg.ability, pid, { x: msg.x, z: msg.z });
+        }
+        break;
       case 'cast':
         if (typeof msg.ability === 'string') sim.castAbility(msg.ability, pid);
         break;
@@ -3439,8 +3452,14 @@ export class GameServer {
     let id: number | undefined;
     if ('targetId' in ev && typeof ev.targetId === 'number') id = ev.targetId;
     else if ('entityId' in ev && typeof ev.entityId === 'number') id = ev.entityId;
-    if (id === undefined) return null; // chat/log etc: broadcast
-    return this.sim.entities.get(id)?.pos ?? null;
+    if (id !== undefined) return this.sim.entities.get(id)?.pos ?? null;
+    // world-coordinate events (spellfxAt: a ground-targeted impact) anchor at
+    // their own point so they interest-scope like entity-anchored fx instead
+    // of fanning out server-wide (dist2d ignores y)
+    if ('x' in ev && 'z' in ev && typeof ev.x === 'number' && typeof ev.z === 'number') {
+      return { x: ev.x, y: 0, z: ev.z };
+    }
+    return null; // chat/log etc: broadcast
   }
 
   private isSpectateLocalChat(session: ClientSession, text: string): boolean {

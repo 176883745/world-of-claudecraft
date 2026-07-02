@@ -185,10 +185,10 @@ export const ko_KR: EnTranslations = {
       "intro": "인증된 지갑에 충분한 WOC를 보유하여 일일 보상을 잠금 해제하세요. 하루 한 번의 스핀과 교체되는 과제로 포인트를 획득한 뒤, 일일 순위표를 올라 상금 풀의 일부를 차지하세요.",
       "prize": "상금 풀",
       "reset": "초기화",
-      "endsIn": "Ends in {time}",
-      "remainingLessThanMinute": "<1m",
-      "remainingMinutes": "{minutes}m",
-      "remainingHoursMinutes": "{hours}h {minutes}m",
+      "endsIn": "{time} 후 종료",
+      "remainingLessThanMinute": "1분 미만",
+      "remainingMinutes": "{minutes}분",
+      "remainingHoursMinutes": "{hours}시간 {minutes}분",
       "score": "점수",
       "walletValue": "지갑 가치 (WOC)",
       "usd": "{amount} USD",
@@ -389,6 +389,7 @@ export const ko_KR: EnTranslations = {
       "uiScale": "UI 배율",
       "highContrastBackground": "고대비 배경",
       "startAttackOnAbility": "스킬 사용 시 자동 공격",
+      "groundReticle": "지면 조준 표시기",
       "showItemLevel": "아이템 레벨 표시",
       "itemLevelLine": "아이템 레벨 {level}",
       "itemScoreLine": "점수 {score}",
@@ -3757,6 +3758,26 @@ export const ko_KR: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "flamestrike": {
+        "name": "화염 폭발",
+        "description": "지정한 지역에 화염 폭발을 일으켜 폭발 범위 안의 적에게 {damage}의 화염 피해를 입힙니다."
+      },
+      "rain_of_fire": {
+        "name": "불의 비",
+        "description": "지정한 지역에 불의 비를 내려 적을 불태우고 {damage}의 화염 피해를 입힙니다."
+      },
+      "volley": {
+        "name": "일제 사격",
+        "description": "지정한 지역에 화살을 쏟아부어 그 안의 적에게 {damage}의 피해를 입힙니다."
+      },
+      "hurricane": {
+        "name": "폭풍우",
+        "description": "지정한 지역에 폭풍우를 일으켜 적을 강타하고 {damage}의 자연 피해를 입힙니다."
+      },
+      "earthquake": {
+        "name": "지진",
+        "description": "지정한 지역을 뒤흔들어 적을 강타하고 {damage}의 자연 피해를 입힙니다."
+      },
       "heroic_strike": {
         "name": "영웅의 일격",
         "description": "강력한 공격으로 근접 피해가 {damage}만큼 증가합니다. 다음 무기 공격 시 발동됩니다."

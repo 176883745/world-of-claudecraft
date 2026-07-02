@@ -178,45 +178,45 @@ export const pt_BR: EnTranslations = {
       "done": "Concluído"
     },
     "dailyRewards": {
-      "title": "Daily Rewards",
-      "close": "Close daily rewards",
-      "loading": "Loading daily rewards...",
-      "error": "Could not load daily rewards.",
-      "intro": "Hold enough WOC in your verified wallet to unlock daily rewards. Earn points with one daily spin and rotating tasks, then climb the daily leaderboard for a share of the prize pool.",
-      "prize": "Prize Pool",
-      "reset": "Reset",
-      "endsIn": "Ends in {time}",
-      "remainingLessThanMinute": "<1m",
-      "remainingMinutes": "{minutes}m",
-      "remainingHoursMinutes": "{hours}h {minutes}m",
-      "score": "Score",
-      "walletValue": "Wallet Value (WOC)",
+      "title": "Recompensas Diárias",
+      "close": "Fechar recompensas diárias",
+      "loading": "Carregando recompensas diárias...",
+      "error": "Não foi possível carregar as recompensas diárias.",
+      "intro": "Mantenha WOC suficiente na sua carteira verificada para desbloquear as recompensas diárias. Ganhe pontos com um giro diário e tarefas rotativas, depois suba na classificação diária para ganhar uma parte da premiação.",
+      "prize": "Premiação",
+      "reset": "Reinício",
+      "endsIn": "Termina em {time}",
+      "remainingLessThanMinute": "<1min",
+      "remainingMinutes": "{minutes}min",
+      "remainingHoursMinutes": "{hours}h {minutes}min",
+      "score": "Pontuação",
+      "walletValue": "Valor da carteira (WOC)",
       "usd": "{amount} USD",
       "sol": "{amount} SOL",
-      "unknown": "Unknown",
-      "spinTitle": "Daily Spin",
-      "spinDialogTitle": "Daily Reward Spin",
-      "spinClose": "Close daily spin",
-      "spinReady": "One spin is ready.",
-      "spinClaimed": "Claimed: +{points} points.",
-      "spinResult": "+{points} points",
-      "spinButton": "Spin",
-      "tasks": "Tasks",
-      "leaderboard": "Daily Leaderboard",
-      "history": "Past Winners",
-      "noLeaders": "No points yet.",
-      "noHistory": "No payouts yet.",
-      "walletConnectTitle": "Verify Wallet",
-      "walletConnectBody": "Verify a Solana wallet with WOC to unlock daily rewards.",
-      "walletConnectButton": "Verify Wallet",
-      "walletHoldTitle": "Hold WOC",
-      "walletHoldBody": "Hold at least {amount} USD in WOC to unlock daily rewards.",
-      "walletPriceBody": "WOC pricing is unavailable right now. Check back shortly.",
+      "unknown": "Desconhecido",
+      "spinTitle": "Giro Diário",
+      "spinDialogTitle": "Giro de Recompensa Diária",
+      "spinClose": "Fechar giro diário",
+      "spinReady": "Um giro está disponível.",
+      "spinClaimed": "Resgatado: +{points} pontos.",
+      "spinResult": "+{points} pontos",
+      "spinButton": "Girar",
+      "tasks": "Tarefas",
+      "leaderboard": "Classificação Diária",
+      "history": "Vencedores anteriores",
+      "noLeaders": "Nenhum ponto ainda.",
+      "noHistory": "Nenhum pagamento ainda.",
+      "walletConnectTitle": "Verificar carteira",
+      "walletConnectBody": "Verifique uma carteira Solana com WOC para desbloquear as recompensas diárias.",
+      "walletConnectButton": "Verificar carteira",
+      "walletHoldTitle": "Mantenha WOC",
+      "walletHoldBody": "Mantenha pelo menos {amount} USD em WOC para desbloquear as recompensas diárias.",
+      "walletPriceBody": "O preço do WOC está indisponível no momento. Volte em instantes.",
       "reason": {
-        "eligible": "Rewards unlocked.",
-        "no_wallet": "Connect a wallet with at least $20 USD in WOC.",
-        "under_minimum": "Wallet is below the $20 USD WOC minimum.",
-        "price_unavailable": "WOC price is unavailable, rewards are temporarily locked."
+        "eligible": "Recompensas desbloqueadas.",
+        "no_wallet": "Conecte uma carteira com pelo menos $20 USD em WOC.",
+        "under_minimum": "A carteira está abaixo do mínimo de $20 USD em WOC.",
+        "price_unavailable": "O preço do WOC está indisponível; as recompensas estão temporariamente bloqueadas."
       }
     },
     "theme": {
@@ -308,11 +308,11 @@ export const pt_BR: EnTranslations = {
       "minimapZoom": "Zoom do minimapa"
     },
     "nativeUpdate": {
-      "title": "Update Available",
-      "body": "A new version of World of ClaudeCraft is available. Update now for the latest fixes and improvements.",
-      "bodyWithVersion": "Version {version} of World of ClaudeCraft is available. Update now for the latest fixes and improvements.",
-      "notNow": "Not now",
-      "update": "Update"
+      "title": "Atualização disponível",
+      "body": "Uma nova versão do World of ClaudeCraft está disponível. Atualize agora para receber as últimas correções e melhorias.",
+      "bodyWithVersion": "A versão {version} do World of ClaudeCraft está disponível. Atualize agora para receber as últimas correções e melhorias.",
+      "notNow": "Agora não",
+      "update": "Atualizar"
     },
     "castBar": {
       "playerAria": "Sua barra de conjuração",
@@ -389,6 +389,7 @@ export const pt_BR: EnTranslations = {
       "uiScale": "Escala da interface",
       "highContrastBackground": "Fundo de alto contraste",
       "startAttackOnAbility": "Ataque Automático ao Usar Habilidade",
+      "groundReticle": "Retícula de mira no chão",
       "showItemLevel": "Mostrar nível do item",
       "itemLevelLine": "Nível do item {level}",
       "itemScoreLine": "Pontuação {score}",
@@ -2675,7 +2676,7 @@ export const pt_BR: EnTranslations = {
       "usernameTaken": "Esse nome de usuário já está em uso.",
       "invalidCredentials": "Usuário ou senha inválidos.",
       "verificationFailed": "Falha na verificação. Tente novamente.",
-      "desktopCodeInvalid": "Desktop login code is invalid or expired. Please try again.",
+      "desktopCodeInvalid": "O código de login do desktop é inválido ou expirou. Tente novamente.",
       "invalidCharacterName": "Nome de personagem inválido. Use 2-16 letras.",
       "characterNameNotAllowed": "Esse nome de personagem não é permitido.",
       "invalidClass": "Classe inválida.",
@@ -2696,17 +2697,17 @@ export const pt_BR: EnTranslations = {
   },
   "desktop": {
     "update": {
-      "downloading": "Downloading update {version}...",
-      "ready": "Update {version} is ready. It installs when you quit, or restart now.",
-      "restart": "Restart now",
-      "later": "Later"
+      "downloading": "Baixando atualização {version}...",
+      "ready": "A atualização {version} está pronta. Ela será instalada ao sair, ou reinicie agora.",
+      "restart": "Reiniciar agora",
+      "later": "Depois"
     },
     "crash": {
       "title": "World of ClaudeCraft",
-      "body": "The game view stopped working. Reload it?",
-      "reload": "Reload",
-      "quit": "Quit",
-      "fatalBody": "World of ClaudeCraft hit an unexpected error and needs to close."
+      "body": "A visualização do jogo parou de funcionar. Recarregar?",
+      "reload": "Recarregar",
+      "quit": "Sair",
+      "fatalBody": "O World of ClaudeCraft encontrou um erro inesperado e precisa fechar."
     }
   },
   "realm": {
@@ -3757,6 +3758,26 @@ export const pt_BR: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "flamestrike": {
+        "name": "Golpe Flamejante",
+        "description": "Invoca uma explosão de chamas no local-alvo, causando {damage} de dano de Fogo aos inimigos atingidos pela explosão."
+      },
+      "rain_of_fire": {
+        "name": "Chuva de Fogo",
+        "description": "Faz cair uma chuva de fogo na área-alvo, queimando os inimigos e causando {damage} de dano de Fogo."
+      },
+      "volley": {
+        "name": "Saraivada",
+        "description": "Dispara uma chuva de flechas na área-alvo, causando {damage} de dano aos inimigos atingidos."
+      },
+      "hurricane": {
+        "name": "Furacão",
+        "description": "Desencadeia um furacão na área-alvo, atingindo os inimigos e causando {damage} de dano de Natureza."
+      },
+      "earthquake": {
+        "name": "Terremoto",
+        "description": "Sacode a área-alvo, atingindo os inimigos e causando {damage} de dano de Natureza."
+      },
       "heroic_strike": {
         "name": "Golpe Heroico",
         "description": "Um ataque forte que aumenta o dano corpo a corpo em {damage}. Ativa no seu próximo golpe."

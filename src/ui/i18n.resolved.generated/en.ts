@@ -389,6 +389,7 @@ export const en: EnTranslations = {
       "uiScale": "UI Scale",
       "highContrastBackground": "High-Contrast Background",
       "startAttackOnAbility": "Auto-Attack on Ability Use",
+      "groundReticle": "Ground-Targeting Reticle",
       "showItemLevel": "Show Item Level",
       "itemLevelLine": "Item Level {level}",
       "itemScoreLine": "Score {score}",
@@ -3757,6 +3758,26 @@ export const en: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "flamestrike": {
+        "name": "Flamestrike",
+        "description": "Calls down a burst of flame at the target area, dealing {damage} Fire damage to enemies caught in the blast."
+      },
+      "rain_of_fire": {
+        "name": "Rain of Fire",
+        "description": "Calls a rain of fire onto the target area, burning enemies for {damage} Fire damage."
+      },
+      "volley": {
+        "name": "Volley",
+        "description": "Rains arrows on the target area, dealing {damage} damage to enemies caught in it."
+      },
+      "hurricane": {
+        "name": "Hurricane",
+        "description": "Calls a hurricane onto the target area, battering enemies for {damage} Nature damage."
+      },
+      "earthquake": {
+        "name": "Earthquake",
+        "description": "Shakes the target area, battering enemies for {damage} Nature damage."
+      },
       "heroic_strike": {
         "name": "Heroic Strike",
         "description": "A strong attack that increases melee damage by {damage}. Activates on your next swing."

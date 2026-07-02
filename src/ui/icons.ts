@@ -2087,6 +2087,40 @@ function r(
 }
 
 const ABILITY_RECIPES: Record<string, IconRecipe> = {
+  // Talents 2.0 ground-targeted spells (each aimed AoE gets a distinct recipe;
+  // grouped here so the family reads together, order within the map is cosmetic).
+  flamestrike: r('fire', 'ember', ['meteor', { p: 'sunburst', ...BIG }], ['glow']),
+  rain_of_fire: r(
+    'fire',
+    'ember',
+    [
+      { p: 'flame', x: -11, y: -11, s: 0.6 },
+      { p: 'flame', s: 0.72 },
+      { p: 'flame', x: 11, y: 11, s: 0.84 },
+    ],
+    ['drips'],
+  ),
+  volley: r(
+    'storm',
+    'sky',
+    [
+      { p: 'arrow', x: -11, y: -11, s: 0.6 },
+      { p: 'arrow', s: 0.72 },
+      { p: 'arrow', x: 11, y: 11, s: 0.84 },
+    ],
+    ['motion'],
+  ),
+  hurricane: r(
+    'nature',
+    'leafGreen',
+    [
+      { p: 'leaf', x: -11, y: -10, s: 0.62 },
+      { p: 'leaf', s: 0.74 },
+      { p: 'leaf', x: 11, y: 10, s: 0.62 },
+    ],
+    ['arcs'],
+  ),
+  earthquake: r('earth', 'earthBrown', ['sunburst'], ['crack']),
   attack: r('steel', 'steel', ['sword'], ['motion']),
   // pet action bar (dedicated, never a class ability id: see pet_action_icons.ts).
   pet_attack: r('blood', 'blood', ['fang'], ['motion']),

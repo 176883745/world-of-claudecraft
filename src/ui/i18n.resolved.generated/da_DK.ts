@@ -178,45 +178,45 @@ export const da_DK: EnTranslations = {
       "done": "Færdig"
     },
     "dailyRewards": {
-      "title": "Daily Rewards",
-      "close": "Close daily rewards",
-      "loading": "Loading daily rewards...",
-      "error": "Could not load daily rewards.",
-      "intro": "Hold enough WOC in your verified wallet to unlock daily rewards. Earn points with one daily spin and rotating tasks, then climb the daily leaderboard for a share of the prize pool.",
-      "prize": "Prize Pool",
-      "reset": "Reset",
-      "endsIn": "Ends in {time}",
+      "title": "Daglige belønninger",
+      "close": "Luk daglige belønninger",
+      "loading": "Indlæser daglige belønninger...",
+      "error": "Kunne ikke indlæse daglige belønninger.",
+      "intro": "Behold nok WOC i din verificerede wallet for at låse daglige belønninger op. Optjen point med én daglig drejning og skiftende opgaver, og klatr så op ad den daglige resultattavle for en andel af præmiepuljen.",
+      "prize": "Præmiepulje",
+      "reset": "Nulstil",
+      "endsIn": "Slutter om {time}",
       "remainingLessThanMinute": "<1m",
       "remainingMinutes": "{minutes}m",
-      "remainingHoursMinutes": "{hours}h {minutes}m",
+      "remainingHoursMinutes": "{hours}t {minutes}m",
       "score": "Score",
-      "walletValue": "Wallet Value (WOC)",
+      "walletValue": "Wallet-værdi (WOC)",
       "usd": "{amount} USD",
       "sol": "{amount} SOL",
-      "unknown": "Unknown",
-      "spinTitle": "Daily Spin",
-      "spinDialogTitle": "Daily Reward Spin",
-      "spinClose": "Close daily spin",
-      "spinReady": "One spin is ready.",
-      "spinClaimed": "Claimed: +{points} points.",
-      "spinResult": "+{points} points",
-      "spinButton": "Spin",
-      "tasks": "Tasks",
-      "leaderboard": "Daily Leaderboard",
-      "history": "Past Winners",
-      "noLeaders": "No points yet.",
-      "noHistory": "No payouts yet.",
-      "walletConnectTitle": "Verify Wallet",
-      "walletConnectBody": "Verify a Solana wallet with WOC to unlock daily rewards.",
-      "walletConnectButton": "Verify Wallet",
-      "walletHoldTitle": "Hold WOC",
-      "walletHoldBody": "Hold at least {amount} USD in WOC to unlock daily rewards.",
-      "walletPriceBody": "WOC pricing is unavailable right now. Check back shortly.",
+      "unknown": "Ukendt",
+      "spinTitle": "Daglig drejning",
+      "spinDialogTitle": "Daglig belønningsdrejning",
+      "spinClose": "Luk daglig drejning",
+      "spinReady": "Én drejning er klar.",
+      "spinClaimed": "Indløst: +{points} point.",
+      "spinResult": "+{points} point",
+      "spinButton": "Drej",
+      "tasks": "Opgaver",
+      "leaderboard": "Daglig resultattavle",
+      "history": "Tidligere vindere",
+      "noLeaders": "Ingen point endnu.",
+      "noHistory": "Ingen udbetalinger endnu.",
+      "walletConnectTitle": "Verificer wallet",
+      "walletConnectBody": "Verificer en Solana-wallet med WOC for at låse daglige belønninger op.",
+      "walletConnectButton": "Verificer wallet",
+      "walletHoldTitle": "Behold WOC",
+      "walletHoldBody": "Behold mindst {amount} USD i WOC for at låse daglige belønninger op.",
+      "walletPriceBody": "WOC-prissætning er utilgængelig lige nu. Kom tilbage om lidt.",
       "reason": {
-        "eligible": "Rewards unlocked.",
-        "no_wallet": "Connect a wallet with at least $20 USD in WOC.",
-        "under_minimum": "Wallet is below the $20 USD WOC minimum.",
-        "price_unavailable": "WOC price is unavailable, rewards are temporarily locked."
+        "eligible": "Belønninger låst op.",
+        "no_wallet": "Forbind en wallet med mindst 20 USD i WOC.",
+        "under_minimum": "Wallet er under WOC-minimummet på 20 USD.",
+        "price_unavailable": "WOC-prisen er utilgængelig, belønninger er midlertidigt låst."
       }
     },
     "theme": {
@@ -308,11 +308,11 @@ export const da_DK: EnTranslations = {
       "minimapZoom": "Minikort-zoom"
     },
     "nativeUpdate": {
-      "title": "Update Available",
-      "body": "A new version of World of ClaudeCraft is available. Update now for the latest fixes and improvements.",
-      "bodyWithVersion": "Version {version} of World of ClaudeCraft is available. Update now for the latest fixes and improvements.",
-      "notNow": "Not now",
-      "update": "Update"
+      "title": "Opdatering tilgængelig",
+      "body": "En ny version af World of ClaudeCraft er tilgængelig. Opdater nu for de nyeste rettelser og forbedringer.",
+      "bodyWithVersion": "Version {version} af World of ClaudeCraft er tilgængelig. Opdater nu for de nyeste rettelser og forbedringer.",
+      "notNow": "Ikke nu",
+      "update": "Opdater"
     },
     "castBar": {
       "playerAria": "Din castbjælke",
@@ -389,6 +389,7 @@ export const da_DK: EnTranslations = {
       "uiScale": "UI-skala",
       "highContrastBackground": "Baggrund med høj kontrast",
       "startAttackOnAbility": "Autoangreb ved brug af evne",
+      "groundReticle": "Jordsigte-retikel",
       "showItemLevel": "Vis genstandsniveau",
       "itemLevelLine": "Genstandsniveau {level}",
       "itemScoreLine": "Score {score}",
@@ -2675,7 +2676,7 @@ export const da_DK: EnTranslations = {
       "usernameTaken": "Det brugernavn er allerede optaget.",
       "invalidCredentials": "Ugyldigt brugernavn eller adgangskode.",
       "verificationFailed": "Verificeringen mislykkedes. Prøv venligst igen.",
-      "desktopCodeInvalid": "Desktop login code is invalid or expired. Please try again.",
+      "desktopCodeInvalid": "Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.",
       "invalidCharacterName": "Ugyldigt karakternavn. Brug 2-16 bogstaver.",
       "characterNameNotAllowed": "Det karakternavn er ikke tilladt.",
       "invalidClass": "Ugyldig klasse.",
@@ -2696,17 +2697,17 @@ export const da_DK: EnTranslations = {
   },
   "desktop": {
     "update": {
-      "downloading": "Downloading update {version}...",
-      "ready": "Update {version} is ready. It installs when you quit, or restart now.",
-      "restart": "Restart now",
-      "later": "Later"
+      "downloading": "Downloader opdatering {version}...",
+      "ready": "Opdatering {version} er klar. Den installeres, når du afslutter, eller genstart nu.",
+      "restart": "Genstart nu",
+      "later": "Senere"
     },
     "crash": {
       "title": "World of ClaudeCraft",
-      "body": "The game view stopped working. Reload it?",
-      "reload": "Reload",
-      "quit": "Quit",
-      "fatalBody": "World of ClaudeCraft hit an unexpected error and needs to close."
+      "body": "Spilvisningen holdt op med at virke. Genindlæs den?",
+      "reload": "Genindlæs",
+      "quit": "Afslut",
+      "fatalBody": "World of ClaudeCraft stødte på en uventet fejl og skal lukke."
     }
   },
   "realm": {
@@ -3757,6 +3758,26 @@ export const da_DK: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "flamestrike": {
+        "name": "Flammeslag",
+        "description": "Nedkalder en flammeeksplosion på målområdet, der giver {damage} Ildskade til fjender fanget i eksplosionen."
+      },
+      "rain_of_fire": {
+        "name": "Ildregn",
+        "description": "Nedkalder en ildregn over målområdet og brænder fjender for {damage} Ildskade."
+      },
+      "volley": {
+        "name": "Pileregn",
+        "description": "Nedkalder en regn af pile over målområdet og påfører {damage} skade på fjender i det."
+      },
+      "hurricane": {
+        "name": "Orkan",
+        "description": "Slipper en orkan løs over målområdet og rammer fjender for {damage} Naturskade."
+      },
+      "earthquake": {
+        "name": "Jordskælv",
+        "description": "Ryster målområdet og rammer fjender for {damage} Naturskade."
+      },
       "heroic_strike": {
         "name": "Heroisk Slag",
         "description": "Et stærkt angreb, der øger nærkampsskaden med {damage}. Aktiveres ved dit næste hug."
