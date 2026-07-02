@@ -12,7 +12,7 @@ import {
   nonSelfRepaintDue,
   targetFrameNonSelfIntervalMs,
 } from '../game/ui_tier_knobs';
-import { voice } from '../game/voice';
+import { voice, voiceDistanceGain } from '../game/voice';
 import { castBarState, consumeBarState } from '../render/cast_bar';
 import { CharacterPreview } from '../render/characters';
 import { preloadMechAssets } from '../render/characters/assets';
@@ -885,6 +885,10 @@ export class Hud {
   private pendingChatLinks = new Map<string, string>(); // display "[Name]" -> [[q:id]]/[[i:id]] token
   private questDialogTrap: FocusTrapHandle | null = null;
   private questDialogOpenedAtMs = 0;
+  // The NPC whose voice line is currently sounding, so update() can fade it by
+  // distance as the player walks away. Outlives the dialog window (which closes at
+  // 8) and is cleared once the clip ends. null when no dialogue voice is playing.
+  private voiceNpcId: number | null = null;
   // swing timer: the period is captured from the reset edge (swingTimer jumping
   // up), so the bar tracks real swing speed including haste / ranged weapons.
   private swingPeriod = 0;
@@ -4474,6 +4478,18 @@ export class Hud {
     // chat burst on the fast tier once chat goes quiet.
     if (fastHud) this.chatAnnouncer.flush(now);
 
+    // Fade a talking NPC's voice line by distance as the player walks away, so a
+    // dialogue trails off naturally instead of holding full volume. Per-frame for a
+    // smooth ramp; independent of the dialog window (which closes at 8), so the
+    // voice keeps fading until the clip ends or the player is out of earshot.
+    if (this.voiceNpcId !== null) {
+      if (!voice.isPlaying()) {
+        this.voiceNpcId = null;
+      } else {
+        const vnpc = sim.entities.get(this.voiceNpcId);
+        voice.setDistanceGain(vnpc ? voiceDistanceGain(dist2d(p.pos, vnpc.pos)) : 0);
+      }
+    }
     this.meters.update();
     this.lockpickWindow.repaintIfChanged();
     this.tutorial.update(sim, this.renderer, this.keybinds);
@@ -4842,6 +4858,13 @@ export class Hud {
       if (this.openVendorNpcId !== null) {
         const npc = sim.entities.get(this.openVendorNpcId);
         if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeVendor();
+      }
+      // Close the quest/gossip dialog once the player walks out of talking range
+      // (or the NPC is gone), the same way the vendor window auto-closes above. You
+      // open within INTERACT_RANGE (5), so the wider 8 threshold never fires on open.
+      if (this.openGossipNpcId !== null) {
+        const npc = sim.entities.get(this.openGossipNpcId);
+        if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeQuestDialog();
       }
     }
 
@@ -6456,7 +6479,12 @@ export class Hud {
               performance.now(),
             );
             this.lastVoicedYell = voiced.state;
-            if (voiced.play) voice.play(voiced.state.key, { gain: voicedYellGain(ev.from) });
+            if (voiced.play) {
+              voice.play(voiced.state.key, { gain: voicedYellGain(ev.from) });
+              // A distinct overheard yell, not a dialogue: do not let the per-frame
+              // distance fade attenuate it by a talked-to NPC's position.
+              this.voiceNpcId = null;
+            }
           }
           break;
         }
@@ -7760,6 +7788,7 @@ export class Hud {
     // navigating back from a quest detail or after accept/turn-in, where a
     // re-greeting would be noise.
     voice.play(`greeting__${npc.templateId}`);
+    this.voiceNpcId = npc.id;
     this.renderGossip(npc);
   }
 
@@ -7862,6 +7891,7 @@ export class Hud {
       this.sim.player.name,
     );
     voice.play(state === 'ready' ? `quest__${questId}__complete` : `quest__${questId}__offer`);
+    this.voiceNpcId = npc.id;
     markDialogRoot(el, { labelledBy: 'quest-dialog-title' });
     let html = `<div class="panel-title"><span id="quest-dialog-title">${esc(questTitle(questId))}${this.questSuggestedPlayersHtml(quest.suggestedPlayers)}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('questUi.dialog.close'))}">${svgIcon('close')}</button></div>`;
     if (state === 'available' && quest.minLevel) {

@@ -337,7 +337,9 @@ function runtimeBindings(clause: string): string[] {
 // OVERHEAD_EMOTES instead of value-importing sim/types' OVERHEAD_EMOTE_IDS); kept
 // as the escape valve for a future legitimate case. Any value sim import not
 // listed here, in any facet, reddens the gate: this is a per-site allowlist, not
-// a blanket file-level exemption.
+// a blanket file-level exemption. (The flip side, that chat.ts's local
+// OVERHEAD_EMOTES stays complete against sim/types' OVERHEAD_EMOTE_IDS so the
+// decoupled id set cannot silently drift, is guarded in overhead_emote_parity.test.ts.)
 const SANCTIONED_VALUE_SIM_IMPORTS: Record<string, ReadonlySet<string>> = {};
 
 // Normalizes a relative() path to forward slashes so the allowlist above (and
