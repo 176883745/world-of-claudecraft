@@ -2640,8 +2640,7 @@ async function startOffline(playerClass: PlayerClass, name: string, skin = 0): P
   }
   // Offline characters are not persisted (a fresh name is typed each session),
   // so the only stable handle is class + name. Keybinds scope to that pair.
-  // Editor play-tests (a custom `world`) skip the first-spawn intro cinematic.
-  void startGame(sim, sim, null, `offline:${playerClass}:${name}`, !world);
+  void startGame(sim, sim, null, `offline:${playerClass}:${name}`, true);
 }
 
 // ---------------------------------------------------------------------------
