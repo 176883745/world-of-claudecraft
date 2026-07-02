@@ -265,6 +265,13 @@ export const zh_TW: EnTranslations = {
       "heading": "方位",
       "minimapZoom": "小地圖縮放"
     },
+    "nativeUpdate": {
+      "title": "有可用更新",
+      "body": "World of ClaudeCraft 有新版本可用。立即更新以取得最新修正與改進。",
+      "bodyWithVersion": "World of ClaudeCraft {version} 版本已可用。立即更新以取得最新修正與改進。",
+      "notNow": "暫不",
+      "update": "更新"
+    },
     "castBar": {
       "playerAria": "你的施法條",
       "targetAria": "目標施法條"

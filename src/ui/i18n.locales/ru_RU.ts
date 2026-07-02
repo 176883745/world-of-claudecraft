@@ -5069,6 +5069,13 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.devBadge.link.error': 'Не удалось привязать GitHub. Пожалуйста, попробуйте снова.',
   'hudChrome.devBadge.linkedAs': 'Привязан как {login}',
   'hudChrome.devBadge.unlink': 'Отвязать GitHub',
+  'hudChrome.nativeUpdate.title': 'Доступно обновление',
+  'hudChrome.nativeUpdate.body':
+    'Доступна новая версия World of ClaudeCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.',
+  'hudChrome.nativeUpdate.bodyWithVersion':
+    'Доступна версия {version} World of ClaudeCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.',
+  'hudChrome.nativeUpdate.notNow': 'Не сейчас',
+  'hudChrome.nativeUpdate.update': 'Обновить',
   'desktop.update.downloading': 'Загрузка обновления {version}...',
   'desktop.update.ready':
     'Обновление {version} готово. Оно установится при выходе из игры, либо перезапустите сейчас.',

@@ -4968,6 +4968,13 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.devBadge.link.error': 'GitHub를 연결할 수 없습니다. 다시 시도해 주세요.',
   'hudChrome.devBadge.linkedAs': '{login}(으)로 연결됨',
   'hudChrome.devBadge.unlink': 'GitHub 연결 해제',
+  'hudChrome.nativeUpdate.title': '업데이트 사용 가능',
+  'hudChrome.nativeUpdate.body':
+    'World of ClaudeCraft의 새 버전을 사용할 수 있습니다. 지금 업데이트하여 최신 수정 사항과 개선 사항을 받으세요.',
+  'hudChrome.nativeUpdate.bodyWithVersion':
+    'World of ClaudeCraft 버전 {version}을(를) 사용할 수 있습니다. 지금 업데이트하여 최신 수정 사항과 개선 사항을 받으세요.',
+  'hudChrome.nativeUpdate.notNow': '나중에',
+  'hudChrome.nativeUpdate.update': '업데이트',
   'desktop.update.downloading': '업데이트 {version} 다운로드 중...',
   'desktop.update.ready':
     '업데이트 {version} 준비 완료. 게임을 종료하면 자동으로 설치되며, 지금 다시 시작할 수도 있습니다.',

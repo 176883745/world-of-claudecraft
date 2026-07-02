@@ -19,7 +19,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "es_ES": [
     "desktop.crash.body",
@@ -31,7 +36,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "fr_FR": [
     "desktop.crash.body",
@@ -43,7 +53,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "fr_CA": [
     "desktop.crash.body",
@@ -55,7 +70,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "en_CA": [],
   "it_IT": [
@@ -68,7 +88,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "de_DE": [
     "desktop.crash.body",
@@ -80,7 +105,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "zh_CN": [],
   "zh_TW": [],
@@ -96,7 +126,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "ru_RU": [],
   "nl_NL": [
@@ -109,7 +144,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "pl_PL": [
     "desktop.crash.body",
@@ -121,7 +161,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "id_ID": [
     "desktop.crash.body",
@@ -133,7 +178,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "tr_TR": [
     "desktop.crash.body",
@@ -145,7 +195,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "sv_SE": [
     "desktop.crash.body",
@@ -157,7 +212,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "vi_VN": [
     "desktop.crash.body",
@@ -169,7 +229,12 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ],
   "da_DK": [
     "desktop.crash.body",
@@ -181,6 +246,11 @@ export const pending: Record<string, readonly string[]> = {
     "desktop.update.later",
     "desktop.update.ready",
     "desktop.update.restart",
-    "errors.api.desktopCodeInvalid"
+    "errors.api.desktopCodeInvalid",
+    "hudChrome.nativeUpdate.body",
+    "hudChrome.nativeUpdate.bodyWithVersion",
+    "hudChrome.nativeUpdate.notNow",
+    "hudChrome.nativeUpdate.title",
+    "hudChrome.nativeUpdate.update"
   ]
 };

@@ -4713,6 +4713,13 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.devBadge.link.error': '無法連結 GitHub。請再試一次。',
   'hudChrome.devBadge.linkedAs': '已連結為 {login}',
   'hudChrome.devBadge.unlink': '取消連結 GitHub',
+  'hudChrome.nativeUpdate.title': '有可用更新',
+  'hudChrome.nativeUpdate.body':
+    'World of ClaudeCraft 有新版本可用。立即更新以取得最新修正與改進。',
+  'hudChrome.nativeUpdate.bodyWithVersion':
+    'World of ClaudeCraft {version} 版本已可用。立即更新以取得最新修正與改進。',
+  'hudChrome.nativeUpdate.notNow': '暫不',
+  'hudChrome.nativeUpdate.update': '更新',
   'desktop.update.downloading': '正在下載更新 {version}...',
   'desktop.update.ready': '更新 {version} 已就緒。離開遊戲時將自動安裝，也可立即重新啟動。',
   'desktop.update.restart': '立即重新啟動',

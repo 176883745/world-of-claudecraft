@@ -144,6 +144,7 @@ import {
   tPlural,
 } from './ui/i18n';
 import { iconDataUrl } from './ui/icons';
+import { scheduleNativeUpdateCheck } from './ui/native_update_prompt';
 import { createMetricsSampler } from './ui/perf_metrics_sampler';
 import { PerfOverlay } from './ui/perf_overlay';
 import { type PerfOverlayConfig, PerfOverlayConfigStore } from './ui/perf_overlay_config';
@@ -533,6 +534,7 @@ function syncCommunityMenuMode(): void {
 setInterfaceMode(interfaceModeFromSetting(new Settings().get('interfaceMode')));
 syncAppViewport();
 syncBuildInfo();
+scheduleNativeUpdateCheck(__APP_VERSION__);
 preventMobileZoom();
 syncPhoneTouchClass();
 window.matchMedia(PHONE_TOUCH_QUERY).addEventListener?.('change', syncPhoneTouchClass);

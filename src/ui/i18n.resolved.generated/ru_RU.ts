@@ -265,6 +265,13 @@ export const ru_RU: EnTranslations = {
       "heading": "Направление",
       "minimapZoom": "Масштаб миникарты"
     },
+    "nativeUpdate": {
+      "title": "Доступно обновление",
+      "body": "Доступна новая версия World of ClaudeCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.",
+      "bodyWithVersion": "Доступна версия {version} World of ClaudeCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.",
+      "notNow": "Не сейчас",
+      "update": "Обновить"
+    },
     "castBar": {
       "playerAria": "Ваша полоса применения",
       "targetAria": "Полоса применения цели"

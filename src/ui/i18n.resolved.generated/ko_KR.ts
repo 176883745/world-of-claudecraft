@@ -265,6 +265,13 @@ export const ko_KR: EnTranslations = {
       "heading": "방향",
       "minimapZoom": "미니맵 확대/축소"
     },
+    "nativeUpdate": {
+      "title": "업데이트 사용 가능",
+      "body": "World of ClaudeCraft의 새 버전을 사용할 수 있습니다. 지금 업데이트하여 최신 수정 사항과 개선 사항을 받으세요.",
+      "bodyWithVersion": "World of ClaudeCraft 버전 {version}을(를) 사용할 수 있습니다. 지금 업데이트하여 최신 수정 사항과 개선 사항을 받으세요.",
+      "notNow": "나중에",
+      "update": "업데이트"
+    },
     "castBar": {
       "playerAria": "내 시전 막대",
       "targetAria": "대상 시전 막대"
