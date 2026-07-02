@@ -197,6 +197,40 @@ describe('Battlefield Experience wired into potion-drunk (#1149)', () => {
 
     expect(meta.craftSkills.alchemy).toBe(0);
   });
+
+  // PR #1281 review (High): credit must follow the ACTUALLY-CONSUMED copy,
+  // not just any self-signed instance sitting in the bag. addItemInstance
+  // appends new slots to the end of `inventory`, while removeItem consumes
+  // from the end backward; a signed instance added EARLY (so it sits at a
+  // low index) must never be credited when a LATER plain stack (higher
+  // index) is what actually gets drunk and removed.
+  it('does not credit a stale signed instance when the copy actually drunk is a later, unsigned stack', () => {
+    const sim = makeSim();
+    const pid = sim.playerId;
+    const meta = (sim as any).players.get(pid);
+    // Signed rare copy added first (earlier slot).
+    sim.addItemInstance(
+      'minor_healing_potion',
+      { signer: meta.name, rolled: { quality: 'rare' } },
+      pid,
+    );
+    // Plain copies picked up afterward (later slot, own stack since instanced
+    // slots never merge with fungible stacks).
+    sim.addItem('minor_healing_potion', 2, pid);
+    const entity = (sim as any).entities.get(pid);
+    entity.hp = 1;
+
+    sim.useItem('minor_healing_potion', pid);
+
+    // The drunk copy was the plain one: no trickle, and the signed instance
+    // must still be sitting untouched in the bag.
+    expect(meta.craftSkills.alchemy).toBe(0);
+    expect(sim.countItem('minor_healing_potion', pid)).toBe(2); // 1 signed + 1 plain left
+    const remainingSigned = meta.inventory.find(
+      (s: any) => s.itemId === 'minor_healing_potion' && s.instance?.signer === meta.name,
+    );
+    expect(remainingSigned).toBeDefined();
+  });
 });
 
 // #1149's re-craft/re-sign requirement: "the original crafter benefits most

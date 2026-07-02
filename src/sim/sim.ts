@@ -4319,19 +4319,27 @@ export class Sim {
     this.ctx.onInventoryChangedForQuests(meta);
   }
 
-  removeItem(itemId: string, count: number, pid?: number): void {
+  // Returns the `instance` payload of every instanced slot actually consumed
+  // (highest-index/most-recently-added slot first, matching the removal
+  // order below), so a caller that needs to attribute an effect to the
+  // SPECIFIC copy removed (e.g. #1149 Battlefield Experience) never guesses
+  // at a different slot than the one this call actually took from.
+  removeItem(itemId: string, count: number, pid?: number): ItemInstancePayload[] {
+    const consumedInstances: ItemInstancePayload[] = [];
     const r = this.resolve(pid);
-    if (!r) return;
+    if (!r) return consumedInstances;
     const { meta } = r;
     for (let i = meta.inventory.length - 1; i >= 0 && count > 0; i--) {
       const s = meta.inventory[i];
       if (s.itemId !== itemId) continue;
+      if (s.instance) consumedInstances.push(s.instance);
       const take = Math.min(s.count, count);
       s.count -= take;
       count -= take;
       if (s.count <= 0) meta.inventory.splice(i, 1);
     }
     this.ctx.onInventoryChangedForQuests(meta);
+    return consumedInstances;
   }
 
   // Fungible-only removal (#1165): skips instanced slots entirely, so a market

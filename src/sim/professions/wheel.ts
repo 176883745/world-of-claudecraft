@@ -1,13 +1,17 @@
 // Flat per-craft skill tracking (issue #1126). A player has one independent skill
 // value for each of the ten crafts on the ring (see content/professions.ts). This is
-// a flat model on purpose: no conserved-mass economy yet, so gains are purely
-// additive and never draw down another craft's value. The wheel/mass-conservation
-// mechanic (a later issue) will extend this file rather than replace it.
+// a flat model on purpose: no conserved-mass economy. Per the #107 design-review
+// decision, the conserved-mass "wheel" thesis was retired in favor of a back-loaded
+// attunement/empowerment model: craft skill only ever goes up (this module never
+// draws one craft's value down to raise another), but only a swappable subset of a
+// player's crafts is "empowered" at a time, gated by a later issue rather than this
+// file. A later issue will layer that empowerment ceiling on top of this flat state,
+// not replace it.
 //
 // Free-floor rule: crafting at the common tier never costs anything, regardless of
-// whether conserved mass exists yet. Since this module has no cost/spend path at
-// all (skill only ever goes up), that rule holds trivially: there is nothing here
-// that could charge a common-tier craft.
+// empowerment status. Since this module has no cost/spend path at all (skill only
+// ever goes up), that rule holds trivially: there is nothing here that could charge
+// a common-tier craft.
 //
 // This module is `src/sim`-pure (see src/sim/CLAUDE.md): no DOM/render/ui/game/net
 // imports, no Math.random/Date.now, host-agnostic so it runs offline, on the
