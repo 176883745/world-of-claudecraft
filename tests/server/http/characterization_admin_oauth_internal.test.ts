@@ -295,10 +295,12 @@ describe('characterization: internal handleInternalApi', () => {
     });
   });
 
-  // The eight /internal/discord/* routes and the method each is documented under.
+  // The ten /internal/discord/* routes and the method each is documented under.
   // The DISCORD_BOT_SECRET gate in handleDiscordInternal runs BEFORE any route or
   // method branch, so the 401 (and the 404 feature-off) contract is identical for
-  // all eight; we capture each route so the security gate is documented per route.
+  // all ten; we capture each route so the security gate is documented per route.
+  // (The two daily-rewards-winners routes postdate the original Phase 3 capture;
+  // Phase 18 backfills their goldens under the same shared-gate rationale.)
   const DISCORD_ROUTES = [
     { method: 'GET', path: '/internal/discord/flex', name: 'discord_flex' },
     { method: 'GET', path: '/internal/discord/roles', name: 'discord_roles' },
@@ -308,11 +310,21 @@ describe('characterization: internal handleInternalApi', () => {
     { method: 'GET', path: '/internal/discord/relay', name: 'discord_relay' },
     { method: 'GET', path: '/internal/discord/activity', name: 'discord_activity' },
     { method: 'POST', path: '/internal/discord/members-meta', name: 'discord_members_meta' },
+    {
+      method: 'GET',
+      path: '/internal/discord/daily-rewards-winners',
+      name: 'discord_daily_rewards_winners',
+    },
+    {
+      method: 'POST',
+      path: '/internal/discord/daily-rewards-winners/mark',
+      name: 'discord_daily_rewards_winners_mark',
+    },
   ] as const;
 
   // Feature-off gate, captured PER ROUTE: with DISCORD_BOT_SECRET unset, the whole
   // /internal/discord/* surface answers 404 unknown endpoint at the shared gate.
-  // Looping all eight (mirroring the 401 loop below) freezes each route's feature-off
+  // Looping all ten (mirroring the 401 loop below) freezes each route's feature-off
   // baseline, so a later phase that moves any one off the shared gate is caught.
   for (const route of DISCORD_ROUTES) {
     it(`${route.method} ${route.path} (bot secret unset) -> 404 unknown endpoint`, async () => {
@@ -326,7 +338,7 @@ describe('characterization: internal handleInternalApi', () => {
     });
   }
 
-  // 401 not-authenticated gate for each of the eight routes: DISCORD_BOT_SECRET
+  // 401 not-authenticated gate for each of the ten routes: DISCORD_BOT_SECRET
   // set, the x-woc-discord-secret request header absent. The gate precedes the db.
   for (const route of DISCORD_ROUTES) {
     it(`${route.method} ${route.path} (bot secret set, no header) -> 401 not authenticated`, async () => {

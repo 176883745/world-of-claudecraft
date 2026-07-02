@@ -663,6 +663,311 @@ describe('/admin/api dispatch parity (legacy flag vs new flag)', () => {
 });
 
 // -----------------------------------------------------------------------------
+// Phase 18: /oauth dual-path parity. Phase 18 routes /oauth through its OWN
+// flag-gated dispatcher (main.ts oauthApiEntry) whose delegate is the legacy
+// handleOAuth, so makeModedDispatch drives the oauth surface old-vs-new too. Only
+// the 5 POST JSON routes are registered; the GET consent/device HTML pages, HEAD,
+// wrong methods, and unknown paths all resolve off the table and DELEGATE, which
+// these pins prove stays byte-identical. Every case is db-free: the handlers
+// answer before any pool.query (an absent bearer fails fullSessionAccount's regex,
+// an empty client_id short-circuits the client lookup, an empty grant_type answers
+// before any code lookup, an empty revoke token skips the delete). The
+// oauthBodyValidationRemap deviation (an unexpected throw's 500 body) is invisible
+// here (a real throw needs a DB failure); it is pinned with fakes in
+// tests/server/oauth.test.ts.
+// -----------------------------------------------------------------------------
+
+describe('/oauth dispatch parity (legacy flag vs new flag)', () => {
+  const OAUTH_JSON_CASES: ReadonlyArray<{
+    label: string;
+    method: 'POST' | 'DELETE' | 'HEAD' | 'GET';
+    url: string;
+    body?: unknown;
+    status: number;
+  }> = [
+    {
+      label: 'token with an empty body answers 400 unsupported_grant_type',
+      method: 'POST',
+      url: '/oauth/token',
+      body: {},
+      status: 400,
+    },
+    {
+      label: 'token grant=authorization_code without code/verifier answers 400 invalid_request',
+      method: 'POST',
+      url: '/oauth/token',
+      body: { grant_type: 'authorization_code' },
+      status: 400,
+    },
+    {
+      label: 'authorize consent POST without a web session answers 401 access_denied',
+      method: 'POST',
+      url: '/oauth/authorize',
+      body: {},
+      status: 401,
+    },
+    {
+      label: 'device approve POST without a web session answers 401 access_denied',
+      method: 'POST',
+      url: '/oauth/device',
+      body: {},
+      status: 401,
+    },
+    {
+      label: 'revoke without a token is the RFC 7009 always-200 { ok: true }',
+      method: 'POST',
+      url: '/oauth/revoke',
+      body: {},
+      status: 200,
+    },
+    {
+      label: 'device_authorization without a client_id answers 400 invalid_client',
+      method: 'POST',
+      url: '/oauth/device_authorization',
+      body: {},
+      status: 400,
+    },
+    {
+      label: 'a wrong method on a migrated path delegates to the legacy 404 not_found',
+      method: 'DELETE',
+      url: '/oauth/token',
+      status: 404,
+    },
+    {
+      label: 'a HEAD to a migrated POST path delegates to the legacy 404 (no HEAD synthesis)',
+      method: 'HEAD',
+      url: '/oauth/authorize',
+      status: 404,
+    },
+    {
+      label: 'an unknown /oauth path delegates to the legacy 404 not_found',
+      method: 'GET',
+      url: '/oauth/this-endpoint-does-not-exist',
+      status: 404,
+    },
+  ];
+
+  for (const { label, method, url, body, status } of OAUTH_JSON_CASES) {
+    it(`${method} ${url}: ${label}, identical old-vs-new`, async () => {
+      const { oldCap, newCap } = await captureBothModes(() => makeReq({ method, url, body }));
+      expect(oldCap.status).toBe(status);
+      expect(newCap.status).toBe(oldCap.status);
+      expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+    });
+  }
+
+  it('GET /oauth/authorize stays an HTML page served off the route table (delegated), identical old-vs-new', async () => {
+    // No client_id, so renderAuthorize answers its db-free 400 htmlError page. The
+    // registry resolves GET /oauth/authorize methodNotAllowed (only POST is
+    // registered) and the dispatcher DELEGATES to the legacy handleOAuth ladder,
+    // which renders the exact same HTML: the consent page never enters the table.
+    const { oldCap, newCap } = await captureBothModes(() =>
+      makeReq({ method: 'GET', url: '/oauth/authorize' }),
+    );
+    expect(oldCap.status).toBe(400);
+    expect(oldCap.headers['content-type']).toContain('text/html');
+    expect(newCap.headers['content-type']).toContain('text/html');
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('GET /oauth/device stays the HTML device page served off the route table (delegated), identical old-vs-new', async () => {
+    const { oldCap, newCap } = await captureBothModes(() =>
+      makeReq({ method: 'GET', url: '/oauth/device' }),
+    );
+    expect(oldCap.status).toBe(200);
+    expect(oldCap.headers['content-type']).toContain('text/html');
+    expect(newCap.headers['content-type']).toContain('text/html');
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+});
+
+// -----------------------------------------------------------------------------
+// Phase 18: /internal dual-path parity. Phase 18 routes /internal through its OWN
+// flag-gated dispatcher (main.ts internalApiEntry) whose delegate is the EXACT
+// pre-Phase-18 composite (the /internal/daily-rewards/* ops family tried first,
+// then handleInternalApi), so makeModedDispatch drives the internal surface
+// old-vs-new too. The secret gates read their env var PER REQUEST, so each case
+// pins its env inside the test and restores it; captureBothModes runs both passes
+// under the same env. The presence and members-meta 200s are REAL authed passes
+// through the migrated gate + handler (both are db-free: presence writes only the
+// in-memory cache, an empty members list never touches Postgres). The authed
+// restart-countdown 200/409 is NOT driven here (it would start a real countdown on
+// the singleton GameServer); it is pinned with a fake runtime in
+// tests/server/internal.test.ts, as is the internalBodyValidationRemap 500.
+// -----------------------------------------------------------------------------
+
+describe('/internal dispatch parity (legacy flag vs new flag)', () => {
+  const DEPLOY_ENV = 'RESTART_COUNTDOWN_SECRET';
+  const DISCORD_ENV = 'DISCORD_BOT_SECRET';
+  const DEPLOY_HEADER = 'x-woc-deploy-secret';
+  const DISCORD_HEADER = 'x-woc-discord-secret';
+  const PARITY_SECRET = 'parity-internal-secret';
+
+  // Run one captureBothModes under a pinned env (set before both passes, restored
+  // after), so the per-request env reads are identical on the old and new pass.
+  async function captureWithEnv(
+    env: Record<string, string | undefined>,
+    reqFactory: () => ReturnType<typeof makeReq>,
+  ): Promise<Awaited<ReturnType<typeof captureBothModes>>> {
+    const saved = new Map<string, string | undefined>();
+    for (const [key, value] of Object.entries(env)) {
+      saved.set(key, process.env[key]);
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    try {
+      return await captureBothModes(reqFactory);
+    } finally {
+      for (const [key, value] of saved) {
+        if (value === undefined) delete process.env[key];
+        else process.env[key] = value;
+      }
+    }
+  }
+
+  it('POST /internal/restart-countdown with the env secret unset is the feature-off 404, identical old-vs-new', async () => {
+    const { oldCap, newCap } = await captureWithEnv(
+      { [DEPLOY_ENV]: undefined, [DISCORD_ENV]: undefined },
+      () => makeReq({ method: 'POST', url: '/internal/restart-countdown', body: {} }),
+    );
+    expect(oldCap.status).toBe(404);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('POST /internal/restart-countdown with a wrong secret is a 401, identical old-vs-new', async () => {
+    const { oldCap, newCap } = await captureWithEnv({ [DEPLOY_ENV]: PARITY_SECRET }, () =>
+      makeReq({
+        method: 'POST',
+        url: '/internal/restart-countdown',
+        headers: { [DEPLOY_HEADER]: 'wrong-secret' },
+        body: {},
+      }),
+    );
+    expect(oldCap.status).toBe(401);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('GET /internal/restart-countdown with the CORRECT secret stays the wrong-method 404 (never a 405), identical old-vs-new', async () => {
+    // Legacy checks the method FIRST (a non-POST answers 404 'unknown endpoint'
+    // before the gate); the new path resolves methodNotAllowed and DELEGATES to that
+    // same legacy arm. The correct secret proves the 404 is method-driven, not
+    // gate-driven, and that the table router's default 405 never surfaces.
+    const { oldCap, newCap } = await captureWithEnv({ [DEPLOY_ENV]: PARITY_SECRET }, () =>
+      makeReq({
+        method: 'GET',
+        url: '/internal/restart-countdown',
+        headers: { [DEPLOY_HEADER]: PARITY_SECRET },
+      }),
+    );
+    expect(oldCap.status).toBe(404);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('GET /internal/discord/flex with the env secret unset is the feature-off 404, identical old-vs-new', async () => {
+    const { oldCap, newCap } = await captureWithEnv({ [DISCORD_ENV]: undefined }, () =>
+      makeReq({ method: 'GET', url: '/internal/discord/flex' }),
+    );
+    expect(oldCap.status).toBe(404);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('GET /internal/discord/flex with a wrong secret is a 401, identical old-vs-new', async () => {
+    const { oldCap, newCap } = await captureWithEnv({ [DISCORD_ENV]: PARITY_SECRET }, () =>
+      makeReq({
+        method: 'GET',
+        url: '/internal/discord/flex',
+        headers: { [DISCORD_HEADER]: 'wrong-secret' },
+      }),
+    );
+    expect(oldCap.status).toBe(401);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('POST /internal/discord/presence with the correct secret is an authed 200 through the migrated chain, identical old-vs-new', async () => {
+    // A REAL gate-pass + handler run on both flags, db-free: an empty body clamps to
+    // zero counts and the handler writes only the in-memory presence cache.
+    const { oldCap, newCap } = await captureWithEnv({ [DISCORD_ENV]: PARITY_SECRET }, () =>
+      makeReq({
+        method: 'POST',
+        url: '/internal/discord/presence',
+        headers: { [DISCORD_HEADER]: PARITY_SECRET },
+        body: {},
+      }),
+    );
+    expect(oldCap.status).toBe(200);
+    expect(JSON.parse(oldCap.body as string)).toEqual({
+      success: true,
+      data: { received: true },
+      error: null,
+    });
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('POST /internal/discord/members-meta with the correct secret and no members is an authed 200 { updated: 0 }, identical old-vs-new', async () => {
+    const { oldCap, newCap } = await captureWithEnv({ [DISCORD_ENV]: PARITY_SECRET }, () =>
+      makeReq({
+        method: 'POST',
+        url: '/internal/discord/members-meta',
+        headers: { [DISCORD_HEADER]: PARITY_SECRET },
+        body: {},
+      }),
+    );
+    expect(oldCap.status).toBe(200);
+    expect(JSON.parse(oldCap.body as string)).toEqual({
+      success: true,
+      data: { updated: 0 },
+      error: null,
+    });
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('an unknown /internal/discord subpath with the correct secret delegates to the legacy gate-then-404, identical old-vs-new', async () => {
+    // Off the route table entirely: the dispatcher delegates, the legacy gate
+    // passes, and the ladder's terminal arm answers 404 'unknown endpoint'.
+    const { oldCap, newCap } = await captureWithEnv({ [DISCORD_ENV]: PARITY_SECRET }, () =>
+      makeReq({
+        method: 'GET',
+        url: '/internal/discord/this-endpoint-does-not-exist',
+        headers: { [DISCORD_HEADER]: PARITY_SECRET },
+      }),
+    );
+    expect(oldCap.status).toBe(404);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('a HEAD to a migrated internal GET delegates to the legacy gate (feature-off 404), identical old-vs-new', async () => {
+    // The router synthesizes HEAD from GET (head: true), and the dispatcher
+    // delegates a head match to the legacy ladder, where the unset env answers the
+    // feature-off 404 exactly as a GET would (Node suppresses the HEAD body).
+    const { oldCap, newCap } = await captureWithEnv({ [DISCORD_ENV]: undefined }, () =>
+      makeReq({ method: 'HEAD', url: '/internal/discord/flex' }),
+    );
+    expect(oldCap.status).toBe(404);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+
+  it('an /internal path outside both families falls through the whole composite to 404, identical old-vs-new', async () => {
+    // Not daily-rewards (the ops family returns false), not a registered route: the
+    // new path delegates to the composite, which lands handleInternalApi's terminal
+    // 404 'unknown endpoint' with no gate involved, byte-identical.
+    const { oldCap, newCap } = await captureWithEnv(
+      { [DEPLOY_ENV]: undefined, [DISCORD_ENV]: undefined },
+      () => makeReq({ method: 'GET', url: '/internal/this-endpoint-does-not-exist' }),
+    );
+    expect(oldCap.status).toBe(404);
+    expect(newCap.status).toBe(oldCap.status);
+    expect(stableStringify(newCap)).toBe(stableStringify(oldCap));
+  });
+});
+
+// -----------------------------------------------------------------------------
 // SKIPPED requests (present in characterization.test.ts or on the surface, but not
 // replayed here) and why:
 //   - GET /api/project-stats, GET /api/arena/leaderboard, GET /api/woc/balance,
@@ -678,6 +983,13 @@ describe('/admin/api dispatch parity (legacy flag vs new flag)', () => {
 //     dispatcher, so the DB-FREE admin contract paths ARE replayed old-vs-new in the
 //     '/admin/api dispatch parity' block above (the 401 gate + the login db-free 401);
 //     only the authed bodies are deferred, exactly as characterization defers them.
-//   - The /oauth/* and /internal/* surfaces: those still route through handleOAuth /
-//     handleInternalApi, NOT a flag-gated dispatcher, so they are out of scope here.
+//   - The /oauth/* and /internal/* db-touching success paths (a real token exchange,
+//     a consent approval, the discord flex/roles/grant/member/relay/activity/winners
+//     reads and writes, the authed restart-countdown): all reach pool.query or the
+//     singleton GameServer. Phase 18 routes both surfaces through their own
+//     flag-gated dispatchers, so the DB-FREE contract paths ARE replayed old-vs-new
+//     in the '/oauth dispatch parity' and '/internal dispatch parity' blocks above
+//     (including two real gate-pass 200s: presence and members-meta); only the
+//     db-touching bodies are deferred, exactly as characterization defers them, and
+//     pinned with fakes in tests/server/oauth.test.ts + tests/server/internal.test.ts.
 // -----------------------------------------------------------------------------

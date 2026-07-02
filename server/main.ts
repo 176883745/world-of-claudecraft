@@ -125,7 +125,7 @@ import {
 } from './http/dispatch';
 import { apiRegistry } from './http/registry';
 import { isUniqueViolation, json, readBody } from './http_util';
-import { handleInternalApi } from './internal';
+import { configureInternalRuntime, handleInternalApi } from './internal';
 import { isConnectionRefused } from './ip_block';
 import { pruneExpiredBlockedIps } from './ip_block_db';
 import { configureLeaderboardRuntime, type ReleaseEntry } from './leaderboard';
@@ -1592,6 +1592,12 @@ configureDiscordRuntime({
 // stays intact as the flag-off rollback path (and is the admin dispatcher's delegate).
 configureAdminRuntime(game);
 
+// Inject the one game-loop side effect the ported /internal restart-countdown route
+// calls (InternalRuntime is Pick<GameServer, 'startRestartCountdown'>, so the live
+// game satisfies it directly). The legacy handleInternalApi ladder stays intact as
+// the flag-off rollback path (and is the internal dispatcher's delegate).
+configureInternalRuntime(game);
+
 // The in-house dispatcher that fronts the legacy handleApi ladder via a per-path
 // delegate. Built once; a path the registry owns (Phase 10 migrated the public
 // reads) runs the onion, every un-migrated path delegates to handleApi UNCHANGED.
@@ -1618,9 +1624,44 @@ let adminApiEntry: ApiDispatcher = selectApiEntry(
   adminLegacy,
 );
 
+// The /oauth surface's flag-gated dispatcher (Phase 18), over the SAME registry
+// (oauth paths are a disjoint '/oauth' first segment). The delegate is the legacy
+// handleOAuth ladder UNCHANGED, so the GET consent/device HTML pages (off the route
+// table), HEAD, unknown /oauth paths, and wrong-method requests all keep their
+// legacy behavior byte-identically until Phase 25.
+const oauthLegacy: ApiDelegate = (req, res) => handleOAuth(req, res);
+const oauthApiDispatcher = createApiDispatcher({ registry: apiRegistry, delegate: oauthLegacy });
+let oauthApiEntry: ApiDispatcher = selectApiEntry(
+  DEFAULT_DISPATCH,
+  oauthApiDispatcher,
+  oauthLegacy,
+);
+
+// The /internal surface's flag-gated dispatcher (Phase 18). The delegate is the
+// EXACT legacy composite from the pre-Phase-18 ladder arm: the daily-rewards ops
+// family (/internal/daily-rewards/*, never part of handleInternalApi) is tried
+// first and short-circuits when handled; everything else falls to the legacy
+// handleInternalApi ladder UNCHANGED (unknown endpoints, wrong methods, HEAD, and
+// the flag-off rollback path).
+const internalLegacy: ApiDelegate = async (req, res) => {
+  if (await handleDailyRewardInternalApi(req, res)) return;
+  await handleInternalApi(req, res, game);
+};
+const internalApiDispatcher = createApiDispatcher({
+  registry: apiRegistry,
+  delegate: internalLegacy,
+});
+let internalApiEntry: ApiDispatcher = selectApiEntry(
+  DEFAULT_DISPATCH,
+  internalApiDispatcher,
+  internalLegacy,
+);
+
 function setApiDispatchMode(mode: DispatchMode): void {
   apiEntry = selectApiEntry(mode, apiDispatcher, handleApi);
   adminApiEntry = selectApiEntry(mode, adminApiDispatcher, adminLegacy);
+  oauthApiEntry = selectApiEntry(mode, oauthApiDispatcher, oauthLegacy);
+  internalApiEntry = selectApiEntry(mode, internalApiDispatcher, internalLegacy);
 }
 
 // Test-only override so the parity harness can drive routeHttpRequest under both
@@ -1666,10 +1707,12 @@ function applyCorsAndPreflight(
 // handlers, the CORS + dispatch helpers) is module-level, so it moves cleanly.
 // The exact prefix order, the url-vs-path arm asymmetry, the CORS + OPTIONS-204
 // short-circuit position, and every fire-and-forget `void` are preserved 1:1; the
-// only change from Phase 8 is the /api arm routes through apiEntry and the /admin/api
-// arm through adminApiEntry (both flag-gated dispatchers) instead of calling handleApi
-// / handleAdminApi directly; each dispatcher delegates its own unmatched paths to the
-// same legacy handler, so behavior is byte-identical until Phase 25.
+// only change from Phase 8 is the /api, /admin/api, /oauth, and /internal arms route
+// through apiEntry / adminApiEntry / oauthApiEntry / internalApiEntry (all four
+// flag-gated dispatchers) instead of calling handleApi / handleAdminApi / handleOAuth
+// / the daily-rewards+handleInternalApi composite directly; each dispatcher delegates
+// its own unmatched paths to the same legacy handler, so behavior is byte-identical
+// until Phase 25.
 export function routeHttpRequest(req: http.IncomingMessage, res: http.ServerResponse): void {
   const url = req.url ?? '';
   const path = url.split('?')[0];
@@ -1680,16 +1723,13 @@ export function routeHttpRequest(req: http.IncomingMessage, res: http.ServerResp
   const publicCorsPath = isPublicCorsPath(path);
   if (applyCorsAndPreflight(req, res, isApi, publicCorsPath)) return;
   if (url.startsWith('/internal/')) {
-    // Daily-rewards internal ops (/internal/daily-rewards/*) are tried first and
-    // short-circuit when handled; every other /internal/* path falls through to
-    // handleInternalApi. Mirrors the pre-Phase-8 inline ladder 1:1.
-    void (async () => {
-      if (await handleDailyRewardInternalApi(req, res)) return;
-      await handleInternalApi(req, res, game);
-    })();
+    // The flag-gated internal dispatcher; its delegate is the exact pre-Phase-18
+    // composite (daily-rewards ops tried first, then handleInternalApi), so the
+    // 'legacy' mode and every unmatched path stay byte-identical.
+    void internalApiEntry(req, res);
   } else if (url.startsWith('/admin/api/')) void adminApiEntry(req, res);
   else if (url.startsWith('/api/')) void apiEntry(req, res);
-  else if (url.startsWith('/oauth/')) void handleOAuth(req, res);
+  else if (url.startsWith('/oauth/')) void oauthApiEntry(req, res);
   else if (req.method === 'GET' && url.startsWith('/p/')) void handleCardRoutes(req, res);
   else if (req.method === 'GET' && path.startsWith('/avatar/')) void handleAvatar(req, res);
   else if (req.method === 'GET' && path.startsWith('/c/')) void handleProfilePage(req, res);

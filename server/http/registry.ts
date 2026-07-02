@@ -27,7 +27,9 @@ import { routes as adminRoutes } from '../admin';
 import { routes as authRoutes } from '../auth_routes';
 import { routes as characterRoutes } from '../characters';
 import { routes as discordRoutes } from '../discord';
+import { routes as internalRoutes } from '../internal';
 import { routes as leaderboardRoutes } from '../leaderboard';
+import { routes as oauthRoutes } from '../oauth';
 import { routes as reportsRoutes } from '../reports';
 import { routes as walletRoutes } from '../wallet';
 import { type CompiledPattern, compilePattern } from './path_pattern';
@@ -77,7 +79,12 @@ export interface ApiRegistry {
  * the anonymous login plus the 31 authed /admin/api reads, moderation /
  * chat-filter / ip-block writes, and the restructured :id/:action sanction
  * route, all behind requireAdmin and served through main.ts's own flag-gated
- * admin dispatcher).
+ * admin dispatcher). Phase 18 adds the OAuth POST JSON surface (server/oauth.ts:
+ * the 5 consent / token / revoke / device endpoints; the GET consent and device
+ * HTML pages stay on the top-level ladder, off this table) and the secret-gated
+ * /internal ops surface (server/internal.ts: restart-countdown plus the 10
+ * Discord-bot routes behind requireInternalSecret), each served through its own
+ * flag-gated dispatcher in main.ts.
  */
 export const apiRoutes: readonly RouteDef[] = [
   ...leaderboardRoutes,
@@ -88,6 +95,8 @@ export const apiRoutes: readonly RouteDef[] = [
   ...reportsRoutes,
   ...discordRoutes,
   ...adminRoutes,
+  ...oauthRoutes,
+  ...internalRoutes,
 ];
 
 /**

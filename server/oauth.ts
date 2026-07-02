@@ -21,6 +21,7 @@ import {
   revokeReadToken,
   saveToken,
 } from './db';
+import type { RouteDef, RouteMeta } from './http/types';
 import { json, readBinaryBody } from './http_util';
 import {
   approveDeviceCode,
@@ -501,3 +502,75 @@ function htmlError(res: http.ServerResponse, status: number, title: string, deta
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)}</title>${PAGE_STYLE}</head>
 <body><main><h1>${escapeHtml(title)}</h1><p>${escapeHtml(detail)}</p></main></body></html>`);
 }
+
+// ── Route table (Phase 18 of docs/api-pipeline/) ───────────────────────────
+// The 5 OAuth POST JSON endpoints as RouteDefs for the shared dispatcher.
+// PARITY-FIRST: each thin Ctx handler calls the EXISTING core function above
+// UNCHANGED (the cores self-read their body via readForm, resolve the web
+// session via fullSessionAccount in-handler, and write every status/body
+// themselves), so responses are byte-identical to the legacy handleOAuth
+// ladder. No requireAccount, no withBody, no schema: the consent POSTs
+// authenticate via the browser web session, NOT the API bearer scope gate.
+//
+// The GET consent/device HTML pages (renderAuthorize, renderDevicePage) stay
+// OFF this table on purpose: a GET to these paths resolves methodNotAllowed
+// and the dispatcher DELEGATES it to the legacy handleOAuth ladder, which
+// renders the HTML exactly as today. Same for HEAD and for any unknown /oauth
+// path (the legacy 404 { error: 'not_found' }).
+//
+// The one divergence is an UNEXPECTED handler throw (oauthBodyValidationRemap,
+// tests/server/http/known_deviations.ts): withErrors serializes it through
+// serializeOauth as 500 { error: 'server_error', error_description: ... } plus
+// an X-Request-Id header, where the legacy handleOAuth catch writes the bare
+// 500 { error: 'server_error' }. Same status, same RFC 6749 code; the
+// description field and header are additive.
+
+const OAUTH_META: RouteMeta = { envelope: 'oauth' };
+
+export const routes: RouteDef[] = [
+  {
+    method: 'POST',
+    path: '/oauth/authorize',
+    surface: 'oauth',
+    meta: OAUTH_META,
+    handler: async (ctx) => {
+      await approveAuthorize(ctx.req, ctx.res);
+    },
+  },
+  {
+    method: 'POST',
+    path: '/oauth/token',
+    surface: 'oauth',
+    meta: OAUTH_META,
+    handler: async (ctx) => {
+      await tokenEndpoint(ctx.req, ctx.res);
+    },
+  },
+  {
+    method: 'POST',
+    path: '/oauth/revoke',
+    surface: 'oauth',
+    meta: OAUTH_META,
+    handler: async (ctx) => {
+      await revokeEndpoint(ctx.req, ctx.res);
+    },
+  },
+  {
+    method: 'POST',
+    path: '/oauth/device_authorization',
+    surface: 'oauth',
+    meta: OAUTH_META,
+    handler: async (ctx) => {
+      await deviceAuthorization(ctx.req, ctx.res);
+    },
+  },
+  {
+    method: 'POST',
+    path: '/oauth/device',
+    surface: 'oauth',
+    meta: OAUTH_META,
+    handler: async (ctx) => {
+      await approveDevice(ctx.req, ctx.res);
+    },
+  },
+];

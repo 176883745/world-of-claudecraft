@@ -38,10 +38,21 @@ import {
 } from '../../../server/characters';
 import { compose } from '../../../server/http/compose';
 import { ADMIN_AUTH_REQUIRED } from '../../../server/http/middleware/require_admin';
+import {
+  DEPLOY_SECRET_ENV,
+  DEPLOY_SECRET_HEADER,
+  DISCORD_SECRET_ENV,
+  DISCORD_SECRET_HEADER,
+} from '../../../server/http/middleware/require_internal_secret';
 import { withErrors } from '../../../server/http/middleware/with_errors';
 import { apiRoutes } from '../../../server/http/registry';
 import type { Ctx, Middleware, RouteDef } from '../../../server/http/types';
 import { json } from '../../../server/http_util';
+import {
+  configureInternalRuntime,
+  type InternalRuntime,
+  resetInternalRuntimeForTests,
+} from '../../../server/internal';
 import { fakeCtx } from '../helpers/fake_ctx';
 import type { FakeRes } from '../helpers/fake_http';
 
@@ -488,6 +499,123 @@ describe('admin auth-mounting sweep: every non-login admin route 401s an unauthe
 
     expect(res.statusCode).toBe(200);
     expect(handler).toHaveBeenCalledTimes(1);
+    expect(res.statusCode).not.toBe(401);
+  });
+});
+
+// -------------------------------------------------------------------------
+// Internal secret-gate mounting sweep (Phase 18).
+//
+// The analogous gate-mounting sweep the Phase 17 QA mandated for every future
+// authed surface: requireInternalSecret carries no meta marker, so no metadata
+// clause can catch a forgotten gate; only this functional sweep can. An ungated
+// /internal route would serve the Discord-bot / deploy ops surface to the open
+// internet. It drives each route's real middleware chain twice, asserting the
+// gate short-circuits with the legacy bodies BEFORE the handler:
+//   1. env secret UNSET  -> the feature-off 404 { ...error: 'unknown endpoint' }
+//      (the endpoint hides entirely, anti-enumeration);
+//   2. env secret SET + a WRONG header secret -> 401 { ...error: 'not
+//      authenticated' }.
+// A negative control proves the sweep detects a route that forgot the gate.
+// -------------------------------------------------------------------------
+
+// Every registered internal-surface route (all 11 are secret-gated; there is no
+// anonymous internal route).
+const internalSurfaceRoutes: RouteDef[] = apiRoutes.filter((route) => route.surface === 'internal');
+
+// The legacy fail() bodies the gate writes (byte-parity with server/internal.ts).
+const INTERNAL_FEATURE_OFF = { success: false, data: null, error: 'unknown endpoint' };
+const INTERNAL_NOT_AUTHENTICATED = { success: false, data: null, error: 'not authenticated' };
+
+// A secret value for the SET case; the request presents a different value.
+const RIGHT_SECRET = 'sweep-expected-secret-value';
+const WRONG_SECRET = 'sweep-presented-wrong-value';
+
+// Which (header, env var) pair a route's gate enforces: restart-countdown carries
+// the deploy pair, every discord route the bot pair.
+function gatePairFor(route: RouteDef): { header: string; envVar: string } {
+  return route.path === '/internal/restart-countdown'
+    ? { header: DEPLOY_SECRET_HEADER, envVar: DEPLOY_SECRET_ENV }
+    : { header: DISCORD_SECRET_HEADER, envVar: DISCORD_SECRET_ENV };
+}
+
+describe('internal secret-gate mounting sweep: every /internal route is gated (Phase 18)', () => {
+  let savedDeploySecret: string | undefined;
+  let savedDiscordSecret: string | undefined;
+
+  beforeEach(() => {
+    savedDeploySecret = process.env[DEPLOY_SECRET_ENV];
+    savedDiscordSecret = process.env[DISCORD_SECRET_ENV];
+    delete process.env[DEPLOY_SECRET_ENV];
+    delete process.env[DISCORD_SECRET_ENV];
+    // A stubbed runtime so a handler that unexpectedly ran (a regression where the
+    // gate is missing) fails on a clean assertion, not an unconfigured-runtime throw.
+    configureInternalRuntime({
+      startRestartCountdown: vi.fn(
+        () => ({ started: true }) as ReturnType<InternalRuntime['startRestartCountdown']>,
+      ),
+    });
+  });
+
+  afterEach(() => {
+    if (savedDeploySecret === undefined) delete process.env[DEPLOY_SECRET_ENV];
+    else process.env[DEPLOY_SECRET_ENV] = savedDeploySecret;
+    if (savedDiscordSecret === undefined) delete process.env[DISCORD_SECRET_ENV];
+    else process.env[DISCORD_SECRET_ENV] = savedDiscordSecret;
+    resetInternalRuntimeForTests();
+    vi.restoreAllMocks();
+  });
+
+  it('selects the full 11-route internal surface', () => {
+    expect(internalSurfaceRoutes.length).toBe(11);
+  });
+
+  for (const route of internalSurfaceRoutes) {
+    it(`hides ${route.method} ${route.path} with the feature-off 404 when the env secret is unset`, async () => {
+      const ctx = fakeCtx({ method: route.method, url: route.path });
+      const { res, handler } = await runRouteWithErrors(route, ctx);
+
+      expect(res.statusCode).toBe(404);
+      expect(handler).not.toHaveBeenCalled();
+      expect(JSON.parse(res.body)).toEqual(INTERNAL_FEATURE_OFF);
+    });
+
+    it(`refuses a wrong secret on ${route.method} ${route.path} with a 401 before the handler`, async () => {
+      const gate = gatePairFor(route);
+      process.env[gate.envVar] = RIGHT_SECRET;
+      const ctx = fakeCtx({
+        method: route.method,
+        url: route.path,
+        headers: { [gate.header]: WRONG_SECRET },
+      });
+      const { res, handler } = await runRouteWithErrors(route, ctx);
+
+      expect(res.statusCode).toBe(401);
+      expect(handler).not.toHaveBeenCalled();
+      expect(JSON.parse(res.body)).toEqual(INTERNAL_NOT_AUTHENTICATED);
+    });
+  }
+
+  it('negative control: an internal route MISSING the gate serves an ungated request (200), so the sweep is non-vacuous', async () => {
+    // A synthetic internal-surface route with NO gate at all: with both env secrets
+    // unset and no secret header, the request reaches its handler and writes 200,
+    // proving the sweep's 404/401 assertions actually detect the gate's presence.
+    const ungatedRoute: RouteDef = {
+      method: 'GET',
+      path: '/internal/synthetic-ungated',
+      surface: 'internal',
+      middleware: [],
+      handler: async (ctx) => {
+        json(ctx.res, 200, { success: true, data: { ok: true }, error: null });
+      },
+      meta: { envelope: 'admin' },
+    };
+    const ctx = fakeCtx({ method: 'GET', url: ungatedRoute.path });
+    const { res, handler } = await runRouteWithErrors(ungatedRoute, ctx);
+
+    expect(res.statusCode).toBe(200);
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(res.statusCode).not.toBe(404);
     expect(res.statusCode).not.toBe(401);
   });
 });

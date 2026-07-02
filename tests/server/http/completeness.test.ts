@@ -251,10 +251,16 @@ describe('registry completeness: migrated baseline (Phase 10 public reads + Phas
   const MIGRATED_PATHS = MIGRATED_ROUTES.map((r) => r.path);
 
   it('registers exactly the migrated /api routes (one RouteDef per path)', () => {
-    // Scoped to the /api family: the /admin/api surface (Phase 17) has its own
-    // registration assertion below, derived from the admin ladder.
+    // Scoped to the /api family: the /admin/api surface (Phase 17) and the /oauth
+    // + /internal surfaces (Phase 18) have their own registration assertions
+    // below, each derived from its ladder.
     const registered = [...apiRoutes]
-      .filter((r) => !r.path.startsWith('/admin/'))
+      .filter(
+        (r) =>
+          !r.path.startsWith('/admin/') &&
+          !r.path.startsWith('/oauth/') &&
+          !r.path.startsWith('/internal/'),
+      )
       .map((r) => r.path)
       .sort();
     expect(registered).toEqual([...MIGRATED_PATHS].sort());
@@ -415,6 +421,95 @@ describe('registry completeness: Phase 17 admin surface (server/admin.ts)', () =
       expect(r.surface, r.path).toBe('admin');
       expect(r.meta?.envelope, r.path).toBe('admin');
     }
+  });
+});
+
+describe('registry completeness: Phase 18 oauth + internal surfaces (server/oauth.ts, server/internal.ts)', () => {
+  // Both expected sets derive FROM the SURFACE_INVENTORY ladders (the admin-block
+  // pattern), so a dropped or added branch reds the gate without a hand-maintained
+  // parallel list. The oauth surface migrates ONLY its POST JSON rows: the two GET
+  // consent/device HTML pages stay on the top-level ladder, off the route table,
+  // served through the dispatcher's delegate. The internal surface migrates EVERY
+  // handleInternalApi row (11: restart-countdown + the 10 Discord-bot routes); the
+  // separate /internal/daily-rewards/* ops family was never part of that ladder
+  // and stays delegate-only.
+  const oauthPostLadder = SURFACE_INVENTORY.filter(
+    (r) => r.dispatcher === DISPATCH.oauth && r.method === 'POST',
+  );
+  const oauthGetLadder = SURFACE_INVENTORY.filter(
+    (r) => r.dispatcher === DISPATCH.oauth && r.method === 'GET',
+  );
+  const internalLadder = SURFACE_INVENTORY.filter((r) => r.dispatcher === DISPATCH.internal);
+
+  it('derives the expected non-empty ladders', () => {
+    expect(oauthPostLadder.length).toBe(5);
+    expect(oauthGetLadder.length).toBe(2);
+    expect(internalLadder.length).toBe(11);
+  });
+
+  it('registers exactly the oauth POST ladder routes', () => {
+    const registered = [...apiRoutes]
+      .filter((r) => r.path.startsWith('/oauth/'))
+      .map((r) => `${r.method} ${r.path}`)
+      .sort();
+    expect(registered).toEqual(oauthPostLadder.map((r) => `${r.method} ${r.path}`).sort());
+  });
+
+  it('the router OWNS every oauth POST ladder branch', () => {
+    const dropped = oauthPostLadder
+      .filter((r) => apiRegistry.resolve(r.method, r.path).kind !== 'matched')
+      .map((r) => `${r.method} ${r.path}`);
+    expect(dropped).toEqual([]);
+  });
+
+  it('keeps the GET consent/device HTML pages OFF the route table', () => {
+    // A GET to either path resolves methodNotAllowed (the POST sibling is
+    // registered), which the dispatcher DELEGATES to the legacy handleOAuth
+    // ladder, so the HTML pages render exactly as today.
+    for (const r of oauthGetLadder) {
+      expect(apiRegistry.resolve(r.method, r.path).kind, r.path).toBe('methodNotAllowed');
+    }
+  });
+
+  it('registers exactly the internal ladder routes', () => {
+    const registered = [...apiRoutes]
+      .filter((r) => r.path.startsWith('/internal/'))
+      .map((r) => `${r.method} ${r.path}`)
+      .sort();
+    expect(registered).toEqual(internalLadder.map((r) => `${r.method} ${r.path}`).sort());
+  });
+
+  it('the router OWNS every internal ladder branch', () => {
+    const dropped = internalLadder
+      .filter((r) => apiRegistry.resolve(r.method, r.path).kind !== 'matched')
+      .map((r) => `${r.method} ${r.path}`);
+    expect(dropped).toEqual([]);
+  });
+
+  it('every oauth RouteDef selects the RFC 6749 envelope', () => {
+    const oauthRoutes = [...apiRoutes].filter((r) => r.path.startsWith('/oauth/'));
+    expect(oauthRoutes.length).toBeGreaterThan(0);
+    for (const r of oauthRoutes) {
+      expect(r.surface, r.path).toBe('oauth');
+      expect(r.meta?.envelope, r.path).toBe('oauth');
+    }
+  });
+
+  it('every internal RouteDef selects the { success, data, error } envelope', () => {
+    // The internal envelope IS the admin { success, data, error } shape;
+    // EnvelopeKind is a frozen Phase 2 contract with no separate 'internal'
+    // member, so the routes carry surface 'internal' + meta.envelope 'admin'.
+    const internalRoutes = [...apiRoutes].filter((r) => r.path.startsWith('/internal/'));
+    expect(internalRoutes.length).toBeGreaterThan(0);
+    for (const r of internalRoutes) {
+      expect(r.surface, r.path).toBe('internal');
+      expect(r.meta?.envelope, r.path).toBe('admin');
+    }
+  });
+
+  it('leaves the /internal/daily-rewards ops family delegate-only', () => {
+    expect(apiRegistry.resolve('POST', '/internal/daily-rewards/run').kind).toBe('notFound');
+    expect(apiRegistry.resolve('GET', '/internal/daily-rewards/status').kind).toBe('notFound');
   });
 });
 

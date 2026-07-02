@@ -47,6 +47,8 @@ export const DEVIATION_ID = {
   adminEnumInvalid422: 'admin-enum-invalid-422',
   adminIdParamDecode: 'admin-id-param-decode-422',
   adminBodyValidationRemap: 'admin-body-validation-remap',
+  oauthBodyValidationRemap: 'oauth-body-validation-remap',
+  internalBodyValidationRemap: 'internal-body-validation-remap',
 } as const;
 export type DeviationId = (typeof DEVIATION_ID)[keyof typeof DEVIATION_ID];
 
@@ -885,6 +887,85 @@ export const KNOWN_DEVIATIONS: readonly KnownDeviation[] = [
       'walletBodyValidationRemap / reportsBodyValidationRemap / discordBodyValidationRemap. ' +
       'The listed routes are representative (the remap applies to every admin route); the ' +
       'framework-error path is not exercised by the db-free parity corpus, documented here.',
+  },
+  {
+    id: DEVIATION_ID.oauthBodyValidationRemap,
+    routes: [
+      '/oauth/authorize',
+      '/oauth/token',
+      '/oauth/revoke',
+      '/oauth/device_authorization',
+      '/oauth/device',
+    ],
+    currentBehavior:
+      'The legacy handleOAuth wraps its whole ladder in one try/catch: any throw escaping ' +
+      'a POST handler (an over-cap consent body, readForm/readBinaryBody rejects past its ' +
+      '16 KB cap; a Postgres error) logs "oauth error:" and answers the bare RFC 6749 500 ' +
+      '{ error: "server_error" } with NO error_description. A malformed JSON body is NOT a ' +
+      'throw path (readForm coerces it to {} and the handler answers its own 400/401).',
+    intendedBehavior:
+      'Phase 18 keeps the handlers self-reading (readForm inside the unchanged cores; NO ' +
+      'withBody, so no 400/413 status remap and every handler-owned body stays ' +
+      'byte-identical). The ONLY divergence is the 500 BODY on an unexpected throw: it ' +
+      'propagates to the Phase 8 withErrors boundary and serializes through serializeOauth ' +
+      '(meta.envelope "oauth") as 500 { error: "server_error", error_description: "An ' +
+      'unexpected error occurred." } plus an X-Request-Id header, where legacy wrote the ' +
+      'bare { error: "server_error" }. Same 500 status, same RFC 6749 error code; the ' +
+      'description member and header are ADDITIVE and leak-free (generic text; the ' +
+      'original error goes only to the logger, now the shared "[http] unhandled error" ' +
+      'line instead of "oauth error:"). The GET consent/device HTML pages stay on the ' +
+      'legacy ladder (never enter the route table), so their htmlError paths are ' +
+      'untouched.',
+    introducedInPhase: 18,
+    reason:
+      'The migrated OAuth POST handlers surface an unexpected throw through the shared ' +
+      'Phase 7/8 error-model boundary (the RFC 6749 serializer) instead of the legacy ' +
+      'module-local catch. Same status + error code, an additive description field. ' +
+      'Sibling to accountBodyValidationRemap / walletBodyValidationRemap / ' +
+      'reportsBodyValidationRemap / discordBodyValidationRemap / adminBodyValidationRemap. ' +
+      'Not exercised by the db-free parity corpus (a real throw needs a DB failure or an ' +
+      'over-cap stream), documented here and pinned with fakes in tests/server/oauth.test.ts.',
+  },
+  {
+    id: DEVIATION_ID.internalBodyValidationRemap,
+    routes: [
+      '/internal/restart-countdown',
+      '/internal/discord/flex',
+      '/internal/discord/roles',
+      '/internal/discord/presence',
+      '/internal/discord/grant',
+      '/internal/discord/member',
+      '/internal/discord/relay',
+      '/internal/discord/activity',
+      '/internal/discord/daily-rewards-winners',
+      '/internal/discord/daily-rewards-winners/mark',
+      '/internal/discord/members-meta',
+    ],
+    currentBehavior:
+      'The legacy handleInternalApi has NO outer catch. Every body read carries its own ' +
+      '.catch(() => ({})) (a malformed/over-cap body coerces to {} and is not a throw ' +
+      'path), but an unexpected throw (a Postgres error, a dailyRewardService throw) ' +
+      "escapes the whole ladder into main.ts's fire-and-forget /internal arm as an " +
+      'unhandled promise rejection: the keep-alive unhandledRejection handler logs it, NO ' +
+      "response is ever written, and the bot's request hangs until its client timeout.",
+    intendedBehavior:
+      'Phase 18 routes the same throw to the Phase 8 withErrors boundary, which serializes ' +
+      'it through the admin-shape serializer (meta.envelope "admin": the internal fail() ' +
+      'envelope IS the admin { success, data, error } shape, and EnvelopeKind is a frozen ' +
+      'Phase 2 contract with no separate internal member) as 500 { success: false, data: ' +
+      'null, error: "internal.error" } plus an X-Request-Id header. A response is now ' +
+      'always written where legacy hung the request: strictly a reliability improvement, ' +
+      'flag-gated, leak-free (stable code only; the original error goes to the logger). ' +
+      'SECRET-GATED: every divergence is only reachable behind a valid deploy/bot secret ' +
+      '(the gate itself answers the legacy 404/401 bodies via direct json(), no header).',
+    introducedInPhase: 18,
+    reason:
+      "The legacy internal ladder's missing outer catch is a latent request-hang; the " +
+      'migrated routes serialize an unexpected throw through the shared error boundary ' +
+      'like every other Phase 10-17 surface. Sibling to the other *BodyValidationRemap ' +
+      'entries (with a hang, not a 500 prose body, as the legacy counterfactual). Not ' +
+      'exercised by the db-free parity corpus (a real throw needs a DB failure behind a ' +
+      'valid secret), documented here and pinned with fakes in tests/server/internal.test.ts.',
   },
 ];
 
