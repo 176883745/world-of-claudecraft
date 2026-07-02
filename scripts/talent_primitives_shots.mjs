@@ -99,18 +99,18 @@ await page.click('canvas').catch(() => {});
 
 const fails = [];
 
-// Scene 1: cast-while-moving. Fireball's def gains the flag; the cast bar
+// Scene 1: cast-while-moving, the Firestarter design: SCORCH's def gains the flag; the cast bar
 // must survive a REAL held movement key (baseline behavior cancels the cast).
 const start1 = await page.evaluate(() => {
   const sim = window.__game.sim;
   const me = sim.player;
   const meta = sim.players.get(me.id);
-  const fb = meta.known.find((k) => k.def.id === 'fireball');
-  fb.def.castWhileMoving = true;
+  const sc = meta.known.find((k) => k.def.id === 'scorch');
+  sc.def.castWhileMoving = true;
   window.__shot.closeOnWolf();
   me.resource = me.maxResource;
   me.gcdRemaining = 0;
-  sim.castAbility('fireball');
+  sim.castAbility('scorch');
   return {
     casting: me.castingAbility,
     x: me.pos.x,
@@ -118,12 +118,12 @@ const start1 = await page.evaluate(() => {
   };
 });
 await page.keyboard.down('KeyW');
-await sleep(1000);
+await sleep(700);
 const scene1 = await page.evaluate((start) => {
   const me = window.__game.sim.player;
   return {
-    startedCasting: start.casting === 'fireball',
-    stillCasting: me.castingAbility === 'fireball',
+    startedCasting: start.casting === 'scorch',
+    stillCasting: me.castingAbility === 'scorch',
     castRemaining: Math.round(me.castRemaining * 100) / 100,
     movedYards: Math.round(Math.hypot(me.pos.x - start.x, me.pos.z - start.z) * 10) / 10,
   };
@@ -140,8 +140,8 @@ await page.evaluate(() => {
   const sim = window.__game.sim;
   const me = sim.player;
   const meta = sim.players.get(me.id);
-  const fb = meta.known.find((k) => k.def.id === 'fireball');
-  delete fb.def.castWhileMoving;
+  const sc = meta.known.find((k) => k.def.id === 'scorch');
+  delete sc.def.castWhileMoving;
   if (me.castingAbility) sim.stopCasting?.();
 });
 await sleep(2500);
@@ -227,6 +227,7 @@ const scene3 = await page.evaluate(async () => {
   const mobId = window.__shot.closeOnWolf();
   if (mobId === null) return { fail: 'no wolf' };
   const mob = sim.entities.get(mobId);
+  const hp0 = mob.hp; // scene 1's scorch may already have chipped this wolf
   sim.castAbility('fireball');
   const wasInstant = me.castingAbility === null;
   // let the bolt fly and land
@@ -240,12 +241,12 @@ const scene3 = await page.evaluate(async () => {
     ) {
       crit = true; // both consumed; crit assertion follows via damage below
     }
-    if (mob.hp < mob.maxHp) break;
+    if (mob.hp < hp0 && crit) break;
   }
   return {
     wasInstant,
     chargesConsumed: crit,
-    wolfDamaged: mob.hp < mob.maxHp,
+    wolfDamaged: mob.hp < hp0,
   };
 });
 console.log('scene3 empower-next:', JSON.stringify(scene3));
