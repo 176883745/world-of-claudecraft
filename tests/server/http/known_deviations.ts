@@ -815,7 +815,12 @@ export const KNOWN_DEVIATIONS: readonly KnownDeviation[] = [
       'digits) and decodes it with requireAdminTarget num({ int, min: 1 }) BEFORE any DB ' +
       'call. A non-numeric / non-positive id throws the decode failure, which withErrors ' +
       'maps to 422 { success: false, data: null, error: "validation.failed" } on the ' +
-      'known route family (NaN-safe: a query never receives NaN). AUTH-GATED: requireAdmin ' +
+      'known route family (NaN-safe: a query never receives NaN). The decoder is also ' +
+      'slightly WIDER than the legacy regex: a trimmed decimal spelling of a positive ' +
+      'integer ("+5", "5.0", a whitespace-padded " 5 ") decodes to the same id and reaches ' +
+      'the handler where legacy 404-fell-through; harmless (an operator holds universal ' +
+      'authority and plain "5" reaches the same row) and shared with the num() decoders ' +
+      'on every migrated :id surface. AUTH-GATED: requireAdmin ' +
       'precedes the decode, so an unauthenticated bad-id request 401s on both paths; the ' +
       '422-vs-404/405 divergence is only reachable behind a valid admin bearer. Exact ' +
       'sibling to characterIdParamDecode. No golden pins a non-numeric admin id and no ' +

@@ -55,7 +55,7 @@ export const ADMIN_AUTH_REQUIRED = {
 } as const;
 
 /** The ctx.state key the decoded operator :id is stashed under for the handler. */
-export const ADMIN_TARGET_ID = 'adminTargetId';
+const ADMIN_TARGET_ID = 'adminTargetId';
 
 /**
  * The two db reads the admin gate needs, bundled so a unit test can inject a fake
