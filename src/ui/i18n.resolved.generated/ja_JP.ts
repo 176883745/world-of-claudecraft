@@ -1007,6 +1007,95 @@ export const ja_JP: EnTranslations = {
       "unlink": "GitHub の連携を解除"
     }
   },
+  "apiError": {
+    "validation": {
+      "failed": "一部の項目が無効です。入力内容を確認してもう一度お試しください。"
+    },
+    "json": {
+      "malformed": "リクエストを読み取れませんでした。もう一度お試しください。"
+    },
+    "body": {
+      "too_large": "リクエストが大きすぎます。データを減らしてもう一度お試しください。",
+      "unsupported_media_type": "サポートされていないリクエスト形式です。"
+    },
+    "db": {
+      "conflict": "その変更が別の更新と競合しました。もう一度お試しください。"
+    },
+    "rate_limit": {
+      "exceeded": "リクエストが多すぎます。{seconds} 後に再度お試しください。"
+    },
+    "internal": {
+      "error": "サーバー側で問題が発生しました。もう一度お試しください。"
+    },
+    "auth": {
+      "token_missing": "この操作を行うにはログインが必要です。",
+      "token_invalid": "セッションの有効期限が切れました。もう一度ログインしてください。",
+      "forbidden": "この操作を行う権限がありません。",
+      "invalid_credentials": "ユーザー名またはパスワードが正しくありません。",
+      "required": "認証されていません。",
+      "web_login_only": "ログインはゲームクライアントからのみ可能です。",
+      "too_many_attempts": "試行回数が多すぎます。1分待ってから再試行してください。",
+      "too_many_failed_attempts": "試行回数が多すぎます。数分待ってから再度お試しください。",
+      "current_password_incorrect": "現在のパスワードが正しくありません。",
+      "password_incorrect": "パスワードが正しくありません。",
+      "verification_failed": "確認に失敗しました。もう一度お試しください。"
+    },
+    "account": {
+      "username_invalid": "ユーザー名は3-24文字で、英字、数字、アンダースコアを使用してください。",
+      "username_not_allowed": "そのユーザー名は使用できません。",
+      "username_taken": "そのユーザー名は既に使われています。",
+      "username_mismatch": "そのユーザー名はアカウントと一致しません。",
+      "password_too_short": "パスワードは6文字以上である必要があります。",
+      "password_too_long": "新しいパスワードは128文字以内にしてください。",
+      "characters_online": "無効化する前にすべてのキャラクターからログアウトしてください。",
+      "deactivated": "このアカウントは無効化されています。復元するには管理者に連絡してください。",
+      "not_found": "アカウントが見つかりません。"
+    },
+    "character": {
+      "name_invalid": "キャラクター名が無効です。2-16文字の英字を使用してください。",
+      "name_not_allowed": "そのキャラクター名は使用できません。",
+      "invalid_class": "無効なクラスです。",
+      "limit_reached": "キャラクター数の上限に達しました。",
+      "name_taken": "その名前は既に使われています。",
+      "not_found": "キャラクターが見つかりません。",
+      "online": "キャラクターは現在オンラインです。",
+      "rename_not_permitted": "このキャラクターの名前変更は許可されていません。",
+      "delete_confirm": "削除を確認するにはキャラクター名を入力してください。",
+      "already_in_world": "キャラクターは既に世界にいます。",
+      "taken_over": "あなたのキャラクターは別のセッションに引き継がれました。",
+      "rename_required": "このキャラクターは世界に入る前に名前変更が必要です。"
+    },
+    "moderation": {
+      "suspended_until": "このアカウントは {date} まで停止されています。",
+      "suspended": "このアカウントは停止されています。",
+      "banned": "このアカウントは利用停止されています。",
+      "force_rename": "モデレーターがあなたのキャラクターのいずれかに改名を要求しています。"
+    },
+    "email": {
+      "invalid": "有効なメールアドレスを入力してください。",
+      "unchanged": "すでに現在のメールアドレスです。"
+    },
+    "two_factor": {
+      "code_invalid": "そのコードは無効です。もう一度お試しください。",
+      "setup_required": "まず二段階認証の設定を開始してください。",
+      "already_enabled": "二段階認証は既に有効です。",
+      "not_enabled": "二段階認証は有効になっていません。"
+    },
+    "origin": {
+      "cross_site": "セキュリティ上の理由によりリクエストがブロックされました。"
+    },
+    "discord": {
+      "not_configured": "Discord連携は現在利用できません。",
+      "expired": "このDiscordログインは期限切れです。もう一度Discordでログインしてください。",
+      "already_linked": "そのDiscordアカウントは既に別のアカウントに連携されています。",
+      "password_required": "Discordアカウントの連携を解除する前にパスワードを設定してください。",
+      "unknown_swag": "その報酬は利用できません。",
+      "link_required": "まずDiscordアカウントを連携してください。",
+      "swag_claimed": "この報酬は既に受け取っています。",
+      "swag_tier": "これを受け取るにはより高いランクが必要です。",
+      "swag_points": "ポイントが足りません。"
+    }
+  },
   "guide": {
     "brand": "World of ClaudeCraft",
     "brandShort": "ClaudeCraft",

@@ -6,6 +6,7 @@
 import { ITEM_SETS } from '../../sim/data';
 import { worldEntityText as worldNames } from '../world_entity_i18n';
 import { abilityStrings, classAbilityNames } from './abilities';
+import { apiErrorStrings } from './api_error';
 import { gameStrings } from './game';
 import { guideStrings } from './guide';
 import { hudStrings } from './hud';
@@ -16,6 +17,7 @@ import { questStrings } from './quests';
 import { shellStrings } from './shell';
 
 export { abilityStrings, classAbilityNames } from './abilities';
+export { apiErrorStrings } from './api_error';
 export {
   gameStrings,
   gameStringsDeDE,
@@ -74,6 +76,7 @@ export const en = {
   realmTypes: { normal: 'Normal', pvp: 'PvP', rp: 'RP', rpPvp: 'RP-PvP' },
   game: gameStrings,
   hudChrome: hudChromeStrings,
+  apiError: apiErrorStrings,
   guide: guideStrings,
   // Cosmetic skin-select event overlay. Rarity names reuse itemUi.quality.*.
   skinEvent: {

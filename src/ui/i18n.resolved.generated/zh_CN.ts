@@ -1007,6 +1007,95 @@ export const zh_CN: EnTranslations = {
       "unlink": "取消关联 GitHub"
     }
   },
+  "apiError": {
+    "validation": {
+      "failed": "部分字段无效。请检查表单后重试。"
+    },
+    "json": {
+      "malformed": "无法读取该请求。请重试。"
+    },
+    "body": {
+      "too_large": "该请求过大。请减少数据后重试。",
+      "unsupported_media_type": "不支持的请求格式。"
+    },
+    "db": {
+      "conflict": "该更改与另一次更新发生冲突。请重试。"
+    },
+    "rate_limit": {
+      "exceeded": "请求过于频繁。请在 {seconds} 后重试。"
+    },
+    "internal": {
+      "error": "我们这边出了点问题。请重试。"
+    },
+    "auth": {
+      "token_missing": "你需要登录后才能执行此操作。",
+      "token_invalid": "你的会话已过期。请重新登录。",
+      "forbidden": "你没有执行此操作的权限。",
+      "invalid_credentials": "用户名或密码无效。",
+      "required": "尚未认证。",
+      "web_login_only": "只能从游戏客户端登录。",
+      "too_many_attempts": "尝试次数过多。请等待一分钟后重试。",
+      "too_many_failed_attempts": "尝试失败次数过多。请等待几分钟后再试。",
+      "current_password_incorrect": "当前密码不正确。",
+      "password_incorrect": "密码不正确。",
+      "verification_failed": "验证失败，请重试。"
+    },
+    "account": {
+      "username_invalid": "用户名必须为 3-24 个字符，并使用字母、数字或下划线。",
+      "username_not_allowed": "该用户名不可使用。",
+      "username_taken": "该用户名已被占用。",
+      "username_mismatch": "该用户名与您的账户不匹配。",
+      "password_too_short": "密码至少需要 6 个字符。",
+      "password_too_long": "新密码最多只能包含 128 个字符。",
+      "characters_online": "请先登出所有角色再进行注销。",
+      "deactivated": "此账户已注销。请联系管理员以恢复。",
+      "not_found": "未找到账户。"
+    },
+    "character": {
+      "name_invalid": "角色名称无效。请使用 2-16 个字母。",
+      "name_not_allowed": "该角色名称不可使用。",
+      "invalid_class": "职业无效。",
+      "limit_reached": "已达到角色数量上限。",
+      "name_taken": "该名称已被占用。",
+      "not_found": "未找到角色。",
+      "online": "角色当前在线。",
+      "rename_not_permitted": "不允许为此角色改名。",
+      "delete_confirm": "输入角色名称以确认删除。",
+      "already_in_world": "角色已在世界中。",
+      "taken_over": "你的角色已被另一个会话接管。",
+      "rename_required": "此角色必须先改名才能进入世界。"
+    },
+    "moderation": {
+      "suspended_until": "此账号被停用至 {date}。",
+      "suspended": "该账号已被暂停。",
+      "banned": "此账号已被封禁。",
+      "force_rename": "管理员要求你的一个角色进行改名。"
+    },
+    "email": {
+      "invalid": "请输入有效的邮箱地址。",
+      "unchanged": "这已经是你的邮箱地址了。"
+    },
+    "two_factor": {
+      "code_invalid": "验证码无效，请重试。",
+      "setup_required": "请先开始双重验证设置。",
+      "already_enabled": "双重验证已启用。",
+      "not_enabled": "双重验证未启用。"
+    },
+    "origin": {
+      "cross_site": "出于安全原因，请求已被拦截。"
+    },
+    "discord": {
+      "not_configured": "Discord 集成当前不可用。",
+      "expired": "该 Discord 登录已过期，请重新使用 Discord 登录。",
+      "already_linked": "该 Discord 账号已关联到另一个账号。",
+      "password_required": "取消关联 Discord 账号前请先设置密码。",
+      "unknown_swag": "该奖励不可用。",
+      "link_required": "请先关联你的 Discord 账号。",
+      "swag_claimed": "你已经领取过此奖励。",
+      "swag_tier": "达到更高段位即可领取。",
+      "swag_points": "积分不足。"
+    }
+  },
   "guide": {
     "brand": "World of ClaudeCraft",
     "brandShort": "ClaudeCraft",

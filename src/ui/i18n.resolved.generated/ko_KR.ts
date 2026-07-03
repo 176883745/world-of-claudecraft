@@ -1007,6 +1007,95 @@ export const ko_KR: EnTranslations = {
       "unlink": "GitHub 연결 해제"
     }
   },
+  "apiError": {
+    "validation": {
+      "failed": "일부 항목이 올바르지 않습니다. 양식을 확인하고 다시 시도하세요."
+    },
+    "json": {
+      "malformed": "요청을 읽을 수 없습니다. 다시 시도해 주세요."
+    },
+    "body": {
+      "too_large": "요청이 너무 큽니다. 데이터를 줄여 다시 시도하세요.",
+      "unsupported_media_type": "지원되지 않는 요청 형식입니다."
+    },
+    "db": {
+      "conflict": "변경 사항이 다른 업데이트와 충돌했습니다. 다시 시도해 주세요."
+    },
+    "rate_limit": {
+      "exceeded": "요청이 너무 많습니다. {seconds} 후에 다시 시도하세요."
+    },
+    "internal": {
+      "error": "서버 측에서 문제가 발생했습니다. 다시 시도해 주세요."
+    },
+    "auth": {
+      "token_missing": "이 작업을 하려면 로그인해야 합니다.",
+      "token_invalid": "세션이 만료되었습니다. 다시 로그인해 주세요.",
+      "forbidden": "이 작업을 수행할 권한이 없습니다.",
+      "invalid_credentials": "사용자 이름 또는 비밀번호가 올바르지 않습니다.",
+      "required": "인증되지 않았습니다.",
+      "web_login_only": "로그인은 게임 클라이언트에서만 허용됩니다.",
+      "too_many_attempts": "시도가 너무 많습니다. 1분 후 다시 시도하세요.",
+      "too_many_failed_attempts": "시도 횟수가 너무 많습니다. 몇 분 후에 다시 시도하십시오.",
+      "current_password_incorrect": "현재 비밀번호가 올바르지 않습니다.",
+      "password_incorrect": "비밀번호가 올바르지 않습니다.",
+      "verification_failed": "확인에 실패했습니다. 다시 시도해 주세요."
+    },
+    "account": {
+      "username_invalid": "사용자 이름은 3-24자이며 글자, 숫자 또는 밑줄을 사용해야 합니다.",
+      "username_not_allowed": "이 사용자 이름은 사용할 수 없습니다.",
+      "username_taken": "이미 사용 중인 사용자 이름입니다.",
+      "username_mismatch": "해당 사용자 이름이 계정과 일치하지 않습니다.",
+      "password_too_short": "비밀번호는 최소 6자여야 합니다.",
+      "password_too_long": "새 비밀번호는 128자 이하여야 합니다.",
+      "characters_online": "비활성화하기 전에 모든 캐릭터에서 로그아웃하세요.",
+      "deactivated": "이 계정은 비활성화되었습니다. 복원하려면 관리자에게 문의하세요.",
+      "not_found": "계정을 찾을 수 없습니다."
+    },
+    "character": {
+      "name_invalid": "캐릭터 이름이 올바르지 않습니다. 2-16자의 글자를 사용하세요.",
+      "name_not_allowed": "이 캐릭터 이름은 사용할 수 없습니다.",
+      "invalid_class": "유효하지 않은 직업입니다.",
+      "limit_reached": "캐릭터 한도에 도달했습니다.",
+      "name_taken": "이미 사용 중인 이름입니다.",
+      "not_found": "캐릭터를 찾을 수 없습니다.",
+      "online": "캐릭터가 현재 접속 중입니다.",
+      "rename_not_permitted": "이 캐릭터의 이름을 변경할 수 없습니다.",
+      "delete_confirm": "삭제를 확인하려면 캐릭터 이름을 입력하세요.",
+      "already_in_world": "캐릭터가 이미 세계에 있습니다.",
+      "taken_over": "다른 세션이 캐릭터를 넘겨받았습니다.",
+      "rename_required": "이 캐릭터는 세계에 들어가기 전에 이름을 변경해야 합니다."
+    },
+    "moderation": {
+      "suspended_until": "이 계정은 {date}까지 정지되었습니다.",
+      "suspended": "이 계정은 정지되었습니다.",
+      "banned": "이 계정은 이용 정지되었습니다.",
+      "force_rename": "운영자가 당신의 캐릭터 중 하나의 이름 변경을 요구했습니다."
+    },
+    "email": {
+      "invalid": "유효한 이메일 주소를 입력하세요.",
+      "unchanged": "이미 사용 중인 이메일 주소입니다."
+    },
+    "two_factor": {
+      "code_invalid": "코드가 올바르지 않습니다. 다시 시도하세요.",
+      "setup_required": "먼저 2단계 인증 설정을 시작하세요.",
+      "already_enabled": "2단계 인증이 이미 활성화되어 있습니다.",
+      "not_enabled": "2단계 인증이 활성화되어 있지 않습니다."
+    },
+    "origin": {
+      "cross_site": "보안상의 이유로 요청이 차단되었습니다."
+    },
+    "discord": {
+      "not_configured": "현재 Discord 연동을 사용할 수 없습니다.",
+      "expired": "이 Discord 로그인이 만료되었습니다. Discord로 다시 로그인해 주세요.",
+      "already_linked": "이 Discord 계정은 이미 다른 계정에 연결되어 있습니다.",
+      "password_required": "Discord 계정 연결을 해제하기 전에 비밀번호를 설정하세요.",
+      "unknown_swag": "해당 보상은 사용할 수 없습니다.",
+      "link_required": "먼저 Discord 계정을 연결하세요.",
+      "swag_claimed": "이미 이 보상을 받았습니다.",
+      "swag_tier": "이 보상을 받으려면 더 높은 등급에 도달하세요.",
+      "swag_points": "포인트가 부족합니다."
+    }
+  },
   "guide": {
     "brand": "World of ClaudeCraft",
     "brandShort": "ClaudeCraft",
