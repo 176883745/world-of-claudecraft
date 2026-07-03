@@ -277,10 +277,10 @@ export function chat(ctx: SimContext, text: string, pid?: number): SentChat | nu
     return null;
   }
 
-  // "/invite name" — invite a player to your party by name, regardless of
+  // "/invite name": invite a player to your party by name, regardless of
   // distance (party invites have no proximity check, unlike trade/duel). Name
   // resolution mirrors /inspect (exact, then unambiguous case-insensitive); all
-  // party validation is delegated to partyInvite. (No "/inv" alias — that is
+  // party validation is delegated to partyInvite. (No "/inv" alias, that is
   // /inventory.)
   const invm = /^\/invite(?:\s+([\s\S]+))?$/i.exec(raw);
   if (invm) {
