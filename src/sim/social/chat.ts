@@ -469,7 +469,7 @@ export function chat(ctx: SimContext, text: string, pid?: number): SentChat | nu
     return null;
   }
   if (/^\/(?:combo|cp|combopoints)(?:\s|$)/i.test(raw)) {
-    ctx.error(r.meta.entityId, readouts.comboReadout(ctx, r.e));
+    ctx.error(r.meta.entityId, readouts.comboReadout(r.e));
     return null;
   }
   if (/^\/(?:combat|cb|incombat)(?:\s|$)/i.test(raw)) {

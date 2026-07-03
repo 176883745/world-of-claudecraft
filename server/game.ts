@@ -3269,7 +3269,6 @@ export class GameServer {
       pcd: round2(p.potionCdRemaining),
       swing: round2(p.swingTimer),
       combo: p.comboPoints,
-      comboTgt: p.comboTargetId,
       target: p.targetId,
       auto: p.autoAttack,
       queued: p.queuedOnSwing,

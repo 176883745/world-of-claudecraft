@@ -1469,8 +1469,8 @@ export interface Entity {
   queuedOnSwing: string | null; // heroic strike
   queuedOnSwingFree?: boolean; // next_cast_free consumed at queue time
   fiveSecondRule: number; // time since last mana spend
-  comboPoints: number;
-  comboTargetId: number | null;
+  comboPoints: number; // retail-style: character-bound, not anchored to a target
+  comboUntil: number; // sim-time until which unspent combo points persist
   overpowerUntil: number; // sim-time until which overpower is usable
   potionCooldownUntil: number; // sim-time until a combat potion can be used again (#103)
   // Same shared potion cooldown as REMAINING seconds, materialized per tick (like

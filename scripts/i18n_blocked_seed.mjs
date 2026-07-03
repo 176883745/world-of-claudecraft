@@ -209,7 +209,7 @@ export const V07_SLASH = [
   'Bags (5): Aki. Aki',
   'Combat potion is ready to use.',
   'Combat potion on cooldown — ready in 5s.',
-  'Combo points: Aki/5Aki.',
+  'Combo points: Aki/5.',
   'Completed quests (5): Aki.',
   'Dev commands: /dev level N, /dev tp X Z, /dev give itemId [count]',
   'Dungeons (5): Aki.',

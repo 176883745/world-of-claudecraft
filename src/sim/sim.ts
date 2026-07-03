@@ -17,6 +17,7 @@ import {
   cleanseFriendlyNpcAuras,
   isRejectedFriendlyNpcAura,
   updateAuras,
+  updateComboExpiry,
   updateRegen,
   updateTimers,
 } from './combat/auras';
@@ -358,6 +359,10 @@ const BACKPEDAL_MULT = 0.65;
 // and runs from its attacker for FLEE_DURATION seconds at FLEE_SPEED_MULT speed,
 // rallying same-family allies it runs past (mob/social_aggro.ts). It flees only once
 // per pull, then recovers its nerve and re-engages if it survived.
+// Retail-style combo points are character-bound: unspent points survive a target
+// swap and the combo target's death, then fade this many seconds after the last
+// point was built (awardCombo restamps comboUntil on every award).
+const COMBO_POINT_DURATION = 30;
 const FLEE_HP_THRESHOLD = 0.2;
 const FLEE_DURATION = 5;
 // FLEE_SPEED_MULT / FLEE_MAX_SPEED and the cap math live in ./flee_speed.ts.
@@ -2673,6 +2678,7 @@ export class Sim {
         drainGatheringGrants(meta);
       }
       updateTimers(p);
+      updateComboExpiry(this.ctx, p);
       updateAuras(this.ctx, p);
     }
 
@@ -3409,12 +3415,12 @@ export class Sim {
     healingThreatImpl(this.ctx, source, target, healed);
   }
 
-  private awardCombo(p: Entity, target: Entity, points: number): void {
-    if (p.comboTargetId !== target.id) {
-      p.comboPoints = 0;
-      p.comboTargetId = target.id;
-    }
+  // Combo points are character-bound (retail-style): building on any target adds
+  // to the one pool, and the pool persists across target swaps until spent, the
+  // player dies, or COMBO_POINT_DURATION passes without a new point.
+  private awardCombo(p: Entity, _target: Entity, points: number): void {
     p.comboPoints = Math.min(5, p.comboPoints + points);
+    p.comboUntil = this.time + COMBO_POINT_DURATION;
     this.emit({ type: 'comboPoint', points: p.comboPoints, pid: p.id });
   }
 

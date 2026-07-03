@@ -2825,8 +2825,8 @@ export class Hud {
   // `lastPortraitKey`). It passes NO resource group (the target has no power bar) and
   // NO `stateClasses` (the target carries its own `elite` class, painted at the call
   // site, not the party dead/out-of-range classes). The target-only concerns the
-  // family does not express (the elite class + tag, the hostile/friendly name color,
-  // the combo pips) route through the SAME elided writers in update() below.
+  // family does not express (the elite class + tag, the hostile/friendly name
+  // color) route through the SAME elided writers in update() below.
   private readonly targetFramePainter = new UnitFramePainter(
     this.writerFacet,
     {
@@ -5083,6 +5083,29 @@ export class Hud {
     this.updateLowHealthVignette(p.hp, p.maxHp);
     this.updateLowResource(p);
 
+    // combo points: character-bound (retail-style), so the row of pips rides the
+    // PLAYER frame (over the hp bar) and stays lit across target swaps until the
+    // points are spent or fade. The row is lazy-built ONCE (then only the `on`
+    // class is toggled per frame, through the elided writer), never rebuilt.
+    if (p.resourceType === 'energy') {
+      this.setDisplay(this.comboRowEl, 'flex');
+      if (this.comboRowEl.children.length !== COMBO_PIP_COUNT) {
+        this.comboRowEl.innerHTML = '';
+        for (let i = 0; i < COMBO_PIP_COUNT; i++) {
+          const pip = document.createElement('div');
+          pip.className = 'combo-pip';
+          this.comboRowEl.appendChild(pip);
+        }
+      }
+      // indexed walk over the live collection: no per-frame array copy
+      const pips = this.comboRowEl.children;
+      for (let i = 0; i < pips.length; i++) {
+        this.toggleClass(pips[i] as HTMLElement, 'on', i < p.comboPoints);
+      }
+    } else {
+      this.setDisplay(this.comboRowEl, 'none');
+    }
+
     // buff bar / debuff bar: the keyed-pool aura painter, driven by the auras_view core
     // every frame (the elided writers make a no-op frame free). Buffs and debuffs render to
     // separate rows (classic layout) so a fresh debuff is never lost in a wall of long-lived
@@ -5099,8 +5122,8 @@ export class Hud {
     // target frame: the SECOND instance of the unit_frame family. The shared
     // frame (display/name/level/hp/absorb/portrait gate) goes through the family
     // painter; the target-only concerns (the elite class + tag, the hostile/friendly
-    // name color, and the combo pips) route through the SAME elided writers here, and
-    // the target debuffs + cast bar CONSUME the existing auras paint + the cast_bar
+    // name color) route through the SAME elided writers here, and the target
+    // debuffs + cast bar CONSUME the existing auras paint + the cast_bar
     // target instance. (Targeting a world object hides the frame, like no target.)
     const target = p.targetId !== null ? sim.entities.get(p.targetId) : null;
     if (target && target.kind !== 'object') {
@@ -5111,7 +5134,7 @@ export class Hud {
       // portrait refresh (~10Hz), while the SELF/player frame stays full-rate. A target
       // SWAP bypasses the throttle so selecting a new target updates immediately. The full
       // tiers return interval 0 (cadenceDue always true), so this paints every frame as
-      // before. The elite tag / name color / debuffs / cast bar / combo below stay
+      // before. The elite tag / name color / debuffs / cast bar below stay
       // full-rate (debuffs are separately tiered; the cast bar is a raid
       // mechanic indicator), so only the unit_frame body is throttled.
       const targetChanged = target.id !== this.lastTargetFrameId;
@@ -5199,27 +5222,6 @@ export class Hud {
         cast: castBarState(target),
         castRemaining: target.castRemaining,
       });
-      // combo points: the row of pips is lazy-built ONCE (then only the `on` class is
-      // toggled per frame, through the elided writer), never rebuilt per frame.
-      if (p.resourceType === 'energy') {
-        this.setDisplay(this.comboRowEl, 'flex');
-        if (this.comboRowEl.children.length !== COMBO_PIP_COUNT) {
-          this.comboRowEl.innerHTML = '';
-          for (let i = 0; i < COMBO_PIP_COUNT; i++) {
-            const pip = document.createElement('div');
-            pip.className = 'combo-pip';
-            this.comboRowEl.appendChild(pip);
-          }
-        }
-        const points = p.comboTargetId === target.id ? p.comboPoints : 0;
-        // indexed walk over the live collection: no per-frame array copy
-        const pips = this.comboRowEl.children;
-        for (let i = 0; i < pips.length; i++) {
-          this.toggleClass(pips[i] as HTMLElement, 'on', i < points);
-        }
-      } else {
-        this.setDisplay(this.comboRowEl, 'none');
-      }
     } else {
       // No target (or a world object): hide the frame. The painter also resets its
       // portrait gate here, so re-acquiring a target repaints (the old -999 reset). Reset
