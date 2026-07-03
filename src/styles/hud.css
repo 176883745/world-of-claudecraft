@@ -463,6 +463,21 @@
   #target-frame > :not(.tf-move-btn) {
     zoom: var(--target-frame-scale, 1);
   }
+  /* The target's debuff strip hangs BELOW the frame (WoW-style) instead of
+     living inside the uf-bars panel, where every fresh debuff used to stretch
+     the frame taller. A direct #target-frame child (index.html), absolutely
+     anchored under the frame, wrapping left-to-right from its left edge, and
+     sharing the children-zoom scale above. */
+  #target-frame > #tf-debuffs {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+    pointer-events: auto;
+  }
   /* Movable unit frames: the small corner toggle (built by MovableFrame in
      movable_frame.ts) that unlocks
      the frame for dragging and locks it back. Sits just outside the top-right
