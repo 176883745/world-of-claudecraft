@@ -390,6 +390,7 @@ export const pl_PL: EnTranslations = {
       "showWalletOnCharacterScreen": "Pokaż sakiewkę na ekranie postaci",
       "showWalletOnPlayerCard": "Pokaż sakiewkę na karcie gracza",
       "showDevBadges": "Pokaż odznaki deweloperów",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Skala interfejsu",
       "highContrastBackground": "Tło o wysokim kontraście",
       "startAttackOnAbility": "Automatyczny atak przy użyciu umiejętności",
@@ -826,6 +827,9 @@ export const pl_PL: EnTranslations = {
         "nature": "Natura"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Skrzynia"
     },
@@ -928,6 +932,7 @@ export const pl_PL: EnTranslations = {
       "memberSinceDays": "{days}d na Discordzie",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Dev",
         "mods": "Mod",
         "artists": "Grafik"
@@ -3493,7 +3498,8 @@ export const pl_PL: EnTranslations = {
     },
     "cast": {
       "fishing": "Wędkarstwo",
-      "demonHeal": "Demoniczne leczenie"
+      "demonHeal": "Demoniczne leczenie",
+      "thunzharrStormcall": "Zew burzy"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const pl_PL: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Chrom awangardy"
+      },
+      "crownforged_gauntlets": {
+        "name": "Koronokute rękawice"
+      },
+      "nighttalon_grips": {
+        "name": "Chwyty nocnego szpona"
+      },
+      "soulflame_gloves": {
+        "name": "Rękawice duszopłomienia"
+      },
+      "stormcallers_handguards": {
+        "name": "Karwasze przywoływacza burz"
+      },
+      "crownforged_girdle": {
+        "name": "Koronokuty pas"
+      },
+      "nighttalon_waistband": {
+        "name": "Pas nocnego szpona"
+      },
+      "soulflame_cord": {
+        "name": "Sznur duszopłomienia"
+      },
+      "stormcallers_waistguard": {
+        "name": "Ochraniacz pasa przywoływacza burz"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const pl_PL: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Akolitka Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Sztygar z Żelaznej Żyły"
@@ -6851,8 +6887,8 @@ export const pl_PL: EnTranslations = {
       },
       "necromancers": {
         "name": "Szaty nekromanty",
-        "bonus2": "Zmniejsza opóźnianie zaklęć przez obrażenia o 50%.",
-        "bonus3": "Otrzymywane obrażenia nie opóźniają rzucania zaklęć."
+        "bonus2": "Nie można cię odrzucić (100% odporności na odrzucenie).",
+        "bonus3": "Zwiększa intelekt o 10 i wytrzymałość o 10."
       },
       "nighttalon": {
         "name": "Skórzany rynsztunek Nocnego Szpona",
@@ -6861,13 +6897,13 @@ export const pl_PL: EnTranslations = {
       },
       "soulflame": {
         "name": "Szaty Płomienia Duszy",
-        "bonus2": "Zmniejsza opóźnianie zaklęć przez obrażenia o 50%.",
-        "bonus3": "Otrzymywane obrażenia nie opóźniają rzucania zaklęć."
+        "bonus2": "Nie można cię odrzucić (100% odporności na odrzucenie).",
+        "bonus3": "Zwiększa intelekt o 15 i ducha o 15."
       },
       "stormcallers": {
         "name": "Szaty Przyzywacza Burz",
-        "bonus2": "Zmniejsza opóźnianie zaklęć przez obrażenia o 50%.",
-        "bonus3": "Otrzymywane obrażenia nie opóźniają rzucania zaklęć."
+        "bonus2": "Nie można cię odrzucić (100% odporności na odrzucenie).",
+        "bonus3": "Zwiększa intelekt o 15 i ducha o 15."
       },
       "wyrmshadow": {
         "name": "Rynsztunek Cienia Żmija",

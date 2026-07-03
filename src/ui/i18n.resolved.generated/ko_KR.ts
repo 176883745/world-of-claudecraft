@@ -390,6 +390,7 @@ export const ko_KR: EnTranslations = {
       "showWalletOnCharacterScreen": "캐릭터 화면에 지갑 표시",
       "showWalletOnPlayerCard": "플레이어 카드에 지갑 표시",
       "showDevBadges": "개발자 배지 표시",
+      "showOwnNameplate": "내 이름표 표시",
       "uiScale": "UI 배율",
       "highContrastBackground": "고대비 배경",
       "startAttackOnAbility": "스킬 사용 시 자동 공격",
@@ -826,6 +827,9 @@ export const ko_KR: EnTranslations = {
         "nature": "자연"
       }
     },
+    "worldBoss": {
+      "spawn": "{name}이(가) 쏜피크 고지에 솟아올랐습니다!"
+    },
     "loot": {
       "chestTitle": "상자"
     },
@@ -928,6 +932,7 @@ export const ko_KR: EnTranslations = {
       "memberSinceDays": "Discord 가입 {days}일",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "관리자",
         "devs": "개발자",
         "mods": "운영자",
         "artists": "아티스트"
@@ -3493,7 +3498,8 @@ export const ko_KR: EnTranslations = {
     },
     "cast": {
       "fishing": "낚시",
-      "demonHeal": "악마 치유"
+      "demonHeal": "악마 치유",
+      "thunzharrStormcall": "폭풍의 부름"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const ko_KR: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "선봉대 크롬"
+      },
+      "crownforged_gauntlets": {
+        "name": "왕관벼림 건틀릿"
+      },
+      "nighttalon_grips": {
+        "name": "밤발톱 손아귀"
+      },
+      "soulflame_gloves": {
+        "name": "영혼불꽃 장갑"
+      },
+      "stormcallers_handguards": {
+        "name": "폭풍소환사의 손보호구"
+      },
+      "crownforged_girdle": {
+        "name": "왕관벼림 허리띠"
+      },
+      "nighttalon_waistband": {
+        "name": "밤발톱 허리싸개"
+      },
+      "soulflame_cord": {
+        "name": "영혼불꽃 허리끈"
+      },
+      "stormcallers_waistguard": {
+        "name": "폭풍소환사의 허리보호구"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const ko_KR: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "수련사제 테사"
+      },
+      "thunzharr_waking_peak": {
+        "name": "천자르, 깨어나는 봉우리"
+      },
+      "thunzharr_stormling": {
+        "name": "깨어난 폭풍 정령"
       },
       "ironvein_foreman": {
         "name": "철맥 감독관"
@@ -6851,8 +6887,8 @@ export const ko_KR: EnTranslations = {
       },
       "necromancers": {
         "name": "강령술사의 의복",
-        "bonus2": "피해로 인한 시전 밀림이 50% 감소합니다.",
-        "bonus3": "시전 중 피해를 받아도 밀려나지 않습니다."
+        "bonus2": "넉백되지 않습니다 (넉백 저항 100%).",
+        "bonus3": "지능이 10, 체력이 10만큼 증가합니다."
       },
       "nighttalon": {
         "name": "밤발톱 가죽장비",
@@ -6861,13 +6897,13 @@ export const ko_KR: EnTranslations = {
       },
       "soulflame": {
         "name": "영혼불꽃 의복",
-        "bonus2": "피해로 인한 시전 밀림이 50% 감소합니다.",
-        "bonus3": "시전 중 피해를 받아도 밀려나지 않습니다."
+        "bonus2": "넉백되지 않습니다 (넉백 저항 100%).",
+        "bonus3": "지능이 15, 정신력이 15만큼 증가합니다."
       },
       "stormcallers": {
         "name": "폭풍소환사의 의복",
-        "bonus2": "피해로 인한 시전 밀림이 50% 감소합니다.",
-        "bonus3": "시전 중 피해를 받아도 밀려나지 않습니다."
+        "bonus2": "넉백되지 않습니다 (넉백 저항 100%).",
+        "bonus3": "지능이 15, 정신력이 15만큼 증가합니다."
       },
       "wyrmshadow": {
         "name": "고룡그림자 의복",

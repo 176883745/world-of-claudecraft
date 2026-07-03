@@ -390,6 +390,7 @@ export const tr_TR: EnTranslations = {
       "showWalletOnCharacterScreen": "Cüzdanı Karakter Ekranında Göster",
       "showWalletOnPlayerCard": "Cüzdanı Oyuncu Kartında Göster",
       "showDevBadges": "Geliştirici Rozetlerini Göster",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Arayüz Ölçeği",
       "highContrastBackground": "Yüksek Kontrastlı Arka Plan",
       "startAttackOnAbility": "Yetenek Kullanımında Otomatik Saldırı",
@@ -826,6 +827,9 @@ export const tr_TR: EnTranslations = {
         "nature": "Doğa"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Sandık"
     },
@@ -928,6 +932,7 @@ export const tr_TR: EnTranslations = {
       "memberSinceDays": "Discord'da {days}g",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Geliştirici",
         "mods": "Moderatör",
         "artists": "Sanatçı"
@@ -3493,7 +3498,8 @@ export const tr_TR: EnTranslations = {
     },
     "cast": {
       "fishing": "Balık Tutma",
-      "demonHeal": "Şeytan İyileştirmesi"
+      "demonHeal": "Şeytan İyileştirmesi",
+      "thunzharrStormcall": "Fırtına Çağrısı"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const tr_TR: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Öncü Birlik Krom"
+      },
+      "crownforged_gauntlets": {
+        "name": "Taçdövme Eldivenleri"
+      },
+      "nighttalon_grips": {
+        "name": "Gecepençe Kavrayıcıları"
+      },
+      "soulflame_gloves": {
+        "name": "Ruhalevi Eldivenleri"
+      },
+      "stormcallers_handguards": {
+        "name": "Fırtınaçağıranın El Koruyucuları"
+      },
+      "crownforged_girdle": {
+        "name": "Taçdövme Kemeri"
+      },
+      "nighttalon_waistband": {
+        "name": "Gecepençe Kuşağı"
+      },
+      "soulflame_cord": {
+        "name": "Ruhalevi Kordonu"
+      },
+      "stormcallers_waistguard": {
+        "name": "Fırtınaçağıranın Bel Koruyucusu"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const tr_TR: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Çömez Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Demirdamar Ustabaşı"
@@ -6851,8 +6887,8 @@ export const tr_TR: EnTranslations = {
       },
       "necromancers": {
         "name": "Nekromansır giysileri",
-        "bonus2": "Hasarın neden olduğu büyü geri itmesini %50 azaltır.",
-        "bonus3": "Alınan hasar büyü yapmanı geciktirmez."
+        "bonus2": "Geri itilemezsin (%100 geri itilme direnci).",
+        "bonus3": "Zekayı 10 ve dayanıklılığı 10 artırır."
       },
       "nighttalon": {
         "name": "Gece Pençesi deri takımı",
@@ -6861,13 +6897,13 @@ export const tr_TR: EnTranslations = {
       },
       "soulflame": {
         "name": "Ruh Alevi giysileri",
-        "bonus2": "Hasarın neden olduğu büyü geri itmesini %50 azaltır.",
-        "bonus3": "Alınan hasar büyü yapmanı geciktirmez."
+        "bonus2": "Geri itilemezsin (%100 geri itilme direnci).",
+        "bonus3": "Zekayı 15 ve ruhu 15 artırır."
       },
       "stormcallers": {
         "name": "Fırtına Çağıran giysileri",
-        "bonus2": "Hasarın neden olduğu büyü geri itmesini %50 azaltır.",
-        "bonus3": "Alınan hasar büyü yapmanı geciktirmez."
+        "bonus2": "Geri itilemezsin (%100 geri itilme direnci).",
+        "bonus3": "Zekayı 15 ve ruhu 15 artırır."
       },
       "wyrmshadow": {
         "name": "Wyrm Gölgesi takımı",

@@ -236,6 +236,9 @@ export interface SimContextCallbacks {
   fiestaTakedown(match: ArenaMatch, killerPid: number, victim: Entity): void;
   fiestaDown(match: ArenaMatch, victim: Entity, killerPid: number | null): void;
   rollLoot(mob: Entity, meta: PlayerMeta, eligible?: PlayerMeta[]): void;
+  // World-boss personal loot: an independent roll of the boss's loot table per
+  // contributor (gated once-per-day per boss). Owned by world_boss.ts.
+  rollWorldBossLoot(mob: Entity, contributors: PlayerMeta[]): void;
 
   // C2/C3/C4b heal, aura, knockback, and crowd-control surface.
   applyHeal(source: Entity, target: Entity, amount: number, ability: string): void;
@@ -754,6 +757,7 @@ export function createSimContext(host: SimContextHost): SimContext {
     fiestaTakedown: host.fiestaTakedown,
     fiestaDown: host.fiestaDown,
     rollLoot: host.rollLoot,
+    rollWorldBossLoot: host.rollWorldBossLoot,
     applyHeal: host.applyHeal,
     spellCrit: host.spellCrit,
     applyAura: host.applyAura,

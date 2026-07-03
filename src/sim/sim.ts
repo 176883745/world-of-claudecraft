@@ -172,6 +172,7 @@ import {
   retargetMob as retargetMobFn,
   updateMobTarget as updateMobTargetFn,
 } from './mob/targeting';
+import { emitMobYell } from './mob/yells';
 import { combatProfileForMob, effectiveMobMeleeRange, type MobCombatProfile } from './mob_combat';
 import {
   findPlayerPath,
@@ -204,6 +205,13 @@ import { persistedResource } from './serialize_resource';
 import { createSimContext, type SimContext, type SimContextHost } from './sim_context';
 import * as chatMod from './social/chat';
 import * as tradeMod from './social/trade';
+import {
+  emptyWorldBossDaily,
+  rollWorldBossLoot as rollWorldBossLootImpl,
+  WORLD_BOSSES,
+  type WorldBossDaily,
+  type WorldBossDef,
+} from './world_boss';
 
 // Re-export so server/db.ts's `import type { MarketSave } from '../src/sim/sim'`
 // stays valid now that the type lives in market.ts.
@@ -742,6 +750,10 @@ export interface PlayerMeta {
   companionUpgrades: Record<string, number>;
   delveLoreUnlocked: Set<string>;
   delveDaily: { date: string; firstClearXp: Set<string>; markClears: number };
+  // World-boss daily loot record (persisted in CharacterState). Resets at the UTC
+  // day boundary; holds the boss ids already looted today so a player can take
+  // personal loot from each world boss only once per day. See world_boss.ts.
+  worldBossDaily: WorldBossDaily;
 }
 
 // Away-from-keyboard / do-not-disturb presence. `afk` still delivers whispers
@@ -817,6 +829,9 @@ export interface CharacterState {
   companionUpgrades?: Record<string, number>;
   delveLoreUnlocked?: string[];
   delveDaily?: { date: string; firstClearXp: string[]; markClears: number };
+  // World-boss daily loot record. Optional so saves from before world bosses load
+  // cleanly (addPlayer falls back to an empty record).
+  worldBossDaily?: { date: string; looted: string[] };
 }
 
 export interface PetState {
@@ -945,6 +960,13 @@ export class Sim {
   readonly devCommands: boolean;
   private pendingMobRespawns: PendingMobRespawn[] = [];
   private groundAoEs: GroundAoE[] = [];
+  // World-boss scheduler, one slot per WORLD_BOSSES entry. `nextAt` is the next
+  // sim-time (seconds) a boss is due to rise; `entityId` is the live boss entity
+  // (null once none is alive). Driven by updateWorldBosses() in the tick prologue.
+  // Sim-time scheduling keeps it deterministic (no wall clock); on the live server
+  // the sim runs at 20 Hz wall speed, so the interval is real hours.
+  private worldBossNextAt: number[] = WORLD_BOSSES.map((b) => b.intervalSeconds);
+  private worldBossEntityIds: (number | null)[] = WORLD_BOSSES.map(() => null);
 
   constructor(cfg: SimConfig) {
     this.devCommands = cfg.devCommands ?? false;
@@ -1150,6 +1172,62 @@ export class Sim {
     }
   }
 
+  // World-boss scheduler. Per WORLD_BOSSES slot: when the live boss is gone, clear
+  // the slot (and once its lootable corpse window has elapsed, remove the corpse +
+  // any stormlings it left). When the interval comes due, advance it and, if no
+  // boss is currently up, spawn a fresh one. Draws no rng and allocates no ids until
+  // a spawn actually fires (which never happens inside the short parity scenarios),
+  // so existing determinism traces are unaffected.
+  private updateWorldBosses(): void {
+    for (let i = 0; i < WORLD_BOSSES.length; i++) {
+      const def = WORLD_BOSSES[i];
+      const liveId = this.worldBossEntityIds[i];
+      if (liveId !== null) {
+        const boss = this.entities.get(liveId);
+        if (!boss) {
+          this.worldBossEntityIds[i] = null;
+        } else if (boss.dead) {
+          // Lootable corpse lingers WORLD_BOSS_CORPSE_SECONDS for contributors to
+          // loot, then is removed; respawnTimer is Infinity (handleDeath) so the
+          // normal in-place respawn never fires; only this scheduler respawns it.
+          if (boss.corpseTimer <= 0) {
+            for (const addId of boss.summonedIds) this.dropEntity(addId);
+            this.dropEntity(liveId);
+            this.worldBossEntityIds[i] = null;
+          }
+        }
+      }
+      if (this.time >= this.worldBossNextAt[i]) {
+        this.worldBossNextAt[i] += def.intervalSeconds;
+        if (this.worldBossEntityIds[i] === null) {
+          this.worldBossEntityIds[i] = this.spawnWorldBoss(def);
+        }
+      }
+    }
+  }
+
+  // Spawn a world boss at its fixed point and announce it server-wide. Returns the
+  // new entity id, or null if the template is missing. Uses no rng (fixed level +
+  // facing) so the spawn does not perturb the shared draw stream.
+  private spawnWorldBoss(def: WorldBossDef): number | null {
+    const template = MOBS[def.templateId];
+    if (!template) return null;
+    const pos = this.groundPos(def.pos.x, def.pos.z);
+    const mob = createMob(this.nextId++, template, template.maxLevel, pos);
+    mob.facing = 0;
+    mob.prevFacing = 0;
+    this.addEntity(mob);
+    // Anchorless log (no pid, no entityId) => routeEvents broadcasts to every
+    // connected player as a system notice. Localized by sim_i18n's worldBossSpawn
+    // RULE (matched on this exact literal shape).
+    this.emit({
+      type: 'log',
+      text: `${template.name} rises over Thornpeak Heights!`,
+      color: '#ffd100',
+    });
+    return mob.id;
+  }
+
   // -------------------------------------------------------------------------
   // Players: join / leave / persistence
   // -------------------------------------------------------------------------
@@ -1243,6 +1321,7 @@ export class Sim {
       companionUpgrades: {},
       delveLoreUnlocked: new Set(),
       delveDaily: { date: '', firstClearXp: new Set(), markClears: 0 },
+      worldBossDaily: emptyWorldBossDaily(),
     };
     this.players.set(player.id, meta);
     player.skinCatalog = meta.skinCatalog;
@@ -1314,6 +1393,12 @@ export class Sim {
           date: s.delveDaily.date,
           firstClearXp: new Set(s.delveDaily.firstClearXp),
           markClears: s.delveDaily.markClears,
+        };
+      }
+      if (s.worldBossDaily) {
+        meta.worldBossDaily = {
+          date: s.worldBossDaily.date,
+          looted: new Set(s.worldBossDaily.looted),
         };
       }
     }
@@ -1515,6 +1600,10 @@ export class Sim {
         date: meta.delveDaily.date,
         firstClearXp: [...meta.delveDaily.firstClearXp],
         markClears: meta.delveDaily.markClears,
+      },
+      worldBossDaily: {
+        date: meta.worldBossDaily.date,
+        looted: [...meta.worldBossDaily.looted],
       },
     };
     return sanitizeRemovedZone1Content(state).state;
@@ -2072,6 +2161,7 @@ export class Sim {
       arenaIsDown: sim.arenaIsDown.bind(sim),
       arenaAllPids: sim.arenaAllPids.bind(sim),
       rollLoot: sim.rollLoot.bind(sim),
+      rollWorldBossLoot: sim.rollWorldBossLoot.bind(sim),
       applyHeal: sim.applyHeal.bind(sim),
       spellCrit: sim.spellCrit.bind(sim),
       applyAura: sim.applyAura.bind(sim),
@@ -2482,6 +2572,7 @@ export class Sim {
     this.time += DT;
     this.tickCount++;
     this.updatePendingMobRespawns();
+    this.updateWorldBosses();
     tickGroundAoEs(this.ctx);
 
     runDespawnDecay(this.ctx);
@@ -3676,6 +3767,12 @@ export class Sim {
     rollLootImpl(this.ctx, mob, meta, eligible);
   }
 
+  // World-boss personal loot: an independent roll per contributor, once per day.
+  // Called from combat/damage.ts handleDeath for worldBoss templates via ctx.
+  private rollWorldBossLoot(mob: Entity, contributors: PlayerMeta[]): void {
+    rollWorldBossLootImpl(this.ctx, mob, contributors);
+  }
+
   activeLootRolls(pid = this.playerId): LootRollPrompt[] {
     return activeLootRollsImpl(this.ctx, pid);
   }
@@ -3843,6 +3940,16 @@ export class Sim {
     if (target.kind === 'player' && MOBS[mob.templateId]?.boss) {
       const run = this.delveRunForPlayer(target.id);
       if (run) this.maybeCompanionBark(run, target.id, 'boss_pull');
+    }
+    // Boss engage bark: once per pull, on the first player-driven aggro. A
+    // player-owned pet pull counts (a hunter opening with the pet still wakes
+    // the boss); yelledEngage resets with the other per-pull state on
+    // evade/respawn.
+    const engageYell = MOBS[mob.templateId]?.yells?.engage;
+    const playerPull = target.kind === 'player' || target.ownerId !== null;
+    if (engageYell && playerPull && !mob.yelledEngage) {
+      mob.yelledEngage = true;
+      emitMobYell(this.ctx, mob, engageYell);
     }
     if (social) {
       const family = MOBS[mob.templateId]?.family;
@@ -4109,6 +4216,7 @@ export class Sim {
       const thresholds = tmpl.summonAdds.atHpPct;
       while (mob.firedSummons < thresholds.length && hpFrac <= thresholds[mob.firedSummons]) {
         mob.firedSummons++;
+        if (tmpl.yells?.summon) emitMobYell(this.ctx, mob, tmpl.yells.summon);
         const run = this.delveRunForMob(mob.id);
         if (
           run &&
@@ -4126,6 +4234,7 @@ export class Sim {
     const enrageAllowed = !enrageRun || enrageRun.tierId === 'heroic';
     if (tmpl.enrage && enrageAllowed && !mob.enraged && hpFrac <= tmpl.enrage.belowHpPct) {
       mob.enraged = true;
+      if (tmpl.yells?.enrage) emitMobYell(this.ctx, mob, tmpl.yells.enrage);
       this.emit({ type: 'aura', targetId: mob.id, name: 'Enrage', gained: true });
       this.emit({
         type: 'log',

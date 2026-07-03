@@ -390,6 +390,7 @@ export const en: EnTranslations = {
       "showWalletOnCharacterScreen": "Show Wallet on Character Screen",
       "showWalletOnPlayerCard": "Show Wallet on Player Card",
       "showDevBadges": "Show Developer Badges",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "UI Scale",
       "highContrastBackground": "High-Contrast Background",
       "startAttackOnAbility": "Auto-Attack on Ability Use",
@@ -826,6 +827,9 @@ export const en: EnTranslations = {
         "nature": "Nature"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Chest"
     },
@@ -928,6 +932,7 @@ export const en: EnTranslations = {
       "memberSinceDays": "{days}d in the Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Dev",
         "mods": "Mod",
         "artists": "Artist"
@@ -3493,7 +3498,8 @@ export const en: EnTranslations = {
     },
     "cast": {
       "fishing": "Fishing",
-      "demonHeal": "Demon Heal"
+      "demonHeal": "Demon Heal",
+      "thunzharrStormcall": "Stormcall"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const en: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Vanguard Chrome"
+      },
+      "crownforged_gauntlets": {
+        "name": "Crownforged Gauntlets"
+      },
+      "nighttalon_grips": {
+        "name": "Nighttalon Grips"
+      },
+      "soulflame_gloves": {
+        "name": "Soulflame Gloves"
+      },
+      "stormcallers_handguards": {
+        "name": "Stormcaller's Handguards"
+      },
+      "crownforged_girdle": {
+        "name": "Crownforged Girdle"
+      },
+      "nighttalon_waistband": {
+        "name": "Nighttalon Waistband"
+      },
+      "soulflame_cord": {
+        "name": "Soulflame Cord"
+      },
+      "stormcallers_waistguard": {
+        "name": "Stormcaller's Waistguard"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const en: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Acolyte Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Ironvein Foreman"
@@ -6851,8 +6887,8 @@ export const en: EnTranslations = {
       },
       "necromancers": {
         "name": "Necromancer's Raiment",
-        "bonus2": "Reduces cast pushback from damage by 50%.",
-        "bonus3": "You cannot be pushed back while casting (immune to cast pushback from damage)."
+        "bonus2": "You cannot be knocked back (100% knockback resistance).",
+        "bonus3": "Increases Intellect by 10 and Stamina by 10."
       },
       "nighttalon": {
         "name": "Nighttalon Pelt",
@@ -6861,13 +6897,13 @@ export const en: EnTranslations = {
       },
       "soulflame": {
         "name": "Soulflame Regalia",
-        "bonus2": "Reduces cast pushback from damage by 50%.",
-        "bonus3": "You cannot be pushed back while casting (immune to cast pushback from damage)."
+        "bonus2": "You cannot be knocked back (100% knockback resistance).",
+        "bonus3": "Increases Intellect by 15 and Spirit by 15."
       },
       "stormcallers": {
         "name": "Stormcaller's Vestments",
-        "bonus2": "Reduces cast pushback from damage by 50%.",
-        "bonus3": "You cannot be pushed back while casting (immune to cast pushback from damage)."
+        "bonus2": "You cannot be knocked back (100% knockback resistance).",
+        "bonus3": "Increases Intellect by 15 and Spirit by 15."
       },
       "wyrmshadow": {
         "name": "Wyrmshadow Vestments",

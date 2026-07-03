@@ -390,6 +390,7 @@ export const ru_RU: EnTranslations = {
       "showWalletOnCharacterScreen": "Показывать кошелек на экране персонажей",
       "showWalletOnPlayerCard": "Показывать кошелек на карточке игрока",
       "showDevBadges": "Показывать значки разработчика",
+      "showOwnNameplate": "Показывать свою табличку с именем",
       "uiScale": "Масштаб интерфейса",
       "highContrastBackground": "Фон высокой контрастности",
       "startAttackOnAbility": "Автоатака при использовании способности",
@@ -826,6 +827,9 @@ export const ru_RU: EnTranslations = {
         "nature": "Природа"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} поднимается над Терновыми высотами!"
+    },
     "loot": {
       "chestTitle": "Сундук"
     },
@@ -928,6 +932,7 @@ export const ru_RU: EnTranslations = {
       "memberSinceDays": "{days} дн. в Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Администратор",
         "devs": "Разработчик",
         "mods": "Модератор",
         "artists": "Художник"
@@ -3493,7 +3498,8 @@ export const ru_RU: EnTranslations = {
     },
     "cast": {
       "fishing": "Рыбная ловля",
-      "demonHeal": "Исцеление демона"
+      "demonHeal": "Исцеление демона",
+      "thunzharrStormcall": "Зов бури"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const ru_RU: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Хромированный авангард"
+      },
+      "crownforged_gauntlets": {
+        "name": "Короннокованые рукавицы"
+      },
+      "nighttalon_grips": {
+        "name": "Захваты Ночного Когтя"
+      },
+      "soulflame_gloves": {
+        "name": "Перчатки Пламени души"
+      },
+      "stormcallers_handguards": {
+        "name": "Рукавицы призывателя бурь"
+      },
+      "crownforged_girdle": {
+        "name": "Короннокованый пояс"
+      },
+      "nighttalon_waistband": {
+        "name": "Кушак Ночного Когтя"
+      },
+      "soulflame_cord": {
+        "name": "Шнур Пламени души"
+      },
+      "stormcallers_waistguard": {
+        "name": "Поясная защита призывателя бурь"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const ru_RU: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Послушница Тесса"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Тунзарр, Пробуждающийся пик"
+      },
+      "thunzharr_stormling": {
+        "name": "Пробуждённый элементаль бури"
       },
       "ironvein_foreman": {
         "name": "Прораб Железной жилы"
@@ -6851,8 +6887,8 @@ export const ru_RU: EnTranslations = {
       },
       "necromancers": {
         "name": "Одеяние некроманта",
-        "bonus2": "Задержка произнесения от полученного урона снижена на 50%.",
-        "bonus3": "Полученный урон не задерживает произнесение заклинаний."
+        "bonus2": "Вас невозможно отбросить (100% сопротивление отбрасыванию).",
+        "bonus3": "Интеллект повышается на 10, выносливость на 10."
       },
       "nighttalon": {
         "name": "Кожаный доспех Ночного Когтя",
@@ -6861,13 +6897,13 @@ export const ru_RU: EnTranslations = {
       },
       "soulflame": {
         "name": "Одеяние Пламени Души",
-        "bonus2": "Задержка произнесения от полученного урона снижена на 50%.",
-        "bonus3": "Полученный урон не задерживает произнесение заклинаний."
+        "bonus2": "Вас невозможно отбросить (100% сопротивление отбрасыванию).",
+        "bonus3": "Интеллект повышается на 15, дух на 15."
       },
       "stormcallers": {
         "name": "Одеяние Зовущего Бурю",
-        "bonus2": "Задержка произнесения от полученного урона снижена на 50%.",
-        "bonus3": "Полученный урон не задерживает произнесение заклинаний."
+        "bonus2": "Вас невозможно отбросить (100% сопротивление отбрасыванию).",
+        "bonus3": "Интеллект повышается на 15, дух на 15."
       },
       "wyrmshadow": {
         "name": "Облачение Тени Дракона",

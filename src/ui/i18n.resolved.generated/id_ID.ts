@@ -390,6 +390,7 @@ export const id_ID: EnTranslations = {
       "showWalletOnCharacterScreen": "Tampilkan Dompet di Layar Karakter",
       "showWalletOnPlayerCard": "Tampilkan Dompet di Kartu Pemain",
       "showDevBadges": "Tampilkan Lencana Pengembang",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Skala UI",
       "highContrastBackground": "Latar Kontras Tinggi",
       "startAttackOnAbility": "Serangan Otomatis Saat Memakai Kemampuan",
@@ -826,6 +827,9 @@ export const id_ID: EnTranslations = {
         "nature": "Alam"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Peti"
     },
@@ -928,6 +932,7 @@ export const id_ID: EnTranslations = {
       "memberSinceDays": "{days}h di Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Pengembang",
         "mods": "Moderator",
         "artists": "Seniman"
@@ -3493,7 +3498,8 @@ export const id_ID: EnTranslations = {
     },
     "cast": {
       "fishing": "Memancing",
-      "demonHeal": "Penyembuhan Iblis"
+      "demonHeal": "Penyembuhan Iblis",
+      "thunzharrStormcall": "Panggilan Badai"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const id_ID: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Vanguard Krom"
+      },
+      "crownforged_gauntlets": {
+        "name": "Sarung Tangan Tempaan Mahkota"
+      },
+      "nighttalon_grips": {
+        "name": "Cengkeraman Cakar Malam"
+      },
+      "soulflame_gloves": {
+        "name": "Sarung Tangan Api Jiwa"
+      },
+      "stormcallers_handguards": {
+        "name": "Pelindung Tangan Pemanggil Badai"
+      },
+      "crownforged_girdle": {
+        "name": "Sabuk Tempaan Mahkota"
+      },
+      "nighttalon_waistband": {
+        "name": "Ikat Pinggang Cakar Malam"
+      },
+      "soulflame_cord": {
+        "name": "Tali Pinggang Api Jiwa"
+      },
+      "stormcallers_waistguard": {
+        "name": "Pelindung Pinggang Pemanggil Badai"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const id_ID: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Akolit Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Mandor Ironvein"
@@ -6851,8 +6887,8 @@ export const id_ID: EnTranslations = {
       },
       "necromancers": {
         "name": "Jubah ahli nujum",
-        "bonus2": "Mengurangi dorongan balik sihir akibat kerusakan sebesar 50%.",
-        "bonus3": "Kerusakan yang diterima tidak menunda perapalan sihir."
+        "bonus2": "Kamu tidak dapat terpental (ketahanan pentalan 100%).",
+        "bonus3": "Meningkatkan kecerdasan sebesar 10 dan stamina sebesar 10."
       },
       "nighttalon": {
         "name": "Perlengkapan kulit Cakar Malam",
@@ -6861,13 +6897,13 @@ export const id_ID: EnTranslations = {
       },
       "soulflame": {
         "name": "Jubah Api Jiwa",
-        "bonus2": "Mengurangi dorongan balik sihir akibat kerusakan sebesar 50%.",
-        "bonus3": "Kerusakan yang diterima tidak menunda perapalan sihir."
+        "bonus2": "Kamu tidak dapat terpental (ketahanan pentalan 100%).",
+        "bonus3": "Meningkatkan kecerdasan sebesar 15 dan roh sebesar 15."
       },
       "stormcallers": {
         "name": "Jubah Pemanggil Badai",
-        "bonus2": "Mengurangi dorongan balik sihir akibat kerusakan sebesar 50%.",
-        "bonus3": "Kerusakan yang diterima tidak menunda perapalan sihir."
+        "bonus2": "Kamu tidak dapat terpental (ketahanan pentalan 100%).",
+        "bonus3": "Meningkatkan kecerdasan sebesar 15 dan roh sebesar 15."
       },
       "wyrmshadow": {
         "name": "Perlengkapan Bayangan Wyrm",

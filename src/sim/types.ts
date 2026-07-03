@@ -329,7 +329,8 @@ interface BaseItemDef {
 // Item-set bonuses (classic "tier set" style). Flat effects fold into
 // recalcPlayerStats: primary stats feed the AP/crit/HP derivations, `ap`/`crit`
 // add at their derivation steps, and `castPushbackReduction` (0..1) scales the
-// damage-driven cast pushback in Sim.pushbackCast. Balance values are authored in
+// damage-driven cast pushback in combat/casting_lifecycle.ts. `knockbackResistance` (0..1)
+// scales on-hit knockback distance. Balance values are authored in
 // content/item_sets.ts, never inline in engine code.
 export interface SetBonusEffect {
   str?: number;
@@ -340,6 +341,7 @@ export interface SetBonusEffect {
   ap?: number; // flat attack power
   crit?: number; // flat crit chance, 0..1
   castPushbackReduction?: number; // 0..1: fraction of damage cast-pushback removed (1 = immune)
+  knockbackResistance?: number; // 0..1: fraction of on-hit knockback distance resisted (1 = immune)
 }
 
 export interface SetBonusTier {
@@ -511,6 +513,11 @@ export interface MobTemplate {
   color: number; // render hint
   boss?: boolean;
   rare?: boolean;
+  // World boss: a server-wide elite that spawns on a fixed cadence (not from a
+  // CAMP), announces itself when it rises, and drops PERSONAL loot to every player
+  // who damaged it (gated to once per day per boss). The spawn schedule + location
+  // live in src/sim/world_boss.ts; the loot roll runs through rollWorldBossLoot.
+  worldBoss?: boolean;
   // Elite scaling, vanilla-style: ~2.3x health, ~1.5x damage, double XP.
   elite?: boolean;
   // Rare/miniboss controls.
@@ -527,6 +534,28 @@ export interface MobTemplate {
     school?: string;
     fx?: 'nova' | 'projectile';
   };
+  // Boss mechanic: a periodic telegraphed HARDCAST. Unlike the instant aoePulse,
+  // the mob shows a real cast bar (the entity casting fields carry castId) for
+  // `castTime` seconds, then the spell lands as an AoE nova on every living player
+  // within `radius`. The mob keeps meleeing while it casts (the bar is the
+  // telegraph healers react to, not a channel). `yell` is barked at cast start.
+  bigCast?: {
+    castId: string;
+    name: string;
+    castTime: number;
+    every: number;
+    radius: number;
+    min: number;
+    max: number;
+    school?: string;
+    yell?: string;
+  };
+  // Boss bark lines, broadcast as 'yell'-channel chat to every player within
+  // YELL_RANGE (mirroring the Nythraxis encounter yells; sim-emitted English by
+  // the variable-routed-chat precedent, see the S3 note in
+  // tests/localization_fixes.test.ts). engage fires once per pull on the first
+  // player aggro, summon on each add wave, enrage when the enrage turns on.
+  yells?: { engage?: string; summon?: string; enrage?: string };
   // Boss mechanic: spawn adds when hp first drops below each threshold (descending fractions).
   summonAdds?: { mobId: string; count: number; atHpPct: number[] };
   // Boss mechanic: damage multiplier (and optional swing-speed haste) once hp
@@ -1397,6 +1426,7 @@ export interface Entity {
   critChance: number; // 0..1
   dodgeChance: number;
   castPushbackReduction: number; // 0..1: damage cast-pushback removed by item-set bonuses (1 = immune)
+  knockbackResistance: number; // 0..1: on-hit knockback distance resisted by item-set bonuses (1 = immune)
   moveSpeed: number;
   hostile: boolean;
   // combat
@@ -1461,6 +1491,8 @@ export interface Entity {
   petPathCooldown: number; // seconds until this pet may recompute its heel path again
   pulseTimer: number; // boss aoe pulse countdown
   stompTimer: number; // boss War Stomp stun-pulse countdown
+  bigCastTimer: number; // boss telegraphed-hardcast (bigCast) cadence countdown
+  yelledEngage: boolean; // engage bark fired this pull (reset on evade/respawn)
   stoneskinTimer: number; // periodic self-absorb barrier countdown
   terrifyTimer: number; // Banshee's Wail fear-pulse countdown
   detonateTimer: number; // Death Throes fuse on a volatile corpse; Infinity = no pending detonation

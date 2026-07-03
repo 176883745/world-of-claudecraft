@@ -390,6 +390,7 @@ export const es: EnTranslations = {
       "showWalletOnCharacterScreen": "Mostrar cartera en la pantalla de personajes",
       "showWalletOnPlayerCard": "Mostrar cartera en la tarjeta de jugador",
       "showDevBadges": "Mostrar insignias de desarrollador",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Escala de la interfaz",
       "highContrastBackground": "Fondo de alto contraste",
       "startAttackOnAbility": "Ataque automático al usar habilidad",
@@ -826,6 +827,9 @@ export const es: EnTranslations = {
         "nature": "Naturaleza"
       }
     },
+    "worldBoss": {
+      "spawn": "¡{name} se alza sobre las Alturas de Thornpeak!"
+    },
     "loot": {
       "chestTitle": "Cofre"
     },
@@ -928,6 +932,7 @@ export const es: EnTranslations = {
       "memberSinceDays": "{days}d en el Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Dev",
         "mods": "Mod",
         "artists": "Artista"
@@ -3493,7 +3498,8 @@ export const es: EnTranslations = {
     },
     "cast": {
       "fishing": "Pesca",
-      "demonHeal": "Sanación demoníaca"
+      "demonHeal": "Sanación demoníaca",
+      "thunzharrStormcall": "Llamada de la tormenta"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const es: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Vanguardia cromada"
+      },
+      "crownforged_gauntlets": {
+        "name": "Guanteletes Forjacorona"
+      },
+      "nighttalon_grips": {
+        "name": "Agarraderas Garra Nocturna"
+      },
+      "soulflame_gloves": {
+        "name": "Guantes Llama de Alma"
+      },
+      "stormcallers_handguards": {
+        "name": "Guardamanos del Invocatormentas"
+      },
+      "crownforged_girdle": {
+        "name": "Cinturón Forjacorona"
+      },
+      "nighttalon_waistband": {
+        "name": "Faja Garra Nocturna"
+      },
+      "soulflame_cord": {
+        "name": "Cordón Llama de Alma"
+      },
+      "stormcallers_waistguard": {
+        "name": "Guardacintura del Invocatormentas"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const es: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Acólita Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, el Pico Despierto"
+      },
+      "thunzharr_stormling": {
+        "name": "Elemental de tormenta despierto"
       },
       "ironvein_foreman": {
         "name": "Capataz Vena de Hierro"
@@ -6851,8 +6887,8 @@ export const es: EnTranslations = {
       },
       "necromancers": {
         "name": "Vestiduras del nigromante",
-        "bonus2": "Reduce un 50% el retroceso de lanzamiento causado por daño.",
-        "bonus3": "El daño recibido no retrasa tus lanzamientos."
+        "bonus2": "No puedes ser empujado hacia atrás (100% de resistencia al empuje).",
+        "bonus3": "Aumenta el intelecto en 10 y el aguante en 10."
       },
       "nighttalon": {
         "name": "Atuendo de cuero Garra Nocturna",
@@ -6861,13 +6897,13 @@ export const es: EnTranslations = {
       },
       "soulflame": {
         "name": "Vestiduras de Llama de Alma",
-        "bonus2": "Reduce un 50% el retroceso de lanzamiento causado por daño.",
-        "bonus3": "El daño recibido no retrasa tus lanzamientos."
+        "bonus2": "No puedes ser empujado hacia atrás (100% de resistencia al empuje).",
+        "bonus3": "Aumenta el intelecto en 15 y el espíritu en 15."
       },
       "stormcallers": {
         "name": "Vestiduras del Invocatormentas",
-        "bonus2": "Reduce un 50% el retroceso de lanzamiento causado por daño.",
-        "bonus3": "El daño recibido no retrasa tus lanzamientos."
+        "bonus2": "No puedes ser empujado hacia atrás (100% de resistencia al empuje).",
+        "bonus3": "Aumenta el intelecto en 15 y el espíritu en 15."
       },
       "wyrmshadow": {
         "name": "Atuendo de Sombra de Vermis",

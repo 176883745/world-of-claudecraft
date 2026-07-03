@@ -390,6 +390,7 @@ export const it_IT: EnTranslations = {
       "showWalletOnCharacterScreen": "Mostra portafoglio nella schermata personaggi",
       "showWalletOnPlayerCard": "Mostra portafoglio nella scheda giocatore",
       "showDevBadges": "Mostra distintivi sviluppatore",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Scala dell'interfaccia",
       "highContrastBackground": "Sfondo a contrasto elevato",
       "startAttackOnAbility": "Attacco automatico all'uso dell'abilita",
@@ -826,6 +827,9 @@ export const it_IT: EnTranslations = {
         "nature": "Natura"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} si erge sulle Alture di Thornpeak!"
+    },
     "loot": {
       "chestTitle": "Scrigno"
     },
@@ -928,6 +932,7 @@ export const it_IT: EnTranslations = {
       "memberSinceDays": "{days}g nel Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Dev",
         "mods": "Mod",
         "artists": "Artista"
@@ -3493,7 +3498,8 @@ export const it_IT: EnTranslations = {
     },
     "cast": {
       "fishing": "Pesca",
-      "demonHeal": "Cura demoniaca"
+      "demonHeal": "Cura demoniaca",
+      "thunzharrStormcall": "Richiamo della tempesta"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const it_IT: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Avanguardia cromo"
+      },
+      "crownforged_gauntlets": {
+        "name": "Manopole Forgiacorona"
+      },
+      "nighttalon_grips": {
+        "name": "Prese Artiglio Notturno"
+      },
+      "soulflame_gloves": {
+        "name": "Guanti Fiammanima"
+      },
+      "stormcallers_handguards": {
+        "name": "Paramani del Chiamatempeste"
+      },
+      "crownforged_girdle": {
+        "name": "Cintura Forgiacorona"
+      },
+      "nighttalon_waistband": {
+        "name": "Fascia Artiglio Notturno"
+      },
+      "soulflame_cord": {
+        "name": "Cordone Fiammanima"
+      },
+      "stormcallers_waistguard": {
+        "name": "Guardacintura del Chiamatempeste"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const it_IT: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Accolita Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, il Picco Risvegliato"
+      },
+      "thunzharr_stormling": {
+        "name": "Elementale di tempesta ridestato"
       },
       "ironvein_foreman": {
         "name": "Caposquadra Venaferrata"
@@ -6851,8 +6887,8 @@ export const it_IT: EnTranslations = {
       },
       "necromancers": {
         "name": "Vesti del negromante",
-        "bonus2": "Riduce del 50% il ritardo al lancio causato dai danni.",
-        "bonus3": "I danni subiti non ritardano il lancio degli incantesimi."
+        "bonus2": "Non puoi essere respinto (100% di resistenza alla respinta).",
+        "bonus3": "Aumenta l'intelletto di 10 e la tempra di 10."
       },
       "nighttalon": {
         "name": "Tenuta di cuoio Artiglio Notturno",
@@ -6861,13 +6897,13 @@ export const it_IT: EnTranslations = {
       },
       "soulflame": {
         "name": "Vesti Fiamma dell’Anima",
-        "bonus2": "Riduce del 50% il ritardo al lancio causato dai danni.",
-        "bonus3": "I danni subiti non ritardano il lancio degli incantesimi."
+        "bonus2": "Non puoi essere respinto (100% di resistenza alla respinta).",
+        "bonus3": "Aumenta l'intelletto di 15 e lo spirito di 15."
       },
       "stormcallers": {
         "name": "Vesti del Chiamatempeste",
-        "bonus2": "Riduce del 50% il ritardo al lancio causato dai danni.",
-        "bonus3": "I danni subiti non ritardano il lancio degli incantesimi."
+        "bonus2": "Non puoi essere respinto (100% di resistenza alla respinta).",
+        "bonus3": "Aumenta l'intelletto di 15 e lo spirito di 15."
       },
       "wyrmshadow": {
         "name": "Tenuta Ombra del Dragone",

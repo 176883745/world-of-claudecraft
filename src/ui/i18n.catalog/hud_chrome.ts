@@ -359,6 +359,9 @@ export const hudChromeStrings = {
     // Interface panel toggle: nameplate glyph/outline, inspect block, player
     // card, and the Developers leaderboard tab (on by default).
     showDevBadges: 'Show Developer Badges',
+    // Interface panel toggle: render your own overhead nameplate the way other
+    // players see it (on by default).
+    showOwnNameplate: 'Show My Nameplate',
     // Interface panel: global HUD zoom slider, and the mirror of the landing
     // page's high-contrast backdrop toggle.
     uiScale: 'UI Scale',
@@ -898,6 +901,12 @@ export const hudChromeStrings = {
       nature: 'Nature',
     },
   },
+  // World-boss spawn announcement. The sim emits this server-wide in English when a
+  // world boss rises; src/ui/sim_i18n.ts re-localizes it through this key, splicing
+  // the localized boss name. English-only domain so an English-only PR compiles.
+  worldBoss: {
+    spawn: '{name} rises over Thornpeak Heights!',
+  },
   // Loot window title shown only when the chest entity is missing (the normal path
   // uses the chest's localized entity name); replaces a former hard-coded 'Chest'.
   loot: {
@@ -1033,6 +1042,7 @@ export const hudChromeStrings = {
     memberSinceDays: '{days}d in the Discord',
     roleTag: {
       levyst: 'Levy St',
+      admin: 'Admin',
       devs: 'Dev',
       mods: 'Mod',
       artists: 'Artist',

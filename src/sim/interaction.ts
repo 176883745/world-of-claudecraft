@@ -23,7 +23,7 @@
 // `src/sim`-pure: no DOM/Three/render-ui-game-net imports, no Math.random/Date.now
 // (enforced by tests/architecture.test.ts).
 
-import { ITEMS, QUESTS } from './data';
+import { ITEMS, MOBS, QUESTS } from './data';
 import {
   activateNythraxisRelic,
   interactObjectForQuests,
@@ -39,6 +39,7 @@ import {
 } from './loot/loot_roll';
 import type { SimContext } from './sim_context';
 import { dist2d, type Entity, INTERACT_RANGE, OBJECT_RESPAWN } from './types';
+import { markWorldBossLooted } from './world_boss';
 
 // Shared corpse loot-rights snapshot for both the manual `lootCorpse` and the passive
 // walk-by `autoLootForParty`. The caller passes `ffaUnlocked` so the two paths can
@@ -83,6 +84,7 @@ export function lootCorpse(ctx: SimContext, mobId: number, pid?: number, honorFf
     return;
   }
   if (rights.shared) distributeLootCopper(ctx, mob, meta);
+  let tookPersonal = false;
   for (const s of [...mob.loot.items]) {
     if (!lootSlotVisibleTo(s, meta.entityId)) continue;
     if (s.openToAll) {
@@ -93,6 +95,7 @@ export function lootCorpse(ctx: SimContext, mobId: number, pid?: number, honorFf
     if (s.personalFor) {
       ctx.addItem(s.itemId, 1, meta.entityId);
       s.personalFor = s.personalFor.filter((id) => id !== meta.entityId);
+      tookPersonal = true;
       continue;
     }
     if (!rights.shared) continue;
@@ -100,6 +103,13 @@ export function lootCorpse(ctx: SimContext, mobId: number, pid?: number, honorFf
       awardSharedLootItem(ctx, s.itemId, mob, meta);
     }
     s.count = 0;
+  }
+  // World-boss daily lockout is consumed by LOOTING, not by the kill: taking any
+  // personal slot from the boss's corpse burns today's roll (rollWorldBossLoot
+  // checks eligibility when the next boss dies). A contributor who never reaches
+  // the corpse keeps their daily and can try again at the next spawn.
+  if (tookPersonal && MOBS[mob.templateId]?.worldBoss) {
+    markWorldBossLooted(meta, mob.templateId, ctx.utcDay);
   }
   pruneCorpseLoot(ctx, mob);
   if (p.targetId === mobId) p.targetId = null;

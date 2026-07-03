@@ -390,6 +390,7 @@ export const de_DE: EnTranslations = {
       "showWalletOnCharacterScreen": "Wallet auf dem Charakterbildschirm anzeigen",
       "showWalletOnPlayerCard": "Wallet auf der Spielerkarte anzeigen",
       "showDevBadges": "Entwicklerabzeichen anzeigen",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "UI-Skalierung",
       "highContrastBackground": "Hintergrund mit hohem Kontrast",
       "startAttackOnAbility": "Auto-Angriff bei Fähigkeitseinsatz",
@@ -826,6 +827,9 @@ export const de_DE: EnTranslations = {
         "nature": "Natur"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} erhebt sich über den Thornpeak-Höhen!"
+    },
     "loot": {
       "chestTitle": "Truhe"
     },
@@ -928,6 +932,7 @@ export const de_DE: EnTranslations = {
       "memberSinceDays": "{days}T im Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Entwickler",
         "mods": "Mod",
         "artists": "Künstler"
@@ -3493,7 +3498,8 @@ export const de_DE: EnTranslations = {
     },
     "cast": {
       "fishing": "Angeln",
-      "demonHeal": "Dämonenheilung"
+      "demonHeal": "Dämonenheilung",
+      "thunzharrStormcall": "Sturmruf"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const de_DE: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Vorhut-Chrom"
+      },
+      "crownforged_gauntlets": {
+        "name": "Kronengeschmiedete Stulpen"
+      },
+      "nighttalon_grips": {
+        "name": "Nachtklauengriffe"
+      },
+      "soulflame_gloves": {
+        "name": "Seelenflammenhandschuhe"
+      },
+      "stormcallers_handguards": {
+        "name": "Handschützer des Sturmrufers"
+      },
+      "crownforged_girdle": {
+        "name": "Kronengeschmiedeter Gürtel"
+      },
+      "nighttalon_waistband": {
+        "name": "Nachtklauengurt"
+      },
+      "soulflame_cord": {
+        "name": "Seelenflammenkordel"
+      },
+      "stormcallers_waistguard": {
+        "name": "Gürtelschutz des Sturmrufers"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const de_DE: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Akolythin Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, der Erwachende Gipfel"
+      },
+      "thunzharr_stormling": {
+        "name": "Geweckter Sturmling"
       },
       "ironvein_foreman": {
         "name": "Eisenader-Vorarbeiter"
@@ -6851,8 +6887,8 @@ export const de_DE: EnTranslations = {
       },
       "necromancers": {
         "name": "Gewänder des Nekromanten",
-        "bonus2": "Verringert Zauberrückstoß durch Schaden um 50%.",
-        "bonus3": "Erlittener Schaden verzögert das Zauberwirken nicht."
+        "bonus2": "Ihr könnt nicht zurückgestoßen werden (100% Rückstoßwiderstand).",
+        "bonus3": "Erhöht Intelligenz um 10 und Ausdauer um 10."
       },
       "nighttalon": {
         "name": "Nachtkrallen-Ledertracht",
@@ -6861,13 +6897,13 @@ export const de_DE: EnTranslations = {
       },
       "soulflame": {
         "name": "Seelenflammengewänder",
-        "bonus2": "Verringert Zauberrückstoß durch Schaden um 50%.",
-        "bonus3": "Erlittener Schaden verzögert das Zauberwirken nicht."
+        "bonus2": "Ihr könnt nicht zurückgestoßen werden (100% Rückstoßwiderstand).",
+        "bonus3": "Erhöht Intelligenz um 15 und Willenskraft um 15."
       },
       "stormcallers": {
         "name": "Gewänder des Sturmrufers",
-        "bonus2": "Verringert Zauberrückstoß durch Schaden um 50%.",
-        "bonus3": "Erlittener Schaden verzögert das Zauberwirken nicht."
+        "bonus2": "Ihr könnt nicht zurückgestoßen werden (100% Rückstoßwiderstand).",
+        "bonus3": "Erhöht Intelligenz um 15 und Willenskraft um 15."
       },
       "wyrmshadow": {
         "name": "Wyrmschattentracht",

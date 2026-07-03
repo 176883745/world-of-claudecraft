@@ -390,6 +390,7 @@ export const vi_VN: EnTranslations = {
       "showWalletOnCharacterScreen": "Hiện Ví Tiền Ở Màn Hình Nhân Vật",
       "showWalletOnPlayerCard": "Hiện Ví Tiền Trên Thẻ Người Chơi",
       "showDevBadges": "Hiện Huy Hiệu Nhà Phát Triển",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Tỷ Lệ Giao Diện",
       "highContrastBackground": "Nền Tương Phản Cao",
       "startAttackOnAbility": "Tự Đánh Khi Dùng Kỹ Năng",
@@ -826,6 +827,9 @@ export const vi_VN: EnTranslations = {
         "nature": "Tự nhiên"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Rương"
     },
@@ -928,6 +932,7 @@ export const vi_VN: EnTranslations = {
       "memberSinceDays": "{days} ngày trong Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Lập Trình Viên",
         "mods": "Điều Hành Viên",
         "artists": "Họa Sĩ"
@@ -3493,7 +3498,8 @@ export const vi_VN: EnTranslations = {
     },
     "cast": {
       "fishing": "Câu Cá",
-      "demonHeal": "Quỷ Trị Liệu"
+      "demonHeal": "Quỷ Trị Liệu",
+      "thunzharrStormcall": "Tiếng Gọi Bão"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const vi_VN: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Crôm Tiên Phong"
+      },
+      "crownforged_gauntlets": {
+        "name": "Găng Tay Rèn Vương Miện"
+      },
+      "nighttalon_grips": {
+        "name": "Bao Tay Dạ Trảo"
+      },
+      "soulflame_gloves": {
+        "name": "Găng Tay Hồn Hỏa"
+      },
+      "stormcallers_handguards": {
+        "name": "Hộ Thủ của Triệu Bão Sư"
+      },
+      "crownforged_girdle": {
+        "name": "Đai Lưng Rèn Vương Miện"
+      },
+      "nighttalon_waistband": {
+        "name": "Đai Lưng Dạ Trảo"
+      },
+      "soulflame_cord": {
+        "name": "Dây Lưng Hồn Hỏa"
+      },
+      "stormcallers_waistguard": {
+        "name": "Hộ Yêu của Triệu Bão Sư"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const vi_VN: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Tế Đồ Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Quản Đốc Mạch Sắt"
@@ -6851,8 +6887,8 @@ export const vi_VN: EnTranslations = {
       },
       "necromancers": {
         "name": "Áo choàng pháp sư gọi hồn",
-        "bonus2": "Giảm 50% độ lùi khi niệm phép do sát thương.",
-        "bonus3": "Sát thương nhận vào không làm chậm niệm phép."
+        "bonus2": "Bạn không thể bị đẩy lùi (kháng đẩy lùi 100%).",
+        "bonus3": "Tăng trí tuệ thêm 10 và thể lực thêm 10."
       },
       "nighttalon": {
         "name": "Bộ da Móng Đêm",
@@ -6861,13 +6897,13 @@ export const vi_VN: EnTranslations = {
       },
       "soulflame": {
         "name": "Áo choàng Lửa Linh Hồn",
-        "bonus2": "Giảm 50% độ lùi khi niệm phép do sát thương.",
-        "bonus3": "Sát thương nhận vào không làm chậm niệm phép."
+        "bonus2": "Bạn không thể bị đẩy lùi (kháng đẩy lùi 100%).",
+        "bonus3": "Tăng trí tuệ thêm 15 và tinh thần thêm 15."
       },
       "stormcallers": {
         "name": "Áo choàng Gọi Bão",
-        "bonus2": "Giảm 50% độ lùi khi niệm phép do sát thương.",
-        "bonus3": "Sát thương nhận vào không làm chậm niệm phép."
+        "bonus2": "Bạn không thể bị đẩy lùi (kháng đẩy lùi 100%).",
+        "bonus3": "Tăng trí tuệ thêm 15 và tinh thần thêm 15."
       },
       "wyrmshadow": {
         "name": "Bộ Bóng Wyrm",

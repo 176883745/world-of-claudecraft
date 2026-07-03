@@ -390,6 +390,7 @@ export const da_DK: EnTranslations = {
       "showWalletOnCharacterScreen": "Vis pengepung på karakterskærm",
       "showWalletOnPlayerCard": "Vis pengepung på spillerkort",
       "showDevBadges": "Vis udviklermærker",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "UI-skala",
       "highContrastBackground": "Baggrund med høj kontrast",
       "startAttackOnAbility": "Autoangreb ved brug af evne",
@@ -826,6 +827,9 @@ export const da_DK: EnTranslations = {
         "nature": "Natur"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Kiste"
     },
@@ -928,6 +932,7 @@ export const da_DK: EnTranslations = {
       "memberSinceDays": "{days}d på Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Udvikler",
         "mods": "Moderator",
         "artists": "Kunstner"
@@ -3493,7 +3498,8 @@ export const da_DK: EnTranslations = {
     },
     "cast": {
       "fishing": "Fiskeri",
-      "demonHeal": "Dæmonhelbredelse"
+      "demonHeal": "Dæmonhelbredelse",
+      "thunzharrStormcall": "Stormkald"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const da_DK: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Fortrops Krom"
+      },
+      "crownforged_gauntlets": {
+        "name": "Kronesmedede Handsker"
+      },
+      "nighttalon_grips": {
+        "name": "Natteklo-Greb"
+      },
+      "soulflame_gloves": {
+        "name": "Sjæleflamme-Handsker"
+      },
+      "stormcallers_handguards": {
+        "name": "Stormkalderens Håndværn"
+      },
+      "crownforged_girdle": {
+        "name": "Kronesmedet Bælte"
+      },
+      "nighttalon_waistband": {
+        "name": "Natteklo-Livrem"
+      },
+      "soulflame_cord": {
+        "name": "Sjæleflamme-Snor"
+      },
+      "stormcallers_waistguard": {
+        "name": "Stormkalderens Livværn"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const da_DK: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Akolyt Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Jernåre-Formand"
@@ -6851,8 +6887,8 @@ export const da_DK: EnTranslations = {
       },
       "necromancers": {
         "name": "Nekromantikerens klæder",
-        "bonus2": "Reducerer kastetilbageslag fra skade med 50%.",
-        "bonus3": "Skade forsinker ikke dine besværgelser."
+        "bonus2": "Du kan ikke stødes tilbage (100% modstand mod tilbagestød).",
+        "bonus3": "Øger intellekt med 10 og udholdenhed med 10."
       },
       "nighttalon": {
         "name": "Natteklos læderudstyr",
@@ -6861,13 +6897,13 @@ export const da_DK: EnTranslations = {
       },
       "soulflame": {
         "name": "Sjæleflamme-klæder",
-        "bonus2": "Reducerer kastetilbageslag fra skade med 50%.",
-        "bonus3": "Skade forsinker ikke dine besværgelser."
+        "bonus2": "Du kan ikke stødes tilbage (100% modstand mod tilbagestød).",
+        "bonus3": "Øger intellekt med 15 og ånd med 15."
       },
       "stormcallers": {
         "name": "Stormkalderens klæder",
-        "bonus2": "Reducerer kastetilbageslag fra skade med 50%.",
-        "bonus3": "Skade forsinker ikke dine besværgelser."
+        "bonus2": "Du kan ikke stødes tilbage (100% modstand mod tilbagestød).",
+        "bonus3": "Øger intellekt med 15 og ånd med 15."
       },
       "wyrmshadow": {
         "name": "Wyrmskygge-udstyr",

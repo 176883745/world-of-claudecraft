@@ -364,6 +364,7 @@ export function buildInterfaceControls(s: OptionsSettingsSource): OptionsControl
     boolToggle(s, 'showWalletOnCharacterScreen', 'hudChrome.options.showWalletOnCharacterScreen'),
     boolToggle(s, 'showWalletOnPlayerCard', 'hudChrome.options.showWalletOnPlayerCard'),
     boolToggle(s, 'showDevBadges', 'hudChrome.options.showDevBadges'),
+    boolToggle(s, 'showOwnNameplate', 'hudChrome.options.showOwnNameplate'),
     boolToggle(s, 'landingHighContrast', 'hudChrome.options.highContrastBackground'),
     boolToggle(s, 'invertLookY', 'hud.options.invertLookY'),
     boolToggle(s, 'startAttackOnAbilityUse', 'hudChrome.options.startAttackOnAbility'),

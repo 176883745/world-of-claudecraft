@@ -241,6 +241,7 @@ describe('options_view: interface dispatch matrix (cluster 5)', () => {
       'showWalletOnCharacterScreen',
       'showWalletOnPlayerCard',
       'showDevBadges',
+      'showOwnNameplate',
       'landingHighContrast',
       'invertLookY',
       'startAttackOnAbilityUse',

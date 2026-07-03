@@ -390,6 +390,7 @@ export const zh_TW: EnTranslations = {
       "showWalletOnCharacterScreen": "在角色畫面顯示錢包",
       "showWalletOnPlayerCard": "在玩家卡片顯示錢包",
       "showDevBadges": "顯示開發者徽章",
+      "showOwnNameplate": "顯示我的姓名板",
       "uiScale": "介面縮放",
       "highContrastBackground": "高對比度背景",
       "startAttackOnAbility": "使用技能時自動攻擊",
@@ -826,6 +827,9 @@ export const zh_TW: EnTranslations = {
         "nature": "自然"
       }
     },
+    "worldBoss": {
+      "spawn": "{name}在荊峰高地崛起！"
+    },
     "loot": {
       "chestTitle": "寶箱"
     },
@@ -928,6 +932,7 @@ export const zh_TW: EnTranslations = {
       "memberSinceDays": "已加入 Discord {days} 天",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "管理員",
         "devs": "開發者",
         "mods": "管理員",
         "artists": "美術"
@@ -3493,7 +3498,8 @@ export const zh_TW: EnTranslations = {
     },
     "cast": {
       "fishing": "釣魚",
-      "demonHeal": "惡魔治療"
+      "demonHeal": "惡魔治療",
+      "thunzharrStormcall": "風暴召喚"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const zh_TW: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "先鋒鉻銀"
+      },
+      "crownforged_gauntlets": {
+        "name": "鑄冠護手"
+      },
+      "nighttalon_grips": {
+        "name": "夜爪握套"
+      },
+      "soulflame_gloves": {
+        "name": "魂焰手套"
+      },
+      "stormcallers_handguards": {
+        "name": "喚雷者手甲"
+      },
+      "crownforged_girdle": {
+        "name": "鑄冠腰帶"
+      },
+      "nighttalon_waistband": {
+        "name": "夜爪束帶"
+      },
+      "soulflame_cord": {
+        "name": "魂焰腰繩"
+      },
+      "stormcallers_waistguard": {
+        "name": "喚雷者腰甲"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const zh_TW: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "侍僧泰莎"
+      },
+      "thunzharr_waking_peak": {
+        "name": "桑扎爾，覺醒之峰"
+      },
+      "thunzharr_stormling": {
+        "name": "被驚醒的風暴元素"
       },
       "ironvein_foreman": {
         "name": "鐵脈工頭"
@@ -6851,8 +6887,8 @@ export const zh_TW: EnTranslations = {
       },
       "necromancers": {
         "name": "死靈法師法衣",
-        "bonus2": "受到傷害造成的施法延退降低 50%。",
-        "bonus3": "施法時不會因受到傷害而被延退。"
+        "bonus2": "你不會被擊退（擊退抗性 100%）。",
+        "bonus3": "智力提高 10 點，耐力提高 10 點。"
       },
       "nighttalon": {
         "name": "夜爪皮甲",
@@ -6861,13 +6897,13 @@ export const zh_TW: EnTranslations = {
       },
       "soulflame": {
         "name": "魂焰法衣",
-        "bonus2": "受到傷害造成的施法延退降低 50%。",
-        "bonus3": "施法時不會因受到傷害而被延退。"
+        "bonus2": "你不會被擊退（擊退抗性 100%）。",
+        "bonus3": "智力提高 15 點，精神提高 15 點。"
       },
       "stormcallers": {
         "name": "喚雷者法衣",
-        "bonus2": "受到傷害造成的施法延退降低 50%。",
-        "bonus3": "施法時不會因受到傷害而被延退。"
+        "bonus2": "你不會被擊退（擊退抗性 100%）。",
+        "bonus3": "智力提高 15 點，精神提高 15 點。"
       },
       "wyrmshadow": {
         "name": "龍影外衣",

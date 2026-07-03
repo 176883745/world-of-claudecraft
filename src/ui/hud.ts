@@ -449,6 +449,7 @@ const MOB_TOOLTIP_VIEW_DEPS: MobTooltipI18n = {
 const castDisplayName = (id: string): string => {
   if (id === FISHING_CAST_ID) return t('abilityUi.cast.fishing');
   if (id === 'demon_heal') return t('abilityUi.cast.demonHeal');
+  if (id === 'thunzharr_stormcall') return t('abilityUi.cast.thunzharrStormcall');
   const ability = ABILITIES[id];
   return ability ? abilityDisplayName(ability) : id;
 };
@@ -10908,6 +10909,8 @@ export class Hud {
       switch (key) {
         case 'levyst':
           return t('hudChrome.discord.roleTag.levyst');
+        case 'admin':
+          return t('hudChrome.discord.roleTag.admin');
         case 'devs':
           return t('hudChrome.discord.roleTag.devs');
         case 'mods':
@@ -10985,6 +10988,8 @@ export class Hud {
       switch (key) {
         case 'levyst':
           return t('hudChrome.discord.roleTag.levyst');
+        case 'admin':
+          return t('hudChrome.discord.roleTag.admin');
         case 'devs':
           return t('hudChrome.discord.roleTag.devs');
         case 'mods':

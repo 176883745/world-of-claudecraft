@@ -390,6 +390,7 @@ export const sv_SE: EnTranslations = {
       "showWalletOnCharacterScreen": "Visa plånbok på karaktärsskärmen",
       "showWalletOnPlayerCard": "Visa plånbok på spelarkortet",
       "showDevBadges": "Visa utvecklarmärken",
+      "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Gränssnittsskala",
       "highContrastBackground": "Bakgrund med hög kontrast",
       "startAttackOnAbility": "Automatisk attack vid förmågeanvändning",
@@ -826,6 +827,9 @@ export const sv_SE: EnTranslations = {
         "nature": "Natur"
       }
     },
+    "worldBoss": {
+      "spawn": "{name} rises over Thornpeak Heights!"
+    },
     "loot": {
       "chestTitle": "Kista"
     },
@@ -928,6 +932,7 @@ export const sv_SE: EnTranslations = {
       "memberSinceDays": "{days}d i Discord",
       "roleTag": {
         "levyst": "Levy St",
+        "admin": "Admin",
         "devs": "Utvecklare",
         "mods": "Moderator",
         "artists": "Konstnär"
@@ -3493,7 +3498,8 @@ export const sv_SE: EnTranslations = {
     },
     "cast": {
       "fishing": "Fiske",
-      "demonHeal": "Demonläkning"
+      "demonHeal": "Demonläkning",
+      "thunzharrStormcall": "Stormrop"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const sv_SE: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Förtrupp krom"
+      },
+      "crownforged_gauntlets": {
+        "name": "Kronsmidda handskar"
+      },
+      "nighttalon_grips": {
+        "name": "Nattklogrepp"
+      },
+      "soulflame_gloves": {
+        "name": "Själslågshandskar"
+      },
+      "stormcallers_handguards": {
+        "name": "Stormkallarens handskydd"
+      },
+      "crownforged_girdle": {
+        "name": "Kronsmitt bälte"
+      },
+      "nighttalon_waistband": {
+        "name": "Nattklobälte"
+      },
+      "soulflame_cord": {
+        "name": "Själslågssnöre"
+      },
+      "stormcallers_waistguard": {
+        "name": "Stormkallarens midjeskydd"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const sv_SE: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "Akolyten Tessa"
+      },
+      "thunzharr_waking_peak": {
+        "name": "Thunzharr, the Waking Peak"
+      },
+      "thunzharr_stormling": {
+        "name": "Roused Stormling"
       },
       "ironvein_foreman": {
         "name": "Järnådersförman"
@@ -6851,8 +6887,8 @@ export const sv_SE: EnTranslations = {
       },
       "necromancers": {
         "name": "Nekromantikerns skrud",
-        "bonus2": "Minskar kastfördröjning från skada med 50%.",
-        "bonus3": "Skada du tar fördröjer inte dina besvärjelser."
+        "bonus2": "Du kan inte knuffas bakåt (100% motstånd mot tillbakastöt).",
+        "bonus3": "Ökar intellekt med 10 och uthållighet med 10."
       },
       "nighttalon": {
         "name": "Nattklo läderutrustning",
@@ -6861,13 +6897,13 @@ export const sv_SE: EnTranslations = {
       },
       "soulflame": {
         "name": "Själsflammans skrud",
-        "bonus2": "Minskar kastfördröjning från skada med 50%.",
-        "bonus3": "Skada du tar fördröjer inte dina besvärjelser."
+        "bonus2": "Du kan inte knuffas bakåt (100% motstånd mot tillbakastöt).",
+        "bonus3": "Ökar intellekt med 15 och ande med 15."
       },
       "stormcallers": {
         "name": "Stormkallarens skrud",
-        "bonus2": "Minskar kastfördröjning från skada med 50%.",
-        "bonus3": "Skada du tar fördröjer inte dina besvärjelser."
+        "bonus2": "Du kan inte knuffas bakåt (100% motstånd mot tillbakastöt).",
+        "bonus3": "Ökar intellekt med 15 och ande med 15."
       },
       "wyrmshadow": {
         "name": "Wyrmskuggans utrustning",

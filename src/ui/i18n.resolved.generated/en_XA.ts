@@ -390,6 +390,7 @@ export const en_XA: EnTranslations = {
       "showWalletOnCharacterScreen": "[Šĥóŵ Ŵáļļéţ óñ Çĥáŕáçţéŕ Šçŕééñ]",
       "showWalletOnPlayerCard": "[Šĥóŵ Ŵáļļéţ óñ Þļáýéŕ Çáŕð]",
       "showDevBadges": "[Šĥóŵ Ðéʋéļóþéŕ Ɓáðĝéš]",
+      "showOwnNameplate": "[Šĥóŵ Ɱý Ñáɱéþļáţé]",
       "uiScale": "[ÚÍ Šçáļé]",
       "highContrastBackground": "[Ĥíĝĥ-Çóñţŕášţ Ɓáçķĝŕóúñð]",
       "startAttackOnAbility": "[Áúţó-Áţţáçķ óñ Áƀíļíţý Úšé]",
@@ -826,6 +827,9 @@ export const en_XA: EnTranslations = {
         "nature": "[Ñáţúŕé]"
       }
     },
+    "worldBoss": {
+      "spawn": "[{name} ŕíšéš óʋéŕ Ţĥóŕñþéáķ Ĥéíĝĥţš!]"
+    },
     "loot": {
       "chestTitle": "[Çĥéšţ]"
     },
@@ -928,6 +932,7 @@ export const en_XA: EnTranslations = {
       "memberSinceDays": "[{days}ð íñ ţĥé Ðíšçóŕð]",
       "roleTag": {
         "levyst": "[Ļéʋý Šţ]",
+        "admin": "[Áðɱíñ]",
         "devs": "[Ðéʋ]",
         "mods": "[Ɱóð]",
         "artists": "[Áŕţíšţ]"
@@ -3493,7 +3498,8 @@ export const en_XA: EnTranslations = {
     },
     "cast": {
       "fishing": "[Ƒíšĥíñĝ]",
-      "demonHeal": "[Ðéɱóñ Ĥéáļ]"
+      "demonHeal": "[Ðéɱóñ Ĥéáļ]",
+      "thunzharrStormcall": "[Šţóŕɱçáļļ]"
     }
   },
   "questUi": {
@@ -5430,6 +5436,30 @@ export const en_XA: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "[Ʋáñĝúáŕð Çĥŕóɱé]"
+      },
+      "crownforged_gauntlets": {
+        "name": "[Çŕóŵñƒóŕĝéð Ĝáúñţļéţš]"
+      },
+      "nighttalon_grips": {
+        "name": "[Ñíĝĥţţáļóñ Ĝŕíþš]"
+      },
+      "soulflame_gloves": {
+        "name": "[Šóúļƒļáɱé Ĝļóʋéš]"
+      },
+      "stormcallers_handguards": {
+        "name": "[Šţóŕɱçáļļéŕ'š Ĥáñðĝúáŕðš]"
+      },
+      "crownforged_girdle": {
+        "name": "[Çŕóŵñƒóŕĝéð Ĝíŕðļé]"
+      },
+      "nighttalon_waistband": {
+        "name": "[Ñíĝĥţţáļóñ Ŵáíšţƀáñð]"
+      },
+      "soulflame_cord": {
+        "name": "[Šóúļƒļáɱé Çóŕð]"
+      },
+      "stormcallers_waistguard": {
+        "name": "[Šţóŕɱçáļļéŕ'š Ŵáíšţĝúáŕð]"
       }
     },
     "mobs": {
@@ -5621,6 +5651,12 @@ export const en_XA: EnTranslations = {
       },
       "acolyte_tessa": {
         "name": "[Áçóļýţé Ţéššá]"
+      },
+      "thunzharr_waking_peak": {
+        "name": "[Ţĥúñžĥáŕŕ, ţĥé Ŵáķíñĝ Þéáķ]"
+      },
+      "thunzharr_stormling": {
+        "name": "[Ŕóúšéð Šţóŕɱļíñĝ]"
       },
       "ironvein_foreman": {
         "name": "[Íŕóñʋéíñ Ƒóŕéɱáñ]"
@@ -6851,8 +6887,8 @@ export const en_XA: EnTranslations = {
       },
       "necromancers": {
         "name": "[Ñéçŕóɱáñçéŕ'š Ŕáíɱéñţ]",
-        "bonus2": "[Ŕéðúçéš çášţ þúšĥƀáçķ ƒŕóɱ ðáɱáĝé ƀý 50%.]",
-        "bonus3": "[Ýóú çáññóţ ƀé þúšĥéð ƀáçķ ŵĥíļé çášţíñĝ (íɱɱúñé ţó çášţ þúšĥƀáçķ ƒŕóɱ ðáɱáĝé).]"
+        "bonus2": "[Ýóú çáññóţ ƀé ķñóçķéð ƀáçķ (100% ķñóçķƀáçķ ŕéšíšţáñçé).]",
+        "bonus3": "[Íñçŕéášéš Íñţéļļéçţ ƀý 10 áñð Šţáɱíñá ƀý 10.]"
       },
       "nighttalon": {
         "name": "[Ñíĝĥţţáļóñ Þéļţ]",
@@ -6861,13 +6897,13 @@ export const en_XA: EnTranslations = {
       },
       "soulflame": {
         "name": "[Šóúļƒļáɱé Ŕéĝáļíá]",
-        "bonus2": "[Ŕéðúçéš çášţ þúšĥƀáçķ ƒŕóɱ ðáɱáĝé ƀý 50%.]",
-        "bonus3": "[Ýóú çáññóţ ƀé þúšĥéð ƀáçķ ŵĥíļé çášţíñĝ (íɱɱúñé ţó çášţ þúšĥƀáçķ ƒŕóɱ ðáɱáĝé).]"
+        "bonus2": "[Ýóú çáññóţ ƀé ķñóçķéð ƀáçķ (100% ķñóçķƀáçķ ŕéšíšţáñçé).]",
+        "bonus3": "[Íñçŕéášéš Íñţéļļéçţ ƀý 15 áñð Šþíŕíţ ƀý 15.]"
       },
       "stormcallers": {
         "name": "[Šţóŕɱçáļļéŕ'š Ʋéšţɱéñţš]",
-        "bonus2": "[Ŕéðúçéš çášţ þúšĥƀáçķ ƒŕóɱ ðáɱáĝé ƀý 50%.]",
-        "bonus3": "[Ýóú çáññóţ ƀé þúšĥéð ƀáçķ ŵĥíļé çášţíñĝ (íɱɱúñé ţó çášţ þúšĥƀáçķ ƒŕóɱ ðáɱáĝé).]"
+        "bonus2": "[Ýóú çáññóţ ƀé ķñóçķéð ƀáçķ (100% ķñóçķƀáçķ ŕéšíšţáñçé).]",
+        "bonus3": "[Íñçŕéášéš Íñţéļļéçţ ƀý 15 áñð Šþíŕíţ ƀý 15.]"
       },
       "wyrmshadow": {
         "name": "[Ŵýŕɱšĥáðóŵ Ʋéšţɱéñţš]",
