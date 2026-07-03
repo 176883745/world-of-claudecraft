@@ -408,6 +408,11 @@ const PLAYER_PORTRAIT_KEY = 'player';
 // paint carries no bare literal at the call site.
 const BOSS_SKULL_GLYPH = '☠';
 const COMBO_PIP_COUNT = 5;
+// The mob-hover tooltip's fixed bottom-right slot (the WoW default GameTooltip
+// corner), in author-space px: the right margin clears the sidebar icon rail,
+// the bottom margin the community-links row, both fixed right-edge chrome.
+const MOB_TOOLTIP_MARGIN_RIGHT = 56;
+const MOB_TOOLTIP_MARGIN_BOTTOM = 60;
 // The descriptor for a hidden target frame (no target, or a targeted world object).
 // unitFrameView reads only `present` when hiding, so the rest are no-op defaults; a
 // shared const avoids allocating a fresh descriptor for every hidden frame.
@@ -3392,22 +3397,21 @@ export class Hud {
     return { w: tw, h: th };
   }
 
-  // Anchors the mob-hover tooltip to a fixed screen slot instead of the cursor:
-  // just right of the player frame's health/resource bars, bottom-aligned with
-  // them. Unlike paintTooltipAt (cursor-relative), this reads the player frame's
-  // live rect so it tracks that frame's real position/size (desktop or mobile)
-  // instead of a hand-picked pixel offset.
-  private paintTooltipNearPlayerFrame(html: string): void {
+  // Anchors the mob-hover tooltip to the viewport's bottom-right corner (the WoW
+  // default GameTooltip slot) instead of the cursor. Bottom-anchored, so a taller
+  // tooltip (quest lines) grows UPWARD from the same baseline. Deliberately NOT
+  // tied to the player frame: that frame is player-movable (MovableFrame), and an
+  // anchor riding it wanders wherever the frame was dragged. The margins clear
+  // the fixed right-edge chrome (the sidebar icon rail and the community row).
+  private paintMobTooltipBottomRight(html: string): void {
     this.tooltipEl.classList.add('mob-tooltip');
     this.tooltipEl.innerHTML = html;
     this.tooltipEl.style.display = 'block';
     const z = getUiScale();
     const tw = this.tooltipEl.offsetWidth,
       th = this.tooltipEl.offsetHeight;
-    const pf = this.playerFrameEl.getBoundingClientRect();
-    const gap = 14;
-    const left = Math.max(8, Math.min(window.innerWidth / z - tw - 8, pf.right / z + gap));
-    const top = Math.max(8, Math.min(window.innerHeight / z - th - 8, pf.bottom / z - th));
+    const left = Math.max(8, window.innerWidth / z - tw - MOB_TOOLTIP_MARGIN_RIGHT);
+    const top = Math.max(8, window.innerHeight / z - th - MOB_TOOLTIP_MARGIN_BOTTOM);
     this.tooltipEl.style.left = `${left}px`;
     this.tooltipEl.style.top = `${top}px`;
   }
@@ -3419,8 +3423,8 @@ export class Hud {
   // moves the rendered model (the mob aggros so hostile flips, the mob or the
   // viewer dings a level so the con-color shifts) still repaints. Colored by the
   // tooltip's own classic con spread (mobTooltipConColor), deliberately independent
-  // of the overhead nameplate bands (mobNameColor). Shown at a fixed spot (right of
-  // the health bars, see paintTooltipNearPlayerFrame) rather than following the cursor.
+  // of the overhead nameplate bands (mobNameColor). Shown at a fixed spot (the
+  // bottom-right corner, see paintMobTooltipBottomRight) rather than following the cursor.
   showMobHoverTooltip(entity: Entity, pvpOpponents: ReadonlySet<number>): void {
     // Questie-style quest lines: the objectives this mob advances, with live
     // counts. They ride the rebuild key so a kill mid-hover repaints 3/8 -> 4/8.
@@ -3457,7 +3461,7 @@ export class Hud {
         ),
       })),
     };
-    this.paintTooltipNearPlayerFrame(mobTooltipHtml(model, MOB_TOOLTIP_VIEW_DEPS));
+    this.paintMobTooltipBottomRight(mobTooltipHtml(model, MOB_TOOLTIP_VIEW_DEPS));
   }
 
   // Clears the world-hover mob tooltip; a no-op if none is showing, so main.ts
