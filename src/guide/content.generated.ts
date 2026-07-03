@@ -1216,7 +1216,7 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Wolf Run",
       "Boar Meadow",
       "Mirror Lake",
-      "Webwood",
+      "Sableweb",
       "Copper Dig",
       "Bandit Camp",
       "Fallen Chapel",
@@ -1431,7 +1431,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "spider",
     "creatures": [
       {
-        "name": "Webwood Lurker",
+        "name": "Sableweb Lurker",
         "min": 2,
         "max": 4,
         "rare": false,

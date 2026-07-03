@@ -2038,7 +2038,7 @@ const itemNamesEn = {
       'Eelskin Tunic',
       'Trollhide Leggings',
       'Marshstrider Boots',
-      "Mistcaller's Edge",
+      "Fogbinder's Edge",
       "Vael's Mist-Staff",
       'Riptide Dirk',
       "Knight-Commander's Greaves",

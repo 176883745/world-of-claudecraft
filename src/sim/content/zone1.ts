@@ -33,7 +33,7 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: -2, z: 70, label: 'Wolf Run' },
     { x: 65, z: 0, label: 'Boar Meadow' },
     { x: -88, z: 82, label: 'Mirror Lake' },
-    { x: -60, z: 4, label: 'Webwood' },
+    { x: -60, z: 4, label: 'Sableweb' },
     { x: -84, z: -64, label: 'Copper Dig' },
     { x: 76, z: -76, label: 'Bandit Camp' },
     { x: 80, z: 80, label: 'Fallen Chapel' },
@@ -164,7 +164,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   webwood_spider: {
     id: 'webwood_spider',
-    name: 'Webwood Lurker',
+    name: 'Sableweb Lurker',
     minLevel: 2,
     maxLevel: 4,
     family: 'spider',
@@ -672,13 +672,13 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_spiders: {
     id: 'q_spiders',
-    name: 'Webwood Menace',
+    name: 'Sableweb Menace',
     giverNpcId: 'apothecary_lin',
     turnInNpcId: 'apothecary_lin',
-    text: 'The lurkers in the eastern woods spin a silk I need for my poultices — and they have grown far too numerous besides. Cull 6 Webwood Lurkers and cut 4 silk glands from their bellies.',
+    text: 'The lurkers in the eastern woods spin a silk I need for my poultices — and they have grown far too numerous besides. Cull 6 Sableweb Lurkers and cut 4 silk glands from their bellies.',
     completionText: "Ugh, still twitching. Perfect. Here, you've earned this.",
     objectives: [
-      { type: 'kill', targetMobId: 'webwood_spider', count: 6, label: 'Webwood Lurker slain' },
+      { type: 'kill', targetMobId: 'webwood_spider', count: 6, label: 'Sableweb Lurker slain' },
       { type: 'collect', itemId: 'webwood_silk', count: 4, label: 'Sableweb Silk Gland' },
     ],
     xpReward: 420,
@@ -870,7 +870,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric',
     text: 'Morthen is dead, yet a question gnaws at me: a sect that hid for a century does not spend itself on one village chapel. He kept a grimoire — his rites, his correspondence. If anything of it survives, it lies in the vestry of the ruined chapel above the crypt. Search the ruin and bring me whatever remains of his writings, $N.',
     completionText:
-      "Morthen wrote to a 'Mistcaller' in the northern fen. The sect is not dead, $N — it has merely been patient.",
+      "Morthen wrote to a 'Fogbinder' in the northern fen. The sect is not dead, $N — it has merely been patient.",
     objectives: [
       { type: 'collect', itemId: 'morthen_grimoire', count: 1, label: "Morthen's Grimoire" },
     ],

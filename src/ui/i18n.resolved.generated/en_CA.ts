@@ -1435,7 +1435,7 @@ export const en_CA: EnTranslations = {
       "marshGreeter": "Warden Fenwick, Fenbridge",
       "peaksGreeting": "Two hundred years this wall has held. It will not break on my watch, but it groans.",
       "peaksGreeter": "Captain Thessaly, Highwatch",
-      "valePlaceNotes": "Eastbrook is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Webwood and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
+      "valePlaceNotes": "Eastbrook is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Sableweb and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
       "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and mudfins; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
       "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and burrowers; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
       "gladeTitle": "A quiet corner: Brightwood Glade",
@@ -1472,7 +1472,7 @@ export const en_CA: EnTranslations = {
       "sagaValeTitle": "The Vale: a name on a sigil",
       "sagaValeBody": "In Eastbrook the dead will not rest, and the mark behind it belongs to a sect long thought gone. Trace it to a Gravecaller working the chapel crypt, and his own papers point you toward the fen in the north.",
       "sagaMarshTitle": "The marsh: a tithe of souls",
-      "sagaMarshBody": "In Mirefen the drownings are no accident. Someone is filling the fen like a tithing box, raising obedient dead from every traveler the water takes. Chase the orders up the chain to a Mistcaller in the drowned bastion, whose last words name something older still, stirring beneath the peaks.",
+      "sagaMarshBody": "In Mirefen the drownings are no accident. Someone is filling the fen like a tithing box, raising obedient dead from every traveler the water takes. Chase the orders up the chain to a Fogbinder in the drowned bastion, whose last words name something older still, stirring beneath the peaks.",
       "sagaPeaksTitle": "The peaks: what the tithe was for",
       "sagaPeaksBody": "On Thornpeak the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
       "sideTitle": "Threads off the main road",
@@ -4122,7 +4122,7 @@ export const en_CA: EnTranslations = {
       },
       "shadowburn": {
         "name": "Duskfire",
-        "description": "Instantly blasts the target with Shadow Flame for {damage} Shadow damage."
+        "description": "Instantly blasts the target with searing shadow for {damage} Shadow damage."
       },
       "wrath": {
         "name": "Wildbolt",
@@ -4522,7 +4522,7 @@ export const en_CA: EnTranslations = {
         "name": "Marshstrider Boots"
       },
       "mistcallers_edge": {
-        "name": "Mistcaller's Edge"
+        "name": "Fogbinder's Edge"
       },
       "vaels_mist_staff": {
         "name": "Vael's Mist-Staff"
@@ -5328,7 +5328,7 @@ export const en_CA: EnTranslations = {
         "name": "Wild Boar"
       },
       "webwood_spider": {
-        "name": "Webwood Lurker"
+        "name": "Sableweb Lurker"
       },
       "mudfin_murloc": {
         "name": "Mudfin Skulker"
@@ -5436,7 +5436,7 @@ export const en_CA: EnTranslations = {
         "name": "Knight-Commander Olen"
       },
       "vael_the_mistcaller": {
-        "name": "Vael the Mistcaller"
+        "name": "Vael the Fogbinder"
       },
       "sanctum_boneguard": {
         "name": "Sanctum Boneguard"
@@ -5765,12 +5765,12 @@ export const en_CA: EnTranslations = {
         }
       },
       "q_spiders": {
-        "title": "Webwood Menace",
-        "text": "The lurkers in the eastern woods spin a silk I need for my poultices - and they have grown far too numerous besides. Cull 6 Webwood Lurkers and cut 4 silk glands from their bellies.",
+        "title": "Sableweb Menace",
+        "text": "The lurkers in the eastern woods spin a silk I need for my poultices - and they have grown far too numerous besides. Cull 6 Sableweb Lurkers and cut 4 silk glands from their bellies.",
         "completion": "Ugh, still twitching. Perfect. Here, you've earned this.",
         "objectives": {
           "0": {
-            "label": "Webwood Lurker slain"
+            "label": "Sableweb Lurker slain"
           },
           "1": {
             "label": "Sableweb Silk Gland"
@@ -5883,7 +5883,7 @@ export const en_CA: EnTranslations = {
       "q_gravecallers_trail": {
         "title": "The Gravecaller's Trail",
         "text": "Morthen is dead, yet a question gnaws at me: a sect that hid for a century does not spend itself on one village chapel. He kept a grimoire - his rites, his correspondence. If anything of it survives, it lies in the vestry of the ruined chapel above the crypt. Search the ruin and bring me whatever remains of his writings, {playerName}.",
-        "completion": "Morthen wrote to a 'Mistcaller' in the northern fen. The sect is not dead, {playerName} - it has merely been patient.",
+        "completion": "Morthen wrote to a 'Fogbinder' in the northern fen. The sect is not dead, {playerName} - it has merely been patient.",
         "objectives": {
           "0": {
             "label": "Morthen's Grimoire"
@@ -5912,7 +5912,7 @@ export const en_CA: EnTranslations = {
       },
       "q_fenbridge_muster": {
         "title": "Muster at Fenbridge",
-        "text": "Morthen's writings named a master in the northern marsh - a 'Mistcaller.' Now Warden Fenwick has sounded the muster horn at Fenbridge, and I do not believe in coincidence, {playerName}. Take the causeway north, pull the muster order from the gatepost, and present it to the Warden.",
+        "text": "Morthen's writings named a master in the northern marsh - a 'Fogbinder.' Now Warden Fenwick has sounded the muster horn at Fenbridge, and I do not believe in coincidence, {playerName}. Take the causeway north, pull the muster order from the gatepost, and present it to the Warden.",
         "completion": "Aldric's seal, is it? Then you'll do. The fen has been swallowing my patrols whole, and I need every blade that floats.",
         "objectives": {
           "0": {
@@ -6089,7 +6089,7 @@ export const en_CA: EnTranslations = {
       "q_summoners": {
         "title": "Stopping the Summoning",
         "text": "Maren's reports name summoners among the cultists - voices that call the drowned up out of the water like hounds to a whistle. Their ciphers will spell out the chain of command. Silence 8 summoners and bring me 4 of their ciphers.",
-        "completion": "Every cipher is countersigned 'Deacon Voss' - and addressed onward to a 'Mistcaller' in the Bastion. Morthen's master, {playerName}. We have found him.",
+        "completion": "Every cipher is countersigned 'Deacon Voss' - and addressed onward to a 'Fogbinder' in the Bastion. Morthen's master, {playerName}. We have found him.",
         "objectives": {
           "0": {
             "label": "Gravecaller Summoner slain"
@@ -6111,7 +6111,7 @@ export const en_CA: EnTranslations = {
       },
       "q_bastion_door": {
         "title": "The Sunken Bastion",
-        "text": "The Sunken Bastion - a knight's hold that drowned in the fen a century ago - is where Voss's letters point, and where this Mistcaller sings his drowning hymns. The cult has warded its door with grave-stones. Bring me one of the ward stones, {playerName}, and I will unweave the seal.",
+        "text": "The Sunken Bastion - a knight's hold that drowned in the fen a century ago - is where Voss's letters point, and where this Fogbinder sings his drowning hymns. The cult has warded its door with grave-stones. Bring me one of the ward stones, {playerName}, and I will unweave the seal.",
         "completion": "The ward parts like rotten rope. The door stands open... and the dark below it is listening.",
         "objectives": {
           "0": {
@@ -6121,7 +6121,7 @@ export const en_CA: EnTranslations = {
       },
       "q_olen": {
         "title": "The Knight-Commander's Shame",
-        "text": "Knight-Commander Olen held the Bastion when it sank - drowned at his post rather than abandon it. Every warden learns his name with pride. Now the Mistcaller has raised him as a puppet to guard the very door he died defending. That shame ends, {playerName}. Take four companions below and grant Olen the rest he earned.",
+        "text": "Knight-Commander Olen held the Bastion when it sank - drowned at his post rather than abandon it. Every warden learns his name with pride. Now the Fogbinder has raised him as a puppet to guard the very door he died defending. That shame ends, {playerName}. Take four companions below and grant Olen the rest he earned.",
         "completion": "Then his watch is finally over. I'll see his name cut into the gate myself. Thank you, {playerName}.",
         "objectives": {
           "0": {
@@ -6130,12 +6130,12 @@ export const en_CA: EnTranslations = {
         }
       },
       "q_mistcaller": {
-        "title": "The Mistcaller",
-        "text": "At the bottom of the Bastion waits Vael the Mistcaller - Morthen's master, Voss's master, the voice that has drowned a hundred travelers to raise itself an army. He is far beyond any one hero: take four companions, no fewer. End him, {playerName}, and the fen's dead may finally lie still.",
+        "title": "The Fogbinder",
+        "text": "At the bottom of the Bastion waits Vael the Fogbinder - Morthen's master, Voss's master, the voice that has drowned a hundred travelers to raise itself an army. He is far beyond any one hero: take four companions, no fewer. End him, {playerName}, and the fen's dead may finally lie still.",
         "completion": "Vael is dead, and the mist is lifting for the first time in years. But Maren heard his last words, and they freeze my blood: 'The Wyrm stirs beneath the peaks.' The sect serves something older than we ever guessed, {playerName}. Rest while you can - the mountains are next.",
         "objectives": {
           "0": {
-            "label": "Vael the Mistcaller slain"
+            "label": "Vael the Fogbinder slain"
           }
         }
       },
@@ -6568,7 +6568,7 @@ export const en_CA: EnTranslations = {
             "label": "Mirror Lake"
           },
           "4": {
-            "label": "Webwood"
+            "label": "Sableweb"
           },
           "5": {
             "label": "Copper Dig"

@@ -983,7 +983,7 @@ const classAbilityNamesEn = {
       [
         'shadowburn',
         'Duskfire',
-        'Instantly blasts the target with Shadow Flame for {damage} Shadow damage.',
+        'Instantly blasts the target with searing shadow for {damage} Shadow damage.',
       ],
       ['wrath', 'Wildbolt', 'Hurls a bolt of nature energy for {damage} Nature damage.'],
       ['healing_touch', 'Wildmend', 'Heals a friendly target for {damage}.'],

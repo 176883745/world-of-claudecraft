@@ -1,6 +1,6 @@
 // Zone 2 — Mirefen Marsh (levels 6-13). Brother Aldric follows the
 // Gravecaller trail north of the causeway: drowned dead rise from the fen,
-// trolls dig into barrow-mounds, and Vael the Mistcaller waits in the
+// trolls dig into barrow-mounds, and Vael the Fogbinder waits in the
 // Sunken Bastion.
 
 import type {
@@ -687,7 +687,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Muster at Fenbridge',
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'warden_fenwick',
-    text: "Morthen's writings named a master in the northern marsh — a 'Mistcaller.' Now Warden Fenwick has sounded the muster horn at Fenbridge, and I do not believe in coincidence, $N. Take the causeway north, pull the muster order from the gatepost, and present it to the Warden.",
+    text: "Morthen's writings named a master in the northern marsh — a 'Fogbinder.' Now Warden Fenwick has sounded the muster horn at Fenbridge, and I do not believe in coincidence, $N. Take the causeway north, pull the muster order from the gatepost, and present it to the Warden.",
     completionText:
       "Aldric's seal, is it? Then you'll do. The fen has been swallowing my patrols whole, and I need every blade that floats.",
     objectives: [
@@ -1000,7 +1000,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric_fen',
     text: "Maren's reports name summoners among the cultists — voices that call the drowned up out of the water like hounds to a whistle. Their ciphers will spell out the chain of command. Silence 8 summoners and bring me 4 of their ciphers.",
     completionText:
-      "Every cipher is countersigned 'Deacon Voss' — and addressed onward to a 'Mistcaller' in the Bastion. Morthen's master, $N. We have found him.",
+      "Every cipher is countersigned 'Deacon Voss' — and addressed onward to a 'Fogbinder' in the Bastion. Morthen's master, $N. We have found him.",
     objectives: [
       {
         type: 'kill',
@@ -1040,7 +1040,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Sunken Bastion',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'brother_aldric_fen',
-    text: "The Sunken Bastion — a knight's hold that drowned in the fen a century ago — is where Voss's letters point, and where this Mistcaller sings his drowning hymns. The cult has warded its door with grave-stones. Bring me one of the ward stones, $N, and I will unweave the seal.",
+    text: "The Sunken Bastion — a knight's hold that drowned in the fen a century ago — is where Voss's letters point, and where this Fogbinder sings his drowning hymns. The cult has warded its door with grave-stones. Bring me one of the ward stones, $N, and I will unweave the seal.",
     completionText:
       'The ward parts like rotten rope. The door stands open... and the dark below it is listening.',
     objectives: [
@@ -1057,7 +1057,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: "The Knight-Commander's Shame",
     giverNpcId: 'scout_maren',
     turnInNpcId: 'scout_maren',
-    text: 'Knight-Commander Olen held the Bastion when it sank — drowned at his post rather than abandon it. Every warden learns his name with pride. Now the Mistcaller has raised him as a puppet to guard the very door he died defending. That shame ends, $N. Take four companions below and grant Olen the rest he earned.',
+    text: 'Knight-Commander Olen held the Bastion when it sank — drowned at his post rather than abandon it. Every warden learns his name with pride. Now the Fogbinder has raised him as a puppet to guard the very door he died defending. That shame ends, $N. Take four companions below and grant Olen the rest he earned.',
     completionText:
       "Then his watch is finally over. I'll see his name cut into the gate myself. Thank you, $N.",
     objectives: [
@@ -1081,10 +1081,10 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
   },
   q_mistcaller: {
     id: 'q_mistcaller',
-    name: 'The Mistcaller',
+    name: 'The Fogbinder',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'brother_aldric_fen',
-    text: "At the bottom of the Bastion waits Vael the Mistcaller — Morthen's master, Voss's master, the voice that has drowned a hundred travelers to raise itself an army. He is far beyond any one hero: take four companions, no fewer. End him, $N, and the fen's dead may finally lie still.",
+    text: "At the bottom of the Bastion waits Vael the Fogbinder — Morthen's master, Voss's master, the voice that has drowned a hundred travelers to raise itself an army. He is far beyond any one hero: take four companions, no fewer. End him, $N, and the fen's dead may finally lie still.",
     completionText:
       "Vael is dead, and the mist is lifting for the first time in years. But Maren heard his last words, and they freeze my blood: 'The Wyrm stirs beneath the peaks.' The sect serves something older than we ever guessed, $N. Rest while you can — the mountains are next.",
     objectives: [
@@ -1092,7 +1092,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
         type: 'kill',
         targetMobId: 'vael_the_mistcaller',
         count: 1,
-        label: 'Vael the Mistcaller slain',
+        label: 'Vael the Fogbinder slain',
       },
     ],
     xpReward: 2800,
@@ -1702,7 +1702,7 @@ export const ZONE2_ITEMS: Record<string, ItemDef> = {
   // --- Sunken Bastion blues (rare) ---
   mistcallers_edge: {
     id: 'mistcallers_edge',
-    name: "Mistcaller's Edge",
+    name: "Fogbinder's Edge",
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'rare',

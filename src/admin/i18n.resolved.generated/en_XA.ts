@@ -325,7 +325,7 @@ export const en_XA: AdminTranslations = {
   "poi.eastbrook_vale.1": "[Ŵóļƒ Ŕúñ]",
   "poi.eastbrook_vale.2": "[Ɓóáŕ Ɱéáðóŵ]",
   "poi.eastbrook_vale.3": "[Ɱíŕŕóŕ Ļáķé]",
-  "poi.eastbrook_vale.4": "[Ŵéƀŵóóð]",
+  "poi.eastbrook_vale.4": "[Šáƀļéŵéƀ]",
   "poi.eastbrook_vale.5": "[Çóþþéŕ Ðíĝ]",
   "poi.eastbrook_vale.6": "[Ɓáñðíţ Çáɱþ]",
   "poi.eastbrook_vale.7": "[Ƒáļļéñ Çĥáþéļ]",

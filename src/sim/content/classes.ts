@@ -2688,7 +2688,7 @@ export const ABILITIES: Record<string, AbilityDef> = {
     school: 'shadow',
     requiresTarget: true,
     effects: [{ type: 'directDamage', min: 56, max: 66 }],
-    description: 'Instantly blasts the target with Shadow Flame for $d Shadow damage.',
+    description: 'Instantly blasts the target with searing shadow for $d Shadow damage.',
   },
   summon_imp: {
     id: 'summon_imp',

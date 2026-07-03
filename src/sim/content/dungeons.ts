@@ -221,7 +221,7 @@ export const DUNGEON_MOBS: Record<string, MobTemplate> = {
   },
   vael_the_mistcaller: {
     id: 'vael_the_mistcaller',
-    name: 'Vael the Mistcaller',
+    name: 'Vael the Fogbinder',
     minLevel: 13,
     maxLevel: 13,
     family: 'humanoid',

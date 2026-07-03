@@ -325,7 +325,7 @@ export const en_CA: AdminTranslations = {
   "poi.eastbrook_vale.1": "Wolf Run",
   "poi.eastbrook_vale.2": "Boar Meadow",
   "poi.eastbrook_vale.3": "Mirror Lake",
-  "poi.eastbrook_vale.4": "Webwood",
+  "poi.eastbrook_vale.4": "Sableweb",
   "poi.eastbrook_vale.5": "Copper Dig",
   "poi.eastbrook_vale.6": "Bandit Camp",
   "poi.eastbrook_vale.7": "Fallen Chapel",
