@@ -75,6 +75,17 @@ describe('stack sizes and stacking math', () => {
     expect(canAddItem(inv, 2, 'baked_bread', 26)).toBe(false);
   });
 
+  it('never merges into an instanced slot and offers it no top-up room (#1165)', () => {
+    const inv: InvSlot[] = [{ itemId: 'baked_bread', count: 5, instance: { signer: 'Ana' } }];
+    // capacity 1: the instanced slot occupies the only slot and cannot absorb more
+    expect(countFit(inv, 1, 'baked_bread', 1)).toBe(0);
+    addStacked(inv, 'baked_bread', 3);
+    expect(inv).toEqual([
+      { itemId: 'baked_bread', count: 5, instance: { signer: 'Ana' } },
+      { itemId: 'baked_bread', count: 3 },
+    ]);
+  });
+
   it('fitsAll simulates the batch cumulatively', () => {
     const inv: InvSlot[] = [];
     expect(
