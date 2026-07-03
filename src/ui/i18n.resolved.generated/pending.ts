@@ -15,10 +15,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "es_ES": [
     "hudChrome.bags.backpack",
@@ -26,10 +29,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "fr_FR": [
     "hudChrome.bags.backpack",
@@ -37,10 +43,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "fr_CA": [
     "hudChrome.bags.backpack",
@@ -48,10 +57,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "en_CA": [],
   "it_IT": [
@@ -60,10 +72,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "de_DE": [
     "hudChrome.bags.backpack",
@@ -71,10 +86,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "zh_CN": [
     "hudChrome.bags.capacity",
@@ -102,10 +120,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "ru_RU": [
     "hudChrome.bags.capacity",
@@ -118,10 +139,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "pl_PL": [
     "hudChrome.bags.backpack",
@@ -129,10 +153,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "id_ID": [
     "hudChrome.bags.backpack",
@@ -140,10 +167,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "tr_TR": [
     "hudChrome.bags.backpack",
@@ -151,10 +181,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "sv_SE": [
     "hudChrome.bags.backpack",
@@ -162,10 +195,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "vi_VN": [
     "hudChrome.bags.backpack",
@@ -173,10 +209,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ],
   "da_DK": [
     "hudChrome.bags.backpack",
@@ -184,9 +223,12 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.bags.capacityAria",
     "hudChrome.bags.socketEmpty",
     "hudChrome.bags.unequipHint",
+    "hudChrome.dailyRewards.pointsGained",
+    "hudChrome.dailyRewards.taskMultiplier",
     "hudChrome.dailyRewards.totalPlayer",
     "hudChrome.dailyRewards.totalPlayers",
     "itemUi.kind.bag",
-    "itemUi.tooltip.bagSlots"
+    "itemUi.tooltip.bagSlots",
+    "wallet.extensionHelp"
   ]
 };

@@ -316,7 +316,13 @@ import {
   virtualLevel,
   xpToReachLevel,
 } from './types';
-import { groundHeight, WATER_LEVEL } from './world';
+import {
+  groundHeight,
+  nearSteepWalls,
+  terrainDownhill,
+  terrainSteepnessAt,
+  WATER_LEVEL,
+} from './world';
 
 // TRIVIAL_LEVEL_GAP moved to mob/targeting.ts (used only by isTrivialTo).
 // CORPSE_DURATION moved to combat/damage.ts (C1; used only by the death path).
@@ -417,7 +423,15 @@ const DELVE_COMPANION_LEVEL_PCT = [0, 0.5, 0.75, 1.0]; // index = rank
 // re-exported from there so external importers (src/ui/sim_i18n.ts, tests) are unchanged.
 export { DELVE_IMPLEMENTED_AFFIXES, DELVE_MODULE_NAMES } from './delves/runs';
 
-const MAX_CLIMB_SLOPE = PLAYER_MAX_CLIMB_SLOPE; // rise/run above which a ground move is blocked (cliffs, world rim)
+// Rise/run above which ground is unwalkable (cliffs, mountain walls, the world
+// rim). Uphill steps are blocked both along the step direction AND by the true
+// terrain steepness at the destination (terrainSteepness), so a diagonal
+// switchback cannot beat the limit; airborne movement is gated the same way so
+// jump-spam cannot climb a face; and a player standing on ground steeper than
+// this slides downhill (STEEP_SLIDE_SPEED) and cannot jump until footing is
+// walkable again.
+const MAX_CLIMB_SLOPE = PLAYER_MAX_CLIMB_SLOPE;
+const STEEP_SLIDE_SPEED = RUN_SPEED; // yd/s a player skids downhill off unwalkable ground
 
 // How far a mob pulls same-family neighbours into a fight ("social aggro").
 // Murlocs (the clustered water mobs players call "frogs") used to pull too much,
@@ -2760,7 +2774,13 @@ export class Sim {
     const h0 = groundHeight(p.pos.x, p.pos.z, this.cfg.seed);
     const h1 = groundHeight(nx, nz, this.cfg.seed);
     if (h1 < WATER_LEVEL - SWIM_DEPTH) return done(false);
-    if (h1 > h0 && (h1 - h0) / step > MAX_CLIMB_SLOPE) return done(false);
+    if (
+      h1 > h0 &&
+      ((h1 - h0) / step > MAX_CLIMB_SLOPE ||
+        terrainSteepnessAt(nx, nz, this.cfg.seed) > MAX_CLIMB_SLOPE)
+    ) {
+      return done(false);
+    }
     const resolved = this.resolveMove(p.pos.x, p.pos.z, nx, nz, BODY_RADIUS, p);
     p.pos.x = resolved.x;
     p.pos.z = resolved.z;
@@ -2822,7 +2842,14 @@ export class Sim {
     const h0 = groundHeight(p.pos.x, p.pos.z, this.cfg.seed);
     const h1 = groundHeight(nx, nz, this.cfg.seed);
     if (h1 < WATER_LEVEL - SWIM_DEPTH) return true; // don't trail into deep water
-    if (h1 > h0 && step > 1e-5 && (h1 - h0) / step > MAX_CLIMB_SLOPE) return true; // wall/cliff
+    if (
+      h1 > h0 &&
+      step > 1e-5 &&
+      ((h1 - h0) / step > MAX_CLIMB_SLOPE ||
+        terrainSteepnessAt(nx, nz, this.cfg.seed) > MAX_CLIMB_SLOPE)
+    ) {
+      return true; // wall/cliff
+    }
     const resolved = this.resolveMove(p.pos.x, p.pos.z, nx, nz, BODY_RADIUS, p);
     p.pos.x = resolved.x;
     p.pos.z = resolved.z;
@@ -2870,8 +2897,13 @@ export class Sim {
     if (wantsMove && p.sitting) this.standUp(p);
 
     const hasMoveInput = mx !== 0 || mz !== 0;
-    const moving = hasMoveInput && !isRooted(p);
     const swimming = this.isSwimming(p);
+    // Standing on unwalkably steep ground: no control, no jump, slide downhill.
+    const steepGround =
+      p.onGround &&
+      !swimming &&
+      terrainSteepnessAt(p.pos.x, p.pos.z, this.cfg.seed) > MAX_CLIMB_SLOPE;
+    const moving = hasMoveInput && !isRooted(p) && !steepGround;
     let wishX = 0,
       wishZ = 0,
       wishSpeed = 0;
@@ -2900,20 +2932,46 @@ export class Sim {
     }
 
     const movingOnGround = moving && (p.onGround || swimming);
-    if (movingOnGround || (!p.onGround && (p.vx !== 0 || p.vz !== 0))) {
-      const stepX = movingOnGround ? wishX * wishSpeed : p.vx;
-      const stepZ = movingOnGround ? wishZ * wishSpeed : p.vz;
+    const slide = steepGround ? terrainDownhill(p.pos.x, p.pos.z, this.cfg.seed) : null;
+    if (slide || movingOnGround || (!p.onGround && (p.vx !== 0 || p.vz !== 0))) {
+      if (slide && p.castingAbility) this.cancelCast(p);
+      const stepX = slide ? slide.x * STEEP_SLIDE_SPEED : movingOnGround ? wishX * wishSpeed : p.vx;
+      const stepZ = slide ? slide.z * STEEP_SLIDE_SPEED : movingOnGround ? wishZ * wishSpeed : p.vz;
       let nx = p.pos.x + stepX * DT;
       let nz = p.pos.z + stepZ * DT;
-      // cliffs and the world rim are walls, not ramps
+      // cliffs, steep mountainsides, and the world rim are walls, not ramps:
+      // an uphill step is blocked when the step itself is too steep OR when it
+      // lands on ground whose true gradient is unwalkable (so approaching at an
+      // angle cannot cheat the limit)
       if (p.onGround && !swimming) {
         const h0 = groundHeight(p.pos.x, p.pos.z, this.cfg.seed);
         const h1 = groundHeight(nx, nz, this.cfg.seed);
         const run = Math.hypot(nx - p.pos.x, nz - p.pos.z);
-        if (h1 > h0 && run > 1e-5 && (h1 - h0) / run > MAX_CLIMB_SLOPE) {
+        if (
+          h1 > h0 &&
+          run > 1e-5 &&
+          ((h1 - h0) / run > MAX_CLIMB_SLOPE ||
+            terrainSteepnessAt(nx, nz, this.cfg.seed) > MAX_CLIMB_SLOPE)
+        ) {
           nx = p.pos.x;
           nz = p.pos.z;
-          if (!p.onGround) {
+        }
+      } else if (!p.onGround) {
+        // Airborne, the same wall rule applies: terrain rising above the body
+        // that could not be walked up cannot be jumped into either. The player
+        // drops at the base of the face instead of beaching partway up it.
+        const h1 = groundHeight(nx, nz, this.cfg.seed);
+        if (h1 > p.pos.y) {
+          const h0 = groundHeight(p.pos.x, p.pos.z, this.cfg.seed);
+          const run = Math.hypot(nx - p.pos.x, nz - p.pos.z);
+          if (
+            h1 > h0 &&
+            run > 1e-5 &&
+            ((h1 - h0) / run > MAX_CLIMB_SLOPE ||
+              terrainSteepnessAt(nx, nz, this.cfg.seed) > MAX_CLIMB_SLOPE)
+          ) {
+            nx = p.pos.x;
+            nz = p.pos.z;
             p.vx = 0;
             p.vz = 0;
           }
@@ -2955,7 +3013,7 @@ export class Sim {
       }
       return;
     }
-    if (inp.jump && p.onGround && !isRooted(p)) {
+    if (inp.jump && p.onGround && !isRooted(p) && !steepGround) {
       p.vy = JUMP_VELOCITY * this.jumpMult(p);
       p.vx = wishX * wishSpeed;
       p.vz = wishZ * wishSpeed;
@@ -3270,7 +3328,13 @@ export class Sim {
       const h0 = groundHeight(cx, cz, this.cfg.seed);
       const h1 = groundHeight(nx, nz, this.cfg.seed);
       if (h1 < WATER_LEVEL - SWIM_DEPTH) break; // would land in deep water
-      if (h1 > h0 && (h1 - h0) / adv > MAX_CLIMB_SLOPE) break; // would slam into a cliff
+      if (
+        h1 > h0 &&
+        ((h1 - h0) / adv > MAX_CLIMB_SLOPE ||
+          terrainSteepnessAt(nx, nz, this.cfg.seed) > MAX_CLIMB_SLOPE)
+      ) {
+        break; // would slam into a cliff
+      }
       cx = nx;
       cz = nz;
       moved += adv;
@@ -3967,12 +4031,26 @@ export class Sim {
     let bestX = e.pos.x,
       bestZ = e.pos.z,
       bestProgress = 1e-3;
+    // Swimmers ride the water surface, so slope checks clamp submerged ground
+    // to the waterline (a sloped lake bed is not a wall; see pathfind rideHeight).
+    const ride = (h: number): number => (canSwim && h < WATER_LEVEL ? WATER_LEVEL : h);
+    let h0 = Number.NaN; // lazily sampled: only steep cells pay for heights
     for (const off of MOVE_SLIDE_FAN) {
       const a = desired + off;
       const nx = e.pos.x + Math.sin(a) * step;
       const nz = e.pos.z + Math.cos(a) * step;
       // landlocked creatures stop at the waterline instead of walking under it
       if (!canSwim && groundHeight(nx, nz, this.cfg.seed) < WATER_LEVEL - SWIM_DEPTH) continue;
+      // Mobs, pets, and feared players obey the wall rule too: no uphill step
+      // onto unwalkably steep ground. Screened to the wall bands so the hot
+      // open-world fan pays nothing; inside a band the memoized cell steepness
+      // screens next, and only actual wall cells pay for exact heights. This
+      // is a NEW gate for these movers, so the finer per-step cliff check
+      // players get is not replicated here.
+      if (nearSteepWalls(nx, nz) && terrainSteepnessAt(nx, nz, this.cfg.seed) > MAX_CLIMB_SLOPE) {
+        if (Number.isNaN(h0)) h0 = ride(groundHeight(e.pos.x, e.pos.z, this.cfg.seed));
+        if (ride(groundHeight(nx, nz, this.cfg.seed)) > h0) continue;
+      }
       const r = this.resolveMovePoint(nx, nz, BODY_RADIUS, e);
       const progress = d - Math.hypot(r.x - dest.x, r.z - dest.z);
       if (progress > bestProgress) {
