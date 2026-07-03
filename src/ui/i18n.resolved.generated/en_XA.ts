@@ -280,7 +280,10 @@ export const en_XA: EnTranslations = {
       "targetAnnounce": "[Ɱáŕķ {name}]",
       "partyLabel": "[Ýóúŕ Ɓáñð]",
       "partyGroup": "[Ĝŕóúþ {n}]",
-      "durationUnitSeconds": "[š]"
+      "durationUnitSeconds": "[š]",
+      "durationUnitMinutes": "[ɱ]",
+      "durationUnitHours": "[ĥ]",
+      "durationUnitDays": "[ð]"
     },
     "character": {
       "modelPreview": "[Çĥáŕáçţéŕ Ɱóðéļ Þŕéʋíéŵ]"
@@ -394,6 +397,7 @@ export const en_XA: EnTranslations = {
       "uiScale": "[ÚÍ Šçáļé]",
       "playerFrameScale": "[Þļáýéŕ Ƒŕáɱé Šçáļé]",
       "targetFrameScale": "[Ţáŕĝéţ Ƒŕáɱé Šçáļé]",
+      "aurasOnPlayerFrame": "[Ɓúƒƒš óñ ţĥé Þļáýéŕ Ƒŕáɱé]",
       "highContrastBackground": "[Ĥíĝĥ-Çóñţŕášţ Ɓáçķĝŕóúñð]",
       "startAttackOnAbility": "[Áúţó-Áţţáçķ óñ Áƀíļíţý Úšé]",
       "walkByAutoloot": "[Ŵáļķ-ƀý Áúţóļóóţ]",

@@ -15,6 +15,11 @@ export const INTERACT_RANGE = 5;
 // Nythraxis encounter's yells + crypt-relic respawn), so they live here, not in sim.ts.
 export const YELL_RANGE = 100;
 export const OBJECT_RESPAWN = 30;
+// How many of a party member's auras ride the party wire (PartyMemberInfo.auras,
+// the mini icon strip under each party frame row). A cap, not a filter: the first
+// N in aura order, buffs and debuffs alike. Neutral const shared by Sim.partyInfo,
+// the server's partyWire, and the world_api shape, so it lives here.
+export const PARTY_MEMBER_AURA_CAP = 8;
 // Pet tuning shared between the pet-AI slice (src/sim/pet/pet_ai.ts) and code that
 // stays on Sim, so it lives in this neutral module (the slice-only PET_* consts live
 // in pet_ai.ts). PET_GROWL_INTERVAL is read by the moved updatePet auto-taunt arm AND

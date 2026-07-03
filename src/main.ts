@@ -1594,6 +1594,9 @@ async function startGame(
       case 'targetFrameScale':
         document.documentElement.style.setProperty('--target-frame-scale', String(v));
         break;
+      case 'aurasOnPlayerFrame':
+        hud.setAurasOnPlayerFrame(!!v);
+        break;
       // Graphics-tier HUD effects follow the STATIC preset + the advanced
       // effectsQuality slider. The 3D renderer tier is resolved at renderer
       // construction (a reload); here we only re-publish the HUD effect profile

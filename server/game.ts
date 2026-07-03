@@ -29,6 +29,7 @@ import {
   type EquipSlot,
   emptyMoveInput,
   MAX_LEVEL,
+  PARTY_MEMBER_AURA_CAP,
   RUN_SPEED,
   type SimEvent,
 } from '../src/sim/types';
@@ -570,6 +571,16 @@ function dynamicFields(e: Entity): Record<string, unknown> {
   if (e.dead) out.dead = 1;
   if (e.lootable) out.loot = 1;
   if (e.hostile) out.h = 1;
+  // The target frame's resource bar: type + current/max, sent only for entities
+  // that HAVE a resource (players and caster mobs; a resource-less wolf omits all
+  // three and the frame hides its bar). The rounded res keeps an idle entity's
+  // serialized record byte-stable so the per-entity dyn cache keeps eliding; the
+  // SELF record still overrides with its own precise res/mres/rtype fields.
+  if (e.resourceType) {
+    out.rtype = e.resourceType;
+    out.res = Math.round(e.resource);
+    out.mres = e.maxResource;
+  }
   if (e.castingAbility) {
     out.cast = e.castingAbility;
     out.castRem = round2(e.castRemaining);
@@ -3407,6 +3418,15 @@ export class GameServer {
                 dead: e.dead ? 1 : 0,
                 inCombat: e.inCombat ? 1 : 0,
                 group: party.raidGroups.get(mPid) ?? 1,
+                // The mini aura strip under the member's party row (mirrors
+                // Sim.partyInfo): first N in aura order, id + kind + sap flag
+                // only, no countdown, so this payload changes only when the
+                // aura SET changes and the party delta elision keeps working.
+                auras: e.auras.slice(0, PARTY_MEMBER_AURA_CAP).map((a) => ({
+                  id: a.id,
+                  kind: a.kind,
+                  ...(a.value < 0 ? { neg: 1 } : {}),
+                })),
               }
             : null;
         })

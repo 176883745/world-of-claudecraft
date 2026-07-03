@@ -326,6 +326,7 @@ import {
   type MoveInput,
   normAngle,
   type OverheadEmoteId,
+  PARTY_MEMBER_AURA_CAP,
   type PetMode,
   type PlayerClass,
   type QuestProgress,
@@ -5851,6 +5852,14 @@ export class Sim {
                 dead: e.dead ? 1 : 0,
                 inCombat: e.inCombat ? 1 : 0,
                 group: party.raidGroups.get(mPid) ?? 1,
+                // The mini aura strip under the member's party row: first N in
+                // aura order (buffs and debuffs alike), id + kind + sap flag
+                // only, no countdown (see PartyMemberAura in world_api/party.ts).
+                auras: e.auras.slice(0, PARTY_MEMBER_AURA_CAP).map((a) => ({
+                  id: a.id,
+                  kind: a.kind,
+                  ...(a.value < 0 ? { neg: 1 as const } : {}),
+                })),
               },
             ]
           : [];

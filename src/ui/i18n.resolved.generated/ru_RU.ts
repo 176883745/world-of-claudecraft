@@ -280,7 +280,10 @@ export const ru_RU: EnTranslations = {
       "targetAnnounce": "Цель: {name}",
       "partyLabel": "Ваша группа",
       "partyGroup": "Группа {n}",
-      "durationUnitSeconds": "с"
+      "durationUnitSeconds": "с",
+      "durationUnitMinutes": "м",
+      "durationUnitHours": "ч",
+      "durationUnitDays": "д"
     },
     "character": {
       "modelPreview": "Предпросмотр модели персонажа"
@@ -394,6 +397,7 @@ export const ru_RU: EnTranslations = {
       "uiScale": "Масштаб интерфейса",
       "playerFrameScale": "Размер рамки игрока",
       "targetFrameScale": "Размер рамки цели",
+      "aurasOnPlayerFrame": "Баффы у рамки игрока",
       "highContrastBackground": "Фон высокой контрастности",
       "startAttackOnAbility": "Автоатака при использовании способности",
       "walkByAutoloot": "Автосбор добычи при проходе",

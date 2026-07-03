@@ -280,7 +280,10 @@ export const en_CA: EnTranslations = {
       "targetAnnounce": "Mark {name}",
       "partyLabel": "Your Band",
       "partyGroup": "Group {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "durationUnitMinutes": "m",
+      "durationUnitHours": "h",
+      "durationUnitDays": "d"
     },
     "character": {
       "modelPreview": "Character Model Preview"
@@ -394,6 +397,7 @@ export const en_CA: EnTranslations = {
       "uiScale": "UI Scale",
       "playerFrameScale": "Player Frame Scale",
       "targetFrameScale": "Target Frame Scale",
+      "aurasOnPlayerFrame": "Buffs on the Player Frame",
       "highContrastBackground": "High-Contrast Background",
       "startAttackOnAbility": "Auto-Attack on Ability Use",
       "walkByAutoloot": "Walk-by Autoloot",

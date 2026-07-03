@@ -280,7 +280,10 @@ export const ko_KR: EnTranslations = {
       "targetAnnounce": "대상: {name}",
       "partyLabel": "내 파티",
       "partyGroup": "{n}번 그룹",
-      "durationUnitSeconds": "초"
+      "durationUnitSeconds": "초",
+      "durationUnitMinutes": "분",
+      "durationUnitHours": "시",
+      "durationUnitDays": "일"
     },
     "character": {
       "modelPreview": "캐릭터 모델 미리보기"
@@ -394,6 +397,7 @@ export const ko_KR: EnTranslations = {
       "uiScale": "UI 배율",
       "playerFrameScale": "플레이어 프레임 크기",
       "targetFrameScale": "대상 프레임 크기",
+      "aurasOnPlayerFrame": "버프를 플레이어 프레임에 표시",
       "highContrastBackground": "고대비 배경",
       "startAttackOnAbility": "스킬 사용 시 자동 공격",
       "walkByAutoloot": "지나가며 자동 획득",
