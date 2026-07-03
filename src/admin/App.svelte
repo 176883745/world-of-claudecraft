@@ -26,7 +26,6 @@
   import IpAssociations from './pages/IpAssociations.svelte';
   import Housekeeping from './pages/Housekeeping.svelte';
   import HousekeepingRates from './pages/HousekeepingRates.svelte';
-import HousekeepingCalendar from './pages/HousekeepingCalendar.svelte';
   import HousekeepingMobs from './pages/HousekeepingMobs.svelte';
   import HousekeepingSpawns from './pages/HousekeepingSpawns.svelte';
   import HousekeepingQuests from './pages/HousekeepingQuests.svelte';
@@ -54,7 +53,6 @@ import HousekeepingCalendar from './pages/HousekeepingCalendar.svelte';
     'bug-reports': BugReports,
     housekeeping: Housekeeping,
     'housekeeping-rates': HousekeepingRates,
-    'housekeeping-calendar': HousekeepingCalendar,
     'housekeeping-mobs': HousekeepingMobs,
     'housekeeping-spawns': HousekeepingSpawns,
     'housekeeping-quests': HousekeepingQuests,

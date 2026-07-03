@@ -7,7 +7,6 @@
 import type * as http from 'node:http';
 import type { GameServer } from './game';
 import {
-  calendarCatalog,
   clearOverrides,
   housekeepingOverview,
   housekeepingStatus,
@@ -101,9 +100,6 @@ export async function handleHousekeepingApi(
     }
     case 'rates':
       ok(res, ratesCatalog(stored.data, stored.updatedAt));
-      return true;
-    case 'calendar':
-      ok(res, calendarCatalog(stored.data, stored.updatedAt));
       return true;
     case 'mobs':
       ok(res, mobsCatalog(stored.data, stored.updatedAt));

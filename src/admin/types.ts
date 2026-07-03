@@ -479,7 +479,6 @@ export interface HkOverview {
   };
   overrideCounts: {
     rates: number;
-    calendar: number;
     xpTable: boolean;
     mobs: number;
     quests: number;
@@ -487,22 +486,6 @@ export interface HkOverview {
     npcs: number;
     camps: number;
   };
-  status: HkStatus;
-}
-
-export interface HkCalendar {
-  eventLimit: number;
-  titleMax: number;
-  noteMax: number;
-  horizonDays: number;
-  keepPastDays: number;
-}
-
-export interface HkCalendarCatalog {
-  fields: HkNumericFieldSpec[];
-  defaults: HkCalendar;
-  applied: HkCalendar;
-  saved: Partial<HkCalendar> | null;
   status: HkStatus;
 }
 
