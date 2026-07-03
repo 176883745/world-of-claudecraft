@@ -1957,6 +1957,9 @@ export const zh_TW: EnTranslations = {
     "password": "密碼",
     "passwordError": "請輸入密碼。",
     "passwordPlaceholder": "請輸入密碼",
+    "email": "電子郵件",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "請輸入有效的電子郵件地址。",
     "showPassword": "顯示密碼",
     "hidePassword": "隱藏密碼",
     "logIn": "登入",
@@ -1982,7 +1985,15 @@ export const zh_TW: EnTranslations = {
     "create": "建立",
     "twoFactorLabel": "驗證碼",
     "twoFactorPlaceholder": "6 位數驗證碼或復原碼",
-    "twoFactorHint": "請輸入驗證器應用程式顯示的驗證碼，或其中一組復原碼。"
+    "twoFactorHint": "請輸入驗證器應用程式顯示的驗證碼，或其中一組復原碼。",
+    "recovery": {
+      "title": "新增復原電子郵件",
+      "body": "設定一個電子郵件地址，以便您可以復原自己的帳號。我們僅在您需要重設密碼時，用它來確認您是本帳號的擁有者。",
+      "save": "儲存電子郵件",
+      "logOut": "Log out",
+      "invalid": "請輸入有效的電子郵件地址。",
+      "failed": "無法儲存您的電子郵件，請重試。"
+    }
   },
   "wallet": {
     "label": "$WOC 錢包",

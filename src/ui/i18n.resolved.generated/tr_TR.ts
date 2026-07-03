@@ -1957,6 +1957,9 @@ export const tr_TR: EnTranslations = {
     "password": "Parola",
     "passwordError": "Lütfen parolanı gir.",
     "passwordPlaceholder": "Parola gir",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "Please enter a valid email address.",
     "showPassword": "Parolayı göster",
     "hidePassword": "Parolayı gizle",
     "logIn": "Giriş Yap",
@@ -1982,7 +1985,15 @@ export const tr_TR: EnTranslations = {
     "create": "Oluştur",
     "twoFactorLabel": "Kimlik doğrulama kodu",
     "twoFactorPlaceholder": "6 haneli ya da kurtarma kodu",
-    "twoFactorHint": "Kimlik doğrulama uygulamandaki kodu ya da kurtarma kodlarından birini gir."
+    "twoFactorHint": "Kimlik doğrulama uygulamandaki kodu ya da kurtarma kodlarından birini gir.",
+    "recovery": {
+      "title": "Add a recovery email",
+      "body": "Set an email address so you can recover your account. We only use it to confirm you own this account if you ever need to reset your password.",
+      "save": "Save email",
+      "logOut": "Log out",
+      "invalid": "Please enter a valid email address.",
+      "failed": "Could not save your email. Please try again."
+    }
   },
   "wallet": {
     "label": "$WOC Cüzdanı",

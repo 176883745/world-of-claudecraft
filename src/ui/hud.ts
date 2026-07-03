@@ -110,7 +110,11 @@ import {
   ITEM_ICON_PREFIX,
 } from './action_bar_view';
 import { ArenaWindow } from './arena_window';
-import { abilityStartsAutoAttack, hasAutoAttackTarget } from './attack_on_ability';
+import {
+  abilityStartsAutoAttack,
+  deferAutoAttackUntilCastEnd,
+  hasAutoAttackTarget,
+} from './attack_on_ability';
 import { type AuraEffectInput, auraEffectDescriptor } from './aura_effect';
 import { AurasPainter, type AurasPainterDeps } from './auras_painter';
 import { type AurasDeps, createAurasView } from './auras_view';
@@ -2587,6 +2591,11 @@ export class Hud {
       repaintPortrait: () => this.drawTargetPortrait(),
     },
   );
+  // Deferred "Auto-Attack on Ability Use" for TIMED casts: set by castSlot when
+  // the QoL would engage but the ability has a cast time, consumed by the
+  // castStop event (engage on success, drop on interrupt), so starting a Smite
+  // never aggros the target before its damage lands.
+  private pendingAutoAttackOnCastEnd = false;
   // The party frames are N further instances of the unit_frame family, one per
   // member, behind a keyed node pool that replaces the old per-rebuild innerHTML wipe
   // + click/contextmenu re-attach. The pool owns #party-frames; updatePartyFrames
@@ -3847,7 +3856,16 @@ export class Hud {
             abilityStartsAutoAttack(resolved.effects) &&
             hasAutoAttackTarget(target)
           ) {
-            this.sim.startAutoAttack();
+            // A TIMED cast must not engage yet: startAutoAttack aggros the target
+            // immediately, so engaging at cast start pulled the mob before any
+            // damage existed (the aggro-before-damage bug). Defer to the
+            // successful castStop (handled in the events switch); instants keep
+            // engaging at once since their damage lands this same tick.
+            if (deferAutoAttackUntilCastEnd(resolved.castTime)) {
+              this.pendingAutoAttackOnCastEnd = true;
+            } else {
+              this.sim.startAutoAttack();
+            }
           }
         }
         this.flashActionSlot(barSlot);
@@ -6986,6 +7004,19 @@ export class Hud {
         case 'castStart':
           break; // cast-loop SFX is spatial now (see playEventSfx)
         case 'castStop':
+          // Deferred "Auto-Attack on Ability Use" (timed casts): engage only when
+          // the player's own cast COMPLETES, so the aggro happens as the damage
+          // lands, never at cast start (the aggro-before-damage bug). An
+          // interrupted/canceled cast just drops the pending engage; the target
+          // is re-validated since the cast itself may have killed or cleared it.
+          if (ev.entityId === sim.playerId && this.pendingAutoAttackOnCastEnd) {
+            this.pendingAutoAttackOnCastEnd = false;
+            if (ev.success) {
+              const castTid = sim.player.targetId;
+              const castTarget = castTid !== null ? (sim.entities.get(castTid) ?? null) : null;
+              if (hasAutoAttackTarget(castTarget)) this.sim.startAutoAttack();
+            }
+          }
           break;
         case 'aura': {
           const tgt = sim.entities.get(ev.targetId);

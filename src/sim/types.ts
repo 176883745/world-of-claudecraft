@@ -1110,6 +1110,13 @@ export interface AbilityDef {
   cooldown: number; // seconds, 0 = none (GCD only)
   range: number; // yards; 0 = melee range
   minRange?: number;
+  // The attack travels to its target as a projectile, so its damage and effects
+  // resolve when the bolt LANDS (projectile_travel), not at cast completion. Every
+  // non-physical spell is a projectile by convention (keyed off school in
+  // casting_lifecycle); a PHYSICAL ranged shot (hunter Aimed / Concussive Shot) must
+  // set this explicitly, or it would deal its damage instantly while the arrow is
+  // still visibly in flight. Melee physical attacks leave it unset.
+  projectile?: boolean;
   school: 'physical' | 'fire' | 'frost' | 'arcane' | 'shadow' | 'holy' | 'nature';
   // Damage scaling source for the flat directDamage / DoT / AoE riders. Default:
   // non-physical damage scales with Spell Power; physical damage scales with melee

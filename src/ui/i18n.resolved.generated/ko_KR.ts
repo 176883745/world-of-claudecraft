@@ -1957,6 +1957,9 @@ export const ko_KR: EnTranslations = {
     "password": "비밀번호",
     "passwordError": "비밀번호를 입력해 주세요.",
     "passwordPlaceholder": "비밀번호 입력",
+    "email": "이메일",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "유효한 이메일 주소를 입력하세요.",
     "showPassword": "비밀번호 표시",
     "hidePassword": "비밀번호 숨기기",
     "logIn": "로그인",
@@ -1982,7 +1985,15 @@ export const ko_KR: EnTranslations = {
     "create": "생성",
     "twoFactorLabel": "인증 코드",
     "twoFactorPlaceholder": "6자리 또는 복구 코드",
-    "twoFactorHint": "인증 앱에 표시된 코드 또는 복구 코드 중 하나를 입력하세요."
+    "twoFactorHint": "인증 앱에 표시된 코드 또는 복구 코드 중 하나를 입력하세요.",
+    "recovery": {
+      "title": "복구 이메일 추가",
+      "body": "계정을 복구할 수 있도록 이메일 주소를 설정하세요. 비밀번호를 재설정해야 할 경우 이 계정의 소유자임을 확인하는 용도로만 사용됩니다.",
+      "save": "이메일 저장",
+      "logOut": "Log out",
+      "invalid": "유효한 이메일 주소를 입력하세요.",
+      "failed": "이메일을 저장하지 못했습니다. 다시 시도해 주세요."
+    }
   },
   "wallet": {
     "label": "$WOC 지갑",

@@ -10,6 +10,15 @@
 
 export const pending: Record<string, readonly string[]> = {
   "es": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -29,6 +38,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "es_ES": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -48,6 +66,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "fr_FR": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -67,6 +94,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "fr_CA": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -87,6 +123,15 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "en_CA": [],
   "it_IT": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -106,6 +151,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "de_DE": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -124,11 +178,32 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.totalPlayers",
     "wallet.extensionHelp"
   ],
-  "zh_CN": [],
-  "zh_TW": [],
-  "ko_KR": [],
-  "ja_JP": [],
+  "zh_CN": [
+    "auth.emailPlaceholder",
+    "auth.recovery.logOut"
+  ],
+  "zh_TW": [
+    "auth.emailPlaceholder",
+    "auth.recovery.logOut"
+  ],
+  "ko_KR": [
+    "auth.emailPlaceholder",
+    "auth.recovery.logOut"
+  ],
+  "ja_JP": [
+    "auth.emailPlaceholder",
+    "auth.recovery.logOut"
+  ],
   "pt_BR": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -147,8 +222,20 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.totalPlayers",
     "wallet.extensionHelp"
   ],
-  "ru_RU": [],
+  "ru_RU": [
+    "auth.emailPlaceholder",
+    "auth.recovery.logOut"
+  ],
   "nl_NL": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -168,6 +255,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "pl_PL": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -187,6 +283,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "id_ID": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -206,6 +311,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "tr_TR": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -225,6 +339,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "sv_SE": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -244,6 +367,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "vi_VN": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",
@@ -263,6 +395,15 @@ export const pending: Record<string, readonly string[]> = {
     "wallet.extensionHelp"
   ],
   "da_DK": [
+    "auth.email",
+    "auth.emailError",
+    "auth.emailPlaceholder",
+    "auth.recovery.body",
+    "auth.recovery.failed",
+    "auth.recovery.invalid",
+    "auth.recovery.logOut",
+    "auth.recovery.save",
+    "auth.recovery.title",
     "entities.quests.q_old_cragmaw.completion",
     "entities.quests.q_old_cragmaw.objectives.0.label",
     "entities.quests.q_old_cragmaw.text",

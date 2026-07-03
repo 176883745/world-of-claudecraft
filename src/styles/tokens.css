@@ -65,6 +65,7 @@
     --color-gold: var(--gold);
     --color-accent: var(--gold);
     --color-text-overlay: #f4eede;
+    --text-outline-color: #000000;
     --panel-edge: #08080d;
     --color-text-error: #ff8f85;
     --color-text-success: #7fdc4f;

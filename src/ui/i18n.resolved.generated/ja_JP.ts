@@ -1957,6 +1957,9 @@ export const ja_JP: EnTranslations = {
     "password": "パスワード",
     "passwordError": "パスワードを入力してください。",
     "passwordPlaceholder": "パスワードを入力",
+    "email": "メールアドレス",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "有効なメールアドレスを入力してください。",
     "showPassword": "パスワードを表示",
     "hidePassword": "パスワードを非表示",
     "logIn": "ログイン",
@@ -1982,7 +1985,15 @@ export const ja_JP: EnTranslations = {
     "create": "作成",
     "twoFactorLabel": "認証コード",
     "twoFactorPlaceholder": "6桁のコードまたはリカバリーコード",
-    "twoFactorHint": "認証アプリに表示されたコード、またはリカバリーコードのいずれかを入力してください。"
+    "twoFactorHint": "認証アプリに表示されたコード、またはリカバリーコードのいずれかを入力してください。",
+    "recovery": {
+      "title": "復旧用メールアドレスを追加",
+      "body": "メールアドレスを設定すると、アカウントを復旧できるようになります。パスワードのリセットが必要になった際に、このアカウントの所有者であることを確認するためだけに使用します。",
+      "save": "メールを保存",
+      "logOut": "Log out",
+      "invalid": "有効なメールアドレスを入力してください。",
+      "failed": "メールアドレスを保存できませんでした。もう一度お試しください。"
+    }
   },
   "wallet": {
     "label": "$WOC ウォレット",

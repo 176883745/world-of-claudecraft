@@ -2545,16 +2545,19 @@
   body.compact-chat #chatlog-frame {
     height: 120px;
   }
-  /* High-Contrast Text, thicker dark outline behind HUD labels. */
+  /* High-Contrast Text, thicker outline behind HUD labels. The outline color
+     (--text-outline-color) is theme-aware: it sits on the opposite side of the
+     panel's lightness from the body text, so it sharpens the glyph edge
+     instead of blurring into it on light panels like Parchment. */
   body.high-contrast-text .chat-pane div,
   body.high-contrast-text .panel,
   body.high-contrast-text .set-name,
   body.high-contrast-text .tt-stat,
   body.high-contrast-text .tt-desc {
     text-shadow:
-      0 0 2px #000,
-      1px 1px 2px #000,
-      -1px -1px 2px #000;
+      0 0 2px var(--text-outline-color, #000),
+      1px 1px 2px var(--text-outline-color, #000),
+      -1px -1px 2px var(--text-outline-color, #000);
   }
   /* Reduce Motion, drop HUD animations/transitions (mirrors prefers-reduced-motion). */
   body.reduce-motion .fct {

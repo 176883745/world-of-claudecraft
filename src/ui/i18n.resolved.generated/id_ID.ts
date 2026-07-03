@@ -1957,6 +1957,9 @@ export const id_ID: EnTranslations = {
     "password": "Kata Sandi",
     "passwordError": "Silakan masukkan kata sandimu.",
     "passwordPlaceholder": "Masukkan kata sandi",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "Please enter a valid email address.",
     "showPassword": "Tampilkan kata sandi",
     "hidePassword": "Sembunyikan kata sandi",
     "logIn": "Masuk",
@@ -1982,7 +1985,15 @@ export const id_ID: EnTranslations = {
     "create": "Buat",
     "twoFactorLabel": "Kode autentikasi",
     "twoFactorPlaceholder": "Kode 6 digit atau pemulihan",
-    "twoFactorHint": "Masukkan kode dari aplikasi autentikatormu, atau salah satu kode pemulihanmu."
+    "twoFactorHint": "Masukkan kode dari aplikasi autentikatormu, atau salah satu kode pemulihanmu.",
+    "recovery": {
+      "title": "Add a recovery email",
+      "body": "Set an email address so you can recover your account. We only use it to confirm you own this account if you ever need to reset your password.",
+      "save": "Save email",
+      "logOut": "Log out",
+      "invalid": "Please enter a valid email address.",
+      "failed": "Could not save your email. Please try again."
+    }
   },
   "wallet": {
     "label": "Dompet $WOC",

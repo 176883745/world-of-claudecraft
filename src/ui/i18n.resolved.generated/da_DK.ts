@@ -1957,6 +1957,9 @@ export const da_DK: EnTranslations = {
     "password": "Adgangskode",
     "passwordError": "Indtast venligst din adgangskode.",
     "passwordPlaceholder": "Indtast adgangskode",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "Please enter a valid email address.",
     "showPassword": "Vis adgangskode",
     "hidePassword": "Skjul adgangskode",
     "logIn": "Log ind",
@@ -1982,7 +1985,15 @@ export const da_DK: EnTranslations = {
     "create": "Opret",
     "twoFactorLabel": "Autentificeringskode",
     "twoFactorPlaceholder": "6-cifret eller gendannelseskode",
-    "twoFactorHint": "Indtast koden fra din autentificeringsapp eller en af dine gendannelseskoder."
+    "twoFactorHint": "Indtast koden fra din autentificeringsapp eller en af dine gendannelseskoder.",
+    "recovery": {
+      "title": "Add a recovery email",
+      "body": "Set an email address so you can recover your account. We only use it to confirm you own this account if you ever need to reset your password.",
+      "save": "Save email",
+      "logOut": "Log out",
+      "invalid": "Please enter a valid email address.",
+      "failed": "Could not save your email. Please try again."
+    }
   },
   "wallet": {
     "label": "$WOC-pung",

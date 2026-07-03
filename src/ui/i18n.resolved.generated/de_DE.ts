@@ -1957,6 +1957,9 @@ export const de_DE: EnTranslations = {
     "password": "Passwort",
     "passwordError": "Bitte gib dein Passwort ein.",
     "passwordPlaceholder": "Passwort eingeben",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "Please enter a valid email address.",
     "showPassword": "Passwort anzeigen",
     "hidePassword": "Passwort ausblenden",
     "logIn": "Einloggen",
@@ -1982,7 +1985,15 @@ export const de_DE: EnTranslations = {
     "create": "Erstellen",
     "twoFactorLabel": "Authentifizierungscode",
     "twoFactorPlaceholder": "6-stelliger Code oder Wiederherstellungscode",
-    "twoFactorHint": "Gib den Code aus deiner Authentifizierungs-App ein oder einen deiner Wiederherstellungscodes."
+    "twoFactorHint": "Gib den Code aus deiner Authentifizierungs-App ein oder einen deiner Wiederherstellungscodes.",
+    "recovery": {
+      "title": "Add a recovery email",
+      "body": "Set an email address so you can recover your account. We only use it to confirm you own this account if you ever need to reset your password.",
+      "save": "Save email",
+      "logOut": "Log out",
+      "invalid": "Please enter a valid email address.",
+      "failed": "Could not save your email. Please try again."
+    }
   },
   "wallet": {
     "label": "$WOC-Wallet",

@@ -80,6 +80,7 @@ import {
   recordInGameAction,
 } from './moderation_db';
 import { type ModerationHost, ModerationService } from './moderation_service';
+import { consumeMsgToken, createMsgRateBucket, type MsgRateBucketState } from './msg_rate_limit';
 import { nextRaidResetMs } from './raid_reset';
 import { REALM, REALM_PUBLIC_ORIGIN, REALM_RESET_TIME_ZONE } from './realm';
 import { createSerialWriter } from './serial_writer';
@@ -336,6 +337,10 @@ export interface ClientSession {
   chatLastRateError: number;
   chatRateViolations: number;
   chatCooldownUntil: number;
+  // Global inbound-message token bucket (#978): covers every frame (input,
+  // cast, cmd, ...), separate from the chat-only bucket above, so a client
+  // flooding non-chat frames is throttled/kicked instead of processed unconditionally.
+  msgRate: MsgRateBucketState;
   chatMutedUntil: number | null;
   chatMuteReason: string;
   // Hard-word enforcement strike count driving the mute ladder. Account-scoped:
@@ -1491,6 +1496,7 @@ export class GameServer {
       chatLastRateError: 0,
       chatRateViolations: 0,
       chatCooldownUntil: 0,
+      msgRate: createMsgRateBucket(Date.now() / 1000),
       chatMutedUntil: meta.mutedUntil ? new Date(meta.mutedUntil).getTime() : null,
       chatMuteReason: meta.reason ?? '',
       chatStrikes: meta.chatStrikes ?? 0,
@@ -2123,6 +2129,12 @@ export class GameServer {
 
   handleMessage(session: ClientSession, raw: string): void {
     const receivedAtMs = Date.now();
+    const verdict = consumeMsgToken(session.msgRate, receivedAtMs / 1000);
+    if (verdict === 'kick') {
+      void this.kickSession(session, 'rejected by server', 'moderation action');
+      return;
+    }
+    if (verdict === 'drop') return;
     let msg: unknown;
     try {
       msg = JSON.parse(raw);

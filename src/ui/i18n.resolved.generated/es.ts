@@ -1957,6 +1957,9 @@ export const es: EnTranslations = {
     "password": "Contraseña",
     "passwordError": "Por favor, introduce tu contraseña.",
     "passwordPlaceholder": "Introduce tu contraseña",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "emailError": "Please enter a valid email address.",
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña",
     "logIn": "Iniciar Sesión",
@@ -1982,7 +1985,15 @@ export const es: EnTranslations = {
     "create": "Crear",
     "twoFactorLabel": "Código de autenticación",
     "twoFactorPlaceholder": "Código de 6 dígitos o de recuperación",
-    "twoFactorHint": "Introduce el código de tu app de autenticación, o uno de tus códigos de recuperación."
+    "twoFactorHint": "Introduce el código de tu app de autenticación, o uno de tus códigos de recuperación.",
+    "recovery": {
+      "title": "Add a recovery email",
+      "body": "Set an email address so you can recover your account. We only use it to confirm you own this account if you ever need to reset your password.",
+      "save": "Save email",
+      "logOut": "Log out",
+      "invalid": "Please enter a valid email address.",
+      "failed": "Could not save your email. Please try again."
+    }
   },
   "wallet": {
     "label": "Cartera $WOC",
