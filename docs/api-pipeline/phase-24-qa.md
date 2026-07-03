@@ -24,6 +24,14 @@ Have it summarize:
 - docs/api-pipeline/state.md and docs/api-pipeline/progress.md (what Phase 24 claims it landed).
 - docs/api-pipeline/phase-24-config-timeouts.md (the acceptance criteria and stopping rules to verify against).
 - The Phase 24 git diff: `git diff main...HEAD -- server/http/config.ts server/main.ts server/ratelimit.ts server/ratelimit_db.ts server/http/middleware/ tests/server/` (and any other path the diff actually touches; first run `git diff --name-only main...HEAD` and feed the real list).
+- PREMISE CORRECTION (2026-07-03, second v0.20.0 merge 64392ada2): `main...HEAD` now contains
+  BOTH v0.20.0 release-merge slices, so the raw range includes release content this packet's
+  premises predate: src/sim/game_config.ts (a sim change), the game_config_overrides JSONB DDL,
+  and the housekeeping family. Scope the Phase 24 verification to the phase's own commits
+  (67c14b6d4, b34680676, e215d0bf9 plus their fix-ups), or exclude the two merge commits
+  (c916d296a, 64392ada2) and their reconciliation from the diff before auditing. The merged
+  release content has its own gates (the release CI plus the release-merge audits recorded in
+  progress.md) and is NOT in this packet's scope.
 The Explore agent must return: the final loadConfig(env) signature + every validation it does; the boot call site and whether config is read exactly once; the four startServer timeout assignments and their constant values; the consolidated named-constant block and which POLICIES fields now derive from it; the perf gate constants and test; and a list of any remaining process.env reads on the boot/request path.
 
 STEP 2 - QA AUDIT (fan out; give each agent ONLY the Explore summary plus the diff)
@@ -33,7 +41,7 @@ STEP 2 - QA AUDIT (fan out; give each agent ONLY the Explore summary plus the di
 - Domain review agents (ONLY those whose surface the diff touches; run `git diff --name-only` first):
   - `privacy-security-review`: server/ boot config, the fail-fast required-env handling, the limiter DSN, and the guard that the dispatch flag cannot silently select the un-hardened OLD path in prod. Prompt for COVERAGE (every gap with confidence + severity), not filtering.
   - `qa-checklist`: the end-of-contribution gate.
-  Do NOT dispatch migration-safety, cross-platform-sync, or architecture-reviewer (no DDL/JSONB, no IWorld/sim/wire/matcher/RL, no src/sim change). If any agent's output is truncated, instruct it: "resume from the last complete finding; do not restart."
+  Do NOT dispatch migration-safety, cross-platform-sync, or architecture-reviewer (no DDL/JSONB, no IWorld/sim/wire/matcher/RL, no src/sim change IN THE PHASE-SCOPED DIFF; the raw main...HEAD range does contain release-merge sim/DDL content, which is out of this packet's scope per the premise correction above). If any agent's output is truncated, instruct it: "resume from the last complete finding; do not restart."
 
 STEP 3 - FIX (apply BLOCKING + SHOULD-FIX from the audit)
 - Apply every BLOCKING finding and every reasonable SHOULD-FIX. Defer NICE-TO-HAVE with a one-line note.

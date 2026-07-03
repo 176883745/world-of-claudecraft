@@ -37,7 +37,7 @@ STEP 0 - PRE-FLIGHT
 
 STEP 1 - LOAD CONTEXT (do NOT read planning docs directly; spawn ONE Explore agent)
 Have the Explore agent read and summarize, anchored on SYMBOL NAMES and route strings (never line
-numbers; main.ts is ~2080 lines):
+numbers; main.ts is ~2200 lines after the two v0.20.0 merges):
 - docs/api-pipeline/state.md and docs/api-pipeline/progress.md (the running ledger: which phases
   landed, the accumulated knownDeviation list, the deferred-items list).
 - docs/api-pipeline/phase-25-docs-flag-flip.md (this file).
@@ -112,10 +112,18 @@ give each ONLY the Explore summary (not the raw files):
     metric label for N days and zero unexplained 404 delta), a threshold, and a named owner,
     tracked as a next-release follow-up PR. The old ladder is RETAINED this phase. The criteria
     MUST carve out the deliberately delegate-served shapes, which legitimately keep the old-path
-    label warm under flag 'new' (the oauthInternalOffTable405 set, HEAD-to-GET delegation, and
-    any 18b off-table remainder); a naive zero-requests gate is unreachable otherwise. Also name
+    label warm under flag 'new' (the oauthInternalOffTable405 set, HEAD-to-GET delegation, any
+    18b off-table remainder, and the v0.20.0 housekeeping in-family shapes: an unknown
+    /admin/api/housekeeping/ sub-path or a non-GET/POST method has no RouteDef, so it delegates
+    to the ladder where admin auth 401 precedes the sub-dispatcher's in-family 404/405; at the
+    deletion these flip to the table's pre-auth 404/405, the planned405BeforeAuth class, and the
+    housekeeping HEAD shape flips from that post-auth 405 to a GET-served response, not from
+    404); a naive zero-requests gate is unreachable otherwise. Also name
     the expiry of the Phase 18/18b dual-edit MAINTENANCE RULE (ladder branch + RouteDef twin) as
-    part of the deletion follow-up.
+    part of the deletion follow-up. Housekeeping unit-test seam note for this phase's docs: the
+    migrated housekeeping handlers reach Postgres via housekeeping_db directly (not the Phase 17
+    setAdminDbForTests bundle); a future pool-less dispatcher-level test of that family must
+    vi.mock housekeeping_db instead.
 There is no documented a/b split for this phase. It is low context; do not split.
 
 INVARIANTS THIS PHASE MUST KEEP
@@ -141,10 +149,13 @@ OUT OF SCOPE (do not do these here)
 - DELETING the old ladder. This phase only NAMES the exit criteria; the deletion is a separate
   next-release PR.
 - Migrating, adding, or changing any endpoint (all domains migrated in Phases 10 to 18 plus the
-  Phase 18b late arrivals: github, desktop-login, daily-rewards, plus the FOUR routes migrated
-  inside the v0.20.0 merge commit c916d296a itself: account email/set-initial, the daily-rewards
-  leaderboard pair, and admin detection-calibration; a provenance sweep should attribute those
-  four to the merge, they have no owning phase). The scaffold emits a STUB only.
+  Phase 18b late arrivals: github, desktop-login, daily-rewards, plus FOURTEEN routes migrated
+  inside the two v0.20.0 merge commits themselves: c916d296a brought account email/set-initial,
+  the daily-rewards leaderboard pair, and admin detection-calibration; 64392ada2 brought the
+  TEN-route housekeeping family (/admin/api/housekeeping/*, one shared handler calling the
+  handleHousekeepingApi sub-dispatcher whole). The release-merge migrated set is 26 (12 18b +
+  4 + 10); a provenance sweep should attribute the fourteen to their merge commits, they have
+  no owning phase). The scaffold emits a STUB only.
   PRECONDITION: Phase 18b MUST have landed before this phase runs; if any route family in server
   source still lacks either a RouteDef or a recorded permanent-delegate decision, STOP (see the
   stopping rules). The `oauthInternalOffTable405` deviation directs THIS phase to decide the off-table
@@ -153,7 +164,10 @@ OUT OF SCOPE (do not do these here)
   wrong-method 404-vs-405 shape), and phase-18b-late-arrivals.md hands THIS phase the analogous
   post-18b decisions it instructs 18b to record: the daily-rewards prefix-arm oddities (the
   ladder's auth-then-404 on wrong method / unknown subpath / the no-slash '/api/daily-rewardsX'
-  shape) plus the ops family's family-wide pre-path 401.
+  shape) plus the ops family's family-wide pre-path 401. The second v0.20.0 merge (64392ada2)
+  hands over the same decision for the housekeeping in-family shapes (unknown sub-path /
+  non-GET/POST under /admin/api/housekeeping/: auth-then-404/405 today, table pre-auth 404/405
+  after deletion; db-free 401 pins already in parity.test.ts).
 - Changing the dispatch or coexistence model itself (locked in Phase 9), the metrics or logging
   (Phase 23), the config or timeouts or perf gate (Phase 24).
 - The deferred API conventions A (versioning), D (ETag), F (Deprecation/Sunset), G (OpenAPI), and

@@ -259,7 +259,7 @@ The single home is `server/http/types.ts` (TYPE-ONLY, zero runtime emit). Verbat
 - No heavy web framework. Zero new runtime dependencies; the ONE weighed exception is
   `prom-client`, and ONLY when the `/metrics` exporter lands (Phase 23).
 - All `file:line` anchors in the source SPEC (`docs/api-pipeline/source-spec.md`) are STALE
-  (main.ts ~2080 lines as of the v0.20.0 merge). Re-anchor on SYMBOL NAMES and route
+  (main.ts ~2200 lines as of the second v0.20.0 merge, 64392ada2). Re-anchor on SYMBOL NAMES and route
   strings, never line numbers.
 
 ### Target architecture
@@ -650,11 +650,12 @@ the X-ms constant; X is TBD, see open items.)
   UNCODED by decision, matching the Phase 22 adjudication of the sibling 410
   handleAccountSetEmail (flow-control refusals the client handles by flow; a code, e.g.
   email.already_set, can be appended later without breaking the prose fallback).
-  MAINTAINER TO-DO (open until done): commit the private bot_detector overlay's
-  listCalibrationHistograms implementation to the PRIVATE repo; it exists only in this
-  working tree (private/ is gitignored, so no main-repo commit carries it, and any other
-  checkout with the overlay fails tsc/gate on this branch until then). Details at the end
-  of phase-24-config-timeouts.md.
+  MAINTAINER TO-DO RESOLVED (2026-07-03, during Phase 24, with a corrected premise): the
+  private bot_detector repo's main already implemented listCalibrationHistograms (private
+  repo PR #7), so the overlay was refreshed FROM it instead of committing the merge-session
+  stopgap upstream; its environment_probe.test.ts is locally removed (it imports the
+  unshipped src/game/client_env). See the Phase 24 record in progress.md; re-delete that
+  test after any future overlay rsync.
 
 ## New DB tables / columns per phase
 - **P16:** WIRE `DISCORD_SCHEMA` (5 tables: `discord_links`, `discord_oauth_states`,
@@ -738,6 +739,14 @@ the X-ms constant; X is TBD, see open items.)
 - Consolidate every tunable (rate limits + windows, byte caps, page sizes, timeouts, TTLs,
   pool sizes, maxPayload, drain window) into named constants with unit + comment; POLICIES
   values DERIVE from existing constants.
+  ADJUDICATION (2026-07-03, post-P24): the second v0.20.0 merge added a NEW tunables source
+  the P24 inventory predates: src/sim/game_config.ts (TUNING.worldSeed, TUNING.respawnSeconds,
+  DEFAULT_RATES), a sim-side override LAYER applied from the game_config_overrides JSONB row
+  at boot. Adjudicated like msg_rate_limit.ts: it is NOT a POLICIES source and not a
+  consolidation target (its defaults deliberately REPRODUCE the historical literals so an
+  empty override document changes nothing), so P24's "no tunable literal appears twice"
+  acceptance is unaffected; any future audit of server tunables must list it as the third
+  source alongside the named-constant block and msg_rate_limit.ts.
 - Add the perf/tick-jitter acceptance gate (pipeline adds < X ms p99, tick p95 stays under
   0.8 x DT). X-ms constant is TBD (chosen here; see open items).
 
@@ -814,10 +823,15 @@ the X-ms constant; X is TBD, see open items.)
   (reports, characters-POST, wallet-link x2) document the LEGACY arm and mislead once the
   default flips; Phase 25 re-annotates them.
 - **The freshness gate's prefix-delegation blind spot is CLOSED but the lesson stands.**
-  The gate scans DISPATCHER_SOURCES (now five files incl. server/daily_rewards.ts); any
-  future module that matches its own dispatched paths behind a `startsWith` prefix arm MUST
-  be added to that list (and to completeness.test.ts's LEGACY_SOURCE_URLS), or its routes
-  are invisible to every corpus-derived gate exactly as the six daily-rewards routes were.
+  The gate scans DISPATCHER_SOURCES (now five files incl. server/daily_rewards.ts) and,
+  since the second v0.20.0 merge, ALSO counts registered RouteDefs (non-:param registry
+  paths, minus rows flagged unreachable) as source-side dispatch arms. A future module
+  that matches its own dispatched paths behind a `startsWith` prefix arm therefore has two
+  compliant shapes: (a) it compares FULL paths (daily_rewards.ts): add it to
+  DISPATCHER_SOURCES + completeness.test.ts's LEGACY_SOURCE_URLS; or (b) it compares sliced
+  SUFFIXES the text scan cannot see (housekeeping_api.ts): it MUST be router-owned, because
+  only its RouteDefs make it visible to the corpus-derived gates. A suffix-comparing module
+  with NO RouteDefs is invisible exactly as the six daily-rewards routes were.
 - **Phase 9 dispatcher now fronts /api (load-bearing for every migration phase).** The new
   in-house dispatcher (`server/http/dispatch.ts` `createApiDispatcher`) sits in front of the
   legacy `handleApi` via a per-path catch-all delegate, gated by the single `API_DISPATCH`
@@ -849,8 +863,7 @@ the X-ms constant; X is TBD, see open items.)
   rather than becoming a 500. The migration phase MUST keep the per-request onion the sole failure
   channel: the throw-capable work belongs inside `runOnion` (already the case for the handler and
   route middleware), not in the synchronous pre-onion prefix.
-- **Stale anchors.** Every main.ts/db.ts line anchor in the SPEC is stale (main.ts ~2080
-  lines as of the v0.20.0 merge). Re-anchor on symbol names and route strings, never line
+- **Stale anchors.** Every main.ts/db.ts line anchor in the SPEC is stale (main.ts ~2200 lines as of the second v0.20.0 merge, 64392ada2). Re-anchor on symbol names and route strings, never line
   numbers. Phase 03 does the
   re-inventory + a route-count freshness gate; the market/em-dash fixes anchor on function
   names and the literal strings.
