@@ -97,6 +97,7 @@ import {
   GROUND_OBJECTS,
   INSTANCE_SLOT_COUNT,
   ITEMS,
+  isArenaPos,
   isDelvePos,
   MOBS,
   NPCS,
@@ -3122,9 +3123,15 @@ export class Sim {
     cancelCastImpl(this.ctx, p);
   }
 
-  private abilityNeedsLineOfSight(ability: AbilityDef): boolean {
+  private abilityNeedsLineOfSight(ability: AbilityDef, source?: Entity): boolean {
     if (!ability.requiresTarget) return false;
-    return ability.school !== 'physical' || ability.range > MELEE_RANGE;
+    if (ability.school !== 'physical' || ability.range > MELEE_RANGE) return true;
+    // Melee/auto-attack skips line of sight everywhere else (it is always at
+    // point-blank range), but the arena's thin enclosing walls sit well within
+    // MELEE_RANGE: without this, a combatant pressed against a wall can swing
+    // through it at an opponent on the far side. Ranked fairness requires every
+    // attack to respect the same walls movement does inside the pit.
+    return source !== undefined && isArenaPos(source.pos.x);
   }
 
   private hasLineOfSight(source: Entity, target: Entity): boolean {
@@ -3132,7 +3139,7 @@ export class Sim {
   }
 
   private lineOfSightBlocked(source: Entity, target: Entity, ability: AbilityDef): boolean {
-    return this.abilityNeedsLineOfSight(ability) && !this.hasLineOfSight(source, target);
+    return this.abilityNeedsLineOfSight(ability, source) && !this.hasLineOfSight(source, target);
   }
 
   private pushbackCast(p: Entity): void {
@@ -3279,7 +3286,10 @@ export class Sim {
   // `source`. Instantaneous displacement (no aura) walked in small steps so it can
   // be terrain-clamped exactly like a warrior charge — the shove stops at the last
   // safe footing before deep water or a cliff rather than stranding the victim off
-  // the world. Returns the yards actually moved (0 if blocked immediately).
+  // the world. Each step is also collider-swept (resolveMove, the same walker uses)
+  // so a wall (an arena side wall in particular) stops the shove instead of letting
+  // it tunnel through in one coarse hop. Returns the yards actually moved (0 if
+  // blocked immediately).
   private applyKnockback(source: Entity, target: Entity, distance: number): number {
     let dx = target.pos.x - source.pos.x;
     let dz = target.pos.z - source.pos.z;
@@ -3310,17 +3320,21 @@ export class Sim {
       ) {
         break; // would slam into a cliff
       }
-      cx = nx;
-      cz = nz;
+      // resolveMove sweeps cx,cz -> nx,nz against static colliders (walls,
+      // pillars, delve module bounds/doors) in small sub-steps, so a thin wall
+      // stops the shove at its face instead of the coarse 0.5yd hop skipping
+      // over it.
+      const resolved = this.resolveMove(cx, cz, nx, nz, BODY_RADIUS, target);
+      const blocked = Math.hypot(resolved.x - nx, resolved.z - nz) > BODY_RADIUS * 0.25;
+      cx = resolved.x;
+      cz = resolved.z;
       moved += adv;
+      if (blocked) break; // hit a wall: stop the shove here
     }
     if (moved <= 0) return 0;
-    // resolveMovePoint is a no-op wrapper over resolvePosition outside a delve, and
-    // applies the run's module colliders + portcullis doors when target is inside one.
-    const resolved = this.resolveMovePoint(cx, cz, BODY_RADIUS, target);
-    target.pos.x = resolved.x;
-    target.pos.z = resolved.z;
-    target.pos.y = groundHeight(resolved.x, resolved.z, this.cfg.seed);
+    target.pos.x = cx;
+    target.pos.z = cz;
+    target.pos.y = groundHeight(cx, cz, this.cfg.seed);
     target.vy = 0;
     target.onGround = true;
     target.fallStartY = target.pos.y;
