@@ -392,6 +392,7 @@ export const zh_CN: EnTranslations = {
       "showDevBadges": "显示开发者徽章",
       "showOwnNameplate": "显示我的姓名板",
       "uiScale": "界面缩放",
+      "playerFrameScale": "玩家框缩放",
       "highContrastBackground": "高对比度背景",
       "startAttackOnAbility": "使用技能时自动攻击",
       "walkByAutoloot": "路过自动拾取",
@@ -850,6 +851,10 @@ export const zh_CN: EnTranslations = {
     "targetFrame": {
       "unlock": "移动目标框",
       "lock": "锁定目标框"
+    },
+    "playerFrame": {
+      "unlock": "移动玩家框",
+      "lock": "锁定玩家框"
     },
     "itemTooltip": {
       "requiresLevel": "需要等级 {level}"

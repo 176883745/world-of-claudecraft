@@ -365,6 +365,9 @@ export const hudChromeStrings = {
     // Interface panel: global HUD zoom slider, and the mirror of the landing
     // page's high-contrast backdrop toggle.
     uiScale: 'UI Scale',
+    // Interface panel slider: scales just the player unit frame (wordy, M16:
+    // the five non-Latin fills land in this same change).
+    playerFrameScale: 'Player Frame Scale',
     highContrastBackground: 'High-Contrast Background',
     // Interface panel toggle: also engage auto-attack when using an offensive
     // ability, so white swings start without a separate Attack press (on by default).
@@ -951,6 +954,13 @@ export const hudChromeStrings = {
     unlock: 'Move target frame',
     // aria-label / title while UNLOCKED (aria-pressed=true): press to fix it.
     lock: 'Lock target frame',
+  },
+  // Movable player frame: the same MovableFrame corner toggle on #player-frame
+  // (movable_frame.ts). Same shape as targetFrame above; both values are wordy
+  // (M16), filled in the five non-Latin locales in this same change.
+  playerFrame: {
+    unlock: 'Move player frame',
+    lock: 'Lock player frame',
   },
   // Item tooltip: the minimum character level needed to equip a piece (classic
   // "Requires Level N"). Shown red when the viewer is below it. {level} runs

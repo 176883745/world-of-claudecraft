@@ -392,6 +392,7 @@ export const id_ID: EnTranslations = {
       "showDevBadges": "Tampilkan Lencana Pengembang",
       "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Skala UI",
+      "playerFrameScale": "Player Frame Scale",
       "highContrastBackground": "Latar Kontras Tinggi",
       "startAttackOnAbility": "Serangan Otomatis Saat Memakai Kemampuan",
       "walkByAutoloot": "Walk-by Autoloot",
@@ -850,6 +851,10 @@ export const id_ID: EnTranslations = {
     "targetFrame": {
       "unlock": "Move target frame",
       "lock": "Lock target frame"
+    },
+    "playerFrame": {
+      "unlock": "Move player frame",
+      "lock": "Lock player frame"
     },
     "itemTooltip": {
       "requiresLevel": "Membutuhkan Level {level}"

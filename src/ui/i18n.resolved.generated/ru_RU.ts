@@ -392,6 +392,7 @@ export const ru_RU: EnTranslations = {
       "showDevBadges": "Показывать значки разработчика",
       "showOwnNameplate": "Показывать свою табличку с именем",
       "uiScale": "Масштаб интерфейса",
+      "playerFrameScale": "Размер рамки игрока",
       "highContrastBackground": "Фон высокой контрастности",
       "startAttackOnAbility": "Автоатака при использовании способности",
       "walkByAutoloot": "Автосбор добычи при проходе",
@@ -850,6 +851,10 @@ export const ru_RU: EnTranslations = {
     "targetFrame": {
       "unlock": "Переместить рамку цели",
       "lock": "Закрепить рамку цели"
+    },
+    "playerFrame": {
+      "unlock": "Переместить рамку игрока",
+      "lock": "Закрепить рамку игрока"
     },
     "itemTooltip": {
       "requiresLevel": "Требуется уровень {level}"

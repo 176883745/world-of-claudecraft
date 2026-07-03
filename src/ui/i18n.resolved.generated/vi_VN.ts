@@ -392,6 +392,7 @@ export const vi_VN: EnTranslations = {
       "showDevBadges": "Hiện Huy Hiệu Nhà Phát Triển",
       "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Tỷ Lệ Giao Diện",
+      "playerFrameScale": "Player Frame Scale",
       "highContrastBackground": "Nền Tương Phản Cao",
       "startAttackOnAbility": "Tự Đánh Khi Dùng Kỹ Năng",
       "walkByAutoloot": "Walk-by Autoloot",
@@ -850,6 +851,10 @@ export const vi_VN: EnTranslations = {
     "targetFrame": {
       "unlock": "Move target frame",
       "lock": "Lock target frame"
+    },
+    "playerFrame": {
+      "unlock": "Move player frame",
+      "lock": "Lock player frame"
     },
     "itemTooltip": {
       "requiresLevel": "Yêu cầu Cấp {level}"

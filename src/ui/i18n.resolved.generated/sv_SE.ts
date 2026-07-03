@@ -392,6 +392,7 @@ export const sv_SE: EnTranslations = {
       "showDevBadges": "Visa utvecklarmärken",
       "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Gränssnittsskala",
+      "playerFrameScale": "Player Frame Scale",
       "highContrastBackground": "Bakgrund med hög kontrast",
       "startAttackOnAbility": "Automatisk attack vid förmågeanvändning",
       "walkByAutoloot": "Walk-by Autoloot",
@@ -850,6 +851,10 @@ export const sv_SE: EnTranslations = {
     "targetFrame": {
       "unlock": "Move target frame",
       "lock": "Lock target frame"
+    },
+    "playerFrame": {
+      "unlock": "Move player frame",
+      "lock": "Lock player frame"
     },
     "itemTooltip": {
       "requiresLevel": "Kräver nivå {level}"

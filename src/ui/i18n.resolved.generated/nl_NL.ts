@@ -392,6 +392,7 @@ export const nl_NL: EnTranslations = {
       "showDevBadges": "Ontwikkelaarsinsignes tonen",
       "showOwnNameplate": "Show My Nameplate",
       "uiScale": "UI-schaal",
+      "playerFrameScale": "Player Frame Scale",
       "highContrastBackground": "Hoog-contrastachtergrond",
       "startAttackOnAbility": "Auto-aanval bij gebruik van vaardigheid",
       "walkByAutoloot": "Walk-by Autoloot",
@@ -850,6 +851,10 @@ export const nl_NL: EnTranslations = {
     "targetFrame": {
       "unlock": "Move target frame",
       "lock": "Lock target frame"
+    },
+    "playerFrame": {
+      "unlock": "Move player frame",
+      "lock": "Lock player frame"
     },
     "itemTooltip": {
       "requiresLevel": "Vereist niveau {level}"

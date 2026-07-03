@@ -392,6 +392,7 @@ export const it_IT: EnTranslations = {
       "showDevBadges": "Mostra distintivi sviluppatore",
       "showOwnNameplate": "Show My Nameplate",
       "uiScale": "Scala dell'interfaccia",
+      "playerFrameScale": "Player Frame Scale",
       "highContrastBackground": "Sfondo a contrasto elevato",
       "startAttackOnAbility": "Attacco automatico all'uso dell'abilita",
       "walkByAutoloot": "Walk-by Autoloot",
@@ -850,6 +851,10 @@ export const it_IT: EnTranslations = {
     "targetFrame": {
       "unlock": "Move target frame",
       "lock": "Lock target frame"
+    },
+    "playerFrame": {
+      "unlock": "Move player frame",
+      "lock": "Lock player frame"
     },
     "itemTooltip": {
       "requiresLevel": "Richiede livello {level}"
