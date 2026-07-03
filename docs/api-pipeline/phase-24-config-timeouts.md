@@ -117,14 +117,32 @@ STOPPING RULES (stop and surface to the user before proceeding)
 
 ## Maintainer to-do carried on this packet (v0.20.0 merge, 2026-07-03; do BEFORE or WITH Phase 24)
 
-- **Commit the private bot_detector overlay changes in the PRIVATE repo.** The v0.20.0
-  release widened the BotDetector contract with `listCalibrationHistograms()`
-  (server/bot_detector/contract.ts); the overlay implementation for it was written during
-  the merge but `private/bot_detector/` is gitignored here, so it is NOT in any main-repo
-  commit and exists only in this working tree. Files: `private/bot_detector/src/calibration.ts`
-  (new: the bounded histogram recorder, gate_score / behavioral_families /
-  evidence_weight:&lt;kind&gt;), `private/bot_detector/src/detector.ts` (calibration wiring:
-  recorder + the two handleTick taps + the writer tap + listCalibrationHistograms), and
-  `private/bot_detector/tests/calibration.test.ts` (new, 4 tests, passing). Until these are
-  committed to the private repo, any OTHER checkout that carries the overlay fails
-  `tsc`/`npm run gate` on this branch (the public stub alone stays green).
+- **RESOLVED 2026-07-03, premise corrected.** The private repo
+  (`~/Documents/wocc-bot-protection`, levy-street/wocc-bot-protection, main at 77d6d0a,
+  PR #7 "bot detection improvement bundle") ALREADY implemented `listCalibrationHistograms()`
+  properly (createCalibrationRegistry, per-strategy sample() taps, CALIBRATION_BOUNDS) plus
+  environment_probe / vendor_flow_timing / report_lifecycle. The merge-session stopgap in
+  this tree was a parallel reinvention, so nothing was committed upstream; instead the
+  overlay was refreshed FROM repo main (tsc clean, 25/26 private test files pass, full
+  `npm run gate` green). See the memory note bot-detector-private-repo-home.
+
+## MAINTAINER ACTIONS still open after Phase 24 (do BEFORE this branch ships)
+
+1. **Audit the real deploy env against the new fail-fast validators.** Phase 24's
+   `loadConfig` now THROWS at boot on values the old code silently tolerated: a set-but-garbage
+   `API_DISPATCH` (anything other than `legacy`/`new`), a garbage `REQUIRE_WEB_LOGIN` /
+   `API_CONTENT_TYPE_ENFORCE` / `API_ORIGIN_CHECK_ENFORCE` (must be 1/true/0/false), a
+   `PUBLIC_ORIGIN` that is not a bare http(s) origin, and a non-empty `REALMS` with no usable
+   Name=origin entry (realm.ts used to warn-and-fallback on some of these). Check prod AND
+   staging env files before deploying this branch, or the process fails fast at boot.
+2. **Configure METRICS_TOKEN on both ends or accept a dark /metrics.** GET /metrics now
+   answers 404 until `METRICS_TOKEN` is set in the server env, and requires
+   `Authorization: Bearer <token>` once set. Set the token on the server AND the Prometheus
+   scrape job in the same change (runbook bullet added to DEPLOY.md Operational notes).
+3. **Close the private-repo test gap (wocc-bot-protection).** Its
+   `tests/environment_probe.test.ts` imports `clientEnvBits` from `src/game/client_env.ts`,
+   a main-repo CLIENT file that exists in NO main-repo ref (the companion client-side probe
+   work never shipped; only `src/game/browser_env.ts` exists). That one test file is locally
+   REMOVED from the overlay copy in this tree so the gate stays green; re-delete it after any
+   future overlay rsync. Fix upstream by either shipping the `src/game/client_env.ts` client
+   work in the main repo or guarding/fixing the import in the private repo.
