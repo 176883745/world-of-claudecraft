@@ -199,8 +199,8 @@ import { type CraftResult, craftItem as craftItemImpl } from './professions/craf
 import {
   drainGatheringGrants,
   emptyGatheringProficiency,
-  gatherNodeById,
   gatheringSkillsView,
+  gatherNodeById,
   harvestNode as harvestNodeImpl,
   isNodeHarvestableBy,
   normalizeGatheringProficiency,

@@ -151,7 +151,6 @@ export const TOOL_EFFECT_IDS: ToolEffectId[] = [
 // exact patterns/measurements; Cross-cutting: crafts that touch every other craft's
 // output). Flag any correction needed once the doc is reachable.
 
-
 export type CraftPole = 'Material' | 'Experimental' | 'Formal' | 'Cross-cutting';
 
 export interface CraftDef {
