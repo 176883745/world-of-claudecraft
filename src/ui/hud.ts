@@ -68,9 +68,11 @@ import { type QuestObjectiveRef, questObjectivesForMob } from '../sim/quest_targ
 import type { ResolvedAbility } from '../sim/sim';
 import type {
   AbilityDef,
+  CalendarResultCode,
   EquipSlot,
   InvSlot,
   LootRollChoice,
+  MailResultCode,
   PetMode,
   PlayerClass,
   ResourceType,
@@ -122,6 +124,7 @@ import { AurasPainter, type AurasPainterDeps } from './auras_painter';
 import { type AurasDeps, createAurasView } from './auras_view';
 import { attachAvatarFallback } from './avatar_fallback';
 import { BagsWindow } from './bags_window';
+import { CalendarWindow } from './calendar_window';
 import { CastBarPainter } from './cast_bar_painter';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
 import { CharWindow } from './char_window';
@@ -232,6 +235,8 @@ import { lootSettingsView } from './loot_settings_view';
 import { renderLootSettingsWindow } from './loot_settings_window';
 import { lowHealthVignette } from './low_health';
 import { lowResourceView } from './low_resource';
+import { mailIndicatorView } from './mailbox_view';
+import { MailboxWindow } from './mailbox_window';
 import {
   mapQuestListView,
   parseUntrackedQuests,
@@ -453,6 +458,33 @@ const RESOURCE_LABEL_KEYS: Record<ResourceType, TranslationKey> = {
   mana: 'abilityUi.resources.mana',
   rage: 'abilityUi.resources.rage',
   energy: 'abilityUi.resources.energy',
+};
+// Ravenpost mailResult refusal codes to their toast lines. `sent`/`collected`
+// are successes rendered as chat-log lines in handleEvents, but they map here
+// too so every code resolves without a fallback.
+const MAIL_RESULT_ERROR_KEYS: Record<MailResultCode, TranslationKey> = {
+  sent: 'hudChrome.mailbox.result.sent',
+  collected: 'hudChrome.mailbox.result.collected',
+  tooFar: 'hudChrome.mailbox.result.tooFar',
+  needRecipient: 'hudChrome.mailbox.result.needRecipient',
+  noRecipient: 'hudChrome.mailbox.result.noRecipient',
+  tooManyParcels: 'hudChrome.mailbox.result.tooManyParcels',
+  noMailQuestItems: 'hudChrome.mailbox.result.noMailQuestItems',
+  notEnoughItems: 'hudChrome.mailbox.result.notEnoughItems',
+  cantAffordPostage: 'hudChrome.mailbox.result.cantAffordPostage',
+  recipientBoxFull: 'hudChrome.mailbox.result.recipientBoxFull',
+  letterGone: 'hudChrome.mailbox.result.letterGone',
+  takeParcelsFirst: 'hudChrome.mailbox.result.takeParcelsFirst',
+};
+// Guild calendar outcome lines (created/removed are chat-log successes).
+const CALENDAR_RESULT_KEYS: Record<CalendarResultCode, TranslationKey> = {
+  created: 'hudChrome.calendar.result.created',
+  removed: 'hudChrome.calendar.result.removed',
+  notInGuild: 'hudChrome.calendar.result.notInGuild',
+  notOfficer: 'hudChrome.calendar.result.notOfficer',
+  badInput: 'hudChrome.calendar.result.badInput',
+  calendarFull: 'hudChrome.calendar.result.calendarFull',
+  eventGone: 'hudChrome.calendar.result.eventGone',
 };
 const RAID_MARKER_LABEL_KEYS = [
   'hud.markers.names.star',
@@ -1087,6 +1119,9 @@ export class Hud {
   private meters: Meters;
   private tutorial = new TutorialOverlay();
   private lastPetBarSig = '';
+  // Ravenpost envelope indicator (slow-band, value-diffed; see updateMailIndicator).
+  private mailIndicatorEl: HTMLElement | null = null;
+  private lastMailUnread = -1;
   private pendingPetFeed = false;
   private petModeMenuOpen = false;
   // Talents: the local staged allocation the user edits before committing it on save
@@ -1830,6 +1865,14 @@ export class Hud {
         break;
       case 'market-window':
         this.closeMarket();
+        break;
+      case 'mailbox-window':
+        // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
+        this.mailboxWindow.close();
+        break;
+      case 'calendar-window':
+        // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
+        this.calendarWindow.close();
         break;
       case 'arena-window':
         // Route through the painter so focus returns to the opener (WCAG 2.2 AA),
@@ -2962,10 +3005,12 @@ export class Hud {
     vendorOpen: () => this.vendorOpen,
     tradeOpen: () => this.tradeOpen,
     isMarketSell: () => this.marketWindow.isSellTab,
+    isMailAttach: () => this.mailboxWindow.isSendTab,
     pendingPetFeed: () => this.pendingPetFeed,
     closeVendor: () => this.closeVendor(),
     addItemToTrade: (itemId) => this.addItemToTrade(itemId),
     stageMarketSell: (itemId) => this.marketWindow.stageSell(itemId),
+    stageMailParcel: (itemId) => this.mailboxWindow.stageParcel(itemId),
     insertItemChatLink: (itemId) => this.insertItemChatLink(itemId),
     showError: (text) => this.showError(text),
     setPendingPetFeed: (active) => {
@@ -3002,6 +3047,37 @@ export class Hud {
         this.renderBags();
       }
     },
+  });
+  // Ravenpost mailbox window painter (mailbox_view.ts core + mailbox_window.ts
+  // painter). It owns the mailbox view-state (tab, opened letter, staged
+  // parcels); the bags window rides alongside the Send tab and stages parcels
+  // through the same cross-window closures the market Sell tab uses.
+  private readonly mailboxWindow = new MailboxWindow({
+    ...this.presentationBag,
+    root: () => $('#mailbox-window'),
+    world: () => this.sim,
+    closeOthers: () => this.closeOtherWindows('#mailbox-window'),
+    hideTooltip: () => this.hideTooltip(),
+    ...this.windowFocus('#mailbox-window'),
+    showError: (text) => this.showError(text),
+    syncBags: (open) => {
+      if (open) {
+        this.renderBags();
+        $('#bags').style.display = 'flex';
+      } else if ($('#bags').style.display !== 'none') {
+        this.renderBags();
+      }
+    },
+  });
+  // Event calendar window painter (calendar_view.ts month-grid core +
+  // calendar_window.ts painter). System events expand from data rules; guild
+  // events read the socialInfo mirror and book/remove through IWorld.
+  private readonly calendarWindow = new CalendarWindow({
+    root: () => $('#calendar-window'),
+    world: () => this.sim,
+    closeOthers: () => this.closeOtherWindows('#calendar-window'),
+    ...this.windowFocus('#calendar-window'),
+    showError: (text) => this.showError(text),
   });
   // Ashen Coliseum window painter (arena_window_view.ts offline/live model +
   // arena_window.ts painter). It owns the selected bracket, the all-time-ladder
@@ -5370,6 +5446,29 @@ export class Hud {
       if (!this.nearbyMarketNpc()) this.marketWindow.close();
       else this.marketWindow.refreshIfChanged();
     }
+    // The mailbox closes itself when the mail mirror goes null (walked away).
+    if (slowHud && this.mailboxWindow.isOpen) this.mailboxWindow.refreshIfChanged();
+    if (slowHud && this.calendarWindow.isOpen) this.calendarWindow.refreshIfChanged();
+    if (slowHud) this.updateMailIndicator();
+  }
+
+  // The envelope indicator by the minimap: visible while unread letters wait.
+  // Slow-band, value-diffed writes only (mailUnread changes rarely).
+  private updateMailIndicator(): void {
+    const el = this.mailIndicatorEl ?? ($('#mail-indicator') as HTMLElement | null);
+    if (!el) return;
+    this.mailIndicatorEl = el;
+    const view = mailIndicatorView(this.sim.mailUnread);
+    if (view.count === this.lastMailUnread) return;
+    this.lastMailUnread = view.count;
+    const count = formatNumber(view.count, { maximumFractionDigits: 0 });
+    el.hidden = !view.visible;
+    if (view.visible) {
+      const badge = el.querySelector<HTMLElement>('.mail-indicator-count');
+      if (badge) badge.textContent = count;
+      el.setAttribute('aria-label', t('hudChrome.mailbox.indicatorAria', { count }));
+      el.title = t('hudChrome.mailbox.indicatorTip', { count });
+    }
   }
 
   // Classic "low mana/energy" warning: pulse the player resource bar when power
@@ -6924,6 +7023,51 @@ export class Hud {
         case 'skinEvent':
           this.openSkinEvent(ev.rank, ev.catalog === 'mech' ? { mech: true } : undefined);
           break;
+        case 'mailbox':
+          // Keyboard/sim interact at a mailbox object: open the mail window.
+          this.openMailbox();
+          break;
+        case 'mailArrived': {
+          // Player names splice verbatim; authored letters carry their
+          // letterId, so the sender localizes through the entity dictionary
+          // exactly like the mailbox window does.
+          const sender = ev.letterId
+            ? tEntity({ kind: 'letter', id: ev.letterId, field: 'sender' })
+            : ev.senderName;
+          audio.whisper();
+          this.showBanner(t('hudChrome.mailbox.arrivedBanner', { name: sender }));
+          this.log(t('hudChrome.mailbox.arrivedLog', { name: sender }), '#c8f7c5');
+          this.lastMailUnread = -1; // force the envelope indicator to repaint
+          break;
+        }
+        case 'mailResult': {
+          const values = {
+            name: ev.name ?? '',
+            count: formatNumber(ev.value ?? 0, { maximumFractionDigits: 0 }),
+            amount: formatLocalizedMoney(ev.value ?? 0),
+            postage: formatLocalizedMoney(ev.value ?? 0),
+          };
+          if (ev.code === 'sent') {
+            audio.coin();
+            this.log(t('hudChrome.mailbox.result.sent', values), '#c8f7c5');
+          } else if (ev.code === 'collected') {
+            this.log(t('hudChrome.mailbox.result.collected', values), '#c8f7c5');
+          } else {
+            this.showError(t(MAIL_RESULT_ERROR_KEYS[ev.code], values));
+          }
+          this.mailboxWindow.onMailResult(ev.code);
+          this.lastMailUnread = -1;
+          break;
+        }
+        case 'calendarResult': {
+          if (ev.code === 'created' || ev.code === 'removed') {
+            this.log(t(CALENDAR_RESULT_KEYS[ev.code]), '#c8f7c5');
+          } else {
+            this.showError(t(CALENDAR_RESULT_KEYS[ev.code]));
+          }
+          this.calendarWindow.onCalendarResult(ev.code);
+          break;
+        }
         case 'error':
           this.showError(this.localizeErrorText(ev.text));
           break;
@@ -9109,6 +9253,30 @@ export class Hud {
 
   get marketWindowOpen(): boolean {
     return this.marketWindow.isOpen;
+  }
+
+  openMailbox(): void {
+    this.mailboxWindow.open();
+  }
+
+  closeMailbox(): void {
+    this.mailboxWindow.close();
+  }
+
+  get mailboxWindowOpen(): boolean {
+    return this.mailboxWindow.isOpen;
+  }
+
+  toggleCalendar(): void {
+    this.calendarWindow.toggle();
+  }
+
+  closeCalendar(): void {
+    this.calendarWindow.close();
+  }
+
+  get calendarWindowOpen(): boolean {
+    return this.calendarWindow.isOpen;
   }
 
   private nearbyMarketNpc(): Entity | null {
