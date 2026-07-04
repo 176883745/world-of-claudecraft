@@ -122,4 +122,22 @@ describe('corpse harvest: single-use, first-come (#1141)', () => {
     sim.harvestCorpse(mob.id, a);
     expect(mob.harvestClaimedBy).toBeNull();
   });
+
+  it('clears the claim on respawn, so the next corpse is harvestable again', () => {
+    const { sim, internals, mob, a, b } = setup();
+    sim.harvestCorpse(mob.id, a);
+    expect(mob.harvestClaimedBy).toBe(a);
+
+    (sim as unknown as { ctx: { respawnMob(m: Entity): void } }).ctx.respawnMob(mob);
+    expect(mob.harvestClaimedBy).toBeNull();
+
+    mob.dead = true;
+    mob.aiState = 'dead';
+    mob.corpseTimer = 9999;
+    mob.respawnTimer = 9999;
+    internals.entities.set(mob.id, mob);
+
+    sim.harvestCorpse(mob.id, b);
+    expect(mob.harvestClaimedBy).toBe(b);
+  });
 });
