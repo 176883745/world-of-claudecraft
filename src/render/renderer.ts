@@ -1261,6 +1261,8 @@ export class Renderer {
     const gatherNodes = buildGatherNodes(this.sim.cfg.seed);
     setRenderCategory(gatherNodes.group, 'props');
     this.scene.add(gatherNodes.group);
+    // Baked into world space at build with no per-frame update(), same as props.
+    freezeStaticMatrices(gatherNodes.group);
 
     // selection ring — a classic target reticle: a base ring plus four
     // inward-pointing ticks. The base ring is draped over the terrain each
