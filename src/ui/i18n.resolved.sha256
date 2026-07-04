@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 0850814b775b395f2c3e2f1764d8ccb7a6a1c9a6273b40c8b81029ca34ccd31d
 =======
 a1ada6b3bf40734b0a28ceb384f4bb31c83e4d813615e2405de094c71951833b
@@ -17,3 +18,6 @@ d3f0ad93c1011d73a4fb5904505c0c941cc9c72824b72fa232e755d988e3f3a9
 =======
 629e244cc6ae77ef209316b22128a583a5a2f79ae23f99e34f3014b6432d39e4
 >>>>>>> 5dd3f82d (fix(i18n): refresh resolved-table baseline hash after rebase)
+=======
+b0963e75e0efafcf8d4d201b299a20773b665bcf5b0fc75f9a08ba662164c422
+>>>>>>> 7af03fbc (chore(i18n): re-mint resolved-table baseline after v0.20.0 merge)
