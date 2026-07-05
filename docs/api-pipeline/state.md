@@ -1,5 +1,11 @@
 # API Pipeline: cross-phase state (the cheat sheet)
 
+NOTE (packet closure, 2026-07-05): the per-phase working documents this file cites
+(`phase-NN-*.md`, `brainstorm.md`, `implementation-plan.md`) were removed at packet
+closure and live in git history. This file, `progress.md`, `qa-checklist.md`,
+`source-spec.md`, and `phase-20-rollback-runbook.md` are the durable record; shipped
+code and tests point at them, so keep their paths and headings stable.
+
 Authoritative quick-reference for the `docs/api-pipeline/` packet. Every phase file reads
 this first in its Explore step. Source of truth for the locked decisions is the canonical
 block (transcribed below) and the synthesis. When a phase file disagrees with this file,

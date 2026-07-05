@@ -2,8 +2,10 @@
 
 Status board for the 25-phase stacked PR chain that re-architects every JSON
 endpoint on the authoritative game server behind one in-house request pipeline.
-Canonical decisions live in the planning packet (see `state.md` / `README.md`);
-each implementation phase has a `phase-NN-<slug>.md` file and a paired `phase-NN-qa.md`.
+Canonical decisions live in the planning packet (see `state.md` / `README.md`).
+NOTE (packet closure, 2026-07-05): the per-phase `phase-NN-<slug>.md` and
+`phase-NN-qa.md` working documents this file narrates were removed when the packet
+closed; find them in git history. This file and `state.md` are the durable record.
 
 Mark a row's Status as "In progress" or "Done" and fill Started / Completed
 (YYYY-MM-DD) as work lands. Keep deliverable and QA boxes in sync with the PR.
