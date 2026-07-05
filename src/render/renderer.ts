@@ -91,6 +91,7 @@ import { isOwnedPetHostile } from './reaction';
 import { RenderBudgetGovernor, type RenderBudgetState } from './render_budget';
 import { downscaleDims } from './screenshot';
 import { drapeRingLocalY } from './selection_ring';
+import { type SelfMotionFrame, SelfMotionPredictor } from './self_motion';
 import { isSharedGeometry, isSharedMaterial } from './shared_resource';
 import { buildClouds, buildSky, type SkyView } from './sky';
 import { nearestSloppyPickId, type SloppyPickCandidate } from './sloppy_pick';
@@ -227,6 +228,9 @@ const CAMERA_BASE_FOV = 60;
 const CAMERA_MAX_COMP_FOV = 98;
 const SELF_RENDER_SMOOTH_RATE = 30;
 const SELF_RENDER_SNAP_DIST_SQ = 6 * 6;
+// Decay rate of the one-time offset captured when the self-motion predictor
+// takes over from the lead-smoothing path (gone in ~0.3 s, no camera step).
+const SELF_MOTION_HANDOFF_RATE = 15;
 const SUN_HALO_OPACITY = 0.35; // bloom now supplies most of the halo
 // lighting rig (high/ultra) — IBL supplies ambient, sun carries the key
 const HEMI_INTENSITY = 0.45;
@@ -832,6 +836,11 @@ export class Renderer {
   };
   private selfRenderPosition = new THREE.Vector3();
   private selfRenderPositionReady = false;
+  // Online display-only self extrapolation (see src/render/self_motion.ts).
+  // Lazy: offline never passes a SelfMotionFrame, so it is never constructed.
+  private selfMotionPredictor: SelfMotionPredictor | null = null;
+  private selfMotionActive = false;
+  private selfMotionOffset = new THREE.Vector3();
   private lastSelfId: number | null = null;
   // Last yaw applied to the local player while the camera was driving its facing
   // (mouselook / mouse-camera). Null when the override is disengaged, so the next
@@ -3815,7 +3824,13 @@ export class Renderer {
     this.targetCone = { group, pos, localXZ: fan.localXZ, worldXYZ, ringPos, ringXZ, ringWorldXYZ };
   }
 
-  sync(alpha: number, dt: number, renderFacingOverride: number | null, selfAlphaLead = 0): void {
+  sync(
+    alpha: number,
+    dt: number,
+    renderFacingOverride: number | null,
+    selfAlphaLead = 0,
+    selfMotion: SelfMotionFrame | null = null,
+  ): void {
     const totalStart = performance.now();
     let phaseStart = totalStart;
     const framePhaseMs = emptyFramePhaseMs();
@@ -3855,7 +3870,7 @@ export class Renderer {
       this.selfFacingOverride = null;
     }
     const now = performance.now();
-    const selfPos = this.updateSelfRenderPosition(alpha, dt, selfAlphaLead);
+    const selfPos = this.updateSelfRenderPosition(alpha, dt, selfAlphaLead, selfMotion);
     markPhase('setup');
 
     // dynamic worlds: create nearby views lazily and drop views for leavers or
@@ -4766,8 +4781,43 @@ export class Renderer {
     alpha: number,
     dt: number,
     selfAlphaLead: number,
+    selfMotion: SelfMotionFrame | null = null,
   ): THREE.Vector3 {
     const p = this.sim.player;
+    // Online intent-driven extrapolation: when active it owns the position and
+    // the lead-smoothing path below becomes the fallback (both write the same
+    // selfRenderPosition, so enable/disable hands off without a pop, absorbed
+    // by the snap/smooth rules on the next frame).
+    if (selfMotion) {
+      if (!this.selfMotionPredictor) {
+        this.selfMotionPredictor = new SelfMotionPredictor(this.sim.cfg.seed);
+      }
+      const predicted = this.selfMotionPredictor.step(p, selfMotion);
+      if (predicted) {
+        // Follow the predictor output exactly (it is already continuous;
+        // smoothing it again would re-add the display lag this exists to
+        // remove). The only discontinuity is the handoff frame from the
+        // lead-smoothing path below: capture that gap once as an offset and
+        // decay it, so the camera glides instead of stepping.
+        if (this.selfRenderPositionReady && !this.selfMotionActive) {
+          this.selfMotionOffset.set(
+            this.selfRenderPosition.x - predicted.x,
+            this.selfRenderPosition.y - predicted.y,
+            this.selfRenderPosition.z - predicted.z,
+          );
+        }
+        this.selfMotionOffset.multiplyScalar(Math.exp(-SELF_MOTION_HANDOFF_RATE * Math.max(0, dt)));
+        this.selfRenderPosition.set(
+          predicted.x + this.selfMotionOffset.x,
+          predicted.y + this.selfMotionOffset.y,
+          predicted.z + this.selfMotionOffset.z,
+        );
+        this.selfRenderPositionReady = true;
+        this.selfMotionActive = true;
+        return this.selfRenderPosition;
+      }
+    }
+    this.selfMotionActive = false;
     const playerAlpha = selfSnapshotAlpha(alpha, selfAlphaLead);
     const px = p.prevPos.x + (p.pos.x - p.prevPos.x) * playerAlpha;
     const py = p.prevPos.y + (p.pos.y - p.prevPos.y) * playerAlpha;

@@ -99,12 +99,13 @@ import { playerPortraitDataUrl } from './render/characters/portrait';
 import { installWebGLContextRelease } from './render/context_release';
 import { firstRunGraphicsPreset, GFX, graphicsPresetLabel } from './render/gfx';
 import { Renderer } from './render/renderer';
+import type { SelfMotionFrame } from './render/self_motion';
 import { navigatorSaveData } from './render/sky';
 import { desktopBridge } from './runtime';
 import { pathCrossesFence } from './sim/colliders';
 import { isStunned } from './sim/combat/cc';
 import { ABILITIES, CLASSES } from './sim/content/classes';
-import { ITEMS, setActiveWorldContent } from './sim/data';
+import { ITEMS, isDelvePos, setActiveWorldContent } from './sim/data';
 import { canEquipItem } from './sim/equipment_rules';
 import { findPlayerPath, resolvePlayerDestination } from './sim/pathfind';
 import { Sim } from './sim/sim';
@@ -223,6 +224,9 @@ const ATTACK_MOVE_ACQUIRE_RANGE = 12; // yards; an attack-move toward open groun
 // while one of these is up, click-to-move can't make progress, so the destination
 // marker shows a "held" state instead of looking like a stuck game.
 const IMMOBILE_AURA_KINDS = new Set(['stun', 'root', 'incapacitate', 'polymorph']);
+// Live-ops escape hatch for the online display-only self extrapolation
+// (src/render/self_motion.ts): ?nopredict restores the pre-prediction behavior.
+const SELF_MOTION_DISABLED = new URLSearchParams(location.search).has('nopredict');
 const IMMOBILE_NOTE_THROTTLE_MS = 1200; // min gap between "Can't move!" floats while held
 const HOMEPAGE_MUSIC_MUTED_KEY = 'woc_homepage_music_muted';
 const HOMEPAGE_MUSIC_VOLUME = 0.225;
@@ -2430,6 +2434,26 @@ async function startGame(
       serverFacing: interpServerFacing,
       frameDt,
     });
+    // Display-only self extrapolation (src/render/self_motion.ts). Off while
+    // spectating, corpse-frozen, or CC'd (playerImmobilized covers stun/root/
+    // incapacitate/polymorph, and fear is a fear_incap incapacitate aura; the
+    // fear steer and the charge/follow modes run server-side only), and inside
+    // a delve (the portcullis door clamps are not mirrored client-side).
+    const selfMotion: SelfMotionFrame | null = SELF_MOTION_DISABLED
+      ? null
+      : {
+          enabled:
+            net.spectating === null &&
+            !movementFrozen() &&
+            !playerImmobilized() &&
+            !isDelvePos(pe.pos.x),
+          moveInput: resolved.mi,
+          displayFacing: netFacing ?? kbFacing ?? interpServerFacing,
+          echoMs: onlineInputEchoMs,
+          jitterMs: onlineJitterMs,
+          alpha,
+          frameDt,
+        };
     perf.trace('camera.follow', () => updateCamera(frameDt, kbFacing ?? interpServerFacing), {
       mode: 'online',
       alpha,
@@ -2450,6 +2474,7 @@ async function startGame(
             frameDt,
             net.spectating === null ? (movementFacing ?? kbFacing) : null,
             adaptiveSelfAlphaLead(onlineInputEchoMs, onlineJitterMs, net.snapInterval),
+            selfMotion,
           ),
         {
           mode: 'online',
