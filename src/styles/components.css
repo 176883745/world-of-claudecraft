@@ -5225,6 +5225,30 @@
     outline-offset: 1px;
     border-color: var(--color-border-focus);
   }
+  /* Recipient field autocomplete: relative wrapper anchors the listbox below the
+     input. Reuses .soc-sugg-item / .soc-suggest visual tokens from the social panel
+     so no new design-system surface is introduced. */
+  .mail-to-wrap {
+    position: relative;
+  }
+  .mail-to-suggest {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 3px);
+    display: none;
+    z-index: 30;
+    background: #14110d;
+    border: 1px solid #6f5a2a;
+    border-radius: 5px;
+    max-height: 210px;
+    overflow-y: auto;
+    box-shadow: 0 6px 18px #000a;
+  }
+  .mail-to-suggest.up {
+    top: auto;
+    bottom: calc(100% + 3px);
+  }
   .mail-coin-row {
     flex-direction: row;
     align-items: center;
