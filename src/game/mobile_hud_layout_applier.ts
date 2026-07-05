@@ -14,7 +14,7 @@
 // applies the same insets natively and unconditionally.
 
 import { resolveMobileHudLayout } from '../ui/mobile_hud_layout';
-import { useTouchInterface } from './mobile_controls';
+import { isNativeAppShell, useTouchInterface } from './mobile_controls';
 
 const TIER_CLASSES = ['hud-mobile-compact', 'hud-mobile-standard', 'hud-mobile-tablet'];
 const STATE_CLASSES = ['hud-menu-open', 'hud-chat-open'];
@@ -36,7 +36,7 @@ export function applyMobileHudLayout(win: Window = window): void {
     safeAreaRight: 0,
     safeAreaBottom: 0,
     safeAreaLeft: 0,
-    touchMode: useTouchInterface(win),
+    touchMode: useTouchInterface(win) || isNativeAppShell(),
     menuOpen: body.classList.contains('mobile-window-open'),
     chatOpen: body.classList.contains('mobile-chat-open'),
   });

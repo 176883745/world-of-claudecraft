@@ -38,8 +38,14 @@ function fakeWin(width: number, height: number, body: FakeBody) {
   } as unknown as Window;
 }
 
+const previousGlobalDocument = globalThis.document;
+
 afterEach(() => {
   setInterfaceMode('auto');
+  Object.defineProperty(globalThis, 'document', {
+    value: previousGlobalDocument,
+    configurable: true,
+  });
 });
 
 describe('applyMobileHudLayout', () => {
@@ -93,5 +99,26 @@ describe('applyMobileHudLayout', () => {
     applyMobileHudLayout(fakeWin(1280, 720, body));
     expect(body.styleProps.get('--mobile-hud-safe-top')).toBe('0px');
     expect(body.styleProps.get('--mobile-hud-safe-left')).toBe('0px');
+  });
+
+  it('applies a tier class inside the native app shell even when useTouchInterface is false', () => {
+    // Desktop interface mode (or a desktop-shaped auto-detect) makes
+    // useTouchInterface() false, but the packaged native app shell (see
+    // isNativeAppShell in mobile_controls.ts) forces touch UI on top of that:
+    // main.ts adds body.classList 'native-app' for the Capacitor build. The
+    // applier must OR in isNativeAppShell(), same as MobileControls.start()/
+    // refreshInterfaceMode() do, or the native shell gets the empty layout.
+    setInterfaceMode('desktop');
+    const body = new FakeBody();
+    body.classList.add('native-app');
+    // isNativeAppShell() reads the GLOBAL document (it runs unparameterized,
+    // same as production main.ts/mobile_controls.ts call sites), so stub it
+    // separately from the injected fakeWin used for viewport/body writes.
+    Object.defineProperty(globalThis, 'document', {
+      value: { body },
+      configurable: true,
+    });
+    applyMobileHudLayout(fakeWin(390, 844, body));
+    expect(body.classList.contains('hud-mobile-compact')).toBe(true);
   });
 });
