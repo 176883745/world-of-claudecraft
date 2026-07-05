@@ -34,7 +34,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 409,
-      "state": "63a1fe34",
+      "state": "22b31148",
       "events": "36482172",
       "rng": {
         "draws": 6,
@@ -64,6 +64,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -94,6 +104,16 @@
             "mainhand": "training_mace"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -124,6 +144,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -154,6 +184,16 @@
             "mainhand": "training_mace"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -184,6 +224,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -475,12 +521,12 @@
           "dodgeChance": 0.05,
           "fallStartY": -1.48336,
           "fiveSecondRule": 99,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -693,7 +739,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 409,
-      "state": "6e35fe7b",
+      "state": "da16d035",
       "events": "730d9ac4",
       "rng": {
         "draws": 6,
@@ -723,6 +769,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -753,6 +809,16 @@
             "mainhand": "training_mace"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -785,6 +851,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -815,6 +891,16 @@
             "mainhand": "training_mace"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -845,6 +931,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1136,12 +1228,12 @@
           "dodgeChance": 0.05,
           "fallStartY": -1.48336,
           "fiveSecondRule": 99,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1372,7 +1464,7 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 409,
-      "state": "bb67c403",
+      "state": "8690bc19",
       "events": "fb83a59d",
       "rng": {
         "draws": 10,
@@ -1383,7 +1475,7 @@
       "tick": 8,
       "time": 0.4,
       "nextId": 409,
-      "state": "1cbbc26d",
+      "state": "abcd7a0f",
       "events": "fb83a59d",
       "rng": {
         "draws": 10,
@@ -1413,6 +1505,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1443,6 +1545,16 @@
             "mainhand": "training_mace"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1475,6 +1587,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1505,6 +1627,16 @@
             "mainhand": "training_mace"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1535,6 +1667,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1840,12 +1978,12 @@
           "facing": 1.394614,
           "fallStartY": -1.48336,
           "fiveSecondRule": 99,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,

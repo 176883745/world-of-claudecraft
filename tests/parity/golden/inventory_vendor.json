@@ -35,7 +35,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "f6688b93",
+      "state": "239d8b47",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -66,6 +66,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -131,7 +137,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "03455b3f",
+      "state": "d978822d",
       "events": "531aebc5",
       "rng": {
         "draws": 0,
@@ -164,7 +170,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 5,
+              "count": 10,
               "itemId": "baked_bread"
             },
             {
@@ -241,7 +247,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "26ff98f7",
+      "state": "f60ac7e3",
       "events": "a6017c57",
       "rng": {
         "draws": 0,
@@ -275,7 +281,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 5,
+              "count": 10,
               "itemId": "baked_bread"
             },
             {
@@ -356,7 +362,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "32189577",
+      "state": "a880ab77",
       "events": "6eca1d53",
       "rng": {
         "draws": 0,
@@ -390,7 +396,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 5,
+              "count": 10,
               "itemId": "baked_bread"
             },
             {
@@ -471,7 +477,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "480d952d",
+      "state": "766b4d47",
       "events": "695c81aa",
       "rng": {
         "draws": 0,
@@ -504,7 +510,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 5,
+              "count": 10,
               "itemId": "baked_bread"
             },
             {
@@ -589,7 +595,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "a2b92cca",
+      "state": "c97f7289",
       "events": "1df0a44d",
       "rng": {
         "draws": 0,
@@ -622,7 +628,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -720,7 +726,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "cb3eb02f",
+      "state": "212cab1c",
       "events": "fdae55a8",
       "rng": {
         "draws": 0,
@@ -753,7 +759,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -847,7 +853,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "1eeea624",
+      "state": "3b9806a7",
       "events": "4b948de8",
       "rng": {
         "draws": 0,
@@ -880,7 +886,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -986,7 +992,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "247ab486",
+      "state": "c82a7ecb",
       "events": "3efe81a4",
       "rng": {
         "draws": 0,
@@ -1019,7 +1025,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -1129,7 +1135,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "f4ff5099",
+      "state": "abcebfba",
       "events": "fc57ebc8",
       "rng": {
         "draws": 0,
@@ -1162,7 +1168,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -1278,7 +1284,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "9bc23992",
+      "state": "318ddd6b",
       "events": "7c2d5847",
       "rng": {
         "draws": 0,
@@ -1311,7 +1317,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -1427,7 +1433,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "eb23d21c",
+      "state": "c2079067",
       "events": "daa824d5",
       "rng": {
         "draws": 0,
@@ -1460,7 +1466,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {
@@ -1580,7 +1586,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "eb23d21c",
+      "state": "c2079067",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -1613,7 +1619,7 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 4,
+              "count": 9,
               "itemId": "baked_bread"
             },
             {

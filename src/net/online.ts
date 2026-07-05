@@ -281,7 +281,7 @@ export class Api {
     turnstileToken = '',
     ref = '',
     nativeAttestation: unknown = undefined,
-  ): Promise<void> {
+  ): Promise<{ accountId?: number }> {
     const data = await this.post('/api/register', {
       username,
       password,
@@ -294,6 +294,7 @@ export class Api {
     this.username = data.username;
     // A fresh registration always has the mandatory email; trust the server flag.
     this.emailMissing = data.emailMissing === true;
+    return { accountId: typeof data.accountId === 'number' ? data.accountId : undefined };
   }
 
   // Returns { twoFactorRequired: true } when the account has 2FA on and no code
@@ -841,6 +842,7 @@ function blankEntity(id: number): Entity {
     respawnTimer: 0,
     corpseTimer: 0,
     lootFfaTimer: Infinity,
+    harvestClaimedBy: null,
     lootable: false,
     loot: null,
     xpValue: 0,
@@ -1819,6 +1821,9 @@ export class ClientWorld implements IWorld {
   }
   autoLoot(id: number): void {
     this.cmd({ cmd: 'autoloot', id });
+  }
+  harvestCorpse(id: number): void {
+    this.cmd({ cmd: 'harvestCorpse', id });
   }
   // --- IWorldLoot: need-greed roll submit + HUD reconcile read ---
   submitLootRoll(rollId: number, choice: LootRollChoice): void {

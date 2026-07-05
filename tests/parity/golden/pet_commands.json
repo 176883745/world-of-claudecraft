@@ -23,7 +23,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "20f460d1",
+      "state": "9a387532",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -54,6 +54,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -121,7 +131,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 403,
-      "state": "b2d8eaee",
+      "state": "e3706ea5",
       "events": "05262050",
       "rng": {
         "draws": 0,
@@ -152,6 +162,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -223,12 +243,12 @@
           "dodgeChance": 0.05,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 182,
+          "hp": 194,
           "id": 402,
           "kind": "mob",
           "level": 12,
           "lootFfaTimer": "Infinity",
-          "maxHp": 182,
+          "maxHp": 194,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -261,7 +281,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 403,
-      "state": "93280735",
+      "state": "37b2de3f",
       "events": "ccdfda1a",
       "rng": {
         "draws": 0,
@@ -292,6 +312,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -377,12 +407,12 @@
           "dodgeChance": 0.05,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 91,
+          "hp": 97,
           "id": 402,
           "kind": "mob",
           "level": 12,
           "lootFfaTimer": "Infinity",
-          "maxHp": 182,
+          "maxHp": 194,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -415,7 +445,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 403,
-      "state": "43003414",
+      "state": "34a4dfe1",
       "events": "3e42cd9b",
       "rng": {
         "draws": 0,
@@ -426,7 +456,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 403,
-      "state": "c0147d81",
+      "state": "36951683",
       "events": "42d1397b",
       "rng": {
         "draws": 0,
@@ -437,7 +467,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 404,
-      "state": "a3d48423",
+      "state": "40afd357",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -468,6 +498,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -553,13 +593,13 @@
           "dodgeChance": 0.05,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 121,
+          "hp": 127,
           "id": 402,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
           "lootFfaTimer": "Infinity",
-          "maxHp": 182,
+          "maxHp": 194,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -653,7 +693,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 404,
-      "state": "c6f7c6b3",
+      "state": "da851e30",
       "events": "537f683c",
       "rng": {
         "draws": 0,
@@ -684,6 +724,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -808,7 +858,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 406,
-      "state": "ad4edbfb",
+      "state": "761acea3",
       "events": "a48da5e0",
       "rng": {
         "draws": 0,
@@ -839,6 +889,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -971,7 +1031,7 @@
           "kind": "mob",
           "level": 12,
           "lootFfaTimer": "Infinity",
-          "maxHp": 182,
+          "maxHp": 194,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1004,7 +1064,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 406,
-      "state": "0906b443",
+      "state": "8812d0c7",
       "events": "df23db54",
       "rng": {
         "draws": 0,
@@ -1035,6 +1095,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -1162,12 +1232,12 @@
           "dodgeChance": 0.05,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 64,
+          "hp": 68,
           "id": 405,
           "kind": "mob",
           "level": 12,
           "lootFfaTimer": "Infinity",
-          "maxHp": 182,
+          "maxHp": 194,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1200,7 +1270,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 406,
-      "state": "c6f7c6b3",
+      "state": "da851e30",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -1231,6 +1301,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -1355,7 +1435,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 407,
-      "state": "c6f7c6b3",
+      "state": "da851e30",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -1386,6 +1466,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -1510,7 +1600,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 409,
-      "state": "490827d9",
+      "state": "16142d05",
       "events": "23c9bb1b",
       "rng": {
         "draws": 0,
@@ -1541,6 +1631,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -1572,6 +1672,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -1793,7 +1903,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 409,
-      "state": "99ad8dd9",
+      "state": "badac305",
       "events": "0bb80a56",
       "rng": {
         "draws": 82,
@@ -1804,7 +1914,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 409,
-      "state": "9b183fb3",
+      "state": "77ae39ff",
       "events": "a307338a",
       "rng": {
         "draws": 158,
@@ -1815,7 +1925,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 409,
-      "state": "9b183fb3",
+      "state": "77ae39ff",
       "events": "741638a5",
       "rng": {
         "draws": 158,
@@ -1848,6 +1958,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -1879,6 +1999,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -2109,7 +2239,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 410,
-      "state": "6da971bd",
+      "state": "07b63929",
       "events": "4289fd33",
       "rng": {
         "draws": 158,
@@ -2142,6 +2272,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -2173,6 +2313,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -2362,7 +2512,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 412,
-      "state": "ad61146e",
+      "state": "a6f8cfd2",
       "events": "dcc8e761",
       "rng": {
         "draws": 158,
@@ -2395,6 +2545,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -2426,6 +2586,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -2665,7 +2835,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 412,
-      "state": "ad61146e",
+      "state": "a6f8cfd2",
       "events": "741638a5",
       "rng": {
         "draws": 158,
@@ -2698,6 +2868,16 @@
             "mainhand": "rusty_hatchet"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -2729,6 +2909,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},

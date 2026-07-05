@@ -30,16 +30,19 @@ export interface CraftResultView {
   reason?: 'unknown_recipe' | 'insufficient_materials';
 }
 
-// The professions read-surface facet (#1164, extended by #1127). `professionsState`
-// stays a stub (always empty) pending #1140's full skill tracking.
-// `nodeHarvestableByMe` (#1121) is the first non-stub member: whether the
-// given gather node (see src/sim/content/gather_nodes.ts, #1120) is
-// harvestable right now BY THE LOCAL VIEWER specifically. It is per-VIEWER,
-// never global: two players asking about the same node id can get different
-// answers, because each player's respawn timer for a node is independent (see
-// src/sim/professions/gathering.ts). `recipeList`/`craftItem`/`lastCraftResult`
-// (#1127) are the first crafting-action members: recipes exist as content, and
-// a player can craft a common-tier recipe if they have required materials.
+// The professions read-surface facet (#1164, extended by #1127). `Sim`
+// (src/sim/sim.ts `professionsState`/`professionsStateFor`) and `ClientWorld`
+// (src/net/online.ts, mirrored from the `prof` wire delta) both implement
+// this; see src/sim/professions/CLAUDE.md for the settled wire/persistence
+// key names. `nodeHarvestableByMe` (#1121) is per-VIEWER, never global:
+// whether the given gather node (see src/sim/content/gather_nodes.ts, #1120)
+// is harvestable right now BY THE LOCAL VIEWER specifically. Two players
+// asking about the same node id can get different answers, because each
+// player's respawn timer for a node is independent (see
+// src/sim/professions/gathering.ts). `recipeList`/`craftItem`/
+// `lastCraftResult` (#1127) are the first crafting-action members: recipes
+// exist as content, and a player can craft a common-tier recipe if they have
+// required materials.
 export interface IWorldProfessions {
   professionsState: PlayerProfessionsView;
   nodeHarvestableByMe(nodeId: string): boolean;

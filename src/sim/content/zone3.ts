@@ -101,6 +101,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
     ],
     scale: 0.95,
     color: 0x8c8270,
+    componentTags: ['hide', 'claw'],
   },
   // The apex of the southern ridge: a grizzled, scar-pelted old cat that has
   // outlived three generations of its pack. A rare elite counterpart to the
@@ -135,6 +136,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
     ],
     scale: 1.3,
     color: 0x6e6453,
+    componentTags: ['hide', 'fang', 'claw'],
   },
   deeprock_kobold: {
     id: 'deeprock_kobold',
@@ -155,6 +157,10 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
       { itemId: 'glowing_wax', chance: 0.5, questId: 'q_glowing_wax' },
       { itemId: 'tallow_candle', chance: 0.4 },
       { itemId: 'healing_potion', chance: 0.08 },
+      // A grindable long-shot at the epic T1 mail boots that also drop from the
+      // Ironvein Foreman: a rare per-kill chance so the Deeprock Burrows are a
+      // farmable path to the sabatons, not just the Foreman rare.
+      { itemId: 'deathlord_sabatons', chance: 0.001 },
     ],
     scale: 0.85,
     color: 0x9c7a3c,
@@ -172,7 +178,9 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
     elite: true,
     canSwim: true,
     ccImmune: true,
-    respawnMult: 864,
+    // 144 * 25s base = 1 hour, so the epic-mail-boot rare is farmable on a
+    // predictable hourly cadence rather than the old 6-hour wait.
+    respawnMult: 144,
     hpBase: 420,
     hpPerLevel: 70,
     dmgBase: 19,
@@ -483,6 +491,10 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
       { copper: 100, chance: 1 },
       { itemId: 'bone_fragments', chance: 0.6 },
       { itemId: 'runed_bone_shard', chance: 0.7, questId: 'q_nythraxis_restless_dead' },
+      // A grindable long-shot at the epic T1 cloth legs that also drop from
+      // Marrowlord Varkas: a rare per-kill chance so the bonefields are a
+      // farmable path to the legwraps, not just the once-per-respawn rare.
+      { itemId: 'necromancers_legwraps', chance: 0.001 },
     ],
     scale: 1.05,
     color: 0xcacfd2,
@@ -696,7 +708,9 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
     elite: true,
     canSwim: true,
     ccImmune: true,
-    respawnMult: 864,
+    // 144 * 25s base = 1 hour, so the epic-cloth-leg rare is farmable on a
+    // predictable hourly cadence rather than the old 6-hour wait.
+    respawnMult: 144,
     hpBase: 480,
     hpPerLevel: 80,
     dmgBase: 22,

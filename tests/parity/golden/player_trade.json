@@ -30,7 +30,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 402,
-      "state": "e8b39953",
+      "state": "da3c17b3",
       "events": "6cbb98f1",
       "rng": {
         "draws": 0,
@@ -62,6 +62,10 @@
           },
           "gatheringProficiency": {},
           "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
             {
               "count": 3,
               "itemId": "wolf_fang"
@@ -100,8 +104,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 2,
+              "count": 7,
               "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
             }
           ],
           "mailWelcomed": true,
@@ -218,7 +226,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 402,
-      "state": "e83e163b",
+      "state": "73c11a62",
       "events": "27a26705",
       "rng": {
         "draws": 0,
@@ -251,12 +259,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
-              "itemId": "wolf_fang"
+              "count": 6,
+              "itemId": "baked_bread"
             },
             {
               "count": 1,
-              "itemId": "baked_bread"
+              "itemId": "wolf_fang"
             }
           ],
           "mailWelcomed": true,
@@ -292,8 +300,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
+              "count": 6,
               "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
             },
             {
               "count": 2,
@@ -414,7 +426,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 402,
-      "state": "e83e163b",
+      "state": "73c11a62",
       "events": "c00485a7",
       "rng": {
         "draws": 0,
@@ -447,12 +459,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
-              "itemId": "wolf_fang"
+              "count": 6,
+              "itemId": "baked_bread"
             },
             {
               "count": 1,
-              "itemId": "baked_bread"
+              "itemId": "wolf_fang"
             }
           ],
           "mailWelcomed": true,
@@ -488,8 +500,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
+              "count": 6,
               "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
             },
             {
               "count": 2,
@@ -610,7 +626,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 402,
-      "state": "e83e163b",
+      "state": "73c11a62",
       "events": "a4365a6e",
       "rng": {
         "draws": 0,
@@ -643,12 +659,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
-              "itemId": "wolf_fang"
+              "count": 6,
+              "itemId": "baked_bread"
             },
             {
               "count": 1,
-              "itemId": "baked_bread"
+              "itemId": "wolf_fang"
             }
           ],
           "mailWelcomed": true,
@@ -684,8 +700,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
+              "count": 6,
               "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
             },
             {
               "count": 2,
@@ -806,7 +826,7 @@
       "tick": 1,
       "time": 0.05,
       "nextId": 402,
-      "state": "90cccbe6",
+      "state": "ebe3b8cb",
       "events": "eb0174f4",
       "rng": {
         "draws": 0,
@@ -839,12 +859,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
-              "itemId": "wolf_fang"
+              "count": 6,
+              "itemId": "baked_bread"
             },
             {
               "count": 1,
-              "itemId": "baked_bread"
+              "itemId": "wolf_fang"
             }
           ],
           "mailWelcomed": true,
@@ -880,8 +900,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
+              "count": 6,
               "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
             },
             {
               "count": 2,
@@ -1002,7 +1026,7 @@
       "tick": 1,
       "time": 0.05,
       "nextId": 402,
-      "state": "90cccbe6",
+      "state": "ebe3b8cb",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -1035,12 +1059,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
-              "itemId": "wolf_fang"
+              "count": 6,
+              "itemId": "baked_bread"
             },
             {
               "count": 1,
-              "itemId": "baked_bread"
+              "itemId": "wolf_fang"
             }
           ],
           "mailWelcomed": true,
@@ -1076,8 +1100,12 @@
           "gatheringProficiency": {},
           "inventory": [
             {
-              "count": 1,
+              "count": 6,
               "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
             },
             {
               "count": 2,

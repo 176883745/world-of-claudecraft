@@ -131,6 +131,7 @@ import {
   mapsErrorStatus,
 } from './maps';
 import { PgMapsDb } from './maps_db';
+import { metaEventSourceUrl, metaRequestUserData, trackAccountCreated } from './meta_capi';
 import {
   cleanReportReason,
   createPlayerReport,
@@ -712,6 +713,7 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
     }
     if (req.method === 'POST' && url === '/api/register') {
       const body = await readBody(req);
+      const meta = requestMetadata(req);
       if (!(await passesTurnstile(req, body, TURNSTILE_SECRET)))
         return json(res, 403, { error: 'verification failed, please try again' });
       if (!validUsernameShape(body.username))
@@ -727,11 +729,7 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       if (existing) return json(res, 409, { error: 'username already taken' });
       let account: Awaited<ReturnType<typeof createAccount>>;
       try {
-        account = await createAccount(
-          body.username,
-          await hashPassword(body.password),
-          requestMetadata(req),
-        );
+        account = await createAccount(body.username, await hashPassword(body.password), meta);
       } catch (err: any) {
         // a concurrent registration can win the insert after our findAccount
         // check; the username UNIQUE index is the real guard. Surface it as a
@@ -751,10 +749,18 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
         locale: null,
         marketing_opt_in: false,
       });
+      void trackAccountCreated(
+        account.id,
+        {
+          email: signupEmail,
+          ...metaRequestUserData(req, meta),
+        },
+        metaEventSourceUrl(req),
+      );
       void createSuspiciousRegistrationReport({
         accountId: account.id,
         username: account.username,
-        ...requestMetadata(req),
+        ...meta,
       }).catch((err) => console.error('suspicious registration report failed:', err));
       // Capture the referral when this account signed up via a card link
       // (?ref=<slug>). Best-effort: never block or fail registration on it.
@@ -763,7 +769,12 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       );
       // emailMissing is always false here (email is required above); sent so the
       // client can use one uniform post-auth check across register and login.
-      return json(res, 200, { token, username: account.username, emailMissing: false });
+      return json(res, 200, {
+        token,
+        username: account.username,
+        accountId: account.id,
+        emailMissing: false,
+      });
     }
     if (req.method === 'POST' && url === '/api/login') {
       const body = await readBody(req);
@@ -1904,7 +1915,8 @@ async function main(): Promise<void> {
     // Hard per-IP WS connection limit. The soft threshold (composite score evidence)
     // is handled inside game.join(); this guard blocks egregious bot farms before
     // they consume a session slot.
-    const ip = requestMetadata(req).ip;
+    const meta = requestMetadata(req);
+    const ip = meta.ip;
     const isAdmin = await isAdminAccount(accountId);
     if (
       isConnectionRefused({
@@ -1927,7 +1939,9 @@ async function main(): Promise<void> {
       character.state,
       character.is_gm,
       {
-        ...requestMetadata(req),
+        ...meta,
+        ...metaRequestUserData(req, meta),
+        sourceUrl: metaEventSourceUrl(req),
         mutedUntil: status.chatMutedUntil ?? chatMute.mutedUntil,
         reason: chatMute.reason,
         chatStrikes: status.chatStrikes,

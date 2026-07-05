@@ -32,7 +32,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 402,
-      "state": "e5e9129b",
+      "state": "5c13c44f",
       "events": "db5eca97",
       "rng": {
         "draws": 4,
@@ -64,6 +64,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -175,7 +181,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 403,
-      "state": "7c32c084",
+      "state": "a35a915e",
       "events": "c189aee6",
       "rng": {
         "draws": 8,
@@ -207,6 +213,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -373,7 +385,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 404,
-      "state": "25136944",
+      "state": "c01afc1e",
       "events": "afd10509",
       "rng": {
         "draws": 13,
@@ -405,6 +417,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -627,7 +645,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 405,
-      "state": "55e3dd83",
+      "state": "8cc93b09",
       "events": "741638a5",
       "rng": {
         "draws": 15,
@@ -659,6 +677,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -886,12 +910,12 @@
           "fallStartY": 58.188532,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 404,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -929,7 +953,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 406,
-      "state": "98abe77c",
+      "state": "74524ba6",
       "events": "741638a5",
       "rng": {
         "draws": 16,
@@ -961,6 +985,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1188,12 +1218,12 @@
           "fallStartY": 58.188532,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 404,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1235,12 +1265,12 @@
           "fallStartY": 57.211832,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1273,7 +1303,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 407,
-      "state": "aae4871a",
+      "state": "65ad5ce8",
       "events": "89e78911",
       "rng": {
         "draws": 16,
@@ -1305,6 +1335,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1532,12 +1568,12 @@
           "fallStartY": 58.188532,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 404,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1579,12 +1615,12 @@
           "fallStartY": 57.211832,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1662,7 +1698,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 407,
-      "state": "93c767db",
+      "state": "722ca9b7",
       "events": "741638a5",
       "rng": {
         "draws": 16,
@@ -1694,6 +1730,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -1921,12 +1963,12 @@
           "fallStartY": 58.188532,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 404,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1968,12 +2010,12 @@
           "fallStartY": 57.211832,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -2052,7 +2094,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 407,
-      "state": "93c767db",
+      "state": "722ca9b7",
       "events": "741638a5",
       "rng": {
         "draws": 16,
@@ -2084,6 +2126,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -2311,12 +2359,12 @@
           "fallStartY": 58.188532,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 404,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
@@ -2358,12 +2406,12 @@
           "fallStartY": 57.211832,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 84,
+          "hp": 96,
           "id": 405,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
-          "maxHp": 84,
+          "maxHp": 96,
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,

@@ -16,7 +16,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "1d0c5980",
+      "state": "97047752",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -47,6 +47,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -112,7 +118,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 403,
-      "state": "d1a72672",
+      "state": "70b8c3e6",
       "events": "81a55ed7",
       "rng": {
         "draws": 14,
@@ -123,7 +129,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 403,
-      "state": "0fd8bf26",
+      "state": "74c8f172",
       "events": "684ef1dc",
       "rng": {
         "draws": 28,
@@ -134,7 +140,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 403,
-      "state": "e778ce45",
+      "state": "7acaa79f",
       "events": "36a8ae1e",
       "rng": {
         "draws": 57,
@@ -168,6 +174,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "lifetimeXp": 54100,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -371,7 +383,7 @@
       "tick": 54,
       "time": 2.7,
       "nextId": 403,
-      "state": "5c58133c",
+      "state": "65fc6204",
       "events": "741638a5",
       "rng": {
         "draws": 71,
@@ -405,6 +417,12 @@
             "mainhand": "worn_sword"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            }
+          ],
           "lifetimeXp": 54100,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},

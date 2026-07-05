@@ -113,6 +113,7 @@ function baseEntity(id: number, pos: Vec3): Entity {
     respawnTimer: 0,
     corpseTimer: 0,
     lootFfaTimer: Infinity, // no FFA countdown until rollLoot starts it at death
+    harvestClaimedBy: null,
     lootable: false,
     loot: null,
     xpValue: 0,

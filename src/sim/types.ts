@@ -537,6 +537,10 @@ export interface MobTemplate {
   loot: LootEntry[];
   scale: number; // render hint
   color: number; // render hint
+  // Profession harvesting: the skinning/salvage component types this mob's corpse
+  // can yield (e.g. 'hide', 'horn', 'venomSac', 'gills', 'fang', 'claw', 'feather').
+  // Data-as-code only for now; consumed by later profession-harvest issues.
+  componentTags?: string[];
   boss?: boolean;
   rare?: boolean;
   // World boss: a server-wide elite that spawns on a fixed cadence (not from a
@@ -1181,6 +1185,10 @@ export interface AbilityDef {
   // set this explicitly, or it would deal its damage instantly while the arrow is
   // still visibly in flight. Melee physical attacks leave it unset.
   projectile?: boolean;
+  // Overrides the flying-projectile VISUAL for this spell (the mechanic is
+  // unchanged): 'lightning' draws a jagged electric bolt from caster to target
+  // instead of the default glowing bolt. Renderer-only; the sim just forwards it.
+  projectileFx?: 'lightning';
   school: 'physical' | 'fire' | 'frost' | 'arcane' | 'shadow' | 'holy' | 'nature';
   // Damage scaling source for the flat directDamage / DoT / AoE riders. Default:
   // non-physical damage scales with Spell Power; physical damage scales with melee
@@ -1584,6 +1592,10 @@ export interface Entity {
   respawnTimer: number;
   corpseTimer: number;
   lootFfaTimer: number; // seconds of owner-lock left before tap loot opens to all (FFA); Infinity until rollLoot starts it
+  // Profession harvest: single-use, first-come claim on this corpse's componentTags
+  // yield. null = unharvested; once set to a player's entity id, every later attempt
+  // (same tick or later) is denied. The opposite of a world gathering node (per-player).
+  harvestClaimedBy: number | null;
   despawnTimer?: number;
   damageIdleDespawnTimer?: number;
   lootable: boolean;
@@ -1881,7 +1893,7 @@ export type SimEvent = { pid?: number } & (
       sourceId: number;
       targetId: number;
       school: string;
-      fx: 'projectile' | 'beam' | 'tick' | 'nova' | 'windup';
+      fx: 'projectile' | 'beam' | 'tick' | 'nova' | 'windup' | 'lightning';
     }
   // visual-only cue anchored to a WORLD POINT rather than an entity: a
   // ground-targeted spell's impact (the burst/nova lands where it was aimed, not
@@ -2083,6 +2095,11 @@ export interface SimConfig {
   noPlayer?: boolean; // multiplayer server: start with an empty world and addPlayer() later
   devCommands?: boolean; // local dev: /dev level|tp|give chat cheats
   lockoutNowMs?: () => number; // host wall-clock for persisted raid lockouts
+  // Live server: schedule the first world-boss rise at boot instead of one
+  // interval out, so a freshly (re)started realm has Thunzharr up immediately.
+  // Offline worlds and parity traces keep the default (first rise after one
+  // interval), so this never fires inside a short deterministic scenario.
+  worldBossAtBoot?: boolean;
   // Host-computed next raid-reset instant for a given lockout "now" (epoch ms). The
   // authoritative server uses its realm-local 3 AM daily reset; offline/headless omit
   // this and fall back to a flat 24h day. Keeps the time zone out of the sim core.

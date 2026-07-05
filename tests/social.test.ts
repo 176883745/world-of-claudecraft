@@ -919,6 +919,8 @@ describe('trading', () => {
     sim.meta(a)!.copper = 100;
     sim.meta(b)!.copper = 50;
     sim.addItem('baked_bread', 1, b);
+    const breadA = sim.countItem('baked_bread', a);
+    const breadB = sim.countItem('baked_bread', b);
 
     sim.tradeRequest(b, a);
     sim.tradeAccept(b);
@@ -931,8 +933,8 @@ describe('trading', () => {
     expect(sim.tradeFor(a)).toBe(null);
     expect(sim.countItem('wolf_fang', a)).toBe(1);
     expect(sim.countItem('wolf_fang', b)).toBe(2);
-    expect(sim.countItem('baked_bread', a)).toBe(1);
-    expect(sim.countItem('baked_bread', b)).toBe(0);
+    expect(sim.countItem('baked_bread', a)).toBe(breadA + 1);
+    expect(sim.countItem('baked_bread', b)).toBe(breadB - 1);
     expect(sim.meta(a)?.copper).toBe(100 - 30 + 10);
     expect(sim.meta(b)?.copper).toBe(50 - 10 + 30);
   });
@@ -1174,7 +1176,7 @@ describe('the new dungeons', () => {
     sim.leaveDungeon(a);
     expect(dist2d(ea.pos, { x: 45, y: 0, z: 515 })).toBeLessThan(10);
 
-    teleport(sim, a, 0, 876);
+    teleport(sim, a, 0, 858);
     sim.enterDungeon('gravewyrm_sanctum', a);
     expect(ea.pos.x).toBeGreaterThan(2000); // index-2 band
     const slot2 = sim.instanceSlotAt(ea.pos)!;
@@ -1183,7 +1185,7 @@ describe('the new dungeons', () => {
     expect(korzul).toBeTruthy();
     expect(korzul.level).toBe(20);
     sim.leaveDungeon(a);
-    expect(dist2d(ea.pos, { x: 0, y: 0, z: 880 })).toBeLessThan(10);
+    expect(dist2d(ea.pos, { x: 0, y: 0, z: 858 })).toBeLessThan(10);
   });
 
   it('Velkhar summons add waves at hp thresholds and Korgath enrages below 30%', () => {

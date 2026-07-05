@@ -16,7 +16,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 401,
-      "state": "35c92368",
+      "state": "31f07be1",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -47,6 +47,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
@@ -113,7 +123,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 401,
-      "state": "cc3b9c3c",
+      "state": "0e3e7335",
       "events": "3acb3014",
       "rng": {
         "draws": 0,
@@ -124,7 +134,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 401,
-      "state": "3824dc56",
+      "state": "bd7f8587",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -135,7 +145,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 401,
-      "state": "3de349d1",
+      "state": "f6bec7a6",
       "events": "741638a5",
       "rng": {
         "draws": 100,
@@ -146,7 +156,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 401,
-      "state": "4ab38384",
+      "state": "e5e2ff1d",
       "events": "741638a5",
       "rng": {
         "draws": 186,
@@ -157,7 +167,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 402,
-      "state": "d931a6d4",
+      "state": "4e7ba18d",
       "events": "2796152c",
       "rng": {
         "draws": 271,
@@ -168,7 +178,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 403,
-      "state": "8bd1262e",
+      "state": "f0bca49f",
       "events": "26a41d9d",
       "rng": {
         "draws": 366,
@@ -179,7 +189,7 @@
       "tick": 140,
       "time": 7,
       "nextId": 403,
-      "state": "c3a2e24f",
+      "state": "b5abe3e4",
       "events": "9caad040",
       "rng": {
         "draws": 495,
@@ -190,7 +200,7 @@
       "tick": 160,
       "time": 8,
       "nextId": 403,
-      "state": "51416017",
+      "state": "a30a1b0c",
       "events": "05346f1a",
       "rng": {
         "draws": 636,
@@ -201,7 +211,7 @@
       "tick": 180,
       "time": 9,
       "nextId": 403,
-      "state": "4afab3e2",
+      "state": "4bc9149b",
       "events": "cfc18f2e",
       "rng": {
         "draws": 774,
@@ -212,7 +222,7 @@
       "tick": 200,
       "time": 10,
       "nextId": 403,
-      "state": "7f987529",
+      "state": "c9f7955e",
       "events": "ced2e436",
       "rng": {
         "draws": 943,
@@ -223,7 +233,7 @@
       "tick": 220,
       "time": 11,
       "nextId": 403,
-      "state": "f85e98dc",
+      "state": "3292edd5",
       "events": "cfc18f2e",
       "rng": {
         "draws": 1021,
@@ -234,7 +244,7 @@
       "tick": 220,
       "time": 11,
       "nextId": 403,
-      "state": "81af630a",
+      "state": "22715f43",
       "events": "741638a5",
       "rng": {
         "draws": 1021,
@@ -267,6 +277,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
@@ -448,7 +468,7 @@
       "tick": 224,
       "time": 11.2,
       "nextId": 403,
-      "state": "5df974c5",
+      "state": "48fe7f92",
       "events": "852d6621",
       "rng": {
         "draws": 1050,
@@ -481,6 +501,16 @@
             "mainhand": "gnarled_staff"
           },
           "gatheringProficiency": {},
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            }
+          ],
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},

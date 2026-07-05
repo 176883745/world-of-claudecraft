@@ -76,7 +76,11 @@ const MATERIAL_RARITY_SHARE: Record<Exclude<MaterialRarity, 'common'>, number> =
 // sim's one-draw-per-roll rng convention (see loot_roll.ts). Independent of node/
 // harvest wiring: callable standalone, or from resolveHarvest (see below).
 export function rollMaterialRarity(proficiency: number, rng: Rng): MaterialRarity {
-  const p = Math.max(0, Math.min(MATERIAL_RARITY_MAX_PROFICIENCY, proficiency));
+  // NaN pins to 0 rather than surviving the clamp: every `NaN < w` comparison
+  // below is false, so an unclamped NaN would fall through to legendary.
+  const p = Number.isNaN(proficiency)
+    ? 0
+    : Math.max(0, Math.min(MATERIAL_RARITY_MAX_PROFICIENCY, proficiency));
   const weights: [MaterialRarity, number][] = [
     ['common', MATERIAL_RARITY_MAX_PROFICIENCY - p],
     ['uncommon', p * MATERIAL_RARITY_SHARE.uncommon],
@@ -152,24 +156,43 @@ export function resolveHarvest(
 // harvest attempt against a node they must be standing near. Runs on the
 // deterministic 20 Hz tick path (dispatched from a wire command the same tick
 // it arrives, per the other immediate-interaction commands like `buyItem`),
-// never off-tick. Denies (no side effect) if the node id is unknown, the
-// player is too far away, or that player's own timer for the node has not
-// elapsed; a denial never touches another player's state.
+// never off-tick. Denies (no side effect) if the requesting player is dead
+// (matching the vendor family's dead gate, items.ts buyItem/useItem), the
+// node id is unknown, the player is too far away, their own timer for the
+// node has not elapsed, or their bags are full (matching the pickupObject
+// capacity pre-check, interaction.ts); a denial never touches another
+// player's state and never consumes that player's respawn timer.
 export function harvestNode(ctx: SimContext, nodeId: string, pid?: number): void {
   const r = ctx.resolve(pid);
   if (!r) return;
   const { meta, e: p } = r;
+  if (p.dead) {
+    ctx.error(meta.entityId, "You can't do that while dead.");
+    return;
+  }
   const node = gatherNodeById(nodeId);
   if (!node) {
     ctx.error(meta.entityId, 'That resource node does not exist.');
     return;
   }
   if (distToNode(p.pos, node.pos) > INTERACT_RANGE) {
-    ctx.error(meta.entityId, 'Too far away to harvest that.');
+    ctx.error(meta.entityId, 'Too far away.');
+    return;
+  }
+  if (!isNodeHarvestableBy(meta, node.id, ctx.time)) {
+    ctx.error(meta.entityId, 'This resource node has not respawned for you yet.');
+    return;
+  }
+  const entry = NODE_HARVEST_TABLE[node.type];
+  if (!ctx.canAddItem(entry.itemId, 1, meta.entityId)) {
+    ctx.error(meta.entityId, 'Your bags are full.');
     return;
   }
   const result = resolveHarvest(meta, node, ctx.time, ctx.rng);
   if (!result.granted) {
+    // Unreachable in practice (the readiness check above already gates this),
+    // but kept as a defensive fallback so a future resolveHarvest change
+    // cannot silently grant with no player-visible denial.
     ctx.error(meta.entityId, 'This resource node has not respawned for you yet.');
     return;
   }
@@ -246,4 +269,68 @@ export function gatheringSkillsView(proficiency: GatheringProficiency): PlayerPr
     skill: proficiency[id],
     maxSkill: GATHERING_PROFESSIONS[id].maxSkill,
   }));
+}
+
+// Corpse harvest: a single-use, first-come shared resource, the deliberate opposite
+// of a world gathering node (which is per-player: every player who reaches a node can
+// harvest their own instance of it). A slain mob's corpse can be salvaged for
+// profession components (hide, fang, silk, ...) exactly ONCE: the first player to
+// harvest it claims the yield, and every later attempt (same tick or any later tick)
+// against that same corpse is denied.
+//
+// Pure leaf: no Sim/Entity import, no rng, no clock, mirroring the loot/loot_ffa.ts
+// pattern (reference: format_money.ts, threat.ts, loot/loot_ffa.ts). The owning
+// caller (src/sim/interaction.ts) holds the corpse's `harvestClaimedBy` state on the
+// Entity and passes it in; resolveCorpseHarvest performs the whole check-and-set in
+// one synchronous call, so there is nothing left to race.
+//
+// Race-freedom argument: the sim tick is single-threaded at 20 Hz (see
+// src/sim/CLAUDE.md, "sim.ts coordinator map"). Every player command in a tick's
+// batch is processed one at a time, in order, by the SAME synchronous call stack;
+// there is no `await` or callback boundary between reading `harvestClaimedBy` and
+// writing it back. So two harvest attempts landing in the SAME tick are still
+// resolved sequentially, never concurrently: whichever command is processed first
+// (deterministic command-batch order) sees `currentClaimedBy === null` and wins;
+// the second sees the just-written claim and is denied. No lock is needed because
+// there is no interleaving to guard against.
+
+// Component tag -> the existing item this harvest yields. Only tags with a concrete
+// profession-material item wired up so far are listed here; a mob whose
+// `componentTags` don't map to any of these still becomes single-use claimed, it
+// just yields no item yet (future profession-harvest issues wire up the rest).
+export const HARVEST_COMPONENT_ITEMS: Readonly<Record<string, string>> = {
+  hide: 'boar_hide',
+  fang: 'wolf_fang',
+  silk: 'webwood_silk',
+  venomSac: 'widow_venom_sac',
+};
+
+export interface HarvestClaim {
+  readonly success: boolean;
+  readonly claimedBy: number | null;
+}
+
+/** Does this mob's corpse support profession harvest at all? */
+export function isHarvestableCorpse(componentTags: readonly string[] | undefined): boolean {
+  return !!componentTags && componentTags.length > 0;
+}
+
+/**
+ * Atomic check-and-set harvest claim: exactly one caller, for a given corpse, ever
+ * gets `success: true`. Deterministic and order-independent for a fixed
+ * `currentClaimedBy` (null means unclaimed) and requesting `pid`.
+ */
+export function resolveCorpseHarvest(currentClaimedBy: number | null, pid: number): HarvestClaim {
+  if (currentClaimedBy !== null) return { success: false, claimedBy: currentClaimedBy };
+  return { success: true, claimedBy: pid };
+}
+
+/** The item id this harvest yields, or null if no component tag maps to one yet. */
+export function harvestItemFor(componentTags: readonly string[] | undefined): string | null {
+  if (!componentTags) return null;
+  for (const tag of componentTags) {
+    const itemId = HARVEST_COMPONENT_ITEMS[tag];
+    if (itemId) return itemId;
+  }
+  return null;
 }
