@@ -902,10 +902,11 @@ export class MobileControls {
     this.touchOwners.release(e.pointerId);
     if (e.pointerId !== this.swipeLookPointer) return;
     if (this.swipeLookActive) e.preventDefault();
-    // Double-tap-to-recenter: with the camera joystick removed, this is the
-    // only recenter gesture left, so it moves here. A "tap" is a press that
+    // Double-tap-to-recenter on the swipe-look path: the camera joystick is
+    // opt-in (hidden by default, settings.mobileCameraJoystick), so this is
+    // the recenter gesture every touch player has. A "tap" is a press that
     // never crossed the swipe deadzone (never became a drag); two of those in
-    // quick succession recenter the camera, mirroring the old joystick logic.
+    // quick succession recenter the camera, mirroring the joystick logic.
     const now = this.now();
     const quickTap = !this.swipeLookActive && now - this.swipeLookDownAt <= RECENTER_DOUBLE_TAP_MS;
     if (quickTap && isRecenterDoubleTap(this.lastSwipeTapAt, now, this.swipeLookActive)) {
