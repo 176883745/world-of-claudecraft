@@ -89,6 +89,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "es_ES": [
@@ -171,6 +178,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "fr_FR": [
@@ -253,6 +267,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "fr_CA": [
@@ -335,6 +356,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "en_CA": [],
@@ -418,6 +446,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "de_DE": [
@@ -500,6 +535,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "zh_CN": [
@@ -602,6 +644,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "ru_RU": [
@@ -689,6 +738,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "pl_PL": [
@@ -771,6 +827,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "id_ID": [
@@ -853,6 +916,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "tr_TR": [
@@ -935,6 +1005,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "sv_SE": [
@@ -1017,6 +1094,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "vi_VN": [
@@ -1099,6 +1183,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ],
   "da_DK": [
@@ -1181,6 +1272,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.targetCycleShort",
     "hudChrome.options.mobileCameraJoystick",
     "hudChrome.options.mobileLeftHanded",
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title",
     "loading.reconnecting"
   ]
 };
