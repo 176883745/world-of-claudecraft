@@ -60,7 +60,11 @@ Agent A (sim module + state + persistence) deliverables:
   cloneInvSlot deep-clones at EVERY save/load boundary; tampered-save sanitization that
   never destroys items (bags.ts precedent). Record the final field names in state.md.
 - Operations: bankDeposit(slotIndex, count?), bankWithdraw(slotIndex, count?),
-  bankBuySlots(). Rules (state.md decision 10, all of them): quest-kind items denied
+  bankBuySlots(). The underlying move helpers must be CONTAINER-AGNOSTIC: pure
+  functions over (source list, dest list, capacity budgets), never hardcoded to "the
+  player's bank", so future consumers (loadout presets, the guild bank, the account
+  vault) reuse them unchanged (state.md decision 16). Rules (state.md decision 10, all
+  of them): quest-kind items denied
   with a clear English line; instanced slots deposit whole and never merge with plain
   stacks; deposits pre-check bank capacity and withdrawals pre-check bag fitsAll; every
   refusal moves nothing and charges nothing; purchases are non-refundable, charge exact

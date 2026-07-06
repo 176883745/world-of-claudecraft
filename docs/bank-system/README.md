@@ -17,6 +17,9 @@ Start here, in order:
 3. `implementation-plan.md`: phase table + the canonical team workflow.
 4. `progress.md`: status + per-phase deliverable checklists.
 5. `qa-checklist.md`: the whole-feature integration matrix (Phase 9).
+6. `guild-bank-readiness.md`: the approved future guild-bank brief (verified research,
+   locked architecture, prerequisite fixes). Ships after the player bank; v1 only
+   keeps its seams (state.md decision 16).
 
 Phase files (each is a self-contained starter prompt for a fresh session; run the QA
 session after its implementation session):

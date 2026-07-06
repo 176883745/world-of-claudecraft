@@ -229,7 +229,10 @@ flair, holder-tier greetings.
   Always free.
 - Account-wide shared vault (Warband model): a separate container with its own table;
   requires the cross-blob atomicity + lease story shipped in v1.
-- Guild bank: needs per-rank permissions and withdrawal logs.
+- Guild bank: APPROVED as the post-v1 follow-on (2026-07-05) and fully researched; the
+  verified brief (existing guild system map, locked market/mail-pattern architecture,
+  permission model, theft/dupe failure modes, prerequisite fixes) lives in
+  `guild-bank-readiness.md`. V1 keeps only the seams (state.md decision 16).
 - X and Twitch bonus slots: activate their registry rows once the platform-link
   systems (in development separately) ship with a verifiable connect-and-follow fact.
 

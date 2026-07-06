@@ -28,6 +28,7 @@
 - [ ] `src/sim/bank.ts` module behind SimContext (state on Sim/PlayerMeta as live ctx views; thin delegates on Sim; zero rng draws)
 - [ ] Character state fields (`bank` container: inventory + purchasedSlots) with serialize/load + `?? ` back-compat defaults + `cloneInvSlot` deep-clone at boundaries
 - [ ] Deposit/withdraw/buy-expansion logic with the full locked rule set (quest-kind deny, instanced no-merge, fitsAll pre-checks both directions, refusals move nothing and charge nothing, non-refundable purchases, expansion price table as data)
+- [ ] Move helpers are container-agnostic pure functions (lists + budgets in, no hardcoded containers; the guild-bank/loadout seam, state.md decision 16)
 - [ ] Capacity math: base 24 + purchased blocks + bonusSlots field (bonus stays 0 until Phase 8)
 - [ ] `tests/bank.test.ts`: rule matrix, exact deny literals, conservation invariant seed sweeps (non-vacuous), determinism (run() equals run()), persistence round-trip + back-compat + tampered-save sanitization
 - [ ] sim_i18n matcher entries for every new emit + S3 simSrc list append (same change)
@@ -56,7 +57,7 @@
 
 ### Phase 4: lease + ledger
 - [ ] Per-character load lease at join (mechanism decided and recorded in state.md); release on leave; takeover path safe
-- [ ] `bank_ledger` additive DDL + non-blocking writer for every bank op
+- [ ] `bank_ledger` additive DDL (with the container discriminator columns, state.md decision 16) + non-blocking writer for every bank op
 - [ ] `scripts/bank_audit.mjs` offline conservation checker
 - [ ] Tests: lease exclusivity, ledger rows written, audit script on fixture data
 

@@ -45,7 +45,10 @@ Agent A (facet + server wire) deliverables:
   finalize names and record them in state.md.
 - COMMAND_NAMES appends (append-only, protocol forever; confirm against state.md
   decision 6 BEFORE appending): bank_deposit, bank_withdraw, bank_buy_slots; matching
-  COMMAND_FACETS tags keyed on the wire strings.
+  COMMAND_FACETS tags keyed on the wire strings. These tokens are PERSONAL-bank only
+  and must never grow an optional guild id later; the future guild bank gets its own
+  guild_bank_* tokens with their own permission-validating dispatch path (state.md
+  decision 16).
 - server/game.ts dispatchMessage cases with per-field type validation (typeof checks,
   the mail_take style) delegating to the sim methods; all three commands added to
   HEAVY_SELF_CMDS (omission lags client bags/copper up to 2 seconds).

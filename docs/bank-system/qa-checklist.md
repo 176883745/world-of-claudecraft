@@ -15,7 +15,8 @@ Verified once at packet completion (Phase 9). Every row must pass.
   explicit faucets/sinks; every refusal path leaves items in place and charges nothing;
   no path destroys an item.
 - Anti-dupe: per-character lease blocks a cross-process double-load; bank ops write
-  `bank_ledger` rows; `scripts/bank_audit.mjs` runs clean on fixture and dev data;
+  `bank_ledger` rows (container column present, v1 writes 'personal' only);
+  `scripts/bank_audit.mjs` runs clean on fixture and dev data and groups by container;
   deposit/withdraw are single-transaction same-blob mutations (no world_state personal
   bank anywhere).
 - Server authority: every command field validated in dispatch; proximity validated

@@ -57,14 +57,19 @@ Agent A (lease) deliverables:
 Agent B (ledger + audit) deliverables:
 - bank_ledger additive DDL in server/db.ts SCHEMA: id, realm, character_id, account_id,
   op, item_id, count, instance jsonb null, copper_delta, purchased_slots_after,
-  created_at; indexes on character_id and created_at. Idempotent under the boot
-  advisory lock (boot it twice in a test).
+  container TEXT NOT NULL DEFAULT 'personal', container_id BIGINT NULL, created_at;
+  indexes on character_id and created_at. The container discriminator is guild-bank
+  readiness (state.md decision 16): v1 writes only 'personal' with a null container_id,
+  and the future guild bank writes 'guild' + guild id into the SAME ledger. Idempotent
+  under the boot advisory lock (boot it twice in a test).
 - A non-blocking writer (queued fire-and-forget; a rejection logs and never blocks or
   reorders gameplay saves) invoked server-side for every successful bank_deposit /
   bank_withdraw / bank_buy_slots.
 - scripts/bank_audit.mjs: offline conservation checker over bank_ledger plus
   characters.state (flags negative counts, ledger/state mismatches, purchased_slots
-  regressions); runnable against the dev DB (npm run db:up).
+  regressions); runnable against the dev DB (npm run db:up). Group and report BY
+  CONTAINER from day one (v1 has only 'personal'; the guild bank inherits a working
+  audit instead of a rewrite).
 - Tests: ledger rows written per op (mocked db capturing SQL), writer never throws into
   the game loop, audit script flags a planted anomaly in fixture data.
 
