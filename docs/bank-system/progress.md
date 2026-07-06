@@ -165,3 +165,12 @@
 - Fixes: explicit-null bank snapshot now applied to a ClientWorld and the mirror proven to CLEAR (mutation-proven; a truthy decode guard previously survived the suite), nextExpansionCost null arm at the 12-expansion cap exercised (mutation-proven), merged stack asserted on the wire, the non-number count coercion pinned as contract, src/CLAUDE.md type-only edge wording widened to sim/bank.ts.
 - INFO adjudications recorded in state.md (NaN-at-dispatch idiom, outbound-size precedent, spec-mandated HEAVY_SELF_CMDS redundancy for buy): do not re-raise.
 - Next: run docs/bank-system/phase-04-lease-ledger.md in a fresh session.
+
+### Phase 4 QA (2026-07-06)
+
+- Verdict: PASS after fixes. 0 blocking + 5 should-fix + 5 INFO across six audit streams (correctness, test-coverage, dead-code, migration-safety, privacy-security-review, qa-checklist); every should-fix and four INFO applied same-session, one INFO adjudicated. Full record in state.md "Phase 4 QA outcomes".
+- Preceded by the release/v0.23.0 merge 89aede5d8 (conflicts only the generated i18n trio, regenerated and verified to parse; release-merge-audit CLEAN: the new t:'logout' handler composes with the lease release via leave()).
+- One real race fixed test-first: planJoin no longer resumes a mid-teardown (left) session, closing the grace-expiry reconnect window where the nonce fence never engaged (zombie session + early lease release). The reject reuses the transient conflict literal, so the client retries into the fresh-acquire arm.
+- Clean shutdown now drains the bank_ledger FIFO before pool.end(); the audit script dropped its unused account_id read; the four untested audit detector kinds, the pendingLeaseJoins guard clear (both arms), the logout-to-fenced-release composition, and the refused-at-banker zero-rows arm are all pinned, the two headline pins mutation-proven; tests/ip_block_kick.test.ts got the missed lease mock block.
+- Harness note: the Fable usage-credit limit killed two audit agents and most refuter votes mid-workflow; both streams re-ran on opus/sonnet, unverified findings hand-verified per the standing gotcha. The dead-code stream re-verified the final tree: zero open findings, 150/150.
+- Next: run docs/bank-system/phase-05-bank-window.md in a fresh session.
