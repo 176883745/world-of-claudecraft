@@ -201,6 +201,7 @@ export const META_EXCLUDE: ReadonlySet<string> = new Set([
   'fiestaMods', // derived from talentMods + augments
   'fiestaSpecial', // derived from augments
   'wireRev', // runtime-only wire-dirty counter; never serialized/persisted
+  'bank', // per-character deposit box; Phase 3 puts it on the wire and pins it in bank scenarios
 ]);
 
 function sampleExcluding(source: Record<string, unknown>, exclude: ReadonlySet<string>): unknown {

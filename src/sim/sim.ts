@@ -11,6 +11,8 @@ import type {
 } from '../world_api';
 import * as bagsMod from './bags';
 import { addStacked, BAG_SOCKETS, bagCapacity, canAddItem, migrationBagsFor } from './bags';
+import * as bankMod from './bank';
+import { type BankState, sanitizeBankState } from './bank';
 import { lineOfSightClear, resolveMovement, resolvePosition } from './colliders';
 import { auraAffectsStats, removeCancelableAura } from './combat/aura_cancel';
 import {
@@ -714,6 +716,10 @@ export interface PlayerMeta {
   // The 4 equippable bag sockets (itemId of a kind:'bag' item, or null). The
   // 16-slot backpack is implicit; capacity math lives in bags.ts. Persisted.
   bags: (string | null)[];
+  // The per-character bank: a second pooled item store with its own copper-bought
+  // slot budget. Capacity/move math lives in bank.ts. Persisted (inside the
+  // character save, exactly like inventory/bags).
+  bank: BankState;
   vendorBuyback: InvSlot[];
   copper: number;
   equipment: PlayerEquipment;
@@ -859,6 +865,10 @@ export interface CharacterState {
   // Equipped bag sockets. Optional so pre-bag saves load cleanly (defaults to
   // 4 empty sockets; an over-capacity legacy inventory is tolerated).
   bags?: (string | null)[];
+  // Per-character bank (JSONB; optional so pre-bank saves load cleanly, defaulting
+  // to an empty bank with no purchased/bonus slots). sanitizeBankState is the one
+  // load path (never destroys items; tolerates an over-capacity inventory).
+  bank?: BankState;
   vendorBuyback?: InvSlot[];
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
@@ -1426,6 +1436,7 @@ export class Sim {
       wireRev: 0,
       inventory: [],
       bags: Array<string | null>(BAG_SOCKETS).fill(null),
+      bank: { inventory: [], purchasedSlots: 0, bonusSlots: 0 },
       vendorBuyback: [],
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
@@ -1518,6 +1529,9 @@ export class Sim {
         }
       }
       meta.vendorBuyback = (s.vendorBuyback ?? []).map(cloneInvSlot);
+      // Bank sanitizes on load (never destroys items; a pre-bank save has no `bank`
+      // field and sanitizes to an empty bank). See bank.ts sanitizeBankState.
+      meta.bank = sanitizeBankState(s.bank);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1777,6 +1791,11 @@ export class Sim {
       equipment: { ...meta.equipment },
       inventory: meta.inventory.map(cloneInvSlot),
       bags: [...meta.bags],
+      bank: {
+        inventory: meta.bank.inventory.map(cloneInvSlot),
+        purchasedSlots: meta.bank.purchasedSlots,
+        bonusSlots: meta.bank.bonusSlots,
+      },
       vendorBuyback: meta.vendorBuyback.map(cloneInvSlot),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
@@ -5908,6 +5927,27 @@ export class Sim {
   // verbatim to social/trade.ts; partyInvites/duelInvites route through ctx.
   private updateTradesAndInvites(): void {
     tradeMod.updateTradesAndInvites(this.ctx);
+  }
+
+  // -------------------------------------------------------------------------
+  // The Bank: the per-character deposit box
+  // -------------------------------------------------------------------------
+
+  // Thin delegates to the bank free functions (bank.ts). The bank state lives on
+  // PlayerMeta.bank and serializes inside the character save; server/game.ts and
+  // the IWorld surface call these unchanged, reaching the inventory hub through
+  // the SimContext. Each op has one entry point (a later phase gates proximity here).
+
+  bankDeposit(slotIndex: number, count?: number, pid?: number): void {
+    bankMod.bankDeposit(this.ctx, slotIndex, count, pid);
+  }
+
+  bankWithdraw(slotIndex: number, count?: number, pid?: number): void {
+    bankMod.bankWithdraw(this.ctx, slotIndex, count, pid);
+  }
+
+  bankBuySlots(pid?: number): void {
+    bankMod.bankBuySlots(this.ctx, pid);
   }
 
   // -------------------------------------------------------------------------
