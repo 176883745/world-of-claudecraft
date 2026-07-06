@@ -158,8 +158,9 @@ character load and stamped into character state; offline sim defaults to 0):
 ### Banker NPCs
 
 `NpcDef.banker: true` flag; one banker per hub, a small banking house ("The Gilded
-Strongbox") for flavor: Bursar Hobb (Eastbrook), Bursar Petra Vell (Fenbridge), Bursar
-Aldous Crane (Highwatch). Fenbridge finally gets an economy anchor. Interaction mirrors
+Strongbox") for flavor: Bursar Fernando (Eastbrook; planned as Bursar Hobb, renamed in
+Phase 2 at the maintainer's request as an easter egg), Bursar Petra Vell (Fenbridge),
+Bursar Aldous Crane (Highwatch). Fenbridge finally gets an economy anchor. Interaction mirrors
 the mailbox pattern exactly: gossip row, a `bank` SimEvent opens the window, a
 `bankerIds` anchor list validates proximity inside the sim on every command
 (`INTERACT_RANGE + 2` to open, auto-close past 8 yd).

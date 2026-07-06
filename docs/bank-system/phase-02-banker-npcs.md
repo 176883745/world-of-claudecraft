@@ -40,7 +40,8 @@ STEP 2 - CHOOSE ORCHESTRATION + EXECUTE (two agents in parallel, explicit fan-ou
 Agent A (sim + content) deliverables:
 - NpcDef.banker?: true in src/sim/types.ts.
 - Three banker records with greetings ("The Gilded Strongbox" banking-house flavor):
-  bursar_hobb (Eastbrook, zone1), bursar_petra_vell (Fenbridge, zone2),
+  bursar_fernando (Eastbrook, zone1; renamed from bursar_hobb mid-phase at the
+  maintainer's request as an easter egg), bursar_petra_vell (Fenbridge, zone2),
   bursar_aldous_crane (Highwatch, zone3). Positions inside the hubs, not overlapping
   existing roster spots. Never the name Vaultwarden. Record final ids in state.md.
 - bankerIds anchor list on the bank module + nearBanker(pid) at INTERACT_RANGE + 2 (the
@@ -86,7 +87,11 @@ STEP 4 - COMMIT CADENCE (explicit paths):
 STEP 5 - ACCEPTANCE CRITERIA:
 - [ ] Interacting with each of the three bankers emits { type: 'bank', pid } once
 - [ ] All three bank commands deny when far, succeed when near, exact literals matched
-- [ ] tests/parity byte-identical; guide freshness green; S3 guard green
+- [ ] tests/parity green with the rng draw-order digest unchanged (AMENDED in-phase with
+  user approval: adding ctor-placed NPCs shifts every later entity id, so goldens were
+  regenerated via UPDATE_PARITY=1 after an audit proved a pure +3 id-family offset with
+  zero rng and zero behavioral change; "byte-identical" is unachievable for any change
+  that adds a world entity); guide freshness green; S3 guard green
 - [ ] world_entity_i18n lists complete; state.md records the final NPC ids
 
 STEP 6 - DOC UPDATES + MEMORY: progress.md, state.md (ids, SimEvent), memory notes.
@@ -95,7 +100,10 @@ STEP 7 - FINAL RESPONSE FORMAT: status, files, validation, review verdicts, defe
 handoff: run docs/bank-system/phase-02-qa.md next.
 
 STOPPING RULES:
-- Stop if placement cannot avoid shifting rng draw order or any parity golden.
+- Stop if placement cannot avoid shifting rng draw order or any parity golden. (FIRED
+  in-phase and resolved: the invariant that actually holds is the rng draw-order
+  digest, which stayed byte-identical; the golden state/id churn is inherent to adding
+  entities and was regenerated with user approval after an independent +3-offset audit.)
 - Stop if the guide freshness gate cannot be satisfied without hand-editing generated
   files (never hand-edit; regenerate).
 ```

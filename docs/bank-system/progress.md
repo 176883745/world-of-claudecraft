@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Phase 1: sim bank core | complete | 2026-07-05 | 2026-07-05 |
 | Phase 1 QA | complete | 2026-07-06 | 2026-07-06 |
-| Phase 2: banker NPCs | not started | | |
+| Phase 2: banker NPCs | complete | 2026-07-06 | 2026-07-06 |
 | Phase 2 QA | not started | | |
 | Phase 3: IWorld + wire | not started | | |
 | Phase 3 QA | not started | | |
@@ -37,10 +37,10 @@
 - [x] Deliverables and acceptance criteria verified; coverage/dead-code/cleanup agents run; findings fixed
 
 ### Phase 2: banker NPCs
-- [ ] Three banker NpcDefs (Eastbrook, Fenbridge, Highwatch hubs) with `banker: true`, greetings, placement
-- [ ] Interaction arm: gossip row wiring flagged off NpcDef, `{type:'bank', pid}` SimEvent, `bankerIds` anchor list, `INTERACT_RANGE + 2` proximity validation inside the sim on every bank command
-- [ ] Entity i18n lists + guide regen (`npm run wiki:content`) + `guide.*` prose keys
-- [ ] Sim tests: proximity open/deny, event emission, anchor-list behavior
+- [x] Three banker NpcDefs (Eastbrook, Fenbridge, Highwatch hubs) with `banker: true`, greetings, placement (`bursar_fernando` at {13,8}, `bursar_petra_vell` at {12,303}, `bursar_aldous_crane` at {-12,663}; Eastbrook renamed from the planned bursar_hobb at the maintainer's request, a deliberate easter egg)
+- [x] Interaction arm: `{type:'bank', pid}` SimEvent from both interact() arms, `bankerIds` anchor list (Sim field + SimContext primitive), `INTERACT_RANGE + 2` proximity validation inside the sim on every bank command (the HUD gossip row itself is Phase 5 per the packet's out-of-scope list; the NpcDef flag it keys off shipped here)
+- [x] Entity i18n lists + guide regen (`npm run wiki:content` produced NO diff: bankers are not delve keepers, so the generator ignores them; no `guide.*` prose keys needed)
+- [x] Sim tests: proximity open/deny, event emission, anchor-list behavior (bank.test.ts 42 -> 58)
 
 ### Phase 2 QA
 - [ ] As Phase 1 QA
@@ -113,6 +113,13 @@
 - Surprise: every content collect-objective item is quest-kind today, so the deposit-side quest un-credit path is unreachable through real content; it is pinned with a synthetic quest injection in the test and stays as defensive wiring for future content.
 - Rollout: forward-only (a pre-bank binary drops the field and banked items are unrecoverable); drain or upgrade realms, never mixed binaries. Full outcome record in state.md "Phase 1 outcomes".
 - Next: run docs/bank-system/phase-01-qa.md in a fresh session.
+
+### Phase 2 (2026-07-06)
+- Reviewers: architecture-reviewer (0 blocking, 0 should-fix, 4 notes), cross-platform-sync (0 blocking, 4 nits, all deferred-phase handoffs), qa-checklist (READY, 1 should-fix: targeted-far interact test, applied same-session as test 58). Every finding applied or recorded in state.md Phase 2 outcomes.
+- PARITY GOLDENS REGENERATED (user-approved in-phase): three ctor-placed NPCs shift every later entity id by +3, so "goldens byte-identical" is unachievable for any world-entity addition. Independent audit (script + architecture-reviewer re-verification): all 48 changed goldens are a pure +3 id-family offset, rng draw digests and counts byte-identical, zero anomalies. Landed as its own test(parity) commit per tests/parity/CLAUDE.md. The packet acceptance criterion was amended accordingly.
+- Easter egg: the Eastbrook banker is Bursar Fernando (bursar_fernando), renamed mid-phase from the planned bursar_hobb at the maintainer's request. All phase docs, i18n keys, and translations re-keyed; repo-wide grep for the old id is clean (the two historical provenance notes in docs are deliberate).
+- Deferral: an in-world visual placement check of the three bankers (overlap/geometry) needs a running client; deferred to the Phase 2 QA session.
+- Next: run docs/bank-system/phase-02-qa.md in a fresh session.
 
 ### Phase 1 QA (2026-07-06)
 - Verdict: PASS after fixes. 1 blocking + 7 should-fix + 5 nice-to-have found; all applied except 3 refuted with evidence. `src/sim/bank.ts` survived QA byte-unchanged; every applied fix was test decisiveness, i18n accuracy, or merge damage. Full record in state.md "Phase 1 QA outcomes".

@@ -1,6 +1,6 @@
 # Bank System: Cross-Phase State (read this first every session)
 
-Current phase: Phase 1 + Phase 1 QA complete (2026-07-06, verdict PASS); run phase-02-banker-npcs.md next. Update this line as phases complete.
+Current phase: Phase 2 complete (2026-07-06, three reviewers zero blocking); run phase-02-qa.md next. Update this line as phases complete.
 
 ## Locked design decisions (record once, reference forever)
 
@@ -15,7 +15,7 @@ Current phase: Phase 1 + Phase 1 QA complete (2026-07-06, verdict PASS); run pha
 6. Commands (append-only wire tokens, snake_case): `bank_deposit`, `bank_withdraw`, `bank_buy_slots`. All three join `HEAVY_SELF_CMDS`. Field-validated in `server/game.ts` dispatchMessage; the sim owns all gameplay validation (proximity, capacity, existence, alive-state).
 7. Bank contents wire: proximity-gated info read (null away from a banker), riding a `maybe('bank')` delta key mapped in `TERSE_TO_IWORLD` (terse `bank` -> IWorld `bankInfo`; final naming recorded here in Phase 3). Registered in `ALL_DELTA_KEYS`. Delta-guarded decode (`if (s.bank !== undefined)`).
 8. IWorld: new facet file `src/world_api/bank.ts` (IWorldBank), added to the IWorld extends list and `COMMAND_FACETS`; implemented in BOTH Sim and ClientWorld in the same commit as the facet (parity pins demand it).
-9. NPCs: `NpcDef.banker?: true`. Three bankers, banking house "The Gilded Strongbox": `bursar_hobb` (Eastbrook), `bursar_petra_vell` (Fenbridge), `bursar_aldous_crane` (Highwatch) (ids finalized in Phase 2 and recorded here). `bankerIds` anchor list on the bank module (merchantIds/mailboxIds pattern). Open at `INTERACT_RANGE + 2`; HUD auto-close past 8 yd. Gossip row + `{type:'bank', pid}` SimEvent opens the window (mailbox pattern). Do NOT name anything "Vaultwarden" (taken by a $WOC holder tier).
+9. NPCs: `NpcDef.banker?: true`. Three bankers, banking house "The Gilded Strongbox": `bursar_fernando` (Eastbrook), `bursar_petra_vell` (Fenbridge), `bursar_aldous_crane` (Highwatch) (ids FINAL, landed in Phase 2; the Eastbrook banker was renamed from the planned `bursar_hobb` to "Bursar Fernando" mid-phase at the maintainer's request, a deliberate easter egg, so do not "fix" it back). `bankerIds` anchor list on the bank module (merchantIds/mailboxIds pattern). Open at `INTERACT_RANGE + 2`; HUD auto-close past 8 yd. Gossip row + `{type:'bank', pid}` SimEvent opens the window (mailbox pattern). Do NOT name anything "Vaultwarden" (taken by a $WOC holder tier).
 10. Rules: quest-kind items NOT depositable (clear deny line). Instanced slots depositable, never merge, `cloneInvSlot` at every boundary. No copper storage. Withdraw pre-checks `fitsAll` and refuses (never destroys or force-moves); deposit pre-checks bank capacity the same way. Refusals charge nothing and move nothing.
 11. Safety: per-character DB load lease at join (mechanism decided in Phase 4: advisory lock vs lease row with expiry; requirement locked: no cross-process double-load). Append-only `bank_ledger` table modeled on `reward_ledger` (additive DDL in `server/db.ts` SCHEMA), written server-side per bank op without blocking gameplay, plus an offline conservation audit script.
 12. i18n: sim deny/notice lines are English literals at the emit site + matching EXACT/RULE entries in `src/ui/sim_i18n.ts` in the SAME change; append `src/sim/bank.ts` to the S3 guard's hardcoded simSrc list (`tests/localization_fixes.test.ts`) in the same change as its first emit. UI keys in `hudChrome.bank.*` (`src/ui/i18n.catalog/hud_chrome.ts`). Wordy English values need zh/zh_TW/ja/ko/ru fills in the same change (M16). New NPC ids go in `src/ui/world_entity_i18n.ts`; regenerate the guide (`npm run wiki:content`) and add `guide.*` prose keys.
@@ -63,6 +63,7 @@ Existing (templates and seams):
 - `src/sim/bags.ts` (capacity math + command-boundary idioms), `src/sim/types.ts` (InvSlot, cloneInvSlot, NpcDef, SimEvent), `src/sim/market.ts` + `src/sim/mail/post_office.ts` (SimContext town-service modules, anchor lists, proximity, persistence, result-code events), `src/sim/interaction.ts` (interact routing), `src/sim/sim_context.ts` (seam), `src/world_api.ts` + `src/world_api/` (facets, COMMAND_NAMES, COMMAND_FACETS), `src/net/online.ts` (ClientWorld, cmd(), applySnapshot), `server/game.ts` (dispatch, selfWireJson maybe(), HEAVY_SELF_CMDS, interest), `server/db.ts` (SCHEMA, saveCharacterAndMarketState, reward-ledger template in `server/discord_db.ts`), `src/ui/bags_view.ts` + `src/ui/bags_window.ts` + `src/ui/bag_filter.ts` + `src/ui/mailbox_view.ts` + `src/ui/mailbox_window.ts` (window recipe), `src/ui/hud.ts` (composition, gossip rows, vendor-open cluster), `src/sim/content/zone1.ts` / `zone2.ts` / `zone3.ts` (hub NPC rosters), `server/player_card.ts` + `server/wallet.ts` + `referralCountForAccount` in `server/db.ts` (referrals), `server/auth_routes.ts` (referral capture at signup).
 
 Created by this feature (record actual paths as phases land):
+- Phase 2 (LANDED 2026-07-06): banker records appended to `src/sim/content/zone1.ts`/`zone2.ts`/`zone3.ts`; `banker?: true` + SimEvent `bank` in `src/sim/types.ts`; `bankerIds` in `src/sim/sim.ts` + `src/sim/sim_context.ts`; `nearBanker` + gates in `src/sim/bank.ts`; intercepts in `src/sim/interaction.ts`; `error.bankTooFar` in `src/ui/sim_i18n.ts`; ids in `src/ui/world_entity_i18n.ts` + five non-Latin overlay fills; Phase 2 blocks in `tests/bank.test.ts`.
 - Phase 1 (LANDED 2026-07-05): `src/sim/bank.ts` exporting `BANK_BASE_SLOTS`/`BANK_EXPANSION_SLOTS`/`BANK_EXPANSION_PRICES`, `BankState`, `bankCapacity`, `moveBetweenContainers(source, sourceIndex, count, dest, destCapacity): MoveResult` (the container-agnostic seam, decision 16a), `bankDeposit`/`bankWithdraw`/`bankBuySlots` (free functions over ctx, thin same-named Sim delegates), `sanitizeBankState` (the ONE load path); `tests/bank.test.ts`; `PlayerMeta.bank` + `CharacterState.bank?` per decision 1.
 
 ## Phase 1 outcomes (recorded 2026-07-05)
@@ -81,6 +82,16 @@ Created by this feature (record actual paths as phases land):
 - Phase 7: mobile/a11y polish.
 - Phase 8: entitlement calculator + portal surface + referral qualification.
 
+## Phase 2 outcomes (recorded 2026-07-06)
+
+- Landed: `NpcDef.banker?: true` (the `?: true` literal type is DELIBERATE, stricter than the sibling `market?: boolean`, forbids `banker: false`); SimEvent `| { type: 'bank' }` (pid via the union intersection, both emit sites always pass it); `Sim.bankerIds` + `readonly bankerIds` SimContextPrimitive with live getters bound in BOTH sim.ts buildSimContext AND sim_context.ts createSimContext (the anchor list could NOT live "on the bank module" as decision 9 loosely said: bank.ts is free functions and module globals are forbidden for multi-Sim isolation, so it is a Sim field surfaced on ctx); `nearBanker(ctx, e)` free function in bank.ts at `BANKER_RANGE = INTERACT_RANGE + 2`; the proximity gate prepended to all three command bodies BEFORE input validation; banker intercepts in both interact() arms BEFORE talkToNpc, returning after one emit.
+- NPC ids FINAL: `bursar_fernando` (Eastbrook {13,8}; renamed mid-phase from the planned bursar_hobb at the maintainer's request, a deliberate easter egg, do not revert), `bursar_petra_vell` (Fenbridge {12,303}), `bursar_aldous_crane` (Highwatch {-12,663}); shared title "The Gilded Strongbox", shared color 0xc9a227, `questIds: []`.
+- Emit literal: 'You are too far from the banker.' = `error.bankTooFar`, EXACT in baseEnTable + five non-Latin BASE_DICT fills. Entity name/title/greeting keys filled in the five non-Latin overlays (M16); Fernando transliterated per locale.
+- PARITY GOLDENS REGENERATED (user-approved; the packet's "byte-identical" criterion amended): 3 ctor NPCs shift every later entity id by +3. Audited two ways (orchestrator script + architecture-reviewer): all 48 goldens pure +3 id-family offset, rng draw digests/counts byte-identical, zero anomalies. The REAL invariant for content additions is the rng draw-order digest, not golden bytes. Landed as its own test(parity) commit.
+- Reviewer notes to carry forward (none blocking): (a) the banker intercept precedes isQuestInteractionEntity, so a banker given questIds would have quest talk SHADOWED: bankers must keep `questIds: []` unless the intercept is reordered; (b) range asymmetry is inherited from market/mail: untargeted scan finds at INTERACT_RANGE (5), targeted arm and the command gate at +2 (7); (c) Phase 5 author: `pid` is optional on the union, and a pid-less bank event would broadcast via eventAnchor, always pass pid (mailbox has the same latent shape); (d) Phase 3: bank contents delta key + any HEAVY_SELF_EVENTS/selfHeavyDirty wiring belong there, `bank` correctly absent from HEAVY_SELF_EVENTS now; (e) HUD `case 'bank':` lands in Phase 5 (event currently inert client-side by design).
+- Deferral: in-world visual placement check (overlap/geometry) of the three bankers needs a running client; deferred to Phase 2 QA.
+- tests/bank.test.ts 42 -> 58 (registration, exactly-once emits both arms x3 bankers, bystander pid isolation, near/far x3 commands with exact literal + nothing-moved/copper-unchanged, targeted-far no-emit, Phase 1 suite migrated via moveToBanker with no weakened assertions).
+
 ## Phase 1 QA outcomes (recorded 2026-07-06)
 
 - Verdict: PASS after fixes. Zero defects in `src/sim/bank.ts` or the sim.ts wiring (the module survived QA byte-unchanged); every finding was test decisiveness, i18n accuracy, docs, or merge damage.
@@ -95,11 +106,11 @@ Created by this feature (record actual paths as phases land):
 ## New surface added per phase (fill in as phases complete)
 
 - IWorld members: (Phase 3)
-- SimEvents: (Phase 2: `bank`)
+- SimEvents: Phase 2 (LANDED): `{ type: 'bank' }`, pid always passed by both emit sites
 - Wire fields / delta keys: (Phase 3)
 - Commands: (Phase 3: `bank_deposit`, `bank_withdraw`, `bank_buy_slots`)
 - DB tables/columns: (Phase 4: `bank_ledger`; lease mechanism)
-- i18n keys / matcher rules: Phase 1: `error.bankQuestItem`, `error.bankFull`, `error.bankCannotAfford`, `error.bankMaxSlots`, `log.bankSlotsPurchased` (all EXACT via `baseEnTable`, five non-Latin fills each); more in Phases 2, 5, 6, 7.
+- i18n keys / matcher rules: Phase 1: `error.bankQuestItem`, `error.bankFull`, `error.bankCannotAfford`, `error.bankMaxSlots`, `log.bankSlotsPurchased` (all EXACT via `baseEnTable`, five non-Latin fills each). Phase 2: `error.bankTooFar` (same recipe) + `entities.npcs.{bursar_fernando,bursar_petra_vell,bursar_aldous_crane}.{name,title,greeting}` (world_entity_i18n + five non-Latin overlay fills). More in Phases 5, 6, 7.
 
 ## OPEN items and known gotchas
 
