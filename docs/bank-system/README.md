@@ -2,7 +2,8 @@
 
 A classic-style personal bank for World of ClaudeCraft: banker NPCs in all three town
 hubs open a pooled, per-character vault (base 24 slots, copper-purchasable expansions to
-96, account-action bonus slots to 112), with search/category/sort organization, a
+96, account-action bonus slots to 112 at v1, 116 once X and Twitch linking ship), with
+search/category/sort organization, a
 click-to-deposit UX docked beside the bags window, and a heavyweight anti-dupe program
 (same-blob persistence, per-character lease, append-only ledger, conservation-invariant
 tests). Branch: `feature/bank-system` off `release/v0.22.0`.

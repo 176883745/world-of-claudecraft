@@ -90,7 +90,8 @@
 - [ ] As Phase 1 QA
 
 ### Phase 8: bonus slots
-- [ ] Server entitlement calculator (email, Discord link, wallet link, qualified referrals: referee has a level >= 10 character, cap 5) stamped into character state at load; offline default 0
+- [ ] Server entitlement calculator as an extensible source registry (email, Discord link, wallet link, qualified referrals: referee has a level >= 10 character, cap 5) stamped into character state at load; offline default 0
+- [ ] Registry extensibility proven by test (future X and Twitch connect-and-follow rows land without wire or pin churn; not implemented in v1)
 - [ ] Referral qualification query on the existing referrals table (no rebuild)
 - [ ] Player-facing surface listing bonus sources and status (portal or bank window footer; decide in phase)
 - [ ] Tests: entitlement math, cap, qualification, stamp-at-load, no mid-session drift

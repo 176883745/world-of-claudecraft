@@ -148,7 +148,12 @@ character load and stamped into character state; offline sim defaults to 0):
   qualifies only when the referee account has a character that reached level 10, so a
   qualified referral costs real playtime and cannot be farmed with throwaway signups.
   Existing capture rules already block self-referrals and duplicate referees.
-- Absolute ceiling: 24 + 72 + 16 = 112 slots.
+- Absolute ceiling at v1: 24 + 72 + 16 = 112 slots.
+- Future sources, approved and locked in shape: +2 for connecting an X account and
+  following the game, +2 for connecting a Twitch account and following the channel.
+  Both platform-link systems are being built separately; these bonuses land when those
+  systems ship (ceiling then 116). The Phase 8 calculator is built as an extensible
+  source registry so each becomes a table row, not a redesign.
 
 ### Banker NPCs
 
@@ -225,6 +230,8 @@ flair, holder-tier greetings.
 - Account-wide shared vault (Warband model): a separate container with its own table;
   requires the cross-blob atomicity + lease story shipped in v1.
 - Guild bank: needs per-rank permissions and withdrawal logs.
+- X and Twitch bonus slots: activate their registry rows once the platform-link
+  systems (in development separately) ship with a verifiable connect-and-follow fact.
 
 ## Known gotchas for implementation (from the verified codebase map)
 

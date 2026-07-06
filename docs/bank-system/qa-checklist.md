@@ -42,7 +42,9 @@ Verified once at packet completion (Phase 9). Every row must pass.
   in the per-frame path); focus/inert contract holds through every teardown path;
   mobile layout verified via screenshot script (safe areas, 40x40 targets, 16px inputs).
 - Bonus slots: entitlement math and referral qualification (level >= 10 referee, cap 5)
-  covered by tests; stamp-at-load only, no mid-session drift; offline sim unaffected.
+  covered by tests; stamp-at-load only, no mid-session drift; offline sim unaffected;
+  the source registry provably accepts a future row (X, Twitch) without wire or pin
+  churn, and no unshipped source is implemented or displayed.
 - Copy review: no em dashes, en dashes, or emojis anywhere in the diff.
 - Build gate: `npm run gate` green on the branch (release tier will additionally require
   locale fills at release time; contributors ship English per the workflow).

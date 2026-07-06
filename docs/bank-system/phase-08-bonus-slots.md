@@ -41,12 +41,18 @@ STEP 2 - CHOOSE ORCHESTRATION + EXECUTE (two agents in parallel):
 
 Agent A (server calculator + stamp) deliverables:
 - server/bank_entitlements.ts (its own module; SQL in the db layer per server rules):
-  computeBankBonusSlots(accountId) returning the breakdown and total: +2 email
-  (criterion per the Explore finding), +2 Discord linked, +2 wallet linked (a
-  wallet_links row EXISTS; never a balance or chain read), +2 per qualified referral
-  capped at 5 (+10 max). Qualified referral: a referrals row whose referee account owns
-  a character with level >= 10 (one parameterized query joining referrals to
-  characters on the denormalized level column; must be cheap, it runs at join).
+  an EXTENSIBLE source registry (a data table of source id -> criterion function ->
+  slots) driving computeBankBonusSlots(accountId), which returns the breakdown (a list
+  of source rows, so future sources append without changing the shape) and the total.
+  v1 registry rows: +2 email (criterion per the Explore finding), +2 Discord linked,
+  +2 wallet linked (a wallet_links row EXISTS; never a balance or chain read), +2 per
+  qualified referral capped at 5 (+10 max). Qualified referral: a referrals row whose
+  referee account owns a character with level >= 10 (one parameterized query joining
+  referrals to characters on the denormalized level column; must be cheap, it runs at
+  join). FUTURE registry rows, approved but blocked on systems being built separately
+  (state.md decision 4): +2 X connected and following, +2 Twitch connected and
+  following; do NOT implement them, but a test must prove a new registry row lands
+  without touching the wire shape or any pin.
 - Stamp at load: the join path computes bonusSlots once and writes it into the
   character state handed to the sim. Policy (locked): plain recompute each join, so
   unlinking lowers it next login; if the recomputed capacity falls below the currently
@@ -80,7 +86,9 @@ INVARIANTS THIS PHASE MUST KEEP:
 
 Out of scope: new referral capture mechanics or reward types beyond bank slots; email
 verification flows (if none exists, use email-on-account and file the follow-up);
-retroactive notifications.
+retroactive notifications; the X and Twitch sources themselves (their platform-link
+systems are being built separately; this phase only proves the registry accepts a new
+row cheaply).
 
 STEP 3 - VALIDATION + MULTI-AGENT REVIEW:
 - Run: npx tsc --noEmit; npm run build:server; the new entitlement suites; if bankInfo
@@ -100,6 +108,8 @@ STEP 4 - COMMIT CADENCE (explicit paths):
 
 STEP 5 - ACCEPTANCE CRITERIA:
 - [ ] Each source grants exactly +2; the referral cap holds at exactly 5
+- [ ] A test proves a new registry row (a fake future source) lands without touching
+      the wire shape or any pinned count
 - [ ] Qualification requires a level >= 10 referee character (asserted with fixtures)
 - [ ] Recompute-at-join only; shrink-below-used goes over-capacity without item loss
 - [ ] Offline sim unaffected (bonusSlots 0); pre-bonusSlots saves load clean
