@@ -167,6 +167,8 @@ describe('World Market integration: profession items (#1146)', () => {
     // house stock reseeded exactly once, never duplicated from the save
     expect(sim2.marketListings.filter((l) => l.house).length).toBe(houseBefore);
     // the material sale proceeds carried across (100 - 5% = 95)
+    // reach into the private collection map: sim2 has no live player for the seller pid,
+    // so the public marketInfoFor cannot resolve the key here.
     const col = (
       sim2.market as unknown as { marketCollections: Map<string, { copper: number }> }
     ).marketCollections.get(marketSellerKey(seller));
