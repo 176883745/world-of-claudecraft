@@ -276,6 +276,21 @@ describe('SelfMotionPredictor', () => {
     expect(backslide).toBeLessThan(0.05);
   });
 
+  it('sustains the full run speed on a high-RTT link (no underwater feel)', () => {
+    const lab = new Lab(280);
+    lab.setInput(mi({ forward: true }));
+    for (let i = 0; i < 60; i++) lab.frame(); // 1s: past the start transient
+    const first = lab.frame().pose;
+    if (!first) throw new Error('predictor disabled unexpectedly');
+    let last = first;
+    for (let i = 0; i < 60 * 2; i++) {
+      const r = lab.frame();
+      if (r.pose) last = r.pose;
+    }
+    const avgSpeed = (last.z - first.z) / 2; // yd/s over the 2s window
+    expect(avgSpeed).toBeGreaterThan(6.5); // RUN_SPEED is 7
+  });
+
   it('starts the jump arc locally without waiting for the server', () => {
     const lab = new Lab(150);
     lab.setInput(mi({ forward: true }));

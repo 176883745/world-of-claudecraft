@@ -30,10 +30,17 @@ import { moveSpeedMult, type PlayerMotionDeps, stepPlayerMotion } from '../sim/p
 import { DT, type Entity, type MoveInput, RUN_SPEED } from '../sim/types';
 
 // Latency cap on the extrapolation window: at least one snapshot-ish interval
-// so low-ping links still get the start-of-motion snap, at most 180 ms so a
-// bad link never runs the visual far ahead of the truth.
+// so low-ping links still get the start-of-motion snap, and a hard ceiling so
+// a pathological link never runs the visual far ahead of the truth. The
+// ceiling must sit ABOVE any RTT the game is meant to feel good at: when the
+// real echo exceeds it the display rides the leash boundary permanently and
+// every steering input gets radially clamped, a distinct gluey "moving
+// through water" feel (observed under netem at ~280ms RTT with a 180 cap).
+// Mispredictions stay small regardless: CC gates the predictor off and
+// teleports snap, so the cost of a higher ceiling is only a longer correction
+// glide in the rare genuine-divergence case.
 export const SELF_MOTION_CAP_MIN_MS = 60;
-export const SELF_MOTION_CAP_MAX_MS = 180;
+export const SELF_MOTION_CAP_MAX_MS = 350;
 // The divergence MEASUREMENT is aligned to the true echo, bounded only by
 // what the history ring can serve. This is a different bound from the lead
 // cap above on purpose: capping the measurement at 180ms on a 280ms link
