@@ -2704,6 +2704,8 @@ export const da_DK: EnTranslations = {
     "title": "Download Desktop-launcher",
     "desc": "Hent den selvstændige launcher for optimeret ydeevne og fuldskærmsspil.",
     "macCta": "Download til macOS",
+    "linuxCta": "Download for Linux",
+    "linuxHint": "AppImage: make it executable, then run it. No install needed.",
     "windowsPending": "Windows-build afventer."
   },
   "comingSoon": {

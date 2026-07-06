@@ -2704,6 +2704,8 @@ export const tr_TR: EnTranslations = {
     "title": "Masaüstü Başlatıcısını İndir",
     "desc": "Optimize edilmiş performans ve tam ekran oyun için bağımsız başlatıcıyı edinin.",
     "macCta": "macOS için indir",
+    "linuxCta": "Download for Linux",
+    "linuxHint": "AppImage: make it executable, then run it. No install needed.",
     "windowsPending": "Windows derlemesi beklemede."
   },
   "comingSoon": {

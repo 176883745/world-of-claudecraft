@@ -3869,6 +3869,31 @@ export class GameServer {
           `arena:${s.accountId}:${ev.ratingAfter}`,
           now,
         );
+      } else if (ev.type === 'delveObjectiveComplete' && ev.pid !== undefined) {
+        const s = this.clients.get(ev.pid);
+        if (!s) continue;
+        void dailyRewardService
+          .recordDelveClear(s.accountId, s.characterId, ev.delveId, ev.tierId)
+          .then((points) => {
+            if (points > 0) this.sendDailyRewardPointsGained(s, points);
+          })
+          .catch((err) => console.error('daily reward delve task failed:', err));
+      } else if (ev.type === 'delveChestLoot' && ev.pid !== undefined) {
+        const s = this.clients.get(ev.pid);
+        if (!s) continue;
+        void dailyRewardService
+          .recordDelveChestOpen(
+            s.accountId,
+            s.characterId,
+            ev.delveId,
+            ev.tierId,
+            ev.lootTier,
+            ev.bountiful,
+          )
+          .then((points) => {
+            if (points > 0) this.sendDailyRewardPointsGained(s, points);
+          })
+          .catch((err) => console.error('daily reward delve chest task failed:', err));
       }
     }
   }

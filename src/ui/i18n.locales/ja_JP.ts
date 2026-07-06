@@ -542,6 +542,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'news.desc': '最新のパッチノート、イベント、コミュニティの更新情報を確認しましょう。',
   'download.title': 'デスクトップランチャーのダウンロード',
   'download.macCta': 'macOS版をダウンロード',
+  'download.linuxCta': 'Linux版をダウンロード',
+  'download.linuxHint': 'AppImage形式です。実行権限を付けてそのまま起動でき、インストールは不要です。',
   'download.windowsPending': 'Windows版は準備中です。',
   'download.desc':
     '最適化されたパフォーマンスと全画面表示でのプレイのために、スタンドアロン版ランチャーを入手してください。',

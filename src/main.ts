@@ -22,6 +22,7 @@ import {
   stepAngleToward,
 } from './game/click_move';
 import { getClientSeed } from './game/client_seed';
+import { initDesktopDownload } from './game/desktop_download';
 import { initDesktopShellIntegration } from './game/desktop_shell_integration';
 import { takeEditorPlaytestRequest } from './game/editor_playtest';
 import { GamepadManager } from './game/gamepad';
@@ -7242,6 +7243,7 @@ function wireStartScreens(): void {
     void loadNews();
   });
   setupNavBtn(navBtnDownload, '#download-view');
+  initDesktopDownload();
   setupNavBtn(navBtnLogin, '#hero-view', () => {
     show('#login-panel');
   });

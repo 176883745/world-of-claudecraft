@@ -10,6 +10,8 @@
 
 export const pending: Record<string, readonly string[]> = {
   "es": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -90,6 +92,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "es_ES": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -170,6 +174,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "fr_FR": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -250,6 +256,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "fr_CA": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -331,6 +339,8 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "en_CA": [],
   "it_IT": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -411,6 +421,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "de_DE": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -511,6 +523,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.spellbookPageLabel"
   ],
   "pt_BR": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -596,6 +610,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.mobile.spellbookPageLabel"
   ],
   "nl_NL": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -676,6 +692,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "pl_PL": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -756,6 +774,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "id_ID": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -836,6 +856,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "tr_TR": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -916,6 +938,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "sv_SE": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -996,6 +1020,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "vi_VN": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
@@ -1076,6 +1102,8 @@ export const pending: Record<string, readonly string[]> = {
     "loading.reconnecting"
   ],
   "da_DK": [
+    "download.linuxCta",
+    "download.linuxHint",
     "guide.nav.settings",
     "guide.settingsPage.advancedBody",
     "guide.settingsPage.advancedHeading",
