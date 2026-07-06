@@ -6134,6 +6134,14 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.resultAria': 'Kerajinan {name}',
   'hudChrome.crafting.title': 'kerajinan',
   'hudChrome.crafting.unknownRecipe': 'Resep itu tidak ada.',
+  'hudChrome.mobile.actionPageIndicator': 'Hal. {page}',
+  'hudChrome.mobile.actionPageToggle': 'Ganti halaman tindakan',
+  'hudChrome.mobile.actionRing': 'Aksi tempur',
+  'hudChrome.mobile.spellbookPageLabel': 'Halaman {page}',
+  'hudChrome.mobile.targetCycle': 'Tukar sasaran',
+  'hudChrome.mobile.targetCycleShort': 'Target',
+  'hudChrome.options.mobileCameraJoystick': 'Joystick kamera',
+  'hudChrome.options.mobileLeftHanded': 'Tata letak kidal',
   // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Sebuah Kerajinan untuk Disebut Milik Anda',
   'entities.quests.q_archetype_acceptance.text':

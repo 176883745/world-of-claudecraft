@@ -313,7 +313,13 @@ export const tr_TR: EnTranslations = {
       "hapticsOff": "Dokunsal Kapalı",
       "toggleHaptics": "Dokunsal geri bildirimi aç/kapat",
       "hotbarPage": "Yetenekler",
-      "hotbarPageAria": "Sonraki yetenek grubunu göster"
+      "hotbarPageAria": "Sonraki yetenek grubunu göster",
+      "actionRing": "Savaş eylemleri",
+      "actionPageToggle": "İşlem sayfasını değiştir",
+      "actionPageIndicator": "Sayfa {page}",
+      "targetCycle": "Hedefi değiştir",
+      "targetCycleShort": "Hedef",
+      "spellbookPageLabel": "Sayfa {page}"
     },
     "tutorial": {
       "moveBodyTouch": "Hareket etmek için hareket çubuğunu kullan ve etrafa bakmak için ekranı sürükle. Başlamak için birkaç adım at.",
@@ -420,7 +426,9 @@ export const tr_TR: EnTranslations = {
       "itemLevelLine": "Eşya Seviyesi {level}",
       "itemScoreLine": "Puan {score}",
       "showSecondaryActionBar": "İkincil Eylem Çubuğunu Göster",
-      "showDailyRewardsChest": "Günlük Ödül Sandığını Göster"
+      "showDailyRewardsChest": "Günlük Ödül Sandığını Göster",
+      "mobileCameraJoystick": "Kamera joystick'i",
+      "mobileLeftHanded": "Solak düzen"
     },
     "controller": {
       "title": "Oyun Kolu",

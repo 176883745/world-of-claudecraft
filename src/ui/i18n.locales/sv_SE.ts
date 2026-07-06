@@ -6062,6 +6062,14 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.resultAria': 'Hantverk {name}',
   'hudChrome.crafting.title': 'Hantverk',
   'hudChrome.crafting.unknownRecipe': 'Det receptet finns inte.',
+  'hudChrome.mobile.actionPageIndicator': 'Sida {page}',
+  'hudChrome.mobile.actionPageToggle': 'Byt åtgärdssida',
+  'hudChrome.mobile.actionRing': 'Stridsaktioner',
+  'hudChrome.mobile.spellbookPageLabel': 'Sida {page}',
+  'hudChrome.mobile.targetCycle': 'Byt mål',
+  'hudChrome.mobile.targetCycleShort': 'Mål',
+  'hudChrome.options.mobileCameraJoystick': 'Kamera joystick',
+  'hudChrome.options.mobileLeftHanded': 'Vänsterhänt layout',
   // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Ett hantverk att kalla ditt eget',
   'entities.quests.q_archetype_acceptance.text':

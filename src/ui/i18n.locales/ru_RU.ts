@@ -388,6 +388,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.showItemLevel': 'Показывать уровень предмета',
   'hudChrome.options.showSecondaryActionBar': 'Показывать вторичную панель действий',
   'hudChrome.options.showDailyRewardsChest': 'Показывать сундук ежедневных наград',
+  'hudChrome.options.mobileCameraJoystick': 'Джойстик камеры',
+  'hudChrome.options.mobileLeftHanded': 'Раскладка для левшей',
   'hudChrome.options.itemLevelLine': 'Уровень предмета {level}',
   'hudChrome.options.itemScoreLine': 'Оценка {score}',
   'hudChrome.landing.highContrast': 'Высокая контрастность',
@@ -3542,6 +3544,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.perSecond': '{value}/с',
   'hudChrome.meters.perSecondRow': '{total} ({rate})',
   'hudChrome.meters.seconds': '{s} сек.',
+  'hudChrome.mobile.actionPageToggle': 'Переключить страницу действий',
+  'hudChrome.mobile.actionRing': 'Боевые действия',
   'hudChrome.mobile.autorun': 'Автобег',
   'hudChrome.mobile.haptics': 'Вибрация',
   'hudChrome.mobile.hapticsOff': 'Вибрация выкл.',
@@ -3550,6 +3554,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mobile.jump': 'Прыжок',
   'hudChrome.mobile.leaderboard': 'Рейтинг',
   'hudChrome.mobile.nameplates': 'Имена',
+  'hudChrome.mobile.targetCycle': 'Сменить цель',
+  'hudChrome.mobile.targetCycleShort': 'Цель',
   'hudChrome.mobile.toggleHaptics': 'Вкл/выкл вибрацию',
   'hudChrome.rest.resting': 'Отдых',
   'hudChrome.swing.ready': 'Замах',
@@ -6121,4 +6127,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.gathering.herbalism': 'Травничество',
   // Release v0.22.0 locale fill.
   'hudChrome.crafting.reagentLine': '{name}: {have}/{required}',
+  'hudChrome.mobile.actionPageIndicator': 'Стр. {page}',
+  'hudChrome.mobile.spellbookPageLabel': 'Страница {page}',
 };

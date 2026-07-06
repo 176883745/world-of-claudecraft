@@ -6173,6 +6173,14 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.resultAria': 'Crea {name}',
   'hudChrome.crafting.title': 'Creazione',
   'hudChrome.crafting.unknownRecipe': 'Quella ricetta non esiste.',
+  'hudChrome.mobile.actionPageIndicator': 'Pag. {page}',
+  'hudChrome.mobile.actionPageToggle': 'Cambia pagina di azione',
+  'hudChrome.mobile.actionRing': 'Azioni di combattimento',
+  'hudChrome.mobile.spellbookPageLabel': 'Pagina {page}',
+  'hudChrome.mobile.targetCycle': 'Scambia bersaglio',
+  'hudChrome.mobile.targetCycleShort': 'Bersaglio',
+  'hudChrome.options.mobileCameraJoystick': 'Joystick della fotocamera',
+  'hudChrome.options.mobileLeftHanded': 'Disposizione per mancini',
   // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Un mestiere da chiamare tuo',
   'entities.quests.q_archetype_acceptance.text':

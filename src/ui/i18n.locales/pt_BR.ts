@@ -6147,6 +6147,14 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.resultAria': 'Artesanato {name}',
   'hudChrome.crafting.title': 'Artesanato',
   'hudChrome.crafting.unknownRecipe': 'Essa receita não existe.',
+  'hudChrome.mobile.actionPageIndicator': 'Pág. {page}',
+  'hudChrome.mobile.actionPageToggle': 'Mudar página de ação',
+  'hudChrome.mobile.actionRing': 'Ações de combate',
+  'hudChrome.mobile.spellbookPageLabel': 'Página {page}',
+  'hudChrome.mobile.targetCycle': 'Trocar alvo',
+  'hudChrome.mobile.targetCycleShort': 'Alvo',
+  'hudChrome.options.mobileCameraJoystick': 'Joystick da câmera',
+  'hudChrome.options.mobileLeftHanded': 'Layout para canhotos',
   // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Um ofício para chamar de seu',
   'entities.quests.q_archetype_acceptance.text':

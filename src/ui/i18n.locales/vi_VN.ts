@@ -6078,6 +6078,14 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.resultAria': 'Thủ công {name}',
   'hudChrome.crafting.title': 'Chế tạo',
   'hudChrome.crafting.unknownRecipe': 'Công thức đó không tồn tại.',
+  'hudChrome.mobile.actionPageIndicator': 'Trang {page}',
+  'hudChrome.mobile.actionPageToggle': 'Chuyển trang hành động',
+  'hudChrome.mobile.actionRing': 'Hành động chiến đấu',
+  'hudChrome.mobile.spellbookPageLabel': 'Trang {page}',
+  'hudChrome.mobile.targetCycle': 'Hoán đổi mục tiêu',
+  'hudChrome.mobile.targetCycleShort': 'Mục tiêu',
+  'hudChrome.options.mobileCameraJoystick': 'Cần điều khiển máy ảnh',
+  'hudChrome.options.mobileLeftHanded': 'Bố cục thuận tay trái',
   // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Một nghề để gọi riêng của bạn',
   'entities.quests.q_archetype_acceptance.text':
