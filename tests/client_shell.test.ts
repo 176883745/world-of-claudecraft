@@ -740,9 +740,13 @@ describe('client HTML shell', () => {
       expect(entry, name).toMatch(/id="mobile-discord"\s+hidden/);
       expect(entry, name).toContain('id="mobile-donate"');
       expect(entry, name).toMatch(/id="mobile-donate"[^>]*data-icon="donate"/);
-      // Donate is never gated: no hidden attribute on it.
+      // Donate is never gated on the web: no hidden attribute on it.
       expect(entry, name).not.toMatch(/id="mobile-donate"\s+hidden/);
     }
+    // The native-app build strips every donation link (store payment-steering
+    // policy); the tray entry joins the same suppression block as the desktop
+    // .donate links in hud.css.
+    expect(hudCss).toContain('body.native-app #mobile-donate,');
     // The tap targets: the account panel with the invite as the logged-out /
     // offline fallback, and the sponsors page, pinned to the shells' URLs.
     expect(mainTs).toContain("const DISCORD_INVITE_URL = 'https://discord.gg/GjhnUsBtw';");
