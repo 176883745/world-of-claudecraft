@@ -1137,6 +1137,24 @@ export const ja_JP: EnTranslations = {
         "takeParcelsFirst": "手紙を捨てる前に小包を取り出してください。"
       }
     },
+    "bank": {
+      "title": "銀行",
+      "subtitle": "金張りの金庫",
+      "close": "銀行を閉じる",
+      "capacity": "{used}/{total}",
+      "capacityAria": "使用中の銀行スロット: {total}個中{used}個",
+      "empty": "銀行は空です。",
+      "tooFar": "銀行を利用するには銀行員のそばにいる必要があります。",
+      "buySlots": "スロットを{count}個購入",
+      "buySlotsMaxed": "完全に拡張済み",
+      "buyConfirm": "{price}で銀行スロットを追加で{count}個購入しますか？",
+      "buyConfirmAccept": "購入",
+      "withdrawHint": "クリックで引き出す",
+      "withdrawPartialHint": "Shift+クリックで一部だけ引き出す",
+      "withdrawQuantityTitle": "{item}を引き出す",
+      "withdrawQuantityInput": "引き出す数量",
+      "withdrawQuantityConfirm": "引き出す"
+    },
     "calendar": {
       "title": "イベントカレンダー",
       "close": "カレンダーを閉じる",

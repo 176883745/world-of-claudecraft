@@ -1137,6 +1137,24 @@ export const ko_KR: EnTranslations = {
         "takeParcelsFirst": "편지를 버리기 전에 소포를 먼저 꺼내세요."
       }
     },
+    "bank": {
+      "title": "은행",
+      "subtitle": "도금 금고",
+      "close": "은행 닫기",
+      "capacity": "{used}/{total}",
+      "capacityAria": "사용 중인 은행 칸: {total}칸 중 {used}칸",
+      "empty": "은행이 비어 있습니다.",
+      "tooFar": "은행을 이용하려면 은행원 옆에 있어야 합니다.",
+      "buySlots": "{count}칸 구매",
+      "buySlotsMaxed": "완전히 확장됨",
+      "buyConfirm": "{price}에 은행 칸 {count}개를 추가로 구매하시겠습니까?",
+      "buyConfirmAccept": "구매",
+      "withdrawHint": "클릭하여 꺼내기",
+      "withdrawPartialHint": "Shift+클릭하여 일부만 꺼내기",
+      "withdrawQuantityTitle": "{item} 꺼내기",
+      "withdrawQuantityInput": "꺼낼 수량",
+      "withdrawQuantityConfirm": "꺼내기"
+    },
     "calendar": {
       "title": "이벤트 달력",
       "close": "달력 닫기",

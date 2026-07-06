@@ -1137,6 +1137,24 @@ export const ru_RU: EnTranslations = {
         "takeParcelsFirst": "Сначала заберите посылки, затем удаляйте письмо."
       }
     },
+    "bank": {
+      "title": "Банк",
+      "subtitle": "Золочёный сундук",
+      "close": "Закрыть банк",
+      "capacity": "{used}/{total}",
+      "capacityAria": "Занято ячеек банка: {used} из {total}",
+      "empty": "Ваш банк пуст.",
+      "tooFar": "Чтобы открыть банк, нужно стоять у банкира.",
+      "buySlots": "Купить {count} ячеек",
+      "buySlotsMaxed": "Полностью расширен",
+      "buyConfirm": "Купить {count} дополнительных ячеек банка за {price}?",
+      "buyConfirmAccept": "Купить",
+      "withdrawHint": "Нажмите, чтобы забрать",
+      "withdrawPartialHint": "Shift+клик, чтобы забрать часть",
+      "withdrawQuantityTitle": "Забрать {item}",
+      "withdrawQuantityInput": "Количество для получения",
+      "withdrawQuantityConfirm": "Забрать"
+    },
     "calendar": {
       "title": "Календарь событий",
       "close": "Закрыть календарь",

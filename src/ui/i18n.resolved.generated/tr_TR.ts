@@ -1137,6 +1137,24 @@ export const tr_TR: EnTranslations = {
         "takeParcelsFirst": "Mektubu atmadan önce paketleri çıkar."
       }
     },
+    "bank": {
+      "title": "Bank",
+      "subtitle": "The Gilded Strongbox",
+      "close": "Close bank",
+      "capacity": "{used}/{total}",
+      "capacityAria": "Bank slots used: {used} of {total}",
+      "empty": "Your bank is empty.",
+      "tooFar": "You must be at a banker to view your bank.",
+      "buySlots": "Buy {count} slots",
+      "buySlotsMaxed": "Fully expanded",
+      "buyConfirm": "Purchase {count} additional bank slots for {price}?",
+      "buyConfirmAccept": "Purchase",
+      "withdrawHint": "Click to withdraw",
+      "withdrawPartialHint": "Shift-click to withdraw a partial amount",
+      "withdrawQuantityTitle": "Withdraw {item}",
+      "withdrawQuantityInput": "Quantity to withdraw",
+      "withdrawQuantityConfirm": "Withdraw"
+    },
     "calendar": {
       "title": "Etkinlik Takvimi",
       "close": "Takvimi kapat",

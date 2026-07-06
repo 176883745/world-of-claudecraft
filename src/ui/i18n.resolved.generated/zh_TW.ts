@@ -1137,6 +1137,24 @@ export const zh_TW: EnTranslations = {
         "takeParcelsFirst": "請先取出包裹再丟棄信件。"
       }
     },
+    "bank": {
+      "title": "銀行",
+      "subtitle": "鍍金保險箱",
+      "close": "關閉銀行",
+      "capacity": "{used}/{total}",
+      "capacityAria": "銀行格已用：{used}/{total}",
+      "empty": "你的銀行是空的。",
+      "tooFar": "你必須站在銀行家旁才能查看銀行。",
+      "buySlots": "購買 {count} 個格子",
+      "buySlotsMaxed": "已完全擴展",
+      "buyConfirm": "花費 {price} 購買 {count} 個額外的銀行格子嗎？",
+      "buyConfirmAccept": "購買",
+      "withdrawHint": "點擊取出",
+      "withdrawPartialHint": "Shift+點擊取出部分數量",
+      "withdrawQuantityTitle": "取出 {item}",
+      "withdrawQuantityInput": "要取出的數量",
+      "withdrawQuantityConfirm": "取出"
+    },
     "calendar": {
       "title": "活動日曆",
       "close": "關閉日曆",

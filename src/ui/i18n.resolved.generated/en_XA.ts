@@ -1137,6 +1137,24 @@ export const en_XA: EnTranslations = {
         "takeParcelsFirst": "[Ţáķé ţĥé þáŕçéļš óúţ ƀéƒóŕé ðíšçáŕðíñĝ ţĥé ļéţţéŕ.]"
       }
     },
+    "bank": {
+      "title": "[Ɓáñķ]",
+      "subtitle": "[Ţĥé Ĝíļðéð Šţŕóñĝƀóẋ]",
+      "close": "[Çļóšé ƀáñķ]",
+      "capacity": "[{used}/{total}]",
+      "capacityAria": "[Ɓáñķ šļóţš úšéð: {used} óƒ {total}]",
+      "empty": "[Ýóúŕ ƀáñķ íš éɱþţý.]",
+      "tooFar": "[Ýóú ɱúšţ ƀé áţ á ƀáñķéŕ ţó ʋíéŵ ýóúŕ ƀáñķ.]",
+      "buySlots": "[Ɓúý {count} šļóţš]",
+      "buySlotsMaxed": "[Ƒúļļý éẋþáñðéð]",
+      "buyConfirm": "[Þúŕçĥášé {count} áððíţíóñáļ ƀáñķ šļóţš ƒóŕ {price}?]",
+      "buyConfirmAccept": "[Þúŕçĥášé]",
+      "withdrawHint": "[Çļíçķ ţó ŵíţĥðŕáŵ]",
+      "withdrawPartialHint": "[Šĥíƒţ-çļíçķ ţó ŵíţĥðŕáŵ á þáŕţíáļ áɱóúñţ]",
+      "withdrawQuantityTitle": "[Ŵíţĥðŕáŵ {item}]",
+      "withdrawQuantityInput": "[Ɋúáñţíţý ţó ŵíţĥðŕáŵ]",
+      "withdrawQuantityConfirm": "[Ŵíţĥðŕáŵ]"
+    },
     "calendar": {
       "title": "[Éʋéñţ Çáļéñðáŕ]",
       "close": "[Çļóšé çáļéñðáŕ]",

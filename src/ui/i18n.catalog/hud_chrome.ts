@@ -1275,6 +1275,28 @@ export const hudChromeStrings = {
       takeParcelsFirst: 'Take the parcels out before discarding the letter.',
     },
   },
+  // The bank window (the Gilded Strongbox): a pooled deposit box shown while standing
+  // at a banker NPC. Plain click withdraws a stack; shift-click withdraws a partial
+  // amount; the footer buys 6-slot expansion blocks. The withdraw-quantity and
+  // buy-confirm prompts reuse the generic vendor cancel key (itemUi.vendor.sellQuantityCancel).
+  bank: {
+    title: 'Bank',
+    subtitle: 'The Gilded Strongbox',
+    close: 'Close bank',
+    capacity: '{used}/{total}',
+    capacityAria: 'Bank slots used: {used} of {total}',
+    empty: 'Your bank is empty.',
+    tooFar: 'You must be at a banker to view your bank.',
+    buySlots: 'Buy {count} slots',
+    buySlotsMaxed: 'Fully expanded',
+    buyConfirm: 'Purchase {count} additional bank slots for {price}?',
+    buyConfirmAccept: 'Purchase',
+    withdrawHint: 'Click to withdraw',
+    withdrawPartialHint: 'Shift-click to withdraw a partial amount',
+    withdrawQuantityTitle: 'Withdraw {item}',
+    withdrawQuantityInput: 'Quantity to withdraw',
+    withdrawQuantityConfirm: 'Withdraw',
+  },
   // The event calendar window: recurring system events plus the guild lane
   // (booked by officers and the Guild Master, mirrored via socialInfo).
   calendar: {
