@@ -29,7 +29,7 @@ import {
 import type { DelveModuleId } from '../sim/delve_layout';
 import type { BiomeId } from '../sim/types';
 import { ALL_CLASSES, type Entity, type SimEvent } from '../sim/types';
-import { groundHeight, waterLevel, zoneBiomeAt } from '../sim/world';
+import { groundHeight, waterLevelAt, zoneBiomeAt } from '../sim/world';
 import { attachAvatarFallback } from '../ui/avatar_fallback';
 import { tEntity } from '../ui/entity_i18n';
 import type { IWorld } from '../world_api';
@@ -1512,7 +1512,7 @@ export class Renderer {
   // Surface under (x,z) for footstep timbre. Sampled only at a footfall (cheap).
   private surfaceAt(x: number, z: number, y: number): Surface {
     if (x > DUNGEON_X_THRESHOLD) return 'stone'; // dungeon interiors are stone halls
-    const wl = waterLevel();
+    const wl = waterLevelAt(x, z);
     if (groundHeight(x, z, this.sim.cfg.seed) < wl && y <= wl + 0.3) return 'water';
     const biome = zoneBiomeAt(z);
     if (biome === 'vale') return 'grass';
@@ -3739,7 +3739,7 @@ export class Renderer {
           ? 'nythraxis'
           : inside
             ? 'dungeon'
-            : camY < waterLevel() - 0.05
+            : camY < waterLevelAt(px, pz) - 0.05
               ? 'underwater'
               : 'outdoor';
     const fog = this.scene.fog as THREE.Fog;
@@ -4221,13 +4221,15 @@ export class Renderer {
       }
 
       // swimming pose: prone at the surface (derived here — the sim is unaware).
-      // The cheap feet-depth test gates the expensive terrain-noise sample: an
-      // entity whose feet are above the swim line can't be swimming, so the vast
-      // majority (everyone on land) skip groundHeight() entirely each frame.
+      // waterLevelAt is -Infinity outside a declared lake, so the cheap feet-depth
+      // test also gates entities standing in a dry sunken feature: they can't be
+      // swimming there, and the vast majority (everyone on land) skip
+      // groundHeight() entirely each frame.
+      const wl = waterLevelAt(e.pos.x, e.pos.z);
       const swimming =
         !e.dead &&
-        e.pos.y <= waterLevel() - 0.5 &&
-        groundHeight(e.pos.x, e.pos.z, this.sim.cfg.seed) < waterLevel() - 0.8;
+        e.pos.y <= wl - 0.5 &&
+        groundHeight(e.pos.x, e.pos.z, this.sim.cfg.seed) < wl - 0.8;
 
       // lazy form visuals, swapped by visibility like the old sheep/bear rigs
       if (polyed && !v.sheepVisual) {
@@ -5116,7 +5118,7 @@ export class Renderer {
               : null;
       // Only at the water's edge / in it — sampled at the player, so a loose
       // threshold made the loop bleed across the low marsh from far off.
-      const nearWater = !inDungeon && groundHeight(px, pz, seed) < waterLevel() + 0.4;
+      const nearWater = !inDungeon && groundHeight(px, pz, seed) < waterLevelAt(px, pz) + 0.4;
       sink.ambience(biome, inDungeon, precip, nearWater);
     }
   }

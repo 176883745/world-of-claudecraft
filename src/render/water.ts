@@ -94,11 +94,17 @@ const WATER_FRAG = /* glsl */ `
   uniform vec3 uDeep;
   uniform vec3 uShallow;
   uniform float uTime;
+  uniform vec2 uCenter;
+  uniform float uRadius;
   varying vec3 vWPos;
   varying float vShoreDepth;
   #include <common>
   #include <fog_pars_fragment>
   void main() {
+    // the plane is a square footprint around a circular lake: drop the
+    // corner fragments outside the declared radius so they never read as
+    // flooded ground.
+    if (length(vWPos.xz - uCenter) > uRadius) discard;
     float camDist = length(cameraPosition - vWPos);
     // dual-scroll detail ripples (real three.js water normal maps)
     vec3 n1 = texture2D(uNorm1, vWPos.xz * 0.055 + uTime * vec2(0.013, 0.019)).xyz * 2.0 - 1.0;
@@ -144,25 +150,31 @@ function buildShaderWater(seed: number): WaterView {
   // legacy procedural maps still get generated (unused) to preserve the
   // shared-LCG call order in textures.ts for everything generated after
   waterNormalMaps();
-  const material = new THREE.ShaderMaterial({
-    uniforms: {
-      ...THREE.UniformsUtils.clone(THREE.UniformsLib.fog),
-      uNorm1: { value: WATER_TEX.n1 },
-      uNorm2: { value: WATER_TEX.n2 },
-      uNorm3: { value: WATER_TEX.broad },
-      uSunDir: { value: SUN_DIR.clone() }, // the one shared sun (gfx.ts)
-      uSunColor: { value: SUN_COLOR },
-      uSkyColor: { value: SKY_TINT },
-      uDeep: { value: DEEP_COLOR },
-      uShallow: { value: SHALLOW_COLOR },
-      uTime: sharedUniforms.uTime,
-    },
-    vertexShader: WATER_VERT,
-    fragmentShader: WATER_FRAG,
-    transparent: true,
-    depthWrite: false,
-    fog: true,
-  });
+  // Each lake gets its own material instance (its uCenter/uRadius differ);
+  // uTime/uSunDir/textures are shared by reference so a single sync() still
+  // drives every lake.
+  const makeMaterial = (center: THREE.Vector2, radius: number): THREE.ShaderMaterial =>
+    new THREE.ShaderMaterial({
+      uniforms: {
+        ...THREE.UniformsUtils.clone(THREE.UniformsLib.fog),
+        uNorm1: { value: WATER_TEX.n1 },
+        uNorm2: { value: WATER_TEX.n2 },
+        uNorm3: { value: WATER_TEX.broad },
+        uSunDir: { value: SUN_DIR.clone() }, // the one shared sun (gfx.ts)
+        uSunColor: { value: SUN_COLOR },
+        uSkyColor: { value: SKY_TINT },
+        uDeep: { value: DEEP_COLOR },
+        uShallow: { value: SHALLOW_COLOR },
+        uTime: sharedUniforms.uTime,
+        uCenter: { value: center },
+        uRadius: { value: radius },
+      },
+      vertexShader: WATER_VERT,
+      fragmentShader: WATER_FRAG,
+      transparent: true,
+      depthWrite: false,
+      fog: true,
+    });
 
   // (Re)fill the per-vertex shore depth from the CURRENT terrain + water level,
   // writing into the existing attribute in place (build and setLevel share it).
@@ -189,6 +201,7 @@ function buildShaderWater(seed: number): WaterView {
     fillShoreDepth(geo);
     geo.computeBoundingBox();
     geo.computeBoundingSphere();
+    const material = makeMaterial(new THREE.Vector2(lake.x, lake.z), lake.radius);
     const mesh = new THREE.Mesh(geo, material);
     mesh.position.y = waterLevel();
     meshes.push(mesh);
@@ -224,8 +237,17 @@ function buildPhongWater(): WaterView {
     normalScale: new THREE.Vector2(0.8, 0.8),
   });
   const meshes = waterBodies().map((lake) => {
-    const size = lake.radius * 2;
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size).rotateX(-Math.PI / 2), mat);
+    // a disc, not a square plane: the low tier has no per-fragment shore
+    // mask, so the geometry itself must not cover the corners outside the
+    // declared lake radius.
+    const segments = Math.max(
+      MIN_SEGMENTS,
+      Math.ceil((Math.PI * lake.radius * 2) / VERTEX_SPACING),
+    );
+    const mesh = new THREE.Mesh(
+      new THREE.CircleGeometry(lake.radius, segments).rotateX(-Math.PI / 2),
+      mat,
+    );
     mesh.position.set(lake.x, waterLevel(), lake.z);
     return mesh;
   });

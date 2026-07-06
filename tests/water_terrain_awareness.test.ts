@@ -73,6 +73,18 @@ describe('terrain/feature-aware water (#1518)', () => {
     expect(path[path.length - 1]).toEqual(DRY_SPOT);
   });
 
+  it('render-side water predicates (swim pose, underwater fog, ambience) stay dry at a sunken feature', () => {
+    // src/render/renderer.ts derives swim pose / fog / ambience from
+    // waterLevelAt(x, z), not the old flat waterLevel(): a dry sunken feature
+    // must never satisfy those predicates no matter how deep it goes.
+    setActiveWorldContent(withSunkenFeature());
+    const h = terrainHeight(DRY_SPOT.x, DRY_SPOT.z, SEED);
+    const wl = waterLevelAt(DRY_SPOT.x, DRY_SPOT.z);
+    expect(wl).toBe(-Infinity);
+    expect(h <= wl - 0.5).toBe(false); // swim-pose feet-depth gate
+    expect(h < wl + 0.4).toBe(false); // ambience nearWater gate
+  });
+
   it('a real declared lake still blocks walkers and still requires swim to enter', () => {
     const water = { x: -108, z: 84 }; // deep lake cell (see pathfind.test.ts)
     expect(terrainHeight(water.x, water.z, SEED)).toBeLessThan(WATER_LEVEL - PLAYER_SWIM_DEPTH);
