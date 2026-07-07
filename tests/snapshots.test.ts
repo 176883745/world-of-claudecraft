@@ -1358,6 +1358,55 @@ describe('client-side delta merge', () => {
     expect(aura?.charges, 'client should mirror the wire charge count').toBe(2);
   });
 
+  it('round-trips the aura caster id (src) so own-aura prominence works online', () => {
+    // Drives the REAL server emit (wireEntity) into the REAL client mirror: a
+    // regression that drops either the `src` emission or the online.ts decode
+    // would silently decode every online aura to sourceId 0, degrading the
+    // target strip's ownFirst dot/hot prominence online while offline keeps it
+    // (the stacks/charges sibling pins above follow the same pattern).
+    const sim = new Sim({ seed: 7, playerClass: 'warrior', autoEquip: true });
+    const e = sim.entities.get(sim.playerId)!;
+    e.auras.push(
+      {
+        id: 'rend',
+        name: 'Rend',
+        kind: 'dot',
+        remaining: 9,
+        duration: 9,
+        value: 5,
+        sourceId: 42,
+        school: 'physical',
+      },
+      {
+        id: 'battle_shout',
+        name: 'Battle Shout',
+        kind: 'buff_ap',
+        remaining: 120,
+        duration: 120,
+        value: 20,
+        sourceId: 0,
+        school: 'physical',
+      },
+    );
+    const w = wireEntity(e) as { auras: { id: string; src?: number }[] };
+    expect(w.auras.find((a) => a.id === 'rend')?.src, 'server ships the caster id').toBe(42);
+    expect(
+      'src' in (w.auras.find((a) => a.id === 'battle_shout') ?? {}),
+      'a sourceless aura omits src to stay lean',
+    ).toBe(false);
+
+    const client = bareClient(e.id + 1000);
+    (client as any).applySnapshot({ t: 'snap', ents: [w] });
+    const mirrored = client.entities.get(e.id)?.auras;
+    expect(mirrored?.find((a) => a.id === 'rend')?.sourceId, 'client mirrors the caster id').toBe(
+      42,
+    );
+    expect(
+      mirrored?.find((a) => a.id === 'battle_shout')?.sourceId,
+      'an omitted src decodes to 0',
+    ).toBe(0);
+  });
+
   it('snaps the interpolation anchor on a teleport but tweens normal moves', () => {
     const client = bareClient(1);
     const ent = (x: number, z: number) => ({
