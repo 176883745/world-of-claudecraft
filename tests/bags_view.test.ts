@@ -6,8 +6,11 @@ import {
   bagItemAction,
   bagQualityKey,
   bagShiftLinks,
+  bagStackIndex,
   bagTooltipHintKey,
+  bankDepositOpensPrompt,
   buildBagGrid,
+  resolveDepositSubmit,
 } from '../src/ui/bags_view';
 
 // The bags core decides the mode-dependent click + tooltip (the 6-way branch) and
@@ -21,6 +24,7 @@ const NO_MODE: BagMode = {
   mailAttach: false,
   marketSell: false,
   vendorOpen: false,
+  bankDeposit: false,
   petFeed: false,
 };
 
@@ -41,6 +45,7 @@ describe('bagShiftLinks', () => {
     expect(bagShiftLinks({ ...NO_MODE, marketSell: true })).toBe(true);
     expect(bagShiftLinks({ ...NO_MODE, petFeed: true })).toBe(true);
     expect(bagShiftLinks({ ...NO_MODE, vendorOpen: true })).toBe(false);
+    expect(bagShiftLinks({ ...NO_MODE, bankDeposit: true })).toBe(false);
   });
 });
 
@@ -55,6 +60,10 @@ describe('bagItemAction priority order', () => {
       'marketSellBlockedNoMarket',
     );
     expect(bagItemAction(ITEMS.sword, { ...NO_MODE, vendorOpen: true })).toBe('vendorSell');
+    expect(bagItemAction(ITEMS.sword, { ...NO_MODE, bankDeposit: true })).toBe('bankDeposit');
+    expect(bagItemAction(ITEMS.questItem, { ...NO_MODE, bankDeposit: true })).toBe(
+      'bankDepositBlockedQuest',
+    );
     expect(bagItemAction(ITEMS.bread, { ...NO_MODE, petFeed: true })).toBe('petFeed');
     expect(bagItemAction(ITEMS.sword, { ...NO_MODE, petFeed: true })).toBe('petFeedBlocked');
     expect(bagItemAction(ITEMS.questItem, NO_MODE)).toBe('discardQuest');
@@ -74,10 +83,11 @@ describe('bag mode chain order pin (insertion guard)', () => {
     mailAttach: true,
     marketSell: true,
     vendorOpen: true,
+    bankDeposit: true,
     petFeed: true,
   };
 
-  it('peels the action ladder one rung at a time: trade > mail-attach > market-sell > vendor > pet-feed > kind fallbacks', () => {
+  it('peels the action ladder one rung at a time: trade > mail-attach > market-sell > vendor > bank-deposit > pet-feed > kind fallbacks', () => {
     let mode = { ...ALL_MODES };
     expect(bagItemAction(ITEMS.sword, mode)).toBe('trade');
     mode = { ...mode, tradeOpen: false };
@@ -87,6 +97,9 @@ describe('bag mode chain order pin (insertion guard)', () => {
     mode = { ...mode, marketSell: false };
     expect(bagItemAction(ITEMS.sword, mode)).toBe('vendorSell');
     mode = { ...mode, vendorOpen: false };
+    expect(bagItemAction(ITEMS.sword, mode)).toBe('bankDeposit');
+    expect(bagItemAction(ITEMS.questItem, mode)).toBe('bankDepositBlockedQuest');
+    mode = { ...mode, bankDeposit: false };
     expect(bagItemAction(ITEMS.bread, mode)).toBe('petFeed');
     expect(bagItemAction(ITEMS.sword, mode)).toBe('petFeedBlocked');
     mode = { ...mode, petFeed: false };
@@ -110,6 +123,16 @@ describe('bag mode chain order pin (insertion guard)', () => {
     expect(bagItemAction(ITEMS.bound, { ...ALL_MODES, tradeOpen: false, mailAttach: false })).toBe(
       'marketSellBlockedNoMarket',
     );
+    // A quest item blocks in place at the bank; it must NOT fall through to pet-feed.
+    expect(
+      bagItemAction(ITEMS.questItem, {
+        ...ALL_MODES,
+        tradeOpen: false,
+        mailAttach: false,
+        marketSell: false,
+        vendorOpen: false,
+      }),
+    ).toBe('bankDepositBlockedQuest');
   });
 
   it('peels the tooltip-hint ladder the same way (pet-feed contributes no hint)', () => {
@@ -123,15 +146,21 @@ describe('bag mode chain order pin (insertion guard)', () => {
     mode = { ...mode, marketSell: false };
     expect(bagTooltipHintKey(ITEMS.sword, mode)).toBe('itemUi.tooltip.clickSell');
     mode = { ...mode, vendorOpen: false };
+    expect(bagTooltipHintKey(ITEMS.sword, mode)).toBe('hudChrome.bank.depositHint');
+    expect(bagTooltipHintKey(ITEMS.questItem, mode)).toBe('hudChrome.bank.cannotDeposit');
+    mode = { ...mode, bankDeposit: false };
     // Pet-feed has no tooltip hint: a weapon falls through to the kind branch.
     expect(bagTooltipHintKey(ITEMS.sword, mode)).toBe('itemUi.tooltip.clickEquip');
     mode = { ...mode, petFeed: false };
     expect(mode).toEqual(NO_MODE);
   });
 
-  it('shift-to-chat-link stays vendor-owned even with every mode on', () => {
+  it('shift-to-chat-link stays vendor- and bank-owned even with every mode on', () => {
     expect(bagShiftLinks(ALL_MODES)).toBe(false);
-    expect(bagShiftLinks({ ...ALL_MODES, vendorOpen: false })).toBe(true);
+    // Vendor AND bank each own shift; turning off only one keeps it owned.
+    expect(bagShiftLinks({ ...ALL_MODES, vendorOpen: false })).toBe(false);
+    expect(bagShiftLinks({ ...ALL_MODES, bankDeposit: false })).toBe(false);
+    expect(bagShiftLinks({ ...ALL_MODES, vendorOpen: false, bankDeposit: false })).toBe(true);
   });
 });
 
@@ -152,6 +181,12 @@ describe('bagTooltipHintKey', () => {
     expect(bagTooltipHintKey(ITEMS.sword, { ...NO_MODE, vendorOpen: true })).toBe(
       'itemUi.tooltip.clickSell',
     );
+    expect(bagTooltipHintKey(ITEMS.sword, { ...NO_MODE, bankDeposit: true })).toBe(
+      'hudChrome.bank.depositHint',
+    );
+    expect(bagTooltipHintKey(ITEMS.questItem, { ...NO_MODE, bankDeposit: true })).toBe(
+      'hudChrome.bank.cannotDeposit',
+    );
     expect(bagTooltipHintKey(ITEMS.questItem, NO_MODE)).toBe('itemUi.tooltip.clickDestroy');
     expect(bagTooltipHintKey(ITEMS.sword, NO_MODE)).toBe('itemUi.tooltip.clickEquip');
     expect(bagTooltipHintKey(ITEMS.bread, NO_MODE)).toBe('itemUi.tooltip.clickConsume');
@@ -165,6 +200,65 @@ describe('bagQualityKey', () => {
   it('falls back to common when quality is unset', () => {
     expect(bagQualityKey({ quality: 'epic' })).toBe('epic');
     expect(bagQualityKey({})).toBe('common');
+  });
+});
+
+describe('bagStackIndex (bank-deposit target resolution)', () => {
+  it('returns the exact clicked slot index by reference, never a first-match-by-itemId', () => {
+    // Two distinct stacks of the SAME material: a first-match-by-itemId would always
+    // return 0 and deposit the wrong stack. Reference identity targets the one clicked.
+    const first: InvSlot = { itemId: 'cloth', count: 3 };
+    const second: InvSlot = { itemId: 'cloth', count: 7 };
+    const inv: InvSlot[] = [first, { itemId: 'sword', count: 1 }, second];
+    expect(bagStackIndex(inv, first)).toBe(0);
+    expect(bagStackIndex(inv, second)).toBe(2);
+  });
+
+  it('distinguishes distinct instanced copies that share an itemId', () => {
+    const a: InvSlot = { itemId: 'ring', count: 1, instance: { signer: 'Ada' } };
+    const b: InvSlot = { itemId: 'ring', count: 1, instance: { signer: 'Bo' } };
+    const inv: InvSlot[] = [a, b];
+    expect(bagStackIndex(inv, a)).toBe(0);
+    expect(bagStackIndex(inv, b)).toBe(1);
+  });
+
+  it('returns -1 for a stale slot no longer in the inventory (a click after a repaint)', () => {
+    const stale: InvSlot = { itemId: 'cloth', count: 3 };
+    // An equal-VALUE slot is not the SAME reference, so it does not match either.
+    expect(bagStackIndex([{ itemId: 'cloth', count: 3 }], stale)).toBe(-1);
+    expect(bagStackIndex([], stale)).toBe(-1);
+  });
+});
+
+describe('bankDepositOpensPrompt', () => {
+  it('opens the partial prompt only for a splittable, non-instanced stack', () => {
+    expect(bankDepositOpensPrompt({ itemId: 'cloth', count: 5 })).toBe(true);
+    // A single-count stack deposits whole (nothing to split).
+    expect(bankDepositOpensPrompt({ itemId: 'cloth', count: 1 })).toBe(false);
+    // An instanced item always moves whole regardless of count.
+    expect(bankDepositOpensPrompt({ itemId: 'ring', count: 4, instance: { signer: 'Ada' } })).toBe(
+      false,
+    );
+  });
+});
+
+describe('resolveDepositSubmit (prompt re-resolve + clamp)', () => {
+  const captured: InvSlot = { itemId: 'cloth', count: 10 };
+
+  it('refuses (null) when the slot is gone or a different item now sits at the index', () => {
+    expect(resolveDepositSubmit(undefined, captured, 3, 10)).toBeNull();
+    expect(resolveDepositSubmit({ itemId: 'ore', count: 5 }, captured, 3, 10)).toBeNull();
+  });
+
+  it('clamps the requested count to >=1 and no more than the live stack or the max', () => {
+    const live: InvSlot = { itemId: 'cloth', count: 10 };
+    expect(resolveDepositSubmit(live, captured, 4, 10)).toBe(4);
+    expect(resolveDepositSubmit(live, captured, 999, 10)).toBe(10);
+    // The caller sanitizes empty/NaN input to 0; a 0 (or negative) clamps up to 1.
+    expect(resolveDepositSubmit(live, captured, 0, 10)).toBe(1);
+    expect(resolveDepositSubmit(live, captured, -5, 10)).toBe(1);
+    // A shrunken live stack (a partial deposit landed under the prompt) clamps down.
+    expect(resolveDepositSubmit({ itemId: 'cloth', count: 3 }, captured, 8, 10)).toBe(3);
   });
 });
 

@@ -1152,9 +1152,22 @@ export const ko_KR: EnTranslations = {
       "buyConfirmAccept": "구매",
       "withdrawHint": "클릭하여 꺼내기",
       "withdrawPartialHint": "Shift+클릭하여 일부만 꺼내기",
+      "depositHint": "클릭하여 넣기",
+      "depositPartialHint": "Shift+클릭하여 일부만 넣기",
+      "cannotDeposit": "은행에 보관할 수 없음",
+      "depositQuantityTitle": "{item} 넣기",
+      "depositQuantityInput": "넣을 수량",
+      "depositQuantityConfirm": "넣기",
       "withdrawQuantityTitle": "{item} 꺼내기",
       "withdrawQuantityInput": "꺼낼 수량",
-      "withdrawQuantityConfirm": "꺼내기"
+      "withdrawQuantityConfirm": "꺼내기",
+      "filterGroupAria": "은행을 분류별로 필터링",
+      "sortAria": "은행 아이템 정렬",
+      "searchAria": "이름으로 은행 아이템 검색",
+      "depositAll": "모든 재료 보관",
+      "depositAllDone": "보관한 재료: {count}.",
+      "depositAllFull": "보관한 재료: {count}. 은행이 가득 찼습니다.",
+      "depositAllNone": "은행이 가득 참: 아무것도 보관하지 못했습니다."
     },
     "calendar": {
       "title": "이벤트 달력",

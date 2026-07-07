@@ -1152,9 +1152,22 @@ export const en_XA: EnTranslations = {
       "buyConfirmAccept": "[Þúŕçĥášé]",
       "withdrawHint": "[Çļíçķ ţó ŵíţĥðŕáŵ]",
       "withdrawPartialHint": "[Šĥíƒţ-çļíçķ ţó ŵíţĥðŕáŵ á þáŕţíáļ áɱóúñţ]",
+      "depositHint": "[Çļíçķ ţó ðéþóšíţ]",
+      "depositPartialHint": "[Šĥíƒţ-çļíçķ ţó ðéþóšíţ á þáŕţíáļ áɱóúñţ]",
+      "cannotDeposit": "[Çáññóţ ƀé ƀáñķéð]",
+      "depositQuantityTitle": "[Ðéþóšíţ {item}]",
+      "depositQuantityInput": "[Ɋúáñţíţý ţó ðéþóšíţ]",
+      "depositQuantityConfirm": "[Ðéþóšíţ]",
       "withdrawQuantityTitle": "[Ŵíţĥðŕáŵ {item}]",
       "withdrawQuantityInput": "[Ɋúáñţíţý ţó ŵíţĥðŕáŵ]",
-      "withdrawQuantityConfirm": "[Ŵíţĥðŕáŵ]"
+      "withdrawQuantityConfirm": "[Ŵíţĥðŕáŵ]",
+      "filterGroupAria": "[Ƒíļţéŕ ƀáñķ ƀý çáţéĝóŕý]",
+      "sortAria": "[Šóŕţ ƀáñķ íţéɱš]",
+      "searchAria": "[Šéáŕçĥ ƀáñķ íţéɱš ƀý ñáɱé]",
+      "depositAll": "[Ðéþóšíţ áļļ ɱáţéŕíáļš]",
+      "depositAllDone": "[Ɱáţéŕíáļš ðéþóšíţéð: {count}.]",
+      "depositAllFull": "[Ɱáţéŕíáļš ðéþóšíţéð: {count}. Ɓáñķ ñóŵ ƒúļļ.]",
+      "depositAllNone": "[Ɓáñķ ƒúļļ: ñóţĥíñĝ ðéþóšíţéð.]"
     },
     "calendar": {
       "title": "[Éʋéñţ Çáļéñðáŕ]",

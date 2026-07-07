@@ -1152,9 +1152,22 @@ export const ru_RU: EnTranslations = {
       "buyConfirmAccept": "Купить",
       "withdrawHint": "Нажмите, чтобы забрать",
       "withdrawPartialHint": "Shift+клик, чтобы забрать часть",
+      "depositHint": "Нажмите, чтобы положить",
+      "depositPartialHint": "Shift+клик, чтобы положить часть",
+      "cannotDeposit": "Нельзя хранить в банке",
+      "depositQuantityTitle": "Положить {item}",
+      "depositQuantityInput": "Количество для внесения",
+      "depositQuantityConfirm": "Положить",
       "withdrawQuantityTitle": "Забрать {item}",
       "withdrawQuantityInput": "Количество для получения",
-      "withdrawQuantityConfirm": "Забрать"
+      "withdrawQuantityConfirm": "Забрать",
+      "filterGroupAria": "Фильтровать банк по категории",
+      "sortAria": "Сортировать предметы в банке",
+      "searchAria": "Поиск предметов в банке по названию",
+      "depositAll": "Положить все материалы",
+      "depositAllDone": "Материалов положено: {count}.",
+      "depositAllFull": "Материалов положено: {count}. Банк заполнен.",
+      "depositAllNone": "Банк заполнен: ничего не положено."
     },
     "calendar": {
       "title": "Календарь событий",

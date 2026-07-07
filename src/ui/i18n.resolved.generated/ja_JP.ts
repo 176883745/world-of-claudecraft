@@ -1152,9 +1152,22 @@ export const ja_JP: EnTranslations = {
       "buyConfirmAccept": "購入",
       "withdrawHint": "クリックで引き出す",
       "withdrawPartialHint": "Shift+クリックで一部だけ引き出す",
+      "depositHint": "クリックで預ける",
+      "depositPartialHint": "Shift+クリックで一部だけ預ける",
+      "cannotDeposit": "銀行に預けられません",
+      "depositQuantityTitle": "{item}を預ける",
+      "depositQuantityInput": "預ける数量",
+      "depositQuantityConfirm": "預ける",
       "withdrawQuantityTitle": "{item}を引き出す",
       "withdrawQuantityInput": "引き出す数量",
-      "withdrawQuantityConfirm": "引き出す"
+      "withdrawQuantityConfirm": "引き出す",
+      "filterGroupAria": "銀行をカテゴリーで絞り込む",
+      "sortAria": "銀行のアイテムを並べ替える",
+      "searchAria": "名前で銀行のアイテムを検索",
+      "depositAll": "すべての素材を預ける",
+      "depositAllDone": "素材を預けました：{count}。",
+      "depositAllFull": "素材を預けました：{count}。銀行がいっぱいになりました。",
+      "depositAllNone": "銀行がいっぱいです：何も預けられませんでした。"
     },
     "calendar": {
       "title": "イベントカレンダー",

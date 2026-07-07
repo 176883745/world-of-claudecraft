@@ -1294,9 +1294,27 @@ export const hudChromeStrings = {
     buyConfirmAccept: 'Purchase',
     withdrawHint: 'Click to withdraw',
     withdrawPartialHint: 'Shift-click to withdraw a partial amount',
+    depositHint: 'Click to deposit',
+    depositPartialHint: 'Shift-click to deposit a partial amount',
+    cannotDeposit: 'Cannot be banked',
+    depositQuantityTitle: 'Deposit {item}',
+    depositQuantityInput: 'Quantity to deposit',
+    depositQuantityConfirm: 'Deposit',
     withdrawQuantityTitle: 'Withdraw {item}',
     withdrawQuantityInput: 'Quantity to withdraw',
     withdrawQuantityConfirm: 'Withdraw',
+    // Search / category / sort toolbar (Phase 6). The category chip and sort option
+    // labels reuse the generic hudChrome.bags.* strings; only these bank-named aria
+    // labels are distinct from the bags wording.
+    filterGroupAria: 'Filter bank by category',
+    sortAria: 'Sort bank items',
+    searchAria: 'Search bank items by name',
+    // Deposit-all-materials button + its transient summary line (Phase 6). {count} is
+    // the number of material stacks moved.
+    depositAll: 'Deposit all materials',
+    depositAllDone: 'Materials deposited: {count}.',
+    depositAllFull: 'Materials deposited: {count}. Bank now full.',
+    depositAllNone: 'Bank full: nothing deposited.',
   },
   // The event calendar window: recurring system events plus the guild lane
   // (booked by officers and the Guild Master, mirrored via socialInfo).

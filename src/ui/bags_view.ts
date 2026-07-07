@@ -22,7 +22,7 @@ export interface BagItemInfo {
 
 /** The open-window modes that change what a bag click does. At most one is the
  *  effective mode (checked in priority order: trade, mail-attach, market-sell,
- *  vendor, pet-feed). */
+ *  vendor, bank-deposit, pet-feed). */
 export interface BagMode {
   tradeOpen: boolean;
   /** The Ravenpost mailbox is open on its Send tab (clicks attach parcels). */
@@ -30,6 +30,8 @@ export interface BagMode {
   /** The World Market is open on its Sell tab. */
   marketSell: boolean;
   vendorOpen: boolean;
+  /** The bank window is open (docked beside the bags): a click deposits the stack. */
+  bankDeposit: boolean;
   /** Pet-feed cursor mode is armed. */
   petFeed: boolean;
 }
@@ -44,6 +46,8 @@ export type BagAction =
   | 'marketSellBlockedQuest'
   | 'marketSellBlockedNoMarket'
   | 'vendorSell'
+  | 'bankDeposit'
+  | 'bankDepositBlockedQuest'
   | 'petFeed'
   | 'petFeedBlocked'
   | 'discardQuest'
@@ -57,6 +61,8 @@ export type BagTooltipHintKey =
   | 'itemUi.tooltip.clickMarketList'
   | 'itemUi.tooltip.cannotVendor'
   | 'itemUi.tooltip.clickSell'
+  | 'hudChrome.bank.depositHint'
+  | 'hudChrome.bank.cannotDeposit'
   | 'itemUi.tooltip.clickDestroy'
   | 'itemUi.tooltip.clickEquip'
   | 'itemUi.tooltip.clickConsume'
@@ -67,7 +73,8 @@ export type BagTooltipHintKey =
   | '';
 
 /** Decide what a click on a bag item does. Mirrors the original click handler's
- *  priority order exactly: trade > market-sell > vendor > pet-feed > quest > use. */
+ *  priority order exactly: trade > mail-attach > market-sell > vendor > bank-deposit
+ *  > pet-feed > quest > use. */
 export function bagItemAction(item: BagItemInfo, mode: BagMode): BagAction {
   if (mode.tradeOpen) return 'trade';
   if (mode.mailAttach) {
@@ -81,6 +88,9 @@ export function bagItemAction(item: BagItemInfo, mode: BagMode): BagAction {
     return 'marketSell';
   }
   if (mode.vendorOpen) return 'vendorSell';
+  // Window modes cluster before the armed pet-feed cursor (vendor beats pet-feed
+  // today); the sim refuses a quest item, so block it in place with the deny toast.
+  if (mode.bankDeposit) return item.kind === 'quest' ? 'bankDepositBlockedQuest' : 'bankDeposit';
   if (mode.petFeed) return item.kind === 'food' ? 'petFeed' : 'petFeedBlocked';
   if (item.kind === 'quest') return 'discardQuest';
   if (item.kind === 'bag') return 'equipBag';
@@ -88,10 +98,47 @@ export function bagItemAction(item: BagItemInfo, mode: BagMode): BagAction {
 }
 
 /** Whether a shift-click on a bag item should link it into chat (classic
- *  shift-click-to-link). True in every mode except at a vendor, where shift-click
- *  already owns the split-stack sell prompt; that affordance is left untouched. */
+ *  shift-click-to-link). True in every mode except at a vendor or the open bank,
+ *  where shift-click already owns the split-stack sell / deposit prompt; those
+ *  affordances are left untouched. */
 export function bagShiftLinks(mode: BagMode): boolean {
-  return !mode.vendorOpen;
+  return !mode.vendorOpen && !mode.bankDeposit;
+}
+
+/** Resolve the exact inventory index of a clicked bag stack by REFERENCE identity,
+ *  never a first-match-by-itemId: duplicate fungible stacks and distinct instanced
+ *  copies share an itemId, so only reference identity targets the stack the player
+ *  actually clicked (the filtered/sorted grid reuses the live inventory slot objects,
+ *  so a clicked slot is `===` one of them). Returns -1 when the slot is no longer in
+ *  the inventory (a stale click after a repaint), which the caller treats as a no-op.
+ *  The bank deposit command is index-based, so this is how a click targets a slot. */
+export function bagStackIndex(inventory: readonly InvSlot[], slot: InvSlot): number {
+  return inventory.indexOf(slot);
+}
+
+/** Whether a shift-click in bank-deposit mode opens the partial-amount prompt (a
+ *  splittable stack) rather than depositing the whole stack. A single-count stack
+ *  and any instanced item always move whole (the sim moves an instanced slot whole
+ *  regardless of count), so neither opens the prompt. */
+export function bankDepositOpensPrompt(slot: InvSlot): boolean {
+  return Math.floor(slot.count) > 1 && !slot.instance;
+}
+
+/** Re-resolve a bank deposit at prompt submit. The prompt captured its slot + index
+ *  when it opened, but the bags can repaint under it (using an item, a server
+ *  correction), shifting or replacing what sits at that index. Given the live slot
+ *  now at the captured index and the slot the prompt captured, return null to REFUSE
+ *  (a different item now occupies the index, a stale prompt: depositing the wrong item
+ *  is worse than dismissing) or the clamped count (>=1, and no more than the live
+ *  stack or the original max) to deposit. Mirrors the bank withdraw prompt's guard. */
+export function resolveDepositSubmit(
+  live: InvSlot | undefined,
+  captured: InvSlot,
+  requested: number,
+  maxCount: number,
+): number | null {
+  if (!live || live.itemId !== captured.itemId) return null;
+  return Math.max(1, Math.min(maxCount, live.count, Math.floor(requested)));
 }
 
 /** The tooltip hint sub-line for a bag item, matching the original tooltip's
@@ -110,6 +157,8 @@ export function bagTooltipHintKey(item: BagItemInfo, mode: BagMode): BagTooltipH
   }
   if (mode.vendorOpen)
     return item.kind === 'quest' ? 'itemUi.tooltip.cannotVendor' : 'itemUi.tooltip.clickSell';
+  if (mode.bankDeposit)
+    return item.kind === 'quest' ? 'hudChrome.bank.cannotDeposit' : 'hudChrome.bank.depositHint';
   if (item.kind === 'quest') return 'itemUi.tooltip.clickDestroy';
   if (item.kind === 'weapon' || item.kind === 'armor' || item.kind === 'bag')
     return 'itemUi.tooltip.clickEquip';
