@@ -274,6 +274,21 @@ describe('bank_window: Phase 6 search / sort / deposit-all', () => {
     expect(painter).toContain('DEPOSIT_STATUS_MS');
   });
 
+  it('carries search focus and caret across a FULL render (slow-band repaint mid-typing)', () => {
+    // refreshIfChanged can land a data repaint moments after the player focused the
+    // search box; render() must re-focus the fresh input and restore the caret (its
+    // value is restored from this.filter.search), only falling back to [data-close]
+    // when the rebuild dropped the search box entirely.
+    const body = painter.slice(
+      painter.indexOf('render(): void {'),
+      painter.indexOf('refreshIfChanged(): void {'),
+    );
+    expect(body).toContain('active === searchEl');
+    expect(body).toContain('searchEl.selectionStart');
+    expect(body).toContain('fresh.setSelectionRange(searchFocus.start, searchFocus.end)');
+    expect(body).toContain('if (hadFocus && !searchFocus)');
+  });
+
   it('holds deposit-all disabled from send until the mirror echoes (double-click guard)', () => {
     // A rapid second click online would re-plan from the STALE mirror and re-send slot
     // indices the server already spliced, banking whatever shifted into them. The guard:

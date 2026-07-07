@@ -227,6 +227,16 @@ export class BankWindow {
     // fresh close button instead of dropping to <body> (WCAG 2.4.3).
     const active = document.activeElement as HTMLElement | null;
     const hadFocus = el.contains(active) || active?.closest(BANK_PROMPT_SELECTOR) != null;
+    // Search focus survives a FULL rebuild too: the slow-band refreshIfChanged can
+    // land a data repaint (a deposit's echo) moments after the player focused the
+    // search box, and stealing focus to the close button mid-typing was a live bug
+    // (proven by the phase 6 smoke probe). The fresh input's value is restored from
+    // this.filter.search, so only focus + caret need carrying across.
+    const searchEl = el.querySelector('.bag-search') as HTMLInputElement | null;
+    const searchFocus =
+      searchEl !== null && active === searchEl
+        ? { start: searchEl.selectionStart, end: searchEl.selectionEnd }
+        : null;
     if (document.querySelector(BANK_PROMPT_SELECTOR)) {
       dismissBankPrompts();
       el.inert = false;
@@ -242,7 +252,7 @@ export class BankWindow {
       `<div class="panel-title"><span>${esc(t('hudChrome.bank.title'))} <span class="panel-subtitle">${esc(t('hudChrome.bank.subtitle'))}</span></span>` +
       `<button type="button" class="x-btn" data-close aria-label="${esc(t('hudChrome.bank.close'))}">${svgIcon('close')}</button></div>`;
     el.querySelector('[data-close]')?.addEventListener('click', () => this.close());
-    if (hadFocus) (el.querySelector('[data-close]') as HTMLElement | null)?.focus();
+    if (hadFocus && !searchFocus) (el.querySelector('[data-close]') as HTMLElement | null)?.focus();
     if (model.kind === 'away') {
       const away = document.createElement('div');
       away.className = 'bank-empty';
@@ -269,6 +279,17 @@ export class BankWindow {
     el.appendChild(grid);
     grid.scrollTop = prevScrollTop;
     el.appendChild(this.buildBuyRow(model.buy));
+    if (searchFocus) {
+      const fresh = el.querySelector('.bag-search') as HTMLInputElement | null;
+      if (fresh) {
+        fresh.focus();
+        fresh.setSelectionRange(searchFocus.start, searchFocus.end);
+      } else if (hadFocus) {
+        // The rebuild dropped the search box (the bank emptied): fall back to the
+        // close button rather than dropping focus to <body>.
+        (el.querySelector('[data-close]') as HTMLElement | null)?.focus();
+      }
+    }
   }
 
   // Per-frame (slow divider): refresh the grid when the mirror changes; close when the
