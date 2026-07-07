@@ -7917,7 +7917,7 @@ export class Hud {
           this.showError(this.localizeErrorText(ev.text));
           break;
         case 'questAccepted':
-          audio.questAccept();
+          sfx.playUi('quest_accept', { gain: 1.8 });
           this.refreshGossip();
           break;
         case 'questProgress': {
@@ -7936,12 +7936,12 @@ export class Hud {
               status: t('questUi.log.readyStatus'),
             }),
           );
-          audio.questDone();
+          sfx.playUi('quest_ready', { gain: 4.5 });
           this.refreshGossip();
           break;
         }
         case 'questDone':
-          audio.questDone();
+          sfx.playUi('quest_complete', { gain: 1.8 });
           this.refreshGossip();
           break;
         case 'chat': {
