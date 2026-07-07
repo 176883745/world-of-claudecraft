@@ -396,6 +396,7 @@ export const ru_RU: EnTranslations = {
     "options": {
       "clickMoveLeft": "Левая кнопка",
       "clickMoveRight": "Правая кнопка",
+      "version": "v{version} ({build})",
       "browserEffects": "Эффекты браузера",
       "browserEffectsAuto": "Авто",
       "browserEffectsFull": "Полные",

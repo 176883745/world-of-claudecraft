@@ -396,6 +396,7 @@ export const id_ID: EnTranslations = {
     "options": {
       "clickMoveLeft": "Klik Kiri",
       "clickMoveRight": "Klik Kanan",
+      "version": "v{version} ({build})",
       "browserEffects": "Efek Peramban",
       "browserEffectsAuto": "Otomatis",
       "browserEffectsFull": "Penuh",

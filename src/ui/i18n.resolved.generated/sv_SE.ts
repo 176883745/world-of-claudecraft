@@ -396,6 +396,7 @@ export const sv_SE: EnTranslations = {
     "options": {
       "clickMoveLeft": "Vänsterklick",
       "clickMoveRight": "Högerklick",
+      "version": "v{version} ({build})",
       "browserEffects": "Webbläsareffekter",
       "browserEffectsAuto": "Auto",
       "browserEffectsFull": "Fullständig",

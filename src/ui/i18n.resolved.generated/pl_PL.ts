@@ -396,6 +396,7 @@ export const pl_PL: EnTranslations = {
     "options": {
       "clickMoveLeft": "Lewy przycisk",
       "clickMoveRight": "Prawy przycisk",
+      "version": "v{version} ({build})",
       "browserEffects": "Efekty przeglądarki",
       "browserEffectsAuto": "Auto",
       "browserEffectsFull": "Pełne",

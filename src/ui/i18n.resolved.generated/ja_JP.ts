@@ -396,6 +396,7 @@ export const ja_JP: EnTranslations = {
     "options": {
       "clickMoveLeft": "左クリック",
       "clickMoveRight": "右クリック",
+      "version": "v{version} ({build})",
       "browserEffects": "ブラウザエフェクト",
       "browserEffectsAuto": "自動",
       "browserEffectsFull": "フル",
