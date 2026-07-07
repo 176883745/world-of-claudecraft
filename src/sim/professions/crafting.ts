@@ -20,14 +20,29 @@
 // applied identically to the availability check and the actual consumption,
 // so a specialized crafter is never asked for more than they are charged.
 //
+// #1145 self-gathered crafting bonus: the chosen bonus is a REDUCED REQUIRED
+// QUANTITY (rather than an item-level/quality lift): one fewer unit of a
+// reagent per craft, for every reagent where the crafter holds at least one
+// signed instance stamped with their OWN name (a rare+ monster material they
+// harvested themselves; see professions/gathering.ts). Using someone ELSE's
+// signed material (signer set but not the crafter's own name) is NOT counted
+// here: it behaves exactly like a plain unsigned material, no bonus.
+//
+// The two discounts COMPOSE: the #1145 flat reduction is applied to the
+// listed reagent count first (floored at 1), then the #1134 specialization
+// percentage multiplier is applied to that result (floored at 1), so a
+// specialized crafter using their own self-signed material gets both
+// benefits and neither discount can ever waive a reagent entirely.
+//
 // This module is `src/sim`-pure (see src/sim/CLAUDE.md): no DOM/render/ui/
 // game/net imports, no Math.random/Date.now, host-agnostic so it runs
 // offline, on the server, and in the headless RL env unchanged.
 
 import { recipeById } from '../content/recipes';
+import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
 import { type MaterialRarity, rollMaterialRarity } from './gathering';
-import type { ProfessionRecipeRecord } from './types';
+import type { ProfessionReagent, ProfessionRecipeRecord } from './types';
 import {
   type CraftSkillState,
   gainCraftSkill,
@@ -49,30 +64,48 @@ export interface CraftResult {
   itemId?: string;
   count?: number;
   quality?: MaterialRarity;
+  // #1145: true when at least one consumed reagent had a self-gathered signed
+  // instance (signer === the crafting player's own name) counted toward it,
+  // reducing that reagent's required quantity by one for this craft.
+  selfSignedBonusApplied?: boolean;
   // Present only when !ok: a stable reason code, not player-facing prose (the
   // caller renders/localizes the denial).
   reason?: 'unknown_recipe' | 'insufficient_materials';
 }
 
+/** Whether `meta` holds an inventory slot for `itemId` carrying a signed
+ *  instance stamped with `meta`'s OWN name (a self-gathered signed material). */
+function hasSelfSignedInstance(meta: PlayerMeta, itemId: string): boolean {
+  return meta.inventory.some((s) => s.itemId === itemId && s.instance?.signer === meta.name);
+}
+
 /**
- * The quantity of one reagent actually required after the crafter's
- * specialization discount (#1134): `count` multiplied by
- * `materialCostMultiplier` for `professionId`, floored, with a minimum of 1.
- * A non-specialized crafter (multiplier 1) always gets back the listed
- * `count` unchanged.
+ * The quantity of one reagent actually required from `pid`, after both
+ * discounts compose: `reagent.count` is first reduced by one (floored at 1,
+ * never fully waived) if `pid` holds a self-signed instance of that material
+ * (#1145), then that result is multiplied by `materialCostMultiplier` for
+ * `professionId` (#1134), floored, with a minimum of 1. A non-specialized
+ * crafter with no self-signed material always gets back the listed `count`
+ * unchanged.
  */
-export function discountedReagentCount(
-  count: number,
+export function requiredReagentCount(
+  meta: PlayerMeta | undefined,
+  reagent: ProfessionReagent,
   craftSkills: CraftSkillState,
   professionId: string,
 ): number {
+  const afterSelfSigned =
+    meta && hasSelfSignedInstance(meta, reagent.itemId)
+      ? Math.max(1, reagent.count - 1)
+      : reagent.count;
   const multiplier = materialCostMultiplier(craftSkills, professionId);
-  return Math.max(1, Math.floor(count * multiplier));
+  return Math.max(1, Math.floor(afterSelfSigned * multiplier));
 }
 
 /** Whether the given player currently holds every reagent a recipe requires,
- *  in the required quantities, after that player's specialization discount
- *  (#1134). Read-only: never mutates inventory. */
+ *  in the required quantities, after that player's #1145 self-signed
+ *  reduction and #1134 specialization discount compose. Read-only: never
+ *  mutates inventory. */
 export function hasRecipeMaterials(
   ctx: SimContext,
   recipe: ProfessionRecipeRecord,
@@ -83,7 +116,7 @@ export function hasRecipeMaterials(
   return recipe.reagents.every(
     (r) =>
       ctx.countItem(r.itemId, pid) >=
-      discountedReagentCount(r.count, craftSkills, recipe.professionId),
+      requiredReagentCount(meta, r, craftSkills, recipe.professionId),
   );
 }
 
@@ -91,10 +124,11 @@ export function hasRecipeMaterials(
  *  record and player entity id (issue #1128 tiered mastery gating): denies
  *  (no side effect at all) if any reagent is short, partial consumption never
  *  happens. On success, consumes every reagent (each discounted per the
- *  crafter's specialization, #1134), rolls the output's quality off the
- *  player's current skill in the recipe's craft, grants the output item, and
- *  grants craft skill scaled by tier mastery: full at or above the player's
- *  tier capability (including always-full for the common tier, regardless of
+ *  crafter's #1145 self-signed reduction composed with their #1134
+ *  specialization discount), rolls the output's quality off the player's
+ *  current skill in the recipe's craft, grants the output item, and grants
+ *  craft skill scaled by tier mastery: full at or above the player's tier
+ *  capability (including always-full for the common tier, regardless of
  *  capability), reduced one tier below, zero two or more tiers below.
  *  Exported separately from `resolveCraft` so tests can exercise the tier
  *  curve against a synthetic recipe without needing higher-tier content in
@@ -109,9 +143,11 @@ export function resolveCraftForRecipe(
   }
   const meta = ctx.players.get(pid);
   const craftSkills = meta ? meta.craftSkills : {};
+  let selfSignedBonusApplied = false;
   for (const reagent of recipe.reagents) {
-    const qty = discountedReagentCount(reagent.count, craftSkills, recipe.professionId);
-    ctx.removeItem(reagent.itemId, qty, pid);
+    const required = requiredReagentCount(meta, reagent, craftSkills, recipe.professionId);
+    if (required < reagent.count) selfSignedBonusApplied = true;
+    ctx.removeItem(reagent.itemId, required, pid);
   }
   const skill = meta ? (meta.craftSkills[recipe.professionId] ?? 0) : 0;
   const quality = rollMaterialRarity(skill, ctx.rng);
@@ -128,6 +164,7 @@ export function resolveCraftForRecipe(
     itemId: recipe.resultItemId,
     count: recipe.resultCount,
     quality,
+    selfSignedBonusApplied,
   };
 }
 

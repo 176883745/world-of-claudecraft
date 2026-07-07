@@ -9,24 +9,65 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "es_ES": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "fr_FR": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "fr_CA": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
-  "zh_CN": [],
-  "zh_TW": [],
-  "ko_KR": [],
-  "ja_JP": [],
-  "pt_BR": [],
-  "ru_RU": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "it_IT": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "de_DE": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "zh_CN": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "zh_TW": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "ko_KR": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "ja_JP": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "pt_BR": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "ru_RU": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "cs_CZ": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "nl_NL": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "pl_PL": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "id_ID": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "tr_TR": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "sv_SE": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "vi_VN": [
+    "hudChrome.discord.roleTag.coredevs"
+  ],
+  "da_DK": [
+    "hudChrome.discord.roleTag.coredevs"
+  ]
 };

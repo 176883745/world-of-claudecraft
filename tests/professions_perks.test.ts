@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { PERK_THRESHOLDS } from '../src/sim/content/professions';
-import { discountedReagentCount, resolveCraftForRecipe } from '../src/sim/professions/crafting';
+import { requiredReagentCount, resolveCraftForRecipe } from '../src/sim/professions/crafting';
 import { isStationActive, placeMobileCraftingStation } from '../src/sim/professions/mobile_station';
 import { rechargeCost, slotEffect } from '../src/sim/professions/tools';
 import {
@@ -76,19 +76,21 @@ describe('material-cost discount when crafting (#1134, crafting.ts)', () => {
   };
 
   it('a non-specialized player pays the full listed material cost', () => {
-    expect(discountedReagentCount(10, {}, CRAFT_ID)).toBe(10);
-    expect(discountedReagentCount(1, {}, CRAFT_ID)).toBe(1);
+    expect(requiredReagentCount(undefined, { itemId: 'x', count: 10 }, {}, CRAFT_ID)).toBe(10);
+    expect(requiredReagentCount(undefined, { itemId: 'x', count: 1 }, {}, CRAFT_ID)).toBe(1);
   });
 
   it('a specialized player sees a reduced quantity, floored, with a minimum of 1', () => {
     const skills = { [CRAFT_ID]: THRESHOLD };
     const discountPct = PERK_THRESHOLDS[CRAFT_ID].materialDiscountPct;
-    expect(discountedReagentCount(10, skills, CRAFT_ID)).toBe(
+    expect(requiredReagentCount(undefined, { itemId: 'x', count: 10 }, skills, CRAFT_ID)).toBe(
       Math.max(1, Math.floor(10 * (1 - discountPct))),
     );
-    expect(discountedReagentCount(10, skills, CRAFT_ID)).toBeLessThan(10);
+    expect(
+      requiredReagentCount(undefined, { itemId: 'x', count: 10 }, skills, CRAFT_ID),
+    ).toBeLessThan(10);
     // The 1-qty ingredient floors at the minimum of 1, never drops to 0.
-    expect(discountedReagentCount(1, skills, CRAFT_ID)).toBe(1);
+    expect(requiredReagentCount(undefined, { itemId: 'x', count: 1 }, skills, CRAFT_ID)).toBe(1);
   });
 
   it('resolveCraftForRecipe succeeds when discounted materials are available, consuming exactly the discounted amount', () => {
