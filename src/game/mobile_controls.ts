@@ -473,6 +473,11 @@ export class MobileControls {
   }
 
   private setActive(active: boolean): void {
+    // Was the touch interface already active BEFORE this call? A redundant
+    // re-activation (active was already true, e.g. a PHONE_TOUCH_QUERY threshold
+    // crossing on a foldable resize while staying in touch) must NOT wipe an
+    // in-progress composer draft; only a genuine desktop->touch transition resets it.
+    const wasActive = this.active;
     this.active = active;
     document.body.classList.toggle('mobile-touch', active);
     if (!active) {
@@ -494,9 +499,13 @@ export class MobileControls {
       this.chromeFade?.dispose();
       this.chromeFade = null;
     } else {
-      document.body.classList.remove('mobile-chat-open', 'mobile-chat-reply');
-      // Reset any composer left open before flipping to touch (null-safe).
-      this.exitChatReply();
+      // Reset any composer left open ONLY on a real transition INTO touch (not on a
+      // redundant re-activation while already active, which would clear a draft the
+      // player is typing). exitChatReply clears input.value, so gate it on !wasActive.
+      if (!wasActive) {
+        document.body.classList.remove('mobile-chat-open', 'mobile-chat-reply');
+        this.exitChatReply();
+      }
       // Arm the idle-fade once for this activation (idempotent via ??=).
       this.chromeFade ??= startChromeFade(document.body);
     }

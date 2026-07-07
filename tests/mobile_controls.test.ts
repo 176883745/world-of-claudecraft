@@ -321,8 +321,26 @@ class FakeClassList {
 
 class FakeElement extends EventTarget {
   classList = new FakeClassList();
-  style = { transform: '', left: '', top: '' };
+  style: {
+    transform: string;
+    left: string;
+    top: string;
+    display: string;
+    overflowY: string;
+    height: string;
+  } = {
+    transform: '',
+    left: '',
+    top: '',
+    display: '',
+    overflowY: '',
+    height: '',
+  };
   offsetWidth = 122;
+  // Textarea-ish props so #chat-input can back exitChatReply (value clear + blur) in
+  // the fake DOM; harmless no-op defaults for every other element.
+  value = '';
+  blur(): void {}
   private captured = new Set<number>();
   /** Selectors this element (or a simulated ancestor) matches, for closest();
    *  drives touch_router.ts's isInteractiveHudElement checks in tests. */
@@ -415,6 +433,9 @@ function installMobileControlDom(): {
     ['mobile-emote', new FakeElement()],
     ['mobile-discord', new FakeElement()],
     ['mobile-donate', new FakeElement()],
+    // The chat composer, so exitChatReply (value clear + blur) is exercised in the
+    // fake DOM: the setActive draft-survival test reads its .value.
+    ['chat-input', new FakeElement()],
   ]);
   const body = new FakeElement();
   const documentTarget = new EventTarget();
@@ -490,6 +511,48 @@ function mobileCallbacks() {
     onRecenterCamera: noop,
   };
 }
+
+describe('MobileControls setActive draft survival', () => {
+  const noopInputForActive = () =>
+    ({
+      setTouchMove: () => {},
+      clearTouchMove: () => {},
+      setTouchLook: () => {},
+      setTouchLookVector: () => {},
+    }) as unknown as Input;
+
+  it('keeps an in-progress composer draft on a redundant re-activation (only a real desktop->touch transition resets it)', () => {
+    installMobileControlDom();
+    // Force touch active for a real desktop->touch transition on start().
+    setInterfaceMode('touch');
+    const controls = new MobileControls(noopInputForActive(), mobileCallbacks());
+    controls.start();
+    // The initial activation (a genuine transition) reset the composer to empty.
+    const chatInput = document.getElementById('chat-input') as unknown as { value: string };
+    expect(chatInput).toBeTruthy();
+    // The player starts typing a draft in the composer.
+    chatInput.value = 'hello raid, on my way';
+    // A redundant re-activation while ALREADY active (e.g. a foldable resize crossing
+    // the PHONE_TOUCH_QUERY threshold but staying in touch): the draft must SURVIVE.
+    controls.refreshInterfaceMode();
+    expect(chatInput.value).toBe('hello raid, on my way');
+  });
+
+  it('resets the composer on a genuine desktop->touch transition (draft from a prior desktop session cleared)', () => {
+    installMobileControlDom();
+    // Start in desktop mode (not active), so the first refresh into touch is a real
+    // transition that must clear a stray composer value.
+    setInterfaceMode('desktop');
+    const controls = new MobileControls(noopInputForActive(), mobileCallbacks());
+    controls.start();
+    const chatInput = document.getElementById('chat-input') as unknown as { value: string };
+    chatInput.value = 'stale desktop draft';
+    // Flip to touch: a genuine desktop->touch transition resets the composer.
+    setInterfaceMode('touch');
+    controls.refreshInterfaceMode();
+    expect(chatInput.value).toBe('');
+  });
+});
 
 describe('MobileControls pointer lifecycle', () => {
   it('clears movement when the active pointer ends outside the joystick element', () => {
