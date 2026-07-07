@@ -308,6 +308,7 @@ Created by this feature (record actual paths as phases land):
 
 ## OPEN items and known gotchas
 
+- MAINTAINER-CALL recorded 2026-07-07 (post-v0.23.0-merge interaction review; a judgment call, not a bug, do not "fix" without a decision): matchesCategory('material') is junk OR tool (src/ui/bag_filter.ts), so the deposit-all-materials sweep also banks kind-'tool' items, which since the v0.23.0 merge includes Heroic Marks (a spendable item debited from BAGS at the Heroic Quartermaster) and gathering tools; one click can strand marks/tools in the bank away from their point of use. Fully reversible via withdraw and consistent with the visible Materials chip (family semantics predating the bank). Options if ratified as unwanted: exclude kind 'tool' from planDepositAllMaterials's selection only (diverges sweep from chip), or leave as-is and let the chip semantics stand. Surface in the PR body alongside the touch-destroy-gate deviation.
 - Price/bonus numbers: shape locked, values tunable at release balance pass.
 - Email bonus criterion: RESOLVED in Phase 8, `accounts.email_verified_at IS NOT NULL` (a real verified-email flag exists and is populated; see decision 4).
 - Lease mechanism: RESOLVED in Phase 4 (lease row with expiry + heartbeat; see decision 11).
