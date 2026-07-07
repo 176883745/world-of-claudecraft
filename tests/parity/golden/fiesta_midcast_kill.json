@@ -31,7 +31,7 @@
       "tick": 25,
       "time": 1.25,
       "nextId": 405,
-      "state": "ca6b65d5",
+      "state": "f7ece7a7",
       "events": "43829cd3",
       "rng": {
         "draws": 0,
@@ -42,7 +42,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 405,
-      "state": "739287ef",
+      "state": "2214c349",
       "events": "7fc93399",
       "rng": {
         "draws": 28,
@@ -53,7 +53,7 @@
       "tick": 75,
       "time": 3.75,
       "nextId": 405,
-      "state": "17d8aea5",
+      "state": "1845edf7",
       "events": "59acab11",
       "rng": {
         "draws": 138,
@@ -64,7 +64,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 405,
-      "state": "d44d4a33",
+      "state": "416a27fd",
       "events": "72fdf341",
       "rng": {
         "draws": 294,
@@ -75,7 +75,7 @@
       "tick": 101,
       "time": 5.05,
       "nextId": 405,
-      "state": "ed374208",
+      "state": "41b265da",
       "events": "9e6a5a8d",
       "rng": {
         "draws": 300,
@@ -134,7 +134,8 @@
               "war_toughness": 3
             },
             "spec": "arms"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -189,7 +190,8 @@
               "mag_wand_specialization": 2
             },
             "spec": "arcane"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -242,7 +244,8 @@
               "rog_malice": 3
             },
             "spec": "assassination"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -297,7 +300,8 @@
               "hun_lethal_shots": 3
             },
             "spec": "beast_mastery"
-          }
+          },
+          "townFocus": {}
         }
       ],
       "entities": [
@@ -506,7 +510,7 @@
       "tick": 101,
       "time": 5.05,
       "nextId": 405,
-      "state": "a3c4021c",
+      "state": "258d8502",
       "events": "cf9ec829",
       "rng": {
         "draws": 300,
@@ -565,7 +569,8 @@
               "war_toughness": 3
             },
             "spec": "arms"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -620,7 +625,8 @@
               "mag_wand_specialization": 2
             },
             "spec": "arcane"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -673,7 +679,8 @@
               "rog_malice": 3
             },
             "spec": "assassination"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -728,7 +735,8 @@
               "hun_lethal_shots": 3
             },
             "spec": "beast_mastery"
-          }
+          },
+          "townFocus": {}
         }
       ],
       "entities": [
@@ -935,7 +943,7 @@
       "tick": 101,
       "time": 5.05,
       "nextId": 405,
-      "state": "8a84d7d6",
+      "state": "549a5150",
       "events": "6e8891dd",
       "rng": {
         "draws": 300,
@@ -995,7 +1003,8 @@
               "war_toughness": 3
             },
             "spec": "arms"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -1050,7 +1059,8 @@
               "mag_wand_specialization": 2
             },
             "spec": "arcane"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -1104,7 +1114,8 @@
               "rog_malice": 3
             },
             "spec": "assassination"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -1159,7 +1170,8 @@
               "hun_lethal_shots": 3
             },
             "spec": "beast_mastery"
-          }
+          },
+          "townFocus": {}
         }
       ],
       "entities": [
@@ -1366,7 +1378,7 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 405,
-      "state": "710be508",
+      "state": "a712e96a",
       "events": "741638a5",
       "rng": {
         "draws": 429,
@@ -1377,7 +1389,7 @@
       "tick": 142,
       "time": 7.1,
       "nextId": 405,
-      "state": "8dd575b0",
+      "state": "eb494192",
       "events": "741638a5",
       "rng": {
         "draws": 524,
@@ -1437,7 +1449,8 @@
               "war_toughness": 3
             },
             "spec": "arms"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -1492,7 +1505,8 @@
               "mag_wand_specialization": 2
             },
             "spec": "arcane"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -1546,7 +1560,8 @@
               "rog_malice": 3
             },
             "spec": "assassination"
-          }
+          },
+          "townFocus": {}
         },
         {
           "activeLoadout": -1,
@@ -1601,7 +1616,8 @@
               "hun_lethal_shots": 3
             },
             "spec": "beast_mastery"
-          }
+          },
+          "townFocus": {}
         }
       ],
       "entities": [

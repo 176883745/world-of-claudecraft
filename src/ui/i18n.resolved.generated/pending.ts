@@ -9,25 +9,145 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "es_ES": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "fr_FR": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "fr_CA": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
+  "it_IT": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "de_DE": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
   "zh_CN": [],
   "zh_TW": [],
   "ko_KR": [],
   "ja_JP": [],
-  "pt_BR": [],
+  "pt_BR": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
   "ru_RU": [],
-  "cs_CZ": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "cs_CZ": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "nl_NL": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "pl_PL": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "id_ID": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "tr_TR": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "sv_SE": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "vi_VN": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ],
+  "da_DK": [
+    "hudChrome.townFocus.budgetLabel",
+    "hudChrome.townFocus.decreaseAria",
+    "hudChrome.townFocus.hint",
+    "hudChrome.townFocus.increaseAria",
+    "hudChrome.townFocus.notInTownHint",
+    "hudChrome.townFocus.saveButton",
+    "hudChrome.townFocus.title"
+  ]
 };

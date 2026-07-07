@@ -16,7 +16,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 402,
-      "state": "11c484c3",
+      "state": "ba3bd899",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -60,7 +60,8 @@
           "talents": {
             "choices": {},
             "ranks": {}
-          }
+          },
+          "townFocus": {}
         }
       ],
       "entities": [
@@ -121,7 +122,7 @@
       "tick": 10,
       "time": 0.5,
       "nextId": 413,
-      "state": "d2b05507",
+      "state": "40be6db5",
       "events": "c4897170",
       "rng": {
         "draws": 3,
@@ -132,7 +133,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 413,
-      "state": "7c290127",
+      "state": "72065215",
       "events": "064af0c6",
       "rng": {
         "draws": 3,
@@ -143,7 +144,7 @@
       "tick": 30,
       "time": 1.5,
       "nextId": 413,
-      "state": "5ee0f6b9",
+      "state": "6721fe07",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -154,7 +155,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 413,
-      "state": "5ef4a617",
+      "state": "ef482045",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -165,7 +166,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 413,
-      "state": "f78aaf65",
+      "state": "17a977f3",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -176,7 +177,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 413,
-      "state": "9027678b",
+      "state": "6d2edf39",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -187,7 +188,7 @@
       "tick": 69,
       "time": 3.45,
       "nextId": 414,
-      "state": "cf1134b9",
+      "state": "86460807",
       "events": "e134be58",
       "rng": {
         "draws": 3,
@@ -237,6 +238,7 @@
             "choices": {},
             "ranks": {}
           },
+          "townFocus": {},
           "xp": 198
         }
       ],
@@ -335,7 +337,7 @@
       "tick": 70,
       "time": 3.5,
       "nextId": 414,
-      "state": "0e4cad09",
+      "state": "0cddb697",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -346,7 +348,7 @@
       "tick": 71,
       "time": 3.55,
       "nextId": 414,
-      "state": "b0983a25",
+      "state": "452777b3",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -396,6 +398,7 @@
             "choices": {},
             "ranks": {}
           },
+          "townFocus": {},
           "xp": 198
         }
       ],
