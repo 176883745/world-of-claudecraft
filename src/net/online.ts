@@ -84,7 +84,6 @@ import {
   type SocialInfo,
   type TradeInfo,
 } from '../world_api';
-import { isTransientReconnectRejection } from './reconnect_policy';
 
 // ---------------------------------------------------------------------------
 // REST
@@ -1044,9 +1043,6 @@ export class ClientWorld implements IWorld {
   onConnectionLost: (() => void) | null = null;
   onReconnected: (() => void) | null = null;
   private reconnectAttempts = 0;
-  // consecutive 'character already in world' rejections during a reconnect;
-  // see src/net/reconnect_policy.ts for why these are tolerated (bounded)
-  private conflictRejections = 0;
   private reconnectTimer: number | undefined;
   // set by close() and by a server 'error' frame: the session is over for
   // good, so a subsequent socket close must not schedule a reconnect
@@ -1284,7 +1280,6 @@ export class ClientWorld implements IWorld {
         // acking at 0 and resends the world from an empty interest set, and
         // any stale mirrored entities fall out via the snapshot prune
         this.reconnectAttempts = 0;
-        this.conflictRejections = 0;
         this.inputSeq = 0;
         this.lastInputSig = '';
         this.lastInputSentAt = 0;
@@ -1327,21 +1322,9 @@ export class ClientWorld implements IWorld {
       return;
     }
     if (msg.t === 'error') {
+      // a server rejection (kick, moderation, takeover, failed auth) ends the
+      // session for good: no auto-reconnect
       this.connected = false;
-      // Mid-reconnect, 'character already in world' is the transient window
-      // where the server has not yet noticed the old socket died (a
-      // black-holed drop sends no FIN/RST): keep backing off, the server's
-      // keepalive sweep flips the held session linkdead within a ping
-      // interval or two and the next retry resumes. Bounded, so a character
-      // genuinely held by another device's live socket still ends fatal.
-      if (
-        isTransientReconnectRejection(msg.error, this.reconnectAttempts, this.conflictRejections)
-      ) {
-        this.conflictRejections++;
-        return; // the server closes this socket; onclose schedules the retry
-      }
-      // any other server rejection (kick, moderation, takeover, failed auth)
-      // ends the session for good: no auto-reconnect
       this.sessionEnded = true;
       clearInterval(this.sendTimer);
       if (this.reconnectTimer !== undefined) clearTimeout(this.reconnectTimer);

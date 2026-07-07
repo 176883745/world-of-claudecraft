@@ -291,18 +291,6 @@ describe('createWsAuth: authenticateWebSocket accept path', () => {
     ws.emit('close');
     expect(game.socketClosed).toHaveBeenCalledWith(session, ws);
     expect(game.leave).not.toHaveBeenCalled();
-
-    // The pong handler clears the keepalive liveness flag, but only for the
-    // session's CURRENT socket (a stale pre-resume pong must not mask a
-    // black-holed replacement).
-    (session as { ws?: unknown; awaitingPong?: boolean }).ws = ws;
-    (session as { awaitingPong?: boolean }).awaitingPong = true;
-    ws.emit('pong');
-    expect((session as { awaitingPong?: boolean }).awaitingPong).toBe(false);
-    (session as { ws?: unknown }).ws = 'a-different-socket';
-    (session as { awaitingPong?: boolean }).awaitingPong = true;
-    ws.emit('pong');
-    expect((session as { awaitingPong?: boolean }).awaitingPong).toBe(true);
   });
 
   it('snapshots the staff roles into isAdmin + expanded adminPermissions, and rides the CAPI attribution', async () => {

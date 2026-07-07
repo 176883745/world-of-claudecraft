@@ -18,23 +18,13 @@ vi.mock('../server/db', () => ({
 
 import { type ClientSession, GameServer } from '../server/game';
 import { LINKDEAD_GRACE_MS, planJoin } from '../server/linkdead';
-import {
-  isTransientReconnectRejection,
-  MAX_CONFLICT_REJECTIONS,
-  RECONNECT_CONFLICT_ERROR,
-} from '../src/net/reconnect_policy';
 
 function fakeWs() {
-  const ws: any = {
+  return {
     readyState: 1,
     send: vi.fn(),
     close: vi.fn(),
-    ping: vi.fn(),
-    terminate: vi.fn(() => {
-      ws.readyState = 3;
-    }),
-  };
-  return ws;
+  } as any;
 }
 
 function expectJoined(result: ClientSession | { error: string }): ClientSession {
@@ -287,63 +277,6 @@ describe('linkdead grace lifecycle', () => {
     expect(server.countIpSessions('198.51.100.2')).toBe(1);
   });
 
-  it('keepalive sweep pings live sessions and holds a pong-silent socket linkdead', () => {
-    const server = new GameServer();
-    const ws = fakeWs();
-    const session = expectJoined(server.join(ws, 11, 101, 'Blackhole', 'warrior', null));
-
-    // first sweep: ping goes out, pong now outstanding
-    server.pingLiveSessions();
-    expect(ws.ping).toHaveBeenCalledTimes(1);
-    expect(session.awaitingPong).toBe(true);
-
-    // the pong arrives (ws_auth wires ws 'pong' to clear the flag): the next
-    // sweep pings again instead of terminating
-    session.awaitingPong = false;
-    server.pingLiveSessions();
-    expect(ws.ping).toHaveBeenCalledTimes(2);
-    expect(ws.terminate).not.toHaveBeenCalled();
-
-    // no pong before the following sweep: black-holed socket, terminated
-    // into the linkdead grace (never a full logout)
-    server.pingLiveSessions();
-    expect(ws.terminate).toHaveBeenCalledTimes(1);
-    expect(session.linkdead).toBe(true);
-    expect(session.left).toBe(false);
-    expect(server.clients.size).toBe(1);
-  });
-
-  it('keepalive sweep leaves linkdead sessions alone and resume clears the pong flag', () => {
-    const server = new GameServer();
-    const ws = fakeWs();
-    const session = expectJoined(server.join(ws, 11, 101, 'Pongreset', 'warrior', null));
-    server.pingLiveSessions();
-    dropSocket(server, session, ws);
-
-    server.pingLiveSessions();
-    expect(ws.terminate).not.toHaveBeenCalled();
-
-    const resumed = expectJoined(server.join(fakeWs(), 11, 101, 'Pongreset', 'warrior', null));
-    expect(resumed.awaitingPong).toBe(false);
-  });
-
-  it('resume sends no self entered-the-world notice (the player never saw themselves leave)', () => {
-    const server = new GameServer();
-    const ws = fakeWs();
-    const session = expectJoined(server.join(ws, 11, 101, 'Quietback', 'warrior', null));
-    dropSocket(server, session, ws);
-
-    const ws2 = fakeWs();
-    expectJoined(server.join(ws2, 11, 101, 'Quietback', 'warrior', null));
-
-    const frames = ws2.send.mock.calls.map((c: any[]) => JSON.parse(c[0]));
-    const enteredNotice = frames.find(
-      (f: any) =>
-        f.t === 'events' && f.list?.some((ev: any) => String(ev.text ?? '').includes('entered')),
-    );
-    expect(enteredNotice).toBeUndefined();
-  });
-
   it('skips snapshot building for linkdead sessions', () => {
     const server = new GameServer();
     const ws = fakeWs();
@@ -354,39 +287,5 @@ describe('linkdead grace lifecycle', () => {
     (server as any).broadcastSnapshots();
 
     expect(ws.send).not.toHaveBeenCalled();
-  });
-});
-
-describe('reconnect policy (client-side conflict tolerance)', () => {
-  it('tolerates the in-world conflict only while a reconnect is in flight', () => {
-    expect(isTransientReconnectRejection(RECONNECT_CONFLICT_ERROR, 1, 0)).toBe(true);
-    // not reconnecting (a fresh char-select join): the takeover prompt path
-    expect(isTransientReconnectRejection(RECONNECT_CONFLICT_ERROR, 0, 0)).toBe(false);
-  });
-
-  it('never tolerates any other server rejection', () => {
-    expect(isTransientReconnectRejection('character taken over', 3, 0)).toBe(false);
-    expect(isTransientReconnectRejection('not authenticated', 3, 0)).toBe(false);
-    expect(isTransientReconnectRejection(undefined, 3, 0)).toBe(false);
-  });
-
-  it('gives up after the bounded number of conflict rejections (a real takeover stays fatal)', () => {
-    expect(
-      isTransientReconnectRejection(RECONNECT_CONFLICT_ERROR, 5, MAX_CONFLICT_REJECTIONS - 1),
-    ).toBe(true);
-    expect(
-      isTransientReconnectRejection(RECONNECT_CONFLICT_ERROR, 5, MAX_CONFLICT_REJECTIONS),
-    ).toBe(false);
-  });
-
-  it('matches the exact wire string planJoin sends', () => {
-    const plan = planJoin({
-      accountId: 7,
-      isGm: false,
-      sameCharacter: { accountId: 7, linkdead: false },
-      liveOtherSessions: 0,
-      maxPerAccount: 1,
-    });
-    expect(plan).toEqual({ action: 'reject', error: RECONNECT_CONFLICT_ERROR });
   });
 });

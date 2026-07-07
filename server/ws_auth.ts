@@ -216,12 +216,6 @@ export function createWsAuth(deps: WsAuthDeps): WsAuthHandlers {
     ws.on('error', () => {
       game.socketClosed(session, ws);
     });
-    // Clears the keepalive liveness flag (game.ts pingLiveSessions). Guarded
-    // on socket identity so a late pong from a pre-resume socket cannot mask
-    // a black-holed replacement.
-    ws.on('pong', () => {
-      if (session.ws === ws) session.awaitingPong = false;
-    });
   }
 
   async function onConnection(ws: WebSocket, req: http.IncomingMessage): Promise<void> {

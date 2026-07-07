@@ -363,10 +363,6 @@ export interface ClientSession {
   // at which the held session is fully torn down via leave().
   linkdead: boolean;
   graceUntil: number;
-  // true while a keepalive ping is outstanding; the pong handler (attached
-  // next to the close/error handlers in ws_auth.ts) clears it. Still set at
-  // the next sweep means the socket is black-holed: terminate into the grace.
-  awaitingPong: boolean;
   chatTokens: number;
   chatLastRefill: number;
   chatLastRateError: number;
@@ -1140,42 +1136,22 @@ export class GameServer {
     this.dailyRewardActivityInterval = setInterval(() => {
       void this.recordDailyRewardActivity();
     }, DAILY_REWARD_ACTIVITY_MS);
+    // Protocol-level keepalive: browsers answer pings automatically, so this
+    // keeps NAT/proxy idle timers from silently dropping a quiet connection.
+    // An AFK player's client sends no input frames, so without this its TCP
+    // stream can sit idle long enough for middleboxes to cut it (the classic
+    // "kicked while AFK" report). No pong policing: a truly dead peer is
+    // detected by the OS/ws stack and lands in the linkdead grace anyway.
     this.keepaliveInterval = setInterval(() => {
-      this.pingLiveSessions();
-    }, WS_KEEPALIVE_PING_MS);
-  }
-
-  // Protocol-level WS liveness sweep, every WS_KEEPALIVE_PING_MS. Two jobs:
-  // the pings keep NAT/proxy idle timers from silently dropping a quiet
-  // connection (an AFK player's client sends no input frames, the classic
-  // "kicked while AFK" report), and a peer that missed a whole ping interval
-  // (no pong; browsers answer automatically) is a black-holed socket (no
-  // FIN/RST ever arrives, e.g. a mobile WiFi-to-cellular handoff), so it is
-  // terminated into the linkdead grace. Without the pong check, a re-auth for
-  // the same character keeps hitting 'character already in world' until TCP
-  // gives up on the dead socket, which can take minutes; with it, the
-  // client's reconnect backoff resumes within a ping interval or two (the
-  // client tolerates that rejection mid-reconnect, src/net/reconnect_policy.ts).
-  pingLiveSessions(): void {
-    for (const session of this.clients.values()) {
-      if (session.linkdead || session.ws.readyState !== 1) continue;
-      if (session.awaitingPong) {
-        const ws = session.ws;
+      for (const session of this.clients.values()) {
+        if (session.linkdead || session.ws.readyState !== 1) continue;
         try {
-          ws.terminate();
+          session.ws.ping();
         } catch {
-          /* socket already torn down */
+          /* socket torn down mid-iteration */
         }
-        this.socketClosed(session, ws);
-        continue;
       }
-      session.awaitingPong = true;
-      try {
-        session.ws.ping();
-      } catch {
-        /* socket torn down mid-iteration */
-      }
-    }
+    }, WS_KEEPALIVE_PING_MS);
   }
 
   stop(): void {
@@ -1627,7 +1603,6 @@ export class GameServer {
       left: false,
       linkdead: false,
       graceUntil: 0,
-      awaitingPong: false,
       chatTokens: CHAT_RATE_BURST,
       chatLastRefill: Date.now() / 1000,
       chatLastRateError: 0,
@@ -1738,7 +1713,6 @@ export class GameServer {
     session.ws = ws;
     session.linkdead = false;
     session.graceUntil = 0;
-    session.awaitingPong = false;
     const sessionIp = meta.ip ?? '';
     if (sessionIp !== session.ip) {
       this.releaseIpSession(session.ip);
@@ -1770,9 +1744,16 @@ export class GameServer {
       softWords: this.chatFilter.softWords(),
       chatMutedUntil: session.chatMutedUntil ?? null,
     });
-    // No self "entered the world" notice here: on a seamless reconnect the
-    // player never saw themselves leave (and friends never got a presence
-    // flap), so the fresh join notice would read as a glitch.
+    this.send(session, {
+      t: 'events',
+      list: [
+        {
+          type: 'log',
+          text: `${session.name} has entered World of ClaudeCraft.`,
+          color: '#ffd100',
+        },
+      ],
+    });
     void this.sendSocialSnapshot(session.characterId);
     return session;
   }
