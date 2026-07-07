@@ -5123,7 +5123,10 @@ export class Renderer {
       if (!e || (e.dead && !e.lootable)) continue;
       // A lying corpse (dead + lootable) has no upright body: collapse its sloppy
       // column to a ground-level point so a near-eye click above/behind the flat
-      // body no longer snaps to it (issue 1486), matching the flattened pick proxy.
+      // body no longer snaps to it (issue 1486). Like the flattened pick proxy, this
+      // sheds the upright column; the exact drop is approximate (a ground-level
+      // anchor inside the 26px assist radius is all this path needs), not a parity
+      // match of the proxy's min(standHeight, radius*2) height.
       const dead = !!e.dead;
       // body midpoint anchor (also the in-front-of-camera cull); ground-hug if dead
       this.tmpV.copy(v.group.position);
