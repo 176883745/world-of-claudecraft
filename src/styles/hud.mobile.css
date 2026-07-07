@@ -3208,4 +3208,54 @@
   body.mobile-touch.hud-mobile-tablet #right-tracker-stack {
     width: 220px;
   }
+
+  /* ---------- floating combat text (mobile) ----------
+     The phone screen is small and the FCT stack crowds the fight, so on touch we
+     shrink the numbers and shorten the rise. These are COSMETIC richness tweaks
+     only (size + travel distance), never the number itself, so they stay within
+     the graphics-settings fairness rule. Desktop hud.css is left byte-identical:
+     we duplicate the keyframes with -mobile names (per the compositor-animation
+     rule in hud.css, the translate rise must stay a static keyframe animation, no
+     var() inside keyframes) and override ONLY font-size and animation-name here,
+     so font-weight, text-shadow, colour and the centring translate all inherit.
+     This hud-mobile layer outranks the components/hud layers, so no !important. */
+  @keyframes fct-rise-mobile {
+    from {
+      opacity: 1;
+      translate: -50% -50%;
+    }
+    to {
+      opacity: 0;
+      translate: -50% calc(-50% - 56px);
+    }
+  }
+  @keyframes fct-crit-mobile {
+    0% {
+      opacity: 1;
+      translate: -50% -50%;
+      scale: 1;
+    }
+    15% {
+      scale: 1.5;
+    }
+    100% {
+      opacity: 0;
+      translate: -50% calc(-50% - 62px);
+      scale: 1;
+    }
+  }
+  body.mobile-touch .fct {
+    font-size: calc(14px * var(--fct-scale, 1));
+    animation-name: fct-rise-mobile;
+  }
+  body.mobile-touch .fct.crit {
+    font-size: calc(20px * var(--fct-scale, 1));
+    animation-name: fct-crit-mobile;
+  }
+  /* Preserve the low-tier crit shed (hud.css swaps the crit pop for the plain
+     rise at data-fx-level=low): our layer would otherwise re-apply fct-crit-mobile,
+     so re-point the low tier at the non-crit mobile rise here too. */
+  :root[data-fx-level="low"] body.mobile-touch .fct.crit {
+    animation-name: fct-rise-mobile;
+  }
 }
