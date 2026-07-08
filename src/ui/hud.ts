@@ -5289,38 +5289,12 @@ export class Hud {
       (pageToggle as HTMLElement).blur();
     });
 
-    // Long-press-to-inspect: the same attachTooltip wiring the desktop bar
-    // buttons get. This is what ARMS the peek guard the tap handlers above
-    // consume; without it a long press showed nothing and the release CAST
-    // the ability (burning cooldowns while trying to read a spell). The slot
-    // closures resolve the CURRENT page fresh, exactly like the view's.
-    this.attachTooltip(
-      attackBtn,
-      () =>
-        `<div class="tt-title">${esc(t('abilityUi.actionBar.attackName'))}</div><div class="tt-sub">${esc(t('abilityUi.actionBar.attackTooltip'))}</div>`,
-    );
-    slotBtns.forEach((btn, i) => {
-      this.attachTooltip(btn, () => {
-        const slot = sourceSlotForMobileButton(this.mobileActionPage, i);
-        const known = this.abilityForSlot(slot);
-        if (known) return this.abilityTooltip(known);
-        const item = this.itemForSlot(slot);
-        if (item) {
-          const count = this.inventoryCount(item.id);
-          return (
-            this.itemTooltip(item) +
-            `<div class="tt-sub">${esc(
-              count > 0
-                ? t('abilityUi.actionBar.itemInBags', {
-                    count: formatNumber(count, { maximumFractionDigits: 0 }),
-                  })
-                : t('abilityUi.actionBar.itemNoneInBags'),
-            )}</div>`
-          );
-        }
-        return `<div class="tt-sub">${esc(t('abilityUi.actionBar.emptySlot'))}</div>`;
-      });
-    });
+    // No tooltip on the mobile ring: a long-press-to-inspect wiring lived here
+    // (mirroring the desktop bar's attachTooltip), but it read as a stray
+    // popup box appearing over the world on an ordinary tap/hold rather than a
+    // deliberate inspect gesture, so it is removed entirely on touch. The tap
+    // handlers above no longer need a peek guard armed by attachTooltip's
+    // showAt (nothing to peek at), so a long hold just casts like a normal tap.
 
     this.mobileActionRingView = createActionBarView(
       {
