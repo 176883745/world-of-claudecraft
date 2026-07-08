@@ -2,6 +2,265 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const id_ID: Partial<Record<TranslationKey, string>> = {
+  'entities.abilities.sport_boot.description':
+    'Tendangan lambung jauh ke arah titik bidik. Penonton menyukainya.',
+  'entities.abilities.sport_boot.name': 'Tendangan Jauh',
+  'entities.abilities.sport_dive.description':
+    'Lemparkan dirimu ke arah titik bidik. Bola yang melintas akan menempel padamu.',
+  'entities.abilities.sport_dive.name': 'Terjun',
+  'entities.abilities.sport_feint.description': 'Gerakan mengelak cepat ke arah titik bidik.',
+  'entities.abilities.sport_feint.name': 'Tipuan',
+  'entities.abilities.sport_hoof.description': 'Hantam bola rendah dan keras ke depan lapangan.',
+  'entities.abilities.sport_hoof.name': 'Sapu Jauh',
+  'entities.abilities.sport_kick.description': 'Tendang bola menyusur tanah ke arah titik bidik.',
+  'entities.abilities.sport_kick.name': 'Tendang',
+  'entities.abilities.sport_pass.description':
+    'Gulirkan umpan mantap ke rekan setim yang kau bidik, mendahului arah larinya.',
+  'entities.abilities.sport_pass.name': 'Umpan',
+  'entities.abilities.sport_punt.description': 'Tendangan lambung kiper, tinggi dan jauh.',
+  'entities.abilities.sport_punt.name': 'Sepakan Jauh',
+  'entities.abilities.sport_second_wind.description':
+    'Temukan kembali tenagamu: bergerak 50% lebih cepat selama 4 detik.',
+  'entities.abilities.sport_second_wind.name': 'Kaki Segar',
+  'entities.abilities.sport_shoot.description':
+    'Tahan untuk mengumpulkan tenaga, lepaskan untuk menembak ke gawang. Tenaga berlebih membuat bola melambung lewat.',
+  'entities.abilities.sport_shoot.name': 'Tembak',
+  'entities.abilities.sport_shoulder.description':
+    'Benturan bahu yang adil ala gencatan panen. Membuat lawan terjungkal menjauh dari bola.',
+  'entities.abilities.sport_shoulder.name': 'Benturan Bahu',
+  'entities.npcs.groundskeeper_bram.greeting':
+    'Gencatan tetap berlaku di Sowfield, {className}: hanya tendangan dan benturan bahu. Mau bermain memperebutkan Ember Tembaga?',
+  'entities.npcs.groundskeeper_bram.name': 'Penjaga Lapangan Bram',
+  'entities.npcs.groundskeeper_bram.title': 'Penjaga Sowfield',
+  'entities.zones.eastbrook_vale.pois.10.label': 'Sowfield',
+  'guide.nav.professions': 'Profesi',
+  'guide.nav.valeCup': 'Piala Lembah',
+  'guide.professions.archetypeChooseBody':
+    'Kamu menyatakan arketipe pertamamu melalui misi cerita awal di zona satu yang secara resmi menerimamu ke dalam identitas itu. Sebelum misi itu selesai, kamu sama sekali belum memilih arketipe.',
+  'guide.professions.archetypeChooseTitle': 'Memilih arketipemu',
+  'guide.professions.archetypeIdentityBody':
+    'Arketipe aktifmu adalah pernyataan tentang siapa karaktermu di dunia, terlihat dari cara orang lain dan dunia menyapamu. Hadiah dan pengakuan pastinya masih dirampungkan; tengok kembali seiring sistem ini dilengkapi.',
+  'guide.professions.archetypeIdentityTitle': 'Makna arketipemu',
+  'guide.professions.archetypeIntro':
+    'Masing-masing dari sepuluh kerajinan juga mewakili sebuah arketipe, identitas yang lebih luas yang bisa kamu sandang di luar sekadar menekuni kerajinannya. Arketipe aktifmu adalah satu pilihan pada satu waktu, bukan daftar centang: kamu menyandang satu, dan bisa menggantinya kelak jika mau.',
+  'guide.professions.archetypeSwitchBody':
+    'Menyatakan sebuah arketipe sekali tidak mengikatmu selamanya. Berpindah ke arketipe lain berarti lebih dulu menyelesaikan misi "menebus kesalahan" yang dapat diulang untuk arketipe lamamu, dan setiap kali kamu berpindah, tebusan yang diminta berikutnya sedikit lebih berat, sehingga berpindah tetap bermakna, bukan tanpa harga.',
+  'guide.professions.archetypeSwitchTitle': 'Berubah pikiran',
+  'guide.professions.archetypeTitle': 'Sepuluh arketipe',
+  'guide.professions.craftComboBody':
+    'Di luar daftar resep tiap kerajinan, roda ini juga mendukung resep kombinasi yang memakai dua kerajinan bertetangga sekaligus, mengganjar karakter (atau sepasang mitra dagang) yang menekuni kerajinan bersebelahan di lingkaran alih-alih satu kerajinan secara terpisah.',
+  'guide.professions.craftComboTitle': 'Resep kombinasi',
+  'guide.professions.craftIntro':
+    'Sepuluh kerajinan mengubah bahan yang terkumpul menjadi perlengkapan dan barang jadi: Penempaan Zirah, Penempaan Senjata, dan Kriya Permata membentuk bahan mentah menjadi perlengkapan yang bisa dikenakan; Alkimia dan Rekayasa berjalan lewat coba-coba; Memasak, Inskripsi, dan Pemantraan masing-masing menyentuh hasil kerajinan lain; Menjahit dan Pengolahan Kulit bekerja dari pola yang persis. Bersama-sama semuanya membentuk sebuah roda, dengan tiap kerajinan duduk di samping dua tetangga dan berseberangan dengan satu kerajinan lain.',
+  'guide.professions.craftMasteryBody':
+    'Berhasil membuat barang menumbuhkan keahlianmu di kerajinan itu, dan resep yang lebih kaya terkunci di balik keahlian yang lebih tinggi: resep dasar terbuka untuk semua orang, sementara resep yang makin maju menuntut penguasaan yang makin tinggi untuk dicoba. Menumbuhkan keahlian dalam sebuah kerajinan adalah jalan dari barang pemula sederhana menuju resep-resepnya yang lebih ambisius.',
+  'guide.professions.craftMasteryTitle': 'Keahlian dan penguasaan',
+  'guide.professions.craftRecipesBody':
+    'Setiap kerajinan punya resepnya sendiri, masing-masing membutuhkan reagen tertentu yang kamu kumpulkan atau beli. Resep paling dasar di tiap kerajinan hanya meminta bahan umum dan bisa dibuat sejak awal, jadi kamu bisa mulai menekuni sebuah kerajinan begitu mengambilnya, tanpa menunggu untuk membukanya.',
+  'guide.professions.craftRecipesTitle': 'Resep dan reagen',
+  'guide.professions.craftRingBody':
+    'Sepuluh kerajinan tersusun dalam lingkaran tetap, dan posisi sebuah kerajinan di lingkaran itu penting: kerajinan yang bersebelahan di roda punya lebih banyak kesamaan satu sama lain dibanding kerajinan di sisi berlawanan. Berkomitmen pada satu kerajinan dimaksudkan terasa seperti bergabung dengan keluarga kerajinan serumpun, bukan memilih keterampilan yang terpencil.',
+  'guide.professions.craftRingTitle': 'Roda spesialisasi',
+  'guide.professions.craftTitle': 'Sepuluh kerajinan',
+  'guide.professions.gatherIntro':
+    'Tiga profesi pengumpulan memungkinkanmu menarik bahan mentah langsung dari dunia: Penambangan memahat bijih dan batu dari urat tambang, Penebangan merobohkan kayu dari rumpun pohon, dan Herbalisme memetik herba serta tanaman liar. Masing-masing dicatat terpisah, jadi menekuni satu tak pernah memperlambat kemajuanmu di yang lain.',
+  'guide.professions.gatherProficiencyBody':
+    'Setiap panen yang berhasil menumbuhkan kecakapanmu di profesi pengumpulan itu. Kecakapan yang lebih tinggi menggeser hasil yang kamu tarik dari sebuah simpul ke mutu bahan yang lebih langka, dari yang umum ke atas, meski mutu paling langka tetap langka bahkan pada kecakapan tinggi. Lebih banyak latihan tak pernah merugikan peluangmu, hanya memperbaikinya.',
+  'guide.professions.gatherProficiencyTitle': 'Kecakapan dan mutu bahan',
+  'guide.professions.gatherTitle': 'Pengumpulan: Penambangan, Penebangan, dan Herbalisme',
+  'guide.professions.gatherToolsBody':
+    'Pedagang menjual perkakas dasar untuk tiap profesi pengumpulan, dan yang lebih baik bisa dibuat, jadi menggarap simpul sumber daya dimaksudkan terasa makin cakap seiring perlengkapanmu membaik, bukan diam di tempat. Perkakas tingkat lebih tinggi adalah jalan yang dimaksudkan untuk membuka simpul yang lebih kaya dan menggarapnya lebih efisien sepanjang sesi yang panjang.',
+  'guide.professions.gatherToolsTitle': 'Perkakas kerja',
+  'guide.professions.gatherWhatBody':
+    'Urat bijih, rumpun kayu, dan petak herba ditempatkan di zona-zona sebagai objek yang terlihat dan tak bertuan. Dekati satu dan berinteraksilah untuk memanen isinya. Setelah kamu memanen sebuah simpul, simpul itu butuh waktu untuk pulih sebelum kamu pribadi bisa memanennya lagi, tapi itu tak pernah menghalangi orang lain: pemain lain bisa memanen simpul yang sama sementara itu.',
+  'guide.professions.gatherWhatTitle': 'Simpul sumber daya',
+  'guide.professions.intro':
+    'Di luar pertempuran dan misi, dunia mengganjarmu karena menggarap tanah dan tempaan: mengumpulkan bahan mentah, mengolahnya menjadi perlengkapan di stasiun kriya sepuluh kerajinan berbeda, dan menetap dalam identitas sebagai salah satu dari sepuluh arketipe yang diwakili kerajinan-kerajinan itu.',
+  'guide.valeCupPage.heading': 'Piala Lembah',
+  'guide.valeCupPage.howHeading': 'Cara bermain',
+  'guide.valeCupPage.howMatch':
+    'Saat sepak mula, perangkat kelasmu ditukar dengan perangkat olahraga dan dikembalikan persis seperti semula setelahnya. Tendangan mengarah ke retikel di tanah, bola memantul dari papan pembatas, dan menggiring bola hanyalah berlari bersama bola. Cetak gol lebih banyak dari lawan sebelum waktu habis; hasil imbang berlanjut ke gol emas.',
+  'guide.valeCupPage.howQueue':
+    'Masuk antrean dari mana saja lewat jendela Piala Lembah, atau bicaralah dengan Penjaga Lapangan Bram di gerbang Sowfield. Pilih format dari satu lawan satu hingga lima lawan lima, sebuah negeri panji, dan peran olahraga; masuk antrean sendirian atau bawa party-mu.',
+  'guide.valeCupPage.howTruce':
+    'Tak ada yang berdarah di Sowfield: tekel hanya membuat terjungkal, tak ada yang terluka, dan peliharaan menunggu di luar lapangan.',
+  'guide.valeCupPage.intro':
+    'Bola babi hutan di Sowfield: pilih panji, pilih peran, dan tendang kulit babi hutan berisi jerami melewati kiper demi Ember Tembaga. Tanpa darah, tanpa jarahan, hanya gemuruh tribun.',
+  'guide.valeCupPage.loreHeading': 'Bola babi hutan dan gencatan panen',
+  'guide.valeCupPage.loreOldSow':
+    'Jauh sebelum orang mati terbangun, buruh tani Eastbrook bermain bola babi hutan di ladang jerami usai panen: dua gerombolan, satu kulit babi hutan berisi jerami, dan dua gerbang pedati yang diseret ke kedua ujung lapangan hijau. Bola pertama, Si Induk Tua, digantung berlapis perunggu di atas perapian kedai.',
+  'guide.valeCupPage.loreTruce':
+    'Ketika Koloseum Abu mulai merestui permainan perang, Marsekal Redbrook menjawab dengan sesuatu yang lebih lembut: gencatan panen tetap di lapangan hijau tua itu. Gerbang pedati menjadi tiang gawang, lapangan hijau itu mendapat tembok, tribun, dan sebuah nama, Sowfield, dan hadiahnya selalu sama, ember susu penyok yang dipakai minum para pemenang: Ember Tembaga.',
+  'guide.valeCupPage.nationChoir':
+    'Biru pucat dan perak di bawah lonceng: menyeramkan, presisi, dan sangat pendiam.',
+  'guide.valeCupPage.nationColiseum':
+    'Merah dan hitam dengan pedang bersilang: mereka bermain seakan ini masih permainan perang.',
+  'guide.valeCupPage.nationCopperdig':
+    'Tembaga dan cokelat dengan beliung: para penggali yang tak pernah berhenti berlari.',
+  'guide.valeCupPage.nationMirefen':
+    'Toska dan kelabu di bawah burung bangau: sabar, berkaki panjang, tak pernah terburu-buru.',
+  'guide.valeCupPage.nationMoon':
+    'Ungu dan perak di bawah bulan sabit: pemain malam, ringan langkahnya.',
+  'guide.valeCupPage.nationOgre':
+    'Jingga dan cokelat tua di balik kepalan: bahu duluan, dan bangga akan itu.',
+  'guide.valeCupPage.nationThornpeak':
+    'Biru es dan putih di bawah puncak gunung: berpijak mantap dan keras kepala.',
+  'guide.valeCupPage.nationVale':
+    'Hijau dan emas, mengibarkan berkas gandum: tim tuan rumah, buruh tani sejati.',
+  'guide.valeCupPage.nationsBody':
+    'Setiap tim bermain di bawah sebuah panji. Kapten memilih negerinya, dan jika kedua tim mengibarkan panji yang sama, tim tandang memakai palet warna terbalik.',
+  'guide.valeCupPage.nationsHeading': 'Delapan negeri panji',
+  'guide.valeCupPage.rewardsBody':
+    'Aturan gencatan berarti tanpa pengalaman dan tanpa jarahan: pertandingan yang tuntas dihitung ke dalam rekormu dan papan pemenang, dan poin hadiah harian ikut serta. Meninggalkan pertandingan membekukan slotmu, dan Sang Penjaga Lapangan mengingatnya.',
+  'guide.valeCupPage.rewardsHeading': 'Aturan gencatan',
+  'guide.valeCupPage.rolesBody':
+    'Peranmu menentukan perangkat yang kau bawa ke lapangan. Semua orang menendang; sisanya soal watak.',
+  'guide.valeCupPage.rolesHeading': 'Peran olahraga',
+  'guide.valeCupPage.spectateBody':
+    'Satu pertandingan berlangsung pada satu waktu di stadion, dan siapa pun bisa datang menonton dari tribun.',
+  'hudChrome.keybinds.valecup': 'Piala Lembah',
+  'hudChrome.mobile.dailyRewards': 'Hadiah',
+  'hudChrome.perf.labels.predLead': 'Jarak Prediksi',
+  'hudChrome.townFocus.budgetLabel': 'Sisa poin: {remaining} / {budget}',
+  'hudChrome.townFocus.decreaseAria': 'Kurangi fokus pada {component}',
+  'hudChrome.townFocus.hint':
+    'Poin fokus menambahkan bonus di atas hasil dasar setiap komponen. Komponen tanpa fokus tetap pada hasil dasar.',
+  'hudChrome.townFocus.increaseAria': 'Tambah fokus pada {component}',
+  'hudChrome.townFocus.notInTownHint': 'Kamu harus berada di kota untuk mengatur fokusmu.',
+  'hudChrome.townFocus.saveButton': 'Simpan Fokus',
+  'hudChrome.townFocus.title': 'Fokus Kota',
+  'hudChrome.vcup.awayNote':
+    'Jika kedua tim mengibarkan panji yang sama, tim tandang memakai palet warna terbalik.',
+  'hudChrome.vcup.bannerCountdown': 'Sepak mula dalam {seconds}...',
+  'hudChrome.vcup.bannerDraw': 'Imbang di Sowfield.',
+  'hudChrome.vcup.bannerEnd': 'Peluit panjang: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.bannerFound': 'Piala Lembah memanggil: {nationA} vs {nationB}!',
+  'hudChrome.vcup.bannerGoal': 'GOL! {nation} mencetak gol!',
+  'hudChrome.vcup.bannerGolden': 'GOL EMAS: gol berikutnya menang!',
+  'hudChrome.vcup.bannerKickoff': 'SEPAK MULA!',
+  'hudChrome.vcup.bannerLoss': 'Kekalahan di Sowfield.',
+  'hudChrome.vcup.bannerSave': '{name} MENEPIS!',
+  'hudChrome.vcup.bannerWin': 'Kemenangan di Sowfield!',
+  'hudChrome.vcup.bet.aria': 'Taruhan pertandingan Piala Lembah',
+  'hudChrome.vcup.bet.back': 'Dukung {team}',
+  'hudChrome.vcup.bet.closed': 'Taruhan ditutup',
+  'hudChrome.vcup.bet.closesIn': 'Taruhan ditutup dalam {seconds} dtk',
+  'hudChrome.vcup.bet.collapse': 'Sembunyikan taruhan',
+  'hudChrome.vcup.bet.expand': 'Lihat taruhan dan pasang',
+  'hudChrome.vcup.bet.form': '{wins}M-{losses}K',
+  'hudChrome.vcup.bet.lostLog': 'Taruhan Piala Lembah-mu kalah: {amount}.',
+  'hudChrome.vcup.bet.mine': 'Taruhanmu: {amount} pada {team}',
+  'hudChrome.vcup.bet.none': 'Kamu belum bertaruh di pertandingan ini.',
+  'hudChrome.vcup.bet.oddsLabel': 'Bayaran',
+  'hudChrome.vcup.bet.prize': 'Pundi {amount}',
+  'hudChrome.vcup.bet.record': 'Rekor taruhan: {wins}M-{losses}K, {sign}{net}',
+  'hudChrome.vcup.bet.refundLog':
+    'Taruhan dibatalkan, uang taruhanmu sebesar {amount} dikembalikan.',
+  'hudChrome.vcup.bet.splitAria': 'Porsi pundi taruhan pada tiap tim',
+  'hudChrome.vcup.bet.title': 'Taruhan Pertandingan',
+  'hudChrome.vcup.bet.wonBanner': 'Taruhanmu menang!',
+  'hudChrome.vcup.bet.wonLog': 'Taruhan Piala Lembah-mu menang: {amount} dikembalikan.',
+  'hudChrome.vcup.blockNation': 'Pilih negeri panji dulu.',
+  'hudChrome.vcup.blockNotLeader': 'Hanya pemimpin party yang bisa mengantrekan tim.',
+  'hudChrome.vcup.blockPartySize': 'Format itu membutuhkan party yang lebih kecil.',
+  'hudChrome.vcup.boardEmpty': 'Belum ada pemenang tercatat. Ember Tembaga menanti.',
+  'hudChrome.vcup.boardHeading': 'Papan pemenang',
+  'hudChrome.vcup.boardWins': '{count} kemenangan',
+  'hudChrome.vcup.bracketLabel': '{n}v{n}',
+  'hudChrome.vcup.bracketsAria': 'Format pertandingan',
+  'hudChrome.vcup.briefing.bot': 'Bot',
+  'hudChrome.vcup.briefing.kitHeading': 'Perangkatmu',
+  'hudChrome.vcup.briefing.kitNote':
+    'Gerakan-gerakan ini menggantikan kemampuan kelasmu selama pertandingan.',
+  'hudChrome.vcup.briefing.ready': 'Aku siap',
+  'hudChrome.vcup.briefing.readyAria': 'Nyatakan siap untuk sepak mula',
+  'hudChrome.vcup.briefing.readyCount': '{ready} dari {total} siap',
+  'hudChrome.vcup.briefing.readyDone': 'Siap',
+  'hudChrome.vcup.briefing.rosterHeading': 'Susunan pemain',
+  'hudChrome.vcup.briefing.rule1': 'Tendang atau umpan bola ke gawang lawan untuk mencetak gol.',
+  'hudChrome.vcup.briefing.rule2':
+    'Yang pertama mencetak 5 gol menang, atau yang golnya terbanyak saat peluit panjang berbunyi.',
+  'hudChrome.vcup.briefing.rule3':
+    'Skor imbang saat peluit panjang berlanjut ke gol emas: gol berikutnya menang.',
+  'hudChrome.vcup.briefing.rule4':
+    'Tekel hanya membuatmu terjungkal. Tak ada yang terluka di bawah gencatan panen.',
+  'hudChrome.vcup.briefing.rule5': 'Siapa pun bisa datang dan menyemangatimu dari tribun.',
+  'hudChrome.vcup.briefing.rulesHeading': 'Cara bermain',
+  'hudChrome.vcup.briefing.subtitle': 'Pengarahan prapertandingan',
+  'hudChrome.vcup.briefing.vs': 'vs',
+  'hudChrome.vcup.briefing.waiting': 'Menunggu tim lawan menyatakan siap...',
+  'hudChrome.vcup.briefing.whistle': 'Peluit berbunyi dalam {seconds} dtk.',
+  'hudChrome.vcup.briefing.you': 'Kamu',
+  'hudChrome.vcup.clock': '{minutes}.{seconds}',
+  'hudChrome.vcup.close': 'Tutup jendela Piala Lembah',
+  'hudChrome.vcup.deserterNote':
+    'Sang Penjaga Lapangan mengingatnya. Kamu boleh mengantre lagi dalam {seconds} detik.',
+  'hudChrome.vcup.enterAsGuild': 'Masuk di bawah panji {guild}',
+  'hudChrome.vcup.gossipOpen': 'Buku jadwal pertandingan',
+  'hudChrome.vcup.gossipOpenAria': 'Buka jendela Piala Lembah',
+  'hudChrome.vcup.guildBoardEmpty': 'Belum ada guild yang turun ke lapangan. Kibarkan panjimu!',
+  'hudChrome.vcup.guildBoardHeading': 'Panji guild',
+  'hudChrome.vcup.guildBoardWl': '{wins} M, {losses} K',
+  'hudChrome.vcup.guildRecordLine': 'Rekor guild-mu: {wins} menang, {losses} kalah.',
+  'hudChrome.vcup.inMatchNote': 'Timmu sedang di lapangan. Teruskan permainan!',
+  'hudChrome.vcup.indicatorLive': 'Piala Lembah',
+  'hudChrome.vcup.indicatorOpen': 'Buka jendela Piala Lembah',
+  'hudChrome.vcup.indicatorQueued':
+    'Antrean Piala Lembah: {bracket}, posisi {position} dari {count}',
+  'hudChrome.vcup.leaveQueue': 'Keluar dari Antrean',
+  'hudChrome.vcup.liveAria': 'Piala Lembah: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.liveHeading': 'Kini di Sowfield',
+  'hudChrome.vcup.logDraw': 'Laga di Sowfield berakhir imbang.',
+  'hudChrome.vcup.logFound': 'Pertandingan Piala Lembah-mu sudah siap: {nationA} vs {nationB}.',
+  'hudChrome.vcup.logGoal':
+    '{name} mencetak gol untuk {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
+  'hudChrome.vcup.logLoss': 'Kamu kalah dalam laga di Sowfield.',
+  'hudChrome.vcup.logQueued':
+    'Kamu masuk antrean Piala Lembah untuk {bracket} (posisi {position}).',
+  'hudChrome.vcup.logRoster': 'Timmu: {allies}. Tim lawan: {enemies}.',
+  'hudChrome.vcup.logSave': '{name} melakukan penyelamatan!',
+  'hudChrome.vcup.logUnqueued': 'Kamu keluar dari antrean Piala Lembah.',
+  'hudChrome.vcup.logWin': 'Kamu memenangkan laga di Sowfield.',
+  'hudChrome.vcup.mobileLabel': 'Piala',
+  'hudChrome.vcup.nation.choir': 'Paduan Suara Pucat',
+  'hudChrome.vcup.nation.coliseum': 'Koloseum Abu',
+  'hudChrome.vcup.nation.copperdig': 'Galian Tembaga',
+  'hudChrome.vcup.nation.mirefen': 'Mirefen',
+  'hudChrome.vcup.nation.moon': 'Bulan Pucat',
+  'hudChrome.vcup.nation.ogre': 'Klan Ogre',
+  'hudChrome.vcup.nation.thornpeak': 'Thornpeak',
+  'hudChrome.vcup.nation.vale': 'Lembah Eastbrook',
+  'hudChrome.vcup.nationsHeading': 'Negeri panji',
+  'hudChrome.vcup.noLive': 'Lapangan sunyi. Tak ada pertandingan yang berlangsung.',
+  'hudChrome.vcup.offlineNote': 'Buku jadwal sedang tutup. Piala Lembah tidak tersedia saat ini.',
+  'hudChrome.vcup.phaseCountdown': 'Sepak mula dalam {seconds}',
+  'hudChrome.vcup.phaseGoal': 'GOL!',
+  'hudChrome.vcup.phaseGolden': 'GOL EMAS',
+  'hudChrome.vcup.phaseOver': 'PELUIT PANJANG',
+  'hudChrome.vcup.practice': 'Latihan vs. Bot',
+  'hudChrome.vcup.practiceNote':
+    'Langsung memulai pertandingan bot pribadi di lapangan latihanmu sendiri.',
+  'hudChrome.vcup.practicingNow': 'Sedang berlatih ({count}):',
+  'hudChrome.vcup.queue': 'Masuk Antrean',
+  'hudChrome.vcup.queueNote': 'Mengantrelah dari mana saja; peluit akan memanggilmu ke Sowfield.',
+  'hudChrome.vcup.queuedStatus': 'Mengantre untuk {bracket}: posisi {position} dari {count}.',
+  'hudChrome.vcup.recordLine': 'Rekormu: {wins} menang, {losses} kalah, {draws} imbang.',
+  'hudChrome.vcup.role.allrounder.desc':
+    'Serba bisa: tendang, sepak jauh, dan benturan bahu yang adil.',
+  'hudChrome.vcup.role.allrounder.name': 'Serba Bisa',
+  'hudChrome.vcup.role.keeper.desc':
+    'Menjaga kotak gawang dengan tangkapan, terjunan, dan sepakan jauh.',
+  'hudChrome.vcup.role.keeper.name': 'Kiper',
+  'hudChrome.vcup.role.striker.desc': 'Hidup untuk tendangan jauh dan gerak elak cepat.',
+  'hudChrome.vcup.role.striker.name': 'Penyerang',
+  'hudChrome.vcup.role.sweeper.desc':
+    'Membenturkan pelari menjauh dari bola dan menyapunya jauh-jauh.',
+  'hudChrome.vcup.role.sweeper.name': 'Penyapu',
+  'hudChrome.vcup.rolesHeading': 'Peran olahraga',
+  'hudChrome.vcup.shootPower': 'TENAGA',
+  'hudChrome.vcup.title': 'Piala Lembah',
+  'hudChrome.vcup.waitingCount': '{count} menunggu',
+  'hudChrome.vcup.walkUp': 'Datanglah ke Sowfield untuk menonton dari tribun.',
   'hudChrome.archetypeTitle.label': 'Gelar',
   'hudChrome.archetypeTitle.none': 'Tidak Ada',
   'hudChrome.archetypeTitle.armorcrafting': 'Pandai Zirah',
@@ -1949,6 +2208,12 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Kapak Kayu Tua',
   'entities.items.goldleaf_sickle.name': 'Sabit Daun Emas',
   'entities.items.sunpetal_sickle.name': 'Sabit Kelopak Matahari',
+  'entities.items.thorium_ore.name': 'Bijih Torium',
+  'entities.items.arcanite_bar.name': 'Batangan Arkanit',
+  'entities.items.ashwood_log.name': 'Kayu Gelondongan Abu',
+  'entities.items.elderwood_log.name': 'Kayu Gelondongan Tua Elder',
+  'entities.items.goldleaf_herb.name': 'Herba Daun Emas',
+  'entities.items.sunpetal_herb.name': 'Herba Kelopak Matahari',
   'entities.items.moongate_rubbing.name': 'Gosokan Penangkal',
   'entities.items.moonpale_scale.name': 'Sisik Pucat Bulan',
   'entities.items.moonscale_saber.name': 'Sabel Sisik Bulan',
@@ -4884,6 +5149,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.programs': 'Shader',
   'hudChrome.perf.labels.renderScale': 'Skala Render',
   'hudChrome.perf.labels.snapshot': 'Laju Snapshot',
+  'hudChrome.perf.labels.serverTick': 'Laju Tick Server',
   'hudChrome.perf.labels.textures': 'Tekstur',
   'hudChrome.perf.labels.triangles': 'Segitiga',
   'hudChrome.perf.opacity': 'Keburaman Latar',

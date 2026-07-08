@@ -2,6 +2,263 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const nl_NL: Partial<Record<TranslationKey, string>> = {
+  'entities.abilities.sport_boot.description':
+    'Een lange, hoge uithaal richting het richtpunt. Het publiek smult ervan.',
+  'entities.abilities.sport_boot.name': 'Grote Uithaal',
+  'entities.abilities.sport_dive.description':
+    'Werp jezelf richting het richtpunt. Een voorzet blijft aan je plakken.',
+  'entities.abilities.sport_dive.name': 'Duik',
+  'entities.abilities.sport_feint.description': 'Een snelle zijstap richting het richtpunt.',
+  'entities.abilities.sport_feint.name': 'Schijnbeweging',
+  'entities.abilities.sport_hoof.description': 'Ram de bal laag en hard het veld op.',
+  'entities.abilities.sport_hoof.name': 'Pegel',
+  'entities.abilities.sport_kick.description': 'Trap de bal over de grond richting het richtpunt.',
+  'entities.abilities.sport_kick.name': 'Trap',
+  'entities.abilities.sport_pass.description':
+    'Speel een strakke pass naar je aangewezen teamgenoot, in de loop.',
+  'entities.abilities.sport_pass.name': 'Pass',
+  'entities.abilities.sport_punt.description': 'Een uittrap van de keeper, hoog en ver.',
+  'entities.abilities.sport_punt.name': 'Verre Uittrap',
+  'entities.abilities.sport_second_wind.description':
+    'Vind je benen terug: beweeg 4 sec lang 50% sneller.',
+  'entities.abilities.sport_second_wind.name': 'Frisse Benen',
+  'entities.abilities.sport_shoot.description':
+    'Houd ingedrukt om kracht op te bouwen, laat los om op doel te schieten. Te veel kracht en hij zeilt eroverheen.',
+  'entities.abilities.sport_shoot.name': 'Schieten',
+  'entities.abilities.sport_shoulder.description':
+    'Een eerlijke schouderduw onder het oogstbestand. Stuurt ze tuimelend van de bal.',
+  'entities.abilities.sport_shoulder.name': 'Schouderduw',
+  'entities.npcs.groundskeeper_bram.greeting':
+    'Het bestand houdt stand op het Zeugveld, {className}: alleen trappen en schouders. Zin om te spelen voor de Koperen Emmer?',
+  'entities.npcs.groundskeeper_bram.name': 'Terreinmeester Bram',
+  'entities.npcs.groundskeeper_bram.title': 'Hoeder van het Zeugveld',
+  'entities.zones.eastbrook_vale.pois.10.label': 'Het Zeugveld',
+  'guide.nav.professions': 'Beroepen',
+  'guide.nav.valeCup': 'Dalbeker',
+  'guide.professions.archetypeChooseBody':
+    'Je eerste archetype kies je via een vroege verhaalquest in het eerste gebied, die je formeel in die identiteit opneemt. Zolang je die quest niet hebt voltooid, heb je nog helemaal geen archetype gekozen.',
+  'guide.professions.archetypeChooseTitle': 'Je archetype kiezen',
+  'guide.professions.archetypeIdentityBody':
+    'Je actieve archetype is een uitspraak over wie je personage in de wereld is, herkenbaar in hoe anderen en de wereld je aanspreken. De precieze beloningen en erkenning die erbij horen worden nog uitgewerkt; kom later terug naarmate het systeem zich vult.',
+  'guide.professions.archetypeIdentityTitle': 'Wat je archetype betekent',
+  'guide.professions.archetypeIntro':
+    'Elk van de tien ambachten staat ook voor een archetype, een bredere identiteit die je kunt aannemen en die verder gaat dan alleen dat vak uitoefenen. Je actieve archetype is één keuze tegelijk, geen afvinklijst: je draagt er één, en kunt later van keuze veranderen als je dat wilt.',
+  'guide.professions.archetypeSwitchBody':
+    'Dat je ooit een archetype hebt gekozen, legt je niet voorgoed vast. Overstappen naar een ander archetype betekent eerst een herhaalbare "goedmaak"-quest voltooien voor je oude archetype, en elke keer dat je wisselt wordt wat er de volgende keer van je wordt verwacht iets zwaarder, zodat wisselen betekenisvol blijft in plaats van gratis.',
+  'guide.professions.archetypeSwitchTitle': 'Van gedachten veranderen',
+  'guide.professions.archetypeTitle': 'De tien archetypen',
+  'guide.professions.craftComboBody':
+    'Naast de eigen receptenlijst van een ambacht ondersteunt het wiel ook combinatierecepten die twee naburige ambachten tegelijk aanspreken, als beloning voor een personage (of een paar handelspartners) dat in aangrenzende vakken op de ring heeft geïnvesteerd in plaats van in één vak alleen.',
+  'guide.professions.craftComboTitle': 'Combinatierecepten',
+  'guide.professions.craftIntro':
+    'Tien ambachten maken van verzamelde materialen afgewerkte uitrusting en goederen: Harnasmaken, Wapensmeden en Juwelenmaken vormen ruwe grondstoffen om tot draagbare uitrusting; Alchemie en Knutselwerk draaien op vallen en opstaan; Koken, Inscriptie en Betoveren raken elk het werk van andere ambachten; Kleermaken en Leerbewerken werken naar exacte patronen. Samen vormen ze een wiel, waarbij elk ambacht naast twee buren zit en tegenover één ander.',
+  'guide.professions.craftMasteryBody':
+    'Succesvol iets maken bouwt vaardigheid op in dat vak, en rijkere recepten zitten achter een hogere vaardigheid: de basisrecepten staan voor iedereen open, terwijl steeds geavanceerdere recepten steeds meer meesterschap vragen om te proberen. Je vaardigheid in een ambacht laten groeien is de weg van eenvoudige beginnerswaren naar de ambitieuzere recepten.',
+  'guide.professions.craftMasteryTitle': 'Vaardigheid en meesterschap',
+  'guide.professions.craftRecipesBody':
+    'Elk ambacht heeft zijn eigen recepten, elk met specifieke reagentia die je verzamelt of koopt. De meest eenvoudige recepten van elk ambacht vragen niets anders dan gewone materialen en zijn vanaf het allereerste begin te maken, zodat je een vak meteen kunt gaan uitoefenen zodra je het oppakt in plaats van te wachten tot het is ontgrendeld.',
+  'guide.professions.craftRecipesTitle': 'Recepten en reagentia',
+  'guide.professions.craftRingBody':
+    'De tien ambachten staan in een vaste ring, en waar een ambacht op die ring zit doet ertoe: ambachten die naast elkaar op het wiel liggen hebben meer met elkaar gemeen dan ambachten die tegenover elkaar liggen. Je aan één ambacht verbinden moet voelen als toetreden tot een familie van verwante vakken, niet als het kiezen van een losstaande vaardigheid.',
+  'guide.professions.craftRingTitle': 'Een wiel van specialiteiten',
+  'guide.professions.craftTitle': 'De tien ambachten',
+  'guide.professions.gatherIntro':
+    'Drie verzamelvakken laten je grondstoffen rechtstreeks uit de wereld halen: Mijnbouw slaat erts en steen uit aders, Houtkap velt timmerhout uit bomengroepen, en Kruidenkunde plukt kruiden en planten die in het wild groeien. Elk wordt apart bijgehouden, dus aan het ene werken vertraagt nooit je voortgang in het andere.',
+  'guide.professions.gatherProficiencyBody':
+    'Elke geslaagde oogst bouwt je bedrevenheid in dat verzamelvak op. Een hogere bedrevenheid verschuift wat je uit een bron haalt richting zeldzamere kwaliteiten materiaal, van gewoon opwaarts, al blijven de zeldzaamste kwaliteiten zeldzaam, ook bij hoge bedrevenheid. Meer oefening schaadt je kansen nooit, ze worden er alleen maar beter van.',
+  'guide.professions.gatherProficiencyTitle': 'Bedrevenheid en materiaalkwaliteit',
+  'guide.professions.gatherTitle': 'Verzamelen: Mijnbouw, Houtkap en Kruidenkunde',
+  'guide.professions.gatherToolsBody':
+    'Handelaren verkopen basisgereedschap voor elk verzamelvak, en beter gereedschap kan worden gemaakt, zodat het werken van een grondstofbron capabeler moet gaan voelen naarmate je je ervoor uitrust, in plaats van statisch te blijven. Gereedschap van hogere rang is de bedoelde weg om rijkere bronnen te ontsluiten en ze over een lange sessie efficiënter te bewerken.',
+  'guide.professions.gatherToolsTitle': 'Gereedschap van het vak',
+  'guide.professions.gatherWhatBody':
+    'Ertsaders, bomengroepen en kruidenveldjes staan in de gebieden als zichtbare, onbeheerde vaste punten. Loop ernaartoe en gebruik ze om te oogsten wat ze bevatten. Heb je een bron eenmaal geoogst, dan heeft die tijd nodig om te herstellen voordat jij persoonlijk er opnieuw kunt oogsten, maar niemand anders wordt geblokkeerd: een andere speler kan intussen precies dezelfde bron oogsten.',
+  'guide.professions.gatherWhatTitle': 'Grondstofbronnen',
+  'guide.professions.intro':
+    'Naast gevecht en quests beloont de wereld je voor het bewerken van het land en de smidse: grondstoffen verzamelen, ze aan de werkbanken van tien verschillende vakken tot uitrusting maken, en een identiteit aannemen als een van de tien archetypen die deze vakken vertegenwoordigen.',
+  'guide.valeCupPage.heading': 'De Dalbeker',
+  'guide.valeCupPage.howHeading': 'Hoe je speelt',
+  'guide.valeCupPage.howMatch':
+    'Bij de aftrap wordt je klasse-uitrusting omgeruild voor een sportuitrusting en daarna exact hersteld. Trappen mikken op het grondvizier, de bal kaatst tegen de boarding, en dribbelen is gewoon rennen met de bal. Maak meer doelpunten dan de tegenpartij voor het eindsignaal; bij een gelijkspel volgt de gouden goal.',
+  'guide.valeCupPage.howQueue':
+    'Meld je vanaf elke plek aan via het Dalbeker-venster, of praat met Terreinmeester Bram bij de poort van het Zeugveld. Kies een categorie van één tegen één tot vijf tegen vijf, een baniernatie en een sportrol; meld je solo aan of neem je groep mee.',
+  'guide.valeCupPage.howTruce':
+    'Niemand bloedt op het Zeugveld: tackles laten je tuimelen, niets doet pijn, en huisdieren zitten de wedstrijd uit.',
+  'guide.valeCupPage.intro':
+    'Zwijnenbal op het Zeugveld: kies een banier, kies een rol, en trap een opgezette zwijnenhuid langs een keeper voor de Koperen Emmer. Geen bloed, geen buit, alleen het gebrul van de tribunes.',
+  'guide.valeCupPage.loreHeading': 'Zwijnenbal en het oogstbestand',
+  'guide.valeCupPage.loreOldSow':
+    'Lang voordat de doden ontwaakten, speelden de boerenknechten van Oostbeek zwijnenbal op de stoppelvelden na de oogst: twee horden, één zwijnenhuid gevuld met stro, en twee wagenhekken die naar de uiteinden van het veld werden gesleept. De eerste bal, de Oude Zeug, hangt in brons boven de taveernehaard.',
+  'guide.valeCupPage.loreTruce':
+    'Toen het Asgrauwe Colosseum oorlogsspelen begon te sanctioneren, antwoordde Maarschalk Redbrook met iets zachtaardigers: een blijvend oogstbestand op het oude veld. De wagenhekken werden doelpalen, het veld kreeg muren, tribunes en een naam, het Zeugveld, en de prijs was altijd dezelfde gedeukte melkemmer waar de winnaars uit dronken: de Koperen Emmer.',
+  'guide.valeCupPage.nationChoir':
+    'Bleekblauw en zilver onder de klok: onheilspellend, precies en heel stil.',
+  'guide.valeCupPage.nationColiseum':
+    'Rood en zwart met gekruiste zwaarden: ze spelen alsof het nog steeds een oorlogsspel is.',
+  'guide.valeCupPage.nationCopperdig':
+    'Koper en bruin met het houweel: delvers die nooit stoppen met rennen.',
+  'guide.valeCupPage.nationMirefen':
+    'Groenblauw en grijs onder de reiger: geduldig, met lange benen, nooit gehaast.',
+  'guide.valeCupPage.nationMoon':
+    'Violet en zilver onder de maansikkel: nachtspelers, licht op de voeten.',
+  'guide.valeCupPage.nationOgre':
+    'Oranje en omber achter de vuist: schouder eerst, en er trots op.',
+  'guide.valeCupPage.nationThornpeak': 'IJsblauw en wit onder de bergtop: vast ter been en koppig.',
+  'guide.valeCupPage.nationVale':
+    'Groen en goud, onder de korenschoof: de thuisploeg, boerenknechten in hart en nieren.',
+  'guide.valeCupPage.nationsBody':
+    'Elk team speelt onder een banier. De aanvoerder kiest de natie, en als beide kanten dezelfde banier voeren, speelt de uitploeg in het omgekeerde kleurenpalet.',
+  'guide.valeCupPage.nationsHeading': 'De acht baniernaties',
+  'guide.valeCupPage.rewardsBody':
+    'Bestandsregels betekenen geen ervaring en geen buit: een besliste wedstrijd telt mee voor je staat van dienst en het winnaarsbord, en er komen punten voor dagelijkse beloningen bij. Wie een wedstrijd verlaat, zet zijn plek op de bank, en de Terreinmeester onthoudt het.',
+  'guide.valeCupPage.rewardsHeading': 'Bestandsregels',
+  'guide.valeCupPage.rolesBody':
+    'Je rol bepaalt de uitrusting die je het veld op draagt. Iedereen trapt; de rest is temperament.',
+  'guide.valeCupPage.rolesHeading': 'Sportrollen',
+  'guide.valeCupPage.spectateBody':
+    'Er wordt één wedstrijd tegelijk gespeeld in het stadion, en iedereen kan aan komen lopen en toekijken vanaf de tribunes.',
+  'hudChrome.keybinds.valecup': 'Dalbeker',
+  'hudChrome.mobile.dailyRewards': 'Beloningen',
+  'hudChrome.perf.labels.predLead': 'Predictievoorsprong',
+  'hudChrome.townFocus.budgetLabel': 'Punten over: {remaining} / {budget}',
+  'hudChrome.townFocus.decreaseAria': 'Verminder de focus op {component}',
+  'hudChrome.townFocus.hint':
+    'Focuspunten geven een bonus bovenop de basisopbrengst van elk onderdeel. Onderdelen zonder focus blijven op het basisniveau.',
+  'hudChrome.townFocus.increaseAria': 'Vergroot de focus op {component}',
+  'hudChrome.townFocus.notInTownHint': 'Je moet in de stad zijn om je focus in te stellen.',
+  'hudChrome.townFocus.saveButton': 'Focus opslaan',
+  'hudChrome.townFocus.title': 'Stadsfocus',
+  'hudChrome.vcup.awayNote':
+    'Als beide kanten dezelfde banier voeren, speelt de uitploeg in het omgekeerde kleurenpalet.',
+  'hudChrome.vcup.bannerCountdown': 'Aftrap over {seconds}...',
+  'hudChrome.vcup.bannerDraw': 'Een gelijkspel op het Zeugveld.',
+  'hudChrome.vcup.bannerEnd': 'Eindstand: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.bannerFound': 'De Dalbeker roept: {nationA} tegen {nationB}!',
+  'hudChrome.vcup.bannerGoal': 'GOAL! {nation} scoort!',
+  'hudChrome.vcup.bannerGolden': 'GOUDEN GOAL: de volgende treffer wint!',
+  'hudChrome.vcup.bannerKickoff': 'AFTRAP!',
+  'hudChrome.vcup.bannerLoss': 'Nederlaag op het Zeugveld.',
+  'hudChrome.vcup.bannerSave': '{name} REDT!',
+  'hudChrome.vcup.bannerWin': 'Overwinning op het Zeugveld!',
+  'hudChrome.vcup.bet.aria': 'Weddenschappen op de Dalbeker-wedstrijd',
+  'hudChrome.vcup.bet.back': 'Zet in op {team}',
+  'hudChrome.vcup.bet.closed': 'Inzetten gesloten',
+  'hudChrome.vcup.bet.closesIn': 'Inzetten sluiten over {seconds}s',
+  'hudChrome.vcup.bet.collapse': 'Weddenschappen verbergen',
+  'hudChrome.vcup.bet.expand': 'Weddenschappen bekijken en inzetten',
+  'hudChrome.vcup.bet.form': '{wins}W-{losses}V',
+  'hudChrome.vcup.bet.lostLog': 'Je Dalbeker-weddenschap is verloren: {amount}.',
+  'hudChrome.vcup.bet.mine': 'Jouw inzet: {amount} op {team}',
+  'hudChrome.vcup.bet.none': 'Je hebt nog geen weddenschap op deze wedstrijd.',
+  'hudChrome.vcup.bet.oddsLabel': 'Keert uit',
+  'hudChrome.vcup.bet.prize': 'Pot {amount}',
+  'hudChrome.vcup.bet.record': 'Wedbalans: {wins}W-{losses}V, {sign}{net}',
+  'hudChrome.vcup.bet.refundLog':
+    'Weddenschappen nietig verklaard, je inzet van {amount} is teruggegeven.',
+  'hudChrome.vcup.bet.splitAria': 'Aandeel van de wedpot per team',
+  'hudChrome.vcup.bet.title': 'Wedstrijdweddenschappen',
+  'hudChrome.vcup.bet.wonBanner': 'Je weddenschap is gewonnen!',
+  'hudChrome.vcup.bet.wonLog': 'Je Dalbeker-weddenschap is gewonnen: {amount} uitgekeerd.',
+  'hudChrome.vcup.blockNation': 'Kies eerst een baniernatie.',
+  'hudChrome.vcup.blockNotLeader': 'Alleen de groepsleider kan het team aanmelden.',
+  'hudChrome.vcup.blockPartySize': 'Die categorie vraagt een kleinere groep.',
+  'hudChrome.vcup.boardEmpty': 'Nog geen winnaars opgetekend. De Koperen Emmer wacht.',
+  'hudChrome.vcup.boardHeading': 'Winnaarsbord',
+  'hudChrome.vcup.boardWins': '{count} overwinningen',
+  'hudChrome.vcup.bracketLabel': '{n}v{n}',
+  'hudChrome.vcup.bracketsAria': 'Wedstrijdcategorie',
+  'hudChrome.vcup.briefing.bot': 'Bot',
+  'hudChrome.vcup.briefing.kitHeading': 'Jouw uitrusting',
+  'hudChrome.vcup.briefing.kitNote':
+    'Deze zetten vervangen je klassevaardigheden voor de duur van de wedstrijd.',
+  'hudChrome.vcup.briefing.ready': 'Ik ben er klaar voor',
+  'hudChrome.vcup.briefing.readyAria': 'Meld je klaar voor de aftrap',
+  'hudChrome.vcup.briefing.readyCount': '{ready} van {total} klaar',
+  'hudChrome.vcup.briefing.readyDone': 'Klaar',
+  'hudChrome.vcup.briefing.rosterHeading': 'De opstelling',
+  'hudChrome.vcup.briefing.rule1': 'Trap of speel de bal in het vijandelijke doel om te scoren.',
+  'hudChrome.vcup.briefing.rule2':
+    'Wie het eerst 5 doelpunten maakt wint, of wie de meeste heeft bij het eindsignaal.',
+  'hudChrome.vcup.briefing.rule3':
+    'Staat het gelijk bij het eindsignaal, dan volgt de gouden goal: de volgende treffer wint.',
+  'hudChrome.vcup.briefing.rule4':
+    'Tackles laten je alleen omtuimelen. Niemand raakt gewond onder het oogstbestand.',
+  'hudChrome.vcup.briefing.rule5':
+    'Iedereen kan aan komen lopen en je aanmoedigen vanaf de tribunes.',
+  'hudChrome.vcup.briefing.rulesHeading': 'Hoe je speelt',
+  'hudChrome.vcup.briefing.subtitle': 'Wedstrijdbespreking',
+  'hudChrome.vcup.briefing.vs': 'tegen',
+  'hudChrome.vcup.briefing.waiting': 'Wachten tot de tegenpartij zich klaar meldt...',
+  'hudChrome.vcup.briefing.whistle': 'De fluit klinkt over {seconds}s.',
+  'hudChrome.vcup.briefing.you': 'Jij',
+  'hudChrome.vcup.clock': '{minutes}:{seconds}',
+  'hudChrome.vcup.close': 'Sluit het Dalbeker-venster',
+  'hudChrome.vcup.deserterNote':
+    'De Terreinmeester onthoudt het. Je mag je over {seconds} sec weer aanmelden.',
+  'hudChrome.vcup.enterAsGuild': 'Treed aan onder de banier van {guild}',
+  'hudChrome.vcup.gossipOpen': 'Het wedstrijdboek',
+  'hudChrome.vcup.gossipOpenAria': 'Open het Dalbeker-venster',
+  'hudChrome.vcup.guildBoardEmpty': 'Nog geen gilde heeft het veld betreden. Hijs je banier!',
+  'hudChrome.vcup.guildBoardHeading': 'Gildebanieren',
+  'hudChrome.vcup.guildBoardWl': '{wins} W, {losses} V',
+  'hudChrome.vcup.guildRecordLine':
+    'Staat van dienst van je gilde: {wins} overwinningen, {losses} nederlagen.',
+  'hudChrome.vcup.inMatchNote': 'Je team staat op het veld. Doorspelen!',
+  'hudChrome.vcup.indicatorLive': 'Dalbeker',
+  'hudChrome.vcup.indicatorOpen': 'Open het Dalbeker-venster',
+  'hudChrome.vcup.indicatorQueued': 'Dalbeker-wachtrij: {bracket}, plaats {position} van {count}',
+  'hudChrome.vcup.leaveQueue': 'Wachtrij verlaten',
+  'hudChrome.vcup.liveAria': 'Dalbeker: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.liveHeading': 'Nu op het Zeugveld',
+  'hudChrome.vcup.logDraw': 'De partij op het Zeugveld eindigt in een gelijkspel.',
+  'hudChrome.vcup.logFound': 'Je Dalbeker-wedstrijd staat klaar: {nationA} tegen {nationB}.',
+  'hudChrome.vcup.logGoal': '{name} scoort voor {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
+  'hudChrome.vcup.logLoss': 'Je verliest de partij op het Zeugveld.',
+  'hudChrome.vcup.logQueued':
+    'Je sluit je aan bij de Dalbeker-wachtrij voor {bracket} (plaats {position}).',
+  'hudChrome.vcup.logRoster': 'Jouw kant: {allies}. Hun kant: {enemies}.',
+  'hudChrome.vcup.logSave': '{name} redt de bal!',
+  'hudChrome.vcup.logUnqueued': 'Je verlaat de Dalbeker-wachtrij.',
+  'hudChrome.vcup.logWin': 'Je wint de partij op het Zeugveld.',
+  'hudChrome.vcup.mobileLabel': 'Beker',
+  'hudChrome.vcup.nation.choir': 'Het Bleke Koor',
+  'hudChrome.vcup.nation.coliseum': 'Het Asgrauwe Colosseum',
+  'hudChrome.vcup.nation.copperdig': 'De Kopergroeve',
+  'hudChrome.vcup.nation.mirefen': 'Het Slijkveen',
+  'hudChrome.vcup.nation.moon': 'De Bleke Maan',
+  'hudChrome.vcup.nation.ogre': 'De Ogerclans',
+  'hudChrome.vcup.nation.thornpeak': 'Doorntop',
+  'hudChrome.vcup.nation.vale': 'Oostbeekdal',
+  'hudChrome.vcup.nationsHeading': 'Baniernatie',
+  'hudChrome.vcup.noLive': 'Het veld ligt er stil bij. Er wordt geen wedstrijd gespeeld.',
+  'hudChrome.vcup.offlineNote':
+    'Het wedstrijdboek is gesloten. De Dalbeker is op dit moment niet beschikbaar.',
+  'hudChrome.vcup.phaseCountdown': 'Aftrap over {seconds}',
+  'hudChrome.vcup.phaseGoal': 'GOAL!',
+  'hudChrome.vcup.phaseGolden': 'GOUDEN GOAL',
+  'hudChrome.vcup.phaseOver': 'EINDSIGNAAL',
+  'hudChrome.vcup.practice': 'Oefenen tegen bots',
+  'hudChrome.vcup.practiceNote': 'Start meteen een besloten botwedstrijd op je eigen oefenveld.',
+  'hudChrome.vcup.practicingNow': 'Nu aan het oefenen ({count}):',
+  'hudChrome.vcup.queue': 'Sluit je aan in de wachtrij',
+  'hudChrome.vcup.queueNote': 'Meld je aan vanaf elke plek; de fluit roept je naar het Zeugveld.',
+  'hudChrome.vcup.queuedStatus': 'In de wachtrij voor {bracket}: plaats {position} van {count}.',
+  'hudChrome.vcup.recordLine':
+    'Jouw staat van dienst: {wins} overwinningen, {losses} nederlagen, {draws} gelijke spelen.',
+  'hudChrome.vcup.role.allrounder.desc':
+    'Van alles wat: trappen, uithalen en een eerlijke schouderduw.',
+  'hudChrome.vcup.role.allrounder.name': 'Allrounder',
+  'hudChrome.vcup.role.keeper.desc': 'Bewaakt het doelgebied met grip, duik en uittrap.',
+  'hudChrome.vcup.role.keeper.name': 'Keeper',
+  'hudChrome.vcup.role.striker.desc': 'Leeft voor de verre uithaal en de snelle zijstap.',
+  'hudChrome.vcup.role.striker.name': 'Spits',
+  'hudChrome.vcup.role.sweeper.desc': 'Duwt lopers van de bal en pegelt hem weg.',
+  'hudChrome.vcup.role.sweeper.name': 'Laatste Man',
+  'hudChrome.vcup.rolesHeading': 'Sportrol',
+  'hudChrome.vcup.shootPower': 'KRACHT',
+  'hudChrome.vcup.title': 'De Dalbeker',
+  'hudChrome.vcup.waitingCount': '{count} wachtend',
+  'hudChrome.vcup.walkUp': 'Loop naar het Zeugveld om toe te kijken vanaf de tribunes.',
   'hudChrome.archetypeTitle.label': 'Titel',
   'hudChrome.archetypeTitle.none': 'Geen',
   'hudChrome.archetypeTitle.armorcrafting': 'Harnasmaker',
@@ -1932,6 +2189,12 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Oudhouten Bijl',
   'entities.items.goldleaf_sickle.name': 'Goudbladsikkel',
   'entities.items.sunpetal_sickle.name': 'Zonneblaadjessikkel',
+  'entities.items.thorium_ore.name': 'Thoriumerts',
+  'entities.items.arcanite_bar.name': 'Arcaniet Staaf',
+  'entities.items.ashwood_log.name': 'Essenhout Blok',
+  'entities.items.elderwood_log.name': 'Oud Vlierhout Blok',
+  'entities.items.goldleaf_herb.name': 'Goudbladkruid',
+  'entities.items.sunpetal_herb.name': 'Zonnepetaalkruid',
   'entities.items.moongate_rubbing.name': 'Bezweringsafdruk',
   'entities.items.moonpale_scale.name': 'Maanbleke Schub',
   'entities.items.moonscale_saber.name': 'Maanschub-Sabel',
@@ -4872,6 +5135,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.programs': 'Shaders',
   'hudChrome.perf.labels.renderScale': 'Renderschaal',
   'hudChrome.perf.labels.snapshot': 'Snapshotfrequentie',
+  'hudChrome.perf.labels.serverTick': 'Servertickfrequentie',
   'hudChrome.perf.labels.textures': 'Texturen',
   'hudChrome.perf.labels.triangles': 'Driehoeken',
   'hudChrome.perf.opacity': 'Achtergronddoorzichtigheid',

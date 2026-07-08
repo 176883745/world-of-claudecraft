@@ -219,6 +219,11 @@ export function craftById(craftId: string): CraftDef {
   return CRAFT_RING[indexOf(craftId)];
 }
 
+// The tier-4/5 tool recipes formerly stubbed here (#1135's `TOOL_RECIPE_STUBS`)
+// moved into COMMON_RECIPES in content/recipes.ts once #1127's crafting action
+// landed to consume them (see recipes.ts for the six 'engineering' recipes
+// producing thorium_mining_pick, arcanite_mining_pick, ashwood_axe,
+// elderwood_axe, goldleaf_sickle, and sunpetal_sickle).
 // P3 reconciliation stub (#1135): the crafted tier-4/5 base tools added for
 // this issue (see src/sim/content/items.ts: thorium_mining_pick,
 // arcanite_mining_pick, ashwood_axe, elderwood_axe, goldleaf_sickle,

@@ -308,7 +308,7 @@ export const nl_NL: EnTranslations = {
       "autorun": "Autoloop",
       "jump": "Springen",
       "leaderboard": "Ranglijst",
-      "dailyRewards": "Rewards",
+      "dailyRewards": "Beloningen",
       "nameplates": "Namen",
       "haptics": "Haptiek",
       "hapticsOff": "Haptiek uit",
@@ -394,142 +394,142 @@ export const nl_NL: EnTranslations = {
       "targetFriendly": "Dichtstbijzijnde Bondgenoot Aanwijzen",
       "targetFriendlyNext": "Door Bondgenoten Bladeren",
       "discord": "Discord",
-      "valecup": "Vale Cup"
+      "valecup": "Dalbeker"
     },
     "vcup": {
-      "title": "The Vale Cup",
-      "shootPower": "POWER",
-      "close": "Close the Vale Cup window",
-      "offlineNote": "The fixture book is closed. The Vale Cup is not available right now.",
-      "recordLine": "Your record: {wins} wins, {losses} losses, {draws} draws.",
-      "bracketsAria": "Match bracket",
+      "title": "De Dalbeker",
+      "shootPower": "KRACHT",
+      "close": "Sluit het Dalbeker-venster",
+      "offlineNote": "Het wedstrijdboek is gesloten. De Dalbeker is op dit moment niet beschikbaar.",
+      "recordLine": "Jouw staat van dienst: {wins} overwinningen, {losses} nederlagen, {draws} gelijke spelen.",
+      "bracketsAria": "Wedstrijdcategorie",
       "bracketLabel": "{n}v{n}",
-      "waitingCount": "{count} waiting",
-      "nationsHeading": "Banner nation",
+      "waitingCount": "{count} wachtend",
+      "nationsHeading": "Baniernatie",
       "nation": {
-        "vale": "Eastbrook Vale",
-        "mirefen": "The Mirefen",
-        "thornpeak": "Thornpeak",
-        "coliseum": "The Ashen Coliseum",
-        "choir": "The Pale Choir",
-        "ogre": "The Ogre Clans",
-        "moon": "The Pale Moon",
-        "copperdig": "The Copper Dig"
+        "vale": "Oostbeekdal",
+        "mirefen": "Het Slijkveen",
+        "thornpeak": "Doorntop",
+        "coliseum": "Het Asgrauwe Colosseum",
+        "choir": "Het Bleke Koor",
+        "ogre": "De Ogerclans",
+        "moon": "De Bleke Maan",
+        "copperdig": "De Kopergroeve"
       },
-      "awayNote": "If both sides fly the same banner, the away side plays the inverted palette.",
-      "rolesHeading": "Sport role",
+      "awayNote": "Als beide kanten dezelfde banier voeren, speelt de uitploeg in het omgekeerde kleurenpalet.",
+      "rolesHeading": "Sportrol",
       "role": {
         "allrounder": {
-          "name": "All-Rounder",
-          "desc": "A bit of everything: kick, boot, and a fair shoulder."
+          "name": "Allrounder",
+          "desc": "Van alles wat: trappen, uithalen en een eerlijke schouderduw."
         },
         "striker": {
-          "name": "Striker",
-          "desc": "Lives for the long boot and the quick sidestep."
+          "name": "Spits",
+          "desc": "Leeft voor de verre uithaal en de snelle zijstap."
         },
         "sweeper": {
-          "name": "Sweeper",
-          "desc": "Bumps runners off the ball and hoofs it clear."
+          "name": "Laatste Man",
+          "desc": "Duwt lopers van de bal en pegelt hem weg."
         },
         "keeper": {
           "name": "Keeper",
-          "desc": "Guards the goal box with grip, dive, and punt."
+          "desc": "Bewaakt het doelgebied met grip, duik en uittrap."
         }
       },
-      "queue": "Join the Queue",
-      "leaveQueue": "Leave the Queue",
-      "queueNote": "Queue from anywhere; the whistle calls you to the Sowfield.",
-      "queuedStatus": "Queued for {bracket}: position {position} of {count}.",
-      "blockNation": "Pick a banner nation first.",
-      "blockPartySize": "That bracket needs a smaller party.",
-      "blockNotLeader": "Only the party leader can queue the team.",
-      "inMatchNote": "Your team is on the pitch. Play on!",
-      "deserterNote": "The Groundskeeper remembers. You may queue again in {seconds} sec.",
-      "liveHeading": "Now at the Sowfield",
-      "liveAria": "Vale Cup: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Walk up to the Sowfield to watch from the stands.",
-      "noLive": "The pitch is quiet. No match is being played.",
-      "boardHeading": "Winners board",
-      "boardEmpty": "No winners recorded yet. The Copper Pail waits.",
-      "boardWins": "{count} wins",
-      "enterAsGuild": "Enter under the banner of {guild}",
-      "guildRecordLine": "Your guild record: {wins} wins, {losses} losses.",
-      "guildBoardHeading": "Guild banners",
-      "guildBoardEmpty": "No guild has taken the field yet. Fly your banner!",
-      "guildBoardWl": "{wins} W, {losses} L",
-      "practice": "Practice vs. Bots",
-      "practiceNote": "Starts a private bot match on your own practice pitch right away.",
-      "practicingNow": "Practicing now ({count}):",
+      "queue": "Sluit je aan in de wachtrij",
+      "leaveQueue": "Wachtrij verlaten",
+      "queueNote": "Meld je aan vanaf elke plek; de fluit roept je naar het Zeugveld.",
+      "queuedStatus": "In de wachtrij voor {bracket}: plaats {position} van {count}.",
+      "blockNation": "Kies eerst een baniernatie.",
+      "blockPartySize": "Die categorie vraagt een kleinere groep.",
+      "blockNotLeader": "Alleen de groepsleider kan het team aanmelden.",
+      "inMatchNote": "Je team staat op het veld. Doorspelen!",
+      "deserterNote": "De Terreinmeester onthoudt het. Je mag je over {seconds} sec weer aanmelden.",
+      "liveHeading": "Nu op het Zeugveld",
+      "liveAria": "Dalbeker: {nationA} {scoreA}, {nationB} {scoreB}",
+      "walkUp": "Loop naar het Zeugveld om toe te kijken vanaf de tribunes.",
+      "noLive": "Het veld ligt er stil bij. Er wordt geen wedstrijd gespeeld.",
+      "boardHeading": "Winnaarsbord",
+      "boardEmpty": "Nog geen winnaars opgetekend. De Koperen Emmer wacht.",
+      "boardWins": "{count} overwinningen",
+      "enterAsGuild": "Treed aan onder de banier van {guild}",
+      "guildRecordLine": "Staat van dienst van je gilde: {wins} overwinningen, {losses} nederlagen.",
+      "guildBoardHeading": "Gildebanieren",
+      "guildBoardEmpty": "Nog geen gilde heeft het veld betreden. Hijs je banier!",
+      "guildBoardWl": "{wins} W, {losses} V",
+      "practice": "Oefenen tegen bots",
+      "practiceNote": "Start meteen een besloten botwedstrijd op je eigen oefenveld.",
+      "practicingNow": "Nu aan het oefenen ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Vale Cup queue: {bracket}, position {position} of {count}",
-      "indicatorLive": "Vale Cup",
-      "indicatorOpen": "Open the Vale Cup window",
-      "phaseCountdown": "Kickoff in {seconds}",
+      "indicatorQueued": "Dalbeker-wachtrij: {bracket}, plaats {position} van {count}",
+      "indicatorLive": "Dalbeker",
+      "indicatorOpen": "Open het Dalbeker-venster",
+      "phaseCountdown": "Aftrap over {seconds}",
       "phaseGoal": "GOAL!",
-      "phaseGolden": "GOLDEN GOAL",
-      "phaseOver": "FULL TIME",
-      "bannerFound": "The Vale Cup calls: {nationA} vs {nationB}!",
-      "bannerCountdown": "Kickoff in {seconds}...",
-      "bannerKickoff": "KICKOFF!",
-      "bannerGoal": "GOAL! {nation} scores!",
-      "bannerSave": "{name} SAVES!",
-      "bannerGolden": "GOLDEN GOAL: next score wins!",
-      "bannerEnd": "Full time: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Victory at the Sowfield!",
-      "bannerDraw": "A draw at the Sowfield.",
-      "bannerLoss": "Defeat at the Sowfield.",
-      "logQueued": "You join the Vale Cup queue for {bracket} (position {position}).",
-      "logUnqueued": "You leave the Vale Cup queue.",
-      "logFound": "Your Vale Cup match is ready: {nationA} vs {nationB}.",
-      "logRoster": "Your side: {allies}. Their side: {enemies}.",
-      "logGoal": "{name} scores for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} makes the save!",
-      "logWin": "You win the bout at the Sowfield.",
-      "logDraw": "The bout at the Sowfield ends in a draw.",
-      "logLoss": "You lose the bout at the Sowfield.",
-      "gossipOpen": "The book of fixtures",
-      "gossipOpenAria": "Open the Vale Cup window",
-      "mobileLabel": "Cup",
+      "phaseGolden": "GOUDEN GOAL",
+      "phaseOver": "EINDSIGNAAL",
+      "bannerFound": "De Dalbeker roept: {nationA} tegen {nationB}!",
+      "bannerCountdown": "Aftrap over {seconds}...",
+      "bannerKickoff": "AFTRAP!",
+      "bannerGoal": "GOAL! {nation} scoort!",
+      "bannerSave": "{name} REDT!",
+      "bannerGolden": "GOUDEN GOAL: de volgende treffer wint!",
+      "bannerEnd": "Eindstand: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "Overwinning op het Zeugveld!",
+      "bannerDraw": "Een gelijkspel op het Zeugveld.",
+      "bannerLoss": "Nederlaag op het Zeugveld.",
+      "logQueued": "Je sluit je aan bij de Dalbeker-wachtrij voor {bracket} (plaats {position}).",
+      "logUnqueued": "Je verlaat de Dalbeker-wachtrij.",
+      "logFound": "Je Dalbeker-wedstrijd staat klaar: {nationA} tegen {nationB}.",
+      "logRoster": "Jouw kant: {allies}. Hun kant: {enemies}.",
+      "logGoal": "{name} scoort voor {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
+      "logSave": "{name} redt de bal!",
+      "logWin": "Je wint de partij op het Zeugveld.",
+      "logDraw": "De partij op het Zeugveld eindigt in een gelijkspel.",
+      "logLoss": "Je verliest de partij op het Zeugveld.",
+      "gossipOpen": "Het wedstrijdboek",
+      "gossipOpenAria": "Open het Dalbeker-venster",
+      "mobileLabel": "Beker",
       "briefing": {
-        "subtitle": "Pre-match briefing",
-        "vs": "vs",
-        "rulesHeading": "How to play",
-        "rule1": "Kick or pass the ball into the enemy goal to score.",
-        "rule2": "First to 5 goals wins, or the most goals when full time blows.",
-        "rule3": "A level match at full time goes to golden goal: the next score wins.",
-        "rule4": "Tackles only tumble you over. Nobody gets hurt under the harvest truce.",
-        "rule5": "Anyone can walk up and cheer you on from the stands.",
-        "kitHeading": "Your kit",
-        "kitNote": "These moves replace your class abilities for the match.",
-        "rosterHeading": "The team sheet",
-        "you": "You",
+        "subtitle": "Wedstrijdbespreking",
+        "vs": "tegen",
+        "rulesHeading": "Hoe je speelt",
+        "rule1": "Trap of speel de bal in het vijandelijke doel om te scoren.",
+        "rule2": "Wie het eerst 5 doelpunten maakt wint, of wie de meeste heeft bij het eindsignaal.",
+        "rule3": "Staat het gelijk bij het eindsignaal, dan volgt de gouden goal: de volgende treffer wint.",
+        "rule4": "Tackles laten je alleen omtuimelen. Niemand raakt gewond onder het oogstbestand.",
+        "rule5": "Iedereen kan aan komen lopen en je aanmoedigen vanaf de tribunes.",
+        "kitHeading": "Jouw uitrusting",
+        "kitNote": "Deze zetten vervangen je klassevaardigheden voor de duur van de wedstrijd.",
+        "rosterHeading": "De opstelling",
+        "you": "Jij",
         "bot": "Bot",
-        "ready": "I'm ready",
-        "readyDone": "Ready",
-        "readyAria": "Ready up for kickoff",
-        "waiting": "Waiting for the other side to ready up...",
-        "whistle": "The whistle blows in {seconds}s.",
-        "readyCount": "{ready} of {total} ready"
+        "ready": "Ik ben er klaar voor",
+        "readyDone": "Klaar",
+        "readyAria": "Meld je klaar voor de aftrap",
+        "waiting": "Wachten tot de tegenpartij zich klaar meldt...",
+        "whistle": "De fluit klinkt over {seconds}s.",
+        "readyCount": "{ready} van {total} klaar"
       },
       "bet": {
-        "title": "Match Bets",
-        "aria": "Vale Cup match betting",
-        "closesIn": "Bets close in {seconds}s",
-        "closed": "Betting closed",
-        "prize": "Pool {amount}",
-        "splitAria": "Share of the betting pool on each team",
-        "expand": "View bets and wager",
-        "collapse": "Hide bets",
-        "oddsLabel": "Pays",
-        "back": "Back {team}",
-        "form": "{wins}W-{losses}L",
-        "mine": "Your bet: {amount} on {team}",
-        "none": "You have no bet on this match yet.",
-        "record": "Betting record: {wins}W-{losses}L, {sign}{net}",
-        "wonBanner": "Your bet won!",
-        "wonLog": "Your Vale Cup bet won: {amount} returned.",
-        "lostLog": "Your Vale Cup bet lost: {amount}.",
-        "refundLog": "Bets voided, your {amount} stake was returned."
+        "title": "Wedstrijdweddenschappen",
+        "aria": "Weddenschappen op de Dalbeker-wedstrijd",
+        "closesIn": "Inzetten sluiten over {seconds}s",
+        "closed": "Inzetten gesloten",
+        "prize": "Pot {amount}",
+        "splitAria": "Aandeel van de wedpot per team",
+        "expand": "Weddenschappen bekijken en inzetten",
+        "collapse": "Weddenschappen verbergen",
+        "oddsLabel": "Keert uit",
+        "back": "Zet in op {team}",
+        "form": "{wins}W-{losses}V",
+        "mine": "Jouw inzet: {amount} op {team}",
+        "none": "Je hebt nog geen weddenschap op deze wedstrijd.",
+        "record": "Wedbalans: {wins}W-{losses}V, {sign}{net}",
+        "wonBanner": "Je weddenschap is gewonnen!",
+        "wonLog": "Je Dalbeker-weddenschap is gewonnen: {amount} uitgekeerd.",
+        "lostLog": "Je Dalbeker-weddenschap is verloren: {amount}.",
+        "refundLog": "Weddenschappen nietig verklaard, je inzet van {amount} is teruggegeven."
       }
     },
     "options": {
@@ -620,8 +620,9 @@ export const nl_NL: EnTranslations = {
         "fps01Low": "0,1% Laag",
         "ping": "Ping",
         "jitter": "Jitter",
-        "predLead": "Prediction Lead",
+        "predLead": "Predictievoorsprong",
         "snapshot": "Snapshotfrequentie",
+        "serverTick": "Servertickfrequentie",
         "connection": "Verbinding",
         "drawCalls": "Draw Calls",
         "triangles": "Driehoeken",
@@ -919,13 +920,13 @@ export const nl_NL: EnTranslations = {
       }
     },
     "townFocus": {
-      "title": "Town Focus",
-      "hint": "Focus points add a bonus on top of every component's baseline yield. Unfocused components stay at baseline.",
-      "budgetLabel": "Points remaining: {remaining} / {budget}",
-      "saveButton": "Save Focus",
-      "notInTownHint": "You must be in town to set your focus.",
-      "increaseAria": "Increase focus on {component}",
-      "decreaseAria": "Decrease focus on {component}"
+      "title": "Stadsfocus",
+      "hint": "Focuspunten geven een bonus bovenop de basisopbrengst van elk onderdeel. Onderdelen zonder focus blijven op het basisniveau.",
+      "budgetLabel": "Punten over: {remaining} / {budget}",
+      "saveButton": "Focus opslaan",
+      "notInTownHint": "Je moet in de stad zijn om je focus in te stellen.",
+      "increaseAria": "Vergroot de focus op {component}",
+      "decreaseAria": "Verminder de focus op {component}"
     },
     "party": {
       "promoteLeader": "Bevorderen tot leider",
@@ -1506,7 +1507,7 @@ export const nl_NL: EnTranslations = {
       "bestiary": "Bestiarium",
       "models": "3D-modellen",
       "gear": "Uitrusting & Voorwerpen",
-      "professions": "Professions",
+      "professions": "Beroepen",
       "economy": "Economie & Handel",
       "social": "Sociaal & Groepen",
       "stats": "Personage & Statistieken",
@@ -1521,7 +1522,7 @@ export const nl_NL: EnTranslations = {
       "combat": "Gevecht",
       "talents": "Talenten",
       "arena": "Arena & PvP",
-      "valeCup": "Vale Cup",
+      "valeCup": "Dalbeker",
       "glossary": "Begrippenlijst",
       "wishIKnew": "Dingen die ik graag eerder had geweten",
       "faq": "FAQ",
@@ -2178,30 +2179,30 @@ export const nl_NL: EnTranslations = {
       "ladderBody": "Ranglijstspel volgt je positie over de tijd. Bekijk het scorebord om te zien waar je staat en wie de top van het rijk bezit."
     },
     "valeCupPage": {
-      "heading": "The Vale Cup",
-      "intro": "Boarball at the Sowfield: pick a banner, pick a role, and kick a stuffed boar hide past a keeper for the Copper Pail. No blood, no loot, just the roar of the stands.",
-      "loreHeading": "Boarball and the harvest truce",
-      "loreOldSow": "Long before the dead woke, Eastbrook's farmhands played boarball on the stubble fields after harvest: two mobs, one boar's hide stuffed with straw, and two wagon gates dragged to either end of the green. The first ball, the Old Sow, hangs bronzed above the tavern hearth.",
-      "loreTruce": "When the Ashen Coliseum began sanctioning war games, Marshal Redbrook answered with something gentler: a standing harvest truce on the old green. The wagon gates became goalposts, the green got walls, stands, and a name, the Sowfield, and the prize was always the same dented milk pail the winners drank from: the Copper Pail.",
-      "howHeading": "How to play",
-      "howQueue": "Queue from anywhere through the Vale Cup window, or talk to Groundskeeper Bram at the Sowfield gate. Pick a bracket from one-a-side up to five-a-side, a banner nation, and a sport role; queue solo or bring your party.",
-      "howMatch": "On kickoff your class kit is swapped for a sport kit and restored exactly afterward. Kicks aim at the ground reticle, the ball banks off the boards, and dribbling is just running with the ball. Score more goals than the other side before full time; a draw goes to golden goal.",
-      "howTruce": "Nobody bleeds at the Sowfield: tackles tumble, nothing hurts, and pets sit the match out.",
-      "spectateBody": "One match plays at a time at the stadium, and anyone can walk up and watch from the stands.",
-      "nationsHeading": "The eight banner nations",
-      "nationsBody": "Every team plays under a banner. The captain picks the nation, and if both sides fly the same one, the away side plays the inverted palette.",
-      "nationVale": "Green and gold, flying the wheat sheaf: the home side, farmhands to the bone.",
-      "nationMirefen": "Teal and grey under the heron: patient, long-legged, never hurried.",
-      "nationThornpeak": "Ice blue and white under the mountain peak: sure-footed and stubborn.",
-      "nationColiseum": "Red and black with crossed swords: they play like it is still a war game.",
-      "nationChoir": "Pale blue and silver under the bell: eerie, precise, and very quiet.",
-      "nationOgre": "Orange and umber behind the fist: shoulder-first and proud of it.",
-      "nationMoon": "Violet and silver under the crescent: night players, light on their feet.",
-      "nationCopperdig": "Copper and brown with the pickaxe: diggers who never stop running.",
-      "rolesHeading": "Sport roles",
-      "rolesBody": "Your role decides the kit you carry onto the pitch. Everyone kicks; the rest is temperament.",
-      "rewardsHeading": "Truce rules",
-      "rewardsBody": "Truce rules mean no experience and no loot: a decided match counts toward your record and the winners board, and daily-reward points come with it. Deserting a match benches your slot, and the Groundskeeper remembers."
+      "heading": "De Dalbeker",
+      "intro": "Zwijnenbal op het Zeugveld: kies een banier, kies een rol, en trap een opgezette zwijnenhuid langs een keeper voor de Koperen Emmer. Geen bloed, geen buit, alleen het gebrul van de tribunes.",
+      "loreHeading": "Zwijnenbal en het oogstbestand",
+      "loreOldSow": "Lang voordat de doden ontwaakten, speelden de boerenknechten van Oostbeek zwijnenbal op de stoppelvelden na de oogst: twee horden, één zwijnenhuid gevuld met stro, en twee wagenhekken die naar de uiteinden van het veld werden gesleept. De eerste bal, de Oude Zeug, hangt in brons boven de taveernehaard.",
+      "loreTruce": "Toen het Asgrauwe Colosseum oorlogsspelen begon te sanctioneren, antwoordde Maarschalk Redbrook met iets zachtaardigers: een blijvend oogstbestand op het oude veld. De wagenhekken werden doelpalen, het veld kreeg muren, tribunes en een naam, het Zeugveld, en de prijs was altijd dezelfde gedeukte melkemmer waar de winnaars uit dronken: de Koperen Emmer.",
+      "howHeading": "Hoe je speelt",
+      "howQueue": "Meld je vanaf elke plek aan via het Dalbeker-venster, of praat met Terreinmeester Bram bij de poort van het Zeugveld. Kies een categorie van één tegen één tot vijf tegen vijf, een baniernatie en een sportrol; meld je solo aan of neem je groep mee.",
+      "howMatch": "Bij de aftrap wordt je klasse-uitrusting omgeruild voor een sportuitrusting en daarna exact hersteld. Trappen mikken op het grondvizier, de bal kaatst tegen de boarding, en dribbelen is gewoon rennen met de bal. Maak meer doelpunten dan de tegenpartij voor het eindsignaal; bij een gelijkspel volgt de gouden goal.",
+      "howTruce": "Niemand bloedt op het Zeugveld: tackles laten je tuimelen, niets doet pijn, en huisdieren zitten de wedstrijd uit.",
+      "spectateBody": "Er wordt één wedstrijd tegelijk gespeeld in het stadion, en iedereen kan aan komen lopen en toekijken vanaf de tribunes.",
+      "nationsHeading": "De acht baniernaties",
+      "nationsBody": "Elk team speelt onder een banier. De aanvoerder kiest de natie, en als beide kanten dezelfde banier voeren, speelt de uitploeg in het omgekeerde kleurenpalet.",
+      "nationVale": "Groen en goud, onder de korenschoof: de thuisploeg, boerenknechten in hart en nieren.",
+      "nationMirefen": "Groenblauw en grijs onder de reiger: geduldig, met lange benen, nooit gehaast.",
+      "nationThornpeak": "IJsblauw en wit onder de bergtop: vast ter been en koppig.",
+      "nationColiseum": "Rood en zwart met gekruiste zwaarden: ze spelen alsof het nog steeds een oorlogsspel is.",
+      "nationChoir": "Bleekblauw en zilver onder de klok: onheilspellend, precies en heel stil.",
+      "nationOgre": "Oranje en omber achter de vuist: schouder eerst, en er trots op.",
+      "nationMoon": "Violet en zilver onder de maansikkel: nachtspelers, licht op de voeten.",
+      "nationCopperdig": "Koper en bruin met het houweel: delvers die nooit stoppen met rennen.",
+      "rolesHeading": "Sportrollen",
+      "rolesBody": "Je rol bepaalt de uitrusting die je het veld op draagt. Iedereen trapt; de rest is temperament.",
+      "rewardsHeading": "Bestandsregels",
+      "rewardsBody": "Bestandsregels betekenen geen ervaring en geen buit: een besliste wedstrijd telt mee voor je staat van dienst en het winnaarsbord, en er komen punten voor dagelijkse beloningen bij. Wie een wedstrijd verlaat, zet zijn plek op de bank, en de Terreinmeester onthoudt het."
     },
     "wishPage": {
       "heading": "Dingen die ik wou dat ik wist",
@@ -2288,33 +2289,33 @@ export const nl_NL: EnTranslations = {
       "cosmeticsApply": "Stel je actieve uiterlijk in vanaf de uiterlijkrij op je personagescherm, en wissel vrij tussen alles wat je hebt ontgrendeld."
     },
     "professions": {
-      "intro": "Beyond combat and quests, the world rewards you for working the land and the forge: gathering raw materials, turning them into gear at the crafting stations of ten different trades, and settling into an identity as one of the ten archetypes those trades represent.",
-      "gatherTitle": "Gathering: Mining, Logging, and Herbalism",
-      "gatherIntro": "Three gathering trades let you pull raw materials straight out of the world: Mining strikes ore and stone from veins, Logging fells timber from stands of trees, and Herbalism collects herbs and plants growing wild. Each is tracked separately, so working one never slows your progress in another.",
-      "gatherWhatTitle": "Resource nodes",
-      "gatherWhatBody": "Ore veins, wood stands, and herb patches are placed out in the zones as visible, unowned fixtures. Walk up to one and interact with it to harvest whatever it holds. Once you have harvested a node, it needs time to recover before you personally can harvest it again, though it never blocks anyone else: another player can harvest the very same node in the meantime.",
-      "gatherProficiencyTitle": "Proficiency and material quality",
-      "gatherProficiencyBody": "Every successful harvest builds your proficiency in that gathering trade. A higher proficiency shifts what you pull out of a node toward rarer grades of material, from common on up, though the rarest grades stay rare even at high proficiency. More practice never hurts your odds, it only ever improves them.",
-      "gatherToolsTitle": "Tools of the trade",
-      "gatherToolsBody": "Vendors sell basic tools for each gathering trade, and better ones can be crafted, so working a resource node is meant to feel more capable as you gear up for it rather than staying static. Higher-tier tools are the intended way to unlock access to richer nodes and to work them more efficiently over a long session.",
-      "craftTitle": "The ten crafts",
-      "craftIntro": "Ten crafting trades turn gathered materials into finished gear and goods: Armorcrafting, Weaponcrafting, and Jewelcrafting shape raw matter into wearable gear; Alchemy and Engineering are driven by trial and error; Cooking, Inscription, and Enchanting each touch other crafts' output; Tailoring and Leatherworking work from exact patterns. Together they form a wheel, with each craft sitting next to two neighbors and opposite one other.",
-      "craftRingTitle": "A wheel of specialties",
-      "craftRingBody": "The ten crafts are arranged in a fixed ring, and where a craft sits on that ring matters: crafts next to each other on the wheel share more in common with each other than crafts on opposite sides do. Committing to one craft is meant to feel like joining a family of related trades, not picking an isolated skill.",
-      "craftRecipesTitle": "Recipes and reagents",
-      "craftRecipesBody": "Every craft has its own recipes, each calling for specific reagents you gather or buy. The most basic recipes in each craft ask for nothing but common materials and are craftable from the very start, so you can begin working a trade the moment you pick it up rather than waiting to unlock it.",
-      "craftMasteryTitle": "Skill and mastery",
-      "craftMasteryBody": "Crafting successfully builds skill in that trade, and richer recipes are gated behind higher skill: the basic recipes are open to everyone, while progressively more advanced ones ask for progressively more mastery to attempt. Growing your skill in a craft is the path from simple starter goods to its more ambitious recipes.",
-      "craftComboTitle": "Combination recipes",
-      "craftComboBody": "Beyond a single craft's own recipe list, the wheel also supports combination recipes that call on two neighboring crafts at once, rewarding a character (or a pair of trading partners) who has invested in adjacent trades on the ring rather than one in isolation.",
-      "archetypeTitle": "The ten archetypes",
-      "archetypeIntro": "Each of the ten crafts also stands for an archetype, a broader identity you can adopt beyond just working that trade. Your active archetype is a single choice at a time, not a checklist: you carry one, and can change which one later if you choose to.",
-      "archetypeChooseTitle": "Choosing your archetype",
-      "archetypeChooseBody": "You declare your first archetype through an early, zone one story quest that formally accepts you into that identity. Until you complete that quest, you have not yet chosen an archetype at all.",
-      "archetypeSwitchTitle": "Changing your mind",
-      "archetypeSwitchBody": "Having declared an archetype once does not lock you into it forever. Changing to a different archetype means first completing a repeatable \"make amends\" quest for your old one, and each time you switch, the amends expected of you the next time grow a little steeper, so switching stays meaningful rather than costless.",
-      "archetypeIdentityTitle": "What your archetype means",
-      "archetypeIdentityBody": "Your active archetype is a statement about who your character is in the world, recognized in how others and the world address you. The exact rewards and recognition that come with it are still being finalized; check back as the system fills in."
+      "intro": "Naast gevecht en quests beloont de wereld je voor het bewerken van het land en de smidse: grondstoffen verzamelen, ze aan de werkbanken van tien verschillende vakken tot uitrusting maken, en een identiteit aannemen als een van de tien archetypen die deze vakken vertegenwoordigen.",
+      "gatherTitle": "Verzamelen: Mijnbouw, Houtkap en Kruidenkunde",
+      "gatherIntro": "Drie verzamelvakken laten je grondstoffen rechtstreeks uit de wereld halen: Mijnbouw slaat erts en steen uit aders, Houtkap velt timmerhout uit bomengroepen, en Kruidenkunde plukt kruiden en planten die in het wild groeien. Elk wordt apart bijgehouden, dus aan het ene werken vertraagt nooit je voortgang in het andere.",
+      "gatherWhatTitle": "Grondstofbronnen",
+      "gatherWhatBody": "Ertsaders, bomengroepen en kruidenveldjes staan in de gebieden als zichtbare, onbeheerde vaste punten. Loop ernaartoe en gebruik ze om te oogsten wat ze bevatten. Heb je een bron eenmaal geoogst, dan heeft die tijd nodig om te herstellen voordat jij persoonlijk er opnieuw kunt oogsten, maar niemand anders wordt geblokkeerd: een andere speler kan intussen precies dezelfde bron oogsten.",
+      "gatherProficiencyTitle": "Bedrevenheid en materiaalkwaliteit",
+      "gatherProficiencyBody": "Elke geslaagde oogst bouwt je bedrevenheid in dat verzamelvak op. Een hogere bedrevenheid verschuift wat je uit een bron haalt richting zeldzamere kwaliteiten materiaal, van gewoon opwaarts, al blijven de zeldzaamste kwaliteiten zeldzaam, ook bij hoge bedrevenheid. Meer oefening schaadt je kansen nooit, ze worden er alleen maar beter van.",
+      "gatherToolsTitle": "Gereedschap van het vak",
+      "gatherToolsBody": "Handelaren verkopen basisgereedschap voor elk verzamelvak, en beter gereedschap kan worden gemaakt, zodat het werken van een grondstofbron capabeler moet gaan voelen naarmate je je ervoor uitrust, in plaats van statisch te blijven. Gereedschap van hogere rang is de bedoelde weg om rijkere bronnen te ontsluiten en ze over een lange sessie efficiënter te bewerken.",
+      "craftTitle": "De tien ambachten",
+      "craftIntro": "Tien ambachten maken van verzamelde materialen afgewerkte uitrusting en goederen: Harnasmaken, Wapensmeden en Juwelenmaken vormen ruwe grondstoffen om tot draagbare uitrusting; Alchemie en Knutselwerk draaien op vallen en opstaan; Koken, Inscriptie en Betoveren raken elk het werk van andere ambachten; Kleermaken en Leerbewerken werken naar exacte patronen. Samen vormen ze een wiel, waarbij elk ambacht naast twee buren zit en tegenover één ander.",
+      "craftRingTitle": "Een wiel van specialiteiten",
+      "craftRingBody": "De tien ambachten staan in een vaste ring, en waar een ambacht op die ring zit doet ertoe: ambachten die naast elkaar op het wiel liggen hebben meer met elkaar gemeen dan ambachten die tegenover elkaar liggen. Je aan één ambacht verbinden moet voelen als toetreden tot een familie van verwante vakken, niet als het kiezen van een losstaande vaardigheid.",
+      "craftRecipesTitle": "Recepten en reagentia",
+      "craftRecipesBody": "Elk ambacht heeft zijn eigen recepten, elk met specifieke reagentia die je verzamelt of koopt. De meest eenvoudige recepten van elk ambacht vragen niets anders dan gewone materialen en zijn vanaf het allereerste begin te maken, zodat je een vak meteen kunt gaan uitoefenen zodra je het oppakt in plaats van te wachten tot het is ontgrendeld.",
+      "craftMasteryTitle": "Vaardigheid en meesterschap",
+      "craftMasteryBody": "Succesvol iets maken bouwt vaardigheid op in dat vak, en rijkere recepten zitten achter een hogere vaardigheid: de basisrecepten staan voor iedereen open, terwijl steeds geavanceerdere recepten steeds meer meesterschap vragen om te proberen. Je vaardigheid in een ambacht laten groeien is de weg van eenvoudige beginnerswaren naar de ambitieuzere recepten.",
+      "craftComboTitle": "Combinatierecepten",
+      "craftComboBody": "Naast de eigen receptenlijst van een ambacht ondersteunt het wiel ook combinatierecepten die twee naburige ambachten tegelijk aanspreken, als beloning voor een personage (of een paar handelspartners) dat in aangrenzende vakken op de ring heeft geïnvesteerd in plaats van in één vak alleen.",
+      "archetypeTitle": "De tien archetypen",
+      "archetypeIntro": "Elk van de tien ambachten staat ook voor een archetype, een bredere identiteit die je kunt aannemen en die verder gaat dan alleen dat vak uitoefenen. Je actieve archetype is één keuze tegelijk, geen afvinklijst: je draagt er één, en kunt later van keuze veranderen als je dat wilt.",
+      "archetypeChooseTitle": "Je archetype kiezen",
+      "archetypeChooseBody": "Je eerste archetype kies je via een vroege verhaalquest in het eerste gebied, die je formeel in die identiteit opneemt. Zolang je die quest niet hebt voltooid, heb je nog helemaal geen archetype gekozen.",
+      "archetypeSwitchTitle": "Van gedachten veranderen",
+      "archetypeSwitchBody": "Dat je ooit een archetype hebt gekozen, legt je niet voorgoed vast. Overstappen naar een ander archetype betekent eerst een herhaalbare \"goedmaak\"-quest voltooien voor je oude archetype, en elke keer dat je wisselt wordt wat er de volgende keer van je wordt verwacht iets zwaarder, zodat wisselen betekenisvol blijft in plaats van gratis.",
+      "archetypeIdentityTitle": "Wat je archetype betekent",
+      "archetypeIdentityBody": "Je actieve archetype is een uitspraak over wie je personage in de wereld is, herkenbaar in hoe anderen en de wereld je aanspreken. De precieze beloningen en erkenning die erbij horen worden nog uitgewerkt; kom later terug naarmate het systeem zich vult."
     },
     "economy": {
       "intro": "Munten smeren de hele wereld: ze kopen je uitrusting, voorraden en reisuitrusting, en wisselen van eigenaar tussen spelers. Je pikt dit alles vanzelf op door te spelen, dus zie deze pagina als een kaart van waar je geld vandaan komt en waar het heen gaat.",
@@ -4906,44 +4907,44 @@ export const nl_NL: EnTranslations = {
   "entities": {
     "abilities": {
       "sport_kick": {
-        "name": "Kick",
-        "description": "Knock the ball along the ground toward the aim point."
+        "name": "Trap",
+        "description": "Trap de bal over de grond richting het richtpunt."
       },
       "sport_shoot": {
-        "name": "Shoot",
-        "description": "Hold to build power, release to shoot at goal. Too much power sails over."
+        "name": "Schieten",
+        "description": "Houd ingedrukt om kracht op te bouwen, laat los om op doel te schieten. Te veel kracht en hij zeilt eroverheen."
       },
       "sport_pass": {
         "name": "Pass",
-        "description": "Roll a firm pass to your targeted teammate, leading their run."
+        "description": "Speel een strakke pass naar je aangewezen teamgenoot, in de loop."
       },
       "sport_boot": {
-        "name": "Big Boot",
-        "description": "A long lofted boot toward the aim point. The crowd loves it."
+        "name": "Grote Uithaal",
+        "description": "Een lange, hoge uithaal richting het richtpunt. Het publiek smult ervan."
       },
       "sport_hoof": {
-        "name": "Hoof It",
-        "description": "Hammer the ball low and hard up the field."
+        "name": "Pegel",
+        "description": "Ram de bal laag en hard het veld op."
       },
       "sport_punt": {
-        "name": "Long Punt",
-        "description": "A keeper's punt, high and far."
+        "name": "Verre Uittrap",
+        "description": "Een uittrap van de keeper, hoog en ver."
       },
       "sport_feint": {
-        "name": "Feint",
-        "description": "A quick sidestep burst toward the aim point."
+        "name": "Schijnbeweging",
+        "description": "Een snelle zijstap richting het richtpunt."
       },
       "sport_dive": {
-        "name": "Dive",
-        "description": "Fling yourself toward the aim point. A crossing ball sticks to you."
+        "name": "Duik",
+        "description": "Werp jezelf richting het richtpunt. Een voorzet blijft aan je plakken."
       },
       "sport_shoulder": {
-        "name": "Shoulder",
-        "description": "A fair harvest-truce shoulder. Sends them tumbling off the ball."
+        "name": "Schouderduw",
+        "description": "Een eerlijke schouderduw onder het oogstbestand. Stuurt ze tuimelend van de bal."
       },
       "sport_second_wind": {
-        "name": "Fresh Legs",
-        "description": "Find your legs: move 50% faster for 4 sec."
+        "name": "Frisse Benen",
+        "description": "Vind je benen terug: beweeg 4 sec lang 50% sneller."
       },
       "flamestrike": {
         "name": "Vlammenslag",
@@ -6166,6 +6167,24 @@ export const nl_NL: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Zonneblaadjessikkel"
       },
+      "thorium_ore": {
+        "name": "Thoriumerts"
+      },
+      "arcanite_bar": {
+        "name": "Arcaniet Staaf"
+      },
+      "ashwood_log": {
+        "name": "Essenhout Blok"
+      },
+      "elderwood_log": {
+        "name": "Oud Vlierhout Blok"
+      },
+      "goldleaf_herb": {
+        "name": "Goudbladkruid"
+      },
+      "sunpetal_herb": {
+        "name": "Zonnepetaalkruid"
+      },
       "bristleback_maul": {
         "name": "Gallowglass-Hamer"
       },
@@ -7331,9 +7350,9 @@ export const nl_NL: EnTranslations = {
         "greeting": "Rust nu, geest. Ik kan je terugbrengen naar je lichaam, maar de overtocht terug laat je verzwakt achter."
       },
       "groundskeeper_bram": {
-        "name": "Groundskeeper Bram",
-        "title": "Keeper of the Sowfield",
-        "greeting": "The truce holds at the Sowfield, {className}: boots and shoulders only. Care to play for the Copper Pail?"
+        "name": "Terreinmeester Bram",
+        "title": "Hoeder van het Zeugveld",
+        "greeting": "Het bestand houdt stand op het Zeugveld, {className}: alleen trappen en schouders. Zin om te spelen voor de Koperen Emmer?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8244,7 +8263,7 @@ export const nl_NL: EnTranslations = {
             "label": "Lichtwoudgaarde"
           },
           "10": {
-            "label": "The Sowfield"
+            "label": "Het Zeugveld"
           }
         }
       },

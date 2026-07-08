@@ -996,9 +996,9 @@ export class ClientWorld implements IWorld {
   // all-zero default until the wheel/mass-conservation follow-up wires a self-snap
   // field the way `dmarks`/`dcomp` do for delveMarks/companionUpgrades above.
   craftSkills: Record<string, number> = emptyCraftSkills();
-  // Gathering profession proficiency (Mining/Logging/Herbalism). NOT mirrored over
-  // the wire (see professionsState below, the real read surface); this stub keeps
-  // ClientWorld structurally satisfying IWorldProgressionXp.gatheringProficiency.
+  // Gathering profession proficiency (Mining/Logging/Herbalism, #1119), mirrored
+  // from the `gprof` self-wire delta below (the real read surface; see
+  // professionsState below for crafting/secondary professions).
   gatheringProficiency: Record<string, number> = {};
   // Per-delve clears (key `${delveId}:${tierId}`), mirrored from the self-wire so
   // delveShopOffers can resolve the shop lock badge client-side.
@@ -1057,6 +1057,9 @@ export class ClientWorld implements IWorld {
   // snapshot interpolation
   lastSnapAt = 0;
   snapInterval = 50; // ms, adapts to measured cadence
+  // server-measured achieved sim tick rate (Hz), mirrored from the snap head;
+  // null until the server's meter warms up (perf overlay hides the row)
+  serverTickHz: number | null = null;
   // entity id -> performance.now() when it first went missing from a snapshot;
   // used for the despawn grace window (anti-flicker), cleared once it returns
   private missingSince = new Map<number, number>();
@@ -1476,6 +1479,11 @@ export class ClientWorld implements IWorld {
       if (gap > 5 && gap < 500) this.snapInterval = this.snapInterval * 0.9 + gap * 0.1;
     }
     this.lastSnapAt = now;
+    // Achieved server sim tick rate, measured server-side (snapshot ARRIVAL
+    // cadence undercounts sag: catch-up runs several sim ticks per broadcast).
+    if (typeof snap.tickHz === 'number' && Number.isFinite(snap.tickHz) && snap.tickHz > 0) {
+      this.serverTickHz = snap.tickHz;
+    }
 
     // lazy init (not the field initializer alone): tests build bare instances
     // via Object.create(ClientWorld.prototype), which skips field initializers
@@ -1857,9 +1865,9 @@ export class ClientWorld implements IWorld {
       if (s.dcomp !== undefined) this.companionUpgrades = s.dcomp ?? {};
       if (s.dclears !== undefined) this.delveClears = s.dclears ?? {};
       if (s.delveDaily !== undefined) this.delveDaily = s.delveDaily;
-      if (s.prof !== undefined) this.professionsState = s.prof ?? { skills: [] };
       if (s.tfocus !== undefined) this.townFocus = s.tfocus ?? {};
       if (s.gprof !== undefined) this.gatheringProficiency = s.gprof ?? {};
+      if (s.prof !== undefined) this.professionsState = s.prof ?? { skills: [] };
       // camera follows server-side facing changes when not mouselooking
       if (prevSelfFacing !== undefined && this.mouselookFacing === null) {
         let d = e.facing - prevSelfFacing;

@@ -308,7 +308,7 @@ export const tr_TR: EnTranslations = {
       "autorun": "Otomatik Koşu",
       "jump": "Zıpla",
       "leaderboard": "Sıralama",
-      "dailyRewards": "Rewards",
+      "dailyRewards": "Ödüller",
       "nameplates": "İsimler",
       "haptics": "Dokunsal Geri Bildirim",
       "hapticsOff": "Dokunsal Kapalı",
@@ -394,142 +394,142 @@ export const tr_TR: EnTranslations = {
       "targetFriendly": "En Yakın Dostu Hedefle",
       "targetFriendlyNext": "Dost Hedefler Arasında Geç",
       "discord": "Discord",
-      "valecup": "Vale Cup"
+      "valecup": "Vadi Kupası"
     },
     "vcup": {
-      "title": "The Vale Cup",
-      "shootPower": "POWER",
-      "close": "Close the Vale Cup window",
-      "offlineNote": "The fixture book is closed. The Vale Cup is not available right now.",
-      "recordLine": "Your record: {wins} wins, {losses} losses, {draws} draws.",
-      "bracketsAria": "Match bracket",
+      "title": "Vadi Kupası",
+      "shootPower": "GÜÇ",
+      "close": "Vadi Kupası penceresini kapat",
+      "offlineNote": "Fikstür defteri kapalı. Vadi Kupası şu anda kullanılamıyor.",
+      "recordLine": "Sicilin: {wins} galibiyet, {losses} mağlubiyet, {draws} beraberlik.",
+      "bracketsAria": "Maç kategorisi",
       "bracketLabel": "{n}v{n}",
-      "waitingCount": "{count} waiting",
-      "nationsHeading": "Banner nation",
+      "waitingCount": "{count} bekliyor",
+      "nationsHeading": "Sancak ulusu",
       "nation": {
-        "vale": "Eastbrook Vale",
-        "mirefen": "The Mirefen",
+        "vale": "Doğudere Vadisi",
+        "mirefen": "Mirefen",
         "thornpeak": "Thornpeak",
-        "coliseum": "The Ashen Coliseum",
-        "choir": "The Pale Choir",
-        "ogre": "The Ogre Clans",
-        "moon": "The Pale Moon",
-        "copperdig": "The Copper Dig"
+        "coliseum": "Kül Koliseumu",
+        "choir": "Soluk Koro",
+        "ogre": "Ogre Klanları",
+        "moon": "Soluk Ay",
+        "copperdig": "Bakır Kazısı"
       },
-      "awayNote": "If both sides fly the same banner, the away side plays the inverted palette.",
-      "rolesHeading": "Sport role",
+      "awayNote": "İki taraf da aynı sancağı taşıyorsa deplasman tarafı ters renk paletiyle oynar.",
+      "rolesHeading": "Spor rolü",
       "role": {
         "allrounder": {
-          "name": "All-Rounder",
-          "desc": "A bit of everything: kick, boot, and a fair shoulder."
+          "name": "Çok Yönlü",
+          "desc": "Her şeyden biraz: vuruş, aşırtma ve dürüst bir omuz."
         },
         "striker": {
-          "name": "Striker",
-          "desc": "Lives for the long boot and the quick sidestep."
+          "name": "Golcü",
+          "desc": "Uzun vuruş ve hızlı çalım için yaşar."
         },
         "sweeper": {
-          "name": "Sweeper",
-          "desc": "Bumps runners off the ball and hoofs it clear."
+          "name": "Libero",
+          "desc": "Koşucuları toptan omuzlayıp uzaklaştırır ve topu sertçe temizler."
         },
         "keeper": {
-          "name": "Keeper",
-          "desc": "Guards the goal box with grip, dive, and punt."
+          "name": "Kaleci",
+          "desc": "Kale sahasını tutuş, dalış ve degajla korur."
         }
       },
-      "queue": "Join the Queue",
-      "leaveQueue": "Leave the Queue",
-      "queueNote": "Queue from anywhere; the whistle calls you to the Sowfield.",
-      "queuedStatus": "Queued for {bracket}: position {position} of {count}.",
-      "blockNation": "Pick a banner nation first.",
-      "blockPartySize": "That bracket needs a smaller party.",
-      "blockNotLeader": "Only the party leader can queue the team.",
-      "inMatchNote": "Your team is on the pitch. Play on!",
-      "deserterNote": "The Groundskeeper remembers. You may queue again in {seconds} sec.",
-      "liveHeading": "Now at the Sowfield",
-      "liveAria": "Vale Cup: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Walk up to the Sowfield to watch from the stands.",
-      "noLive": "The pitch is quiet. No match is being played.",
-      "boardHeading": "Winners board",
-      "boardEmpty": "No winners recorded yet. The Copper Pail waits.",
-      "boardWins": "{count} wins",
-      "enterAsGuild": "Enter under the banner of {guild}",
-      "guildRecordLine": "Your guild record: {wins} wins, {losses} losses.",
-      "guildBoardHeading": "Guild banners",
-      "guildBoardEmpty": "No guild has taken the field yet. Fly your banner!",
-      "guildBoardWl": "{wins} W, {losses} L",
-      "practice": "Practice vs. Bots",
-      "practiceNote": "Starts a private bot match on your own practice pitch right away.",
-      "practicingNow": "Practicing now ({count}):",
+      "queue": "Sıraya Gir",
+      "leaveQueue": "Sıradan Ayrıl",
+      "queueNote": "Her yerden sıraya girebilirsin; düdük seni Domuz Tarlası'na çağırır.",
+      "queuedStatus": "{bracket} için sırada: sıra {position} / {count}.",
+      "blockNation": "Önce bir sancak ulusu seç.",
+      "blockPartySize": "Bu kategori daha küçük bir grup gerektiriyor.",
+      "blockNotLeader": "Takımı sıraya yalnızca grup lideri sokabilir.",
+      "inMatchNote": "Takımın sahada. Oyuna devam!",
+      "deserterNote": "Saha Bekçisi unutmaz. {seconds} sn sonra yeniden sıraya girebilirsin.",
+      "liveHeading": "Şimdi Domuz Tarlası'nda",
+      "liveAria": "Vadi Kupası: {nationA} {scoreA}, {nationB} {scoreB}",
+      "walkUp": "Tribünlerden izlemek için Domuz Tarlası'na gel.",
+      "noLive": "Saha sessiz. Şu an oynanan maç yok.",
+      "boardHeading": "Kazananlar panosu",
+      "boardEmpty": "Henüz kayıtlı kazanan yok. Bakır Kova bekliyor.",
+      "boardWins": "{count} galibiyet",
+      "enterAsGuild": "{guild} sancağı altında katıl",
+      "guildRecordLine": "Lonca sicilin: {wins} galibiyet, {losses} mağlubiyet.",
+      "guildBoardHeading": "Lonca sancakları",
+      "guildBoardEmpty": "Henüz sahaya çıkan lonca yok. Sancağını dalgalandır!",
+      "guildBoardWl": "{wins} G, {losses} M",
+      "practice": "Botlara Karşı Antrenman",
+      "practiceNote": "Kendi antrenman sahanda hemen özel bir bot maçı başlatır.",
+      "practicingNow": "Şu an antrenmanda ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Vale Cup queue: {bracket}, position {position} of {count}",
-      "indicatorLive": "Vale Cup",
-      "indicatorOpen": "Open the Vale Cup window",
-      "phaseCountdown": "Kickoff in {seconds}",
-      "phaseGoal": "GOAL!",
-      "phaseGolden": "GOLDEN GOAL",
-      "phaseOver": "FULL TIME",
-      "bannerFound": "The Vale Cup calls: {nationA} vs {nationB}!",
-      "bannerCountdown": "Kickoff in {seconds}...",
-      "bannerKickoff": "KICKOFF!",
-      "bannerGoal": "GOAL! {nation} scores!",
-      "bannerSave": "{name} SAVES!",
-      "bannerGolden": "GOLDEN GOAL: next score wins!",
-      "bannerEnd": "Full time: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Victory at the Sowfield!",
-      "bannerDraw": "A draw at the Sowfield.",
-      "bannerLoss": "Defeat at the Sowfield.",
-      "logQueued": "You join the Vale Cup queue for {bracket} (position {position}).",
-      "logUnqueued": "You leave the Vale Cup queue.",
-      "logFound": "Your Vale Cup match is ready: {nationA} vs {nationB}.",
-      "logRoster": "Your side: {allies}. Their side: {enemies}.",
-      "logGoal": "{name} scores for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} makes the save!",
-      "logWin": "You win the bout at the Sowfield.",
-      "logDraw": "The bout at the Sowfield ends in a draw.",
-      "logLoss": "You lose the bout at the Sowfield.",
-      "gossipOpen": "The book of fixtures",
-      "gossipOpenAria": "Open the Vale Cup window",
-      "mobileLabel": "Cup",
+      "indicatorQueued": "Vadi Kupası sırası: {bracket}, sıra {position} / {count}",
+      "indicatorLive": "Vadi Kupası",
+      "indicatorOpen": "Vadi Kupası penceresini aç",
+      "phaseCountdown": "Başlama vuruşuna {seconds}",
+      "phaseGoal": "GOL!",
+      "phaseGolden": "ALTIN GOL",
+      "phaseOver": "MAÇ SONU",
+      "bannerFound": "Vadi Kupası çağırıyor: {nationA} ile {nationB} karşı karşıya!",
+      "bannerCountdown": "Başlama vuruşuna {seconds}...",
+      "bannerKickoff": "BAŞLAMA VURUŞU!",
+      "bannerGoal": "GOL! {nation} attı!",
+      "bannerSave": "{name} KURTARDI!",
+      "bannerGolden": "ALTIN GOL: sıradaki gol kazandırır!",
+      "bannerEnd": "Maç sonu: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "Domuz Tarlası'nda zafer!",
+      "bannerDraw": "Domuz Tarlası'nda beraberlik.",
+      "bannerLoss": "Domuz Tarlası'nda yenilgi.",
+      "logQueued": "{bracket} için Vadi Kupası sırasına girdin (sıra {position}).",
+      "logUnqueued": "Vadi Kupası sırasından ayrıldın.",
+      "logFound": "Vadi Kupası maçın hazır: {nationA} ile {nationB} karşı karşıya.",
+      "logRoster": "Senin taraf: {allies}. Karşı taraf: {enemies}.",
+      "logGoal": "{name}, {nation} adına gol attı! {nationA} {scoreA}, {nationB} {scoreB}.",
+      "logSave": "{name} kurtarışı yaptı!",
+      "logWin": "Domuz Tarlası'ndaki karşılaşmayı kazandın.",
+      "logDraw": "Domuz Tarlası'ndaki karşılaşma beraberlikle bitti.",
+      "logLoss": "Domuz Tarlası'ndaki karşılaşmayı kaybettin.",
+      "gossipOpen": "Fikstür defteri",
+      "gossipOpenAria": "Vadi Kupası penceresini aç",
+      "mobileLabel": "Kupa",
       "briefing": {
-        "subtitle": "Pre-match briefing",
+        "subtitle": "Maç öncesi brifing",
         "vs": "vs",
-        "rulesHeading": "How to play",
-        "rule1": "Kick or pass the ball into the enemy goal to score.",
-        "rule2": "First to 5 goals wins, or the most goals when full time blows.",
-        "rule3": "A level match at full time goes to golden goal: the next score wins.",
-        "rule4": "Tackles only tumble you over. Nobody gets hurt under the harvest truce.",
-        "rule5": "Anyone can walk up and cheer you on from the stands.",
-        "kitHeading": "Your kit",
-        "kitNote": "These moves replace your class abilities for the match.",
-        "rosterHeading": "The team sheet",
-        "you": "You",
+        "rulesHeading": "Nasıl oynanır",
+        "rule1": "Gol atmak için topu vurarak ya da pasla rakip kaleye gönder.",
+        "rule2": "5 gole ilk ulaşan kazanır; süre dolduğunda ise en çok golü atan.",
+        "rule3": "Normal süre sonunda eşitlik altın gole gider: sıradaki gol kazandırır.",
+        "rule4": "Müdahaleler seni yalnızca yere yuvarlar. Hasat ateşkesi altında kimseye zarar gelmez.",
+        "rule5": "İsteyen herkes gelip tribünlerden seni destekleyebilir.",
+        "kitHeading": "Donanımın",
+        "kitNote": "Bu hareketler maç boyunca sınıf yeteneklerinin yerine geçer.",
+        "rosterHeading": "Kadro listesi",
+        "you": "Sen",
         "bot": "Bot",
-        "ready": "I'm ready",
-        "readyDone": "Ready",
-        "readyAria": "Ready up for kickoff",
-        "waiting": "Waiting for the other side to ready up...",
-        "whistle": "The whistle blows in {seconds}s.",
-        "readyCount": "{ready} of {total} ready"
+        "ready": "Hazırım",
+        "readyDone": "Hazır",
+        "readyAria": "Başlama vuruşu için hazır ol",
+        "waiting": "Karşı tarafın hazır olması bekleniyor...",
+        "whistle": "Düdük {seconds} sn içinde çalacak.",
+        "readyCount": "{ready} / {total} hazır"
       },
       "bet": {
-        "title": "Match Bets",
-        "aria": "Vale Cup match betting",
-        "closesIn": "Bets close in {seconds}s",
-        "closed": "Betting closed",
-        "prize": "Pool {amount}",
-        "splitAria": "Share of the betting pool on each team",
-        "expand": "View bets and wager",
-        "collapse": "Hide bets",
-        "oddsLabel": "Pays",
-        "back": "Back {team}",
-        "form": "{wins}W-{losses}L",
-        "mine": "Your bet: {amount} on {team}",
-        "none": "You have no bet on this match yet.",
-        "record": "Betting record: {wins}W-{losses}L, {sign}{net}",
-        "wonBanner": "Your bet won!",
-        "wonLog": "Your Vale Cup bet won: {amount} returned.",
-        "lostLog": "Your Vale Cup bet lost: {amount}.",
-        "refundLog": "Bets voided, your {amount} stake was returned."
+        "title": "Maç Bahisleri",
+        "aria": "Vadi Kupası maç bahisleri",
+        "closesIn": "Bahisler {seconds} sn içinde kapanır",
+        "closed": "Bahisler kapandı",
+        "prize": "Havuz {amount}",
+        "splitAria": "Bahis havuzunun takımlara göre payı",
+        "expand": "Bahisleri gör ve oyna",
+        "collapse": "Bahisleri gizle",
+        "oddsLabel": "Kazandırır",
+        "back": "{team} tarafını tut",
+        "form": "{wins}G-{losses}M",
+        "mine": "Bahsin: {team} üzerine {amount}",
+        "none": "Bu maçta henüz bahsin yok.",
+        "record": "Bahis sicili: {wins}G-{losses}M, {sign}{net}",
+        "wonBanner": "Bahsin kazandı!",
+        "wonLog": "Vadi Kupası bahsin kazandı: {amount} ödendi.",
+        "lostLog": "Vadi Kupası bahsin kaybetti: {amount}.",
+        "refundLog": "Bahisler iptal edildi, {amount} tutarındaki bahsin iade edildi."
       }
     },
     "options": {
@@ -620,8 +620,9 @@ export const tr_TR: EnTranslations = {
         "fps01Low": "%0,1 Düşük",
         "ping": "Ping",
         "jitter": "Titreme",
-        "predLead": "Prediction Lead",
+        "predLead": "Tahmin Avansı",
         "snapshot": "Anlık Görüntü Hızı",
+        "serverTick": "Sunucu Tik Hızı",
         "connection": "Bağlantı",
         "drawCalls": "Çizim Çağrıları",
         "triangles": "Üçgenler",
@@ -919,13 +920,13 @@ export const tr_TR: EnTranslations = {
       }
     },
     "townFocus": {
-      "title": "Town Focus",
-      "hint": "Focus points add a bonus on top of every component's baseline yield. Unfocused components stay at baseline.",
-      "budgetLabel": "Points remaining: {remaining} / {budget}",
-      "saveButton": "Save Focus",
-      "notInTownHint": "You must be in town to set your focus.",
-      "increaseAria": "Increase focus on {component}",
-      "decreaseAria": "Decrease focus on {component}"
+      "title": "Kasaba Odağı",
+      "hint": "Odak puanları her bileşenin temel getirisinin üzerine bir bonus ekler. Odaklanılmayan bileşenler temel düzeyde kalır.",
+      "budgetLabel": "Kalan puan: {remaining} / {budget}",
+      "saveButton": "Odağı Kaydet",
+      "notInTownHint": "Odağını ayarlamak için kasabada olmalısın.",
+      "increaseAria": "{component} odağını artır",
+      "decreaseAria": "{component} odağını azalt"
     },
     "party": {
       "promoteLeader": "Lider Yap",
@@ -1506,7 +1507,7 @@ export const tr_TR: EnTranslations = {
       "bestiary": "Yaratıklar",
       "models": "3B Modeller",
       "gear": "Teçhizat ve Eşyalar",
-      "professions": "Professions",
+      "professions": "Meslekler",
       "economy": "Ekonomi ve Ticaret",
       "social": "Sosyal ve Gruplar",
       "stats": "Karakter ve Nitelikler",
@@ -1521,7 +1522,7 @@ export const tr_TR: EnTranslations = {
       "combat": "Savaş",
       "talents": "Yetenekler",
       "arena": "Arena ve PvP",
-      "valeCup": "Vale Cup",
+      "valeCup": "Vadi Kupası",
       "glossary": "Sözlük",
       "wishIKnew": "Keşke Bilseydim Dediklerim",
       "faq": "SSS",
@@ -2178,30 +2179,30 @@ export const tr_TR: EnTranslations = {
       "ladderBody": "Dereceli oyun, konumunu zaman içinde takip eder. Nerede durduğunu ve diyarın zirvesini kimin tuttuğunu görmek için lider tablosuna bak."
     },
     "valeCupPage": {
-      "heading": "The Vale Cup",
-      "intro": "Boarball at the Sowfield: pick a banner, pick a role, and kick a stuffed boar hide past a keeper for the Copper Pail. No blood, no loot, just the roar of the stands.",
-      "loreHeading": "Boarball and the harvest truce",
-      "loreOldSow": "Long before the dead woke, Eastbrook's farmhands played boarball on the stubble fields after harvest: two mobs, one boar's hide stuffed with straw, and two wagon gates dragged to either end of the green. The first ball, the Old Sow, hangs bronzed above the tavern hearth.",
-      "loreTruce": "When the Ashen Coliseum began sanctioning war games, Marshal Redbrook answered with something gentler: a standing harvest truce on the old green. The wagon gates became goalposts, the green got walls, stands, and a name, the Sowfield, and the prize was always the same dented milk pail the winners drank from: the Copper Pail.",
-      "howHeading": "How to play",
-      "howQueue": "Queue from anywhere through the Vale Cup window, or talk to Groundskeeper Bram at the Sowfield gate. Pick a bracket from one-a-side up to five-a-side, a banner nation, and a sport role; queue solo or bring your party.",
-      "howMatch": "On kickoff your class kit is swapped for a sport kit and restored exactly afterward. Kicks aim at the ground reticle, the ball banks off the boards, and dribbling is just running with the ball. Score more goals than the other side before full time; a draw goes to golden goal.",
-      "howTruce": "Nobody bleeds at the Sowfield: tackles tumble, nothing hurts, and pets sit the match out.",
-      "spectateBody": "One match plays at a time at the stadium, and anyone can walk up and watch from the stands.",
-      "nationsHeading": "The eight banner nations",
-      "nationsBody": "Every team plays under a banner. The captain picks the nation, and if both sides fly the same one, the away side plays the inverted palette.",
-      "nationVale": "Green and gold, flying the wheat sheaf: the home side, farmhands to the bone.",
-      "nationMirefen": "Teal and grey under the heron: patient, long-legged, never hurried.",
-      "nationThornpeak": "Ice blue and white under the mountain peak: sure-footed and stubborn.",
-      "nationColiseum": "Red and black with crossed swords: they play like it is still a war game.",
-      "nationChoir": "Pale blue and silver under the bell: eerie, precise, and very quiet.",
-      "nationOgre": "Orange and umber behind the fist: shoulder-first and proud of it.",
-      "nationMoon": "Violet and silver under the crescent: night players, light on their feet.",
-      "nationCopperdig": "Copper and brown with the pickaxe: diggers who never stop running.",
-      "rolesHeading": "Sport roles",
-      "rolesBody": "Your role decides the kit you carry onto the pitch. Everyone kicks; the rest is temperament.",
-      "rewardsHeading": "Truce rules",
-      "rewardsBody": "Truce rules mean no experience and no loot: a decided match counts toward your record and the winners board, and daily-reward points come with it. Deserting a match benches your slot, and the Groundskeeper remembers."
+      "heading": "Vadi Kupası",
+      "intro": "Domuz Tarlası'nda Domuztopu: bir sancak seç, bir rol seç ve saman doldurulmuş domuz derisini kalecinin yanından geçirip Bakır Kova'yı kap. Kan yok, ganimet yok; yalnızca tribünlerin uğultusu.",
+      "loreHeading": "Domuztopu ve hasat ateşkesi",
+      "loreOldSow": "Ölüler uyanmadan çok önce, Doğudere'nin ırgatları hasattan sonra anız tarlalarında domuztopu oynardı: iki kalabalık, samanla doldurulmuş bir domuz derisi ve çayırın iki ucuna çekilmiş iki araba kapısı. İlk top, Koca Domuz, bronzlanmış halde meyhane ocağının üstünde asılıdır.",
+      "loreTruce": "Kül Koliseumu savaş oyunlarına resmiyet kazandırmaya başlayınca, Mareşal Redbrook buna daha yumuşak bir şeyle karşılık verdi: eski çayırda kalıcı bir hasat ateşkesi. Araba kapıları kale direği oldu; çayır duvarlara, tribünlere ve bir isme kavuştu: Domuz Tarlası. Ödülse hep aynıydı: kazananların içinden içtiği o ezik süt kovası, Bakır Kova.",
+      "howHeading": "Nasıl oynanır",
+      "howQueue": "Vadi Kupası penceresinden her yerden sıraya gir ya da Domuz Tarlası kapısındaki Saha Bekçisi Bram ile konuş. Teke tekten beşe beşe kadar bir kategori, bir sancak ulusu ve bir spor rolü seç; tek başına sıraya gir ya da grubunu getir.",
+      "howMatch": "Başlama vuruşuyla birlikte sınıf yeteneklerin bir spor donanımıyla değiştirilir ve maçtan sonra aynen geri yüklenir. Vuruşlar yerdeki nişangaha nişan alır, top bantlardan seker ve top sürmek topla birlikte koşmaktan ibarettir. Normal süre dolmadan karşı taraftan çok gol at; beraberlik altın gole gider.",
+      "howTruce": "Domuz Tarlası'nda kimse kanamaz: müdahaleler yalnızca yere yuvarlar, hiçbir şey acıtmaz ve evcil hayvanlar maçı dışarıdan izler.",
+      "spectateBody": "Stadyumda aynı anda tek maç oynanır ve isteyen herkes gelip tribünlerden izleyebilir.",
+      "nationsHeading": "Sekiz sancak ulusu",
+      "nationsBody": "Her takım bir sancak altında oynar. Ulusu kaptan seçer ve iki taraf da aynı sancağı taşıyorsa deplasman tarafı ters renk paletiyle oynar.",
+      "nationVale": "Yeşil ve altın, başak demeti sancağıyla: ev sahibi taraf, iliklerine kadar ırgat.",
+      "nationMirefen": "Balıkçılın altında petrol mavisi ve gri: sabırlı, uzun bacaklı, hiç acele etmez.",
+      "nationThornpeak": "Dağ zirvesinin altında buz mavisi ve beyaz: ayağı sağlam ve inatçı.",
+      "nationColiseum": "Çapraz kılıçlarla kırmızı ve siyah: hâlâ bir savaş oyunuymuş gibi oynarlar.",
+      "nationChoir": "Çanın altında uçuk mavi ve gümüş: ürkütücü, isabetli ve çok sessiz.",
+      "nationOgre": "Yumruğun ardında turuncu ve koyu kahve: önce omuz atarlar ve bununla gurur duyarlar.",
+      "nationMoon": "Hilalin altında mor ve gümüş: gece oyuncuları, ayakları hafif.",
+      "nationCopperdig": "Kazma armalı bakır ve kahverengi: koşmayı hiç bırakmayan kazıcılar.",
+      "rolesHeading": "Spor rolleri",
+      "rolesBody": "Rolün, sahaya çıkarken taşıyacağın donanımı belirler. Herkes vuruş yapar; gerisi mizaç meselesidir.",
+      "rewardsHeading": "Ateşkes kuralları",
+      "rewardsBody": "Ateşkes kuralları deneyim ve ganimet olmadığı anlamına gelir: sonuçlanan bir maç siciline ve kazananlar panosuna işlenir, günlük ödül puanları da beraberinde gelir. Maçı terk etmek yerini kızağa alır ve Saha Bekçisi unutmaz."
     },
     "wishPage": {
       "heading": "Keşke önceden bilseydim dediklerim",
@@ -2288,33 +2289,33 @@ export const tr_TR: EnTranslations = {
       "cosmeticsApply": "Aktif görünümünüzü karakter ekranınızdaki görünüş satırından belirleyin ve açtığınız her şey arasında özgürce geçiş yapın."
     },
     "professions": {
-      "intro": "Beyond combat and quests, the world rewards you for working the land and the forge: gathering raw materials, turning them into gear at the crafting stations of ten different trades, and settling into an identity as one of the ten archetypes those trades represent.",
-      "gatherTitle": "Gathering: Mining, Logging, and Herbalism",
-      "gatherIntro": "Three gathering trades let you pull raw materials straight out of the world: Mining strikes ore and stone from veins, Logging fells timber from stands of trees, and Herbalism collects herbs and plants growing wild. Each is tracked separately, so working one never slows your progress in another.",
-      "gatherWhatTitle": "Resource nodes",
-      "gatherWhatBody": "Ore veins, wood stands, and herb patches are placed out in the zones as visible, unowned fixtures. Walk up to one and interact with it to harvest whatever it holds. Once you have harvested a node, it needs time to recover before you personally can harvest it again, though it never blocks anyone else: another player can harvest the very same node in the meantime.",
-      "gatherProficiencyTitle": "Proficiency and material quality",
-      "gatherProficiencyBody": "Every successful harvest builds your proficiency in that gathering trade. A higher proficiency shifts what you pull out of a node toward rarer grades of material, from common on up, though the rarest grades stay rare even at high proficiency. More practice never hurts your odds, it only ever improves them.",
-      "gatherToolsTitle": "Tools of the trade",
-      "gatherToolsBody": "Vendors sell basic tools for each gathering trade, and better ones can be crafted, so working a resource node is meant to feel more capable as you gear up for it rather than staying static. Higher-tier tools are the intended way to unlock access to richer nodes and to work them more efficiently over a long session.",
-      "craftTitle": "The ten crafts",
-      "craftIntro": "Ten crafting trades turn gathered materials into finished gear and goods: Armorcrafting, Weaponcrafting, and Jewelcrafting shape raw matter into wearable gear; Alchemy and Engineering are driven by trial and error; Cooking, Inscription, and Enchanting each touch other crafts' output; Tailoring and Leatherworking work from exact patterns. Together they form a wheel, with each craft sitting next to two neighbors and opposite one other.",
-      "craftRingTitle": "A wheel of specialties",
-      "craftRingBody": "The ten crafts are arranged in a fixed ring, and where a craft sits on that ring matters: crafts next to each other on the wheel share more in common with each other than crafts on opposite sides do. Committing to one craft is meant to feel like joining a family of related trades, not picking an isolated skill.",
-      "craftRecipesTitle": "Recipes and reagents",
-      "craftRecipesBody": "Every craft has its own recipes, each calling for specific reagents you gather or buy. The most basic recipes in each craft ask for nothing but common materials and are craftable from the very start, so you can begin working a trade the moment you pick it up rather than waiting to unlock it.",
-      "craftMasteryTitle": "Skill and mastery",
-      "craftMasteryBody": "Crafting successfully builds skill in that trade, and richer recipes are gated behind higher skill: the basic recipes are open to everyone, while progressively more advanced ones ask for progressively more mastery to attempt. Growing your skill in a craft is the path from simple starter goods to its more ambitious recipes.",
-      "craftComboTitle": "Combination recipes",
-      "craftComboBody": "Beyond a single craft's own recipe list, the wheel also supports combination recipes that call on two neighboring crafts at once, rewarding a character (or a pair of trading partners) who has invested in adjacent trades on the ring rather than one in isolation.",
-      "archetypeTitle": "The ten archetypes",
-      "archetypeIntro": "Each of the ten crafts also stands for an archetype, a broader identity you can adopt beyond just working that trade. Your active archetype is a single choice at a time, not a checklist: you carry one, and can change which one later if you choose to.",
-      "archetypeChooseTitle": "Choosing your archetype",
-      "archetypeChooseBody": "You declare your first archetype through an early, zone one story quest that formally accepts you into that identity. Until you complete that quest, you have not yet chosen an archetype at all.",
-      "archetypeSwitchTitle": "Changing your mind",
-      "archetypeSwitchBody": "Having declared an archetype once does not lock you into it forever. Changing to a different archetype means first completing a repeatable \"make amends\" quest for your old one, and each time you switch, the amends expected of you the next time grow a little steeper, so switching stays meaningful rather than costless.",
-      "archetypeIdentityTitle": "What your archetype means",
-      "archetypeIdentityBody": "Your active archetype is a statement about who your character is in the world, recognized in how others and the world address you. The exact rewards and recognition that come with it are still being finalized; check back as the system fills in."
+      "intro": "Dünya seni savaşın ve görevlerin ötesinde, toprağı ve ocağı işlediğin için de ödüllendirir: ham madde toplamak, on farklı zanaat kolunun üretim tezgahlarında onları teçhizata dönüştürmek ve bu zanaatların temsil ettiği on arketipten birinin kimliğine yerleşmek.",
+      "gatherTitle": "Toplayıcılık: Madencilik, Ağaç kesme ve Bitkicilik",
+      "gatherIntro": "Üç toplayıcılık kolu ham maddeyi doğrudan dünyadan çekip almanı sağlar: Madencilik damarlardan cevher ve taş çıkarır, Ağaç kesme ağaç kümelerinden kereste devirir, Bitkicilik ise yabani büyüyen ot ve bitkileri toplar. Her biri ayrı ayrı izlenir; birinde çalışmak diğerindeki ilerlemeni asla yavaşlatmaz.",
+      "gatherWhatTitle": "Kaynak noktaları",
+      "gatherWhatBody": "Cevher damarları, ağaç kümeleri ve ot öbekleri bölgelere görünür, sahipsiz nesneler olarak yerleştirilmiştir. Birine yaklaş ve içindekini toplamak için onunla etkileşime geç. Bir kaynağı topladıktan sonra, senin onu yeniden toplayabilmen için toparlanmaya ihtiyaç duyar; ama bu başkasını asla engellemez: bu arada başka bir oyuncu aynı kaynağı toplayabilir.",
+      "gatherProficiencyTitle": "Yetkinlik ve malzeme kalitesi",
+      "gatherProficiencyBody": "Başarılı her hasat o toplayıcılık kolundaki yetkinliğini artırır. Daha yüksek yetkinlik, bir kaynaktan çıkardıklarını sıradan olandan yukarıya doğru daha nadir malzeme derecelerine kaydırır; yine de en nadir dereceler yüksek yetkinlikte bile nadir kalır. Daha çok pratik şansını asla düşürmez, yalnızca iyileştirir.",
+      "gatherToolsTitle": "Zanaatın aletleri",
+      "gatherToolsBody": "Satıcılar her toplayıcılık kolu için temel aletler satar ve daha iyileri üretilebilir; böylece bir kaynak noktasında çalışmak, hep aynı kalmak yerine donandıkça daha yetkin hissettirir. Daha yüksek kademe aletler, daha zengin kaynaklara erişmenin ve uzun bir oturumda onları daha verimli işlemenin amaçlanan yoludur.",
+      "craftTitle": "On zanaat",
+      "craftIntro": "On zanaat kolu, toplanan malzemeleri bitmiş teçhizata ve mala dönüştürür: Zırhçılık, Silah Ustalığı ve Kuyumculuk ham maddeyi giyilebilir teçhizata şekillendirir; Simya ve Mühendislik deneme yanılmayla ilerler; Aşçılık, Kâtiplik ve Efsunculuk diğer zanaatların ürünlerine dokunur; Terzilik ve Dericilik ise kesin kalıplarla çalışır. Hep birlikte bir çark oluştururlar: her zanaat iki komşusunun yanında ve bir diğerinin karşısında yer alır.",
+      "craftRingTitle": "Uzmanlıklar çarkı",
+      "craftRingBody": "On zanaat sabit bir halkaya dizilmiştir ve bir zanaatın o halkadaki yeri önemlidir: çark üzerinde yan yana duran zanaatlar, karşı taraftakilere kıyasla birbirleriyle daha çok ortaklık taşır. Bir zanaata bağlanmak, yalıtılmış bir beceri seçmek gibi değil, akraba işlerden oluşan bir aileye katılmak gibi hissettirmelidir.",
+      "craftRecipesTitle": "Tarifler ve malzemeler",
+      "craftRecipesBody": "Her zanaatın kendi tarifleri vardır ve her tarif, topladığın ya da satın aldığın belirli malzemeler ister. Her zanaattaki en temel tarifler yalnızca sıradan malzeme ister ve en baştan üretilebilir; böylece bir zanaata, kilidinin açılmasını beklemeden, edindiğin anda başlayabilirsin.",
+      "craftMasteryTitle": "Beceri ve ustalık",
+      "craftMasteryBody": "Başarılı her üretim o zanaattaki becerini geliştirir ve daha zengin tarifler daha yüksek beceri gerektirir: temel tarifler herkese açıkken, giderek daha ileri tarifleri denemek giderek daha fazla ustalık ister. Bir zanaatta becerini büyütmek, basit başlangıç mallarından daha iddialı tariflere giden yoldur.",
+      "craftComboTitle": "Birleşim tarifleri",
+      "craftComboBody": "Tek bir zanaatın kendi tarif listesinin ötesinde, çark aynı anda iki komşu zanaata başvuran birleşim tariflerini de destekler; bu, tek başına bir zanaata değil, halkadaki komşu işlere yatırım yapmış bir karakteri (ya da ticaret yapan bir çifti) ödüllendirir.",
+      "archetypeTitle": "On arketip",
+      "archetypeIntro": "On zanaatın her biri aynı zamanda bir arketipi, yani o işi yapmanın ötesinde benimseyebileceğin daha geniş bir kimliği temsil eder. Etkin arketipin bir kontrol listesi değil, her seferinde tek bir seçimdir: bir tane taşırsın ve istersen daha sonra hangisini taşıdığını değiştirebilirsin.",
+      "archetypeChooseTitle": "Arketipini seçmek",
+      "archetypeChooseBody": "İlk arketipini, seni bu kimliğe resmen kabul eden erken bir birinci bölge hikaye görevi aracılığıyla ilan edersin. O görevi tamamlayana dek henüz hiçbir arketip seçmiş sayılmazsın.",
+      "archetypeSwitchTitle": "Fikir değiştirmek",
+      "archetypeSwitchBody": "Bir kez arketip ilan etmiş olmak seni sonsuza dek ona bağlamaz. Farklı bir arketipe geçmek, önce eskisi için tekrarlanabilir bir \"gönül alma\" görevini tamamlamayı gerektirir ve her geçişte, bir sonraki sefer senden beklenen bedel biraz daha ağırlaşır; böylece geçiş yapmak bedelsiz değil, anlamlı kalır.",
+      "archetypeIdentityTitle": "Arketipin ne anlama gelir",
+      "archetypeIdentityBody": "Etkin arketipin, karakterinin bu dünyada kim olduğuna dair bir beyandır ve başkalarının ve dünyanın sana nasıl hitap ettiğine yansır. Beraberinde gelen ödüller ve tanınırlık hâlâ son haline getiriliyor; sistem tamamlandıkça yeniden göz at."
     },
     "economy": {
       "intro": "Para tüm dünyayı çevirir: teçhizatınızı, erzakınızı ve yolculuk gereçlerinizi alır, oyuncular arasında el değiştirir. Bütün bunları sadece oynayarak öğrenirsiniz, bu yüzden bu sayfayı paranızın nereden gelip nereye gittiğinin bir haritası olarak düşünün.",
@@ -4906,44 +4907,44 @@ export const tr_TR: EnTranslations = {
   "entities": {
     "abilities": {
       "sport_kick": {
-        "name": "Kick",
-        "description": "Knock the ball along the ground toward the aim point."
+        "name": "Vuruş",
+        "description": "Topu yerden nişan noktasına doğru gönder."
       },
       "sport_shoot": {
-        "name": "Shoot",
-        "description": "Hold to build power, release to shoot at goal. Too much power sails over."
+        "name": "Şut",
+        "description": "Basılı tutarak güç topla, bırakınca kaleye şut çek. Fazla güç topu üstten aşırır."
       },
       "sport_pass": {
-        "name": "Pass",
-        "description": "Roll a firm pass to your targeted teammate, leading their run."
+        "name": "Pas",
+        "description": "Hedeflediğin takım arkadaşına, koşusunun önüne sağlam bir pas at."
       },
       "sport_boot": {
-        "name": "Big Boot",
-        "description": "A long lofted boot toward the aim point. The crowd loves it."
+        "name": "Aşırtma",
+        "description": "Nişan noktasına doğru uzun, havadan bir vuruş. Seyirci buna bayılır."
       },
       "sport_hoof": {
-        "name": "Hoof It",
-        "description": "Hammer the ball low and hard up the field."
+        "name": "Sert Vuruş",
+        "description": "Topu yerden ve sert bir şekilde ileri gönder."
       },
       "sport_punt": {
-        "name": "Long Punt",
-        "description": "A keeper's punt, high and far."
+        "name": "Uzun Degaj",
+        "description": "Kaleci degajı: yüksek ve uzak."
       },
       "sport_feint": {
-        "name": "Feint",
-        "description": "A quick sidestep burst toward the aim point."
+        "name": "Çalım",
+        "description": "Nişan noktasına doğru hızlı bir yana kaçış hamlesi."
       },
       "sport_dive": {
-        "name": "Dive",
-        "description": "Fling yourself toward the aim point. A crossing ball sticks to you."
+        "name": "Dalış",
+        "description": "Kendini nişan noktasına doğru fırlat. Önünden geçen top sana yapışır."
       },
       "sport_shoulder": {
-        "name": "Shoulder",
-        "description": "A fair harvest-truce shoulder. Sends them tumbling off the ball."
+        "name": "Omuzlama",
+        "description": "Hasat ateşkesine yakışır dürüst bir omuz. Rakibi toptan yuvarlayarak uzaklaştırır."
       },
       "sport_second_wind": {
-        "name": "Fresh Legs",
-        "description": "Find your legs: move 50% faster for 4 sec."
+        "name": "Taze Bacaklar",
+        "description": "Bacaklarını topla: 4 sn boyunca %50 daha hızlı hareket et."
       },
       "flamestrike": {
         "name": "Alev Vuruşu",
@@ -6166,6 +6167,24 @@ export const tr_TR: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Güneşyaprağı Orağı"
       },
+      "thorium_ore": {
+        "name": "Toryum Cevheri"
+      },
+      "arcanite_bar": {
+        "name": "Arkanit Külçesi"
+      },
+      "ashwood_log": {
+        "name": "Kül Ağacı Kütüğü"
+      },
+      "elderwood_log": {
+        "name": "Yaşlı Mürver Kütüğü"
+      },
+      "goldleaf_herb": {
+        "name": "Altın Yaprak Otu"
+      },
+      "sunpetal_herb": {
+        "name": "Güneş Yaprağı Otu"
+      },
       "bristleback_maul": {
         "name": "Gallowglass Balyozu"
       },
@@ -7331,9 +7350,9 @@ export const tr_TR: EnTranslations = {
         "greeting": "Dinlen şimdi, ruh. Seni bedenine geri döndürebilirim, ama geri geçiş seni güçsüz bırakır."
       },
       "groundskeeper_bram": {
-        "name": "Groundskeeper Bram",
-        "title": "Keeper of the Sowfield",
-        "greeting": "The truce holds at the Sowfield, {className}: boots and shoulders only. Care to play for the Copper Pail?"
+        "name": "Saha Bekçisi Bram",
+        "title": "Domuz Tarlası'nın Bekçisi",
+        "greeting": "Domuz Tarlası'nda ateşkes geçerli, {className}: yalnızca vuruş ve omuz. Bakır Kova için oynamaya var mısın?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8244,7 +8263,7 @@ export const tr_TR: EnTranslations = {
             "label": "Parlakorman Açıklığı"
           },
           "10": {
-            "label": "The Sowfield"
+            "label": "Domuz Tarlası"
           }
         }
       },

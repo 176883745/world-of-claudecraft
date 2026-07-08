@@ -547,6 +547,11 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   // Crafted base tools, tier 4 and 5 (#1135). Same shape and gating as the
   // vendor tools above (infinite-durability, `use.tier` gates node AND
   // monster-material tier access via src/sim/professions/tools.ts), but these
+  // are produced by a profession (see COMMON_RECIPES in content/recipes.ts),
+  // never sold by any vendor: no `buyValue` and deliberately absent from
+  // every NPC `vendorItems` list. `quality` (rarity) is independent of
+  // `use.tier` and never affects gating: only the tool's `use.tier` value is
+  // read by the gate.
   // are produced by a profession, never sold by any vendor: no `buyValue` and
   // deliberately absent from every NPC `vendorItems` list. `quality` (rarity)
   // is independent of `use.tier` and never affects gating: only the tool's
@@ -598,6 +603,54 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
     quality: 'epic',
     use: { type: 'gatherTool', professionId: 'herbalism', tier: 5 },
     sellValue: 150,
+  },
+  // Tier 4/5 crafting reagents for the tools directly above (#1135's
+  // `TOOL_RECIPE_STUBS`, de-stubbed into src/sim/content/recipes.ts once
+  // #1127's crafting action existed to consume them). `kind: 'junk'`, same
+  // generic-material shape as bone_fragments/linen_scrap/spider_leg below:
+  // not gathered from a dedicated node yet (see gathering.ts NODE_HARVEST_TABLE),
+  // vendor/loot-sourced for now.
+  thorium_ore: {
+    id: 'thorium_ore',
+    name: 'Thorium Ore',
+    kind: 'junk',
+    quality: 'rare',
+    sellValue: 15,
+  },
+  arcanite_bar: {
+    id: 'arcanite_bar',
+    name: 'Arcanite Bar',
+    kind: 'junk',
+    quality: 'epic',
+    sellValue: 40,
+  },
+  ashwood_log: {
+    id: 'ashwood_log',
+    name: 'Ashwood Log',
+    kind: 'junk',
+    quality: 'rare',
+    sellValue: 15,
+  },
+  elderwood_log: {
+    id: 'elderwood_log',
+    name: 'Elderwood Log',
+    kind: 'junk',
+    quality: 'epic',
+    sellValue: 40,
+  },
+  goldleaf_herb: {
+    id: 'goldleaf_herb',
+    name: 'Goldleaf Herb',
+    kind: 'junk',
+    quality: 'rare',
+    sellValue: 15,
+  },
+  sunpetal_herb: {
+    id: 'sunpetal_herb',
+    name: 'Sunpetal Herb',
+    kind: 'junk',
+    quality: 'epic',
+    sellValue: 40,
   },
   // Cosmetic event reward: using it rolls a rarity rank (server-side) and opens
   // the skin-select overlay. See src/sim/content/skins.ts. Dev-grant for now.

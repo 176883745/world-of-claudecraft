@@ -2,6 +2,263 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const pl_PL: Partial<Record<TranslationKey, string>> = {
+  'entities.abilities.sport_boot.description':
+    'Długie, wysokie wykopnięcie w stronę punktu celowania. Trybuny to uwielbiają.',
+  'entities.abilities.sport_boot.name': 'Potężny Wykop',
+  'entities.abilities.sport_dive.description':
+    'Rzucasz się w stronę punktu celowania. Dośrodkowana piłka przywiera do ciebie.',
+  'entities.abilities.sport_dive.name': 'Rzut do piłki',
+  'entities.abilities.sport_feint.description': 'Szybki zwód i zryw w stronę punktu celowania.',
+  'entities.abilities.sport_feint.name': 'Zwód',
+  'entities.abilities.sport_hoof.description': 'Huknij piłkę nisko i mocno w głąb boiska.',
+  'entities.abilities.sport_hoof.name': 'Na Pałę',
+  'entities.abilities.sport_kick.description': 'Zagraj piłkę po ziemi w stronę punktu celowania.',
+  'entities.abilities.sport_kick.name': 'Kopnięcie',
+  'entities.abilities.sport_pass.description':
+    'Mocne podanie po ziemi do wskazanego towarzysza, wyprzedzające jego bieg.',
+  'entities.abilities.sport_pass.name': 'Podanie',
+  'entities.abilities.sport_punt.description': 'Bramkarskie wybicie, wysoko i daleko.',
+  'entities.abilities.sport_punt.name': 'Dalekie Wybicie',
+  'entities.abilities.sport_second_wind.description':
+    'Łapiesz oddech: poruszasz się o 50% szybciej przez 4 s.',
+  'entities.abilities.sport_second_wind.name': 'Świeże Nogi',
+  'entities.abilities.sport_shoot.description':
+    'Przytrzymaj, aby nabrać mocy, i puść, aby strzelić na bramkę. Zbyt mocny strzał poszybuje nad poprzeczką.',
+  'entities.abilities.sport_shoot.name': 'Strzał',
+  'entities.abilities.sport_shoulder.description':
+    'Uczciwe natarcie barkiem w duchu żniwnego rozejmu. Posyła rywala na ziemię, z dala od piłki.',
+  'entities.abilities.sport_shoulder.name': 'Bark',
+  'entities.npcs.groundskeeper_bram.greeting':
+    'Na Maciorowym Błoniu obowiązuje rozejm, {className}: tylko kopniaki i barki. Zagrasz o Miedziany Skopek?',
+  'entities.npcs.groundskeeper_bram.name': 'Opiekun Murawy Bram',
+  'entities.npcs.groundskeeper_bram.title': 'Opiekun Maciorowego Błonia',
+  'entities.zones.eastbrook_vale.pois.10.label': 'Maciorowe Błonie',
+  'guide.nav.professions': 'Profesje',
+  'guide.nav.valeCup': 'Puchar Doliny',
+  'guide.professions.archetypeChooseBody':
+    'Swój pierwszy archetyp deklarujesz podczas wczesnego zadania fabularnego w pierwszej strefie, które formalnie przyjmuje cię do tej tożsamości. Dopóki nie ukończysz tego zadania, nie masz jeszcze wybranego żadnego archetypu.',
+  'guide.professions.archetypeChooseTitle': 'Wybór archetypu',
+  'guide.professions.archetypeIdentityBody':
+    'Aktywny archetyp to deklaracja, kim twoja postać jest w świecie, widoczna w tym, jak zwracają się do ciebie inni i sam świat. Dokładne nagrody i wyróżnienia z nim związane wciąż są dopracowywane; zaglądaj tu, w miarę jak system się rozrasta.',
+  'guide.professions.archetypeIdentityTitle': 'Co oznacza twój archetyp',
+  'guide.professions.archetypeIntro':
+    'Każde z dziesięciu rzemiosł reprezentuje też archetyp, szerszą tożsamość, którą możesz przyjąć ponad samo uprawianie fachu. Aktywny archetyp to pojedynczy wybór, nie lista do odhaczenia: nosisz jeden i możesz go później zmienić, jeśli zechcesz.',
+  'guide.professions.archetypeSwitchBody':
+    'Raz zadeklarowany archetyp nie wiąże cię na zawsze. Zmiana na inny archetyp wymaga najpierw ukończenia powtarzalnego zadania "zadośćuczynienia" wobec starego, a z każdą kolejną zmianą oczekiwane zadośćuczynienie robi się nieco surowsze, dzięki czemu zmiana pozostaje znacząca, a nie darmowa.',
+  'guide.professions.archetypeSwitchTitle': 'Zmiana zdania',
+  'guide.professions.archetypeTitle': 'Dziesięć archetypów',
+  'guide.professions.craftComboBody':
+    'Poza listą przepisów pojedynczego rzemiosła koło wspiera też przepisy łączone, które wymagają dwóch sąsiadujących rzemiosł naraz, nagradzając postać (lub parę partnerów handlowych), która zainwestowała w sąsiednie fachy na kręgu, a nie w jeden w izolacji.',
+  'guide.professions.craftComboTitle': 'Przepisy łączone',
+  'guide.professions.craftIntro':
+    'Dziesięć rzemiosł przetwarza zebrane materiały w gotowy ekwipunek i towary: Płatnerstwo, Zbrojmistrzostwo i Jubilerstwo nadają surowej materii kształt noszonego ekwipunku; Alchemia i Inżynieria opierają się na próbach i błędach; Gotowanie, Inskrypcja i Zaklinanie sięgają po wytwory innych rzemiosł; Krawiectwo i Garbarstwo pracują według dokładnych wzorów. Razem tworzą koło, w którym każde rzemiosło sąsiaduje z dwoma innymi i leży naprzeciw jednego.',
+  'guide.professions.craftMasteryBody':
+    'Udane wytwarzanie buduje umiejętność w danym fachu, a bogatsze przepisy zamknięte są za wyższą umiejętnością: podstawowe przepisy są dostępne dla każdego, natomiast coraz bardziej zaawansowane wymagają coraz większej biegłości. Rozwijanie umiejętności w rzemiośle to droga od prostych wyrobów na start do jego najambitniejszych przepisów.',
+  'guide.professions.craftMasteryTitle': 'Umiejętność i biegłość',
+  'guide.professions.craftRecipesBody':
+    'Każde rzemiosło ma własne przepisy, a każdy z nich wymaga konkretnych składników, które zbierasz lub kupujesz. Najprostsze przepisy w każdym rzemiośle potrzebują wyłącznie pospolitych materiałów i są dostępne od samego początku, więc możesz zacząć pracę w fachu od chwili, gdy go podejmiesz, zamiast czekać na odblokowanie.',
+  'guide.professions.craftRecipesTitle': 'Przepisy i składniki',
+  'guide.professions.craftRingBody':
+    'Dziesięć rzemiosł ułożonych jest w stały krąg, a miejsce rzemiosła na tym kręgu ma znaczenie: rzemiosła sąsiadujące ze sobą na kole mają ze sobą więcej wspólnego niż te po przeciwnych stronach. Oddanie się jednemu rzemiosłu ma przypominać dołączenie do rodziny pokrewnych fachów, a nie wybór odosobnionej umiejętności.',
+  'guide.professions.craftRingTitle': 'Koło specjalności',
+  'guide.professions.craftTitle': 'Dziesięć rzemiosł',
+  'guide.professions.gatherIntro':
+    'Trzy fachy zbierackie pozwalają czerpać surowce prosto ze świata: Górnictwo wydobywa rudę i kamień z żył, Wyrąb pozyskuje drewno z kęp drzew, a Zielarstwo zbiera dziko rosnące zioła i rośliny. Każdy z nich liczony jest osobno, więc praca w jednym nigdy nie spowalnia postępów w innym.',
+  'guide.professions.gatherProficiencyBody':
+    'Każdy udany zbiór buduje twoją wprawę w danym fachu zbierackim. Wyższa wprawa przesuwa to, co pozyskujesz z węzła, ku rzadszym gatunkom materiału, od pospolitych wzwyż, choć najrzadsze gatunki pozostają rzadkie nawet przy wysokiej wprawie. Praktyka nigdy nie psuje twoich szans, zawsze je tylko poprawia.',
+  'guide.professions.gatherProficiencyTitle': 'Wprawa i jakość materiałów',
+  'guide.professions.gatherTitle': 'Zbieractwo: Górnictwo, Wyrąb i Zielarstwo',
+  'guide.professions.gatherToolsBody':
+    'Sprzedawcy oferują podstawowe narzędzia dla każdego fachu zbierackiego, a lepsze można wytworzyć, więc praca przy węźle zasobów ma stawać się sprawniejsza wraz z lepszym wyposażeniem, a nie stać w miejscu. Narzędzia wyższego stopnia to zamierzona droga do bogatszych węzłów i wydajniejszej pracy podczas długiej sesji.',
+  'guide.professions.gatherToolsTitle': 'Narzędzia fachu',
+  'guide.professions.gatherWhatBody':
+    'Żyły rudy, kępy drzew i kępki ziół rozmieszczone są w strefach jako widoczne, niczyje obiekty. Podejdź do jednego z nich i użyj go, aby zebrać, co skrywa. Po zbiorze węzeł potrzebuje czasu, by się odnowić, zanim ty osobiście zbierzesz z niego ponownie, ale nigdy nie blokuje innych: inny gracz może w tym czasie zebrać z tego samego węzła.',
+  'guide.professions.gatherWhatTitle': 'Węzły zasobów',
+  'guide.professions.intro':
+    'Poza walką i zadaniami świat nagradza pracę na roli i przy kuźni: zbieranie surowców, przekuwanie ich w ekwipunek przy stanowiskach dziesięciu różnych rzemiosł i wrastanie w tożsamość jednego z dziesięciu archetypów, które te fachy reprezentują.',
+  'guide.valeCupPage.heading': 'Puchar Doliny',
+  'guide.valeCupPage.howHeading': 'Jak grać',
+  'guide.valeCupPage.howMatch':
+    'Przy pierwszym gwizdku twój zestaw klasowy zostaje podmieniony na sportowy, a po meczu wraca dokładnie taki, jaki był. Kopnięcia celują w celownik na ziemi, piłka odbija się od band, a drybling to po prostu bieg z piłką. Zdobądź więcej goli niż przeciwnik przed końcem meczu; remis rozstrzyga złoty gol.',
+  'guide.valeCupPage.howQueue':
+    'Do kolejki dołączysz z dowolnego miejsca przez okno Pucharu Doliny albo rozmawiając z Opiekunem Murawy Bramem przy bramie Maciorowego Błonia. Wybierz format od jeden na jednego do pięciu na pięciu, sztandar nacji i rolę sportową; stawaj w kolejce solo albo z drużyną.',
+  'guide.valeCupPage.howTruce':
+    'Na Maciorowym Błoniu nikt nie krwawi: wślizgi tylko przewracają, nic nie boli, a zwierzęta oglądają mecz z boku.',
+  'guide.valeCupPage.intro':
+    'Dzicza piłka na Maciorowym Błoniu: wybierz sztandar, wybierz rolę i kopnij wypchaną dziczą skórę za plecy bramkarza, by zdobyć Miedziany Skopek. Bez krwi, bez łupów, tylko ryk trybun.',
+  'guide.valeCupPage.loreHeading': 'Dzicza piłka i żniwny rozejm',
+  'guide.valeCupPage.loreOldSow':
+    'Na długo zanim zbudzili się umarli, parobkowie z Eastbrook grali w dziczą piłkę na ścierniskach po żniwach: dwie gromady, jedna dzicza skóra wypchana słomą i dwie wozowe bramy zaciągnięte na oba końce błonia. Pierwsza piłka, Stara Maciora, wisi odlana w brązie nad kominkiem tawerny.',
+  'guide.valeCupPage.loreTruce':
+    'Gdy Popielne Koloseum zaczęło urządzać wojenne igrzyska, Marszałek Redbrook odpowiedział czymś łagodniejszym: stałym żniwnym rozejmem na starym błoniu. Wozowe bramy stały się słupkami, błonie zyskało mury, trybuny i nazwę, Maciorowe Błonie, a nagrodą zawsze był ten sam wgnieciony skopek na mleko, z którego pili zwycięzcy: Miedziany Skopek.',
+  'guide.valeCupPage.nationChoir':
+    'Bladobłękitni i srebrni pod dzwonem: niesamowici, precyzyjni i bardzo cisi.',
+  'guide.valeCupPage.nationColiseum':
+    'Czerwień i czerń ze skrzyżowanymi mieczami: grają, jakby to wciąż były wojenne igrzyska.',
+  'guide.valeCupPage.nationCopperdig':
+    'Miedź i brąz z kilofem: kopacze, którzy nigdy nie przestają biegać.',
+  'guide.valeCupPage.nationMirefen':
+    'Morska zieleń i szarość pod czaplą: cierpliwi, długonodzy, nigdy się nie spieszą.',
+  'guide.valeCupPage.nationMoon':
+    'Fiolet i srebro pod półksiężycem: nocni gracze, lekcy na nogach.',
+  'guide.valeCupPage.nationOgre':
+    'Pomarańcz i umbra za pięścią: grają barkiem naprzód i są z tego dumni.',
+  'guide.valeCupPage.nationThornpeak':
+    'Lodowy błękit i biel pod górskim szczytem: pewni kroku i uparci.',
+  'guide.valeCupPage.nationVale':
+    'Zieleń i złoto pod snopem pszenicy: gospodarze, parobkowie z krwi i kości.',
+  'guide.valeCupPage.nationsBody':
+    'Każda drużyna gra pod sztandarem. Kapitan wybiera nację, a jeśli obie strony niosą ten sam sztandar, goście grają w odwróconych barwach.',
+  'guide.valeCupPage.nationsHeading': 'Osiem nacji pod sztandarami',
+  'guide.valeCupPage.rewardsBody':
+    'Zasady rozejmu oznaczają brak doświadczenia i łupów: rozstrzygnięty mecz liczy się do twojego bilansu i tablicy zwycięzców, a wraz z nim przychodzą punkty nagród dziennych. Dezercja z meczu odsyła cię na ławkę, a Opiekun Murawy pamięta.',
+  'guide.valeCupPage.rewardsHeading': 'Zasady rozejmu',
+  'guide.valeCupPage.rolesBody':
+    'Rola decyduje o zestawie, z którym wychodzisz na boisko. Kopie każdy; reszta to kwestia temperamentu.',
+  'guide.valeCupPage.rolesHeading': 'Role sportowe',
+  'guide.valeCupPage.spectateBody':
+    'Na stadionie toczy się jeden mecz naraz i każdy może podejść i oglądać go z trybun.',
+  'hudChrome.keybinds.valecup': 'Puchar Doliny',
+  'hudChrome.mobile.dailyRewards': 'Nagrody',
+  'hudChrome.perf.labels.predLead': 'Wyprzedzenie predykcji',
+  'hudChrome.townFocus.budgetLabel': 'Pozostałe punkty: {remaining} / {budget}',
+  'hudChrome.townFocus.decreaseAria': 'Zmniejsz priorytet: {component}',
+  'hudChrome.townFocus.hint':
+    'Punkty priorytetu dodają premię ponad bazowy uzysk każdego elementu. Elementy bez priorytetu pozostają na poziomie bazowym.',
+  'hudChrome.townFocus.increaseAria': 'Zwiększ priorytet: {component}',
+  'hudChrome.townFocus.notInTownHint': 'Musisz być w mieście, aby ustawić priorytety.',
+  'hudChrome.townFocus.saveButton': 'Zapisz priorytety',
+  'hudChrome.townFocus.title': 'Priorytety miasta',
+  'hudChrome.vcup.awayNote':
+    'Jeśli obie strony niosą ten sam sztandar, goście grają w odwróconych barwach.',
+  'hudChrome.vcup.bannerCountdown': 'Pierwszy gwizdek za {seconds}...',
+  'hudChrome.vcup.bannerDraw': 'Remis na Maciorowym Błoniu.',
+  'hudChrome.vcup.bannerEnd': 'Koniec meczu: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.bannerFound': 'Puchar Doliny wzywa: {nationA} kontra {nationB}!',
+  'hudChrome.vcup.bannerGoal': 'GOL! {nation} zdobywa bramkę!',
+  'hudChrome.vcup.bannerGolden': 'ZŁOTY GOL: następna bramka wygrywa!',
+  'hudChrome.vcup.bannerKickoff': 'ROZPOCZĘCIE!',
+  'hudChrome.vcup.bannerLoss': 'Porażka na Maciorowym Błoniu.',
+  'hudChrome.vcup.bannerSave': '{name} BRONI!',
+  'hudChrome.vcup.bannerWin': 'Zwycięstwo na Maciorowym Błoniu!',
+  'hudChrome.vcup.bet.aria': 'Zakłady na mecz Pucharu Doliny',
+  'hudChrome.vcup.bet.back': 'Postaw na {team}',
+  'hudChrome.vcup.bet.closed': 'Zakłady zamknięte',
+  'hudChrome.vcup.bet.closesIn': 'Zakłady zamykają się za {seconds} s',
+  'hudChrome.vcup.bet.collapse': 'Ukryj zakłady',
+  'hudChrome.vcup.bet.expand': 'Zobacz zakłady i obstaw',
+  'hudChrome.vcup.bet.form': '{wins}Z-{losses}P',
+  'hudChrome.vcup.bet.lostLog': 'Twój zakład w Pucharze Doliny przegrał: {amount}.',
+  'hudChrome.vcup.bet.mine': 'Twój zakład: {amount} na {team}',
+  'hudChrome.vcup.bet.none': 'Nie masz jeszcze zakładu na ten mecz.',
+  'hudChrome.vcup.bet.oddsLabel': 'Kurs',
+  'hudChrome.vcup.bet.prize': 'Pula {amount}',
+  'hudChrome.vcup.bet.record': 'Bilans zakładów: {wins}Z-{losses}P, {sign}{net}',
+  'hudChrome.vcup.bet.refundLog': 'Zakłady unieważnione, twoja stawka {amount} została zwrócona.',
+  'hudChrome.vcup.bet.splitAria': 'Udział puli zakładów na każdą z drużyn',
+  'hudChrome.vcup.bet.title': 'Zakłady meczowe',
+  'hudChrome.vcup.bet.wonBanner': 'Twój zakład wygrał!',
+  'hudChrome.vcup.bet.wonLog': 'Twój zakład w Pucharze Doliny wygrał: zwrócono {amount}.',
+  'hudChrome.vcup.blockNation': 'Najpierw wybierz sztandar nacji.',
+  'hudChrome.vcup.blockNotLeader': 'Tylko przywódca drużyny może zapisać zespół do kolejki.',
+  'hudChrome.vcup.blockPartySize': 'Ten format wymaga mniejszej drużyny.',
+  'hudChrome.vcup.boardEmpty': 'Nie zapisano jeszcze zwycięzców. Miedziany Skopek czeka.',
+  'hudChrome.vcup.boardHeading': 'Tablica zwycięzców',
+  'hudChrome.vcup.boardWins': 'zwycięstwa: {count}',
+  'hudChrome.vcup.bracketLabel': '{n} na {n}',
+  'hudChrome.vcup.bracketsAria': 'Format meczu',
+  'hudChrome.vcup.briefing.bot': 'Bot',
+  'hudChrome.vcup.briefing.kitHeading': 'Twój zestaw',
+  'hudChrome.vcup.briefing.kitNote':
+    'Te zagrania zastępują twoje umiejętności klasowe na czas meczu.',
+  'hudChrome.vcup.briefing.ready': 'Zgłaszam gotowość',
+  'hudChrome.vcup.briefing.readyAria': 'Zgłoś gotowość do rozpoczęcia',
+  'hudChrome.vcup.briefing.readyCount': 'Gotowych: {ready} z {total}',
+  'hudChrome.vcup.briefing.readyDone': 'Gotowość',
+  'hudChrome.vcup.briefing.rosterHeading': 'Skład drużyn',
+  'hudChrome.vcup.briefing.rule1': 'Kopnij lub podaj piłkę do bramki przeciwnika, aby zdobyć gola.',
+  'hudChrome.vcup.briefing.rule2':
+    'Wygrywa strona, która pierwsza zdobędzie 5 goli, albo ta z większą liczbą goli po końcowym gwizdku.',
+  'hudChrome.vcup.briefing.rule3':
+    'Remis po końcowym gwizdku przechodzi w złotego gola: następna bramka wygrywa.',
+  'hudChrome.vcup.briefing.rule4':
+    'Wślizgi tylko cię przewracają. Podczas żniwnego rozejmu nikomu nie dzieje się krzywda.',
+  'hudChrome.vcup.briefing.rule5': 'Każdy może podejść i kibicować ci z trybun.',
+  'hudChrome.vcup.briefing.rulesHeading': 'Jak grać',
+  'hudChrome.vcup.briefing.subtitle': 'Odprawa przedmeczowa',
+  'hudChrome.vcup.briefing.vs': 'kontra',
+  'hudChrome.vcup.briefing.waiting': 'Oczekiwanie, aż druga strona zgłosi gotowość...',
+  'hudChrome.vcup.briefing.whistle': 'Gwizdek za {seconds} s.',
+  'hudChrome.vcup.briefing.you': 'Ty',
+  'hudChrome.vcup.clock': '{minutes}:{seconds}',
+  'hudChrome.vcup.close': 'Zamknij okno Pucharu Doliny',
+  'hudChrome.vcup.deserterNote': 'Opiekun Murawy pamięta. Do kolejki wrócisz za {seconds} s.',
+  'hudChrome.vcup.enterAsGuild': 'Wystąp pod sztandarem gildii {guild}',
+  'hudChrome.vcup.gossipOpen': 'Księga rozgrywek',
+  'hudChrome.vcup.gossipOpenAria': 'Otwórz okno Pucharu Doliny',
+  'hudChrome.vcup.guildBoardEmpty':
+    'Żadna gildia nie wyszła jeszcze na boisko. Wznieś swój sztandar!',
+  'hudChrome.vcup.guildBoardHeading': 'Sztandary gildii',
+  'hudChrome.vcup.guildBoardWl': '{wins} Z, {losses} P',
+  'hudChrome.vcup.guildRecordLine': 'Bilans twojej gildii: zwycięstwa {wins}, porażki {losses}.',
+  'hudChrome.vcup.inMatchNote': 'Twoja drużyna jest na boisku. Graj dalej!',
+  'hudChrome.vcup.indicatorLive': 'Puchar Doliny',
+  'hudChrome.vcup.indicatorOpen': 'Otwórz okno Pucharu Doliny',
+  'hudChrome.vcup.indicatorQueued':
+    'Kolejka Pucharu Doliny: {bracket}, miejsce {position} z {count}',
+  'hudChrome.vcup.leaveQueue': 'Opuść kolejkę',
+  'hudChrome.vcup.liveAria': 'Puchar Doliny: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.liveHeading': 'Teraz na Maciorowym Błoniu',
+  'hudChrome.vcup.logDraw': 'Starcie na Maciorowym Błoniu kończy się remisem.',
+  'hudChrome.vcup.logFound': 'Twój mecz Pucharu Doliny jest gotowy: {nationA} kontra {nationB}.',
+  'hudChrome.vcup.logGoal':
+    '{name} zdobywa gola dla {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
+  'hudChrome.vcup.logLoss': 'Przegrywasz starcie na Maciorowym Błoniu.',
+  'hudChrome.vcup.logQueued':
+    'Dołączasz do kolejki Pucharu Doliny w formacie {bracket} (miejsce {position}).',
+  'hudChrome.vcup.logRoster': 'Twoja strona: {allies}. Ich strona: {enemies}.',
+  'hudChrome.vcup.logSave': '{name} broni!',
+  'hudChrome.vcup.logUnqueued': 'Opuszczasz kolejkę Pucharu Doliny.',
+  'hudChrome.vcup.logWin': 'Wygrywasz starcie na Maciorowym Błoniu.',
+  'hudChrome.vcup.mobileLabel': 'Puchar',
+  'hudChrome.vcup.nation.choir': 'Blady Chór',
+  'hudChrome.vcup.nation.coliseum': 'Popielne Koloseum',
+  'hudChrome.vcup.nation.copperdig': 'Miedziane Wykopalisko',
+  'hudChrome.vcup.nation.mirefen': 'Mokrzaw',
+  'hudChrome.vcup.nation.moon': 'Blady Księżyc',
+  'hudChrome.vcup.nation.ogre': 'Klany Ogrów',
+  'hudChrome.vcup.nation.thornpeak': 'Ciernisty Szczyt',
+  'hudChrome.vcup.nation.vale': 'Dolina Wschodniego Strumienia',
+  'hudChrome.vcup.nationsHeading': 'Sztandar nacji',
+  'hudChrome.vcup.noLive': 'Na boisku cisza. Żaden mecz się nie toczy.',
+  'hudChrome.vcup.offlineNote':
+    'Księga rozgrywek jest zamknięta. Puchar Doliny jest teraz niedostępny.',
+  'hudChrome.vcup.phaseCountdown': 'Rozpoczęcie za {seconds}',
+  'hudChrome.vcup.phaseGoal': 'GOL!',
+  'hudChrome.vcup.phaseGolden': 'ZŁOTY GOL',
+  'hudChrome.vcup.phaseOver': 'KONIEC MECZU',
+  'hudChrome.vcup.practice': 'Trening z botami',
+  'hudChrome.vcup.practiceNote':
+    'Od razu rozpoczyna prywatny mecz z botami na twoim własnym boisku treningowym.',
+  'hudChrome.vcup.practicingNow': 'Trenują teraz ({count}):',
+  'hudChrome.vcup.queue': 'Dołącz do kolejki',
+  'hudChrome.vcup.queueNote':
+    'Do kolejki dołączysz z dowolnego miejsca; gwizdek wezwie cię na Maciorowe Błonie.',
+  'hudChrome.vcup.queuedStatus': 'W kolejce do {bracket}: miejsce {position} z {count}.',
+  'hudChrome.vcup.recordLine': 'Twój bilans: zwycięstwa {wins}, porażki {losses}, remisy {draws}.',
+  'hudChrome.vcup.role.allrounder.desc': 'Wszystkiego po trochu: kopnięcie, wykop i uczciwy bark.',
+  'hudChrome.vcup.role.allrounder.name': 'Wszechstronny',
+  'hudChrome.vcup.role.keeper.desc': 'Strzeże pola bramkowego chwytem, rzutem i wybiciem.',
+  'hudChrome.vcup.role.keeper.name': 'Bramkarz',
+  'hudChrome.vcup.role.striker.desc': 'Żyje dla dalekiego wykopu i szybkiego zwodu.',
+  'hudChrome.vcup.role.striker.name': 'Napastnik',
+  'hudChrome.vcup.role.sweeper.desc': 'Odpycha biegnących od piłki i wybija ją daleko.',
+  'hudChrome.vcup.role.sweeper.name': 'Libero',
+  'hudChrome.vcup.rolesHeading': 'Rola sportowa',
+  'hudChrome.vcup.shootPower': 'MOC',
+  'hudChrome.vcup.title': 'Puchar Doliny',
+  'hudChrome.vcup.waitingCount': 'Oczekuje: {count}',
+  'hudChrome.vcup.walkUp': 'Podejdź na Maciorowe Błonie, aby oglądać z trybun.',
   'hudChrome.archetypeTitle.label': 'Tytuł',
   'hudChrome.archetypeTitle.none': 'Brak',
   'hudChrome.archetypeTitle.armorcrafting': 'Płatnerz',
@@ -1904,6 +2161,12 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Siekiera ze Starodrzewu',
   'entities.items.goldleaf_sickle.name': 'Sierp Złotolistny',
   'entities.items.sunpetal_sickle.name': 'Sierp Słonecznopłatkowy',
+  'entities.items.thorium_ore.name': 'Ruda Toru',
+  'entities.items.arcanite_bar.name': 'Sztabka Arkanitu',
+  'entities.items.ashwood_log.name': 'Kłoda Jesionu Popiołowego',
+  'entities.items.elderwood_log.name': 'Kłoda Starego Bzu',
+  'entities.items.goldleaf_herb.name': 'Ziele Złotolistne',
+  'entities.items.sunpetal_herb.name': 'Ziele Słonecznego Płatka',
   'entities.items.moongate_rubbing.name': 'Odbitka ochronnego znaku',
   'entities.items.moonpale_scale.name': 'Księżycowoblada łuska',
   'entities.items.moonscale_saber.name': 'Szabla z księżycowej łuski',
@@ -4841,6 +5104,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.programs': 'Shadery',
   'hudChrome.perf.labels.renderScale': 'Skala renderowania',
   'hudChrome.perf.labels.snapshot': 'Częstotliwość migawek',
+  'hudChrome.perf.labels.serverTick': 'Częstotliwość tików serwera',
   'hudChrome.perf.labels.textures': 'Tekstury',
   'hudChrome.perf.labels.triangles': 'Trójkąty',
   'hudChrome.perf.opacity': 'Krycie tła',

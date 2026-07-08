@@ -308,7 +308,7 @@ export const it_IT: EnTranslations = {
       "autorun": "Corsa automatica",
       "jump": "Salta",
       "leaderboard": "Classifica",
-      "dailyRewards": "Rewards",
+      "dailyRewards": "Ricompense",
       "nameplates": "Nomi",
       "haptics": "Vibrazione",
       "hapticsOff": "Vibrazione disattivata",
@@ -394,142 +394,142 @@ export const it_IT: EnTranslations = {
       "targetFriendly": "Bersaglia l'amico più vicino",
       "targetFriendlyNext": "Scorri i bersagli amici",
       "discord": "Discord",
-      "valecup": "Vale Cup"
+      "valecup": "Coppa della Valle"
     },
     "vcup": {
-      "title": "The Vale Cup",
-      "shootPower": "POWER",
-      "close": "Close the Vale Cup window",
-      "offlineNote": "The fixture book is closed. The Vale Cup is not available right now.",
-      "recordLine": "Your record: {wins} wins, {losses} losses, {draws} draws.",
-      "bracketsAria": "Match bracket",
-      "bracketLabel": "{n}v{n}",
-      "waitingCount": "{count} waiting",
-      "nationsHeading": "Banner nation",
+      "title": "La Coppa della Valle",
+      "shootPower": "POTENZA",
+      "close": "Chiudi la finestra della Coppa della Valle",
+      "offlineNote": "Il libro degli incontri è chiuso. La Coppa della Valle non è disponibile al momento.",
+      "recordLine": "Il tuo bilancio: {wins} vittorie, {losses} sconfitte, {draws} pareggi.",
+      "bracketsAria": "Formato della partita",
+      "bracketLabel": "{n}c{n}",
+      "waitingCount": "{count} in attesa",
+      "nationsHeading": "Nazione del vessillo",
       "nation": {
-        "vale": "Eastbrook Vale",
-        "mirefen": "The Mirefen",
+        "vale": "Valle di Eastbrook",
+        "mirefen": "Il Mirefen",
         "thornpeak": "Thornpeak",
-        "coliseum": "The Ashen Coliseum",
-        "choir": "The Pale Choir",
-        "ogre": "The Ogre Clans",
-        "moon": "The Pale Moon",
-        "copperdig": "The Copper Dig"
+        "coliseum": "Il Colosseo Cinereo",
+        "choir": "Il Coro Pallido",
+        "ogre": "I Clan degli Ogre",
+        "moon": "La Luna Pallida",
+        "copperdig": "Lo Scavo di Rame"
       },
-      "awayNote": "If both sides fly the same banner, the away side plays the inverted palette.",
-      "rolesHeading": "Sport role",
+      "awayNote": "Se entrambe le squadre battono lo stesso vessillo, quella in trasferta gioca con i colori invertiti.",
+      "rolesHeading": "Ruolo sportivo",
       "role": {
         "allrounder": {
-          "name": "All-Rounder",
-          "desc": "A bit of everything: kick, boot, and a fair shoulder."
+          "name": "Tuttocampista",
+          "desc": "Un po' di tutto: calcio, calcione e una spallata leale."
         },
         "striker": {
-          "name": "Striker",
-          "desc": "Lives for the long boot and the quick sidestep."
+          "name": "Attaccante",
+          "desc": "Vive per il calcione lungo e lo scatto laterale."
         },
         "sweeper": {
-          "name": "Sweeper",
-          "desc": "Bumps runners off the ball and hoofs it clear."
+          "name": "Libero",
+          "desc": "Sbalza gli avversari lontano dalla palla e la spazza via."
         },
         "keeper": {
-          "name": "Keeper",
-          "desc": "Guards the goal box with grip, dive, and punt."
+          "name": "Portiere",
+          "desc": "Difende l'area di porta con presa, tuffo e rinvio."
         }
       },
-      "queue": "Join the Queue",
-      "leaveQueue": "Leave the Queue",
-      "queueNote": "Queue from anywhere; the whistle calls you to the Sowfield.",
-      "queuedStatus": "Queued for {bracket}: position {position} of {count}.",
-      "blockNation": "Pick a banner nation first.",
-      "blockPartySize": "That bracket needs a smaller party.",
-      "blockNotLeader": "Only the party leader can queue the team.",
-      "inMatchNote": "Your team is on the pitch. Play on!",
-      "deserterNote": "The Groundskeeper remembers. You may queue again in {seconds} sec.",
-      "liveHeading": "Now at the Sowfield",
-      "liveAria": "Vale Cup: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Walk up to the Sowfield to watch from the stands.",
-      "noLive": "The pitch is quiet. No match is being played.",
-      "boardHeading": "Winners board",
-      "boardEmpty": "No winners recorded yet. The Copper Pail waits.",
-      "boardWins": "{count} wins",
-      "enterAsGuild": "Enter under the banner of {guild}",
-      "guildRecordLine": "Your guild record: {wins} wins, {losses} losses.",
-      "guildBoardHeading": "Guild banners",
-      "guildBoardEmpty": "No guild has taken the field yet. Fly your banner!",
-      "guildBoardWl": "{wins} W, {losses} L",
-      "practice": "Practice vs. Bots",
-      "practiceNote": "Starts a private bot match on your own practice pitch right away.",
-      "practicingNow": "Practicing now ({count}):",
+      "queue": "Entra in coda",
+      "leaveQueue": "Lascia la coda",
+      "queueNote": "Mettiti in coda da qualsiasi luogo; il fischio ti chiamerà al Campo della Scrofa.",
+      "queuedStatus": "In coda per {bracket}: posizione {position} di {count}.",
+      "blockNation": "Scegli prima una nazione del vessillo.",
+      "blockPartySize": "Quel formato richiede un gruppo più piccolo.",
+      "blockNotLeader": "Solo il capogruppo può mettere in coda la squadra.",
+      "inMatchNote": "La tua squadra è in campo. Gioca!",
+      "deserterNote": "Il Guardacampo non dimentica. Potrai rimetterti in coda tra {seconds} sec.",
+      "liveHeading": "Ora al Campo della Scrofa",
+      "liveAria": "Coppa della Valle: {nationA} {scoreA}, {nationB} {scoreB}",
+      "walkUp": "Avvicinati al Campo della Scrofa per guardare dagli spalti.",
+      "noLive": "Il campo è tranquillo. Nessuna partita in corso.",
+      "boardHeading": "Tabellone dei vincitori",
+      "boardEmpty": "Nessun vincitore registrato finora. Il Secchio di Rame attende.",
+      "boardWins": "{count} vittorie",
+      "enterAsGuild": "Entra sotto il vessillo di {guild}",
+      "guildRecordLine": "Bilancio della tua gilda: {wins} vittorie, {losses} sconfitte.",
+      "guildBoardHeading": "Vessilli di gilda",
+      "guildBoardEmpty": "Nessuna gilda è ancora scesa in campo. Batti il tuo vessillo!",
+      "guildBoardWl": "{wins} V, {losses} S",
+      "practice": "Allenamento contro i bot",
+      "practiceNote": "Avvia subito una partita privata contro i bot sul tuo campo di allenamento.",
+      "practicingNow": "In allenamento ora ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Vale Cup queue: {bracket}, position {position} of {count}",
-      "indicatorLive": "Vale Cup",
-      "indicatorOpen": "Open the Vale Cup window",
-      "phaseCountdown": "Kickoff in {seconds}",
-      "phaseGoal": "GOAL!",
-      "phaseGolden": "GOLDEN GOAL",
-      "phaseOver": "FULL TIME",
-      "bannerFound": "The Vale Cup calls: {nationA} vs {nationB}!",
-      "bannerCountdown": "Kickoff in {seconds}...",
-      "bannerKickoff": "KICKOFF!",
-      "bannerGoal": "GOAL! {nation} scores!",
-      "bannerSave": "{name} SAVES!",
-      "bannerGolden": "GOLDEN GOAL: next score wins!",
-      "bannerEnd": "Full time: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Victory at the Sowfield!",
-      "bannerDraw": "A draw at the Sowfield.",
-      "bannerLoss": "Defeat at the Sowfield.",
-      "logQueued": "You join the Vale Cup queue for {bracket} (position {position}).",
-      "logUnqueued": "You leave the Vale Cup queue.",
-      "logFound": "Your Vale Cup match is ready: {nationA} vs {nationB}.",
-      "logRoster": "Your side: {allies}. Their side: {enemies}.",
-      "logGoal": "{name} scores for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} makes the save!",
-      "logWin": "You win the bout at the Sowfield.",
-      "logDraw": "The bout at the Sowfield ends in a draw.",
-      "logLoss": "You lose the bout at the Sowfield.",
-      "gossipOpen": "The book of fixtures",
-      "gossipOpenAria": "Open the Vale Cup window",
-      "mobileLabel": "Cup",
+      "indicatorQueued": "Coda della Coppa della Valle: {bracket}, posizione {position} di {count}",
+      "indicatorLive": "Coppa della Valle",
+      "indicatorOpen": "Apri la finestra della Coppa della Valle",
+      "phaseCountdown": "Calcio d'inizio tra {seconds}",
+      "phaseGoal": "GOL!",
+      "phaseGolden": "GOL D'ORO",
+      "phaseOver": "FISCHIO FINALE",
+      "bannerFound": "La Coppa della Valle chiama: {nationA} contro {nationB}!",
+      "bannerCountdown": "Calcio d'inizio tra {seconds}...",
+      "bannerKickoff": "CALCIO D'INIZIO!",
+      "bannerGoal": "GOL! Segna {nation}!",
+      "bannerSave": "{name} PARA!",
+      "bannerGolden": "GOL D'ORO: il prossimo gol vince!",
+      "bannerEnd": "Fischio finale: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "Vittoria al Campo della Scrofa!",
+      "bannerDraw": "Pareggio al Campo della Scrofa.",
+      "bannerLoss": "Sconfitta al Campo della Scrofa.",
+      "logQueued": "Entri nella coda della Coppa della Valle per {bracket} (posizione {position}).",
+      "logUnqueued": "Lasci la coda della Coppa della Valle.",
+      "logFound": "La tua partita della Coppa della Valle è pronta: {nationA} contro {nationB}.",
+      "logRoster": "La tua squadra: {allies}. La loro: {enemies}.",
+      "logGoal": "{name} segna per {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
+      "logSave": "{name} compie la parata!",
+      "logWin": "Vinci l'incontro al Campo della Scrofa.",
+      "logDraw": "L'incontro al Campo della Scrofa finisce in pareggio.",
+      "logLoss": "Perdi l'incontro al Campo della Scrofa.",
+      "gossipOpen": "Il libro degli incontri",
+      "gossipOpenAria": "Apri la finestra della Coppa della Valle",
+      "mobileLabel": "Coppa",
       "briefing": {
-        "subtitle": "Pre-match briefing",
+        "subtitle": "Riunione pre-partita",
         "vs": "vs",
-        "rulesHeading": "How to play",
-        "rule1": "Kick or pass the ball into the enemy goal to score.",
-        "rule2": "First to 5 goals wins, or the most goals when full time blows.",
-        "rule3": "A level match at full time goes to golden goal: the next score wins.",
-        "rule4": "Tackles only tumble you over. Nobody gets hurt under the harvest truce.",
-        "rule5": "Anyone can walk up and cheer you on from the stands.",
-        "kitHeading": "Your kit",
-        "kitNote": "These moves replace your class abilities for the match.",
-        "rosterHeading": "The team sheet",
-        "you": "You",
+        "rulesHeading": "Come si gioca",
+        "rule1": "Calcia o passa la palla nella porta avversaria per segnare.",
+        "rule2": "Vince chi per primo arriva a 5 gol, o chi ne ha di più al fischio finale.",
+        "rule3": "Una partita in parità al fischio finale va al gol d'oro: il prossimo gol vince.",
+        "rule4": "I contrasti ti fanno solo ruzzolare. Nessuno si fa male sotto la tregua del raccolto.",
+        "rule5": "Chiunque può avvicinarsi e fare il tifo dagli spalti.",
+        "kitHeading": "Il tuo kit",
+        "kitNote": "Queste mosse sostituiscono le tue abilità di classe per la partita.",
+        "rosterHeading": "La distinta",
+        "you": "Tu",
         "bot": "Bot",
-        "ready": "I'm ready",
-        "readyDone": "Ready",
-        "readyAria": "Ready up for kickoff",
-        "waiting": "Waiting for the other side to ready up...",
-        "whistle": "The whistle blows in {seconds}s.",
-        "readyCount": "{ready} of {total} ready"
+        "ready": "Sono pronto",
+        "readyDone": "Pronto",
+        "readyAria": "Dichiarati pronto per il calcio d'inizio",
+        "waiting": "In attesa che l'altra squadra si dichiari pronta...",
+        "whistle": "Il fischio arriva tra {seconds}s.",
+        "readyCount": "{ready} pronti su {total}"
       },
       "bet": {
-        "title": "Match Bets",
-        "aria": "Vale Cup match betting",
-        "closesIn": "Bets close in {seconds}s",
-        "closed": "Betting closed",
-        "prize": "Pool {amount}",
-        "splitAria": "Share of the betting pool on each team",
-        "expand": "View bets and wager",
-        "collapse": "Hide bets",
-        "oddsLabel": "Pays",
-        "back": "Back {team}",
-        "form": "{wins}W-{losses}L",
-        "mine": "Your bet: {amount} on {team}",
-        "none": "You have no bet on this match yet.",
-        "record": "Betting record: {wins}W-{losses}L, {sign}{net}",
-        "wonBanner": "Your bet won!",
-        "wonLog": "Your Vale Cup bet won: {amount} returned.",
-        "lostLog": "Your Vale Cup bet lost: {amount}.",
-        "refundLog": "Bets voided, your {amount} stake was returned."
+        "title": "Scommesse sulla partita",
+        "aria": "Scommesse sulla partita della Coppa della Valle",
+        "closesIn": "Le scommesse chiudono tra {seconds}s",
+        "closed": "Scommesse chiuse",
+        "prize": "Montepremi {amount}",
+        "splitAria": "Quota del montepremi puntata su ciascuna squadra",
+        "expand": "Vedi le scommesse e punta",
+        "collapse": "Nascondi le scommesse",
+        "oddsLabel": "Paga",
+        "back": "Punta su {team}",
+        "form": "{wins}V-{losses}S",
+        "mine": "La tua scommessa: {amount} su {team}",
+        "none": "Non hai ancora scommesso su questa partita.",
+        "record": "Bilancio scommesse: {wins}V-{losses}S, {sign}{net}",
+        "wonBanner": "La tua scommessa ha vinto!",
+        "wonLog": "La tua scommessa sulla Coppa della Valle ha vinto: {amount} restituiti.",
+        "lostLog": "Hai perso la tua scommessa sulla Coppa della Valle: {amount}.",
+        "refundLog": "Scommesse annullate, la tua puntata di {amount} è stata restituita."
       }
     },
     "options": {
@@ -620,8 +620,9 @@ export const it_IT: EnTranslations = {
         "fps01Low": "Minimi 0,1%",
         "ping": "Ping",
         "jitter": "Jitter",
-        "predLead": "Prediction Lead",
+        "predLead": "Anticipo di predizione",
         "snapshot": "Frequenza snapshot",
+        "serverTick": "Frequenza tick del server",
         "connection": "Connessione",
         "drawCalls": "Chiamate di disegno",
         "triangles": "Triangoli",
@@ -919,13 +920,13 @@ export const it_IT: EnTranslations = {
       }
     },
     "townFocus": {
-      "title": "Town Focus",
-      "hint": "Focus points add a bonus on top of every component's baseline yield. Unfocused components stay at baseline.",
-      "budgetLabel": "Points remaining: {remaining} / {budget}",
-      "saveButton": "Save Focus",
-      "notInTownHint": "You must be in town to set your focus.",
-      "increaseAria": "Increase focus on {component}",
-      "decreaseAria": "Decrease focus on {component}"
+      "title": "Priorità della città",
+      "hint": "I punti priorità aggiungono un bonus sopra la resa base di ogni componente. I componenti senza priorità restano alla resa base.",
+      "budgetLabel": "Punti rimanenti: {remaining} / {budget}",
+      "saveButton": "Salva priorità",
+      "notInTownHint": "Devi essere in città per impostare la priorità.",
+      "increaseAria": "Aumenta la priorità di {component}",
+      "decreaseAria": "Riduci la priorità di {component}"
     },
     "party": {
       "promoteLeader": "Promuovi a Capo",
@@ -1506,7 +1507,7 @@ export const it_IT: EnTranslations = {
       "bestiary": "Bestiario",
       "models": "Modelli 3D",
       "gear": "Equipaggiamento e oggetti",
-      "professions": "Professions",
+      "professions": "Professioni",
       "economy": "Economia e commercio",
       "social": "Socialità e gruppi",
       "stats": "Personaggio e statistiche",
@@ -1521,7 +1522,7 @@ export const it_IT: EnTranslations = {
       "combat": "Combattimento",
       "talents": "Talenti",
       "arena": "Arena e PvP",
-      "valeCup": "Vale Cup",
+      "valeCup": "Coppa della Valle",
       "glossary": "Glossario",
       "wishIKnew": "Cose che avrei voluto sapere",
       "faq": "FAQ",
@@ -2178,30 +2179,30 @@ export const it_IT: EnTranslations = {
       "ladderBody": "Il gioco classificato traccia la tua posizione nel tempo. Controlla la classifica per vedere dove ti trovi e chi domina la vetta del reame."
     },
     "valeCupPage": {
-      "heading": "The Vale Cup",
-      "intro": "Boarball at the Sowfield: pick a banner, pick a role, and kick a stuffed boar hide past a keeper for the Copper Pail. No blood, no loot, just the roar of the stands.",
-      "loreHeading": "Boarball and the harvest truce",
-      "loreOldSow": "Long before the dead woke, Eastbrook's farmhands played boarball on the stubble fields after harvest: two mobs, one boar's hide stuffed with straw, and two wagon gates dragged to either end of the green. The first ball, the Old Sow, hangs bronzed above the tavern hearth.",
-      "loreTruce": "When the Ashen Coliseum began sanctioning war games, Marshal Redbrook answered with something gentler: a standing harvest truce on the old green. The wagon gates became goalposts, the green got walls, stands, and a name, the Sowfield, and the prize was always the same dented milk pail the winners drank from: the Copper Pail.",
-      "howHeading": "How to play",
-      "howQueue": "Queue from anywhere through the Vale Cup window, or talk to Groundskeeper Bram at the Sowfield gate. Pick a bracket from one-a-side up to five-a-side, a banner nation, and a sport role; queue solo or bring your party.",
-      "howMatch": "On kickoff your class kit is swapped for a sport kit and restored exactly afterward. Kicks aim at the ground reticle, the ball banks off the boards, and dribbling is just running with the ball. Score more goals than the other side before full time; a draw goes to golden goal.",
-      "howTruce": "Nobody bleeds at the Sowfield: tackles tumble, nothing hurts, and pets sit the match out.",
-      "spectateBody": "One match plays at a time at the stadium, and anyone can walk up and watch from the stands.",
-      "nationsHeading": "The eight banner nations",
-      "nationsBody": "Every team plays under a banner. The captain picks the nation, and if both sides fly the same one, the away side plays the inverted palette.",
-      "nationVale": "Green and gold, flying the wheat sheaf: the home side, farmhands to the bone.",
-      "nationMirefen": "Teal and grey under the heron: patient, long-legged, never hurried.",
-      "nationThornpeak": "Ice blue and white under the mountain peak: sure-footed and stubborn.",
-      "nationColiseum": "Red and black with crossed swords: they play like it is still a war game.",
-      "nationChoir": "Pale blue and silver under the bell: eerie, precise, and very quiet.",
-      "nationOgre": "Orange and umber behind the fist: shoulder-first and proud of it.",
-      "nationMoon": "Violet and silver under the crescent: night players, light on their feet.",
-      "nationCopperdig": "Copper and brown with the pickaxe: diggers who never stop running.",
-      "rolesHeading": "Sport roles",
-      "rolesBody": "Your role decides the kit you carry onto the pitch. Everyone kicks; the rest is temperament.",
-      "rewardsHeading": "Truce rules",
-      "rewardsBody": "Truce rules mean no experience and no loot: a decided match counts toward your record and the winners board, and daily-reward points come with it. Deserting a match benches your slot, and the Groundskeeper remembers."
+      "heading": "La Coppa della Valle",
+      "intro": "Palla di cinghiale al Campo della Scrofa: scegli un vessillo, scegli un ruolo e calcia una pelle di cinghiale imbottita oltre un portiere per il Secchio di Rame. Niente sangue, niente bottino, solo il boato degli spalti.",
+      "loreHeading": "La palla di cinghiale e la tregua del raccolto",
+      "loreOldSow": "Molto prima che i morti si destassero, i braccianti di Eastbrook giocavano a palla di cinghiale sui campi di stoppie dopo il raccolto: due torme, una pelle di cinghiale imbottita di paglia e due cancelli da carro trascinati ai due capi del prato. La prima palla, la Vecchia Scrofa, pende bronzata sopra il focolare della taverna.",
+      "loreTruce": "Quando il Colosseo Cinereo cominciò a patrocinare giochi di guerra, il Maresciallo Redbrook rispose con qualcosa di più gentile: una tregua del raccolto permanente sul vecchio prato. I cancelli da carro divennero pali delle porte, il prato ebbe muri, spalti e un nome, il Campo della Scrofa, e il premio fu sempre lo stesso secchio del latte ammaccato da cui bevevano i vincitori: il Secchio di Rame.",
+      "howHeading": "Come si gioca",
+      "howQueue": "Mettiti in coda da qualsiasi luogo tramite la finestra della Coppa della Valle, oppure parla con il Guardacampo Bram al cancello del Campo della Scrofa. Scegli un formato dall'uno contro uno fino al cinque contro cinque, una nazione del vessillo e un ruolo sportivo; entra in coda da solo o porta il tuo gruppo.",
+      "howMatch": "Al calcio d'inizio il tuo kit di classe viene sostituito da un kit sportivo e ripristinato esattamente alla fine. I calci mirano al reticolo a terra, la palla rimbalza sulle sponde e dribblare significa semplicemente correre con la palla. Segna più gol dell'altra squadra prima del fischio finale; un pareggio va al gol d'oro.",
+      "howTruce": "Nessuno sanguina al Campo della Scrofa: i contrasti fanno solo ruzzolare, niente fa male e i famigli restano fuori dalla partita.",
+      "spectateBody": "Allo stadio si gioca una partita alla volta, e chiunque può avvicinarsi e guardare dagli spalti.",
+      "nationsHeading": "Le otto nazioni del vessillo",
+      "nationsBody": "Ogni squadra gioca sotto un vessillo. Il capitano sceglie la nazione e, se entrambe le squadre battono lo stesso vessillo, quella in trasferta gioca con i colori invertiti.",
+      "nationVale": "Verde e oro, con il covone di grano al vento: la squadra di casa, braccianti fino al midollo.",
+      "nationMirefen": "Verde acqua e grigio sotto l'airone: pazienti, dalle gambe lunghe, mai frettolosi.",
+      "nationThornpeak": "Blu ghiaccio e bianco sotto la vetta: dal passo sicuro e testardi.",
+      "nationColiseum": "Rosso e nero con le spade incrociate: giocano come se fosse ancora un gioco di guerra.",
+      "nationChoir": "Azzurro pallido e argento sotto la campana: inquietanti, precisi e molto silenziosi.",
+      "nationOgre": "Arancio e terra d'ombra dietro il pugno: prima la spallata, e ne vanno fieri.",
+      "nationMoon": "Viola e argento sotto la falce di luna: giocatori notturni, leggeri sui piedi.",
+      "nationCopperdig": "Rame e marrone con il piccone: scavatori che non smettono mai di correre.",
+      "rolesHeading": "Ruoli sportivi",
+      "rolesBody": "Il tuo ruolo decide il kit che porti in campo. Tutti calciano; il resto è temperamento.",
+      "rewardsHeading": "Le regole della tregua",
+      "rewardsBody": "Le regole della tregua significano niente esperienza e niente bottino: una partita decisa conta per il tuo bilancio e per il tabellone dei vincitori, e con essa arrivano i punti delle ricompense giornaliere. Disertare una partita mette in panchina il tuo posto, e il Guardacampo non dimentica."
     },
     "wishPage": {
       "heading": "Cose che avrei voluto sapere",
@@ -2288,33 +2289,33 @@ export const it_IT: EnTranslations = {
       "cosmeticsApply": "Imposta il tuo aspetto attivo dalla riga dell'aspetto nella schermata del personaggio, e passa liberamente tra tutto ciò che hai sbloccato."
     },
     "professions": {
-      "intro": "Beyond combat and quests, the world rewards you for working the land and the forge: gathering raw materials, turning them into gear at the crafting stations of ten different trades, and settling into an identity as one of the ten archetypes those trades represent.",
-      "gatherTitle": "Gathering: Mining, Logging, and Herbalism",
-      "gatherIntro": "Three gathering trades let you pull raw materials straight out of the world: Mining strikes ore and stone from veins, Logging fells timber from stands of trees, and Herbalism collects herbs and plants growing wild. Each is tracked separately, so working one never slows your progress in another.",
-      "gatherWhatTitle": "Resource nodes",
-      "gatherWhatBody": "Ore veins, wood stands, and herb patches are placed out in the zones as visible, unowned fixtures. Walk up to one and interact with it to harvest whatever it holds. Once you have harvested a node, it needs time to recover before you personally can harvest it again, though it never blocks anyone else: another player can harvest the very same node in the meantime.",
-      "gatherProficiencyTitle": "Proficiency and material quality",
-      "gatherProficiencyBody": "Every successful harvest builds your proficiency in that gathering trade. A higher proficiency shifts what you pull out of a node toward rarer grades of material, from common on up, though the rarest grades stay rare even at high proficiency. More practice never hurts your odds, it only ever improves them.",
-      "gatherToolsTitle": "Tools of the trade",
-      "gatherToolsBody": "Vendors sell basic tools for each gathering trade, and better ones can be crafted, so working a resource node is meant to feel more capable as you gear up for it rather than staying static. Higher-tier tools are the intended way to unlock access to richer nodes and to work them more efficiently over a long session.",
-      "craftTitle": "The ten crafts",
-      "craftIntro": "Ten crafting trades turn gathered materials into finished gear and goods: Armorcrafting, Weaponcrafting, and Jewelcrafting shape raw matter into wearable gear; Alchemy and Engineering are driven by trial and error; Cooking, Inscription, and Enchanting each touch other crafts' output; Tailoring and Leatherworking work from exact patterns. Together they form a wheel, with each craft sitting next to two neighbors and opposite one other.",
-      "craftRingTitle": "A wheel of specialties",
-      "craftRingBody": "The ten crafts are arranged in a fixed ring, and where a craft sits on that ring matters: crafts next to each other on the wheel share more in common with each other than crafts on opposite sides do. Committing to one craft is meant to feel like joining a family of related trades, not picking an isolated skill.",
-      "craftRecipesTitle": "Recipes and reagents",
-      "craftRecipesBody": "Every craft has its own recipes, each calling for specific reagents you gather or buy. The most basic recipes in each craft ask for nothing but common materials and are craftable from the very start, so you can begin working a trade the moment you pick it up rather than waiting to unlock it.",
-      "craftMasteryTitle": "Skill and mastery",
-      "craftMasteryBody": "Crafting successfully builds skill in that trade, and richer recipes are gated behind higher skill: the basic recipes are open to everyone, while progressively more advanced ones ask for progressively more mastery to attempt. Growing your skill in a craft is the path from simple starter goods to its more ambitious recipes.",
-      "craftComboTitle": "Combination recipes",
-      "craftComboBody": "Beyond a single craft's own recipe list, the wheel also supports combination recipes that call on two neighboring crafts at once, rewarding a character (or a pair of trading partners) who has invested in adjacent trades on the ring rather than one in isolation.",
-      "archetypeTitle": "The ten archetypes",
-      "archetypeIntro": "Each of the ten crafts also stands for an archetype, a broader identity you can adopt beyond just working that trade. Your active archetype is a single choice at a time, not a checklist: you carry one, and can change which one later if you choose to.",
-      "archetypeChooseTitle": "Choosing your archetype",
-      "archetypeChooseBody": "You declare your first archetype through an early, zone one story quest that formally accepts you into that identity. Until you complete that quest, you have not yet chosen an archetype at all.",
-      "archetypeSwitchTitle": "Changing your mind",
-      "archetypeSwitchBody": "Having declared an archetype once does not lock you into it forever. Changing to a different archetype means first completing a repeatable \"make amends\" quest for your old one, and each time you switch, the amends expected of you the next time grow a little steeper, so switching stays meaningful rather than costless.",
-      "archetypeIdentityTitle": "What your archetype means",
-      "archetypeIdentityBody": "Your active archetype is a statement about who your character is in the world, recognized in how others and the world address you. The exact rewards and recognition that come with it are still being finalized; check back as the system fills in."
+      "intro": "Oltre al combattimento e alle missioni, il mondo ti ricompensa per il lavoro della terra e della forgia: raccogliere materie prime, trasformarle in equipaggiamento alle postazioni artigiane di dieci mestieri diversi e assumere un'identità come uno dei dieci archetipi che quei mestieri rappresentano.",
+      "gatherTitle": "Raccolta: Estrazione mineraria, Taglio del legname ed Erbalismo",
+      "gatherIntro": "Tre mestieri di raccolta ti permettono di estrarre materie prime direttamente dal mondo: l'Estrazione mineraria cava minerale e pietra dalle vene, il Taglio del legname abbatte tronchi dai gruppi di alberi e l'Erbalismo raccoglie erbe e piante selvatiche. Ognuno è tracciato separatamente, quindi esercitarne uno non rallenta mai i tuoi progressi in un altro.",
+      "gatherWhatTitle": "Nodi di risorse",
+      "gatherWhatBody": "Vene di minerale, gruppi di alberi e macchie di erbe sono collocati nelle zone come elementi visibili e senza padrone. Avvicinati a uno e interagisci per raccogliere ciò che contiene. Una volta raccolto un nodo, serve tempo perché si riprenda prima che tu, personalmente, possa raccoglierlo di nuovo, ma non blocca mai nessun altro: un altro giocatore può raccogliere lo stesso identico nodo nel frattempo.",
+      "gatherProficiencyTitle": "Competenza e qualità dei materiali",
+      "gatherProficiencyBody": "Ogni raccolto riuscito accresce la tua competenza in quel mestiere di raccolta. Una competenza più alta sposta ciò che estrai da un nodo verso gradi di materiale più rari, dal comune in su, anche se i gradi più rari restano rari perfino ad alta competenza. Più pratica non peggiora mai le tue probabilità, le migliora soltanto.",
+      "gatherToolsTitle": "Gli attrezzi del mestiere",
+      "gatherToolsBody": "I venditori offrono attrezzi di base per ogni mestiere di raccolta, e se ne possono creare di migliori, così lavorare un nodo di risorse deve risultare sempre più efficace man mano che ti equipaggi, invece di restare statico. Gli attrezzi di livello superiore sono la via prevista per accedere ai nodi più ricchi e lavorarli con più efficienza in una lunga sessione.",
+      "craftTitle": "I dieci mestieri artigiani",
+      "craftIntro": "Dieci mestieri artigiani trasformano i materiali raccolti in equipaggiamento e beni finiti: Fabbricazione di armature, Fabbricazione di armi e Gioielleria danno forma alla materia grezza in equipaggiamento indossabile; Alchimia e Ingegneria procedono per tentativi ed errori; Cucina, Inscrizione e Incantamento toccano ciascuno il prodotto di altri mestieri; Sartoria e Conciatura lavorano da modelli esatti. Insieme formano una ruota, con ogni mestiere accanto a due vicini e opposto a un altro.",
+      "craftRingTitle": "Una ruota di specialità",
+      "craftRingBody": "I dieci mestieri sono disposti in un anello fisso, e la posizione di un mestiere su quell'anello conta: i mestieri vicini tra loro sulla ruota hanno più cose in comune di quelli sui lati opposti. Impegnarsi in un mestiere deve dare la sensazione di entrare in una famiglia di mestieri affini, non di scegliere un'abilità isolata.",
+      "craftRecipesTitle": "Ricette e reagenti",
+      "craftRecipesBody": "Ogni mestiere ha le proprie ricette, ognuna delle quali richiede reagenti specifici da raccogliere o comprare. Le ricette più basilari di ogni mestiere non chiedono altro che materiali comuni e si possono creare fin dall'inizio, così puoi cominciare a esercitare un mestiere nel momento in cui lo scegli, senza dover aspettare di sbloccarlo.",
+      "craftMasteryTitle": "Abilità e maestria",
+      "craftMasteryBody": "Creare con successo accresce l'abilità in quel mestiere, e le ricette più ricche sono riservate a un'abilità più alta: quelle di base sono aperte a chiunque, mentre quelle via via più avanzate richiedono via via più maestria per essere tentate. Far crescere la tua abilità in un mestiere è il percorso dai semplici beni iniziali alle sue ricette più ambiziose.",
+      "craftComboTitle": "Ricette combinate",
+      "craftComboBody": "Oltre alla lista di ricette di un singolo mestiere, la ruota supporta anche ricette combinate che richiedono due mestieri vicini allo stesso tempo, premiando un personaggio (o una coppia di partner commerciali) che ha investito in mestieri adiacenti sull'anello anziché in uno solo isolato.",
+      "archetypeTitle": "I dieci archetipi",
+      "archetypeIntro": "Ognuno dei dieci mestieri artigiani rappresenta anche un archetipo, un'identità più ampia che puoi adottare oltre al semplice esercizio del mestiere. L'archetipo attivo è una scelta singola alla volta, non una lista da spuntare: ne porti uno solo, e in seguito puoi cambiarlo se lo desideri.",
+      "archetypeChooseTitle": "Scegliere il tuo archetipo",
+      "archetypeChooseBody": "Dichiari il tuo primo archetipo tramite una missione di trama iniziale della prima zona, che ti accoglie formalmente in quell'identità. Finché non completi quella missione, non hai ancora scelto alcun archetipo.",
+      "archetypeSwitchTitle": "Cambiare idea",
+      "archetypeSwitchBody": "Aver dichiarato un archetipo una volta non ti ci vincola per sempre. Passare a un archetipo diverso richiede prima di completare una missione ripetibile per \"fare ammenda\" verso quello vecchio, e a ogni cambio l'ammenda attesa la volta successiva diventa un po' più esigente, così che cambiare resti significativo anziché gratuito.",
+      "archetypeIdentityTitle": "Cosa significa il tuo archetipo",
+      "archetypeIdentityBody": "L'archetipo attivo è una dichiarazione su chi è il tuo personaggio nel mondo, riconosciuta nel modo in cui gli altri e il mondo si rivolgono a te. Le ricompense e i riconoscimenti esatti che lo accompagnano sono ancora in via di definizione; torna a controllare man mano che il sistema prende forma."
     },
     "economy": {
       "intro": "Le monete fanno girare tutto il mondo: comprano il tuo equipaggiamento, le provviste e l'attrezzatura da viaggio, e passano di mano tra i giocatori. Raccogli tutto questo semplicemente giocando, perciò considera questa pagina come una mappa di dove arriva e dove va il tuo denaro.",
@@ -4906,44 +4907,44 @@ export const it_IT: EnTranslations = {
   "entities": {
     "abilities": {
       "sport_kick": {
-        "name": "Kick",
-        "description": "Knock the ball along the ground toward the aim point."
+        "name": "Calcio",
+        "description": "Spingi la palla rasoterra verso il punto mirato."
       },
       "sport_shoot": {
-        "name": "Shoot",
-        "description": "Hold to build power, release to shoot at goal. Too much power sails over."
+        "name": "Tiro",
+        "description": "Tieni premuto per caricare la potenza, rilascia per tirare in porta. Con troppa potenza la palla vola alta."
       },
       "sport_pass": {
-        "name": "Pass",
-        "description": "Roll a firm pass to your targeted teammate, leading their run."
+        "name": "Passaggio",
+        "description": "Un passaggio rasoterra deciso al compagno selezionato, anticipando la sua corsa."
       },
       "sport_boot": {
-        "name": "Big Boot",
-        "description": "A long lofted boot toward the aim point. The crowd loves it."
+        "name": "Calcione",
+        "description": "Un calcione alto e lungo verso il punto mirato. La folla lo adora."
       },
       "sport_hoof": {
-        "name": "Hoof It",
-        "description": "Hammer the ball low and hard up the field."
+        "name": "Spazzata",
+        "description": "Martella la palla bassa e forte verso l'altra metà campo."
       },
       "sport_punt": {
-        "name": "Long Punt",
-        "description": "A keeper's punt, high and far."
+        "name": "Rinvio Lungo",
+        "description": "Il rinvio del portiere, alto e lontano."
       },
       "sport_feint": {
-        "name": "Feint",
-        "description": "A quick sidestep burst toward the aim point."
+        "name": "Finta",
+        "description": "Uno scatto laterale rapido verso il punto mirato."
       },
       "sport_dive": {
-        "name": "Dive",
-        "description": "Fling yourself toward the aim point. A crossing ball sticks to you."
+        "name": "Tuffo",
+        "description": "Ti lanci verso il punto mirato. Una palla in traiettoria ti resta incollata."
       },
       "sport_shoulder": {
-        "name": "Shoulder",
-        "description": "A fair harvest-truce shoulder. Sends them tumbling off the ball."
+        "name": "Spallata",
+        "description": "Una spallata leale da tregua del raccolto. Manda l'avversario a ruzzolare lontano dalla palla."
       },
       "sport_second_wind": {
-        "name": "Fresh Legs",
-        "description": "Find your legs: move 50% faster for 4 sec."
+        "name": "Gambe Fresche",
+        "description": "Ritrovi le gambe: ti muovi il 50% più veloce per 4 sec."
       },
       "flamestrike": {
         "name": "Ondata di Fiamme",
@@ -6166,6 +6167,24 @@ export const it_IT: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Falcetto Petalo di Sole"
       },
+      "thorium_ore": {
+        "name": "Minerale di Torio"
+      },
+      "arcanite_bar": {
+        "name": "Barra di Arcanite"
+      },
+      "ashwood_log": {
+        "name": "Tronco di Frassino Cinereo"
+      },
+      "elderwood_log": {
+        "name": "Tronco di Sambuco Antico"
+      },
+      "goldleaf_herb": {
+        "name": "Erba Fogliadoro"
+      },
+      "sunpetal_herb": {
+        "name": "Erba Petalosole"
+      },
       "bristleback_maul": {
         "name": "Martello Gallowglass"
       },
@@ -7331,9 +7350,9 @@ export const it_IT: EnTranslations = {
         "greeting": "Riposa ora, spirito. Posso restituirti al tuo corpo, ma il ritorno dalla traversata ti lascia debole."
       },
       "groundskeeper_bram": {
-        "name": "Groundskeeper Bram",
-        "title": "Keeper of the Sowfield",
-        "greeting": "The truce holds at the Sowfield, {className}: boots and shoulders only. Care to play for the Copper Pail?"
+        "name": "Guardacampo Bram",
+        "title": "Custode del Campo della Scrofa",
+        "greeting": "La tregua regge al Campo della Scrofa, {className}: solo calci e spallate. Ti va di giocare per il Secchio di Rame?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8244,7 +8263,7 @@ export const it_IT: EnTranslations = {
             "label": "Radura di Brightwood"
           },
           "10": {
-            "label": "The Sowfield"
+            "label": "Il Campo della Scrofa"
           }
         }
       },

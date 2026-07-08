@@ -14,6 +14,269 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const de_DE: Partial<Record<TranslationKey, string>> = {
+  'entities.abilities.sport_boot.description':
+    'Ein hoher, weiter Schlag Richtung Zielpunkt. Die Menge liebt es.',
+  'entities.abilities.sport_boot.name': 'Weitschlag',
+  'entities.abilities.sport_dive.description':
+    'Wirf dich zum Zielpunkt. Ein hereinfliegender Ball bleibt an dir haften.',
+  'entities.abilities.sport_dive.name': 'Hechtsprung',
+  'entities.abilities.sport_feint.description':
+    'Ein schneller Antritt mit Seitwärtshaken zum Zielpunkt.',
+  'entities.abilities.sport_feint.name': 'Finte',
+  'entities.abilities.sport_hoof.description':
+    'Drisch den Ball flach und hart nach vorn übers Feld.',
+  'entities.abilities.sport_hoof.name': 'Bolzen',
+  'entities.abilities.sport_kick.description': 'Stoß den Ball flach über den Boden zum Zielpunkt.',
+  'entities.abilities.sport_kick.name': 'Kick',
+  'entities.abilities.sport_pass.description':
+    'Spiel einen scharfen Pass auf deinen anvisierten Mitspieler, genau in seinen Lauf.',
+  'entities.abilities.sport_pass.name': 'Pass',
+  'entities.abilities.sport_punt.description': 'Ein Abschlag des Torhüters, hoch und weit.',
+  'entities.abilities.sport_punt.name': 'Weiter Abschlag',
+  'entities.abilities.sport_second_wind.description':
+    'Finde deine Beine: Bewege dich 4 Sek. lang 50% schneller.',
+  'entities.abilities.sport_second_wind.name': 'Frische Beine',
+  'entities.abilities.sport_shoot.description':
+    'Halten, um Kraft aufzubauen, loslassen, um aufs Tor zu schießen. Zu viel Kraft und der Ball segelt drüber.',
+  'entities.abilities.sport_shoot.name': 'Torschuss',
+  'entities.abilities.sport_shoulder.description':
+    'Ein fairer Rempler nach den Regeln des Erntefriedens. Wirft den Gegner purzelnd vom Ball.',
+  'entities.abilities.sport_shoulder.name': 'Rempler',
+  'entities.npcs.groundskeeper_bram.greeting':
+    'Auf dem Saufeld gilt der Erntefrieden, {className}: nur Kicks und Rempler. Lust auf ein Spiel um den Kupfereimer?',
+  'entities.npcs.groundskeeper_bram.name': 'Platzwart Bram',
+  'entities.npcs.groundskeeper_bram.title': 'Hüter des Saufelds',
+  'entities.zones.eastbrook_vale.pois.10.label': 'Das Saufeld',
+  'guide.nav.professions': 'Berufe',
+  'guide.nav.valeCup': 'Talpokal',
+  'guide.professions.archetypeChooseBody':
+    'Deinen ersten Archetyp erklärst du über eine frühe Story-Quest im ersten Gebiet, die dich förmlich in diese Identität aufnimmt. Bis du diese Quest abgeschlossen hast, hast du noch gar keinen Archetyp gewählt.',
+  'guide.professions.archetypeChooseTitle': 'Deinen Archetyp wählen',
+  'guide.professions.archetypeIdentityBody':
+    'Dein aktiver Archetyp ist eine Aussage darüber, wer dein Charakter in der Welt ist, und spiegelt sich darin, wie andere und die Welt dich ansprechen. Die genauen Belohnungen und die Anerkennung, die damit einhergehen, werden noch ausgearbeitet; schau wieder vorbei, während das System Gestalt annimmt.',
+  'guide.professions.archetypeIdentityTitle': 'Was dein Archetyp bedeutet',
+  'guide.professions.archetypeIntro':
+    'Jedes der zehn Handwerke steht zugleich für einen Archetyp, eine umfassendere Identität, die du über das bloße Ausüben des Gewerbes hinaus annehmen kannst. Dein aktiver Archetyp ist eine einzelne Wahl, keine Checkliste: Du trägst einen und kannst später wechseln, wenn du möchtest.',
+  'guide.professions.archetypeSwitchBody':
+    'Einmal einen Archetyp erklärt zu haben, bindet dich nicht für immer. Wer zu einem anderen Archetyp wechseln will, muss zuerst eine wiederholbare Quest der Wiedergutmachung für den alten abschließen, und mit jedem Wechsel fällt die nächste erwartete Wiedergutmachung ein wenig strenger aus, damit der Wechsel bedeutsam bleibt statt kostenlos.',
+  'guide.professions.archetypeSwitchTitle': 'Es dir anders überlegen',
+  'guide.professions.archetypeTitle': 'Die zehn Archetypen',
+  'guide.professions.craftComboBody':
+    'Über die eigene Rezeptliste eines einzelnen Handwerks hinaus unterstützt das Rad auch Kombinationsrezepte, die zwei benachbarte Handwerke zugleich fordern, und belohnt damit einen Charakter (oder ein Paar von Handelspartnern), der in benachbarte Gewerbe auf dem Ring investiert hat statt in eines allein.',
+  'guide.professions.craftComboTitle': 'Kombinationsrezepte',
+  'guide.professions.craftIntro':
+    'Zehn Handwerksgewerbe verwandeln gesammelte Materialien in fertige Ausrüstung und Waren: Rüstungsschmieden, Waffenschmieden und Juwelierskunst formen rohen Stoff zu tragbarer Ausrüstung; Alchemie und Ingenieurskunst leben von Versuch und Irrtum; Kochkunst, Inschriftenkunde und Verzauberungskunst greifen jeweils auf die Erzeugnisse anderer Handwerke zurück; Schneiderei und Gerberei arbeiten nach exakten Schnittmustern. Zusammen bilden sie ein Rad, auf dem jedes Handwerk neben zwei Nachbarn und einem anderen genau gegenüber sitzt.',
+  'guide.professions.craftMasteryBody':
+    'Erfolgreiches Herstellen steigert deine Fertigkeit in diesem Gewerbe, und reichhaltigere Rezepte sind hinter höherer Fertigkeit verschlossen: Die Grundrezepte stehen allen offen, während zunehmend fortgeschrittene Rezepte für den Versuch zunehmend mehr Meisterschaft verlangen. Deine Fertigkeit in einem Handwerk auszubauen ist der Weg von einfachen Anfängerwaren zu seinen ehrgeizigeren Rezepten.',
+  'guide.professions.craftMasteryTitle': 'Fertigkeit und Meisterschaft',
+  'guide.professions.craftRecipesBody':
+    'Jedes Handwerk hat eigene Rezepte, und jedes verlangt bestimmte Reagenzien, die du sammelst oder kaufst. Die einfachsten Rezepte jedes Handwerks brauchen nichts als gewöhnliche Materialien und lassen sich von Anfang an herstellen, sodass du ein Gewerbe in dem Moment aufnehmen kannst, in dem du es erlernst, statt erst auf eine Freischaltung zu warten.',
+  'guide.professions.craftRecipesTitle': 'Rezepte und Reagenzien',
+  'guide.professions.craftRingBody':
+    'Die zehn Handwerke sind in einem festen Ring angeordnet, und wo ein Handwerk auf diesem Ring sitzt, spielt eine Rolle: Nebeneinanderliegende Handwerke haben mehr miteinander gemein als solche auf gegenüberliegenden Seiten. Sich einem Handwerk zu verschreiben soll sich anfühlen, als träte man einer Familie verwandter Gewerbe bei, nicht wie das Wählen einer isolierten Fertigkeit.',
+  'guide.professions.craftRingTitle': 'Ein Rad der Spezialitäten',
+  'guide.professions.craftTitle': 'Die zehn Handwerke',
+  'guide.professions.gatherIntro':
+    'Drei Sammelgewerbe lassen dich Rohstoffe direkt aus der Welt ziehen: Bergbau schlägt Erz und Stein aus Adern, Holzfällen fällt Nutzholz aus Baumbeständen, und Kräuterkunde sammelt wild wachsende Kräuter und Pflanzen. Jedes wird getrennt gezählt, sodass die Arbeit an einem nie deinen Fortschritt in einem anderen bremst.',
+  'guide.professions.gatherProficiencyBody':
+    'Jede erfolgreiche Ernte steigert deine Fertigkeit in diesem Sammelgewerbe. Höhere Fertigkeit verschiebt, was du aus einem Vorkommen holst, hin zu selteneren Materialgüten, von gewöhnlich aufwärts, wobei die seltensten Güten auch bei hoher Fertigkeit selten bleiben. Mehr Übung schadet deinen Chancen nie, sie verbessert sie immer nur.',
+  'guide.professions.gatherProficiencyTitle': 'Fertigkeit und Materialqualität',
+  'guide.professions.gatherTitle': 'Sammeln: Bergbau, Holzfällen und Kräuterkunde',
+  'guide.professions.gatherToolsBody':
+    'Händler verkaufen einfache Werkzeuge für jedes Sammelgewerbe, und bessere lassen sich herstellen; die Arbeit an einem Rohstoffvorkommen soll sich also fähiger anfühlen, je besser du dafür ausgerüstet bist, statt immer gleich zu bleiben. Werkzeuge höherer Stufe sind der vorgesehene Weg, um Zugang zu reicheren Vorkommen zu erhalten und sie über eine lange Sitzung hinweg effizienter zu bearbeiten.',
+  'guide.professions.gatherToolsTitle': 'Das Werkzeug des Handwerks',
+  'guide.professions.gatherWhatBody':
+    'Erzadern, Baumbestände und Kräuterflecken stehen sichtbar und herrenlos draußen in den Gebieten. Geh auf eines zu und interagiere damit, um zu ernten, was es enthält. Hast du ein Vorkommen abgeerntet, braucht es Zeit, um sich zu erholen, bevor du persönlich es erneut ernten kannst; andere blockiert es aber nie: Ein anderer Spieler kann dasselbe Vorkommen in der Zwischenzeit ernten.',
+  'guide.professions.gatherWhatTitle': 'Rohstoffvorkommen',
+  'guide.professions.intro':
+    'Jenseits von Kampf und Quests belohnt dich die Welt für die Arbeit an Land und Esse: Rohstoffe sammeln, sie an den Werkstationen von zehn verschiedenen Gewerben zu Ausrüstung verarbeiten und in eine Identität als einer der zehn Archetypen hineinwachsen, für die diese Gewerbe stehen.',
+  'guide.valeCupPage.heading': 'Der Talpokal',
+  'guide.valeCupPage.howHeading': 'So wird gespielt',
+  'guide.valeCupPage.howMatch':
+    'Beim Anstoß werden deine Klassenfähigkeiten gegen eine Sportausrüstung getauscht und danach exakt wiederhergestellt. Kicks zielen auf das Fadenkreuz am Boden, der Ball prallt von der Bande ab, und Dribbeln heißt einfach, mit dem Ball zu laufen. Erziele bis zum Abpfiff mehr Tore als die Gegenseite; ein Unentschieden geht ins Golden Goal.',
+  'guide.valeCupPage.howQueue':
+    'Stell dich von überall über das Talpokal-Fenster an, oder sprich mit Platzwart Bram am Tor des Saufelds. Wähle eine Staffel von eins gegen eins bis fünf gegen fünf, eine Bannernation und eine Sportrolle; stell dich allein an oder bring deine Gruppe mit.',
+  'guide.valeCupPage.howTruce':
+    'Auf dem Saufeld blutet niemand: Tacklings lassen dich nur purzeln, nichts tut weh, und Begleiter setzen das Spiel aus.',
+  'guide.valeCupPage.intro':
+    'Keilerball auf dem Saufeld: Wähle ein Banner, wähle eine Rolle und schieß eine ausgestopfte Eberhaut an einem Torhüter vorbei, um den Kupfereimer zu holen. Kein Blut, keine Beute, nur das Tosen der Ränge.',
+  'guide.valeCupPage.loreHeading': 'Keilerball und der Erntefrieden',
+  'guide.valeCupPage.loreOldSow':
+    'Lange bevor die Toten erwachten, spielten Eastbrooks Feldarbeiter nach der Ernte Keilerball auf den Stoppelfeldern: zwei Haufen Leute, eine mit Stroh ausgestopfte Eberhaut und zwei Wagentore, an beide Enden des Angers gezerrt. Der erste Ball, die Alte Sau, hängt in Bronze über dem Kamin der Taverne.',
+  'guide.valeCupPage.loreTruce':
+    'Als das Aschene Kolosseum begann, Kriegsspiele auszurichten, antwortete Marschall Redbrook mit etwas Sanfterem: einem ständigen Erntefrieden auf dem alten Anger. Die Wagentore wurden zu Torpfosten, der Anger bekam Wände, Ränge und einen Namen, das Saufeld, und der Preis war immer derselbe verbeulte Milcheimer, aus dem die Sieger tranken: der Kupfereimer.',
+  'guide.valeCupPage.nationChoir':
+    'Fahlblau und Silber unter der Glocke: unheimlich, präzise und sehr still.',
+  'guide.valeCupPage.nationColiseum':
+    'Rot und Schwarz mit gekreuzten Schwertern: Sie spielen, als wäre es noch immer ein Kriegsspiel.',
+  'guide.valeCupPage.nationCopperdig':
+    'Kupfer und Braun mit der Spitzhacke: Schaufler, die nie aufhören zu rennen.',
+  'guide.valeCupPage.nationMirefen':
+    'Blaugrün und Grau unter dem Reiher: geduldig, langbeinig, nie in Eile.',
+  'guide.valeCupPage.nationMoon':
+    'Violett und Silber unter der Mondsichel: Nachtspieler, leicht auf den Beinen.',
+  'guide.valeCupPage.nationOgre':
+    'Orange und Umbra hinter der Faust: Schulter voran und stolz darauf.',
+  'guide.valeCupPage.nationThornpeak':
+    'Eisblau und Weiß unter dem Berggipfel: trittsicher und stur.',
+  'guide.valeCupPage.nationVale':
+    'Grün und Gold unter der Weizengarbe: die Heimmannschaft, Feldarbeiter bis ins Mark.',
+  'guide.valeCupPage.nationsBody':
+    'Jedes Team spielt unter einem Banner. Der Kapitän wählt die Nation, und fliegen beide Seiten dasselbe Banner, spielt die Auswärtsseite in den umgekehrten Farben.',
+  'guide.valeCupPage.nationsHeading': 'Die acht Bannernationen',
+  'guide.valeCupPage.rewardsBody':
+    'Friedensregeln bedeuten keine Erfahrung und keine Beute: Ein entschiedenes Spiel zählt für deine Bilanz und die Siegertafel, und Punkte für die täglichen Belohnungen gibt es obendrauf. Wer ein Spiel im Stich lässt, kassiert eine Sperre, und der Platzwart vergisst nicht.',
+  'guide.valeCupPage.rewardsHeading': 'Friedensregeln',
+  'guide.valeCupPage.rolesBody':
+    'Deine Rolle bestimmt die Ausrüstung, die du auf den Platz trägst. Kicken kann jeder; der Rest ist Temperament.',
+  'guide.valeCupPage.rolesHeading': 'Sportrollen',
+  'guide.valeCupPage.spectateBody':
+    'Im Stadion läuft immer nur ein Spiel, und jeder kann einfach vorbeikommen und von den Rängen aus zusehen.',
+  'hudChrome.keybinds.valecup': 'Talpokal',
+  'hudChrome.mobile.dailyRewards': 'Belohnungen',
+  'hudChrome.perf.labels.predLead': 'Prädiktionsvorlauf',
+  'hudChrome.townFocus.budgetLabel': 'Verbleibende Punkte: {remaining} / {budget}',
+  'hudChrome.townFocus.decreaseAria': 'Fokus auf {component} verringern',
+  'hudChrome.townFocus.hint':
+    'Fokuspunkte gewähren einen Bonus auf den Grundertrag jeder Einrichtung. Einrichtungen ohne Fokus bleiben beim Grundertrag.',
+  'hudChrome.townFocus.increaseAria': 'Fokus auf {component} erhöhen',
+  'hudChrome.townFocus.notInTownHint': 'Du musst in der Stadt sein, um deinen Fokus festzulegen.',
+  'hudChrome.townFocus.saveButton': 'Fokus speichern',
+  'hudChrome.townFocus.title': 'Stadtfokus',
+  'hudChrome.vcup.awayNote':
+    'Fliegen beide Seiten dasselbe Banner, spielt die Auswärtsseite in den umgekehrten Farben.',
+  'hudChrome.vcup.bannerCountdown': 'Anstoß in {seconds}...',
+  'hudChrome.vcup.bannerDraw': 'Unentschieden auf dem Saufeld.',
+  'hudChrome.vcup.bannerEnd': 'Abpfiff: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.bannerFound': 'Der Talpokal ruft: {nationA} gegen {nationB}!',
+  'hudChrome.vcup.bannerGoal': 'TOR! {nation} trifft!',
+  'hudChrome.vcup.bannerGolden': 'GOLDEN GOAL: Der nächste Treffer gewinnt!',
+  'hudChrome.vcup.bannerKickoff': 'ANSTOSS!',
+  'hudChrome.vcup.bannerLoss': 'Niederlage auf dem Saufeld.',
+  'hudChrome.vcup.bannerSave': '{name} HÄLT!',
+  'hudChrome.vcup.bannerWin': 'Sieg auf dem Saufeld!',
+  'hudChrome.vcup.bet.aria': 'Talpokal-Spielwetten',
+  'hudChrome.vcup.bet.back': 'Auf {team} setzen',
+  'hudChrome.vcup.bet.closed': 'Wetten geschlossen',
+  'hudChrome.vcup.bet.closesIn': 'Wettschluss in {seconds}s',
+  'hudChrome.vcup.bet.collapse': 'Wetten ausblenden',
+  'hudChrome.vcup.bet.expand': 'Wetten ansehen und setzen',
+  'hudChrome.vcup.bet.form': '{wins}S-{losses}N',
+  'hudChrome.vcup.bet.lostLog': 'Deine Talpokal-Wette ist verloren: {amount}.',
+  'hudChrome.vcup.bet.mine': 'Deine Wette: {amount} auf {team}',
+  'hudChrome.vcup.bet.none': 'Du hast auf dieses Spiel noch keine Wette platziert.',
+  'hudChrome.vcup.bet.oddsLabel': 'Quote',
+  'hudChrome.vcup.bet.prize': 'Topf {amount}',
+  'hudChrome.vcup.bet.record': 'Wettbilanz: {wins}S-{losses}N, {sign}{net}',
+  'hudChrome.vcup.bet.refundLog':
+    'Wetten annulliert, dein Einsatz von {amount} wurde zurückgezahlt.',
+  'hudChrome.vcup.bet.splitAria': 'Anteil des Wett-Topfs je Team',
+  'hudChrome.vcup.bet.title': 'Spielwetten',
+  'hudChrome.vcup.bet.wonBanner': 'Deine Wette hat gewonnen!',
+  'hudChrome.vcup.bet.wonLog': 'Deine Talpokal-Wette hat gewonnen: {amount} ausgezahlt.',
+  'hudChrome.vcup.blockNation': 'Wähle zuerst eine Bannernation.',
+  'hudChrome.vcup.blockNotLeader':
+    'Nur der Gruppenanführer kann das Team in die Warteschlange stellen.',
+  'hudChrome.vcup.blockPartySize': 'Diese Staffel braucht eine kleinere Gruppe.',
+  'hudChrome.vcup.boardEmpty': 'Noch keine Sieger verzeichnet. Der Kupfereimer wartet.',
+  'hudChrome.vcup.boardHeading': 'Siegertafel',
+  'hudChrome.vcup.boardWins': '{count} Siege',
+  'hudChrome.vcup.bracketLabel': '{n}v{n}',
+  'hudChrome.vcup.bracketsAria': 'Spielstaffel',
+  'hudChrome.vcup.briefing.bot': 'Bot',
+  'hudChrome.vcup.briefing.kitHeading': 'Deine Ausrüstung',
+  'hudChrome.vcup.briefing.kitNote':
+    'Diese Manöver ersetzen für das Spiel deine Klassenfähigkeiten.',
+  'hudChrome.vcup.briefing.ready': 'Ich bin bereit',
+  'hudChrome.vcup.briefing.readyAria': 'Bereit machen für den Anstoß',
+  'hudChrome.vcup.briefing.readyCount': '{ready} von {total} bereit',
+  'hudChrome.vcup.briefing.readyDone': 'Bereit',
+  'hudChrome.vcup.briefing.rosterHeading': 'Die Aufstellung',
+  'hudChrome.vcup.briefing.rule1':
+    'Schieße oder passe den Ball ins gegnerische Tor, um zu punkten.',
+  'hudChrome.vcup.briefing.rule2':
+    'Wer zuerst 5 Tore erzielt, gewinnt, oder wer beim Abpfiff die meisten Tore hat.',
+  'hudChrome.vcup.briefing.rule3':
+    'Steht es beim Abpfiff unentschieden, geht es ins Golden Goal: Der nächste Treffer gewinnt.',
+  'hudChrome.vcup.briefing.rule4':
+    'Tacklings werfen dich nur um. Unter dem Erntefrieden wird niemand verletzt.',
+  'hudChrome.vcup.briefing.rule5': 'Jeder kann vorbeikommen und dich von den Rängen aus anfeuern.',
+  'hudChrome.vcup.briefing.rulesHeading': 'So wird gespielt',
+  'hudChrome.vcup.briefing.subtitle': 'Besprechung vor dem Spiel',
+  'hudChrome.vcup.briefing.vs': 'gegen',
+  'hudChrome.vcup.briefing.waiting': 'Warte, bis die andere Seite bereit ist...',
+  'hudChrome.vcup.briefing.whistle': 'Der Anpfiff ertönt in {seconds}s.',
+  'hudChrome.vcup.briefing.you': 'Du',
+  'hudChrome.vcup.clock': '{minutes}:{seconds}',
+  'hudChrome.vcup.close': 'Das Talpokal-Fenster schließen',
+  'hudChrome.vcup.deserterNote':
+    'Der Platzwart vergisst nicht. Du kannst dich in {seconds} Sek. wieder anstellen.',
+  'hudChrome.vcup.enterAsGuild': 'Unter dem Banner von {guild} antreten',
+  'hudChrome.vcup.gossipOpen': 'Das Spielplanbuch',
+  'hudChrome.vcup.gossipOpenAria': 'Das Talpokal-Fenster öffnen',
+  'hudChrome.vcup.guildBoardEmpty': 'Noch keine Gilde hat den Platz betreten. Zeig dein Banner!',
+  'hudChrome.vcup.guildBoardHeading': 'Gildenbanner',
+  'hudChrome.vcup.guildBoardWl': '{wins} S, {losses} N',
+  'hudChrome.vcup.guildRecordLine': 'Deine Gildenbilanz: {wins} Siege, {losses} Niederlagen.',
+  'hudChrome.vcup.inMatchNote': 'Dein Team steht auf dem Platz. Weiterspielen!',
+  'hudChrome.vcup.indicatorLive': 'Talpokal',
+  'hudChrome.vcup.indicatorOpen': 'Das Talpokal-Fenster öffnen',
+  'hudChrome.vcup.indicatorQueued':
+    'Talpokal-Warteschlange: {bracket}, Position {position} von {count}',
+  'hudChrome.vcup.leaveQueue': 'Warteschlange verlassen',
+  'hudChrome.vcup.liveAria': 'Talpokal: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.liveHeading': 'Jetzt auf dem Saufeld',
+  'hudChrome.vcup.logDraw': 'Die Partie auf dem Saufeld endet unentschieden.',
+  'hudChrome.vcup.logFound': 'Dein Talpokal-Spiel ist bereit: {nationA} gegen {nationB}.',
+  'hudChrome.vcup.logGoal': '{name} trifft für {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
+  'hudChrome.vcup.logLoss': 'Du verlierst die Partie auf dem Saufeld.',
+  'hudChrome.vcup.logQueued':
+    'Du reihst dich in die Talpokal-Warteschlange für {bracket} ein (Position {position}).',
+  'hudChrome.vcup.logRoster': 'Deine Seite: {allies}. Die Gegenseite: {enemies}.',
+  'hudChrome.vcup.logSave': '{name} hält den Ball!',
+  'hudChrome.vcup.logUnqueued': 'Du verlässt die Talpokal-Warteschlange.',
+  'hudChrome.vcup.logWin': 'Du gewinnst die Partie auf dem Saufeld.',
+  'hudChrome.vcup.mobileLabel': 'Pokal',
+  'hudChrome.vcup.nation.choir': 'Der Bleiche Chor',
+  'hudChrome.vcup.nation.coliseum': 'Das Aschene Kolosseum',
+  'hudChrome.vcup.nation.copperdig': 'Die Kupfergrube',
+  'hudChrome.vcup.nation.mirefen': 'Das Mirefen',
+  'hudChrome.vcup.nation.moon': 'Der Bleiche Mond',
+  'hudChrome.vcup.nation.ogre': 'Die Oger-Clans',
+  'hudChrome.vcup.nation.thornpeak': 'Thornpeak',
+  'hudChrome.vcup.nation.vale': 'Eastbrook-Tal',
+  'hudChrome.vcup.nationsHeading': 'Bannernation',
+  'hudChrome.vcup.noLive': 'Der Platz ruht. Es wird gerade kein Spiel gespielt.',
+  'hudChrome.vcup.offlineNote':
+    'Das Spielplanbuch ist geschlossen. Der Talpokal ist gerade nicht verfügbar.',
+  'hudChrome.vcup.phaseCountdown': 'Anstoß in {seconds}',
+  'hudChrome.vcup.phaseGoal': 'TOR!',
+  'hudChrome.vcup.phaseGolden': 'GOLDEN GOAL',
+  'hudChrome.vcup.phaseOver': 'ABPFIFF',
+  'hudChrome.vcup.practice': 'Training gegen Bots',
+  'hudChrome.vcup.practiceNote':
+    'Startet sofort ein privates Bot-Spiel auf deinem eigenen Trainingsplatz.',
+  'hudChrome.vcup.practicingNow': 'Gerade im Training ({count}):',
+  'hudChrome.vcup.queue': 'In die Warteschlange',
+  'hudChrome.vcup.queueNote': 'Stell dich von überall an; der Anpfiff ruft dich zum Saufeld.',
+  'hudChrome.vcup.queuedStatus':
+    'In der Warteschlange für {bracket}: Position {position} von {count}.',
+  'hudChrome.vcup.recordLine':
+    'Deine Bilanz: {wins} Siege, {losses} Niederlagen, {draws} Unentschieden.',
+  'hudChrome.vcup.role.allrounder.desc':
+    'Von allem etwas: Kick, Weitschlag und ein fairer Rempler.',
+  'hudChrome.vcup.role.allrounder.name': 'Allrounder',
+  'hudChrome.vcup.role.keeper.desc': 'Hütet den Torraum mit Griff, Hechtsprung und Abschlag.',
+  'hudChrome.vcup.role.keeper.name': 'Torhüter',
+  'hudChrome.vcup.role.striker.desc': 'Lebt für den weiten Schlag und den schnellen Haken.',
+  'hudChrome.vcup.role.striker.name': 'Stürmer',
+  'hudChrome.vcup.role.sweeper.desc': 'Rempelt Läufer vom Ball und schlägt ihn weit nach vorn.',
+  'hudChrome.vcup.role.sweeper.name': 'Ausputzer',
+  'hudChrome.vcup.rolesHeading': 'Sportrolle',
+  'hudChrome.vcup.shootPower': 'KRAFT',
+  'hudChrome.vcup.title': 'Der Talpokal',
+  'hudChrome.vcup.waitingCount': 'Wartende: {count}',
+  'hudChrome.vcup.walkUp': 'Komm zum Saufeld, um von den Rängen aus zuzusehen.',
   'hudChrome.archetypeTitle.label': 'Titel',
   'hudChrome.archetypeTitle.none': 'Keiner',
   'hudChrome.archetypeTitle.armorcrafting': 'Rüstungsschmied',
@@ -1111,6 +1374,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.ping': 'Ping',
   'hudChrome.perf.labels.jitter': 'Jitter',
   'hudChrome.perf.labels.snapshot': 'Snapshot-Rate',
+  'hudChrome.perf.labels.serverTick': 'Server-Tickrate',
   'hudChrome.perf.labels.connection': 'Verbindung',
   'hudChrome.perf.labels.drawCalls': 'Draw Calls',
   'hudChrome.perf.labels.triangles': 'Dreiecke',
@@ -4047,6 +4311,12 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Altholzaxt',
   'entities.items.goldleaf_sickle.name': 'Goldblatt-Sichel',
   'entities.items.sunpetal_sickle.name': 'Sonnenblütensichel',
+  'entities.items.thorium_ore.name': 'Thoriumerz',
+  'entities.items.arcanite_bar.name': 'Arkanitbarren',
+  'entities.items.ashwood_log.name': 'Aschenholzscheit',
+  'entities.items.elderwood_log.name': 'Altholunderscheit',
+  'entities.items.goldleaf_herb.name': 'Goldblattkraut',
+  'entities.items.sunpetal_herb.name': 'Sonnenblütenkraut',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Chatkanal hinzufügen',
   'hud.core.chatChannels.addTitle': 'Kanal hinzufügen',

@@ -303,7 +303,10 @@ export interface SimContextCallbacks {
   // mana spend; C4a exports it as a sibling fn, not yet a ctx callback) and removeItem
   // (feedPet consumes the inventory hub; L2 dedupes when it adds the identical decl).
   spendResource(p: Entity, cost: number): void;
-  removeItem(itemId: string, count: number, pid?: number): void;
+  // Returns the `instance` payload of every instanced slot actually consumed
+  // (see sim.ts removeItem), so a caller needing to attribute an effect to
+  // the specific removed copy (not just any matching slot) can do so.
+  removeItem(itemId: string, count: number, pid?: number): ItemInstancePayload[];
   // Fungible-only removal (#1165), skips instanced slots; market.ts escrows with this.
   removeFungibleItem(itemId: string, count: number, pid?: number): void;
 

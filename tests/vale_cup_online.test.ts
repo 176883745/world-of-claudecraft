@@ -360,8 +360,13 @@ describe('vale cup: online integration (GameServer)', () => {
     expect(rewardSpy).not.toHaveBeenCalled();
     expect(drainActivity().filter((c) => c.kind === 'vale_cup')).toHaveLength(0);
 
-    // flipping the same match rated proves the gate was the rated flag
+    // A rated loss is still not a daily-reward task: the variant is ranked wins only.
     fakeMatch.rated = true;
+    detect({ type: 'vcupResult', won: false, draw: false, pid: session.pid });
+    expect(rewardSpy).not.toHaveBeenCalled();
+    expect(drainActivity().filter((c) => c.kind === 'vale_cup')).toHaveLength(0);
+
+    // flipping the same match to a rated win proves the gate is ranked wins.
     detect({ type: 'vcupResult', won: true, draw: false, pid: session.pid });
     expect(rewardSpy).toHaveBeenCalledTimes(1);
     expect(drainActivity().filter((c) => c.kind === 'vale_cup')).toHaveLength(1);

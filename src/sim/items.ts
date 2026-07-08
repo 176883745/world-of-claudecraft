@@ -22,6 +22,7 @@ import { recalcPlayerStats } from './entity';
 import { canEquipItem, resolveEquipSlot } from './equipment_rules';
 import { formatMoney } from './format_money';
 import { meetsLevelRequirement, requiredLevelFor } from './item_level_req';
+import { battlefieldExperienceTrickle } from './professions/battlefield_xp';
 import type { ItemUseResult, PlayerMeta } from './sim';
 import type { SimContext } from './sim_context';
 import {
@@ -187,7 +188,23 @@ export function useItem(ctx: SimContext, itemId: string, pid?: number): ItemUseR
       );
       return;
     }
-    ctx.removeItem(itemId, 1, meta.entityId);
+    // #1149 Battlefield Experience: credit the instance removeItem actually
+    // consumed (PR #1281 review, High: a self-signed instance sitting
+    // untouched at a different slot must never be credited for a plain copy
+    // drunk instead; addItemInstance appends to the end of `inventory` while
+    // removeItem consumes from the end backward, so an EARLIER signed slot
+    // and a LATER plain stack of the same itemId can silently diverge). A
+    // cheap gate inside battlefieldExperienceTrickle short-circuits
+    // everything below rare tier, so this is a no-op for every plain/common/
+    // uncommon potion, exactly as before this issue.
+    const [drunkInstance] = ctx.removeItem(itemId, 1, meta.entityId);
+    if (drunkInstance) {
+      battlefieldExperienceTrickle(meta.craftSkills, {
+        itemId,
+        instance: drunkInstance,
+        observerName: meta.name,
+      });
+    }
     p.potionCooldownUntil = ctx.time + POTION_COOLDOWN;
     p.potionCdRemaining = POTION_COOLDOWN; // materialized remaining for the action-bar swipe
     if (restoresHp) {

@@ -662,7 +662,8 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': 'El Guardacampo lo recuerda. Vuelve más tarde.',
     'error.vcupPartyTooBig': 'Esa categoría necesita un grupo más pequeño.',
     'error.vcupNoNation': 'Primero elige una nación de estandarte.',
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull':
+      'Los campos de práctica están todos ocupados. Inténtalo de nuevo en un momento.',
     'log.talentsUpdated': 'Talentos actualizados.',
     'log.talentsReset': 'Talentos restablecidos.',
     'log.savedBuild': 'Configuración “{name}” guardada.',
@@ -881,7 +882,8 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': 'El Guardacampo lo recuerda. Vuelve más tarde.',
     'error.vcupPartyTooBig': 'Esa categoría necesita un grupo más pequeño.',
     'error.vcupNoNation': 'Primero elige una nación de estandarte.',
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull':
+      'Los campos de práctica están todos ocupados. Inténtalo de nuevo en un momento.',
     'log.talentsUpdated': 'Talentos actualizados.',
     'log.talentsReset': 'Talentos restablecidos.',
     'log.savedBuild': 'Configuración “{name}” guardada.',
@@ -1102,7 +1104,8 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': "Le Gardien du terrain s'en souvient. Revenez plus tard.",
     'error.vcupPartyTooBig': 'Cette catégorie exige un groupe plus petit.',
     'error.vcupNoNation': "Choisissez d'abord une nation de bannière.",
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull':
+      "Tous les terrains d'entraînement sont occupés. Réessayez dans un instant.",
     'log.talentsUpdated': 'Talents mis à jour.',
     'log.talentsReset': 'Talents réinitialisés.',
     'log.savedBuild': 'Distribution « {name} » enregistrée.',
@@ -1323,7 +1326,8 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': "Le Gardien du terrain s'en souvient. Revenez plus tard.",
     'error.vcupPartyTooBig': 'Cette catégorie exige un groupe plus petit.',
     'error.vcupNoNation': "Choisissez d'abord une nation de bannière.",
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull':
+      "Tous les terrains d'entraînement sont occupés. Réessayez dans un instant.",
     'log.talentsUpdated': 'Talents mis à jour.',
     'log.talentsReset': 'Talents réinitialisés.',
     'log.savedBuild': 'Spécialisation “{name}” enregistrée.',
@@ -1705,7 +1709,7 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': 'Il Custode del campo ricorda. Torna più tardi.',
     'error.vcupPartyTooBig': 'Quella categoria richiede un gruppo più piccolo.',
     'error.vcupNoNation': 'Prima scegli una nazione della bandiera.',
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull': 'I campi di allenamento sono tutti occupati. Riprova tra poco.',
     'log.talentsUpdated': 'Talenti aggiornati.',
     'log.talentsReset': 'Talenti azzerati.',
     'log.savedBuild': 'Build “{name}” salvata.',
@@ -1923,7 +1927,8 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': 'Der Platzwart vergisst nicht. Kommt später wieder.',
     'error.vcupPartyTooBig': 'Diese Klasse braucht eine kleinere Gruppe.',
     'error.vcupNoNation': 'Wählt zuerst eine Bannernation.',
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull':
+      'Alle Trainingsplätze sind gerade belegt. Versucht es gleich noch einmal.',
     'log.talentsUpdated': 'Talente aktualisiert.',
     'log.talentsReset': 'Talente zurückgesetzt.',
     'log.savedBuild': 'Skillung „{name}“ gespeichert.',
@@ -3013,7 +3018,8 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupDeserter': 'O Zelador do campo se lembra. Volte mais tarde.',
     'error.vcupPartyTooBig': 'Essa categoria exige um grupo menor.',
     'error.vcupNoNation': 'Escolha primeiro uma nação de bandeira.',
-    'error.vcupPracticeFull': 'The practice pitches are all in use. Try again shortly.',
+    'error.vcupPracticeFull':
+      'Os campos de treino estão todos ocupados. Tente novamente em instantes.',
     'log.talentsUpdated': 'Talentos atualizados.',
     'log.talentsReset': 'Talentos redefinidos.',
     'log.savedBuild': 'Estrutura “{name}” salva.',
