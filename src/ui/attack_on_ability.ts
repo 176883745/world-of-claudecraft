@@ -57,6 +57,14 @@ const EFFECT_CLASS: Record<AbilityEffect['type'], AutoAttackClass> = {
   dismissPet: 'other',
   summonPet: 'other',
   summonDemon: 'other',
+  // Vale Cup sport moves (docs/prd/vale-cup.md): no-damage, harvest-truce
+  // utility. None of them should engage auto-attack on use (the paired stun on
+  // Shoulder is non-breaking CC, and nothing on the pitch deals damage).
+  ballKick: 'other',
+  ballPass: 'other',
+  ballShoot: 'other',
+  sportDash: 'other',
+  sportShove: 'other',
 };
 
 /**

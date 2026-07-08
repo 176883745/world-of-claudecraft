@@ -308,6 +308,7 @@ export const ja_JP: EnTranslations = {
       "autorun": "オートラン",
       "jump": "ジャンプ",
       "leaderboard": "ランキング",
+      "dailyRewards": "報酬",
       "nameplates": "ネームプレート",
       "haptics": "振動",
       "hapticsOff": "振動オフ",
@@ -368,7 +369,9 @@ export const ja_JP: EnTranslations = {
       "hoursMinutes": "{h}時間{m}分",
       "minutes": "{m}分",
       "lessThanMinute": "1分未満",
-      "lockedToast": "{raid}にロックされています。解除まで{time}。"
+      "lockedToast": "{raid}にロックされています。解除まで{time}。",
+      "heroicName": "ヒロイック:{name}",
+      "heroicLocked": "ヒロイックの{name}にロックされています。"
     },
     "compass": {
       "N": "北",
@@ -390,7 +393,144 @@ export const ja_JP: EnTranslations = {
       "emoteWheel": "エモートホイール",
       "targetFriendly": "最も近い味方をターゲット",
       "targetFriendlyNext": "味方ターゲットを順に切り替え",
-      "discord": "Discord"
+      "discord": "Discord",
+      "valecup": "ヴェイルカップ"
+    },
+    "vcup": {
+      "title": "ヴェイルカップ",
+      "shootPower": "POWER",
+      "close": "ヴェイルカップウィンドウを閉じる",
+      "offlineNote": "対戦簿は閉じられている。ヴェイルカップは現在利用できない。",
+      "recordLine": "戦績:{wins} 勝 {losses} 敗 {draws} 分。",
+      "bracketsAria": "試合の階級",
+      "bracketLabel": "{n}対{n}",
+      "waitingCount": "{count} 人待機中",
+      "nationsHeading": "旗の国",
+      "nation": {
+        "vale": "イーストブルック渓谷",
+        "mirefen": "マイアフェン",
+        "thornpeak": "ソーンピーク",
+        "coliseum": "灰の闘技場",
+        "choir": "青ざめた聖歌隊",
+        "ogre": "オーガの氏族",
+        "moon": "蒼白の月",
+        "copperdig": "銅鉱山"
+      },
+      "awayNote": "両チームが同じ旗を選んだ場合、アウェー側は反転配色でプレイする。",
+      "rolesHeading": "ポジション",
+      "role": {
+        "allrounder": {
+          "name": "オールラウンダー",
+          "desc": "何でもこなす:キック、ロングキック、正々堂々の肩当たり。"
+        },
+        "striker": {
+          "name": "ストライカー",
+          "desc": "ロングキックと素早いサイドステップに生きる。"
+        },
+        "sweeper": {
+          "name": "スイーパー",
+          "desc": "ボール保持者を弾き飛ばし、遠くへクリアする。"
+        },
+        "keeper": {
+          "name": "キーパー",
+          "desc": "キャッチ、ダイブ、パントでゴールエリアを守る。"
+        }
+      },
+      "queue": "キューに参加",
+      "leaveQueue": "キューを離れる",
+      "queueNote": "どこからでも並べる。笛が鳴ればソウフィールドへ呼ばれる。",
+      "queuedStatus": "{bracket} で待機中:{count} 人中 {position} 番目。",
+      "blockNation": "まずは旗の国を選ぼう。",
+      "blockPartySize": "その階級にはもっと小さなパーティーが必要だ。",
+      "blockNotLeader": "チームを並べられるのはパーティーリーダーだけだ。",
+      "inMatchNote": "あなたのチームはピッチにいる。プレイを続けよう!",
+      "deserterNote": "整備人は覚えている。再び並べるまであと {seconds} 秒。",
+      "liveHeading": "ソウフィールドの現在",
+      "liveAria": "ヴェイルカップ:{nationA} {scoreA}、{nationB} {scoreB}",
+      "walkUp": "ソウフィールドまで歩いて、スタンドから観戦しよう。",
+      "noLive": "ピッチは静かだ。試合は行われていない。",
+      "boardHeading": "勝者の掲示板",
+      "boardEmpty": "まだ勝者の記録はない。銅のミルク桶が待っている。",
+      "boardWins": "{count} 勝",
+      "enterAsGuild": "{guild} の旗の下で参加",
+      "guildRecordLine": "ギルド成績：{wins} 勝 {losses} 敗。",
+      "guildBoardHeading": "ギルド旗",
+      "guildBoardEmpty": "まだ参加したギルドはない。旗を掲げよう！",
+      "guildBoardWl": "{wins} W, {losses} L",
+      "practice": "ボット練習試合",
+      "practiceNote": "ソウフィールドでボットとのフル試合をすぐに始める。",
+      "practicingNow": "練習中（{count}）：",
+      "clock": "{minutes}:{seconds}",
+      "indicatorQueued": "ヴェイルカップ待機中:{bracket}、{count} 人中 {position} 番目",
+      "indicatorLive": "ヴェイルカップ",
+      "indicatorOpen": "ヴェイルカップウィンドウを開く",
+      "phaseCountdown": "キックオフまで {seconds}",
+      "phaseGoal": "ゴール!",
+      "phaseGolden": "ゴールデンゴール",
+      "phaseOver": "試合終了",
+      "bannerFound": "ヴェイルカップの呼び声:{nationA} 対 {nationB}!",
+      "bannerCountdown": "キックオフまで {seconds} 秒...",
+      "bannerKickoff": "キックオフ!",
+      "bannerGoal": "ゴール!{nation} が決めた!",
+      "bannerSave": "{name} のセーブ!",
+      "bannerGolden": "ゴールデンゴール:次の得点で決着!",
+      "bannerEnd": "試合終了:{nationA} {scoreA}、{nationB} {scoreB}",
+      "bannerWin": "ソウフィールドでの勝利!",
+      "bannerDraw": "ソウフィールドの一戦は引き分け。",
+      "bannerLoss": "ソウフィールドでの敗北。",
+      "logQueued": "{bracket} のヴェイルカップキューに参加した({position} 番目)。",
+      "logUnqueued": "ヴェイルカップのキューを離れた。",
+      "logFound": "ヴェイルカップの試合が整った:{nationA} 対 {nationB}。",
+      "logRoster": "味方:{allies}。相手:{enemies}。",
+      "logGoal": "{name} が {nation} のために決めた!{nationA} {scoreA}、{nationB} {scoreB}。",
+      "logSave": "{name} がセーブした!",
+      "logWin": "ソウフィールドの一戦に勝利した。",
+      "logDraw": "ソウフィールドの一戦は引き分けに終わった。",
+      "logLoss": "ソウフィールドの一戦に敗れた。",
+      "gossipOpen": "対戦簿",
+      "gossipOpenAria": "ヴェイルカップウィンドウを開く",
+      "mobileLabel": "カップ",
+      "briefing": {
+        "subtitle": "試合前ブリーフィング",
+        "vs": "対",
+        "rulesHeading": "遊び方",
+        "rule1": "ボールを相手ゴールへ蹴るかパスして得点しよう。",
+        "rule2": "先に5点取れば勝ち、フルタイム時に得点が多い方が勝ち。",
+        "rule3": "同点でフルタイムならゴールデンゴール、次の得点で勝ち。",
+        "rule4": "タックルは転ぶだけ。収穫祭の休戦で誰も怪我はしない。",
+        "rule5": "誰でも近づいて、スタンドから声援を送れる。",
+        "kitHeading": "あなたの技",
+        "kitNote": "試合中はこれらの技がクラスのアビリティと入れ替わる。",
+        "rosterHeading": "メンバー表",
+        "you": "あなた",
+        "bot": "ボット",
+        "ready": "準備完了",
+        "readyDone": "準備OK",
+        "readyAria": "キックオフの準備をする",
+        "waiting": "相手側の準備を待っています…",
+        "whistle": "{seconds}秒後にホイッスルが鳴る。",
+        "readyCount": "準備完了 {ready}/{total}"
+      },
+      "bet": {
+        "title": "試合ベット",
+        "aria": "ヴェイルカップの試合ベット",
+        "closesIn": "締切まで{seconds}秒",
+        "closed": "ベット締切",
+        "prize": "プール {amount}",
+        "splitAria": "両チームのベット配分",
+        "expand": "ベットを見て賭ける",
+        "collapse": "ベットを隠す",
+        "oddsLabel": "配当",
+        "back": "{team}に賭ける",
+        "form": "{wins}勝{losses}敗",
+        "mine": "あなたのベット：{amount}を{team}に",
+        "none": "まだこの試合に賭けていません。",
+        "record": "ベット成績：{wins}勝{losses}敗、{sign}{net}",
+        "wonBanner": "ベット的中！",
+        "wonLog": "ヴェイルカップのベット的中：{amount}を獲得。",
+        "lostLog": "ヴェイルカップのベットは外れ：{amount}。",
+        "refundLog": "ベット無効、賭け金{amount}を返却しました。"
+      }
     },
     "options": {
       "clickMoveLeft": "左クリック",
@@ -480,6 +620,7 @@ export const ja_JP: EnTranslations = {
         "fps01Low": "下位0.1%",
         "ping": "Ping",
         "jitter": "ジッター",
+        "predLead": "予測リード",
         "snapshot": "スナップショットレート",
         "connection": "接続",
         "drawCalls": "ドローコール",
@@ -777,6 +918,15 @@ export const ja_JP: EnTranslations = {
         "tusk": "牙"
       }
     },
+    "townFocus": {
+      "title": "町のフォーカス",
+      "hint": "フォーカスポイントは各素材の基本産出量にボーナスを加算します。フォーカスしていない素材は基本産出量のままです。",
+      "budgetLabel": "残りポイント：{remaining} / {budget}",
+      "saveButton": "フォーカスを保存",
+      "notInTownHint": "フォーカスを設定するには町にいる必要があります。",
+      "increaseAria": "{component}へのフォーカスを増やす",
+      "decreaseAria": "{component}へのフォーカスを減らす"
+    },
     "party": {
       "promoteLeader": "パーティリーダーに指定",
       "inviteUsage": "誰を招待しますか？使用法：/invite <名前>。"
@@ -791,6 +941,10 @@ export const ja_JP: EnTranslations = {
       "valueMaster": "マスタールート",
       "leaderOption": "分配担当：パーティリーダー（あなた）",
       "masterOption": "分配担当：{name}"
+    },
+    "dungeonDifficulty": {
+      "setHeroic": "ダンジョン難易度をヒロイックに設定",
+      "setNormal": "ダンジョン難易度をノーマルに設定"
     },
     "bags": {
       "cannotDestroy": "このアイテムは破壊できません。",
@@ -1010,7 +1164,7 @@ export const ja_JP: EnTranslations = {
       "roleTag": {
         "levyst": "Levy St",
         "admin": "管理者",
-        "coredevs": "Core Dev",
+        "coredevs": "コア開発者",
         "devs": "開発者",
         "mods": "モデレーター",
         "artists": "アーティスト"
@@ -1220,6 +1374,20 @@ export const ja_JP: EnTranslations = {
       "logging": "伐採",
       "herbalism": "薬草学"
     },
+    "archetypeTitle": {
+      "label": "称号",
+      "none": "なし",
+      "armorcrafting": "防具鍛冶師",
+      "weaponcrafting": "武器鍛冶師",
+      "jewelcrafting": "宝石職人",
+      "alchemy": "錬金術師",
+      "engineering": "工作師",
+      "cooking": "料理人",
+      "inscription": "銘文師",
+      "enchanting": "エンチャンター",
+      "tailoring": "仕立て屋",
+      "leatherworking": "皮革職人"
+    },
     "crafting": {
       "title": "製作",
       "close": "製作を閉じる",
@@ -1338,6 +1506,7 @@ export const ja_JP: EnTranslations = {
       "bestiary": "モンスター図鑑",
       "models": "3Dモデル",
       "gear": "ギアとアイテム",
+      "professions": "生産職",
       "economy": "経済と取引",
       "social": "ソーシャルとグループ",
       "stats": "キャラクターとステータス",
@@ -1352,6 +1521,7 @@ export const ja_JP: EnTranslations = {
       "combat": "戦闘",
       "talents": "タレント",
       "arena": "アリーナとPvP",
+      "valeCup": "ヴェイルカップ",
       "glossary": "用語集",
       "wishIKnew": "知っておきたかったこと",
       "faq": "FAQ",
@@ -2007,6 +2177,32 @@ export const ja_JP: EnTranslations = {
       "ladderHeading": "ラダーを駆け上がる",
       "ladderBody": "ランクプレイでは時間をかけて順位を記録します。リーダーボードを確認すれば、自分の位置やレルムの頂点に立つのが誰かが分かります。"
     },
+    "valeCupPage": {
+      "heading": "ヴェイルカップ",
+      "intro": "ソウフィールドのボアボール:旗を選び、ポジションを選び、藁を詰めた猪皮のボールをキーパーの脇へ蹴り込んで銅のミルク桶を目指せ。血は流れず、戦利品もなく、あるのはスタンドの歓声だけ。",
+      "loreHeading": "ボアボールと収穫休戦",
+      "loreOldSow": "死者が目覚めるずっと前、イーストブルックの農夫たちは刈り入れ後の切り株畑でボアボールに興じていた。二つの群れ、藁を詰めた一枚の猪皮、緑地の両端まで引きずられた二枚の荷馬車の門。最初のボール「オールドソウ」は、銅をまとって酒場の炉の上に飾られている。",
+      "loreTruce": "灰の闘技場が戦争競技を公認し始めたとき、レッドブルック元帥はもっと穏やかなもので応えた。古い緑地に恒久の収穫休戦を布いたのだ。荷馬車の門はゴールポストになり、緑地には壁とスタンドと「ソウフィールド」という名が与えられた。賞品はいつも同じ、勝者たちが回し飲みするへこんだミルク桶:銅のミルク桶だ。",
+      "howHeading": "遊び方",
+      "howQueue": "ヴェイルカップウィンドウからどこでも並べるほか、ソウフィールドの門にいる整備人ブラムに話しかけてもよい。1対1から5対5までの階級、旗の国、ポジションを選ぶ。ソロでもパーティーでも参加できる。",
+      "howMatch": "キックオフと同時にクラスのスキルはスポーツキットに置き換わり、試合後に元通り復元される。キックは地面のレティクルで狙い、ボールはボードで跳ね返り、ドリブルはボールと一緒に走るだけ。試合終了までに相手より多く得点すること。引き分けはゴールデンゴールへ。",
+      "howTruce": "ソウフィールドで血は流れない。タックルは転がすだけで、何も傷つけず、ペットは試合の間お休みだ。",
+      "spectateBody": "スタジアムで行われる試合は同時に一つだけ。誰でも歩いて行ってスタンドから観戦できる。",
+      "nationsHeading": "八つの旗の国",
+      "nationsBody": "どのチームも旗の下で戦う。キャプテンが国を選び、両者が同じ旗を掲げたときはアウェー側が反転配色でプレイする。",
+      "nationVale": "緑と金、麦束の旗:地元チーム、骨の髄まで農夫たち。",
+      "nationMirefen": "青緑と灰、鷺の旗の下:辛抱強く、足が長く、決して急がない。",
+      "nationThornpeak": "氷青と白、山嶺の旗の下:足取り確かで頑固者。",
+      "nationColiseum": "赤と黒、交差する剣:まだ戦争のつもりでプレイする連中。",
+      "nationChoir": "淡青と銀、鐘の旗の下:不気味で、精密で、とても静か。",
+      "nationOgre": "橙と焦茶、拳を掲げて:肩から突っ込み、それを誇る。",
+      "nationMoon": "紫と銀、三日月の旗の下:夜のプレイヤーたち、足取り軽やか。",
+      "nationCopperdig": "銅と茶、鶴嘴を携えて:走り止まない坑夫たち。",
+      "rolesHeading": "ポジション",
+      "rolesBody": "ポジションがピッチに持ち込むキットを決める。誰もが蹴れる。あとは気性次第。",
+      "rewardsHeading": "休戦の掟",
+      "rewardsBody": "休戦の掟のもとでは経験値も戦利品もない。決着のついた試合は戦績と勝者の掲示板に刻まれ、デイリー報酬ポイントが付いてくる。試合を放棄すれば席はベンチ送りとなり、整備人は覚えている。"
+    },
     "wishPage": {
       "heading": "知っておきたかったこと",
       "intro": "新しいプレイヤーが余計な迷いをせずに済む、いくつかの率直な真実です。どれも読まなければならないものではありませんが、すべて役に立ちます。",
@@ -2090,6 +2286,35 @@ export const ja_JP: EnTranslations = {
       "cosmeticsSkins": "集められる装飾の系統は二つあります。ほとんどのクラスには、そのクラスならではのいくつかの別バージョンの外見があり、あなただけが身につけられる新たな装いです。それと並ぶのがクロマ。見た目を丸ごと塗り替える、名前付きのツートーンのカラースキームで、渋い金属色から鮮やかな帝国色まで揃っています。",
       "cosmeticsCache": "その一部は謎めいた装飾キャッシュから手に入ります。封じられた賞品で、開けると三段階の品質のいずれかが抽選され、それに見合った外見が与えられます。純粋に見た目のためのもので、中身であなたが強くなることはなく、ただ見栄えが良くなるだけです。",
       "cosmeticsApply": "キャラクター画面の外見の項目から、いま使う見た目を設定できます。アンロック済みのものなら、いつでも自由に切り替えられます。"
+    },
+    "professions": {
+      "intro": "戦闘やクエストだけでなく、この世界は大地を耕し鍛冶場に立つあなたにも報いてくれる。原材料を採集し、十種の異なる製作台でそれを装備へと変え、それらの職が体現する十の生き方のひとつとして自らのアイデンティティを築いていく。",
+      "gatherTitle": "採集：採掘、伐採、薬草学",
+      "gatherIntro": "三つの採集職があり、世界から直接原材料を得られる。採掘は鉱脈から鉱石と石を掘り出し、伐採は木立から木材を切り出し、薬草学は野生に育つ薬草や植物を集める。それぞれ別々に進行が管理されるため、ひとつに取り組んでも他の進行が遅れることはない。",
+      "gatherWhatTitle": "資源ノード",
+      "gatherWhatBody": "鉱脈、木立、薬草の茂みは、各ゾーンに目に見える所有者のない設備として配置されている。近づいて操作すれば、そこにあるものを採集できる。一度採集したノードは、あなた自身が再び採集できるようになるまで回復に時間がかかるが、他のプレイヤーを妨げることは決してない。その間に別のプレイヤーが同じノードを採集することもできる。",
+      "gatherProficiencyTitle": "熟練度と素材の品質",
+      "gatherProficiencyBody": "採集に成功するたびに、その採集職の熟練度が上がる。熟練度が高いほど、ノードから得られる素材はより希少なグレードへと偏っていくが、コモンから始まり、最も希少なグレードは高熟練度でも依然として希少なままである。練習を重ねることは決して不利にならず、常に有利に働く。",
+      "gatherToolsTitle": "職の道具",
+      "gatherToolsBody": "各採集職の基本的な道具は商人から購入でき、より優れた道具は製作できる。資源ノードでの作業は、装備を整えるにつれて着実に有能になっていく感覚であるべきで、その場に留まるものではない。上位ティアの道具は、より豊かなノードへのアクセスを解放し、長いセッションでもより効率よく作業するための意図された手段である。",
+      "craftTitle": "十の製作職",
+      "craftIntro": "十の製作職は、採集した素材を完成した装備や品へと変える：防具製作、武器製作、宝石細工は原材料を装備品へと形作り、錬金術と工学は試行錯誤に基づき、料理、書記、エンチャントはそれぞれ他の職の産物に手を加え、裁縫と革細工は正確な型紙に沿って作業する。これらは合わせてひとつの輪を形成し、各職は二つの隣人と隣り合い、もう一つの職と向かい合う。",
+      "craftRingTitle": "専門職の輪",
+      "craftRingBody": "十の職は固定された輪の上に配置され、その輪上での位置が重要な意味を持つ：輪の上で隣り合う職同士は、対角にある職同士よりも多くの共通点を持つ。ひとつの職に打ち込むことは、孤立した技能を選ぶのではなく、関連する職の一族に加わるような感覚であるべきだ。",
+      "craftRecipesTitle": "レシピと材料",
+      "craftRecipesBody": "各職には独自のレシピがあり、それぞれ採集または購入する特定の材料を必要とする。各職の最も基本的なレシピは一般的な材料だけで作れ、最初から製作可能なので、その職を手に入れた瞬間から作業を始められ、解放を待つ必要はない。",
+      "craftMasteryTitle": "技能と熟達",
+      "craftMasteryBody": "製作に成功するとその職の技能が上がり、より豊かなレシピはより高い技能の先に解放される：基本的なレシピは誰にでも開かれているが、より高度なものへ進むほど、挑戦にはより高い熟達が求められる。ある職の技能を伸ばすことは、単純な初期の品からより野心的なレシピへと至る道のりである。",
+      "craftComboTitle": "組み合わせレシピ",
+      "craftComboBody": "単独の職自身のレシピ一覧に加えて、この輪は隣り合う二つの職を同時に呼び出す組み合わせレシピにも対応しており、輪の上で隣接する職に投資したキャラクター（あるいは取引相手のペア）に報いる。孤立した一職だけに投資した場合は得られない。",
+      "archetypeTitle": "十の生き方",
+      "archetypeIntro": "十の職はそれぞれ生き方も体現しており、その職に単に従事すること以上の、より広いアイデンティティを取り入れることができる。あなたの現在の生き方は一度にひとつだけであり、チェックリストではない：あなたは一つを担い、望むならば後で変更することもできる。",
+      "archetypeChooseTitle": "生き方を選ぶ",
+      "archetypeChooseBody": "最初の生き方は、ゾーン1にある初期の物語クエストを通じて宣言し、そのクエストがあなたを正式にそのアイデンティティへと迎え入れる。そのクエストを完了するまで、あなたはまだ何の生き方も選んでいない。",
+      "archetypeSwitchTitle": "心変わり",
+      "archetypeSwitchBody": "一度生き方を宣言しても、永遠にそれに縛られるわけではない。別の生き方に変えるには、まず古い生き方のために繰り返し可能な「償い」クエストを完了する必要があり、切り替えるたびに次に求められる償いは少しずつ厳しくなる。そのため切り替えは意味のあるものであり続け、代償のないものにはならない。",
+      "archetypeIdentityTitle": "あなたの生き方が意味するもの",
+      "archetypeIdentityBody": "あなたの現在の生き方は、あなたのキャラクターがこの世界で何者であるかについての表明であり、他者や世界があなたをどう呼ぶかに反映される。それに伴う具体的な報酬や認知はまだ調整中だ。システムが充実していくのを見守ってほしい。"
     },
     "economy": {
       "intro": "コインは世界全体の潤滑油です。装備や物資、旅の道具を買い、プレイヤー間でやり取りされます。これらはすべて遊んでいるだけで身につくので、このページはお金がどこから来てどこへ行くのかを示す地図だと思ってください。",
@@ -3171,6 +3396,10 @@ export const ja_JP: EnTranslations = {
       "hard": "極上の戦利品"
     },
     "closeAria": "閉じる"
+  },
+  "heroicShop": {
+    "balance": "英雄の証: {count}",
+    "buyAria": "英雄の証{marks}個で{item}を購入"
   },
   "delveUi": {
     "board": {
@@ -4464,12 +4693,14 @@ export const ja_JP: EnTranslations = {
     "slots": {
       "mainhand": "メインハンド",
       "helmet": "頭",
+      "neck": "首",
       "shoulder": "肩",
       "chest": "胸",
       "waist": "腰",
       "legs": "脚",
       "gloves": "手",
-      "feet": "足"
+      "feet": "足",
+      "ring": "指"
     },
     "quality": {
       "poor": "粗悪",
@@ -4673,6 +4904,46 @@ export const ja_JP: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "sport_kick": {
+        "name": "キック",
+        "description": "狙った地点へボールをグラウンダーで蹴り出す。"
+      },
+      "sport_shoot": {
+        "name": "シュート",
+        "description": "押し続けて力をため、離してシュート。力を入れすぎると枠を越える。"
+      },
+      "sport_pass": {
+        "name": "パス",
+        "description": "狙った味方へ強めのパスを転がし、走り込みに合わせて送る。"
+      },
+      "sport_boot": {
+        "name": "ビッグブート",
+        "description": "狙った地点への高く長いキック。観客が沸き立つ。"
+      },
+      "sport_hoof": {
+        "name": "クリアリング",
+        "description": "ボールを低く強くフィールドの先へ叩き込む。"
+      },
+      "sport_punt": {
+        "name": "ロングパント",
+        "description": "キーパーのパントキック。高く、遠くへ。"
+      },
+      "sport_feint": {
+        "name": "フェイント",
+        "description": "狙った地点への素早いサイドステップ。"
+      },
+      "sport_dive": {
+        "name": "ダイブ",
+        "description": "狙った地点へ身を投げ出す。横切るボールは体に吸い付く。"
+      },
+      "sport_shoulder": {
+        "name": "ショルダータックル",
+        "description": "収穫休戦の掟にかなった正々堂々の肩当たり。相手をボールから弾き飛ばす。"
+      },
+      "sport_second_wind": {
+        "name": "フレッシュレッグス",
+        "description": "脚を取り戻す:4秒間、移動速度が50%上昇する。"
+      },
       "flamestrike": {
         "name": "フレイムストライク",
         "description": "対象地点に炎の爆発を呼び出し、爆発に巻き込まれた敵に{damage}の火炎ダメージを与えます。"
@@ -6377,6 +6648,132 @@ export const ja_JP: EnTranslations = {
       "event_skin_token": {
         "name": "謎めいた装いの宝箱"
       },
+      "heroic_mark": {
+        "name": "英雄の証"
+      },
+      "morthens_cryptforged_hauberk": {
+        "name": "モルセンの墓鋳ホーバーク"
+      },
+      "shadowpulse_handwraps": {
+        "name": "シャドウパルスの手巻き"
+      },
+      "bonechill_striders": {
+        "name": "ボーンチルのストライダー"
+      },
+      "mistcallers_fang": {
+        "name": "ミストコーラーの牙"
+      },
+      "tidebound_spaulders": {
+        "name": "タイドバウンドの肩当て"
+      },
+      "sash_of_the_sunken_court": {
+        "name": "沈んだ宮廷のサッシュ"
+      },
+      "lunar_tide_greatstaff": {
+        "name": "ルナタイドの大杖"
+      },
+      "tidewoven_trousers": {
+        "name": "タイドウーヴンのズボン"
+      },
+      "choirmothers_casque": {
+        "name": "クワイアマザーのキャスク"
+      },
+      "gravewyrm_cleaver": {
+        "name": "グレイヴワームのクリーバー"
+      },
+      "shroud_of_the_gravewyrm": {
+        "name": "グレイヴワームの帳"
+      },
+      "sanctum_prowlers_grips": {
+        "name": "サンクタムプラウラーのグリップ"
+      },
+      "scepter_of_the_deathless_court": {
+        "name": "不死の宮廷の笏"
+      },
+      "deathless_warguard_legmail": {
+        "name": "不死の戦衛レッグメイル"
+      },
+      "soulrend_diadem": {
+        "name": "ソウルレンドの宝冠"
+      },
+      "scourgehide_carapace": {
+        "name": "スカージハイドの甲殻"
+      },
+      "cryptplate_helm": {
+        "name": "クリプトプレートヘルム"
+      },
+      "shadowpulse_slippers": {
+        "name": "シャドウパルスのスリッパ"
+      },
+      "bonechill_cord": {
+        "name": "ボーンチルの帯"
+      },
+      "mistforged_pauldrons": {
+        "name": "ミストフォージの肩当て"
+      },
+      "tideguard_faceguard": {
+        "name": "タイドガードのフェイスガード"
+      },
+      "sunken_court_mantle": {
+        "name": "沈んだ宮廷のマント"
+      },
+      "lunar_choir_leggings": {
+        "name": "ルナクワイアのレギンス"
+      },
+      "choir_blessed_spaulders": {
+        "name": "聖歌祝福の肩当て"
+      },
+      "tideworn_warboots": {
+        "name": "潮蝕のウォーブーツ"
+      },
+      "gravewyrm_claws": {
+        "name": "グレイヴワームの爪"
+      },
+      "gravescale_girdle": {
+        "name": "グレイヴスケイルの帯"
+      },
+      "wyrmchoir_handwraps": {
+        "name": "ワームクワイアの手巻き"
+      },
+      "deathless_greatblade": {
+        "name": "不死の大剣"
+      },
+      "soulforged_warplate": {
+        "name": "魂鍛の戦甲"
+      },
+      "stormcallers_focus": {
+        "name": "ストームコーラーの焦点"
+      },
+      "seal_of_the_nine_oaths": {
+        "name": "九誓の印章"
+      },
+      "nielas_coldlight_band": {
+        "name": "ニエラの冷光の指輪"
+      },
+      "sutils_gambit": {
+        "name": "スティルの賭け"
+      },
+      "oath_of_the_round_table": {
+        "name": "円卓の誓い"
+      },
+      "zyzzs_deathless_signet": {
+        "name": "ジズの不滅の印章"
+      },
+      "architects_cornerstone": {
+        "name": "アーキテクトの礎石"
+      },
+      "swiftfang_talisman": {
+        "name": "迅牙のタリスマン"
+      },
+      "yumis_keepsake_locket": {
+        "name": "ユミの形見のロケット"
+      },
+      "zense_meridian": {
+        "name": "ゼンセの子午線"
+      },
+      "medallion_of_endless_profit": {
+        "name": "無限の利益のメダリオン"
+      },
       "deathless_heartwood": {
         "name": "不死王冠の心材"
       },
@@ -6706,6 +7103,9 @@ export const ja_JP: EnTranslations = {
       "tolling_bell": {
         "name": "鳴り響く鐘"
       },
+      "vale_cup_ball": {
+        "name": "ボアボール"
+      },
       "thunzharr_waking_peak": {
         "name": "サンザール、目覚めし峰"
       },
@@ -6912,6 +7312,11 @@ export const ja_JP: EnTranslations = {
         "title": "熟練防具師",
         "greeting": "炉は熱く、砥石は回っています。切れるものなら売ります。"
       },
+      "heroic_quartermaster": {
+        "name": "補給係ヴェックス",
+        "title": "英雄補給係",
+        "greeting": "英雄の深部の証があれば、ハイウォッチ一の指輪とペンダントが手に入る。あなたの証を見せてくれ。"
+      },
       "loremaster_caddis": {
         "name": "博識者キャディス",
         "title": "博識者",
@@ -6941,6 +7346,11 @@ export const ja_JP: EnTranslations = {
         "name": "霊魂の癒し手",
         "title": "死者の番人",
         "greeting": "安らかに、魂よ。亡骸に戻すことはできるが、戻る道のりで弱ってしまうだろう。"
+      },
+      "groundskeeper_bram": {
+        "name": "整備人ブラム",
+        "title": "ソウフィールドの番人",
+        "greeting": "ソウフィールドでは休戦が守られている、{className}よ。使っていいのは足と肩だけだ。銅のミルク桶を懸けて一戦どうだ?"
       },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",
@@ -7849,6 +8259,9 @@ export const ja_JP: EnTranslations = {
           },
           "9": {
             "label": "ブライトウッドの林間"
+          },
+          "10": {
+            "label": "ソウフィールド"
           }
         }
       },

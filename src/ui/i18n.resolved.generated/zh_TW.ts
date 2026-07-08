@@ -308,6 +308,7 @@ export const zh_TW: EnTranslations = {
       "autorun": "自動奔跑",
       "jump": "跳躍",
       "leaderboard": "排行榜",
+      "dailyRewards": "獎勵",
       "nameplates": "名條",
       "haptics": "觸覺回饋",
       "hapticsOff": "觸覺回饋已關閉",
@@ -368,7 +369,9 @@ export const zh_TW: EnTranslations = {
       "hoursMinutes": "{h}小時{m}分",
       "minutes": "{m}分",
       "lessThanMinute": "<1分",
-      "lockedToast": "你已鎖定到{raid}。{time}後解鎖。"
+      "lockedToast": "你已鎖定到{raid}。{time}後解鎖。",
+      "heroicName": "英雄難度:{name}",
+      "heroicLocked": "你已被鎖定至英雄難度的{name}。"
     },
     "compass": {
       "N": "北",
@@ -390,12 +393,149 @@ export const zh_TW: EnTranslations = {
       "emoteWheel": "表情輪盤",
       "targetFriendly": "選取最近友方",
       "targetFriendlyNext": "切換友方目標",
-      "discord": "Discord"
+      "discord": "Discord",
+      "valecup": "溪谷盃"
+    },
+    "vcup": {
+      "title": "溪谷盃",
+      "shootPower": "POWER",
+      "close": "關閉溪谷盃視窗",
+      "offlineNote": "賽程簿已闔上。溪谷盃目前無法使用。",
+      "recordLine": "你的戰績：{wins} 勝，{losses} 敗，{draws} 平。",
+      "bracketsAria": "比賽賽級",
+      "bracketLabel": "{n}對{n}",
+      "waitingCount": "{count} 人等待中",
+      "nationsHeading": "旗幟國度",
+      "nation": {
+        "vale": "東溪谷",
+        "mirefen": "泥沼",
+        "thornpeak": "荊峰",
+        "coliseum": "灰燼競技場",
+        "choir": "蒼白唱詩班",
+        "ogre": "食人魔氏族",
+        "moon": "蒼白之月",
+        "copperdig": "銅礦坑"
+      },
+      "awayNote": "若雙方舉同一面旗幟，客隊將使用反轉配色。",
+      "rolesHeading": "運動位置",
+      "role": {
+        "allrounder": {
+          "name": "全能型",
+          "desc": "樣樣都會：踢球、長傳，還有一記正當的肩撞。"
+        },
+        "striker": {
+          "name": "前鋒",
+          "desc": "為大腳開球和靈巧側身而生。"
+        },
+        "sweeper": {
+          "name": "清道夫",
+          "desc": "把持球者撞開，再把球大腳解圍。"
+        },
+        "keeper": {
+          "name": "守門員",
+          "desc": "用抓球、撲救和長踢守住球門區。"
+        }
+      },
+      "queue": "加入佇列",
+      "leaveQueue": "離開佇列",
+      "queueNote": "隨時隨地排隊；哨聲會召喚你前往母豬場。",
+      "queuedStatus": "已排入 {bracket}：第 {position} 位，共 {count} 人。",
+      "blockNation": "請先選擇一個旗幟國度。",
+      "blockPartySize": "這個賽級需要更小的隊伍。",
+      "blockNotLeader": "只有隊長才能為隊伍排隊。",
+      "inMatchNote": "你的隊伍正在場上。繼續比賽！",
+      "deserterNote": "場地管理員記著呢。{seconds} 秒後才能再次排隊。",
+      "liveHeading": "母豬場現況",
+      "liveAria": "溪谷盃：{nationA} {scoreA}，{nationB} {scoreB}",
+      "walkUp": "走到母豬場，從看台上觀賽。",
+      "noLive": "球場很安靜。目前沒有比賽。",
+      "boardHeading": "優勝者榜",
+      "boardEmpty": "尚無優勝紀錄。銅奶桶還在等待。",
+      "boardWins": "{count} 勝",
+      "enterAsGuild": "以 {guild} 的旗號參賽",
+      "guildRecordLine": "你的公會戰績：{wins} 勝，{losses} 敗。",
+      "guildBoardHeading": "公會旗幟榜",
+      "guildBoardEmpty": "還沒有公會上場。揚起你的旗幟吧！",
+      "guildBoardWl": "{wins} W, {losses} L",
+      "practice": "與機器人練習賽",
+      "practiceNote": "立即在母豬場開始一場完整的機器人比賽。",
+      "practicingNow": "正在練習（{count}）：",
+      "clock": "{minutes}:{seconds}",
+      "indicatorQueued": "溪谷盃佇列：{bracket}，第 {position} 位，共 {count} 人",
+      "indicatorLive": "溪谷盃",
+      "indicatorOpen": "開啟溪谷盃視窗",
+      "phaseCountdown": "{seconds} 秒後開球",
+      "phaseGoal": "進球！",
+      "phaseGolden": "黃金進球",
+      "phaseOver": "全場結束",
+      "bannerFound": "溪谷盃開賽：{nationA} 對戰 {nationB}！",
+      "bannerCountdown": "{seconds} 秒後開球...",
+      "bannerKickoff": "開球！",
+      "bannerGoal": "進球！{nation} 破門！",
+      "bannerSave": "{name} 撲救成功！",
+      "bannerGolden": "黃金進球：下一球定勝負！",
+      "bannerEnd": "全場結束：{nationA} {scoreA}，{nationB} {scoreB}",
+      "bannerWin": "母豬場的勝利！",
+      "bannerDraw": "母豬場的比賽以平手收場。",
+      "bannerLoss": "在母豬場落敗。",
+      "logQueued": "你加入了 {bracket} 溪谷盃佇列（第 {position} 位）。",
+      "logUnqueued": "你離開了溪谷盃佇列。",
+      "logFound": "你的溪谷盃比賽已就緒：{nationA} 對戰 {nationB}。",
+      "logRoster": "你方：{allies}。對方：{enemies}。",
+      "logGoal": "{name} 為 {nation} 破門！{nationA} {scoreA}，{nationB} {scoreB}。",
+      "logSave": "{name} 完成撲救！",
+      "logWin": "你贏下了母豬場的這一戰。",
+      "logDraw": "母豬場的這一戰以平手告終。",
+      "logLoss": "你輸掉了母豬場的這一戰。",
+      "gossipOpen": "賽程簿",
+      "gossipOpenAria": "開啟溪谷盃視窗",
+      "mobileLabel": "盃賽",
+      "briefing": {
+        "subtitle": "賽前簡報",
+        "vs": "對",
+        "rulesHeading": "玩法",
+        "rule1": "把球踢或傳進對方球門即可得分。",
+        "rule2": "先進 5 球者勝，或全場結束時進球最多者勝。",
+        "rule3": "全場打平則進入金球賽：下一個進球者獲勝。",
+        "rule4": "鏟球只會把人撞倒，沒有人會受傷，豐收休戰為證。",
+        "rule5": "任何人都可以走上前，在看台上為你加油。",
+        "kitHeading": "你的技能",
+        "kitNote": "比賽期間，這些動作將取代你的職業技能。",
+        "rosterHeading": "出場名單",
+        "you": "你",
+        "bot": "電腦",
+        "ready": "我準備好了",
+        "readyDone": "已準備",
+        "readyAria": "準備開球",
+        "waiting": "正在等待對方準備……",
+        "whistle": "開球哨將在 {seconds} 秒後吹響。",
+        "readyCount": "已準備 {ready}/{total}"
+      },
+      "bet": {
+        "title": "本場投注",
+        "aria": "溪谷盃比賽投注",
+        "closesIn": "{seconds} 秒後停止投注",
+        "closed": "投注已截止",
+        "prize": "獎池 {amount}",
+        "splitAria": "兩隊投注池佔比",
+        "expand": "查看並下注",
+        "collapse": "收起投注",
+        "oddsLabel": "賠率",
+        "back": "押注 {team}",
+        "form": "{wins}勝-{losses}負",
+        "mine": "你的投注：{amount} 押 {team}",
+        "none": "你還沒有在本場比賽下注。",
+        "record": "投注戰績：{wins}勝-{losses}負，{sign}{net}",
+        "wonBanner": "你贏了這注！",
+        "wonLog": "你的溪谷盃投注贏了：返還 {amount}。",
+        "lostLog": "你的溪谷盃投注輸了：{amount}。",
+        "refundLog": "投注作廢，已退還你的 {amount} 本金。"
+      }
     },
     "options": {
       "clickMoveLeft": "左鍵",
       "clickMoveRight": "右鍵",
-      "version": "v{version} ({build})",
+      "version": "v{version}（{build}）",
       "browserEffects": "瀏覽器特效",
       "browserEffectsAuto": "自動",
       "browserEffectsFull": "完整",
@@ -480,6 +620,7 @@ export const zh_TW: EnTranslations = {
         "fps01Low": "0.1% 最低",
         "ping": "延遲",
         "jitter": "抖動",
+        "predLead": "預測提前量",
         "snapshot": "快照速率",
         "connection": "連線",
         "drawCalls": "繪製呼叫",
@@ -777,6 +918,15 @@ export const zh_TW: EnTranslations = {
         "tusk": "獠牙"
       }
     },
+    "townFocus": {
+      "title": "城鎮專注",
+      "hint": "專注點會在每種材料的基礎產出上疊加加成。未專注的材料保持基礎產出不變。",
+      "budgetLabel": "剩餘點數：{remaining} / {budget}",
+      "saveButton": "儲存專注",
+      "notInTownHint": "你必須在城鎮中才能設定專注。",
+      "increaseAria": "增加對{component}的專注",
+      "decreaseAria": "減少對{component}的專注"
+    },
     "party": {
       "promoteLeader": "提升為隊長",
       "inviteUsage": "邀請誰？用法：/invite <名稱>。"
@@ -791,6 +941,10 @@ export const zh_TW: EnTranslations = {
       "valueMaster": "隊長分配",
       "leaderOption": "分配者：隊長（你）",
       "masterOption": "分配者：{name}"
+    },
+    "dungeonDifficulty": {
+      "setHeroic": "設定地城難度：英雄",
+      "setNormal": "設定地城難度：普通"
     },
     "bags": {
       "cannotDestroy": "此物品無法銷毀。",
@@ -1010,7 +1164,7 @@ export const zh_TW: EnTranslations = {
       "roleTag": {
         "levyst": "Levy St",
         "admin": "管理員",
-        "coredevs": "Core Dev",
+        "coredevs": "核心開發者",
         "devs": "開發者",
         "mods": "管理員",
         "artists": "美術"
@@ -1220,6 +1374,20 @@ export const zh_TW: EnTranslations = {
       "logging": "伐木",
       "herbalism": "藥草學"
     },
+    "archetypeTitle": {
+      "label": "稱號",
+      "none": "無",
+      "armorcrafting": "鍛甲師",
+      "weaponcrafting": "武器匠",
+      "jewelcrafting": "珠寶匠",
+      "alchemy": "煉金師",
+      "engineering": "工程師",
+      "cooking": "廚師",
+      "inscription": "銘文師",
+      "enchanting": "附魔師",
+      "tailoring": "裁縫",
+      "leatherworking": "製皮師"
+    },
     "crafting": {
       "title": "製作",
       "close": "關閉製作",
@@ -1338,6 +1506,7 @@ export const zh_TW: EnTranslations = {
       "bestiary": "生物圖鑑",
       "models": "3D模型",
       "gear": "裝備與物品",
+      "professions": "專業",
       "economy": "經濟與交易",
       "social": "社交與組隊",
       "stats": "角色與屬性",
@@ -1352,6 +1521,7 @@ export const zh_TW: EnTranslations = {
       "combat": "戰鬥",
       "talents": "天賦",
       "arena": "競技場與PvP",
+      "valeCup": "溪谷盃",
       "glossary": "詞彙表",
       "wishIKnew": "我希望早點知道的事",
       "faq": "常見問題",
@@ -2007,6 +2177,32 @@ export const zh_TW: EnTranslations = {
       "ladderHeading": "在天梯上攀升",
       "ladderBody": "排名對戰會長期記錄你的名次。查看排行榜便能看到自己的位置，以及誰穩坐王國之巔。"
     },
+    "valeCupPage": {
+      "heading": "溪谷盃",
+      "intro": "母豬場上的野豬球：選一面旗幟、選一個位置，把塞滿稻草的野豬皮球踢過守門員，去爭奪銅奶桶。不流血，無戰利品，只有看台的歡呼。",
+      "loreHeading": "野豬球與豐收休戰",
+      "loreOldSow": "早在亡者甦醒之前，東溪的農工們就在收割後的麥茬地上玩野豬球：兩群人，一張塞滿稻草的野豬皮，和拖到綠地兩端的兩扇貨車門。第一顆球「老母豬」，如今鍍銅掛在酒館壁爐上方。",
+      "loreTruce": "當灰燼競技場開始批准戰爭競技時，紅溪元帥以更溫和的方式回應：在老綠地上立下長期的豐收休戰。貨車門變成了球門，綠地有了圍牆、看台和一個名字：母豬場。而獎品始終是優勝者們共飲的那只癟了的奶桶：銅奶桶。",
+      "howHeading": "怎麼玩",
+      "howQueue": "透過溪谷盃視窗隨處排隊，或到母豬場大門找場地管理員布拉姆。選擇從一對一到五對五的賽級、一面旗幟國度和一個運動位置；可以單排，也可以帶上隊伍。",
+      "howMatch": "開球時你的職業技能會被換成運動技能，賽後原樣恢復。踢球以地面準星瞄準，球會在擋板上反彈，帶球就是推著球跑。在全場結束前比對方進更多球；平手進入黃金進球。",
+      "howTruce": "母豬場上無人流血：鏟搶只會讓人翻滾，什麼都不會造成傷害，寵物也會場外休息。",
+      "spectateBody": "球場同一時間只進行一場比賽，任何人都可以走到看台觀賽。",
+      "nationsHeading": "八個旗幟國度",
+      "nationsBody": "每支隊伍都在一面旗幟下比賽。隊長選擇國度；若雙方舉同一面旗，客隊使用反轉配色。",
+      "nationVale": "綠與金，揚著麥捆旗：主場球隊，骨子裡都是農工。",
+      "nationMirefen": "青與灰，蒼鷺旗下：耐心、腿長、從不著急。",
+      "nationThornpeak": "冰藍與白，山峰旗下：步伐穩健、性子倔強。",
+      "nationColiseum": "紅與黑，交叉雙劍：他們踢起球來仍像在打仗。",
+      "nationChoir": "淡藍與銀，鈴鐺旗下：詭異、精準、非常安靜。",
+      "nationOgre": "橙與棕，鐵拳當先：肩膀開路，並引以為傲。",
+      "nationMoon": "紫與銀，彎月旗下：夜行的球員，腳步輕盈。",
+      "nationCopperdig": "銅與褐，別著鎬頭：跑不停歇的礦工。",
+      "rolesHeading": "運動位置",
+      "rolesBody": "你的位置決定你帶上球場的技能。人人都會踢球；其餘看性情。",
+      "rewardsHeading": "休戰規矩",
+      "rewardsBody": "休戰規矩意味著沒有經驗也沒有戰利品：一場分出勝負的比賽會計入你的戰績和優勝者榜，並附帶每日獎勵點數。中途棄賽會讓你的位置空缺，而場地管理員記著呢。"
+    },
     "wishPage": {
       "heading": "我希望早點知道的事",
       "intro": "幾句能讓新手少走許多冤枉路的真心話。它們都不是必讀，但每一則都有幫助。",
@@ -2090,6 +2286,35 @@ export const zh_TW: EnTranslations = {
       "cosmeticsSkins": "有兩條外觀路線可供收集。大多數職業都有數款替代外觀，那是該職業外貌的全新詮釋，唯你能穿戴。在它們之外還有染色：具名的雙色配色方案，能徹底為一款外觀重新上色，從沉穩的金屬色到鮮明的帝國色調皆有。",
       "cosmeticsCache": "其中少數來自一個神秘的外觀寶箱，那是一份封存的獎賞，開啟時會隨機擲出三種品質等級之一，並授予相符的外觀。它純粹是為了好看：裡頭沒有任何東西能讓你變強，只會讓你更賞心悅目。",
       "cosmeticsApply": "在你的角色畫面上的外觀欄位設定當前的造型，並在所有已解鎖的項目間自由切換。"
+    },
+    "professions": {
+      "intro": "除了戰鬥與任務之外，這個世界還會獎勵你耕耘土地與鍛造：採集原材料，在十種不同行業的製作站中將其打造成裝備，並在這些行業所代表的十種命途之一中確立自己的身分。",
+      "gatherTitle": "採集：採礦、伐木與草藥學",
+      "gatherIntro": "三種採集行業讓你從世界中直接取得原材料：採礦從礦脈中開採礦石與石料，伐木從林地中砍伐木材，草藥學採集野生生長的草藥與植物。三者分別計算進度，從事其中一項不會拖慢你在另一項上的進展。",
+      "gatherWhatTitle": "資源節點",
+      "gatherWhatBody": "礦脈、林地與藥草叢作為可見、無主的地物分布在各個區域中。走近並與之互動即可採集其中的資源。採集過一個節點後，它需要一段時間才能恢復供你本人再次採集，但這從不會阻擋其他玩家：其他人可以在此期間採集同一個節點。",
+      "gatherProficiencyTitle": "熟練度與材料品質",
+      "gatherProficiencyBody": "每次成功採集都會提升你在該採集行業的熟練度。更高的熟練度會讓你從節點中獲得更稀有品級材料的機率提高，從普通往上依次遞增，不過最稀有的品級即便在高熟練度下依然稀少。多加練習永遠不會降低你的機率，只會不斷提升它。",
+      "gatherToolsTitle": "行業工具",
+      "gatherToolsBody": "商人出售各採集行業的基礎工具，更好的工具則可以被製作出來，因此為節點採集做準備應當讓人感覺自己在不斷變強，而不是原地踏步。更高級的工具是解鎖更豐富節點、並在長時間遊玩中更有效率採集的既定途徑。",
+      "craftTitle": "十大製作行業",
+      "craftIntro": "十種製作行業將採集到的材料轉化為成品裝備與物品：製甲、製械與珠寶加工將原材料塑形為可穿戴裝備；煉金術與工程學依靠反覆試驗；烹飪、銘文與附魔各自作用於其他行業的產出；裁縫與製皮則依照精確的圖樣進行。它們共同構成一個輪環，每種行業都與兩個鄰居相鄰，並與另一種行業相對。",
+      "craftRingTitle": "專精之輪",
+      "craftRingBody": "十種行業排列在一個固定的輪環上，行業在輪環上的位置很重要：相鄰的行業彼此之間的共通之處比處於對面的行業更多。專注於一種行業應當讓人感覺像是加入了一個相關行業組成的家族，而不是選擇了一項孤立的技能。",
+      "craftRecipesTitle": "配方與材料",
+      "craftRecipesBody": "每種行業都有自己的配方，各自需要你採集或購買的特定材料。每種行業中最基礎的配方只需要普通材料即可製作，從一開始就可以上手，因此你拿起一門行業後即可立刻開始製作，而無需等待解鎖。",
+      "craftMasteryTitle": "技能與精通",
+      "craftMasteryBody": "成功製作會提升你在該行業的技能，而更豐富的配方需要更高的技能才能解鎖：基礎配方對所有人開放，而越進階的配方則需要越高的精通程度才能嘗試。提升你在某行業的技能，是從簡單的入門物品通往其更具野心的配方的必經之路。",
+      "craftComboTitle": "組合配方",
+      "craftComboBody": "除了單一行業自身的配方列表之外，這個輪環還支援需要同時調用兩個相鄰行業的組合配方，用以獎勵那些（或是一對交易夥伴）投入了輪環上相鄰行業的角色，而非只專精孤立的一項。",
+      "archetypeTitle": "十大命途",
+      "archetypeIntro": "十種行業各自也代表一種命途，一種超越單純從事該行業本身的更廣闊身分。你的當前命途一次只能有一個，而非一份清單：你只承載一個命途，但如果願意，之後可以更改。",
+      "archetypeChooseTitle": "選擇你的命途",
+      "archetypeChooseBody": "你需要透過第一區域中一個正式接納你進入該身分的早期劇情任務，來宣告你的第一個命途。在完成該任務之前，你尚未選擇任何命途。",
+      "archetypeSwitchTitle": "回心轉意",
+      "archetypeSwitchBody": "一旦宣告過一種命途，並不意味著你會永遠被束縛其中。改換成另一種命途，需要先為你的舊命途完成一個可重複的贖罪任務，而且每次轉換後，下一次所需的贖罪都會略微加重，因此轉換命途始終有意義，而不是毫無代價。",
+      "archetypeIdentityTitle": "你的命途意味著什麼",
+      "archetypeIdentityBody": "你當前的命途，是關於你的角色在這個世界中是誰的一種宣告，會體現在他人與世界如何稱呼你之中。它所附帶的具體獎勵與認可仍在完善之中；請隨著系統的完善持續關注。"
     },
     "economy": {
       "intro": "錢幣是整個世界的潤滑劑：它能購買你的裝備、補給與旅行用品，並在玩家之間易手。這一切只要遊玩就能自然取得，所以不妨把這一頁當成一張地圖，看看你的錢從何處來、又往何處去。",
@@ -3171,6 +3396,10 @@ export const zh_TW: EnTranslations = {
       "hard": "頂級戰利品"
     },
     "closeAria": "關閉"
+  },
+  "heroicShop": {
+    "balance": "英雄徽記: {count}",
+    "buyAria": "用{marks}枚英雄徽記購買{item}"
   },
   "delveUi": {
     "board": {
@@ -4464,12 +4693,14 @@ export const zh_TW: EnTranslations = {
     "slots": {
       "mainhand": "主手",
       "helmet": "頭部",
+      "neck": "頸部",
       "shoulder": "肩部",
       "chest": "胸部",
       "waist": "腰部",
       "legs": "腿部",
       "gloves": "手部",
-      "feet": "腳部"
+      "feet": "腳部",
+      "ring": "手指"
     },
     "quality": {
       "poor": "粗糙",
@@ -4673,6 +4904,46 @@ export const zh_TW: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "sport_kick": {
+        "name": "踢球",
+        "description": "沿地面把球踢向瞄準點。"
+      },
+      "sport_shoot": {
+        "name": "射門",
+        "description": "按住蓄力，鬆手射門。力量過大球會飛高。"
+      },
+      "sport_pass": {
+        "name": "傳球",
+        "description": "把球穩穩地傳給你選定的隊友，提前送到他的跑動路線上。"
+      },
+      "sport_boot": {
+        "name": "大腳開球",
+        "description": "朝瞄準點來一記高遠長傳。觀眾最愛這一腳。"
+      },
+      "sport_hoof": {
+        "name": "大腳解圍",
+        "description": "把球又低又狠地轟向前場。"
+      },
+      "sport_punt": {
+        "name": "守門員長踢",
+        "description": "守門員的一記開球，又高又遠。"
+      },
+      "sport_feint": {
+        "name": "假動作",
+        "description": "朝瞄準點快速側身突進。"
+      },
+      "sport_dive": {
+        "name": "魚躍撲救",
+        "description": "朝瞄準點飛身撲出。橫傳球會被你牢牢抱住。"
+      },
+      "sport_shoulder": {
+        "name": "肩撞",
+        "description": "一記符合豐收休戰規矩的肩撞，把對手撞得摔離球。"
+      },
+      "sport_second_wind": {
+        "name": "重振旗鼓",
+        "description": "找回狀態：移動速度提高50%，持續4秒。"
+      },
       "flamestrike": {
         "name": "烈焰風暴",
         "description": "在目標區域召喚一次烈焰爆發，對爆炸範圍內的敵人造成 {damage} 點火焰傷害。"
@@ -6377,6 +6648,132 @@ export const zh_TW: EnTranslations = {
       "event_skin_token": {
         "name": "神秘外觀寶箱"
       },
+      "heroic_mark": {
+        "name": "英雄徽記"
+      },
+      "morthens_cryptforged_hauberk": {
+        "name": "莫爾森的墓鑄鎖甲"
+      },
+      "shadowpulse_handwraps": {
+        "name": "暗影脈衝裹手"
+      },
+      "bonechill_striders": {
+        "name": "骨寒行者之靴"
+      },
+      "mistcallers_fang": {
+        "name": "喚霧者之牙"
+      },
+      "tidebound_spaulders": {
+        "name": "縛潮護肩"
+      },
+      "sash_of_the_sunken_court": {
+        "name": "沉沒王庭腰帶"
+      },
+      "lunar_tide_greatstaff": {
+        "name": "月潮巨杖"
+      },
+      "tidewoven_trousers": {
+        "name": "織潮長褲"
+      },
+      "choirmothers_casque": {
+        "name": "唱詩聖母的頭盔"
+      },
+      "gravewyrm_cleaver": {
+        "name": "墓龍劈斬刀"
+      },
+      "shroud_of_the_gravewyrm": {
+        "name": "墓龍裹布"
+      },
+      "sanctum_prowlers_grips": {
+        "name": "聖殿潛行者的手套"
+      },
+      "scepter_of_the_deathless_court": {
+        "name": "不死王庭權杖"
+      },
+      "deathless_warguard_legmail": {
+        "name": "不死戰衛腿甲"
+      },
+      "soulrend_diadem": {
+        "name": "裂魂冠冕"
+      },
+      "scourgehide_carapace": {
+        "name": "災禍之皮甲殼"
+      },
+      "cryptplate_helm": {
+        "name": "墓板頭盔"
+      },
+      "shadowpulse_slippers": {
+        "name": "暗影脈衝便鞋"
+      },
+      "bonechill_cord": {
+        "name": "骨寒腰繩"
+      },
+      "mistforged_pauldrons": {
+        "name": "霧鑄肩鎧"
+      },
+      "tideguard_faceguard": {
+        "name": "守潮面甲"
+      },
+      "sunken_court_mantle": {
+        "name": "沉沒王庭披肩"
+      },
+      "lunar_choir_leggings": {
+        "name": "月唱護腿"
+      },
+      "choir_blessed_spaulders": {
+        "name": "唱詩祝福肩鎧"
+      },
+      "tideworn_warboots": {
+        "name": "潮蝕戰靴"
+      },
+      "gravewyrm_claws": {
+        "name": "墓龍護爪"
+      },
+      "gravescale_girdle": {
+        "name": "墓鱗腰帶"
+      },
+      "wyrmchoir_handwraps": {
+        "name": "龍唱裹手"
+      },
+      "deathless_greatblade": {
+        "name": "不死巨刃"
+      },
+      "soulforged_warplate": {
+        "name": "鑄魂戰甲"
+      },
+      "stormcallers_focus": {
+        "name": "喚雷之核"
+      },
+      "seal_of_the_nine_oaths": {
+        "name": "九誓之印"
+      },
+      "nielas_coldlight_band": {
+        "name": "妮拉的冷光指環"
+      },
+      "sutils_gambit": {
+        "name": "蘇蒂爾的賭局"
+      },
+      "oath_of_the_round_table": {
+        "name": "圓桌誓約"
+      },
+      "zyzzs_deathless_signet": {
+        "name": "茲茲的不朽印戒"
+      },
+      "architects_cornerstone": {
+        "name": "建築師的奠基石"
+      },
+      "swiftfang_talisman": {
+        "name": "迅牙護符"
+      },
+      "yumis_keepsake_locket": {
+        "name": "由美的紀念小盒"
+      },
+      "zense_meridian": {
+        "name": "澤恩斯子午墜"
+      },
+      "medallion_of_endless_profit": {
+        "name": "無盡利潤勳章"
+      },
       "deathless_heartwood": {
         "name": "不朽王冠之心木"
       },
@@ -6706,6 +7103,9 @@ export const zh_TW: EnTranslations = {
       "tolling_bell": {
         "name": "鳴鐘"
       },
+      "vale_cup_ball": {
+        "name": "野豬皮球"
+      },
       "thunzharr_waking_peak": {
         "name": "桑扎爾，覺醒之峰"
       },
@@ -6912,6 +7312,11 @@ export const zh_TW: EnTranslations = {
         "title": "護甲大師",
         "greeting": "爐火正旺，砂輪正轉。能砍的東西，我都賣。"
       },
+      "heroic_quartermaster": {
+        "name": "軍需官維克斯",
+        "title": "英雄軍需官",
+        "greeting": "英雄深淵的憑證能換來高崖望最上等的戒指和吊墜。把你的徽記拿給我看。"
+      },
       "loremaster_caddis": {
         "name": "凱迪斯博學者",
         "title": "博學者",
@@ -6941,6 +7346,11 @@ export const zh_TW: EnTranslations = {
         "name": "靈魂醫者",
         "title": "亡者的守護者",
         "greeting": "安息吧，靈魂。我可以讓你重返軀體，但歸途會讓你變得虛弱。"
+      },
+      "groundskeeper_bram": {
+        "name": "場地管理員布拉姆",
+        "title": "母豬場看守",
+        "greeting": "休戰約定在母豬場依然有效，{className}：只許用腳和肩膀。想為銅奶桶一戰嗎？"
       },
       "tidewatcher_ondrel": {
         "name": "翁德瑞爾·韋恩",
@@ -7849,6 +8259,9 @@ export const zh_TW: EnTranslations = {
           },
           "9": {
             "label": "明木林地"
+          },
+          "10": {
+            "label": "母豬場"
           }
         }
       },

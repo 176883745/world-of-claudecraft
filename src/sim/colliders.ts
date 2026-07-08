@@ -22,6 +22,7 @@ import {
   TEMPLE_LAYOUT,
 } from './dungeon_layout';
 import type { WorldContent } from './types';
+import { valeCupColliders } from './vale_cup_layout';
 import { generateDecorations, groundHeight } from './world';
 
 // Static world collision. Prop placement comes from the per-zone content
@@ -250,6 +251,14 @@ function staticWorldColliders(seed: number): Collider[] {
       camGhost: true,
     });
   }
+
+  // The Sowfield boards, goal posts, net pockets, stand fronts, and plinth
+  // (Vale Cup). ONE layout module (vale_cup_layout.ts) drives this movement
+  // set, the ball's analytic wall reflection, the terrain flatten, and the
+  // render dressing, so they can never drift. Deliberately NOT fences: boards
+  // must not be jump-through mid-match (the north gate is the way in). Applies
+  // for any active content, matching the flatten arm (crater-precedent leak).
+  out.push(...valeCupColliders());
   return out;
 }
 

@@ -11,6 +11,7 @@ export const MEDIA_ASSETS: Record<string, string> =
   "env/peaks_backdrop_4k.webp": "/media/env/peaks_backdrop_4k.1d3688aff41c.webp",
   "env/peaks_dawn_1k.hdr": "/media/env/peaks_dawn_1k.ee70fb8c8fb3.hdr",
   "env/peaks_dawn_2k.hdr": "/media/env/peaks_dawn_2k.7261c613b35a.hdr",
+  "env/space_galaxy.jpg": "/media/env/space_galaxy.dd78358b9e62.jpg",
   "env/vale_backdrop.webp": "/media/env/vale_backdrop.1a566508b624.webp",
   "env/vale_backdrop_4k.webp": "/media/env/vale_backdrop_4k.18384c888f93.webp",
   "env/vale_day_1k.hdr": "/media/env/vale_day_1k.fd94c84997b8.hdr",

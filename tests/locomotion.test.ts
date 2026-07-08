@@ -11,6 +11,7 @@ const FPS = 1 / 60;
 const BASE_ANIM_STATE: AnimState = {
   speed: 0,
   moving: false,
+  running: false,
   airborne: false,
   backwards: false,
   dead: false,
@@ -93,6 +94,56 @@ describe('locomotion hysteresis', () => {
   });
 });
 
+describe('gait hysteresis (run vs walk)', () => {
+  const run = (t: ReturnType<typeof newLocoTrack>, dt = FPS, speed = 7) =>
+    updateLocomotion(t, 0, speed * dt, 0, dt);
+
+  it('a steady run settles into the run gait quickly', () => {
+    const t = newLocoTrack();
+    let s = run(t);
+    for (let i = 0; i < 20; i++) s = run(t);
+    expect(s.running).toBe(true);
+  });
+
+  it('noisy per-frame speed around the old threshold NEVER flips the gait', () => {
+    // the world-entry glitch: load-hitch frames make the sampled speed swing
+    // wildly around 4.5 u/s; the run/walk pick used a bare compare and
+    // crossfaded Running<->Walking on nearly every frame
+    const t = newLocoTrack();
+    for (let i = 0; i < 30; i++) run(t); // settle into run
+    let flips = 0;
+    let last = true;
+    for (let i = 0; i < 120; i++) {
+      // alternate starved and burst frames: 3 u/s then 8 u/s samples
+      const s = run(t, i % 2 === 0 ? 0.017 : 0.25, i % 2 === 0 ? 3 : 8);
+      if (s.running !== last) flips++;
+      last = s.running;
+    }
+    expect(flips).toBe(0);
+  });
+
+  it('a snared runner keeps the run gait until well below the exit threshold', () => {
+    const t = newLocoTrack();
+    for (let i = 0; i < 30; i++) run(t);
+    let s = run(t, FPS, 4.2); // 40% snare: between exit (3.6) and enter (5.2)
+    for (let i = 0; i < 30; i++) s = run(t, FPS, 4.2);
+    expect(s.running).toBe(true); // no gait pop mid-snare
+    for (let i = 0; i < 60; i++) s = run(t, FPS, 2.0); // hard snare: drop to walk
+    expect(s.running).toBe(false);
+  });
+
+  it('a one-frame backwards read cannot flash the walkBack direction', () => {
+    const t = newLocoTrack();
+    for (let i = 0; i < 30; i++) run(t); // forward run, direction latched
+    // a correction nudge reads one frame of backward displacement
+    let s = updateLocomotion(t, 0, -7 * FPS, 0, FPS);
+    expect(s.backwards).toBe(false); // dwell holds the direction
+    // a REAL sustained backpedal still switches once the dwell elapses
+    for (let i = 0; i < 30; i++) s = updateLocomotion(t, 0, -4.5 * FPS, 0, FPS);
+    expect(s.backwards).toBe(true);
+  });
+});
+
 describe('locomotion animation state', () => {
   it('uses authored walkBack for normal humanoid backpedal', () => {
     const state = { ...BASE_ANIM_STATE, moving: true, backwards: true, speed: 3 };
@@ -104,6 +155,7 @@ describe('locomotion animation state', () => {
     const state = {
       ...BASE_ANIM_STATE,
       moving: true,
+      running: true,
       backwards: true,
       reverseBackpedal: true,
       speed: 7,

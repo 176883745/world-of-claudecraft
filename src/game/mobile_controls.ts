@@ -119,6 +119,8 @@ export interface MobileControlCallbacks {
   onDonate(): void;
   onEmotes(): void;
   onArena(): void;
+  /** Open the Vale Cup window (queue/roster board for the boarball minigame). */
+  onValeCup(): void;
   onQuestLog(): void;
   onCharacter(): void;
   onBags(): void;
@@ -126,6 +128,8 @@ export interface MobileControlCallbacks {
   onTalents(): void;
   onMap(): void;
   onLeaderboard(): void;
+  /** Open the Daily Rewards chest, folded into the More tray on mobile. */
+  onDailyRewards(): void;
   /** Toggle world nameplates; returns the new on/off state to sync the button glow. */
   onNameplates(): boolean;
   /** Toggle background music; returns whether music is now enabled. */
@@ -424,6 +428,7 @@ export class MobileControls {
     this.bindButton('mobile-donate', () => this.callbacks.onDonate());
     this.bindButton('mobile-emote', () => this.callbacks.onEmotes());
     this.bindButton('mobile-arena', () => this.callbacks.onArena());
+    this.bindButton('mobile-valecup', () => this.callbacks.onValeCup());
     this.bindButton('mobile-quest', () => this.callbacks.onQuestLog());
     this.bindButton('mobile-char', () => this.callbacks.onCharacter());
     this.bindButton('mobile-bags', () => this.callbacks.onBags());
@@ -431,6 +436,7 @@ export class MobileControls {
     this.bindButton('mobile-talents', () => this.callbacks.onTalents());
     this.bindButton('mobile-map', () => this.callbacks.onMap());
     this.bindButton('mobile-leaderboard', () => this.callbacks.onLeaderboard());
+    this.bindButton('mobile-daily-rewards', () => this.callbacks.onDailyRewards());
     const nameplatesBtn = document.getElementById('mobile-nameplates');
     this.bindButton('mobile-nameplates', () => {
       const on = this.callbacks.onNameplates();
@@ -468,13 +474,18 @@ export class MobileControls {
     if (!active) {
       this.root?.classList.remove('expanded');
       this.autorunButton?.classList.remove('active');
-      document.body.classList.remove('mobile-more-open', 'mobile-chat-open', 'mobile-chatlog-peek');
+      document.body.classList.remove(
+        'mobile-more-open',
+        'mobile-chat-open',
+        'mobile-chatlog-peek',
+        'mobile-chat-reply',
+      );
       this.releaseMove();
       this.releaseCamera();
       this.releasePinch();
       this.touchOwners.releaseAll();
     } else {
-      document.body.classList.remove('mobile-chat-open');
+      document.body.classList.remove('mobile-chat-open', 'mobile-chat-reply');
     }
   }
 
@@ -576,7 +587,7 @@ export class MobileControls {
       if (!this.active) return;
       e.preventDefault();
       cancel();
-      if (!this.chatLongFired) this.toggleChat();
+      if (!this.chatLongFired) this.tapChat();
     });
     button.addEventListener('pointercancel', cancel);
     button.addEventListener('pointerleave', cancel);
@@ -591,21 +602,58 @@ export class MobileControls {
     }
   }
 
+  /** The single top-left Chat button owns a simple two-state toggle (issue
+   * 1577 uiux-overlap: the separate in-log reply pill overlapped the chatbox,
+   * so it was removed; a later round tried a three-state open/read/reply
+   * cycle, since simplified back to two): hidden, or shown, with the log AND
+   * the composer appearing together immediately, composer focused. There is
+   * no separate read-only step to tap through first. */
+  private tapChat(): void {
+    // Two states only: hidden, or shown (log AND composer visible together,
+    // composer focused immediately). No separate read-only step in between.
+    const open = document.body.classList.contains('mobile-chat-open');
+    if (!open) {
+      this.enterChatReply();
+    } else {
+      this.toggleChat();
+    }
+  }
+
   private toggleChat(): void {
     document.body.classList.remove('mobile-chatlog-peek');
     document.body.classList.toggle('mobile-chat-open');
     if (document.body.classList.contains('mobile-chat-open')) {
-      this.callbacks.onChat();
+      // Open the log in a read state, NOT the composer: the keyboard only rises
+      // once the player taps the Chat button again to enter reply mode.
+      // The composer stays hidden until enterChatReply focuses it.
     } else {
-      const input = document.getElementById('chat-input') as HTMLTextAreaElement | null;
-      if (input) {
-        input.value = '';
-        input.style.display = 'none';
-        // clear the autosized height so the next open starts at one line
-        input.style.height = '';
-        input.style.overflowY = '';
-        input.blur();
-      }
+      this.exitChatReply();
+    }
+  }
+
+  /** Enter reply mode: raise the keyboard and show the composer via the shared
+   *  onChat path. Reached by tapping the Chat button again while the log is
+   *  already open in its read state. */
+  private enterChatReply(): void {
+    if (!document.body.classList.contains('mobile-chat-open')) {
+      document.body.classList.add('mobile-chat-open');
+    }
+    document.body.classList.remove('mobile-chatlog-peek');
+    document.body.classList.add('mobile-chat-reply');
+    this.callbacks.onChat();
+  }
+
+  /** Leave reply mode and reset the composer back to its collapsed state. */
+  private exitChatReply(): void {
+    document.body.classList.remove('mobile-chat-reply');
+    const input = document.getElementById('chat-input') as HTMLTextAreaElement | null;
+    if (input) {
+      input.value = '';
+      input.style.display = 'none';
+      // clear the autosized height so the next open starts at one line
+      input.style.height = '';
+      input.style.overflowY = '';
+      input.blur();
     }
   }
 

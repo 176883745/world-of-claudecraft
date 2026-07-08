@@ -22,9 +22,10 @@ lets the same `sim/` run offline, on the server, and headless.
   the server, **not** each other's mutable internals. Two narrow sanctioned exceptions
   to "not `sim/`": (a) `render/` imports the **pure, deterministic** geometry/data
   helpers from `sim/` (`sim/world`'s `terrainHeight`/`groundHeight`/`WATER_LEVEL`/
-  `zoneBiomeAt`, plus `sim/data`/`sim/colliders`) so it *shares* the sim's terrain
-  math instead of re-deriving it (reaching into mutable `Sim` state or `sim/sim.ts`
-  logic stays forbidden); (b) `render`/`game` use `ui/`'s i18n + icon surface (`t`,
+  `zoneBiomeAt`, plus `sim/data`/`sim/colliders`/`sim/player_motion`, the movement
+  kernel the display-only self extrapolator `render/self_motion.ts` runs) so it
+  *shares* the sim's terrain/movement math instead of re-deriving it (reaching into
+  mutable `Sim` state or `sim/sim.ts` logic stays forbidden); (b) `render`/`game` use `ui/`'s i18n + icon surface (`t`,
   `tEntity`, `ui/icons`).
 - `net/` -> `sim/` types + `world_api.ts` (`ClientWorld implements IWorld`).
 - `main.ts` -> wires it all together; the only module that knows *both* a concrete

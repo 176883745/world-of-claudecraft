@@ -93,6 +93,8 @@ function bareClient(pid: number): ClientWorld {
   c.ownPlayerId = pid;
   c.ownPlayerClass = 'warrior';
   c.spectating = null;
+  c.cupInfo = null;
+  c.sportRole = null;
   c.moveInput = {};
   c.inventory = [];
   c.vendorBuyback = [];
@@ -105,6 +107,7 @@ function bareClient(pid: number): ClientWorld {
   c.questsDone = new Set();
   c.pendingQuestCommands = new Map();
   c.partyInfo = null;
+  c.selectedDungeonDifficulty = 'normal';
   c.tradeInfo = null;
   c.duelInfo = null;
   c.lastSnapAt = 0;
@@ -864,6 +867,65 @@ describe('raid party wire', () => {
     expect(client.partyInfo).not.toBeNull();
     expect(client.partyInfo?.raid).toBe(true);
     expect(client.partyInfo?.members.find((m) => m.pid === member.pid)?.group).toBe(2);
+  });
+});
+
+describe('dungeon difficulty wire', () => {
+  it('ships the selected dungeon difficulty and ClientWorld mirrors it', () => {
+    const server = new GameServer();
+    const fc = fakeWs();
+    const session = joinServer(server, fc, 1, 'Hero');
+    server.sim.setDungeonDifficulty('heroic', session.pid);
+
+    broadcast(server);
+
+    const snap = lastSnap(fc.sent);
+    expect(snap.self.ddiff).toBe('heroic');
+    const client = bareClient(session.pid);
+    (client as any).applySnapshot(snap);
+    expect(client.dungeonDifficulty()).toBe('heroic');
+  });
+
+  it('dispatches set_dungeon_difficulty through the wire and rejects invalid values', () => {
+    const server = new GameServer();
+    const fc = fakeWs();
+    const session = joinServer(server, fc, 1, 'Hero');
+
+    const send = (difficulty: unknown) =>
+      server.handleMessage(
+        session,
+        JSON.stringify({ t: 'cmd', cmd: 'set_dungeon_difficulty', difficulty }),
+      );
+
+    send('heroic');
+    expect(server.sim.dungeonDifficulty(session.pid)).toBe('heroic');
+
+    // isDungeonDifficulty guards the dispatch arm: junk values change nothing.
+    send('mythic');
+    expect(server.sim.dungeonDifficulty(session.pid)).toBe('heroic');
+    send(7);
+    expect(server.sim.dungeonDifficulty(session.pid)).toBe('heroic');
+    send(undefined);
+    expect(server.sim.dungeonDifficulty(session.pid)).toBe('heroic');
+
+    send('normal');
+    expect(server.sim.dungeonDifficulty(session.pid)).toBe('normal');
+  });
+
+  it('dispatches heroic_buy through the wire and validates the itemId', () => {
+    const server = new GameServer();
+    const fc = fakeWs();
+    const session = joinServer(server, fc, 1, 'Hero');
+    const send = (itemId: unknown) =>
+      server.handleMessage(session, JSON.stringify({ t: 'cmd', cmd: 'heroic_buy', itemId }));
+
+    // Junk payloads never reach the sim handler (typeof string guard).
+    send(7);
+    send(undefined);
+    // A valid string flows through; far from the quartermaster the sim refuses
+    // with an error event rather than granting anything.
+    send('seal_of_the_nine_oaths');
+    expect(server.sim.countItem('seal_of_the_nine_oaths', session.pid)).toBe(0);
   });
 });
 
@@ -1863,9 +1925,9 @@ describe('lockpick view rebuilds from events on the online client', () => {
 // while the prior decoded value is preserved.
 // ---------------------------------------------------------------------------
 
-// The pinned set of the 31 `maybe(...)` delta keys, sorted. Cross-checked below
+// The pinned set of the 32 `maybe(...)` delta keys, sorted. Cross-checked below
 // against the live `maybe(...)` calls scraped from server/game.ts source, so a
-// 32nd unregistered delta key reddens this gate.
+// 33rd unregistered delta key reddens this gate.
 const ALL_DELTA_KEYS = [
   'arena',
   'bags',
@@ -1894,9 +1956,12 @@ const ALL_DELTA_KEYS = [
   'prof',
   'qdone',
   'qlog',
+  'sport',
   'stats',
   'tal',
+  'tfocus',
   'trade',
+  'vcup',
   'weapon',
 ] as const;
 
@@ -1939,6 +2004,9 @@ const TERSE_TO_IWORLD: Record<string, string> = {
   res: 'resource',
   rtype: 'resourceType',
   rxp: 'restedXp',
+  sport: 'sportRole',
+  tfocus: 'townFocus',
+  vcup: 'cupInfo',
 };
 
 // Year ~2223 in epoch ms. Beats selfWireJson's `until > Date.now()` lockout
@@ -2016,6 +2084,8 @@ function dirtyEveryDeltaField(): {
   meta.gatheringProficiency = { mining: 6, logging: 0, herbalism: 0 };
   meta.delveDaily = { date: '2099-01-01', firstClearXp: new Set(['x']), markClears: 4 };
   meta.talents = { spec: 'arms', ranks: {}, choices: {} };
+  // the Vale Cup sport kit swap ('sport' heavy key) and queue readout ('vcup')
+  meta.sportRole = 'keeper';
   meta.talentMods.spec = 'arms';
   meta.loadouts = [{ name: 'PvP', alloc: { spec: 'arms', ranks: {}, choices: {} }, bar: [] }];
   meta.activeLoadout = 0;
@@ -2177,9 +2247,9 @@ describe('full self-state snapshot delta fixture', () => {
 });
 
 describe('delta-key contract pins (anti-drift)', () => {
-  it('ALL_DELTA_KEYS contains exactly 31 unique keys in sorted order', () => {
-    expect(ALL_DELTA_KEYS).toHaveLength(31);
-    expect(new Set(ALL_DELTA_KEYS).size).toBe(31);
+  it('ALL_DELTA_KEYS contains exactly 34 unique keys in sorted order', () => {
+    expect(ALL_DELTA_KEYS).toHaveLength(34);
+    expect(new Set(ALL_DELTA_KEYS).size).toBe(34);
     expect([...ALL_DELTA_KEYS]).toEqual([...ALL_DELTA_KEYS].sort());
   });
 
@@ -2191,7 +2261,7 @@ describe('delta-key contract pins (anti-drift)', () => {
     const scraped = new Set<string>();
     for (let m = re.exec(src); m !== null; m = re.exec(src)) scraped.add(m[1]);
     expect(scraped.has('lockouts')).toBe(true); // the multi-line call IS captured
-    expect(scraped.size).toBe(31);
+    expect(scraped.size).toBe(34);
     expect([...scraped].sort()).toEqual([...ALL_DELTA_KEYS].sort());
   });
 

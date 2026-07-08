@@ -990,16 +990,16 @@ describe('client HTML shell', () => {
       'body.mobile-touch #party-frames.below-target {\n    top: calc(max(8px, env(safe-area-inset-top)) + 130px);',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch #party-frames .party-frame {\n    width: 132px;\n    min-height: 40px;',
+      'body.mobile-touch #party-frames .party-frame {\n    width: 112px;\n    min-height: 40px;',
     );
     expect(hudMobileCss).toContain(
       'body.mobile-touch #party-frames .party-frame:not(:first-child) {\n    margin-top: -1px;',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch #party-frames #party-leave {\n    width: 132px;\n    min-height: 40px;',
+      'body.mobile-touch #party-frames #party-leave {\n    grid-column: 1;\n    grid-row: 3;\n    justify-self: start;\n    width: auto;\n    min-width: 0;\n    min-height: 40px;',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch #party-frames .party-frame {\n      width: 118px;\n      min-height: 40px;',
+      'body.mobile-touch #party-frames .party-frame {\n      width: 100px;\n      min-height: 40px;',
     );
     expect(hudMobileCss).toContain(
       'body.mobile-touch #target-frame {\n      left: max(6px, env(safe-area-inset-left));\n      top: calc(max(6px, env(safe-area-inset-top)) + 56px);',
@@ -1089,15 +1089,23 @@ describe('client HTML shell', () => {
       '@media (orientation: landscape) {\n    body.mobile-touch[data-start-panel="charselect-panel"] #homepage-views-container,',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch[data-start-panel="charselect-panel"] #hero-view,\n    body.mobile-touch[data-start-panel="charcreate-panel"] #hero-view {\n      justify-content: flex-start;\n      min-height: calc(var(--app-vh) - 86px);',
+      'body.mobile-touch[data-start-panel="login-panel"] #hero-view,\n    body.mobile-touch[data-start-panel="discord-choice-panel"] #hero-view,\n    body.mobile-touch[data-start-panel="realm-panel"] #hero-view,\n    body.mobile-touch[data-start-panel="offline-select"] #hero-view {\n      justify-content: flex-start;\n      min-height: calc(var(--app-vh) - 86px);',
+    );
+    // charselect/charcreate float their header out of flow entirely (a floating
+    // hamburger, not a shrunk-but-present header bar), so they get the FULL
+    // viewport height here instead of height-minus-header.
+    expect(hudMobileCss).toContain(
+      'body.mobile-touch[data-start-panel="charselect-panel"] #hero-view,\n    body.mobile-touch[data-start-panel="charcreate-panel"] #hero-view {\n      justify-content: flex-start;\n      min-height: var(--app-vh);',
     );
     expect(hudMobileCss).toContain(
       'body.mobile-touch[data-start-panel="mode-select"] #title-logo {\n      width: min(176px, 24vw);\n      margin: 0;',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch[data-start-panel="charselect-panel"] #title-logo,\n    body.mobile-touch[data-start-panel="charcreate-panel"] #title-logo {\n      display: none;',
+      'body.mobile-touch[data-start-panel="charselect-panel"] #title-logo,\n    body.mobile-touch[data-start-panel="charcreate-panel"] #title-logo,\n    body.mobile-touch[data-start-panel="login-panel"] #title-logo,\n    body.mobile-touch[data-start-panel="discord-choice-panel"] #title-logo,\n    body.mobile-touch[data-start-panel="realm-panel"] #title-logo,\n    body.mobile-touch[data-start-panel="offline-select"] #title-logo {\n      display: none;',
     );
-    expect(shellCss).toContain('height: min(560px, calc(var(--app-vh) - 96px));');
+    // No header flow-height to subtract anymore: the floating hamburger reserves
+    // zero layout height, so only the panel's own top/bottom padding is left.
+    expect(shellCss).toContain('height: min(560px, calc(var(--app-vh) - 20px));');
     expect(shellCss).toContain(
       'body.mobile-touch #charselect-panel .cs-detail-col {\n      display: grid;\n      grid-template-columns: minmax(120px, 0.54fr) minmax(0, 1.46fr);',
     );
@@ -1255,7 +1263,7 @@ describe('client HTML shell', () => {
       'width: min(440px, calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right)));',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch #mobile-extra-grid {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));',
+      'body.mobile-touch #mobile-extra-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));',
     );
     expect(hudMobileCss).toContain('body.mobile-touch #mobile-extra-controls .mobile-btn');
     expect(hudMobileCss).toContain(
@@ -1514,11 +1522,13 @@ describe('client HTML shell', () => {
     expect(hudMobileCss).toContain('bottom: calc(68px + env(safe-area-inset-bottom));');
     expect(hudMobileCss).toContain('bottom: calc(62px + env(safe-area-inset-bottom));');
     expect(hudMobileCss).not.toContain('body.mobile-touch.mobile-left-handed #castbar');
+    // Nudged further right from the original -40px to clear more of the
+    // joystick zone; castbar/swingbar still move together with it.
     expect(hudMobileCss).toContain(
-      'body.mobile-touch.hud-mobile-compact #player-frame {\n    left: calc(50% - 40px);\n  }',
+      'body.mobile-touch.hud-mobile-compact #player-frame {\n    left: calc(50% - 15px);\n  }',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch.hud-mobile-compact #castbar {\n    left: calc(50% - 40px);\n  }',
+      'body.mobile-touch.hud-mobile-compact #castbar,\n  body.mobile-touch.hud-mobile-compact #swingbar {\n    left: calc(50% - 15px);\n  }',
     );
     // Left-handed mode mirrors the satellite with the joystick (anchor swaps
     // to the right inset, the seat re-floors from the right edge), and the
@@ -1638,11 +1648,10 @@ describe('client HTML shell', () => {
     expect(hudMobileCss).toContain(
       'body.mobile-touch.hud-mobile-compact.mobile-left-handed #mobile-action-ring {',
     );
-    // The compact minimap shrink and the hand-synced daily-chest offset are a
-    // COUPLED pair (170 * 0.44 + 8 = 83): pin both so one cannot drift without
-    // the other, and so the arc's vertical budget on a 360px-tall phone holds.
+    // The compact minimap shrink keeps the arc's vertical budget on a
+    // 360px-tall phone holding (the daily-chest rail was folded into the
+    // mobile More tray, issue #1577, so it no longer needs a coupled offset).
     expect(hudMobileCss).toContain('transform: scale(0.44);');
-    expect(hudMobileCss).toContain('right: calc(max(6px, env(safe-area-inset-right)) + 83px);');
   });
 
   it('gates the camera joystick behind its opt-in setting (swipe-look is the primary camera)', () => {
@@ -1744,7 +1753,7 @@ describe('client HTML shell', () => {
 
   it('sizes the mobile Bags window as a usable modal', () => {
     expect(hudMobileCss).toContain(
-      'body.mobile-touch #bags {\n    position: fixed;\n    left: max(10px, env(safe-area-inset-left));\n    right: max(10px, env(safe-area-inset-right));\n    top: max(10px, env(safe-area-inset-top));\n    bottom: calc(72px + env(safe-area-inset-bottom));\n    width: auto;\n    transform: none;',
+      'body.mobile-touch #bags {\n    position: fixed;\n    left: max(10px, env(safe-area-inset-left));\n    right: max(10px, env(safe-area-inset-right));\n    top: max(10px, env(safe-area-inset-top));\n    bottom: max(10px, env(safe-area-inset-bottom));\n    width: auto;\n    transform: none;',
     );
     expect(hudMobileCss).toContain('body.mobile-touch #bags .bag-grid {\n    min-height: 150px;');
     expect(hudMobileCss).not.toContain(

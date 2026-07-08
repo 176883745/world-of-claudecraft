@@ -3,6 +3,9 @@ export interface AnimState {
   /** horizontal speed, world units/sec */
   speed: number;
   moving: boolean;
+  /** run-vs-walk gait, hysteresis-picked in locomotion.ts (never a raw
+   *  speed-threshold compare: that flips on every noisy frame under load) */
+  running: boolean;
   airborne: boolean;
   /** moving against facing (players backpedaling) */
   backwards: boolean;
@@ -16,7 +19,6 @@ export interface AnimState {
 
 export type BaseState = 'idle' | 'walk' | 'walkBack' | 'run' | 'cast' | 'swim' | 'sit' | 'jump';
 
-const RUN_SPEED_THRESHOLD = 4.5; // u/s — sim walk/wander sits well below
 const DEFAULT_WALK_REF = 2.2;
 const DEFAULT_RUN_REF = 7;
 
@@ -27,7 +29,7 @@ export function desiredBaseState(s: AnimState, hasWalkBackClip: boolean): BaseSt
   if (s.sitting) return 'sit';
   if (s.moving) {
     if (s.backwards && hasWalkBackClip && !s.reverseBackpedal) return 'walkBack';
-    return s.speed >= RUN_SPEED_THRESHOLD ? 'run' : 'walk';
+    return s.running ? 'run' : 'walk';
   }
   return 'idle';
 }

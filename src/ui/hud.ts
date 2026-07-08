@@ -26,6 +26,8 @@ import {
 import { isFriendlyPet, mobTooltipConColor } from '../render/reaction';
 import type { Renderer } from '../render/renderer';
 import { type AugmentCategory, augmentCategory } from '../sim/content/augments';
+import { HEROIC_MARK_ITEM_ID } from '../sim/content/dungeon_difficulty';
+import { HEROIC_VENDOR_STOCK } from '../sim/content/heroic_vendor';
 import {
   EVENT_SKIN_TIERS,
   MECH_CHROMAS,
@@ -34,6 +36,7 @@ import {
   skinRankOrder,
 } from '../sim/content/skins';
 import { FIRST_TALENT_LEVEL, type TalentAllocation, talentsFor } from '../sim/content/talents';
+import { SPORT_ABILITIES } from '../sim/content/vale_cup';
 import type { ZoneDef } from '../sim/data';
 import {
   ABILITIES,
@@ -65,6 +68,7 @@ import { isItemLevelEligible, itemLevel, itemScore } from '../sim/item_level';
 import { requiredLevelFor } from '../sim/item_level_req';
 import type { Ante, PickAction } from '../sim/lockpick';
 import { PICK_ACTIONS } from '../sim/lockpick';
+import { FOCUS_POINT_BUDGET, isInTownZone } from '../sim/professions/focus';
 import { type QuestObjectiveRef, questObjectivesForMob } from '../sim/quest_targets';
 import type { ResolvedAbility } from '../sim/sim';
 import type {
@@ -72,6 +76,7 @@ import type {
   CalendarResultCode,
   EquipSlot,
   InvSlot,
+  ItemSlot,
   LootRollChoice,
   MailResultCode,
   PetMode,
@@ -90,12 +95,14 @@ import {
   type ItemDef,
   isQuestTurnInNpc,
   MAX_LEVEL,
+  MELEE_RANGE,
   MILESTONES,
   type RiteIntensity,
   type SimEvent,
   virtualLevel,
   xpUntilNextPrestige,
 } from '../sim/types';
+import { isAtSowfield } from '../sim/vale_cup_layout';
 import { worldBossIdFromLockout } from '../sim/world_boss';
 import {
   type DailyRewardStatus,
@@ -200,6 +207,8 @@ import {
   enterGroundAim,
   type GroundAimState,
 } from './ground_aim';
+import { buildHeroicVendorView } from './heroic_vendor_view';
+import { renderHeroicVendorWindow } from './heroic_vendor_window';
 import {
   holderTierBadgeDataUrl,
   holderTierByIndex,
@@ -217,6 +226,7 @@ import {
   parseHotbarActions,
   placeAbilityOnSlot,
   placeItemOnSlot,
+  resolveMobileHotbarDrop,
   shouldSeedFormBar,
   swapHotbarSlots,
   syncHotbarActions,
@@ -338,6 +348,8 @@ import { TalentsWindow } from './talents_window';
 import type { PresetId, ThemeKnob, ThemeState } from './theme';
 import { TOOLTIP_PEEK_MS, TouchPeekGuard } from './touch_peek';
 import { bindTouchTap } from './touch_tap';
+import { buildTownFocusView, stepTownFocus } from './town_focus_view';
+import { renderTownFocusWindow } from './town_focus_window';
 import { TutorialOverlay } from './tutorial';
 import { svgIcon } from './ui_icons';
 import { getUiScale } from './ui_scale';
@@ -345,6 +357,17 @@ import { type UnitFrameDescriptor, unitFrameView } from './unit_frame';
 import { UnitFramePainter } from './unit_frame_painter';
 import { crestIdForEntity } from './unit_portrait';
 import { UnitPortraitPainter } from './unit_portrait_painter';
+import { ValeCupBetting } from './vale_cup_betting';
+import { buildVcupBettingView } from './vale_cup_betting_view';
+import { ValeCupBriefing } from './vale_cup_briefing';
+import { buildVcupBriefingView } from './vale_cup_briefing_view';
+import { ValeCupCharge } from './vale_cup_charge';
+import { buildVcupChargeView } from './vale_cup_charge_view';
+import { ValeCupHud } from './vale_cup_hud';
+import { buildVcupHudView } from './vale_cup_hud_view';
+import { ValeCupIndicator } from './vale_cup_indicator';
+import { buildVcupIndicatorView } from './vale_cup_indicator_view';
+import { ValeCupWindow, vcupNationName } from './vale_cup_window';
 import { buildVendorView } from './vendor_view';
 import { renderVendorWindow } from './vendor_window';
 import { nextVoicedYell, type VoicedYellState, voicedYellGain } from './voice_events';
@@ -433,6 +456,26 @@ const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => document.quer
 // painter's repaint gate never fires for it; the constant just pins the key so the
 // gate stays a no-op (target/party pass a per-unit key).
 const PLAYER_PORTRAIT_KEY = 'player';
+// Vale Cup hold-to-charge shoot: full power after this long held, and the charge
+// a NON-held tap (touch / gamepad / a mouse click on the slot) fires at.
+const SHOOT_CHARGE_MS = 850;
+const SHOOT_TAP_CHARGE = 0.6;
+// Vale Cup walk-up "theatre": the anchored kickoff/goal/save/golden/end/countdown
+// banners + crowd fx. Played only when the emitting match's pitch is within
+// VCUP_THEATRE_RADIUS of the local player (the Sowfield you walked up to, or your
+// own practice pitch), so a distant match never leaks its alerts in. Personal
+// events (vcupFound/Result/BetSettled) are NOT here and always reach their owner.
+const VCUP_WALKUP_EVENTS = new Set([
+  'vcupCountdown',
+  'vcupKickoff',
+  'vcupGoal',
+  'vcupSave',
+  'vcupGolden',
+  'vcupEnd',
+]);
+// Stadium-scale: covers the pitch + stands + approach, but nowhere near another
+// match's pitch (the real Sowfield and practice instances are >600yd apart).
+const VCUP_THEATRE_RADIUS = 200;
 // The target frame's boss glyph (a skull replaces the numeric level chip for a
 // boss-rank target) and the number of combo pips, named so the per-frame target
 // paint carries no bare literal at the call site.
@@ -552,15 +595,21 @@ const PET_MODE_DESC_KEYS: Record<PetMode, TranslationKey> = {
   aggressive: 'hud.pet.aggressiveDesc',
 };
 type ItemQuality = NonNullable<ItemDef['quality']>;
-const ITEM_SLOT_LABEL_KEYS: Record<EquipSlot, TranslationKey> = {
+const ITEM_SLOT_LABEL_KEYS: Record<ItemSlot, TranslationKey> = {
   mainhand: 'itemUi.slots.mainhand',
   helmet: 'itemUi.slots.helmet',
+  neck: 'itemUi.slots.neck',
   shoulder: 'itemUi.slots.shoulder',
   chest: 'itemUi.slots.chest',
   waist: 'itemUi.slots.waist',
   legs: 'itemUi.slots.legs',
   gloves: 'itemUi.slots.gloves',
   feet: 'itemUi.slots.feet',
+  // The three ring forms share one player-facing label ("Finger"): items
+  // declare 'ring', the paperdoll cells are the concrete ring1/ring2 keys.
+  ring: 'itemUi.slots.ring',
+  ring1: 'itemUi.slots.ring',
+  ring2: 'itemUi.slots.ring',
 };
 const ITEM_QUALITY_LABEL_KEYS: Record<ItemQuality, TranslationKey> = {
   poor: 'itemUi.quality.poor',
@@ -636,7 +685,7 @@ const CHAT_TEMPLATE_KEYS = {
   roll: 'hud.chat.templates.roll',
   say: 'hud.chat.templates.say',
 } satisfies Record<string, TranslationKey>;
-type HotbarForm = 'normal' | 'bear' | 'cat' | 'stealth';
+type HotbarForm = 'normal' | 'bear' | 'cat' | 'stealth' | 'sport';
 
 const DELVE_AFFIX_COLORS: Record<string, string> = {
   restless_graves: '#8b7355',
@@ -804,6 +853,13 @@ export class Hud {
   private groundAim: GroundAimState = createGroundAimState();
   private groundAimPoint: AimPoint | null = null;
   private groundAimClamped = false;
+  // Vale Cup hold-to-charge shoot: the bar slot being held and when the hold
+  // started; the power meter fills to chargeFrac() while held and the shot fires
+  // at that fraction on release. The meter itself is the ValeCupCharge painter
+  // (declared with the other Vale Cup painters, after writerFacet) driven off
+  // the pure vale_cup_charge_view core; only the input timing state lives here.
+  private shootChargeSlot: number | null = null;
+  private shootChargeStartMs = 0;
   private dragAction: { action: Exclude<HotbarAction, null>; sourceIndex: number | null } | null =
     null;
   // Set while dragging an equipped piece out of the paperdoll onto the bags window.
@@ -1047,6 +1103,7 @@ export class Hud {
     { event: Extract<SimEvent, { type: 'masterLoot' }>; receivedAt: number; durationMs: number }
   >();
   private openVendorNpcId: number | null = null;
+  private openHeroicVendorNpcId: number | null = null;
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
   private selectedDelveTier: 'normal' | 'heroic' = 'normal';
@@ -1183,6 +1240,9 @@ export class Hud {
   private lastHudMediumAt = 0;
   private lastHudSlowAt = 0;
   private dailyRewardsButtonEl: HTMLButtonElement | null = null;
+  // Mobile More-tray entry mirroring the desktop chest button's hidden/spin-ready
+  // state (folded off the top-right rail so it never overlaps the buff/debuff bars).
+  private mobileDailyRewardsButtonEl: HTMLButtonElement | null = null;
   private dailyRewardsLauncherSeq = 0;
   private lastDailyRewardsLauncherRefreshAt = 0;
   // Per-element tier cadence stamps (graphics-tier knobs). Each gates a non-self /
@@ -1363,11 +1423,16 @@ export class Hud {
     const dailyRewardsButton = document.getElementById(
       'daily-rewards-button',
     ) as HTMLButtonElement | null;
+    const mobileDailyRewardsButton = document.getElementById(
+      'mobile-daily-rewards',
+    ) as HTMLButtonElement | null;
     if (!this.dailyRewardsEnabled()) {
       dailyRewardsButton?.setAttribute('hidden', '');
+      mobileDailyRewardsButton?.setAttribute('hidden', '');
       $('#daily-rewards-window').style.display = 'none';
     } else if (dailyRewardsButton) {
       this.dailyRewardsButtonEl = dailyRewardsButton;
+      this.mobileDailyRewardsButtonEl = mobileDailyRewardsButton;
       dailyRewardsButton.innerHTML =
         '<img class="daily-rewards-icon" src="/ui/daily-rewards/treasure_chest.webp" alt="" draggable="false" decoding="async">';
       dailyRewardsButton.classList.remove('spin-ready');
@@ -1439,6 +1504,7 @@ export class Hud {
     $('#mm-char').addEventListener('click', () => this.toggleChar());
     $('#mm-spell').addEventListener('click', () => this.toggleSpellbook());
     $('#mm-talents')?.addEventListener('click', () => this.toggleTalents());
+    $('#mm-town-focus')?.addEventListener('click', () => this.toggleTownFocus());
     $('#mm-quest').addEventListener('click', () => this.toggleQuestLog());
     // Collapse/expand the on-screen quest tracker by clicking its header. The
     // overlay is click-through (pointer-events:none) except the header button, so
@@ -1634,6 +1700,7 @@ export class Hud {
     $('#mm-social').addEventListener('click', () => this.toggleSocial());
     $('#mm-options')?.addEventListener('click', () => this.toggleOptionsMenu());
     $('#mm-arena').addEventListener('click', () => this.toggleArena());
+    $('#mm-valecup').addEventListener('click', () => this.toggleValeCup());
     $('#mm-leaderboard').addEventListener('click', () => this.toggleLeaderboard());
     const emoteBtn = $('#mm-emote');
     emoteBtn.addEventListener('click', (ev) => {
@@ -1858,7 +1925,17 @@ export class Hud {
   }
 
   private placeNewWindow(el: HTMLElement): void {
-    if (el.dataset.windowMoved === '1' || el.id === 'loot-window' || el.id === 'confirm-dialog')
+    // Desktop-only cascade: mobile windows are full-screen/modal (see
+    // src/styles/hud.mobile.css), so the pixel-offset cascade here would hijack
+    // their inset:0 CSS with an inline top/left/right:auto/bottom:auto that
+    // never gets reset, breaking the full-screen layout for the rest of the
+    // session (issue 1577 char/talents redo).
+    if (
+      document.body.classList.contains('mobile-touch') ||
+      el.dataset.windowMoved === '1' ||
+      el.id === 'loot-window' ||
+      el.id === 'confirm-dialog'
+    )
       return;
     if (
       document.body.classList.contains('vendor-open') &&
@@ -2004,8 +2081,16 @@ export class Hud {
         // consistent with the toggle / X close path.
         this.arenaWindow.close();
         break;
+      case 'valecup-window':
+        // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
+        this.valeCupWindow.close();
+        break;
       case 'vendor-window':
         this.closeVendor();
+        this.closeHeroicVendor();
+        break;
+      case 'town-focus-window':
+        this.closeTownFocus();
         break;
       case 'crafting-window':
         this.closeCrafting();
@@ -3345,6 +3430,55 @@ export class Hud {
     closeOthers: () => this.closeOtherWindows('#arena-window'),
     ...this.windowFocus('#arena-window'),
   });
+  // Vale Cup window painter (vale_cup_window_view.ts model + vale_cup_window.ts
+  // painter, the ArenaWindow shape). It owns the bracket / nation / role
+  // selections, the render-skip signature, and focus-return; Hud forwards the
+  // keybind toggle and drives render() from the mediumHud band.
+  private readonly valeCupWindow = new ValeCupWindow({
+    root: () => $('#valecup-window'),
+    world: () => this.sim,
+    closeOthers: () => this.closeOtherWindows('#valecup-window'),
+    ...this.windowFocus('#valecup-window'),
+  });
+  // Persistent Vale Cup indicator button (queued / live-at-the-Sowfield states;
+  // hidden inside my own match). Never tier-shed: queue position and the live
+  // score are information, not cosmetics (gameplay-neutral graphics invariant).
+  private readonly vcupIndicator = new ValeCupIndicator({
+    root: () => $('#vcup-indicator'),
+    open: () => this.toggleValeCup(),
+    writers: this.writerFacet,
+  });
+  // In-match Vale Cup score strip (flags, score, count-down clock, phase line),
+  // snapshot-driven from cupInfo.match on the mediumHud band; one-shot juice
+  // (banners, horn) rides the vcup SimEvents in handleEvents.
+  private readonly vcupMatchHud = new ValeCupHud({
+    layer: () => document.getElementById('ui'),
+    writers: this.writerFacet,
+  });
+  // Pre-match Vale Cup briefing overlay (rules + role kit + team sheet + Ready).
+  // Self-mounting full-screen card shown only while cupInfo.match.phase is
+  // 'briefing'; drives itself off view.visible (no toggle wiring), rides the
+  // mediumHud band, and readies up through the IWorld command.
+  private readonly vcupBriefing = new ValeCupBriefing({
+    layer: () => document.getElementById('ui'),
+    writers: this.writerFacet,
+    onReady: () => this.sim.vcupReady(),
+  });
+  // Spectator parimutuel betting banner + card (walk-up at the Sowfield).
+  private readonly vcupBetting = new ValeCupBetting({
+    layer: () => document.getElementById('ui'),
+    writers: this.writerFacet,
+    onBet: (side, copper) => this.sim.vcupBet(side, copper),
+  });
+  // The shoot power meter (hold-to-charge): the charge input state lives on the
+  // Hud (shootChargeSlot / shootChargeStartMs); this painter only draws it.
+  private readonly vcupCharge = new ValeCupCharge({
+    layer: () => document.getElementById('ui'),
+    rootId: 'vcup-charge',
+    writers: this.writerFacet,
+  });
+  // Latch for the kickoff auto-close of the queue window (arena pattern).
+  private vcupMatchSeen = false;
   // Character window painter (char_view.ts paperdoll core + char_window.ts painter).
   // It composes the presentation bag (icon/tooltip) for the equip slots and routes
   // the HUD-built stat / talent / progression fragments plus the unequip + drag
@@ -3951,7 +4085,14 @@ export class Hud {
   // works identically offline and online.
   private itemCompareBlock(item: ItemDef): string {
     if (!item.slot) return '';
-    const equippedId = this.sim.equipment[item.slot];
+    // A hovered ring compares against BOTH worn rings (classic behavior); every
+    // other slot kind is its own single equipment key.
+    const slots: readonly EquipSlot[] = item.slot === 'ring' ? ['ring1', 'ring2'] : [item.slot];
+    return slots.map((slot) => this.itemCompareBlockForSlot(item, slot)).join('');
+  }
+
+  private itemCompareBlockForSlot(item: ItemDef, slot: EquipSlot): string {
+    const equippedId = this.sim.equipment[slot];
     if (!equippedId || equippedId === item.id) return '';
     const equipped = ITEMS[equippedId];
     if (!equipped) return '';
@@ -4060,12 +4201,22 @@ export class Hud {
     if ($('#bags').style.display !== 'none') this.renderBags();
     if (this.openVendorNpcId !== null && $('#vendor-window').style.display === 'block')
       this.renderVendor();
+    if (this.openHeroicVendorNpcId !== null && $('#vendor-window').style.display === 'block')
+      this.renderHeroicVendor();
     if (this.marketWindow.isOpen) this.marketWindow.render();
     this.charWindow.renderIfOpen();
     // The arena window's render-skip signature is text-independent (offline sentinel or a
     // JSON of ids/numbers), so a language switch alone never moves it; relocalize() forces
     // one rebuild with fresh t() (self-gated on isOpen).
     this.arenaWindow.relocalize();
+    // Same text-independent-sig contract for the Vale Cup surfaces: clear the
+    // sigs so the next render/update rebuilds with fresh t().
+    this.valeCupWindow.relocalize();
+    this.vcupBetting.relocalize();
+    this.vcupIndicator.relocalize();
+    this.vcupMatchHud.relocalize();
+    this.vcupBriefing.relocalize();
+    this.vcupCharge.relocalize();
     const dialog = $('#quest-dialog');
     if (dialog.style.display !== 'block' || this.openGossipNpcId === null) return;
     const npc = this.sim.entities.get(this.openGossipNpcId);
@@ -4141,6 +4292,18 @@ export class Hud {
   }
 
   private playerHotbarForm(): HotbarForm {
+    // Vale Cup sport kit: keyed off the IWorld snapshot (cupInfo.match with me
+    // on a roster), NOT off meta.known contents, because the snapshot and the
+    // wireRev-gated known swap ride the same server flush, so the bar and the
+    // kit flip together offline AND online. The form deliberately holds through
+    // phase 'over': the sim restores the class kit in the SAME tick it nulls
+    // the match (teardownCupMatch), so flipping to 'normal' any earlier would
+    // load the saved class bar while known is still the sport kit, and
+    // syncSlotMap would drop every "unlearned" class ability from it and SAVE
+    // the wipe. Checked before the druid/rogue arms: the sport standardize
+    // strips forms/stealth on kickoff anyway.
+    const cupMatch = this.sim.cupInfo?.match;
+    if (cupMatch && cupMatch.team !== null) return 'sport';
     if (this.sim.cfg.playerClass === 'druid') {
       if (this.sim.player.auras.some((a) => a.kind === 'form_bear')) return 'bear';
       if (this.sim.player.auras.some((a) => a.kind === 'form_cat')) return 'cat';
@@ -4169,6 +4332,10 @@ export class Hud {
   // auto-dump onto it. Rogue stealth has no `requiresForm` kit, so it keeps the
   // full caster set.
   private shouldAutoPlaceOnForm(id: string, form: HotbarForm): boolean {
+    // The sport bar holds ONLY the sport kit; conversely no sport id may ever
+    // auto-place onto (and pollute) a persisted class bar.
+    if (form === 'sport') return !!SPORT_ABILITIES[id];
+    if (SPORT_ABILITIES[id]) return false;
     if (form === 'bear' || form === 'cat') {
       return ABILITIES[id]?.requiresForm === form || Hud.FORM_TOGGLE_IDS.has(id);
     }
@@ -4230,7 +4397,7 @@ export class Hud {
     const normalActions = parseHotbarActions(
       normalRaw,
       Hud.BAR_ABILITY_SLOTS,
-      (id) => !!ABILITIES[id],
+      (id) => !!ABILITIES[id] || !!SPORT_ABILITIES[id],
       (id) => this.isHotbarItemId(id),
     );
 
@@ -4262,9 +4429,30 @@ export class Hud {
     const parsed = parseHotbarActions(
       arr,
       Hud.BAR_ABILITY_SLOTS,
-      (id) => !!ABILITIES[id],
+      (id) => !!ABILITIES[id] || !!SPORT_ABILITIES[id],
       (id) => this.isHotbarItemId(id),
     );
+    // The Vale Cup sport bar seeds from the sport kit (buildDefaultFormBar over
+    // the current known list, which IS the role kit during a match, so Kick /
+    // the role moves / Second Wind land in slots 1-4). It must NEVER inherit
+    // the class bar via the empty-form fallback below: class abilities are not
+    // castable on the pitch. A player's mid-match rearrangement still persists
+    // under the dedicated `_sport` storage key.
+    if (this.activeHotbarForm === 'sport') {
+      if (parsed.every((action) => action === null)) {
+        this.hotbarActions = buildDefaultFormBar(
+          this.formKitAbilityIds('sport'),
+          Hud.BAR_ABILITY_SLOTS,
+        );
+        this.loadedSlotMapFromStorage = true;
+        this.knownAbilityIdsAtLastSlotSync = null;
+        return;
+      }
+      this.loadedSlotMapFromStorage = stored;
+      this.hotbarActions = parsed;
+      this.knownAbilityIdsAtLastSlotSync = null;
+      return;
+    }
     // Druid bear/cat bars auto-populate with that form's kit instead of cloning
     // the caster bar; existing characters are migrated once (see seedFormBarIfNeeded).
     if (this.isFormKitBar()) {
@@ -4286,7 +4474,7 @@ export class Hud {
       const normalActions = parseHotbarActions(
         fallback,
         Hud.BAR_ABILITY_SLOTS,
-        (id) => !!ABILITIES[id],
+        (id) => !!ABILITIES[id] || !!SPORT_ABILITIES[id],
         (id) => this.isHotbarItemId(id),
       );
       if (normalActions.some((action) => action !== null)) {
@@ -4433,6 +4621,103 @@ export class Hud {
     return { x: me.pos.x, z: me.pos.z };
   }
 
+  // The Vale Cup sport moves are AUTOCAST on press: no ground-target reticle, no
+  // point-and-click. Pressing the key fires the move at once toward where the
+  // player faces (a kick/boot/slide down the field), so the football controls are
+  // press-to-play. The sim still resolves the natural target (sport_pass seeks the
+  // selected teammate first; the kicks scale power by the aim's distance, so a
+  // facing-length aim is a full-power "empowered" kick).
+  private isSportAbilityId(id: string): boolean {
+    return id.startsWith('sport_');
+  }
+
+  private castSportMove(abilityId: string, range: number): void {
+    const me = this.sim.player;
+    const r = range > 0 ? range : MELEE_RANGE;
+    this.sim.castAbilityAt(abilityId, {
+      x: me.pos.x + Math.sin(me.facing) * r,
+      z: me.pos.z + Math.cos(me.facing) * r,
+    });
+  }
+
+  // A direct (non-held) sport cast: a Shoot fired this way (touch / gamepad /
+  // mouse click) has no charge, so it uses a medium default power instead of the
+  // full-range aim, which would balloon over the bar.
+  private castSportTap(abilityId: string, range: number): void {
+    this.castSportMove(abilityId, abilityId === 'sport_shoot' ? SHOOT_TAP_CHARGE * range : range);
+  }
+
+  // My first sport move (Shoot) while seated in a Vale Cup match, else null. Used
+  // so key 1 (the class Attack slot, inert under the harvest truce) casts a real
+  // move on the pitch instead of toggling a useless auto-attack.
+  private firstSportAbilityId(): string | null {
+    // Seated in a match => my known list IS the sport kit (Shoot first). Keyed off
+    // cupInfo.match, not the bar form, so it holds the instant the whistle swaps
+    // the kit in (the bar-form flip can lag a frame behind).
+    if (!this.sim.cupInfo?.match) return null;
+    const first = this.sim.known[0];
+    return first && this.isSportAbilityId(first.def.id) ? first.def.id : null;
+  }
+
+  // The ability a bar slot would cast right now (slot 0 remaps to the first sport
+  // move on the pitch). Used to decide whether a slot press charges (shoot).
+  private abilityIdForSlot(slot: number): string | null {
+    if (slot === 0) return this.firstSportAbilityId();
+    return this.abilityForSlot(slot)?.def.id ?? null;
+  }
+
+  private shootRangeForSlot(slot: number): number {
+    if (slot === 0) return this.sim.known[0]?.def.range ?? MELEE_RANGE;
+    return this.abilityForSlot(slot)?.def.range ?? MELEE_RANGE;
+  }
+
+  // The held-charge fraction 0..1 (time held / SHOOT_CHARGE_MS).
+  private shootChargeFrac(): number {
+    return Math.min(1, (performance.now() - this.shootChargeStartMs) / SHOOT_CHARGE_MS);
+  }
+
+  // Slot key DOWN: a shoot slot starts CHARGING (hold to build power); every
+  // other slot fires immediately (a tap is down + up, so this is the press).
+  pressSlot(slot: number): void {
+    if (this.abilityIdForSlot(slot) === 'sport_shoot') {
+      this.shootChargeSlot = slot;
+      this.shootChargeStartMs = performance.now();
+      this.updateShootCharge(); // show the meter at 0 this frame
+      return;
+    }
+    this.castSlot(slot);
+  }
+
+  // Slot key UP: release a charging shoot at the built power (aim distance encodes
+  // the charge). A non-charging slot already fired on press, so this is a no-op.
+  releaseSlot(slot: number): void {
+    if (this.shootChargeSlot !== slot) return;
+    const frac = this.shootChargeFrac();
+    const id = this.abilityIdForSlot(slot);
+    const range = this.shootRangeForSlot(slot);
+    this.shootChargeSlot = null;
+    this.updateShootCharge(); // hide the meter this frame
+    if (id === 'sport_shoot') {
+      this.castSportMove(id, Math.max(1, frac * range));
+      this.flashActionSlot(slot);
+    }
+  }
+
+  // Per-frame: paint the power meter off the pure view core; the core's `cancel`
+  // auto-releases if I leave the match or die mid-charge so the meter never sticks.
+  private updateShootCharge(): void {
+    const charging = this.shootChargeSlot !== null;
+    const view = buildVcupChargeView(
+      charging,
+      !!this.sim.cupInfo?.match,
+      this.sim.player.dead,
+      // Only read the charge clock while a slot is actually held.
+      charging ? this.shootChargeFrac() : 0,
+    );
+    if (view.cancel) this.shootChargeSlot = null;
+    this.vcupCharge.update(view);
+  }
+
   private groundReticleEnabled(): boolean {
     if (document.body.classList.contains('mobile-touch')) return false;
     return this.optionsHooks?.settings.get('groundReticle') ?? true;
@@ -4528,6 +4813,15 @@ export class Hud {
       this.cancelGroundAim();
     }
     if (barSlot === 0) {
+      // On the pitch, key 1 casts your first sport move (Kick) instead of the
+      // harvest-truce-inert auto-attack, which would be a dead key with no useful
+      // effect. Off the pitch it is the normal auto-attack toggle.
+      const sportFirst = this.firstSportAbilityId();
+      if (sportFirst) {
+        this.castSportTap(sportFirst, this.sim.known[0]?.def.range ?? MELEE_RANGE);
+        this.flashActionSlot(barSlot);
+        return;
+      }
       if (this.sim.player.autoAttack) this.sim.stopAutoAttack();
       else this.sim.startAutoAttack();
       this.flashActionSlot(barSlot);
@@ -4540,7 +4834,10 @@ export class Hud {
       const resolved = this.abilityForSlot(barSlot);
       if (resolved) {
         if (resolved.def.targetMode === 'position') {
-          if (this.groundReticleEnabled()) {
+          if (this.isSportAbilityId(action.id)) {
+            // Sport moves autocast toward facing (no reticle, no point-and-click).
+            this.castSportTap(action.id, resolved.def.range);
+          } else if (this.groundReticleEnabled()) {
             this.beginGroundAim(action.id, barSlot);
           } else {
             this.sim.castAbilityAt(action.id, this.groundTargetAim());
@@ -4930,6 +5227,14 @@ export class Hud {
     });
     slotBtns.forEach((btn, i) => {
       bindTouchTap(btn, () => {
+        // A tap that ends a long-press drag (even one released back on its own
+        // slot, a cancel) must not also cast: bindMobileRingDrag arms this flag
+        // on release from an active drag, same as the desktop drag's click guard.
+        if (this.suppressNextActionClick) {
+          this.suppressNextActionClick = false;
+          btn.blur();
+          return;
+        }
         if (this.peekGuard.consume()) {
           this.hideTooltip();
           btn.blur();
@@ -4939,6 +5244,7 @@ export class Hud {
         this.castSlot(sourceSlotForMobileButton(this.mobileActionPage, i));
         btn.blur();
       });
+      this.bindMobileRingDrag(btn, i);
     });
     bindTouchTap(pageToggle, () => {
       if (this.peekGuard.consume()) {
@@ -5172,10 +5478,23 @@ export class Hud {
   }
 
   private clearActionDropTargets(): void {
-    // Both action rows (#actionbar and #actionbar2) hold .action-btn slots.
-    document.querySelectorAll('.action-btn.drop-target').forEach((el) => {
-      el.classList.remove('drop-target');
-    });
+    // Both action rows (#actionbar and #actionbar2) hold .action-btn slots; the
+    // mobile action ring's paged slots are .mobile-action-slot instead.
+    document
+      .querySelectorAll('.action-btn.drop-target, .mobile-action-slot.drop-target')
+      .forEach((el) => {
+        el.classList.remove('drop-target');
+      });
+  }
+
+  private mobileRingSlotFromPoint(x: number, y: number): number | null {
+    const el = document
+      .elementFromPoint(x, y)
+      ?.closest?.('.mobile-action-slot') as HTMLElement | null;
+    const raw = el?.dataset.mobileIndex;
+    if (!raw) return null;
+    const idx = Number(raw);
+    return Number.isInteger(idx) && idx >= 0 && idx < this.mobileRingSlotBtns.length ? idx : null;
   }
 
   private actionButtonSlotFromPoint(x: number, y: number): number | null {
@@ -5193,16 +5512,22 @@ export class Hud {
     if (drag) window.clearTimeout(drag.timer);
     this.mobileHotbarDrag = null;
     document.body.classList.remove('mobile-hotbar-dragging');
-    document.querySelectorAll('.action-btn.mobile-drag-source').forEach((el) => {
-      el.classList.remove('mobile-drag-source');
-    });
+    document
+      .querySelectorAll('.action-btn.mobile-drag-source, .mobile-action-slot.mobile-drag-source')
+      .forEach((el) => {
+        el.classList.remove('mobile-drag-source');
+        el.removeAttribute('aria-grabbed');
+      });
     this.clearActionDropTargets();
   }
 
   private bindMobileActionDrag(btn: HTMLButtonElement, slot: number): void {
     btn.addEventListener('pointerdown', (e) => {
       if (!document.body.classList.contains('mobile-touch') || e.pointerType !== 'touch') return;
-      if (this.actionForSlot(slot)?.type !== 'ability') return;
+      // Any populated slot (ability or item) can be picked up and swapped by
+      // touch, matching desktop drag-and-drop which does not special-case
+      // items either.
+      if (!this.actionForSlot(slot)) return;
       this.clearMobileHotbarDrag();
       const sourceIndex = slot - 1;
       const drag: MobileHotbarDrag = {
@@ -5221,6 +5546,7 @@ export class Hud {
           document.body.classList.add('mobile-hotbar-dragging');
           btn.classList.add('mobile-drag-source');
           btn.classList.add('drop-target');
+          btn.setAttribute('aria-grabbed', 'true');
           this.hideTooltip();
           try {
             btn.setPointerCapture?.(e.pointerId);
@@ -5259,11 +5585,105 @@ export class Hud {
       if (wasActive) {
         e.preventDefault();
         this.suppressNextActionClick = true;
-        if (targetIndex !== null && targetIndex !== drag.sourceIndex) {
-          this.hotbarActions = swapHotbarSlots(this.hotbarActions, drag.sourceIndex, targetIndex);
+        const resolvedTarget = resolveMobileHotbarDrop(drag.sourceIndex, targetIndex);
+        if (resolvedTarget !== null) {
+          this.hotbarActions = swapHotbarSlots(
+            this.hotbarActions,
+            drag.sourceIndex,
+            resolvedTarget,
+          );
           this.saveSlotMap();
           // Match the desktop drop: clear the now-stale tooltip for the rearranged
           // slot so a long-press peek resolves the new content (#1485).
+          this.hideTooltip();
+        }
+      }
+      this.clearMobileHotbarDrag();
+    };
+    btn.addEventListener('pointerup', finish);
+    btn.addEventListener('pointercancel', finish);
+  }
+
+  // Touch swap for the mobile action ring, the one bar actually visible on a
+  // touch device (the desktop #actionbar/#actionbar2 rows bindMobileActionDrag
+  // wires above are display:none under body.mobile-touch, so without this the
+  // ring had no rearrange path at all). Same long-press-then-drag gesture as
+  // bindMobileActionDrag, sharing the one mobileHotbarDrag field (only one
+  // drag can be live at a time) and the pure resolveMobileHotbarDrop/
+  // swapHotbarSlots helpers; only the point-to-slot hit test differs, since
+  // ring buttons are .mobile-action-slot, not .action-btn, and a ring
+  // position's underlying bar slot depends on the current paged page.
+  private bindMobileRingDrag(btn: HTMLButtonElement, ringIndex: number): void {
+    btn.addEventListener('pointerdown', (e) => {
+      if (!document.body.classList.contains('mobile-touch') || e.pointerType !== 'touch') return;
+      const sourceSlot = sourceSlotForMobileButton(this.mobileActionPage, ringIndex);
+      if (!this.actionForSlot(sourceSlot)) return;
+      this.clearMobileHotbarDrag();
+      const sourceIndex = sourceSlot - 1;
+      const drag: MobileHotbarDrag = {
+        pointerId: e.pointerId,
+        sourceIndex,
+        startX: e.clientX,
+        startY: e.clientY,
+        active: false,
+        targetIndex: null,
+        timer: window.setTimeout(() => {
+          const current = this.mobileHotbarDrag;
+          if (!current || current.pointerId !== e.pointerId) return;
+          current.active = true;
+          current.targetIndex = sourceIndex;
+          document.body.classList.add('mobile-hotbar-dragging');
+          btn.classList.add('mobile-drag-source', 'drop-target');
+          btn.setAttribute('aria-grabbed', 'true');
+          this.hideTooltip();
+          try {
+            btn.setPointerCapture?.(e.pointerId);
+          } catch {
+            /* pointer already released */
+          }
+        }, 320),
+      };
+      this.mobileHotbarDrag = drag;
+    });
+
+    btn.addEventListener('pointermove', (e) => {
+      const drag = this.mobileHotbarDrag;
+      if (!drag || drag.pointerId !== e.pointerId) return;
+      const moved = Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY);
+      if (!drag.active && moved > 9) {
+        this.clearMobileHotbarDrag();
+        return;
+      }
+      if (!drag.active) return;
+      e.preventDefault();
+      const targetRingIndex = this.mobileRingSlotFromPoint(e.clientX, e.clientY);
+      const targetIndex =
+        targetRingIndex !== null
+          ? sourceSlotForMobileButton(this.mobileActionPage, targetRingIndex) - 1
+          : null;
+      drag.targetIndex = targetIndex;
+      this.clearActionDropTargets();
+      const targetBtn = targetRingIndex !== null ? this.mobileRingSlotBtns[targetRingIndex] : null;
+      if (targetBtn) targetBtn.classList.add('drop-target');
+      btn.classList.add('mobile-drag-source');
+    });
+
+    const finish = (e: PointerEvent) => {
+      const drag = this.mobileHotbarDrag;
+      if (!drag || drag.pointerId !== e.pointerId) return;
+      const wasActive = drag.active;
+      const targetIndex = drag.targetIndex;
+      if (wasActive) {
+        e.preventDefault();
+        this.suppressNextActionClick = true;
+        const resolvedTarget = resolveMobileHotbarDrop(drag.sourceIndex, targetIndex);
+        if (resolvedTarget !== null) {
+          this.hotbarActions = swapHotbarSlots(
+            this.hotbarActions,
+            drag.sourceIndex,
+            resolvedTarget,
+          );
+          this.saveSlotMap();
           this.hideTooltip();
         }
       }
@@ -5289,6 +5709,7 @@ export class Hud {
       ['#mm-map', 'map', 'hud.core.mobileMap'],
       ['#mm-bag', 'bags', 'itemUi.bags.title'],
       ['#mm-arena', 'arena', 'hud.core.mobileArena'],
+      ['#mm-valecup', 'valecup', 'hudChrome.keybinds.valecup'],
       ['#mm-leaderboard', 'leaderboard', 'game.leaderboard.title'],
       ['#mm-emote', 'emoteWheel', 'hudChrome.emoteWheel.label'],
       ['#mm-social', 'social', 'hud.social.friendsTab'],
@@ -5642,6 +6063,11 @@ export class Hud {
     const visible = this.dailyRewardsEnabled() && show;
     button.toggleAttribute('hidden', !visible);
     if (!visible) button.classList.remove('spin-ready');
+    // The mobile More-tray entry is a menu row, not floating chrome: it stays
+    // reachable whenever the feature itself is on, regardless of the
+    // showDailyRewardsChestButton preference (which only declutters the rail).
+    if (!this.dailyRewardsEnabled())
+      this.mobileDailyRewardsButtonEl?.classList.remove('spin-ready');
   }
 
   private setDailyRewardsChestButtonPreference(show: boolean): void {
@@ -5660,6 +6086,8 @@ export class Hud {
   private applyDailyRewardsLauncherStatus(status: DailyRewardStatus): void {
     if (!this.dailyRewardsEnabled()) return;
     const button = this.dailyRewardsButtonEl;
+    const spinReady = !status.eligibility.eligible || !status.spin.claimed;
+    this.mobileDailyRewardsButtonEl?.classList.toggle('spin-ready', spinReady);
     if (!button) return;
     if (!this.showDailyRewardsChestButton()) {
       button.hidden = true;
@@ -5667,7 +6095,7 @@ export class Hud {
       return;
     }
     button.hidden = false;
-    button.classList.toggle('spin-ready', !status.eligibility.eligible || !status.spin.claimed);
+    button.classList.toggle('spin-ready', spinReady);
   }
 
   private refreshDailyRewardsLauncher(force = false): void {
@@ -5741,6 +6169,16 @@ export class Hud {
     const talGlow = talentsFor(sim.cfg.playerClass) !== null && tp.spent < tp.total;
     document.getElementById('mm-talents')?.classList.toggle('has-points', talGlow);
     document.getElementById('mobile-talents')?.classList.toggle('has-points', talGlow);
+
+    // Town Focus (#1143): the minimap button (and, if open, the panel's live
+    // gate) only ever shows/works while standing in a town hub. Cheap zone
+    // check, gated to the slow tier since it changes only on foot travel.
+    if (slowHud) {
+      const inTown = this.isInTown();
+      const townFocusBtn = document.getElementById('mm-town-focus');
+      if (townFocusBtn) townFocusBtn.style.display = inTown ? '' : 'none';
+      if (this.townFocusOpen) this.renderTownFocus();
+    }
 
     // player frame: the first instance of the unit_frame family. Build a
     // player-shaped descriptor and paint it. The absorb overlay + the resource-type
@@ -6120,13 +6558,19 @@ export class Hud {
       const instanceId = inDelveBand
         ? (delveAt(p.pos.x)?.id ?? 'collapsed_reliquary')
         : (dungeon?.id ?? null);
-      const zone = musicZoneForLocation(
-        currentZone.id,
-        currentZone.biome,
-        inHub,
-        inDungeon || inNythraxisArena,
-        instanceId,
-      );
+      // The Sowfield stadium plays its own jaunty match theme (a positional
+      // override inside Eastbrook Vale; the zone LABEL stays Eastbrook Vale,
+      // the Sowfield is a poi, not a zone).
+      const atSowfield = !inDungeon && isAtSowfield(p.pos.x, p.pos.z);
+      const zone = atSowfield
+        ? 'vale_cup'
+        : musicZoneForLocation(
+            currentZone.id,
+            currentZone.biome,
+            inHub,
+            inDungeon || inNythraxisArena,
+            instanceId,
+          );
       const musicDungeonId = inDungeon || inNythraxisArena ? instanceId : null;
       if (shouldResetMusicForDungeonEntry(this.lastMusicDungeonId, musicDungeonId)) {
         music.resetForDungeonEntry(musicDungeonId);
@@ -6134,6 +6578,26 @@ export class Hud {
       this.lastMusicDungeonId = musicDungeonId;
       music.update(zone, musicCombat);
       music.setBossCombat(bossEngaged);
+      // Sowfield area music: the 'match' track once a game has kicked off (ball in
+      // play or a goal being celebrated), the 'waiting' track any other time you
+      // are at the stadium, and silence (procedural score returns) once you leave.
+      // Reads whichever match view we hold: our own if playing, else the walk-up
+      // spectate view the sim fills only at the Sowfield.
+      const cupMatchView = sim.cupInfo?.match ?? sim.cupInfo?.spectate ?? null;
+      const cupKickedOff =
+        cupMatchView?.phase === 'active' ||
+        cupMatchView?.phase === 'goal' ||
+        cupMatchView?.phase === 'golden';
+      // A private practice bout plays the SAME boarball soundtrack as the real
+      // Sowfield (the match beat once it kicks off, the waiting bed before), not
+      // the instance/combat theme its far-out pitch would otherwise pick. The
+      // practice pitch is an offset instance (match.origin is non-zero); a real
+      // match is {0,0} and already covered by atSowfield.
+      const myMatch = sim.cupInfo?.match;
+      const inPracticeMatch = !!myMatch && (myMatch.origin.x !== 0 || myMatch.origin.z !== 0);
+      music.setSowfieldTrack(
+        atSowfield || inPracticeMatch ? (cupKickedOff ? 'match' : 'waiting') : null,
+      );
 
       // classic combat indicator: crossed swords + red ring on the player portrait.
       // Routed through the cached ref + the elided toggleClass writer: a counted,
@@ -6160,8 +6624,16 @@ export class Hud {
       this.updateTradeWindow();
       this.updateArenaStatus();
       this.updateFiestaHud();
+      // Vale Cup surfaces (mediumHud like the arena/fiesta ones): the indicator
+      // button, the in-match strip, and the open window redraw.
+      this.vcupIndicator.update(buildVcupIndicatorView(this.sim.cupInfo));
+      this.vcupMatchHud.update(buildVcupHudView(this.sim.cupInfo));
+      this.vcupBriefing.update(buildVcupBriefingView(this.sim.cupInfo));
+      this.vcupBetting.update(buildVcupBettingView(this.sim.cupInfo));
+      this.updateShootCharge();
       if ($('#map-window').style.display === 'block') this.updateMapWindow();
       if ($('#arena-window').style.display === 'block') this.arenaWindow.render();
+      if ($('#valecup-window').style.display === 'block') this.valeCupWindow.render();
       if (this.openLootMobId !== null) {
         const mob = sim.entities.get(this.openLootMobId);
         if (!mob?.lootable || dist2d(p.pos, mob.pos) > 7) this.closeLoot();
@@ -6173,6 +6645,10 @@ export class Hud {
       if (this.openVendorNpcId !== null) {
         const npc = sim.entities.get(this.openVendorNpcId);
         if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeVendor();
+      }
+      if (this.openHeroicVendorNpcId !== null) {
+        const npc = sim.entities.get(this.openHeroicVendorNpcId);
+        if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeHeroicVendor();
       }
       // Close the quest/gossip dialog once the player walks out of talking range
       // (or the NPC is gone), the same way the vendor window auto-closes above. You
@@ -6191,6 +6667,13 @@ export class Hud {
       this.arenaWindow.close();
     }
     this.arenaMatchSeen = inArenaMatch;
+    // Same for the Vale Cup: when the whistle calls, get the queue window out of
+    // the way of the pitch. Route through close() (focus-return), never a raw hide.
+    const inVcupMatch = !!this.sim.cupInfo?.match;
+    if (inVcupMatch && !this.vcupMatchSeen && $('#valecup-window').style.display === 'block') {
+      this.valeCupWindow.close();
+    }
+    this.vcupMatchSeen = inVcupMatch;
     if (fastHud) {
       // The minimap canvas redraw is the heaviest fastHud item; tier its
       // cadence (full tiers redraw every fastHud tick = ~10Hz; low throttles to ~3-4Hz).
@@ -6286,9 +6769,14 @@ export class Hud {
       // name) or null for an ordinary dungeon/raid id.
       raidName: (id) => {
         const bossId = worldBossIdFromLockout(id);
-        return bossId !== null
-          ? tEntity({ kind: 'mob', id: bossId, field: 'name' })
-          : dungeonDisplayName(id);
+        if (bossId !== null) return tEntity({ kind: 'mob', id: bossId, field: 'name' });
+        // Heroic daily lockouts ride difficulty-scoped ids (<dungeon>:heroic).
+        if (id.endsWith(':heroic')) {
+          return t('hudChrome.raidLockout.heroicName', {
+            name: dungeonDisplayName(id.slice(0, -':heroic'.length)),
+          });
+        }
+        return dungeonDisplayName(id);
       },
       duration: (ms) => this.formatLockoutDuration(ms),
     };
@@ -7183,6 +7671,15 @@ export class Hud {
     this.arenaWindow.toggle();
   }
 
+  toggleValeCup(): void {
+    this.valeCupWindow.toggle();
+  }
+
+  /** Offline builds enable the Vale Cup practice-vs-bots button (main.ts). */
+  setVcupPracticeAvailable(on: boolean): void {
+    this.valeCupWindow.setPracticeAvailable(on);
+  }
+
   // The pinned in-match banner: opponent name + countdown / live match timer.
   private updateArenaStatus(): void {
     const el = $('#arena-status');
@@ -7621,6 +8118,32 @@ export class Hud {
     // share a bornAt, and the pooled painter's step() evicts each once now - bornAt >= ttl.
     const now = performance.now();
     for (const ev of events) {
+      // Personal events for OTHER players exist only offline: the offline
+      // main.ts loop hands the WHOLE sim.tick() batch to this method, so a bot
+      // player's pid-scoped events (its queue log lines, its error notices,
+      // e.g. Vale Cup practice bots) would surface on the local HUD without
+      // this gate. Online the server routes per-session, so every event here
+      // is already ours. pid-LESS events (world theatre like the anchored vcup
+      // kickoff/goal/save/golden/end) pass through to walk-up bystanders.
+      // This gate is deliberately kind-independent: `pid` on a SimEvent MEANS
+      // personal / owner-only (src/sim/types.ts SimEvent contract), and the
+      // server's router enforces the same rule online (ev.pid === anchorPid in
+      // server/game.ts), so an event a bystander should see must be pid-less
+      // by construction on every host.
+      if (ev.pid !== undefined && ev.pid !== sim.playerId) continue;
+      // Vale Cup walk-up theatre (kickoff/goal/save/golden/end/countdown) is
+      // anchored at its own match's pitch. Only play it when that pitch is NEAR
+      // the local player, so you see the game in front of you (the Sowfield when
+      // you walk up, or your OWN private practice pitch) and never another
+      // match's alerts leaking in, e.g. a bot showcase on the main pitch spamming
+      // a player off in a distant practice instance. Offline hands the whole tick
+      // batch here, so this proximity gate is what keeps matches from crossing.
+      if (VCUP_WALKUP_EVENTS.has(ev.type)) {
+        const a = ev as unknown as { x: number; z: number };
+        const dx = a.x - sim.player.pos.x;
+        const dz = a.z - sim.player.pos.z;
+        if (dx * dx + dz * dz > VCUP_THEATRE_RADIUS * VCUP_THEATRE_RADIUS) continue;
+      }
       // visual effects (swings, projectiles, glows) — for everyone nearby,
       // not just events involving this player
       this.renderer.handleEvent(ev);
@@ -7873,6 +8396,9 @@ export class Hud {
         case 'vendor': {
           if ($('#bags').style.display !== 'none') this.renderBags();
           if (this.openVendorNpcId !== null) this.renderVendor();
+          // A Heroic Marks purchase rides the same 'vendor' event; refresh the
+          // shop so the balance and per-offer affordability update after a buy.
+          if (this.openHeroicVendorNpcId !== null) this.renderHeroicVendor();
           // A delve Marks purchase rides the same 'vendor' event; refresh the shop
           // tab so the balance and per-offer affordability update after a buy.
           if (this.openDelveBoardNpcId !== null) this.renderDelveBoard();
@@ -8315,6 +8841,121 @@ export class Hud {
           }
           break;
         }
+        // The Vale Cup (docs/prd/vale-cup.md): queue lifecycle events are
+        // personal (pid); the match-theatre events (countdown/kickoff/goal/
+        // save/golden/end) are pid-LESS with a world anchor so walk-up
+        // bystanders at the Sowfield see the same banners; every string here
+        // reads correctly for a spectator (nations + score ride the event).
+        case 'vcupQueued':
+          this.log(
+            t('hudChrome.vcup.logQueued', {
+              bracket: t('hudChrome.vcup.bracketLabel', {
+                n: formatNumber(ev.bracket, { maximumFractionDigits: 0 }),
+              }),
+              position: formatNumber(ev.position, { maximumFractionDigits: 0 }),
+            }),
+            '#ffa040',
+          );
+          break;
+        case 'vcupUnqueued':
+          this.log(t('hudChrome.vcup.logUnqueued'), '#ffa040');
+          break;
+        case 'vcupFound': {
+          const nationA = vcupNationName(ev.nationA);
+          const nationB = vcupNationName(ev.nationB);
+          this.showBanner(t('hudChrome.vcup.bannerFound', { nationA, nationB }));
+          this.log(t('hudChrome.vcup.logFound', { nationA, nationB }), '#ffa040');
+          const allies = [t('hud.core.you'), ...ev.allies.map((c) => c.name)].join(', ');
+          const enemies = ev.enemies.map((c) => c.name).join(', ');
+          if (enemies) this.log(t('hudChrome.vcup.logRoster', { allies, enemies }), '#ffa040');
+          audio.duelChallenge();
+          break;
+        }
+        case 'vcupCountdown':
+          this.showBanner(
+            t('hudChrome.vcup.bannerCountdown', {
+              seconds: formatNumber(ev.seconds, { maximumFractionDigits: 0 }),
+            }),
+          );
+          audio.duelCountdownTick();
+          break;
+        case 'vcupKickoff':
+          this.showBanner(t('hudChrome.vcup.bannerKickoff'));
+          audio.duelStart();
+          break;
+        case 'vcupGoal': {
+          const scoringNation = vcupNationName(ev.team === 'A' ? ev.nationA : ev.nationB);
+          this.showBanner(t('hudChrome.vcup.bannerGoal', { nation: scoringNation }));
+          this.combatLog(
+            t('hudChrome.vcup.logGoal', {
+              name: ev.scorerName,
+              nation: scoringNation,
+              nationA: vcupNationName(ev.nationA),
+              scoreA: formatNumber(ev.scoreA, { maximumFractionDigits: 0 }),
+              nationB: vcupNationName(ev.nationB),
+              scoreB: formatNumber(ev.scoreB, { maximumFractionDigits: 0 }),
+            }),
+            '#ffd24a',
+          );
+          this.renderer.addShake(0.4);
+          // the Sowfield's own horn + crowd (src/game/sfx.ts, render handoff)
+          sfx.goalHorn();
+          sfx.crowdRoar();
+          break;
+        }
+        case 'vcupSave':
+          this.showBanner(t('hudChrome.vcup.bannerSave', { name: ev.keeperName }));
+          this.combatLog(t('hudChrome.vcup.logSave', { name: ev.keeperName }), '#7fd4ff');
+          audio.fiestaScorePing(true);
+          sfx.crowdRoar(0.5);
+          break;
+        case 'vcupBetSettled': {
+          const amount = formatLocalizedMoney(ev.payout);
+          if (ev.outcome === 'won') {
+            this.showBanner(t('hudChrome.vcup.bet.wonBanner'));
+            this.combatLog(t('hudChrome.vcup.bet.wonLog', { amount }), '#ffd24a');
+            sfx.crowdRoar(0.5);
+          } else if (ev.outcome === 'refunded') {
+            this.combatLog(t('hudChrome.vcup.bet.refundLog', { amount }), '#7fd4ff');
+          } else {
+            this.combatLog(
+              t('hudChrome.vcup.bet.lostLog', { amount: formatLocalizedMoney(ev.stake) }),
+              '#fa6',
+            );
+          }
+          break;
+        }
+        case 'vcupGolden':
+          this.showBanner(t('hudChrome.vcup.bannerGolden'));
+          audio.fiestaWave();
+          break;
+        case 'vcupEnd':
+          this.showBanner(
+            t('hudChrome.vcup.bannerEnd', {
+              nationA: vcupNationName(ev.nationA),
+              scoreA: formatNumber(ev.scoreA, { maximumFractionDigits: 0 }),
+              nationB: vcupNationName(ev.nationB),
+              scoreB: formatNumber(ev.scoreB, { maximumFractionDigits: 0 }),
+            }),
+          );
+          audio.duelEnd();
+          sfx.crowdRoar();
+          break;
+        case 'vcupResult':
+          if (ev.draw) {
+            this.showBanner(t('hudChrome.vcup.bannerDraw'));
+            this.combatLog(t('hudChrome.vcup.logDraw'), '#fa6');
+            audio.duelEnd();
+          } else if (ev.won) {
+            this.showBanner(t('hudChrome.vcup.bannerWin'));
+            this.combatLog(t('hudChrome.vcup.logWin'), '#7fdc4f');
+            audio.duelEnd();
+          } else {
+            this.showBanner(t('hudChrome.vcup.bannerLoss'));
+            this.combatLog(t('hudChrome.vcup.logLoss'), '#ff7a6a');
+            audio.death();
+          }
+          break;
         case 'fiestaWord': {
           const { text, tier, color } = this.fiestaWordParts(ev.flavor, ev.n);
           this.fiestaWordPop(text, color, tier);
@@ -8645,7 +9286,7 @@ export class Hud {
   }
 
   // The plain-text form of a chat string with [[q:id]]/[[i:id]] tokens replaced by
-  // [Name] — used for 3D chat bubbles, which can't host interactive spans.
+  // [Name]: used for 3D chat bubbles, which can't host interactive spans.
   private chatLinkPlainText(text: string): string {
     return parseChatSegments(text)
       .map((s) => {
@@ -8685,6 +9326,23 @@ export class Hud {
           time: this.formatLockoutDuration(lock.msRemaining),
         });
       }
+    }
+    // Heroic daily lockout (any heroic instance): resolve the dungeon name and
+    // enrich with the live countdown when the mirrored lockout is present.
+    const heroicLock = /^You are locked to Heroic (.+)\.$/.exec(text);
+    if (heroicLock) {
+      const base = DUNGEON_LIST.find((d) => d.name === heroicLock[1]);
+      const name = base ? dungeonDisplayName(base.id) : heroicLock[1];
+      const lock = base
+        ? this.sim.raidLockouts().find((l) => l.id === `${base.id}:heroic`)
+        : undefined;
+      if (lock) {
+        return t('hudChrome.raidLockout.lockedToast', {
+          raid: t('hudChrome.raidLockout.heroicName', { name }),
+          time: this.formatLockoutDuration(lock.msRemaining),
+        });
+      }
+      return t('hudChrome.raidLockout.heroicLocked', { name });
     }
     const exact: Record<string, TranslationKey> = {
       'You are stunned!': 'hud.errors.stunned',
@@ -9509,12 +10167,20 @@ export class Hud {
     if (def?.market) {
       html += `<button type="button" class="qd-list-item" data-market="1" aria-label="${esc(t('questUi.dialog.worldMarketAria'))}"><span class="gold">${svgIcon('market')}</span> ${esc(t('questUi.dialog.worldMarket'))}</button>`;
     }
+    if (def?.heroicVendor) {
+      html += `<button type="button" class="qd-list-item" data-heroic-shop="1" aria-label="${esc(t('questUi.dialog.browseGoodsAria', { name: npcName }))}"><span class="quest-complete">$</span> ${esc(t('questUi.dialog.browseGoods'))}</button>`;
+    }
     if (Object.values(DELVES).some((d) => d.boardNpcId === npc.templateId)) {
       const delveForNpc = Object.values(DELVES).find((d) => d.boardNpcId === npc.templateId);
       const openLabel = delveForNpc
         ? delveDisplayName(delveForNpc.id)
         : t('delveUi.board.openDelve');
       html += `<button type="button" class="qd-list-item" data-delve-board="1" aria-label="${esc(t('delveUi.board.openDelveAria', { name: npcName }))}"><span class="gold">${svgIcon('skull')}</span> ${esc(openLabel)}</button>`;
+    }
+    // Groundskeeper Bram keeps the book of fixtures at the Sowfield gate: his
+    // gossip menu opens the Vale Cup window (the delve-board button precedent).
+    if (npc.templateId === 'groundskeeper_bram') {
+      html += `<button type="button" class="qd-list-item" data-vcup="1" aria-label="${esc(t('hudChrome.vcup.gossipOpenAria'))}"><span class="gold">${svgIcon('ball')}</span> ${esc(t('hudChrome.vcup.gossipOpen'))}</button>`;
     }
     el.innerHTML = html;
     el.querySelectorAll('[data-quest]').forEach((item) => {
@@ -9533,6 +10199,10 @@ export class Hud {
       this.closeQuestDialog(false);
       this.openVendor(npc.id);
     });
+    el.querySelector('[data-heroic-shop]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openHeroicVendor(npc.id);
+    });
     el.querySelector('[data-market]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openMarket();
@@ -9540,6 +10210,10 @@ export class Hud {
     el.querySelector('[data-delve-board]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openDelveBoard(npc.id);
+    });
+    el.querySelector('[data-vcup]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.toggleValeCup();
     });
     el.querySelector('[data-close]')?.addEventListener('click', () => this.closeQuestDialog());
     el.style.display = 'block';
@@ -10068,6 +10742,7 @@ export class Hud {
 
   openVendor(npcId: number): void {
     this.closeOtherWindows(['#vendor-window', '#bags']);
+    this.openHeroicVendorNpcId = null; // the marks shop shares the container
     this.openVendorNpcId = npcId;
     document.body.classList.add('vendor-open');
     this.renderVendor();
@@ -10117,6 +10792,40 @@ export class Hud {
     );
   }
 
+  openHeroicVendor(npcId: number): void {
+    this.closeOtherWindows('#vendor-window');
+    this.openVendorNpcId = null; // shares the container with the copper vendor
+    this.openHeroicVendorNpcId = npcId;
+    this.renderHeroicVendor();
+  }
+
+  private renderHeroicVendor(): void {
+    if (this.openHeroicVendorNpcId === null) return;
+    const npc = this.sim.entities.get(this.openHeroicVendorNpcId);
+    if (!npc) return;
+    const balance = this.sim.inventory
+      .filter((slot) => slot.itemId === HEROIC_MARK_ITEM_ID)
+      .reduce((sum, slot) => sum + slot.count, 0);
+    renderHeroicVendorWindow(
+      $('#vendor-window'),
+      entityDisplayName(npc),
+      buildHeroicVendorView(HEROIC_VENDOR_STOCK, ITEMS, balance),
+      {
+        ...this.presentationBag,
+        hideTooltip: () => this.hideTooltip(),
+        onBuy: (itemId) => this.sim.buyHeroicVendorItem(itemId),
+        onClose: () => this.closeHeroicVendor(),
+      },
+    );
+  }
+
+  closeHeroicVendor(): void {
+    if (this.openHeroicVendorNpcId === null) return;
+    $('#vendor-window').style.display = 'none';
+    this.openHeroicVendorNpcId = null;
+    this.hideTooltip();
+  }
+
   closeVendor(): void {
     const closeMobileBags =
       document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
@@ -10140,6 +10849,69 @@ export class Hud {
 
   get vendorOpen(): boolean {
     return this.openVendorNpcId !== null;
+  }
+
+  // -------------------------------------------------------------------------
+  // Town Focus (#1143): persistent per-player harvest-component focus,
+  // settable only while standing in the current zone's town hub (the
+  // lightweight town-tag stand-in; see professions/focus.ts). The panel shows
+  // the allocation and lets it be edited even out of town (so a player can see
+  // what they have), but disables the steppers/save outside town: the real
+  // gate is server-side in Sim.setTownFocus, this is a cosmetic usability gate.
+  // -------------------------------------------------------------------------
+
+  private townFocusDraft: Record<string, number> | null = null;
+
+  private isInTown(): boolean {
+    const pos = this.sim.player.pos;
+    return isInTownZone(pos, zoneAt(pos.z));
+  }
+
+  toggleTownFocus(): void {
+    const el = $('#town-focus-window');
+    if (el.style.display === 'block') {
+      this.closeTownFocus();
+      return;
+    }
+    this.closeOtherWindows('#town-focus-window');
+    this.townFocusDraft = { ...this.sim.townFocus };
+    this.renderTownFocus();
+  }
+
+  private renderTownFocus(): void {
+    const inTown = this.isInTown();
+    const allocation = this.townFocusDraft ?? this.sim.townFocus;
+    renderTownFocusWindow(
+      $('#town-focus-window'),
+      buildTownFocusView(allocation, FOCUS_POINT_BUDGET, inTown),
+      {
+        onStep: (component, delta) => {
+          this.townFocusDraft = stepTownFocus(
+            this.townFocusDraft ?? this.sim.townFocus,
+            component,
+            delta,
+            FOCUS_POINT_BUDGET,
+          );
+          this.renderTownFocus();
+        },
+        onSave: () => {
+          this.sim.setTownFocus(this.townFocusDraft ?? {});
+          this.townFocusDraft = null;
+          this.closeTownFocus();
+        },
+        onClose: () => this.closeTownFocus(),
+      },
+    );
+  }
+
+  closeTownFocus(): void {
+    $('#town-focus-window').style.display = 'none';
+    this.townFocusDraft = null;
+    this.hideTooltip();
+  }
+
+  get townFocusOpen(): boolean {
+    return $('#town-focus-window').style.display === 'block';
   }
 
   // -------------------------------------------------------------------------
@@ -10182,7 +10954,6 @@ export class Hud {
     $('#crafting-window').style.display = 'none';
     this.hideTooltip();
   }
-
   // -------------------------------------------------------------------------
   // The World Market — the Merchant's auction house
   // -------------------------------------------------------------------------
@@ -11811,6 +12582,21 @@ export class Hud {
       html += `<div class="ctx-item" data-act="convert-party">${esc(t('hud.chat.context.convertToParty'))}</div>`;
     if (party)
       html += `<div class="ctx-item" data-act="loot-settings">${esc(t('hudChrome.lootSettings.menuItem'))}</div>`;
+    // Dungeon difficulty (classic portrait-menu placement): the label states
+    // the ACTION (switch to the other difficulty). Solo players and party
+    // leaders only; the sim refuses the change from other members. The
+    // confirmation toast comes back from the sim ("Dungeon difficulty set
+    // to ..."), re-localized by sim_i18n like every sim emit.
+    if (!party || party.leader === this.sim.playerId) {
+      const isHeroic = this.sim.dungeonDifficulty() === 'heroic';
+      html += `<div class="ctx-item" data-act="dungeon-difficulty">${esc(
+        t(
+          isHeroic
+            ? 'hudChrome.dungeonDifficulty.setNormal'
+            : 'hudChrome.dungeonDifficulty.setHeroic',
+        ),
+      )}</div>`;
+    }
     html += `<div class="ctx-item" data-act="close">${esc(t('hud.chat.context.cancel'))}</div>`;
     el.innerHTML = html;
     hydratePortraits(el);
@@ -11825,6 +12611,11 @@ export class Hud {
         this.sim.convertRaidToParty();
         this.socialWindow.selectRaidTab();
       } else if (act === 'loot-settings') this.openLootSettings();
+      else if (act === 'dungeon-difficulty') {
+        this.sim.setDungeonDifficulty(
+          this.sim.dungeonDifficulty() === 'heroic' ? 'normal' : 'heroic',
+        );
+      }
     });
   }
 
@@ -12874,7 +13665,7 @@ function resourceDisplayName(resourceType: ResourceType | null): string {
   return t(RESOURCE_LABEL_KEYS[resourceType ?? 'mana']);
 }
 
-function itemSlotName(slot: EquipSlot): string {
+function itemSlotName(slot: ItemSlot): string {
   return t(ITEM_SLOT_LABEL_KEYS[slot]);
 }
 

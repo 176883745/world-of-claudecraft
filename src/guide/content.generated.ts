@@ -1241,7 +1241,8 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Bandit Camp",
       "Fallen Chapel",
       "Reliquary Hill",
-      "Brightwood Glade"
+      "Brightwood Glade",
+      "The Sowfield"
     ],
     "welcome": "Find Marshal Redbrook in town — he has work for you."
   },

@@ -308,6 +308,7 @@ export const vi_VN: EnTranslations = {
       "autorun": "Tự Chạy",
       "jump": "Nhảy",
       "leaderboard": "Xếp Hạng",
+      "dailyRewards": "Rewards",
       "nameplates": "Tên",
       "haptics": "Phản Hồi Rung",
       "hapticsOff": "Tắt Phản Hồi Rung",
@@ -368,7 +369,9 @@ export const vi_VN: EnTranslations = {
       "hoursMinutes": "{h}g {m}p",
       "minutes": "{m}p",
       "lessThanMinute": "<1p",
-      "lockedToast": "Bạn đang bị khóa với {raid}. Mở khóa sau {time}."
+      "lockedToast": "Bạn đang bị khóa với {raid}. Mở khóa sau {time}.",
+      "heroicName": "{name} Anh Hùng",
+      "heroicLocked": "Bạn đang bị khóa với {name} Anh Hùng."
     },
     "compass": {
       "N": "B",
@@ -390,12 +393,149 @@ export const vi_VN: EnTranslations = {
       "emoteWheel": "Vòng Biểu Cảm",
       "targetFriendly": "Chọn Đồng Minh Gần Nhất",
       "targetFriendlyNext": "Luân Phiên Mục Tiêu Đồng Minh",
-      "discord": "Discord"
+      "discord": "Discord",
+      "valecup": "Vale Cup"
+    },
+    "vcup": {
+      "title": "The Vale Cup",
+      "shootPower": "POWER",
+      "close": "Close the Vale Cup window",
+      "offlineNote": "The fixture book is closed. The Vale Cup is not available right now.",
+      "recordLine": "Your record: {wins} wins, {losses} losses, {draws} draws.",
+      "bracketsAria": "Match bracket",
+      "bracketLabel": "{n}v{n}",
+      "waitingCount": "{count} waiting",
+      "nationsHeading": "Banner nation",
+      "nation": {
+        "vale": "Eastbrook Vale",
+        "mirefen": "The Mirefen",
+        "thornpeak": "Thornpeak",
+        "coliseum": "The Ashen Coliseum",
+        "choir": "The Pale Choir",
+        "ogre": "The Ogre Clans",
+        "moon": "The Pale Moon",
+        "copperdig": "The Copper Dig"
+      },
+      "awayNote": "If both sides fly the same banner, the away side plays the inverted palette.",
+      "rolesHeading": "Sport role",
+      "role": {
+        "allrounder": {
+          "name": "All-Rounder",
+          "desc": "A bit of everything: kick, boot, and a fair shoulder."
+        },
+        "striker": {
+          "name": "Striker",
+          "desc": "Lives for the long boot and the quick sidestep."
+        },
+        "sweeper": {
+          "name": "Sweeper",
+          "desc": "Bumps runners off the ball and hoofs it clear."
+        },
+        "keeper": {
+          "name": "Keeper",
+          "desc": "Guards the goal box with grip, dive, and punt."
+        }
+      },
+      "queue": "Join the Queue",
+      "leaveQueue": "Leave the Queue",
+      "queueNote": "Queue from anywhere; the whistle calls you to the Sowfield.",
+      "queuedStatus": "Queued for {bracket}: position {position} of {count}.",
+      "blockNation": "Pick a banner nation first.",
+      "blockPartySize": "That bracket needs a smaller party.",
+      "blockNotLeader": "Only the party leader can queue the team.",
+      "inMatchNote": "Your team is on the pitch. Play on!",
+      "deserterNote": "The Groundskeeper remembers. You may queue again in {seconds} sec.",
+      "liveHeading": "Now at the Sowfield",
+      "liveAria": "Vale Cup: {nationA} {scoreA}, {nationB} {scoreB}",
+      "walkUp": "Walk up to the Sowfield to watch from the stands.",
+      "noLive": "The pitch is quiet. No match is being played.",
+      "boardHeading": "Winners board",
+      "boardEmpty": "No winners recorded yet. The Copper Pail waits.",
+      "boardWins": "{count} wins",
+      "enterAsGuild": "Enter under the banner of {guild}",
+      "guildRecordLine": "Your guild record: {wins} wins, {losses} losses.",
+      "guildBoardHeading": "Guild banners",
+      "guildBoardEmpty": "No guild has taken the field yet. Fly your banner!",
+      "guildBoardWl": "{wins} W, {losses} L",
+      "practice": "Practice vs. Bots",
+      "practiceNote": "Starts a private bot match on your own practice pitch right away.",
+      "practicingNow": "Practicing now ({count}):",
+      "clock": "{minutes}:{seconds}",
+      "indicatorQueued": "Vale Cup queue: {bracket}, position {position} of {count}",
+      "indicatorLive": "Vale Cup",
+      "indicatorOpen": "Open the Vale Cup window",
+      "phaseCountdown": "Kickoff in {seconds}",
+      "phaseGoal": "GOAL!",
+      "phaseGolden": "GOLDEN GOAL",
+      "phaseOver": "FULL TIME",
+      "bannerFound": "The Vale Cup calls: {nationA} vs {nationB}!",
+      "bannerCountdown": "Kickoff in {seconds}...",
+      "bannerKickoff": "KICKOFF!",
+      "bannerGoal": "GOAL! {nation} scores!",
+      "bannerSave": "{name} SAVES!",
+      "bannerGolden": "GOLDEN GOAL: next score wins!",
+      "bannerEnd": "Full time: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "Victory at the Sowfield!",
+      "bannerDraw": "A draw at the Sowfield.",
+      "bannerLoss": "Defeat at the Sowfield.",
+      "logQueued": "You join the Vale Cup queue for {bracket} (position {position}).",
+      "logUnqueued": "You leave the Vale Cup queue.",
+      "logFound": "Your Vale Cup match is ready: {nationA} vs {nationB}.",
+      "logRoster": "Your side: {allies}. Their side: {enemies}.",
+      "logGoal": "{name} scores for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
+      "logSave": "{name} makes the save!",
+      "logWin": "You win the bout at the Sowfield.",
+      "logDraw": "The bout at the Sowfield ends in a draw.",
+      "logLoss": "You lose the bout at the Sowfield.",
+      "gossipOpen": "The book of fixtures",
+      "gossipOpenAria": "Open the Vale Cup window",
+      "mobileLabel": "Cup",
+      "briefing": {
+        "subtitle": "Pre-match briefing",
+        "vs": "vs",
+        "rulesHeading": "How to play",
+        "rule1": "Kick or pass the ball into the enemy goal to score.",
+        "rule2": "First to 5 goals wins, or the most goals when full time blows.",
+        "rule3": "A level match at full time goes to golden goal: the next score wins.",
+        "rule4": "Tackles only tumble you over. Nobody gets hurt under the harvest truce.",
+        "rule5": "Anyone can walk up and cheer you on from the stands.",
+        "kitHeading": "Your kit",
+        "kitNote": "These moves replace your class abilities for the match.",
+        "rosterHeading": "The team sheet",
+        "you": "You",
+        "bot": "Bot",
+        "ready": "I'm ready",
+        "readyDone": "Ready",
+        "readyAria": "Ready up for kickoff",
+        "waiting": "Waiting for the other side to ready up...",
+        "whistle": "The whistle blows in {seconds}s.",
+        "readyCount": "{ready} of {total} ready"
+      },
+      "bet": {
+        "title": "Match Bets",
+        "aria": "Vale Cup match betting",
+        "closesIn": "Bets close in {seconds}s",
+        "closed": "Betting closed",
+        "prize": "Pool {amount}",
+        "splitAria": "Share of the betting pool on each team",
+        "expand": "View bets and wager",
+        "collapse": "Hide bets",
+        "oddsLabel": "Pays",
+        "back": "Back {team}",
+        "form": "{wins}W-{losses}L",
+        "mine": "Your bet: {amount} on {team}",
+        "none": "You have no bet on this match yet.",
+        "record": "Betting record: {wins}W-{losses}L, {sign}{net}",
+        "wonBanner": "Your bet won!",
+        "wonLog": "Your Vale Cup bet won: {amount} returned.",
+        "lostLog": "Your Vale Cup bet lost: {amount}.",
+        "refundLog": "Bets voided, your {amount} stake was returned."
+      }
     },
     "options": {
       "clickMoveLeft": "Nhấp Trái",
       "clickMoveRight": "Nhấp Phải",
-      "version": "v{version} ({build})",
+      "version": "phiên bản {version} ({build})",
       "browserEffects": "Hiệu Ứng Trình Duyệt",
       "browserEffectsAuto": "Tự Động",
       "browserEffectsFull": "Đầy Đủ",
@@ -480,6 +620,7 @@ export const vi_VN: EnTranslations = {
         "fps01Low": "0.1% Thấp",
         "ping": "Ping",
         "jitter": "Nhiễu Động",
+        "predLead": "Prediction Lead",
         "snapshot": "Tốc Độ Ảnh Chụp",
         "connection": "Kết Nối",
         "drawCalls": "Lệnh Vẽ",
@@ -524,8 +665,8 @@ export const vi_VN: EnTranslations = {
       "fromYour": "Từ {value} {stat} của bạn:",
       "names": {
         "spellPower": "Sức Mạnh Phép Thuật",
-        "critRating": "Crit Rating",
-        "hasteRating": "Haste Rating"
+        "critRating": "Chỉ Số Chí Mạng",
+        "hasteRating": "Chỉ Số Thần Tốc"
       },
       "desc": {
         "str": "Tăng sức công kích, giúp đòn vũ khí của bạn đánh mạnh hơn.",
@@ -539,8 +680,8 @@ export const vi_VN: EnTranslations = {
         "dps": "Sát thương vũ khí ước tính mỗi giây của bạn, kết hợp sát thương và tốc độ vũ khí với sức công kích.",
         "critChance": "Tỉ lệ một đòn tấn công đánh chí mạng, gây sát thương gấp đôi.",
         "dodge": "Tỉ lệ bạn né hoàn toàn một đòn cận chiến, không nhận sát thương.",
-        "critRating": "Crit rating from your gear and set bonuses, raising your critical strike chance. About 10 rating grants 1% crit.",
-        "hasteRating": "Haste rating from your gear and set bonuses, speeding up your attacks and spellcasting. About 10 rating grants 1% haste."
+        "critRating": "Chỉ số chí mạng từ trang bị và phần thưởng bộ trang bị của bạn, nâng tỉ lệ chí mạng của bạn. Khoảng 10 điểm chỉ số ban 1% chí mạng.",
+        "hasteRating": "Chỉ số thần tốc từ trang bị và phần thưởng bộ trang bị của bạn, đẩy nhanh các đòn tấn công và việc thi triển phép của bạn. Khoảng 10 điểm chỉ số ban 1% thần tốc."
       },
       "effects": {
         "attackPower": "+{value} Công Kích",
@@ -582,13 +723,13 @@ export const vi_VN: EnTranslations = {
       "bonusLine": "({pieces}) {bonus}"
     },
     "itemProc": {
-      "onMeleeHit": "Chance on hit ({chance}%): {effect}",
-      "onSpellDamage": "Chance on your damaging spells ({chance}%): {effect}",
-      "onHeal": "Chance on your heals ({chance}%): {effect}",
-      "chainArc": "blasts the target with a {school} {name} ({damage}) that leaps to {jumps} nearby foes for decaying damage",
-      "attackSlow": "and slows the target attack speed by {pct}% for {duration} sec",
-      "dot": "festers {name}, a {school} damage-over-time dealing {total} over {duration} sec",
-      "hot": "blooms {name}, a heal-over-time restoring {total} over {duration} sec"
+      "onMeleeHit": "Cơ hội khi đánh trúng ({chance}%): {effect}",
+      "onSpellDamage": "Cơ hội khi phép của bạn gây sát thương ({chance}%): {effect}",
+      "onHeal": "Cơ hội khi bạn hồi máu ({chance}%): {effect}",
+      "chainArc": "oanh kích mục tiêu bằng một {name} hệ {school} ({damage}) nảy sang {jumps} kẻ địch gần đó với sát thương giảm dần",
+      "attackSlow": "và làm chậm tốc độ tấn công của mục tiêu thêm {pct}% trong {duration} giây",
+      "dot": "gieo rắc {name}, một hiệu ứng sát thương theo thời gian hệ {school} gây {total} trong {duration} giây",
+      "hot": "làm nở rộ {name}, một hiệu ứng hồi máu theo thời gian phục hồi {total} trong {duration} giây"
     },
     "questShare": {
       "notShareable": "Nhiệm vụ này không thể chia sẻ.",
@@ -777,6 +918,15 @@ export const vi_VN: EnTranslations = {
         "tusk": "Ngà"
       }
     },
+    "townFocus": {
+      "title": "Town Focus",
+      "hint": "Focus points add a bonus on top of every component's baseline yield. Unfocused components stay at baseline.",
+      "budgetLabel": "Points remaining: {remaining} / {budget}",
+      "saveButton": "Save Focus",
+      "notInTownHint": "You must be in town to set your focus.",
+      "increaseAria": "Increase focus on {component}",
+      "decreaseAria": "Decrease focus on {component}"
+    },
     "party": {
       "promoteLeader": "Thăng Làm Đội Trưởng",
       "inviteUsage": "Mời ai? Cách dùng: /invite <name>."
@@ -792,9 +942,13 @@ export const vi_VN: EnTranslations = {
       "leaderOption": "Người Chia Chiến Lợi Phẩm: Đội Trưởng (Bạn)",
       "masterOption": "Người Chia Chiến Lợi Phẩm: {name}"
     },
+    "dungeonDifficulty": {
+      "setHeroic": "Đặt Độ Khó Hầm Ngục: Anh Hùng",
+      "setNormal": "Đặt Độ Khó Hầm Ngục: Thường"
+    },
     "bags": {
-      "cannotDestroy": "This item cannot be destroyed.",
-      "rightClickDestroy": "Right-click to destroy",
+      "cannotDestroy": "Không thể phá hủy vật phẩm này.",
+      "rightClickDestroy": "Nhấp phải để phá hủy",
       "filterGroupAria": "Lọc túi đồ theo danh mục",
       "filterAll": "Tất cả",
       "filterWeapon": "Vũ khí",
@@ -1010,7 +1164,7 @@ export const vi_VN: EnTranslations = {
       "roleTag": {
         "levyst": "Levy St",
         "admin": "Quản Trị Viên",
-        "coredevs": "Core Dev",
+        "coredevs": "Nhà Phát Triển Chính",
         "devs": "Lập Trình Viên",
         "mods": "Điều Hành Viên",
         "artists": "Họa Sĩ"
@@ -1220,6 +1374,20 @@ export const vi_VN: EnTranslations = {
       "logging": "Đốn gỗ",
       "herbalism": "Thảo dược học"
     },
+    "archetypeTitle": {
+      "label": "Danh hiệu",
+      "none": "Không có",
+      "armorcrafting": "Thợ Giáp",
+      "weaponcrafting": "Thợ Rèn Vũ Khí",
+      "jewelcrafting": "Thợ Kim Hoàn",
+      "alchemy": "Nhà Giả Kim",
+      "engineering": "Kỹ Sư",
+      "cooking": "Đầu Bếp",
+      "inscription": "Thợ Khắc Chữ",
+      "enchanting": "Thợ Phù Phép",
+      "tailoring": "Thợ May",
+      "leatherworking": "Thợ Da"
+    },
     "crafting": {
       "title": "Chế tạo",
       "close": "Đóng chế tạo",
@@ -1231,7 +1399,7 @@ export const vi_VN: EnTranslations = {
       "craftedToast": "Đã chế tác: {name}",
       "insufficientMaterials": "Bạn không có tài liệu cho việc đó.",
       "unknownRecipe": "Công thức đó không tồn tại.",
-      "comboRequirementUnmet": "You do not have both required crafts at the required tier for that recipe."
+      "comboRequirementUnmet": "Bạn chưa có cả hai nghề chế tạo cần thiết ở bậc yêu cầu cho công thức đó."
     }
   },
   "apiError": {
@@ -1338,6 +1506,7 @@ export const vi_VN: EnTranslations = {
       "bestiary": "Bách Thú",
       "models": "Mô Hình 3D",
       "gear": "Trang Bị & Vật Phẩm",
+      "professions": "Professions",
       "economy": "Kinh Tế & Giao Thương",
       "social": "Giao Tiếp & Tổ Đội",
       "stats": "Nhân Vật & Chỉ Số",
@@ -1352,6 +1521,7 @@ export const vi_VN: EnTranslations = {
       "combat": "Chiến Đấu",
       "talents": "Tài Năng",
       "arena": "Đấu Trường & PvP",
+      "valeCup": "Vale Cup",
       "glossary": "Thuật Ngữ",
       "wishIKnew": "Những Điều Tôi Ước Mình Biết Sớm",
       "faq": "FAQ",
@@ -2007,6 +2177,32 @@ export const vi_VN: EnTranslations = {
       "ladderHeading": "Leo Bảng Xếp Hạng",
       "ladderBody": "Chế độ xếp hạng theo dõi thứ hạng của bạn theo thời gian. Xem bảng xếp hạng để biết bạn đang ở đâu và ai đang đứng đầu vương quốc."
     },
+    "valeCupPage": {
+      "heading": "The Vale Cup",
+      "intro": "Boarball at the Sowfield: pick a banner, pick a role, and kick a stuffed boar hide past a keeper for the Copper Pail. No blood, no loot, just the roar of the stands.",
+      "loreHeading": "Boarball and the harvest truce",
+      "loreOldSow": "Long before the dead woke, Eastbrook's farmhands played boarball on the stubble fields after harvest: two mobs, one boar's hide stuffed with straw, and two wagon gates dragged to either end of the green. The first ball, the Old Sow, hangs bronzed above the tavern hearth.",
+      "loreTruce": "When the Ashen Coliseum began sanctioning war games, Marshal Redbrook answered with something gentler: a standing harvest truce on the old green. The wagon gates became goalposts, the green got walls, stands, and a name, the Sowfield, and the prize was always the same dented milk pail the winners drank from: the Copper Pail.",
+      "howHeading": "How to play",
+      "howQueue": "Queue from anywhere through the Vale Cup window, or talk to Groundskeeper Bram at the Sowfield gate. Pick a bracket from one-a-side up to five-a-side, a banner nation, and a sport role; queue solo or bring your party.",
+      "howMatch": "On kickoff your class kit is swapped for a sport kit and restored exactly afterward. Kicks aim at the ground reticle, the ball banks off the boards, and dribbling is just running with the ball. Score more goals than the other side before full time; a draw goes to golden goal.",
+      "howTruce": "Nobody bleeds at the Sowfield: tackles tumble, nothing hurts, and pets sit the match out.",
+      "spectateBody": "One match plays at a time at the stadium, and anyone can walk up and watch from the stands.",
+      "nationsHeading": "The eight banner nations",
+      "nationsBody": "Every team plays under a banner. The captain picks the nation, and if both sides fly the same one, the away side plays the inverted palette.",
+      "nationVale": "Green and gold, flying the wheat sheaf: the home side, farmhands to the bone.",
+      "nationMirefen": "Teal and grey under the heron: patient, long-legged, never hurried.",
+      "nationThornpeak": "Ice blue and white under the mountain peak: sure-footed and stubborn.",
+      "nationColiseum": "Red and black with crossed swords: they play like it is still a war game.",
+      "nationChoir": "Pale blue and silver under the bell: eerie, precise, and very quiet.",
+      "nationOgre": "Orange and umber behind the fist: shoulder-first and proud of it.",
+      "nationMoon": "Violet and silver under the crescent: night players, light on their feet.",
+      "nationCopperdig": "Copper and brown with the pickaxe: diggers who never stop running.",
+      "rolesHeading": "Sport roles",
+      "rolesBody": "Your role decides the kit you carry onto the pitch. Everyone kicks; the rest is temperament.",
+      "rewardsHeading": "Truce rules",
+      "rewardsBody": "Truce rules mean no experience and no loot: a decided match counts toward your record and the winners board, and daily-reward points come with it. Deserting a match benches your slot, and the Groundskeeper remembers."
+    },
     "wishPage": {
       "heading": "Những điều tôi ước mình từng biết",
       "intro": "Vài sự thật chân thành giúp người chơi mới đỡ phải đắn đo rất nhiều. Không có điều nào là bắt buộc phải đọc, nhưng tất cả đều hữu ích.",
@@ -2090,6 +2286,35 @@ export const vi_VN: EnTranslations = {
       "cosmeticsSkins": "Có hai dòng trang trí để sưu tầm. Hầu hết các lớp đều có một vài diện mạo thay thế, một cách thể hiện mới mẻ cho hình tượng của lớp mà chỉ riêng bạn được mặc. Bên cạnh chúng là các chroma: những bảng màu hai tông được đặt tên, sơn lại hoàn toàn một diện mạo, từ kim loại trầm mặc đến những màu hoàng gia rực rỡ.",
       "cosmeticsCache": "Một vài trong số này đến từ một rương trang trí bí ẩn, một phần thưởng niêm phong sẽ ngẫu nhiên ra một trong ba hạng chất lượng khi bạn mở nó và ban diện mạo tương ứng. Nó hoàn toàn chỉ để làm đẹp: không thứ gì bên trong khiến bạn mạnh hơn, chỉ đẹp hơn để ngắm.",
       "cosmeticsApply": "Đặt diện mạo đang dùng từ hàng ngoại hình trên màn hình nhân vật, và đổi thoải mái giữa mọi thứ bạn đã mở khóa."
+    },
+    "professions": {
+      "intro": "Beyond combat and quests, the world rewards you for working the land and the forge: gathering raw materials, turning them into gear at the crafting stations of ten different trades, and settling into an identity as one of the ten archetypes those trades represent.",
+      "gatherTitle": "Gathering: Mining, Logging, and Herbalism",
+      "gatherIntro": "Three gathering trades let you pull raw materials straight out of the world: Mining strikes ore and stone from veins, Logging fells timber from stands of trees, and Herbalism collects herbs and plants growing wild. Each is tracked separately, so working one never slows your progress in another.",
+      "gatherWhatTitle": "Resource nodes",
+      "gatherWhatBody": "Ore veins, wood stands, and herb patches are placed out in the zones as visible, unowned fixtures. Walk up to one and interact with it to harvest whatever it holds. Once you have harvested a node, it needs time to recover before you personally can harvest it again, though it never blocks anyone else: another player can harvest the very same node in the meantime.",
+      "gatherProficiencyTitle": "Proficiency and material quality",
+      "gatherProficiencyBody": "Every successful harvest builds your proficiency in that gathering trade. A higher proficiency shifts what you pull out of a node toward rarer grades of material, from common on up, though the rarest grades stay rare even at high proficiency. More practice never hurts your odds, it only ever improves them.",
+      "gatherToolsTitle": "Tools of the trade",
+      "gatherToolsBody": "Vendors sell basic tools for each gathering trade, and better ones can be crafted, so working a resource node is meant to feel more capable as you gear up for it rather than staying static. Higher-tier tools are the intended way to unlock access to richer nodes and to work them more efficiently over a long session.",
+      "craftTitle": "The ten crafts",
+      "craftIntro": "Ten crafting trades turn gathered materials into finished gear and goods: Armorcrafting, Weaponcrafting, and Jewelcrafting shape raw matter into wearable gear; Alchemy and Engineering are driven by trial and error; Cooking, Inscription, and Enchanting each touch other crafts' output; Tailoring and Leatherworking work from exact patterns. Together they form a wheel, with each craft sitting next to two neighbors and opposite one other.",
+      "craftRingTitle": "A wheel of specialties",
+      "craftRingBody": "The ten crafts are arranged in a fixed ring, and where a craft sits on that ring matters: crafts next to each other on the wheel share more in common with each other than crafts on opposite sides do. Committing to one craft is meant to feel like joining a family of related trades, not picking an isolated skill.",
+      "craftRecipesTitle": "Recipes and reagents",
+      "craftRecipesBody": "Every craft has its own recipes, each calling for specific reagents you gather or buy. The most basic recipes in each craft ask for nothing but common materials and are craftable from the very start, so you can begin working a trade the moment you pick it up rather than waiting to unlock it.",
+      "craftMasteryTitle": "Skill and mastery",
+      "craftMasteryBody": "Crafting successfully builds skill in that trade, and richer recipes are gated behind higher skill: the basic recipes are open to everyone, while progressively more advanced ones ask for progressively more mastery to attempt. Growing your skill in a craft is the path from simple starter goods to its more ambitious recipes.",
+      "craftComboTitle": "Combination recipes",
+      "craftComboBody": "Beyond a single craft's own recipe list, the wheel also supports combination recipes that call on two neighboring crafts at once, rewarding a character (or a pair of trading partners) who has invested in adjacent trades on the ring rather than one in isolation.",
+      "archetypeTitle": "The ten archetypes",
+      "archetypeIntro": "Each of the ten crafts also stands for an archetype, a broader identity you can adopt beyond just working that trade. Your active archetype is a single choice at a time, not a checklist: you carry one, and can change which one later if you choose to.",
+      "archetypeChooseTitle": "Choosing your archetype",
+      "archetypeChooseBody": "You declare your first archetype through an early, zone one story quest that formally accepts you into that identity. Until you complete that quest, you have not yet chosen an archetype at all.",
+      "archetypeSwitchTitle": "Changing your mind",
+      "archetypeSwitchBody": "Having declared an archetype once does not lock you into it forever. Changing to a different archetype means first completing a repeatable \"make amends\" quest for your old one, and each time you switch, the amends expected of you the next time grow a little steeper, so switching stays meaningful rather than costless.",
+      "archetypeIdentityTitle": "What your archetype means",
+      "archetypeIdentityBody": "Your active archetype is a statement about who your character is in the world, recognized in how others and the world address you. The exact rewards and recognition that come with it are still being finalized; check back as the system fills in."
     },
     "economy": {
       "intro": "Tiền bạc bôi trơn cả thế giới: nó mua trang bị, vật phẩm tiếp tế và đồ đi đường của bạn, và đổi tay giữa những người chơi. Bạn nhặt được tất cả những thứ này chỉ bằng cách chơi, nên hãy xem trang này như một bản đồ về nơi tiền của bạn đến từ đâu và đi về đâu.",
@@ -3171,6 +3396,10 @@ export const vi_VN: EnTranslations = {
       "hard": "Chiến lợi phẩm thượng hạng"
     },
     "closeAria": "Đóng"
+  },
+  "heroicShop": {
+    "balance": "Dấu Ấn Anh Hùng: {count}",
+    "buyAria": "Mua {item} với giá {marks} Dấu Ấn Anh Hùng"
   },
   "delveUi": {
     "board": {
@@ -4464,12 +4693,14 @@ export const vi_VN: EnTranslations = {
     "slots": {
       "mainhand": "Tay Chính",
       "helmet": "Mũ Giáp",
+      "neck": "Cổ",
       "shoulder": "Giáp Vai",
       "chest": "Áo Giáp",
       "waist": "Thắt Lưng",
       "legs": "Quần Giáp",
       "gloves": "Găng Tay",
-      "feet": "Giày"
+      "feet": "Giày",
+      "ring": "Ngón Tay"
     },
     "quality": {
       "poor": "Kém",
@@ -4673,6 +4904,46 @@ export const vi_VN: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "sport_kick": {
+        "name": "Kick",
+        "description": "Knock the ball along the ground toward the aim point."
+      },
+      "sport_shoot": {
+        "name": "Shoot",
+        "description": "Hold to build power, release to shoot at goal. Too much power sails over."
+      },
+      "sport_pass": {
+        "name": "Pass",
+        "description": "Roll a firm pass to your targeted teammate, leading their run."
+      },
+      "sport_boot": {
+        "name": "Big Boot",
+        "description": "A long lofted boot toward the aim point. The crowd loves it."
+      },
+      "sport_hoof": {
+        "name": "Hoof It",
+        "description": "Hammer the ball low and hard up the field."
+      },
+      "sport_punt": {
+        "name": "Long Punt",
+        "description": "A keeper's punt, high and far."
+      },
+      "sport_feint": {
+        "name": "Feint",
+        "description": "A quick sidestep burst toward the aim point."
+      },
+      "sport_dive": {
+        "name": "Dive",
+        "description": "Fling yourself toward the aim point. A crossing ball sticks to you."
+      },
+      "sport_shoulder": {
+        "name": "Shoulder",
+        "description": "A fair harvest-truce shoulder. Sends them tumbling off the ball."
+      },
+      "sport_second_wind": {
+        "name": "Fresh Legs",
+        "description": "Find your legs: move 50% faster for 4 sec."
+      },
       "flamestrike": {
         "name": "Cú Đánh Lửa",
         "description": "Gọi một vụ nổ lửa xuống khu vực mục tiêu, gây {damage} sát thương Lửa cho kẻ địch trong vụ nổ."
@@ -6377,6 +6648,132 @@ export const vi_VN: EnTranslations = {
       "event_skin_token": {
         "name": "Rương Trang Phục Bí Ẩn"
       },
+      "heroic_mark": {
+        "name": "Dấu Ấn Anh Hùng"
+      },
+      "morthens_cryptforged_hauberk": {
+        "name": "Áo Giáp Lưới Rèn Hầm Mộ của Morthen"
+      },
+      "shadowpulse_handwraps": {
+        "name": "Quấn Tay Mạch Bóng Tối"
+      },
+      "bonechill_striders": {
+        "name": "Giày Bước Hàn Cốt"
+      },
+      "mistcallers_fang": {
+        "name": "Nanh của Kẻ Gọi Sương"
+      },
+      "tidebound_spaulders": {
+        "name": "Giáp Vai Ràng Buộc Thủy Triều"
+      },
+      "sash_of_the_sunken_court": {
+        "name": "Đai Lưng Triều Đình Chìm"
+      },
+      "lunar_tide_greatstaff": {
+        "name": "Đại Trượng Triều Nguyệt"
+      },
+      "tidewoven_trousers": {
+        "name": "Quần Dệt Thủy Triều"
+      },
+      "choirmothers_casque": {
+        "name": "Mũ Trụ của Mẹ Hợp Ca"
+      },
+      "gravewyrm_cleaver": {
+        "name": "Đao Phanh Mộ Long"
+      },
+      "shroud_of_the_gravewyrm": {
+        "name": "Vải Liệm Mộ Long"
+      },
+      "sanctum_prowlers_grips": {
+        "name": "Găng Kẻ Rình Thánh Đường"
+      },
+      "scepter_of_the_deathless_court": {
+        "name": "Vương Trượng Triều Đình Bất Tử"
+      },
+      "deathless_warguard_legmail": {
+        "name": "Giáp Chân Lưới Vệ Chiến Bất Tử"
+      },
+      "soulrend_diadem": {
+        "name": "Vương Miện Xé Hồn"
+      },
+      "scourgehide_carapace": {
+        "name": "Giáp Mai Da Tai Ương"
+      },
+      "cryptplate_helm": {
+        "name": "Mũ Giáp Tấm Hầm Mộ"
+      },
+      "shadowpulse_slippers": {
+        "name": "Hài Mạch Bóng Tối"
+      },
+      "bonechill_cord": {
+        "name": "Dây Lưng Hàn Cốt"
+      },
+      "mistforged_pauldrons": {
+        "name": "Giáp Vai Rèn Sương"
+      },
+      "tideguard_faceguard": {
+        "name": "Mũ Che Mặt Vệ Triều"
+      },
+      "sunken_court_mantle": {
+        "name": "Áo Choàng Triều Đình Chìm"
+      },
+      "lunar_choir_leggings": {
+        "name": "Quần Giáp Hợp Ca Nguyệt Quang"
+      },
+      "choir_blessed_spaulders": {
+        "name": "Giáp Vai Hợp Ca Ban Phước"
+      },
+      "tideworn_warboots": {
+        "name": "Chiến Ủng Mòn Sóng"
+      },
+      "gravewyrm_claws": {
+        "name": "Vuốt Mộ Long"
+      },
+      "gravescale_girdle": {
+        "name": "Đai Lưng Vảy Mộ"
+      },
+      "wyrmchoir_handwraps": {
+        "name": "Quấn Tay Hợp Ca Long"
+      },
+      "deathless_greatblade": {
+        "name": "Đại Kiếm Bất Tử"
+      },
+      "soulforged_warplate": {
+        "name": "Chiến Giáp Rèn Hồn"
+      },
+      "stormcallers_focus": {
+        "name": "Pháp Khí của Kẻ Gọi Bão"
+      },
+      "seal_of_the_nine_oaths": {
+        "name": "Ấn Chín Lời Thề"
+      },
+      "nielas_coldlight_band": {
+        "name": "Nhẫn Hàn Quang của Niela"
+      },
+      "sutils_gambit": {
+        "name": "Nước Cờ của Sutil"
+      },
+      "oath_of_the_round_table": {
+        "name": "Lời Thề Bàn Tròn"
+      },
+      "zyzzs_deathless_signet": {
+        "name": "Nhẫn Ấn Bất Tử của Zyzz"
+      },
+      "architects_cornerstone": {
+        "name": "Viên Đá Nền của Kiến Trúc Sư"
+      },
+      "swiftfang_talisman": {
+        "name": "Bùa Nanh Thần Tốc"
+      },
+      "yumis_keepsake_locket": {
+        "name": "Mề Đay Kỷ Vật của Yumi"
+      },
+      "zense_meridian": {
+        "name": "Kinh Mạch Zense"
+      },
+      "medallion_of_endless_profit": {
+        "name": "Huy Chương Lợi Nhuận Bất Tận"
+      },
       "deathless_heartwood": {
         "name": "Lõi Gỗ Của Vương Miện Bất Tử"
       },
@@ -6706,6 +7103,9 @@ export const vi_VN: EnTranslations = {
       "tolling_bell": {
         "name": "Chuông Ngân Vang"
       },
+      "vale_cup_ball": {
+        "name": "Bóng Da Heo Rừng"
+      },
       "thunzharr_waking_peak": {
         "name": "Thunzharr, Đỉnh Núi Thức Giấc"
       },
@@ -6912,6 +7312,11 @@ export const vi_VN: EnTranslations = {
         "title": "Thợ Giáp Bậc Thầy",
         "greeting": "Lò rèn đang nóng và đá mài đang quay. Cái gì chém được, ta bán."
       },
+      "heroic_quartermaster": {
+        "name": "Quân Nhu Trưởng Vex",
+        "title": "Quân Nhu Trưởng Anh Hùng",
+        "greeting": "Bằng chứng chinh phục những vực sâu Anh Hùng mua được những chiếc nhẫn và mặt dây chuyền tinh xảo nhất Highwatch. Cho ta xem dấu ấn của ngươi."
+      },
       "loremaster_caddis": {
         "name": "Sử Gia Caddis",
         "title": "Sử Gia",
@@ -6941,6 +7346,11 @@ export const vi_VN: EnTranslations = {
         "name": "Người Canh Giữ Nhợt Nhạt",
         "title": "Người Gác Cõi Chết",
         "greeting": "Nghỉ ngơi đi, hỡi linh hồn. Ta có thể đưa ngươi trở lại thân xác, nhưng chuyến vượt trở về sẽ khiến ngươi suy yếu."
+      },
+      "groundskeeper_bram": {
+        "name": "Groundskeeper Bram",
+        "title": "Keeper of the Sowfield",
+        "greeting": "The truce holds at the Sowfield, {className}: boots and shoulders only. Care to play for the Copper Pail?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -7849,6 +8259,9 @@ export const vi_VN: EnTranslations = {
           },
           "9": {
             "label": "Trảng Rừng Sáng"
+          },
+          "10": {
+            "label": "The Sowfield"
           }
         }
       },
@@ -7994,13 +8407,13 @@ export const vi_VN: EnTranslations = {
         "name": "Bộ Lễ Phục Bonewrought",
         "bonus2": "Tăng sức mạnh tấn công thêm 40.",
         "bonus3": "Tăng sức mạnh thêm 15, thể lực thêm 15 và tốc độ tấn công cùng thi triển thêm 15%.",
-        "bonus4": "Your weapon critical strikes splinter the target with Bonesplinter, bleeding it for 8 damage every 2 sec for 12 sec. Stacks up to 3 times."
+        "bonus4": "Các đòn chí mạng bằng vũ khí của bạn găm Dằm Xương vào mục tiêu, khiến nó chảy máu nhận 8 sát thương mỗi 2 giây trong 12 giây. Cộng dồn tối đa 3 lần."
       },
       "deathlord": {
         "name": "Bộ Chiến Barrowlord",
         "bonus2": "Tăng sức mạnh tấn công thêm 40.",
         "bonus3": "Tăng sức mạnh thêm 15 và thể lực thêm 15.",
-        "bonus4": "Your weapon critical strikes have a 50% chance to grant Gravemight, increasing attack power by 60 for 10 sec."
+        "bonus4": "Các đòn chí mạng bằng vũ khí của bạn có 50% cơ hội ban Uy Lực Mộ Phần, tăng sức mạnh tấn công thêm 60 trong 10 giây."
       },
       "greyjaw_stalker": {
         "name": "Bộ Kẻ Rình Rập Greyjaw",
@@ -8010,25 +8423,25 @@ export const vi_VN: EnTranslations = {
         "name": "Y Phục Mournweave",
         "bonus2": "Bạn không thể bị đẩy lùi (kháng đẩy lùi 100%).",
         "bonus3": "Tăng trí tuệ thêm 10 và thể lực thêm 10.",
-        "bonus4": "Your spells have a 10% chance to grant Clearcasting, making your next spell free."
+        "bonus4": "Các phép của bạn có 10% cơ hội ban Tâm Trí Thông Suốt, khiến phép kế tiếp của bạn được thi triển miễn phí."
       },
       "nighttalon": {
         "name": "Bộ Da Direfang",
         "bonus2": "Tăng sức mạnh tấn công thêm 40.",
         "bonus3": "Tăng nhanh nhẹn thêm 15, tỉ lệ chí mạng thêm 2% và tốc độ tấn công cùng thi triển thêm 15%.",
-        "bonus4": "Your weapon critical strikes tear a Ragged Gash, bleeding the target for 6 damage every 2 sec for 12 sec. Stacks up to 3 times."
+        "bonus4": "Các đòn chí mạng bằng vũ khí của bạn xé ra một Vết Rách Toạc, khiến mục tiêu chảy máu nhận 6 sát thương mỗi 2 giây trong 12 giây. Cộng dồn tối đa 3 lần."
       },
       "soulflame": {
         "name": "Lễ Phục Wraithfire",
         "bonus2": "Bạn không thể bị đẩy lùi (kháng đẩy lùi 100%).",
         "bonus3": "Tăng trí tuệ thêm 15, tinh thần thêm 15 và tốc độ tấn công cùng thi triển thêm 15%.",
-        "bonus4": "Your spells have a 10% chance to grant Soulblaze, increasing spell power by 40 for 10 sec."
+        "bonus4": "Các phép của bạn có 10% cơ hội ban Hồn Hỏa, tăng sức mạnh phép thuật thêm 40 trong 10 giây."
       },
       "stormcallers": {
         "name": "Áo Lễ Galecall",
         "bonus2": "Bạn không thể bị đẩy lùi (kháng đẩy lùi 100%).",
         "bonus3": "Tăng trí tuệ thêm 15, tinh thần thêm 15 và tốc độ tấn công cùng thi triển thêm 15%.",
-        "bonus4": "Your spells have a 10% chance to grant Soulblaze, increasing spell power by 40 for 10 sec."
+        "bonus4": "Các phép của bạn có 10% cơ hội ban Hồn Hỏa, tăng sức mạnh phép thuật thêm 40 trong 10 giây."
       },
       "vale_arcanist": {
         "name": "Bộ Arcanist Thung Khê",
@@ -8038,7 +8451,7 @@ export const vi_VN: EnTranslations = {
         "name": "Áo Lễ Nightfang",
         "bonus2": "Tăng sức mạnh tấn công thêm 40.",
         "bonus3": "Tăng nhanh nhẹn thêm 15 và tỉ lệ chí mạng thêm 2%.",
-        "bonus4": "Your weapon critical strikes have a 50% chance to grant Fangrush, increasing attack speed by 25% for 8 sec."
+        "bonus4": "Các đòn chí mạng bằng vũ khí của bạn có 50% cơ hội ban Cuồng Nanh, tăng tốc độ tấn công thêm 25% trong 8 giây."
       }
     }
   },

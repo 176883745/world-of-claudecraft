@@ -3,6 +3,7 @@ import { createBotDetector } from '#bot-detector';
 import { verifyChallenge } from '../src/sim/client_challenge';
 import { MECH_CHROMAS, mechChromaItemId, mechChromaSkinIndex } from '../src/sim/content/skins';
 import type { TalentAllocation } from '../src/sim/content/talents';
+import { SPORT_ROLES, VALE_CUP_BALL_TEMPLATE_ID, VC_NATION_IDS } from '../src/sim/content/vale_cup';
 import {
   DELVES,
   DUNGEON_X_THRESHOLD,
@@ -27,11 +28,16 @@ import {
   EQUIP_SLOTS,
   type EquipSlot,
   emptyMoveInput,
+  isDungeonDifficulty,
   MAX_LEVEL,
   PARTY_MEMBER_AURA_CAP,
   RUN_SPEED,
   type SimEvent,
+  type SportRole,
+  type VcBracket,
+  type VcNationId,
 } from '../src/sim/types';
+import { isAtSowfield } from '../src/sim/vale_cup_layout';
 import { type CommandName, isOverheadEmoteId } from '../src/world_api';
 import { recordOnlineSample } from './admin_db';
 import { offensiveName } from './auth';
@@ -199,6 +205,7 @@ export const SIM_LAP_PHASES = [
   'lootRolls',
   'instances',
   'delves',
+  'valecup',
   'market',
   'postOffice',
   'delayedEv',
@@ -206,6 +213,11 @@ export const SIM_LAP_PHASES = [
 ].map((n) => `sim.${n}`);
 const ARENA_WIRE_HZ = 0.1;
 const ARENA_WIRE_INTERVAL_TICKS = Math.max(1, Math.round(1 / (DT * ARENA_WIRE_HZ)));
+// Vale Cup readout cadence: the CupInfo payload carries whole-second clocks and
+// queue sizes, so 2 Hz keeps the window/indicator live without re-serializing
+// the rosters at 20 Hz. Instant transitions ride the pid-scoped vcup* events.
+const VC_WIRE_HZ = 2;
+const VC_WIRE_INTERVAL_TICKS = Math.max(1, Math.round(1 / (DT * VC_WIRE_HZ)));
 
 type ClientMessage = Record<string, unknown> & {
   ability?: string;
@@ -214,6 +226,7 @@ type ClientMessage = Record<string, unknown> & {
   ante?: number;
   augment?: string;
   bar?: unknown;
+  bracket?: number;
   catalog?: string;
   choice?: 'need' | 'greed' | 'pass';
   chroma?: string;
@@ -222,6 +235,7 @@ type ClientMessage = Record<string, unknown> & {
   count?: number;
   copper?: number;
   delveId?: string;
+  difficulty?: unknown;
   dungeon?: string;
   emote?: unknown;
   enabled?: boolean;
@@ -239,6 +253,7 @@ type ClientMessage = Record<string, unknown> & {
   mode?: string;
   n?: string;
   name?: string;
+  nation?: string;
   node?: string;
   npc?: number;
   objectId?: number;
@@ -246,6 +261,7 @@ type ClientMessage = Record<string, unknown> & {
   q?: string;
   quest?: string;
   r?: string;
+  role?: string;
   rollId?: number;
   seq?: number;
   sid?: string;
@@ -300,6 +316,23 @@ function isPickAction(value: unknown): value is PickAction {
   return typeof value === 'string' && LOCKPICK_ACTIONS.has(value as PickAction);
 }
 
+// Vale Cup wire validation (anti-cheat: every field type-checked against the
+// known token sets before the sim is touched, the LOCKPICK_ACTIONS pattern).
+const VC_NATION_SET: ReadonlySet<string> = new Set(VC_NATION_IDS);
+const SPORT_ROLE_SET: ReadonlySet<string> = new Set(SPORT_ROLES);
+
+function isVcNationId(value: unknown): value is VcNationId {
+  return typeof value === 'string' && VC_NATION_SET.has(value);
+}
+
+function isSportRole(value: unknown): value is SportRole {
+  return typeof value === 'string' && SPORT_ROLE_SET.has(value);
+}
+
+function isVcBracket(value: unknown): value is VcBracket {
+  return typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= 5;
+}
+
 // Heavy, rarely-changing self fields (inventory, equipment, stats, talents,
 // quests, milestones, cosmetics) are re-serialized into a snapshot only when a
 // command or sim event that can change them lands for that session, or on a
@@ -319,6 +352,7 @@ const HEAVY_SELF_CMDS = new Set<string>([
   'buy',
   'sell',
   'buyback',
+  'vcup_bet', // debits copper: refresh the self snapshot so the purse updates
   'loot',
   'harvestCorpse',
   'pickup',
@@ -350,6 +384,7 @@ const HEAVY_SELF_CMDS = new Set<string>([
 ]);
 const HEAVY_SELF_EVENTS = new Set<string>([
   'loot',
+  'vcupBetSettled', // credits copper to the bettor: refresh their purse
   'mailArrived',
   'mailResult',
   'levelup',
@@ -437,6 +472,8 @@ export interface ClientSession {
   lastSent: Record<string, string>;
   // arena readout is reconciled at UI cadence instead of snapshot cadence
   lastArenaWireTick: number;
+  // Vale Cup readout, same idea at its own cadence (VC_WIRE_HZ)
+  lastVcupWireTick: number;
   // set when a command or sim event that can change a heavy self field (bags,
   // gear, quests, talents, stats, ...) lands for this session, so the next
   // snapshot re-diffs those fields. Otherwise they're skipped (see
@@ -746,6 +783,11 @@ function isUpdateDue(
   viewer: Entity,
   sentAtTick: number,
 ): boolean {
+  // The one Vale Cup ball is watched by the whole Sowfield: a far keeper sits
+  // past the 55yd full-rate tier and the stands past 80yd, where a ~25 yd/s
+  // ball turns visibly steppy at half/quarter rate. One entity at full rate
+  // costs one lite record per tick, so it is always due.
+  if (e.templateId === VALE_CUP_BALL_TEMPLATE_ID) return true;
   if (d2 <= FULL_RATE_RADIUS_SQ) return true;
   if (viewer.targetId === e.id || e.aggroTargetId === viewer.id) return true;
   const divisor = d2 <= HALF_RATE_RADIUS_SQ ? HALF_RATE_DIVISOR : QUARTER_RATE_DIVISOR;
@@ -922,6 +964,7 @@ export class GameServer {
         this.tickProfiler.add(`sim.${phase}`, Number(t - this.simLapMark) / 1e6);
         this.simLapMark = t;
       },
+      valeCupShowcase: true, // idle Sowfield auto-runs a bot exhibition to watch/bet on
     });
     this.social = new SocialService(this.socialDb, this.socialTransport());
     this.moderation = new ModerationService(this.moderationHost(), {
@@ -1018,6 +1061,7 @@ export class GameServer {
 
     moderator.lastSent = {};
     moderator.lastArenaWireTick = -ARENA_WIRE_INTERVAL_TICKS;
+    moderator.lastVcupWireTick = -VC_WIRE_INTERVAL_TICKS;
     moderator.sentEnts.clear();
     this.send(moderator, { t: 'spectate', name: target.name });
     this.sendSystemNotice(moderator, `Now spectating ${target.name}.`);
@@ -1041,6 +1085,7 @@ export class GameServer {
     moderator.spectating = null;
     moderator.lastSent = {};
     moderator.lastArenaWireTick = -ARENA_WIRE_INTERVAL_TICKS;
+    moderator.lastVcupWireTick = -VC_WIRE_INTERVAL_TICKS;
     moderator.sentEnts.clear();
     this.send(moderator, { t: 'spectate', name: null });
     if (announce) this.sendSystemNotice(moderator, 'Stopped spectating.');
@@ -1074,7 +1119,13 @@ export class GameServer {
     if (e.dead) status = 'dead';
     else if (instanceZone != null) status = 'dungeon';
     else if (e.inCombat) status = 'combat';
-    return { zone: instanceZone ?? zoneAt(pos.z).name, status, x: pos.x, z: pos.z };
+    // The Sowfield is overworld ground (no instance band, no status change),
+    // but the stadium is the presence players expect on match days: fighters
+    // and walk-up spectators inside the footprint report the venue, not the
+    // vale. English at the source like the dungeon/delve names above; the
+    // client re-localizes the label (src/ui/server_i18n.ts localizeZone).
+    const zone = instanceZone ?? (isAtSowfield(pos.x, pos.z) ? 'The Sowfield' : zoneAt(pos.z).name);
+    return { zone, status, x: pos.x, z: pos.z };
   }
 
   private socialTransport(): SocialTransport {
@@ -1739,6 +1790,7 @@ export class GameServer {
       lastInputAt: this.sim.time,
       lastSent: {},
       lastArenaWireTick: -ARENA_WIRE_INTERVAL_TICKS,
+      lastVcupWireTick: -VC_WIRE_INTERVAL_TICKS,
       selfHeavyDirty: true,
       lastWireRev: -1,
       sentEnts: new Map(),
@@ -1973,6 +2025,10 @@ export class GameServer {
         console.error('failed to close play session:', err),
       );
     }
+    // Deserting a live Vale Cup match resolves BEFORE the leave save so the
+    // benched slot and the counted loss are in the state serializeCharacter
+    // persists (idempotent: removePlayer runs it again harmlessly below).
+    this.sim.vcupResolveDesertion(session.pid);
     await this.saveCharacterOnLeave(session);
     this.sessionsByCharacterId.delete(session.characterId);
     this.sim.removePlayer(session.pid);
@@ -2737,6 +2793,15 @@ export class GameServer {
           sim.harvestCorpse(msg.id, components, pid);
         }
         break;
+      case 'set_town_focus':
+        if (msg.allocation && typeof msg.allocation === 'object') {
+          const allocation: Record<string, number> = {};
+          for (const [k, v] of Object.entries(msg.allocation as Record<string, unknown>)) {
+            if (typeof v === 'number') allocation[k] = v;
+          }
+          sim.setTownFocus(allocation, pid);
+        }
+        break;
       case 'lootRoll':
         if (
           typeof msg.rollId === 'number' &&
@@ -3178,6 +3243,41 @@ export class GameServer {
         break;
       }
 
+      // The Vale Cup (boarball queue at the Sowfield, docs/prd/vale-cup.md).
+      // Deliberately NOT in HEAVY_SELF_CMDS: queueing mutates no heavy self
+      // field (queue state rides the throttled 'vcup' delta key + the pid-
+      // scoped vcup* events), and the kickoff kit swap happens at match start
+      // inside the sim tick, where the wireRev bump already forces the heavy
+      // refresh for that session.
+      case 'vcup_queue':
+        if (isVcBracket(msg.bracket) && isVcNationId(msg.nation) && isSportRole(msg.role))
+          sim.vcupQueueJoin(msg.bracket, msg.nation, msg.role, msg.guild === true, pid);
+        break;
+      case 'vcup_leave':
+        sim.vcupQueueLeave(pid);
+        break;
+      case 'vcup_role':
+        if (isSportRole(msg.role)) sim.vcupSetRole(msg.role, pid);
+        break;
+      case 'vcup_ready':
+        sim.vcupReady(pid);
+        break;
+      case 'vcup_practice':
+        // Private instanced practice bout vs bots (parallel to the real match).
+        if (isVcBracket(msg.bracket)) sim.vcupPracticeStart(msg.bracket, pid);
+        break;
+      case 'vcup_bet':
+        // Server-authoritative: the Sim re-validates the window, proximity, side,
+        // and balance, and debits copper. Amount clamped to a sane integer here.
+        if (
+          (msg.side === 'A' || msg.side === 'B') &&
+          typeof msg.amount === 'number' &&
+          Number.isFinite(msg.amount)
+        ) {
+          sim.vcupBet(msg.side, Math.floor(msg.amount), pid);
+        }
+        break;
+
       // post-cap cosmetic prestige (Max-Level XP Overflow)
       case 'prestige':
         sim.prestige(pid);
@@ -3427,6 +3527,16 @@ export class GameServer {
             )
           : null;
         if (exit) sim.leaveDungeon(pid);
+        break;
+      }
+      case 'set_dungeon_difficulty': {
+        if (isDungeonDifficulty(msg.difficulty)) sim.setDungeonDifficulty(msg.difficulty, pid);
+        break;
+      }
+      case 'heroic_buy': {
+        // Range, stock, balance, and bag space all re-validate in the sim
+        // handler (instances/heroic_vendor.ts); the client only sends intent.
+        if (typeof msg.itemId === 'string') sim.buyHeroicVendorItem(msg.itemId, pid);
         break;
       }
       case 'enter_delve': {
@@ -3731,6 +3841,7 @@ export class GameServer {
       drk: p.drinking ? { remaining: round2(p.drinking.remaining) } : null,
       opUntil: p.overpowerUntil > this.sim.time ? 1 : 0,
       ack: session.spectating ? 0 : anchorSession.lastInputSeq,
+      ddiff: this.sim.dungeonDifficulty(anchorSession.pid),
     });
     const json = JSON.stringify(self);
     // heavy, rarely-changing fields ride along only when their serialized
@@ -3774,6 +3885,14 @@ export class GameServer {
       session.lastArenaWireTick = this.sim.tickCount;
       maybe('arena', this.sim.arenaInfoFor(anchorSession.pid));
     }
+    // Vale Cup readout at its own UI cadence (VC_WIRE_HZ): CupInfo carries
+    // whole-second clocks and queue sizes, so re-evaluating every tick would
+    // re-serialize the rosters 20 times per wire-visible change. Instant
+    // queue/match transitions ride the pid-scoped vcup* events instead.
+    if (this.sim.tickCount - session.lastVcupWireTick >= VC_WIRE_INTERVAL_TICKS) {
+      session.lastVcupWireTick = this.sim.tickCount;
+      maybe('vcup', this.sim.cupInfoFor(anchorSession.pid));
+    }
     // market info is null unless the player is standing at the Merchant, so it
     // only rides the wire for players actually browsing the World Market
     maybe('market', this.sim.marketInfoFor(anchorSession.pid));
@@ -3798,6 +3917,7 @@ export class GameServer {
     // mirrors the raw per-craft proficiency map for the `gatheringProficiency`
     // IWorld data member (#1119), independent of the `professionsState` view.
     maybe('prof', this.sim.professionsStateFor(anchorSession.pid));
+    maybe('tfocus', this.sim.townFocusFor(anchorSession.pid));
     // Raw gathering-profession proficiency map (IWorld `gatheringProficiency`,
     // #1119), a second small read alongside `prof` for the ORIGINAL flat-map
     // shape used by the `/dev gather` chat cheat and existing consumers. Wire
@@ -3839,6 +3959,13 @@ export class GameServer {
         loadouts: meta.loadouts,
         activeLoadout: meta.activeLoadout,
       });
+      // Vale Cup sport-kit flag ({ role } | null): while set, the client's
+      // action bar rebuilds the role kit instead of the class kit. Rides the
+      // wireRev-gated block because the sim bumps wireRev on BOTH the kickoff
+      // swap and the restore, so maybe() serializes each flip, including the
+      // restore's EXPLICIT null (delta omission means "unchanged" and would
+      // strand the client on the sport kit).
+      maybe('sport', meta.sportRole ? { role: meta.sportRole } : null);
     }
     return extra === '' ? json : `${json.slice(0, -1)}${extra}}`;
   }
@@ -4057,6 +4184,55 @@ export class GameServer {
             if (points > 0) this.sendDailyRewardPointsGained(s, points);
           })
           .catch((err) => console.error('daily reward delve chest task failed:', err));
+      } else if (ev.type === 'vcupResult' && !ev.draw && ev.pid !== undefined) {
+        // A decided Vale Cup bout. The match record survives through the
+        // 'over' aftermath, so the rated gate reads from it: bot-backfilled
+        // and practice matches are unrated in the sim and earn no credit.
+        // Bots have no session, so this.clients.get filters them naturally.
+        const s = this.clients.get(ev.pid);
+        if (!s) continue;
+        const match = this.sim.vcupMatchOf(ev.pid);
+        if (!match || !match.rated) continue;
+        void dailyRewardService
+          .recordValeCupResult(s.accountId, {
+            won: ev.won,
+            bracket: match.bracket,
+            matchId: match.id,
+          })
+          .then((points) => {
+            if (points > 0) this.sendDailyRewardPointsGained(s, points);
+          })
+          .catch((err) => console.error('daily reward vale cup task failed:', err));
+        if (!ev.won) continue;
+        // One card per decided match: every winner's vcupResult lands on the
+        // same tick and the match-id dedupe key collapses them, so the first
+        // one enumerates the whole winning side (linked teammates get tagged
+        // on the one card, the duel [winner, loser] convention).
+        const winnerPids = match.teamA.includes(ev.pid) ? match.teamA : match.teamB;
+        const accountIds = [s.accountId];
+        const names = [s.name];
+        for (const pid of winnerPids) {
+          if (pid === ev.pid) continue;
+          const ally = this.clients.get(pid);
+          if (!ally) continue;
+          accountIds.push(ally.accountId);
+          names.push(ally.name);
+        }
+        enqueueActivity(
+          {
+            kind: 'vale_cup',
+            accountIds,
+            names,
+            realm: REALM,
+            profileUrl: this.profileUrlFor(s.name),
+            bracket: match.bracket,
+            scoreA: match.scoreA,
+            scoreB: match.scoreB,
+            winnerNation: match.teamA.includes(ev.pid) ? match.nationA : match.nationB,
+          },
+          `vale_cup:${match.id}`,
+          now,
+        );
       }
     }
   }

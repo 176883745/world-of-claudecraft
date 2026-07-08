@@ -28,6 +28,7 @@ import { DAMAGE_IDLE_DESPAWN_MOB_IDS, DAMAGE_IDLE_DESPAWN_SECONDS } from '../ent
 import { aurasSurvivingDeath } from '../resurrection';
 import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
+import { vcupBothSeated } from '../social/vale_cup';
 import { addThreat, clearThreat } from '../threat';
 import type { Entity } from '../types';
 import {
@@ -146,6 +147,17 @@ export function dealDamage(
     if (bonus > 0) amount = Math.round(amount * (1 + bonus));
   }
 
+  const sourcePlayer = ctx.pvpController(source);
+
+  // The Vale Cup: nobody bleeds at the Sowfield. Any damage between two seated
+  // cup fighters is floored to 0 BEFORE absorb shields soak it, belt and
+  // braces: the sport kit has no damage abilities, but a stray consumable,
+  // proc, or reflect must neither hurt a fighter nor eat their shield.
+  if (amount > 0 && sourcePlayer && target.kind === 'player') {
+    const cupMatch = ctx.vcup.match;
+    if (cupMatch && vcupBothSeated(cupMatch, sourcePlayer.id, target.id)) amount = 0;
+  }
+
   // absorb shields soak damage first
   if (amount > 0) {
     for (let i = target.auras.length - 1; i >= 0 && amount > 0; i--) {
@@ -160,8 +172,6 @@ export function dealDamage(
       }
     }
   }
-
-  const sourcePlayer = ctx.pvpController(source);
 
   // duels end at 1 hp — nobody dies
   const duel = target.kind === 'player' ? ctx.duels.get(target.id) : undefined;
@@ -635,6 +645,9 @@ export function handleDeath(ctx: SimContext, e: Entity, killer: Entity | null): 
       // World bosses use PERSONAL loot for every contributor (rolled below from the
       // hate-table snapshot), not the tapper/party shared-corpse roll.
       if (!template?.worldBoss) ctx.rollLoot(e, meta, eligible);
+      // A heroic final boss additionally carries one personal Heroic Mark per
+      // eligible participant (no-op outside a heroic instance; draws no rng).
+      ctx.awardHeroicMarks(e, eligible);
     }
     // Personal loot is independent of tap/party kill credit: it goes to everyone who
     // damaged the boss, so it rolls outside the credited-player block above.

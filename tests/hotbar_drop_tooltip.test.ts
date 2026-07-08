@@ -29,9 +29,7 @@ describe('hotbar drag-drop clears the stale tooltip (#1485)', () => {
   it('mobile drag finish calls hideTooltip after swapping slots', () => {
     // The mobile finish handler swaps by pointer target; isolate from its swap call
     // to the clearMobileHotbarDrag teardown.
-    const start = code.indexOf(
-      'swapHotbarSlots(this.hotbarActions, drag.sourceIndex, targetIndex)',
-    );
+    const start = code.indexOf('resolveMobileHotbarDrop(drag.sourceIndex, targetIndex)');
     expect(start).toBeGreaterThan(-1);
     const handler = code.slice(start, code.indexOf('this.clearMobileHotbarDrag();', start));
     const saveIdx = handler.indexOf('this.saveSlotMap();');

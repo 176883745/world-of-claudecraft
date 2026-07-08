@@ -312,6 +312,11 @@
         <div id="chatlog" class="chat-pane active" role="log" aria-live="off" tabindex="-1"></div>
         <div id="combatlog" class="chat-pane"></div>
       </div>
+      <!-- Mobile-only reply affordance (issue 1577 round 2 (8)): opening chat on
+           touch shows the log in a read state; this small button enters reply
+           mode (raises the keyboard and expands the composer). Hidden on desktop
+           and once reply mode is active. Reuses the existing chat action label. -->
+      <button type="button" id="mobile-chat-reply" data-i18n-title="hud.keybinds.actions.chat" data-i18n-aria="hud.keybinds.actions.chat" title="Open Chat" aria-label="Open Chat" data-icon="chat"><span data-i18n="hud.core.mobileChat">Chat</span></button>
     </div>
 
     <div id="quest-dialog" class="window panel"></div>
@@ -327,6 +332,7 @@
     <div id="talents-window" class="window panel"></div>
     <div id="quest-log-window" class="window panel"></div>
     <div id="vendor-window" class="window panel"></div>
+    <div id="town-focus-window" class="window panel"></div>
     <div id="crafting-window" class="window panel"></div>
     <div id="map-window" class="window panel">
       <button class="x-btn" id="map-close" data-i18n-title="hud.core.closeMap" data-i18n-aria="hud.core.closeMap" title="Close map" aria-label="Close map" data-icon="close"></button>
@@ -340,12 +346,14 @@
       <div id="map-quests" class="panel" role="group" data-i18n-aria="questUi.tracker.title" aria-label="Quests"></div>
     </div>
     <div id="arena-window" class="window panel"></div>
+    <div id="valecup-window" class="window panel"></div>
     <div id="leaderboard-window" class="window panel"></div>
     <div id="daily-rewards-window" class="window panel"></div>
     <div id="market-window" class="window panel"></div>
     <div id="mailbox-window" class="window panel"></div>
     <div id="calendar-window" class="window panel"></div>
     <div id="arena-status"></div>
+    <button type="button" id="vcup-indicator" data-i18n-title="hudChrome.vcup.indicatorOpen" data-i18n-aria="hudChrome.vcup.indicatorOpen" title="Open the Vale Cup window" aria-label="Open the Vale Cup window"></button>
     <div id="options-menu" class="window panel"></div>
     <div id="emote-editor" class="window panel"></div>
     <div id="social-window" class="window panel"></div>
@@ -355,10 +363,12 @@
       <button class="micro-btn" id="mm-char" data-i18n-title="hud.keybinds.actions.char" data-i18n-aria="hud.keybinds.actions.char" title="Character" aria-label="Character" data-icon="character"><span class="keybind">c</span></button>
       <button class="micro-btn" id="mm-spell" data-i18n-title="abilityUi.spellbook.title" data-i18n-aria="abilityUi.spellbook.title" title="Spellbook" aria-label="Spellbook" data-icon="spellbook"><span class="keybind">p</span></button>
       <button class="micro-btn" id="mm-talents" data-i18n-title="game.talents.title" data-i18n-aria="game.talents.title" title="Talents" aria-label="Talents" data-icon="talents"><span class="keybind">n</span></button>
+      <button class="micro-btn" id="mm-town-focus" style="display:none" data-i18n-title="hudChrome.townFocus.title" data-i18n-aria="hudChrome.townFocus.title" title="Town Focus" aria-label="Town Focus" data-icon="map"></button>
       <button class="micro-btn" id="mm-quest" data-i18n-title="questUi.log.title" data-i18n-aria="questUi.log.title" title="Quest Log" aria-label="Quest Log" data-icon="questlog"><span class="keybind">l</span></button>
       <button class="micro-btn" id="mm-map" data-i18n-title="hud.keybinds.actions.map" data-i18n-aria="hud.keybinds.actions.map" title="World Map" aria-label="World Map" data-icon="map"><span class="keybind">m</span></button>
       <button class="micro-btn" id="mm-bag" data-i18n-title="itemUi.bags.title" data-i18n-aria="itemUi.bags.title" title="Bags" aria-label="Bags" data-icon="bags"><span class="keybind">b</span></button>
       <button class="micro-btn" id="mm-arena" data-i18n-title="hud.keybinds.actions.arena" data-i18n-aria="hud.keybinds.actions.arena" title="Arena (Ashen Coliseum)" aria-label="Arena (Ashen Coliseum)" data-icon="arena"><span class="keybind">g</span></button>
+      <button class="micro-btn" id="mm-valecup" data-i18n-title="hudChrome.keybinds.valecup" data-i18n-aria="hudChrome.keybinds.valecup" title="Vale Cup" aria-label="Vale Cup" data-icon="ball"><span class="keybind">y</span></button>
       <button class="micro-btn" id="mm-leaderboard" data-i18n-title="game.leaderboard.title" data-i18n-aria="game.leaderboard.title" title="Leaderboard" aria-label="Leaderboard" data-icon="leaderboard"><span class="keybind">k</span></button>
       <button class="micro-btn" id="mm-emote" data-i18n-aria="hudChrome.emoteWheel.label" aria-label="Emotes" data-icon="emote"><span class="keybind">x</span></button>
       <button class="micro-btn" id="mm-music" data-i18n-title="hud.options.music" data-i18n-aria="hud.options.music" title="Music" aria-label="Music" data-icon="music"></button>
@@ -872,7 +882,7 @@
           <div class="desktop-download-actions">
             <a
               class="btn btn-primary desktop-download-link"
-              href="https://updates.worldofclaudecraft.com/desktop/world-of-claudecraft-0.22.0-mac-universal.dmg"
+              href="https://updates.worldofclaudecraft.com/desktop/world-of-claudecraft-0.23.0-mac-universal.dmg"
               data-i18n="download.macCta"
             >Download for macOS</a>
           </div>
@@ -913,7 +923,7 @@
           <span data-i18n="nav.donate">Donate</span>
         </a>
       </div>
-      <div id="game-version">v0.22.0</div>
+      <div id="game-version">v0.23.0</div>
       </div>
       <div class="footer-lang-row">
         <div class="language-selector">
@@ -1004,6 +1014,7 @@
           <button type="button" class="mobile-btn" id="mobile-donate" data-i18n-title="a11y.donateProject" data-i18n-aria="a11y.donateProject" title="Support the project" aria-label="Donate to support World of ClaudeCraft" data-icon="donate"><span class="mobile-label" data-i18n="nav.donate">Donate</span></button>
           <button class="mobile-btn" id="mobile-emote" data-i18n-title="hudChrome.emoteWheel.label" data-i18n-aria="hudChrome.emoteWheel.label" title="Emotes" aria-label="Emotes" data-icon="emote"><span class="mobile-label" data-i18n="hudChrome.emoteWheel.label">Emotes</span></button>
           <button class="mobile-btn" id="mobile-arena" data-i18n-title="hud.keybinds.actions.arena" data-i18n-aria="hud.keybinds.actions.arena" title="Arena (Ashen Coliseum)" aria-label="Arena (Ashen Coliseum)" data-icon="arena"><span class="mobile-label" data-i18n="hud.core.mobileArena">Arena</span></button>
+          <button class="mobile-btn" id="mobile-valecup" data-i18n-title="hudChrome.keybinds.valecup" data-i18n-aria="hudChrome.keybinds.valecup" title="Vale Cup" aria-label="Vale Cup" data-icon="ball"><span class="mobile-label" data-i18n="hudChrome.vcup.mobileLabel">Cup</span></button>
           <button class="mobile-btn" id="mobile-menu" data-i18n-title="hud.options.gameMenu" data-i18n-aria="hud.options.gameMenu" title="Game Menu" aria-label="Game Menu" data-icon="menu"><span class="mobile-label" data-i18n="hud.core.mobileMenu">Menu</span></button>
           <button class="mobile-btn" id="mobile-quest" data-i18n-title="questUi.log.title" data-i18n-aria="questUi.log.title" title="Quest Log" aria-label="Quest Log" data-icon="questlog"><span class="mobile-label" data-i18n="questUi.log.title">Quests</span></button>
           <button class="mobile-btn" id="mobile-char" data-i18n-title="hud.keybinds.actions.char" data-i18n-aria="hud.keybinds.actions.char" title="Character" aria-label="Character" data-icon="character"><span class="mobile-label" data-i18n="hud.keybinds.actions.char">Character</span></button>

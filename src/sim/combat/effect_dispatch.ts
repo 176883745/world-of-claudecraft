@@ -714,6 +714,30 @@ export function runEffects(
         ctx.enterCombat(p, target);
         break;
       }
+      // The Vale Cup sport moves (docs/prd/vale-cup.md). All three route to the
+      // vale_cup module through the seam and silently no-op unless the caster
+      // is seated in the live Sowfield match's play phase.
+      case 'ballKick': {
+        ctx.vcupBallKick(p, eff.power, eff.loft, ability.range);
+        break;
+      }
+      case 'ballPass': {
+        ctx.vcupBallPass(p, eff.power, eff.loft, ability.range);
+        break;
+      }
+      case 'ballShoot': {
+        ctx.vcupShoot(p, eff.power, eff.loft, ability.range);
+        break;
+      }
+      case 'sportDash': {
+        ctx.vcupSportDash(p, eff.distance, eff.catchBall === true);
+        break;
+      }
+      case 'sportShove': {
+        if (!target || target.dead) break;
+        ctx.vcupSportShove(p, target, eff.distance);
+        break;
+      }
       case 'sunder': {
         if (!target || target.dead) break;
         // a sunder can miss like any melee attack — a miss causes no threat

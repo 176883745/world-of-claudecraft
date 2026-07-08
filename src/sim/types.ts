@@ -98,6 +98,26 @@ export function isPetClass(cls: PlayerClass): boolean {
 // ring) — see docs/design and the Fiesta region of sim.ts.
 export type ArenaFormat = '1v1' | '2v2' | 'fiesta';
 
+export type DungeonDifficulty = 'normal' | 'heroic';
+
+export function isDungeonDifficulty(value: unknown): value is DungeonDifficulty {
+  return value === 'normal' || value === 'heroic';
+}
+
+// The Vale Cup boarball minigame (docs/prd/vale-cup.md): transient match
+// sides pick a banner nation and each fighter picks a sport role.
+export type VcNationId =
+  | 'vale'
+  | 'mirefen'
+  | 'thornpeak'
+  | 'coliseum'
+  | 'choir'
+  | 'ogre'
+  | 'moon'
+  | 'copperdig';
+export type SportRole = 'allrounder' | 'striker' | 'sweeper' | 'keeper';
+export type VcBracket = 1 | 2 | 3 | 4 | 5;
+
 export interface ArenaStanding {
   rating: number;
   wins: number;
@@ -258,25 +278,37 @@ export interface WeaponInfo {
 export type EquipSlot =
   | 'mainhand'
   | 'helmet'
+  | 'neck'
   | 'shoulder'
   | 'chest'
   | 'waist'
   | 'legs'
   | 'gloves'
-  | 'feet';
+  | 'feet'
+  | 'ring1'
+  | 'ring2';
 
-// The eight equip slots, in the canonical paperdoll order. Single source for
+// The eleven equip slots, in the canonical paperdoll order. Single source for
 // the entity loop and the server's unequip-command validation.
 export const EQUIP_SLOTS: readonly EquipSlot[] = [
   'mainhand',
   'helmet',
+  'neck',
   'shoulder',
   'chest',
   'waist',
   'legs',
   'gloves',
   'feet',
+  'ring1',
+  'ring2',
 ];
+
+// What an ITEM declares as its slot. Rings declare the slot KIND ('ring'); the
+// equip path resolves the concrete ring1/ring2 equipment key at equip time
+// (resolveEquipSlot in equipment_rules.ts). Every other item names its
+// equipment slot directly. Items never carry 'ring1'/'ring2'.
+export type ItemSlot = EquipSlot | 'ring';
 
 export type SkinCatalog = 'class' | 'mech';
 
@@ -313,7 +345,7 @@ type ItemKind =
 interface BaseItemDef {
   id: string;
   name: string;
-  slot?: EquipSlot;
+  slot?: ItemSlot;
   weapon?: WeaponInfo;
   stats?: Partial<Stats>;
   // Spell Power affix (caster gear): flat Spell Power, summed in recalcPlayerStats.
@@ -421,8 +453,19 @@ export interface ItemSet {
 
 export interface ArmorItemDef extends BaseItemDef {
   kind: 'armor';
-  slot: Exclude<EquipSlot, 'mainhand'>;
+  slot: Exclude<EquipSlot, 'mainhand' | 'neck' | 'ring1' | 'ring2'>;
   armorType: ArmorType;
+  weapon?: never;
+}
+
+// Jewelry: neck and ring pieces. kind 'armor' so the equip/budget/tooltip paths
+// treat it as gear, but it carries NO armor class: equipment_rules falls through
+// the armorType gate, so any class can wear jewelry (requiredClass still applies
+// when set). Rings declare slot 'ring'; see resolveEquipSlot.
+export interface JewelryItemDef extends BaseItemDef {
+  kind: 'armor';
+  slot: 'neck' | 'ring';
+  armorType?: never;
   weapon?: never;
 }
 
@@ -481,7 +524,7 @@ export interface OtherItemDef extends BaseItemDef {
   armorType?: never;
 }
 
-export type ItemDef = ArmorItemDef | WeaponItemDef | OtherItemDef;
+export type ItemDef = ArmorItemDef | WeaponItemDef | JewelryItemDef | OtherItemDef;
 
 // Per-instance item payload (#1165). Additive and OPTIONAL: most items stay plain
 // {itemId, count} with no instance payload (fungible, market-listable). A slot
@@ -1239,6 +1282,20 @@ export type AbilityEffect =
   | { type: 'aoeAttackSpeed'; mult: number; duration: number; radius: number } // thunder clap rider
   | { type: 'aoeAttackPower'; amount: number; duration: number; radius: number } // demoralizing roar/shout
   | { type: 'aoeRoot'; duration: number; radius: number; min: number; max: number }
+  // The Vale Cup boarball moves (docs/prd/vale-cup.md). ballKick launches the
+  // match ball toward the caster's castAim (power = ground speed yd/s, loft =
+  // initial vertical speed); sportDash is a targetless directional lunge along
+  // the aim direction (catchBall lets a keeper's Dive catch a crossing ball);
+  // sportShove bumps the target back via the knockback walker. ballPass rolls a
+  // firm auto-paced ground pass to the caster's targeted teammate (else the best
+  // teammate toward the aim), leading their run. All no-damage.
+  | { type: 'ballKick'; power: number; loft: number }
+  | { type: 'ballPass'; power: number; loft: number }
+  // ballShoot fires the ball at the enemy goal; power (ground speed) and loft
+  // both scale with the caster's charge, so a max-power shot sails OVER the bar.
+  | { type: 'ballShoot'; power: number; loft: number }
+  | { type: 'sportDash'; distance: number; catchBall?: boolean }
+  | { type: 'sportShove'; distance: number }
   | {
       type: 'selfBuff';
       kind: AuraKind;
@@ -1349,6 +1406,9 @@ export interface NpcDef {
   // The Merchant: talking to this NPC opens the player-driven World Market
   // (auction house) instead of a fixed vendor stock.
   market?: boolean;
+  // The Heroic Quartermaster: talking to this NPC opens the Heroic Marks
+  // shop (src/sim/content/heroic_vendor.ts) instead of a copper vendor stock.
+  heroicVendor?: boolean;
   greeting: string;
   // Registered but not surface-placed at world init. The owning system spawns
   // the entity on demand (e.g. the Nythraxis encounter walks Brother Aldric in
@@ -1685,6 +1745,19 @@ export interface Entity {
   firedSummons: number; // summonAdds thresholds already triggered
   summonedIds: number[]; // live adds this boss summoned; despawned on reset
   enraged: boolean; // enrage mechanic active
+  // Heroic-instance mechanic scaling (instances/difficulty.ts applyHeroicMobTuning).
+  // Mechanic numbers (aoePulse/bigCast/stomp damage; mendAlly/wardAllies/stoneskin
+  // amounts) are read from the base MOBS table at fire time, so the fire sites
+  // multiply by these AFTER the rng draw. undefined = 1 (normal difficulty).
+  mechanicDamageMult?: number;
+  mechanicHealMult?: number;
+  // Entity-level CC/snare immunity, the per-spawn twin of the MobTemplate
+  // ccImmune/slowImmune flags (which are read from the base MOBS table, so a
+  // spawn-time template transform cannot grant them). Heroic instances set
+  // both on boss-flagged mobs (applyHeroicMobTuning); the applyAura gates and
+  // the polymorph cast gate check template OR entity.
+  ccImmune?: boolean;
+  slowImmune?: boolean;
   healedThisPull: boolean; // desperation self-heal already used this pull
   nythraxis?: NythraxisEncounterState; // sim-only state for the Nythraxis raid encounter
   spawnPos: Vec3;
@@ -1993,6 +2066,58 @@ export type SimEvent = { pid?: number } & (
   // A fighter grabbed a ring power-up (world event so everyone sees the glow).
   // Whether it's "mine" is decided client-side (entityId === local player).
   | { type: 'fiestaPowerup'; entityId: number; defId: string; glow: number; duration: number }
+  // The Vale Cup (docs/prd/vale-cup.md). Queue lifecycle events carry pid
+  // (personal). Match-theatre events (kickoff/goal/save/golden/end) carry a
+  // WORLD x/z anchor at the pitch instead, so walk-up spectators in the
+  // Sowfield stands see the banners and fireworks too (routeEvents delivers
+  // anchored pid-less events to everyone within 90yd).
+  | { type: 'vcupQueued'; bracket: VcBracket; position: number }
+  | { type: 'vcupUnqueued' }
+  | {
+      type: 'vcupFound';
+      bracket: VcBracket;
+      nationA: VcNationId;
+      nationB: VcNationId;
+      team: 'A' | 'B';
+      allies: ArenaCombatant[];
+      enemies: ArenaCombatant[];
+    }
+  | { type: 'vcupCountdown'; seconds: number; x: number; z: number }
+  | { type: 'vcupKickoff'; x: number; z: number }
+  | {
+      type: 'vcupGoal';
+      scorerName: string;
+      team: 'A' | 'B';
+      scoreA: number;
+      scoreB: number;
+      nationA: VcNationId;
+      nationB: VcNationId;
+      x: number;
+      z: number;
+    }
+  | { type: 'vcupSave'; keeperName: string; x: number; z: number }
+  // A spectator's parimutuel wager settled: pid-scoped so it refreshes their purse
+  // and toasts the outcome. payout is the total copper credited (0 on a loss).
+  | {
+      type: 'vcupBetSettled';
+      pid: number;
+      outcome: 'won' | 'lost' | 'refunded';
+      stake: number;
+      payout: number;
+    }
+  | { type: 'vcupGolden'; x: number; z: number }
+  | {
+      type: 'vcupEnd';
+      scoreA: number;
+      scoreB: number;
+      nationA: VcNationId;
+      nationB: VcNationId;
+      winner: 'A' | 'B' | null;
+      x: number;
+      z: number;
+    }
+  // personal outcome line for each fighter (rides beside the anchored vcupEnd)
+  | { type: 'vcupResult'; won: boolean; draw: boolean }
   | {
       type: 'heal2';
       sourceId: number;
@@ -2241,6 +2366,11 @@ export interface SimConfig {
   // server injects it to feed its tick profiler during an on-demand capture; undefined
   // offline/headless, so the sim draws no wall clock in a deterministic scenario.
   perfLap?: (phase: string) => void;
+  // When true, the Sowfield auto-runs a bot-vs-bot showcase match after a stretch
+  // of no queue activity, so a walk-up spectator always has a game to watch (and
+  // bet on). Server + offline game enable it; tests/goldens leave it off so the
+  // idle timer never perturbs a deterministic scenario.
+  valeCupShowcase?: boolean;
 }
 
 export function emptyMoveInput(): MoveInput {

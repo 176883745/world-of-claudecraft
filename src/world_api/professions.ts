@@ -65,6 +65,14 @@ export interface IWorldProfessions {
   // requirement itself (scales with archetypeSwitchCount; see archetype.ts).
   archetypeAmendsProgress: number;
   archetypeAmendsRequired: number;
+  // The title granted by the CURRENTLY-ACTIVE archetype (#1130, re-scoped per the
+  // comment on the live issue): the craft id whose named title the player has
+  // earned, or null before the acceptance quest has ever been completed (no
+  // "Jack of All Trades" fallback under the #1129 active-archetype model, since a
+  // character has at most one active archetype at a time). An identifier, not
+  // localized text, per the string-free IWorld seam: the ten title names live in
+  // src/ui/i18n.catalog/hud_chrome.ts (`archetypeTitle.<craftId>`).
+  archetypeTitle: string | null;
   // Stub entry point for the zone-1 acceptance quest's completion: sets the
   // chosen craft as the active archetype (first time only). See archetype.ts.
   acceptArchetypeQuest(craftId: string): void;

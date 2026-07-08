@@ -308,6 +308,7 @@ export const it_IT: EnTranslations = {
       "autorun": "Corsa automatica",
       "jump": "Salta",
       "leaderboard": "Classifica",
+      "dailyRewards": "Rewards",
       "nameplates": "Nomi",
       "haptics": "Vibrazione",
       "hapticsOff": "Vibrazione disattivata",
@@ -368,7 +369,9 @@ export const it_IT: EnTranslations = {
       "hoursMinutes": "{h}h {m}m",
       "minutes": "{m}m",
       "lessThanMinute": "<1m",
-      "lockedToast": "Sei bloccato in {raid}. Si sblocca tra {time}."
+      "lockedToast": "Sei bloccato in {raid}. Si sblocca tra {time}.",
+      "heroicName": "{name} Eroico",
+      "heroicLocked": "Sei bloccato sulla versione Eroica di {name}."
     },
     "compass": {
       "N": "N",
@@ -390,7 +393,144 @@ export const it_IT: EnTranslations = {
       "emoteWheel": "Ruota emote",
       "targetFriendly": "Bersaglia l'amico più vicino",
       "targetFriendlyNext": "Scorri i bersagli amici",
-      "discord": "Discord"
+      "discord": "Discord",
+      "valecup": "Vale Cup"
+    },
+    "vcup": {
+      "title": "The Vale Cup",
+      "shootPower": "POWER",
+      "close": "Close the Vale Cup window",
+      "offlineNote": "The fixture book is closed. The Vale Cup is not available right now.",
+      "recordLine": "Your record: {wins} wins, {losses} losses, {draws} draws.",
+      "bracketsAria": "Match bracket",
+      "bracketLabel": "{n}v{n}",
+      "waitingCount": "{count} waiting",
+      "nationsHeading": "Banner nation",
+      "nation": {
+        "vale": "Eastbrook Vale",
+        "mirefen": "The Mirefen",
+        "thornpeak": "Thornpeak",
+        "coliseum": "The Ashen Coliseum",
+        "choir": "The Pale Choir",
+        "ogre": "The Ogre Clans",
+        "moon": "The Pale Moon",
+        "copperdig": "The Copper Dig"
+      },
+      "awayNote": "If both sides fly the same banner, the away side plays the inverted palette.",
+      "rolesHeading": "Sport role",
+      "role": {
+        "allrounder": {
+          "name": "All-Rounder",
+          "desc": "A bit of everything: kick, boot, and a fair shoulder."
+        },
+        "striker": {
+          "name": "Striker",
+          "desc": "Lives for the long boot and the quick sidestep."
+        },
+        "sweeper": {
+          "name": "Sweeper",
+          "desc": "Bumps runners off the ball and hoofs it clear."
+        },
+        "keeper": {
+          "name": "Keeper",
+          "desc": "Guards the goal box with grip, dive, and punt."
+        }
+      },
+      "queue": "Join the Queue",
+      "leaveQueue": "Leave the Queue",
+      "queueNote": "Queue from anywhere; the whistle calls you to the Sowfield.",
+      "queuedStatus": "Queued for {bracket}: position {position} of {count}.",
+      "blockNation": "Pick a banner nation first.",
+      "blockPartySize": "That bracket needs a smaller party.",
+      "blockNotLeader": "Only the party leader can queue the team.",
+      "inMatchNote": "Your team is on the pitch. Play on!",
+      "deserterNote": "The Groundskeeper remembers. You may queue again in {seconds} sec.",
+      "liveHeading": "Now at the Sowfield",
+      "liveAria": "Vale Cup: {nationA} {scoreA}, {nationB} {scoreB}",
+      "walkUp": "Walk up to the Sowfield to watch from the stands.",
+      "noLive": "The pitch is quiet. No match is being played.",
+      "boardHeading": "Winners board",
+      "boardEmpty": "No winners recorded yet. The Copper Pail waits.",
+      "boardWins": "{count} wins",
+      "enterAsGuild": "Enter under the banner of {guild}",
+      "guildRecordLine": "Your guild record: {wins} wins, {losses} losses.",
+      "guildBoardHeading": "Guild banners",
+      "guildBoardEmpty": "No guild has taken the field yet. Fly your banner!",
+      "guildBoardWl": "{wins} W, {losses} L",
+      "practice": "Practice vs. Bots",
+      "practiceNote": "Starts a private bot match on your own practice pitch right away.",
+      "practicingNow": "Practicing now ({count}):",
+      "clock": "{minutes}:{seconds}",
+      "indicatorQueued": "Vale Cup queue: {bracket}, position {position} of {count}",
+      "indicatorLive": "Vale Cup",
+      "indicatorOpen": "Open the Vale Cup window",
+      "phaseCountdown": "Kickoff in {seconds}",
+      "phaseGoal": "GOAL!",
+      "phaseGolden": "GOLDEN GOAL",
+      "phaseOver": "FULL TIME",
+      "bannerFound": "The Vale Cup calls: {nationA} vs {nationB}!",
+      "bannerCountdown": "Kickoff in {seconds}...",
+      "bannerKickoff": "KICKOFF!",
+      "bannerGoal": "GOAL! {nation} scores!",
+      "bannerSave": "{name} SAVES!",
+      "bannerGolden": "GOLDEN GOAL: next score wins!",
+      "bannerEnd": "Full time: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "Victory at the Sowfield!",
+      "bannerDraw": "A draw at the Sowfield.",
+      "bannerLoss": "Defeat at the Sowfield.",
+      "logQueued": "You join the Vale Cup queue for {bracket} (position {position}).",
+      "logUnqueued": "You leave the Vale Cup queue.",
+      "logFound": "Your Vale Cup match is ready: {nationA} vs {nationB}.",
+      "logRoster": "Your side: {allies}. Their side: {enemies}.",
+      "logGoal": "{name} scores for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
+      "logSave": "{name} makes the save!",
+      "logWin": "You win the bout at the Sowfield.",
+      "logDraw": "The bout at the Sowfield ends in a draw.",
+      "logLoss": "You lose the bout at the Sowfield.",
+      "gossipOpen": "The book of fixtures",
+      "gossipOpenAria": "Open the Vale Cup window",
+      "mobileLabel": "Cup",
+      "briefing": {
+        "subtitle": "Pre-match briefing",
+        "vs": "vs",
+        "rulesHeading": "How to play",
+        "rule1": "Kick or pass the ball into the enemy goal to score.",
+        "rule2": "First to 5 goals wins, or the most goals when full time blows.",
+        "rule3": "A level match at full time goes to golden goal: the next score wins.",
+        "rule4": "Tackles only tumble you over. Nobody gets hurt under the harvest truce.",
+        "rule5": "Anyone can walk up and cheer you on from the stands.",
+        "kitHeading": "Your kit",
+        "kitNote": "These moves replace your class abilities for the match.",
+        "rosterHeading": "The team sheet",
+        "you": "You",
+        "bot": "Bot",
+        "ready": "I'm ready",
+        "readyDone": "Ready",
+        "readyAria": "Ready up for kickoff",
+        "waiting": "Waiting for the other side to ready up...",
+        "whistle": "The whistle blows in {seconds}s.",
+        "readyCount": "{ready} of {total} ready"
+      },
+      "bet": {
+        "title": "Match Bets",
+        "aria": "Vale Cup match betting",
+        "closesIn": "Bets close in {seconds}s",
+        "closed": "Betting closed",
+        "prize": "Pool {amount}",
+        "splitAria": "Share of the betting pool on each team",
+        "expand": "View bets and wager",
+        "collapse": "Hide bets",
+        "oddsLabel": "Pays",
+        "back": "Back {team}",
+        "form": "{wins}W-{losses}L",
+        "mine": "Your bet: {amount} on {team}",
+        "none": "You have no bet on this match yet.",
+        "record": "Betting record: {wins}W-{losses}L, {sign}{net}",
+        "wonBanner": "Your bet won!",
+        "wonLog": "Your Vale Cup bet won: {amount} returned.",
+        "lostLog": "Your Vale Cup bet lost: {amount}.",
+        "refundLog": "Bets voided, your {amount} stake was returned."
+      }
     },
     "options": {
       "clickMoveLeft": "Clic sinistro",
@@ -480,6 +620,7 @@ export const it_IT: EnTranslations = {
         "fps01Low": "Minimi 0,1%",
         "ping": "Ping",
         "jitter": "Jitter",
+        "predLead": "Prediction Lead",
         "snapshot": "Frequenza snapshot",
         "connection": "Connessione",
         "drawCalls": "Chiamate di disegno",
@@ -524,8 +665,8 @@ export const it_IT: EnTranslations = {
       "fromYour": "Dai tuoi {value} punti {stat}:",
       "names": {
         "spellPower": "Potere Magico",
-        "critRating": "Crit Rating",
-        "hasteRating": "Haste Rating"
+        "critRating": "Indice di critico",
+        "hasteRating": "Indice di celerità"
       },
       "desc": {
         "str": "Aumenta la tua potenza d'attacco, così i colpi della tua arma sono più potenti.",
@@ -539,8 +680,8 @@ export const it_IT: EnTranslations = {
         "dps": "I danni al secondo stimati della tua arma, combinando i danni e la velocità della tua arma con la tua potenza d'attacco.",
         "critChance": "La tua probabilità che un attacco colpisca in modo critico, infliggendo danni doppi.",
         "dodge": "La tua probabilità di evitare completamente un attacco in mischia in arrivo, senza subire danni.",
-        "critRating": "Crit rating from your gear and set bonuses, raising your critical strike chance. About 10 rating grants 1% crit.",
-        "hasteRating": "Haste rating from your gear and set bonuses, speeding up your attacks and spellcasting. About 10 rating grants 1% haste."
+        "critRating": "Indice di critico dal tuo equipaggiamento e dai bonus di set, che aumenta la tua probabilità di colpo critico. Circa 10 punti conferiscono l'1% di critico.",
+        "hasteRating": "Indice di celerità dal tuo equipaggiamento e dai bonus di set, che accelera i tuoi attacchi e i tuoi lanci. Circa 10 punti conferiscono l'1% di celerità."
       },
       "effects": {
         "attackPower": "+{value} Potenza d'attacco",
@@ -582,13 +723,13 @@ export const it_IT: EnTranslations = {
       "bonusLine": "({pieces}) {bonus}"
     },
     "itemProc": {
-      "onMeleeHit": "Chance on hit ({chance}%): {effect}",
-      "onSpellDamage": "Chance on your damaging spells ({chance}%): {effect}",
-      "onHeal": "Chance on your heals ({chance}%): {effect}",
-      "chainArc": "blasts the target with a {school} {name} ({damage}) that leaps to {jumps} nearby foes for decaying damage",
-      "attackSlow": "and slows the target attack speed by {pct}% for {duration} sec",
-      "dot": "festers {name}, a {school} damage-over-time dealing {total} over {duration} sec",
-      "hot": "blooms {name}, a heal-over-time restoring {total} over {duration} sec"
+      "onMeleeHit": "Probabilità al colpo ({chance}%): {effect}",
+      "onSpellDamage": "Probabilità sui tuoi incantesimi dannosi ({chance}%): {effect}",
+      "onHeal": "Probabilità sulle tue cure ({chance}%): {effect}",
+      "chainArc": "colpisce il bersaglio con {name} ({school}, {damage}) che rimbalza su {jumps} nemici vicini infliggendo danno decrescente",
+      "attackSlow": "e rallenta la velocità d'attacco del bersaglio del {pct}% per {duration} sec",
+      "dot": "provoca {name}, un danno nel tempo di tipo {school} che infligge {total} in {duration} sec",
+      "hot": "fa sbocciare {name}, una cura nel tempo che ripristina {total} in {duration} sec"
     },
     "questShare": {
       "notShareable": "Questa missione non può essere condivisa.",
@@ -777,6 +918,15 @@ export const it_IT: EnTranslations = {
         "tusk": "Zanna"
       }
     },
+    "townFocus": {
+      "title": "Town Focus",
+      "hint": "Focus points add a bonus on top of every component's baseline yield. Unfocused components stay at baseline.",
+      "budgetLabel": "Points remaining: {remaining} / {budget}",
+      "saveButton": "Save Focus",
+      "notInTownHint": "You must be in town to set your focus.",
+      "increaseAria": "Increase focus on {component}",
+      "decreaseAria": "Decrease focus on {component}"
+    },
     "party": {
       "promoteLeader": "Promuovi a Capo",
       "inviteUsage": "Invitare chi? Uso: /invite <nome>."
@@ -792,9 +942,13 @@ export const it_IT: EnTranslations = {
       "leaderOption": "Distributore del Bottino: Capo (Tu)",
       "masterOption": "Distributore del Bottino: {name}"
     },
+    "dungeonDifficulty": {
+      "setHeroic": "Imposta difficoltà del dungeon: Eroica",
+      "setNormal": "Imposta difficoltà del dungeon: Normale"
+    },
     "bags": {
-      "cannotDestroy": "This item cannot be destroyed.",
-      "rightClickDestroy": "Right-click to destroy",
+      "cannotDestroy": "Questo oggetto non può essere distrutto.",
+      "rightClickDestroy": "Clic destro per distruggere",
       "filterGroupAria": "Filtra le borse per categoria",
       "filterAll": "Tutti",
       "filterWeapon": "Armi",
@@ -1010,7 +1164,7 @@ export const it_IT: EnTranslations = {
       "roleTag": {
         "levyst": "Levy St",
         "admin": "Admin",
-        "coredevs": "Core Dev",
+        "coredevs": "Sviluppatore Principale",
         "devs": "Dev",
         "mods": "Mod",
         "artists": "Artista"
@@ -1220,6 +1374,20 @@ export const it_IT: EnTranslations = {
       "logging": "Taglio del legname",
       "herbalism": "Erbalismo"
     },
+    "archetypeTitle": {
+      "label": "Titolo",
+      "none": "Nessuno",
+      "armorcrafting": "Armaiolo",
+      "weaponcrafting": "Fabbro d'armi",
+      "jewelcrafting": "Gioielliere",
+      "alchemy": "Alchimista",
+      "engineering": "Ingegnere",
+      "cooking": "Cuoco",
+      "inscription": "Scriba",
+      "enchanting": "Incantatore",
+      "tailoring": "Sarto",
+      "leatherworking": "Conciatore"
+    },
     "crafting": {
       "title": "Creazione",
       "close": "Chiudi la lavorazione",
@@ -1231,7 +1399,7 @@ export const it_IT: EnTranslations = {
       "craftedToast": "Realizzato: {name}",
       "insufficientMaterials": "Non hai i materiali per quello.",
       "unknownRecipe": "Quella ricetta non esiste.",
-      "comboRequirementUnmet": "You do not have both required crafts at the required tier for that recipe."
+      "comboRequirementUnmet": "Non possiedi entrambe le professioni richieste al livello necessario per quella ricetta."
     }
   },
   "apiError": {
@@ -1338,6 +1506,7 @@ export const it_IT: EnTranslations = {
       "bestiary": "Bestiario",
       "models": "Modelli 3D",
       "gear": "Equipaggiamento e oggetti",
+      "professions": "Professions",
       "economy": "Economia e commercio",
       "social": "Socialità e gruppi",
       "stats": "Personaggio e statistiche",
@@ -1352,6 +1521,7 @@ export const it_IT: EnTranslations = {
       "combat": "Combattimento",
       "talents": "Talenti",
       "arena": "Arena e PvP",
+      "valeCup": "Vale Cup",
       "glossary": "Glossario",
       "wishIKnew": "Cose che avrei voluto sapere",
       "faq": "FAQ",
@@ -2007,6 +2177,32 @@ export const it_IT: EnTranslations = {
       "ladderHeading": "Scalare la classifica",
       "ladderBody": "Il gioco classificato traccia la tua posizione nel tempo. Controlla la classifica per vedere dove ti trovi e chi domina la vetta del reame."
     },
+    "valeCupPage": {
+      "heading": "The Vale Cup",
+      "intro": "Boarball at the Sowfield: pick a banner, pick a role, and kick a stuffed boar hide past a keeper for the Copper Pail. No blood, no loot, just the roar of the stands.",
+      "loreHeading": "Boarball and the harvest truce",
+      "loreOldSow": "Long before the dead woke, Eastbrook's farmhands played boarball on the stubble fields after harvest: two mobs, one boar's hide stuffed with straw, and two wagon gates dragged to either end of the green. The first ball, the Old Sow, hangs bronzed above the tavern hearth.",
+      "loreTruce": "When the Ashen Coliseum began sanctioning war games, Marshal Redbrook answered with something gentler: a standing harvest truce on the old green. The wagon gates became goalposts, the green got walls, stands, and a name, the Sowfield, and the prize was always the same dented milk pail the winners drank from: the Copper Pail.",
+      "howHeading": "How to play",
+      "howQueue": "Queue from anywhere through the Vale Cup window, or talk to Groundskeeper Bram at the Sowfield gate. Pick a bracket from one-a-side up to five-a-side, a banner nation, and a sport role; queue solo or bring your party.",
+      "howMatch": "On kickoff your class kit is swapped for a sport kit and restored exactly afterward. Kicks aim at the ground reticle, the ball banks off the boards, and dribbling is just running with the ball. Score more goals than the other side before full time; a draw goes to golden goal.",
+      "howTruce": "Nobody bleeds at the Sowfield: tackles tumble, nothing hurts, and pets sit the match out.",
+      "spectateBody": "One match plays at a time at the stadium, and anyone can walk up and watch from the stands.",
+      "nationsHeading": "The eight banner nations",
+      "nationsBody": "Every team plays under a banner. The captain picks the nation, and if both sides fly the same one, the away side plays the inverted palette.",
+      "nationVale": "Green and gold, flying the wheat sheaf: the home side, farmhands to the bone.",
+      "nationMirefen": "Teal and grey under the heron: patient, long-legged, never hurried.",
+      "nationThornpeak": "Ice blue and white under the mountain peak: sure-footed and stubborn.",
+      "nationColiseum": "Red and black with crossed swords: they play like it is still a war game.",
+      "nationChoir": "Pale blue and silver under the bell: eerie, precise, and very quiet.",
+      "nationOgre": "Orange and umber behind the fist: shoulder-first and proud of it.",
+      "nationMoon": "Violet and silver under the crescent: night players, light on their feet.",
+      "nationCopperdig": "Copper and brown with the pickaxe: diggers who never stop running.",
+      "rolesHeading": "Sport roles",
+      "rolesBody": "Your role decides the kit you carry onto the pitch. Everyone kicks; the rest is temperament.",
+      "rewardsHeading": "Truce rules",
+      "rewardsBody": "Truce rules mean no experience and no loot: a decided match counts toward your record and the winners board, and daily-reward points come with it. Deserting a match benches your slot, and the Groundskeeper remembers."
+    },
     "wishPage": {
       "heading": "Cose che avrei voluto sapere",
       "intro": "Qualche verità sincera che risparmia ai nuovi giocatori un sacco di ripensamenti. Niente di tutto ciò è lettura obbligatoria, ma tutto quanto aiuta.",
@@ -2090,6 +2286,35 @@ export const it_IT: EnTranslations = {
       "cosmeticsSkins": "Ci sono due linee estetiche da collezionare. La maggior parte delle classi ha diversi aspetti alternativi, una nuova interpretazione del look della classe che è tua da indossare. Accanto a essi ci sono i chroma: schemi di colore bicolore con nome che ridipingono interamente un aspetto, dai metalli sobri ai vivaci colori imperiali.",
       "cosmeticsCache": "Alcune di queste provengono da un misterioso scrigno estetico, un premio sigillato che estrae uno di tre gradi di qualità quando lo apri e ti concede l'aspetto corrispondente. È puramente estetico: nulla al suo interno ti rende più forte, solo più bello da vedere.",
       "cosmeticsApply": "Imposta il tuo aspetto attivo dalla riga dell'aspetto nella schermata del personaggio, e passa liberamente tra tutto ciò che hai sbloccato."
+    },
+    "professions": {
+      "intro": "Beyond combat and quests, the world rewards you for working the land and the forge: gathering raw materials, turning them into gear at the crafting stations of ten different trades, and settling into an identity as one of the ten archetypes those trades represent.",
+      "gatherTitle": "Gathering: Mining, Logging, and Herbalism",
+      "gatherIntro": "Three gathering trades let you pull raw materials straight out of the world: Mining strikes ore and stone from veins, Logging fells timber from stands of trees, and Herbalism collects herbs and plants growing wild. Each is tracked separately, so working one never slows your progress in another.",
+      "gatherWhatTitle": "Resource nodes",
+      "gatherWhatBody": "Ore veins, wood stands, and herb patches are placed out in the zones as visible, unowned fixtures. Walk up to one and interact with it to harvest whatever it holds. Once you have harvested a node, it needs time to recover before you personally can harvest it again, though it never blocks anyone else: another player can harvest the very same node in the meantime.",
+      "gatherProficiencyTitle": "Proficiency and material quality",
+      "gatherProficiencyBody": "Every successful harvest builds your proficiency in that gathering trade. A higher proficiency shifts what you pull out of a node toward rarer grades of material, from common on up, though the rarest grades stay rare even at high proficiency. More practice never hurts your odds, it only ever improves them.",
+      "gatherToolsTitle": "Tools of the trade",
+      "gatherToolsBody": "Vendors sell basic tools for each gathering trade, and better ones can be crafted, so working a resource node is meant to feel more capable as you gear up for it rather than staying static. Higher-tier tools are the intended way to unlock access to richer nodes and to work them more efficiently over a long session.",
+      "craftTitle": "The ten crafts",
+      "craftIntro": "Ten crafting trades turn gathered materials into finished gear and goods: Armorcrafting, Weaponcrafting, and Jewelcrafting shape raw matter into wearable gear; Alchemy and Engineering are driven by trial and error; Cooking, Inscription, and Enchanting each touch other crafts' output; Tailoring and Leatherworking work from exact patterns. Together they form a wheel, with each craft sitting next to two neighbors and opposite one other.",
+      "craftRingTitle": "A wheel of specialties",
+      "craftRingBody": "The ten crafts are arranged in a fixed ring, and where a craft sits on that ring matters: crafts next to each other on the wheel share more in common with each other than crafts on opposite sides do. Committing to one craft is meant to feel like joining a family of related trades, not picking an isolated skill.",
+      "craftRecipesTitle": "Recipes and reagents",
+      "craftRecipesBody": "Every craft has its own recipes, each calling for specific reagents you gather or buy. The most basic recipes in each craft ask for nothing but common materials and are craftable from the very start, so you can begin working a trade the moment you pick it up rather than waiting to unlock it.",
+      "craftMasteryTitle": "Skill and mastery",
+      "craftMasteryBody": "Crafting successfully builds skill in that trade, and richer recipes are gated behind higher skill: the basic recipes are open to everyone, while progressively more advanced ones ask for progressively more mastery to attempt. Growing your skill in a craft is the path from simple starter goods to its more ambitious recipes.",
+      "craftComboTitle": "Combination recipes",
+      "craftComboBody": "Beyond a single craft's own recipe list, the wheel also supports combination recipes that call on two neighboring crafts at once, rewarding a character (or a pair of trading partners) who has invested in adjacent trades on the ring rather than one in isolation.",
+      "archetypeTitle": "The ten archetypes",
+      "archetypeIntro": "Each of the ten crafts also stands for an archetype, a broader identity you can adopt beyond just working that trade. Your active archetype is a single choice at a time, not a checklist: you carry one, and can change which one later if you choose to.",
+      "archetypeChooseTitle": "Choosing your archetype",
+      "archetypeChooseBody": "You declare your first archetype through an early, zone one story quest that formally accepts you into that identity. Until you complete that quest, you have not yet chosen an archetype at all.",
+      "archetypeSwitchTitle": "Changing your mind",
+      "archetypeSwitchBody": "Having declared an archetype once does not lock you into it forever. Changing to a different archetype means first completing a repeatable \"make amends\" quest for your old one, and each time you switch, the amends expected of you the next time grow a little steeper, so switching stays meaningful rather than costless.",
+      "archetypeIdentityTitle": "What your archetype means",
+      "archetypeIdentityBody": "Your active archetype is a statement about who your character is in the world, recognized in how others and the world address you. The exact rewards and recognition that come with it are still being finalized; check back as the system fills in."
     },
     "economy": {
       "intro": "Le monete fanno girare tutto il mondo: comprano il tuo equipaggiamento, le provviste e l'attrezzatura da viaggio, e passano di mano tra i giocatori. Raccogli tutto questo semplicemente giocando, perciò considera questa pagina come una mappa di dove arriva e dove va il tuo denaro.",
@@ -3171,6 +3396,10 @@ export const it_IT: EnTranslations = {
       "hard": "Bottino pregiato"
     },
     "closeAria": "Chiudi"
+  },
+  "heroicShop": {
+    "balance": "Marchi Eroici: {count}",
+    "buyAria": "Compra {item} per {marks} Marchi Eroici"
   },
   "delveUi": {
     "board": {
@@ -4464,12 +4693,14 @@ export const it_IT: EnTranslations = {
     "slots": {
       "mainhand": "Mano principale",
       "helmet": "Testa",
+      "neck": "Collo",
       "shoulder": "Spalle",
       "chest": "Torace",
       "waist": "Vita",
       "legs": "Gambe",
       "gloves": "Mani",
-      "feet": "Piedi"
+      "feet": "Piedi",
+      "ring": "Dito"
     },
     "quality": {
       "poor": "Scadente",
@@ -4673,6 +4904,46 @@ export const it_IT: EnTranslations = {
   },
   "entities": {
     "abilities": {
+      "sport_kick": {
+        "name": "Kick",
+        "description": "Knock the ball along the ground toward the aim point."
+      },
+      "sport_shoot": {
+        "name": "Shoot",
+        "description": "Hold to build power, release to shoot at goal. Too much power sails over."
+      },
+      "sport_pass": {
+        "name": "Pass",
+        "description": "Roll a firm pass to your targeted teammate, leading their run."
+      },
+      "sport_boot": {
+        "name": "Big Boot",
+        "description": "A long lofted boot toward the aim point. The crowd loves it."
+      },
+      "sport_hoof": {
+        "name": "Hoof It",
+        "description": "Hammer the ball low and hard up the field."
+      },
+      "sport_punt": {
+        "name": "Long Punt",
+        "description": "A keeper's punt, high and far."
+      },
+      "sport_feint": {
+        "name": "Feint",
+        "description": "A quick sidestep burst toward the aim point."
+      },
+      "sport_dive": {
+        "name": "Dive",
+        "description": "Fling yourself toward the aim point. A crossing ball sticks to you."
+      },
+      "sport_shoulder": {
+        "name": "Shoulder",
+        "description": "A fair harvest-truce shoulder. Sends them tumbling off the ball."
+      },
+      "sport_second_wind": {
+        "name": "Fresh Legs",
+        "description": "Find your legs: move 50% faster for 4 sec."
+      },
       "flamestrike": {
         "name": "Ondata di Fiamme",
         "description": "Evoca un'esplosione di fiamme sulla zona bersaglio, infliggendo {damage} danni da Fuoco ai nemici investiti dalla deflagrazione."
@@ -6377,6 +6648,132 @@ export const it_IT: EnTranslations = {
       "event_skin_token": {
         "name": "Scrigno cosmetico misterioso"
       },
+      "heroic_mark": {
+        "name": "Marchio Eroico"
+      },
+      "morthens_cryptforged_hauberk": {
+        "name": "Usbergo forgiacripta di Morthen"
+      },
+      "shadowpulse_handwraps": {
+        "name": "Bende ombrapulsante"
+      },
+      "bonechill_striders": {
+        "name": "Falcate del gelo osseo"
+      },
+      "mistcallers_fang": {
+        "name": "Zanna dell'evocanebbia"
+      },
+      "tidebound_spaulders": {
+        "name": "Spallacci vincolati alla marea"
+      },
+      "sash_of_the_sunken_court": {
+        "name": "Fascia della corte sommersa"
+      },
+      "lunar_tide_greatstaff": {
+        "name": "Grande bastone della marea lunare"
+      },
+      "tidewoven_trousers": {
+        "name": "Calzoni tessuti dalla marea"
+      },
+      "choirmothers_casque": {
+        "name": "Elmetto della madre del coro"
+      },
+      "gravewyrm_cleaver": {
+        "name": "Mannaia del wyrm tombale"
+      },
+      "shroud_of_the_gravewyrm": {
+        "name": "Sudario del wyrm tombale"
+      },
+      "sanctum_prowlers_grips": {
+        "name": "Prese del predatore del santuario"
+      },
+      "scepter_of_the_deathless_court": {
+        "name": "Scettro della corte senza morte"
+      },
+      "deathless_warguard_legmail": {
+        "name": "Cosciali di maglia del guardiaguerra senza morte"
+      },
+      "soulrend_diadem": {
+        "name": "Diadema straccianima"
+      },
+      "scourgehide_carapace": {
+        "name": "Carapace di pelle del flagello"
+      },
+      "cryptplate_helm": {
+        "name": "Elmo della corazza della cripta"
+      },
+      "shadowpulse_slippers": {
+        "name": "Calzari ombrapulsante"
+      },
+      "bonechill_cord": {
+        "name": "Cordone del gelo osseo"
+      },
+      "mistforged_pauldrons": {
+        "name": "Spallacci forgiati nella nebbia"
+      },
+      "tideguard_faceguard": {
+        "name": "Visiera della guardia della marea"
+      },
+      "sunken_court_mantle": {
+        "name": "Mantello della corte sommersa"
+      },
+      "lunar_choir_leggings": {
+        "name": "Gambali del coro lunare"
+      },
+      "choir_blessed_spaulders": {
+        "name": "Spallacci benedetti dal coro"
+      },
+      "tideworn_warboots": {
+        "name": "Stivali da guerra logori di marea"
+      },
+      "gravewyrm_claws": {
+        "name": "Artigli del wyrm tombale"
+      },
+      "gravescale_girdle": {
+        "name": "Cintura scagliatomba"
+      },
+      "wyrmchoir_handwraps": {
+        "name": "Bende del coro dei wyrm"
+      },
+      "deathless_greatblade": {
+        "name": "Spadone senza morte"
+      },
+      "soulforged_warplate": {
+        "name": "Corazza da guerra forgianima"
+      },
+      "stormcallers_focus": {
+        "name": "Focus dell'evocatempesta"
+      },
+      "seal_of_the_nine_oaths": {
+        "name": "Sigillo dei nove giuramenti"
+      },
+      "nielas_coldlight_band": {
+        "name": "Anello lucegelida di Niela"
+      },
+      "sutils_gambit": {
+        "name": "Gambetto di Sutil"
+      },
+      "oath_of_the_round_table": {
+        "name": "Giuramento della Tavola Rotonda"
+      },
+      "zyzzs_deathless_signet": {
+        "name": "Sigillo senza morte di Zyzz"
+      },
+      "architects_cornerstone": {
+        "name": "La Pietra Angolare dell'Architetto"
+      },
+      "swiftfang_talisman": {
+        "name": "Talismano zannarapida"
+      },
+      "yumis_keepsake_locket": {
+        "name": "Medaglione ricordo di Yumi"
+      },
+      "zense_meridian": {
+        "name": "Meridiano di Zense"
+      },
+      "medallion_of_endless_profit": {
+        "name": "Medaglione del profitto infinito"
+      },
       "deathless_heartwood": {
         "name": "Cuorlegno della Corona immortale"
       },
@@ -6706,6 +7103,9 @@ export const it_IT: EnTranslations = {
       "tolling_bell": {
         "name": "Campana Rintoccante"
       },
+      "vale_cup_ball": {
+        "name": "Palla di cinghiale"
+      },
       "thunzharr_waking_peak": {
         "name": "Thunzharr, il Picco Risvegliato"
       },
@@ -6912,6 +7312,11 @@ export const it_IT: EnTranslations = {
         "title": "Maestro armaiolo",
         "greeting": "La forgia è calda e la mola gira. Se taglia, lo vendo."
       },
+      "heroic_quartermaster": {
+        "name": "Quartiermastro Vex",
+        "title": "Quartiermastro Eroico",
+        "greeting": "La prova degli abissi eroici compra gli anelli e i pendenti più pregiati di Highwatch. Mostrami i tuoi marchi."
+      },
       "loremaster_caddis": {
         "name": "Maestro del sapere Caddis",
         "title": "Maestro del sapere",
@@ -6941,6 +7346,11 @@ export const it_IT: EnTranslations = {
         "name": "Il Custode Pallido",
         "title": "Guardiano dei Morti",
         "greeting": "Riposa ora, spirito. Posso restituirti al tuo corpo, ma il ritorno dalla traversata ti lascia debole."
+      },
+      "groundskeeper_bram": {
+        "name": "Groundskeeper Bram",
+        "title": "Keeper of the Sowfield",
+        "greeting": "The truce holds at the Sowfield, {className}: boots and shoulders only. Care to play for the Copper Pail?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -7849,6 +8259,9 @@ export const it_IT: EnTranslations = {
           },
           "9": {
             "label": "Radura di Brightwood"
+          },
+          "10": {
+            "label": "The Sowfield"
           }
         }
       },
@@ -7994,13 +8407,13 @@ export const it_IT: EnTranslations = {
         "name": "Tenuta da battaglia Bonewrought",
         "bonus2": "Aumenta la potenza d'attacco di 40.",
         "bonus3": "Aumenta la forza di 15, la vigoria di 15 e la velocità d'attacco e di lancio del 15%.",
-        "bonus4": "Your weapon critical strikes splinter the target with Bonesplinter, bleeding it for 8 damage every 2 sec for 12 sec. Stacks up to 3 times."
+        "bonus4": "I colpi critici della tua arma scheggiano il bersaglio con Scheggiaossa, facendolo sanguinare per 8 danni ogni 2 sec per 12 sec. Si accumula fino a 3 volte."
       },
       "deathlord": {
         "name": "Tenuta da battaglia di Barrowlord",
         "bonus2": "Aumenta la potenza d'attacco di 40.",
         "bonus3": "Aumenta la forza di 15 e la vigoria di 15.",
-        "bonus4": "Your weapon critical strikes have a 50% chance to grant Gravemight, increasing attack power by 60 for 10 sec."
+        "bonus4": "I colpi critici della tua arma hanno una probabilità del 50% di conferire Possanza Tombale, aumentando la potenza d'attacco di 60 per 10 sec."
       },
       "greyjaw_stalker": {
         "name": "Equipaggiamento del Braccatore di Greyjaw",
@@ -8010,25 +8423,25 @@ export const it_IT: EnTranslations = {
         "name": "Vesti Mournweave",
         "bonus2": "Non puoi essere respinto (100% di resistenza alla respinta).",
         "bonus3": "Aumenta l'intelletto di 10 e la tempra di 10.",
-        "bonus4": "Your spells have a 10% chance to grant Clearcasting, making your next spell free."
+        "bonus4": "I tuoi incantesimi hanno una probabilità del 10% di conferire Lancio Limpido, rendendo gratuito il tuo prossimo incantesimo."
       },
       "nighttalon": {
         "name": "Tenuta di cuoio Direfang",
         "bonus2": "Aumenta la potenza d'attacco di 40.",
         "bonus3": "Aumenta l'agilità di 15, la probabilità di critico del 2% e la velocità d'attacco e di lancio del 15%.",
-        "bonus4": "Your weapon critical strikes tear a Ragged Gash, bleeding the target for 6 damage every 2 sec for 12 sec. Stacks up to 3 times."
+        "bonus4": "I colpi critici della tua arma aprono uno Squarcio Frastagliato, facendo sanguinare il bersaglio per 6 danni ogni 2 sec per 12 sec. Si accumula fino a 3 volte."
       },
       "soulflame": {
         "name": "Paramenti Wraithfire",
         "bonus2": "Non puoi essere respinto (100% di resistenza alla respinta).",
         "bonus3": "Aumenta l'intelletto di 15, lo spirito di 15 e la velocità d'attacco e di lancio del 15%.",
-        "bonus4": "Your spells have a 10% chance to grant Soulblaze, increasing spell power by 40 for 10 sec."
+        "bonus4": "I tuoi incantesimi hanno una probabilità del 10% di conferire Vampanima, aumentando la potenza magica di 40 per 10 sec."
       },
       "stormcallers": {
         "name": "Vesti Galecall",
         "bonus2": "Non puoi essere respinto (100% di resistenza alla respinta).",
         "bonus3": "Aumenta l'intelletto di 15, lo spirito di 15 e la velocità d'attacco e di lancio del 15%.",
-        "bonus4": "Your spells have a 10% chance to grant Soulblaze, increasing spell power by 40 for 10 sec."
+        "bonus4": "I tuoi incantesimi hanno una probabilità del 10% di conferire Vampanima, aumentando la potenza magica di 40 per 10 sec."
       },
       "vale_arcanist": {
         "name": "Tenuta dell'Arcanista della Valle",
@@ -8038,7 +8451,7 @@ export const it_IT: EnTranslations = {
         "name": "Vesti Nightfang",
         "bonus2": "Aumenta la potenza d'attacco di 40.",
         "bonus3": "Aumenta l’agilità di 15 e la probabilità di critico del 2%.",
-        "bonus4": "Your weapon critical strikes have a 50% chance to grant Fangrush, increasing attack speed by 25% for 8 sec."
+        "bonus4": "I colpi critici della tua arma hanno una probabilità del 50% di conferire Zannimpeto, aumentando la velocità d'attacco del 25% per 8 sec."
       }
     }
   },

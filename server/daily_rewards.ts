@@ -552,7 +552,7 @@ function currentTaskMultiplier(
 ): number | null {
   if (task.type === 'quest_completion')
     return questCompletionPoints(task, onlineMinutes).multiplier;
-  if (task.type === 'arena_result')
+  if (task.type === 'arena_result' || task.type === 'vale_cup_result')
     return onlineMultiplierPoints(task.basePoints ?? task.points, task.config ?? {}, onlineMinutes)
       .multiplier;
   if (task.type === 'delve_clear')
@@ -859,6 +859,59 @@ export class DailyRewardService {
         },
       );
       if (recorded) awardedPoints += chestPoints.points;
+    }
+    return awardedPoints;
+  }
+
+  // Vale Cup sibling of recordArenaResult: arena-style win/loss points with the
+  // same online-time multiplier. Only DECIDED matches reach this (the game loop
+  // skips draws) and only RATED ones (the sim marks bot-backfilled and practice
+  // matches unrated; the loop gates on match.rated). The match id keys the
+  // dedupe row, so one match yields at most one grant per account.
+  async recordValeCupResult(
+    accountId: number,
+    result: {
+      won: boolean;
+      bracket: number;
+      matchId: number;
+      completedAt?: Date;
+    },
+  ): Promise<number> {
+    const completedAt = result.completedAt ?? new Date();
+    const { day, config } = await dailyRewardClock(completedAt);
+    await this.db.ensureDay(day, config.prizePoolUsd, config.wocUsdPrice);
+    await this.db.seedTasks(day, config.tasks);
+    const eligibility = await dailyRewardEligibility(accountId, config);
+    if (!eligibility.eligible) return 0;
+    const tasks = await this.db.tasksForType(day, 'vale_cup_result');
+    if (tasks.length === 0) return 0;
+    const onlineMinutes = await this.db.onlineMinutesForAccount(day, accountId);
+    let awardedPoints = 0;
+    for (const task of tasks) {
+      const taskConfig = task.config ?? {};
+      const basePoints = result.won
+        ? numberConfig(taskConfig, 'winBasePoints', task.basePoints ?? task.points)
+        : numberConfig(taskConfig, 'lossBasePoints', 10);
+      const { points, multiplier } = onlineMultiplierPoints(basePoints, taskConfig, onlineMinutes);
+      if (points <= 0) continue;
+      const recorded = await this.db.addPoints(
+        day,
+        accountId,
+        'task',
+        points,
+        `task:${task.taskId}:vale_cup:${result.matchId}:${result.won ? 'win' : 'loss'}`,
+        {
+          taskId: task.taskId,
+          taskType: task.type,
+          bracket: result.bracket,
+          matchId: result.matchId,
+          won: result.won,
+          onlineMinutes,
+          multiplier,
+          basePoints,
+        },
+      );
+      if (recorded) awardedPoints += points;
     }
     return awardedPoints;
   }

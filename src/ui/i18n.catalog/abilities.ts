@@ -577,6 +577,25 @@ function abilityTranslations(
 const classAbilityNamesEn = {
   entities: {
     abilities: abilityTranslations([
+      // The Vale Cup sport kit (docs/prd/vale-cup.md).
+      ['sport_kick', 'Kick', 'Knock the ball along the ground toward the aim point.'],
+      [
+        'sport_shoot',
+        'Shoot',
+        'Hold to build power, release to shoot at goal. Too much power sails over.',
+      ],
+      ['sport_pass', 'Pass', 'Roll a firm pass to your targeted teammate, leading their run.'],
+      ['sport_boot', 'Big Boot', 'A long lofted boot toward the aim point. The crowd loves it.'],
+      ['sport_hoof', 'Hoof It', 'Hammer the ball low and hard up the field.'],
+      ['sport_punt', 'Long Punt', "A keeper's punt, high and far."],
+      ['sport_feint', 'Feint', 'A quick sidestep burst toward the aim point.'],
+      ['sport_dive', 'Dive', 'Fling yourself toward the aim point. A crossing ball sticks to you.'],
+      [
+        'sport_shoulder',
+        'Shoulder',
+        'A fair harvest-truce shoulder. Sends them tumbling off the ball.',
+      ],
+      ['sport_second_wind', 'Fresh Legs', 'Find your legs: move 50% faster for 4 sec.'],
       [
         'flamestrike',
         'Flamestrike',

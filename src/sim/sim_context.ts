@@ -33,12 +33,14 @@ import type {
   ResolvedAbility,
   TradeSession,
 } from './sim';
+import type { VcState } from './social/vale_cup';
 import type { SpatialGrid } from './spatial';
 import type {
   AbilityDef,
   Aura,
   CrowdControlDrCategory,
   DelveRun,
+  DungeonDifficulty,
   Entity,
   ErrorReason,
   ItemInstancePayload,
@@ -157,6 +159,11 @@ export interface SimContextPrimitives {
   // read-only view (never reassigned by the readout).
   readonly devCommands: boolean;
   readonly marketListings: MarketListing[];
+  // The Vale Cup boarball state (social/vale_cup.ts): ONE holder object on Sim
+  // (queues/deserters/botPids mutated in place, the match slot reassigned INSIDE
+  // the holder), so a read-only live view suffices. Consumed by the vale_cup
+  // module, the damage no-damage floor, and targeting's candidate arm.
+  readonly vcup: VcState;
 }
 
 // Cross-system callbacks. Each signature mirrors the still-on-`Sim` method it
@@ -175,6 +182,12 @@ export interface SimContextCallbacks {
   // (N1, the delve slice, quest spawns, the interaction dispatchers) reaches them
   // through the seam; implemented in instances/dungeons, Sim keeps thin delegates so
   // existing `this.enterDungeon` etc. call sites resolve unchanged.
+  // dungeonDifficulty/setDungeonDifficulty are the heroic-selection commands: the
+  // body-stays-on-Sim kind (party/meta state lives on Sim), exposed so the chat
+  // slash command and instances/dungeons reach them through the seam.
+  // awardHeroicMarks is owned by instances/dungeons: the C1 death hub calls it after
+  // rollLoot so a heroic final-boss corpse gains one personal Heroic Mark slot per
+  // eligible participant (no rng draws).
   lockoutNowMs(): number;
   // The next raid-reset instant (epoch ms) for a given lockout "now". The host owns
   // the boundary (the authoritative server uses its realm-local 3 AM daily reset), so
@@ -184,6 +197,9 @@ export interface SimContextCallbacks {
   instanceOriginOf(inst: InstanceSlot): { x: number; z: number };
   enterDungeon(dungeonId: string, pid?: number): void;
   leaveDungeon(pid?: number): void;
+  dungeonDifficulty(pid?: number): DungeonDifficulty;
+  setDungeonDifficulty(difficulty: DungeonDifficulty, pid?: number): void;
+  awardHeroicMarks(mob: Entity, recipients: PlayerMeta[]): void;
 
   // C1 damage/death hub + the casting/leash/arena/duel/fiesta/loot teardown it
   // drives mid-tick. `dealDamage` is the post-mitigation entry (crit/dodge/miss and
@@ -589,6 +605,21 @@ export interface SimContextCallbacks {
 
   // Set proc firing is owned by combat/set_procs.ts.
   applySetProcs(source: Entity, target: Entity | null, trigger: SetProc['trigger']): void;
+  // The Vale Cup sport-move arms (owned by social/vale_cup.ts; consumed by
+  // combat/effect_dispatch.ts). All three silently no-op unless the caster is
+  // seated in the live Sowfield match's play phase. vcupBallKick launches the
+  // match ball toward the caster's castAim; vcupSportDash lunges the CASTER
+  // along the aim via the applyKnockback step-walker (catchBall grips a
+  // crossing ball); vcupSportShove bumps a cup OPPONENT back the same way.
+  vcupBallKick(caster: Entity, power: number, loft: number, range: number): void;
+  // vcupBallPass auto-paces a lead pass to the caster's targeted team-mate (else
+  // the best mate toward the aim).
+  vcupBallPass(caster: Entity, power: number, loft: number, range: number): void;
+  // vcupShoot fires the ball at the enemy goal; the client-encoded charge (aim
+  // distance) scales both power and loft, so a max shot sails over the bar.
+  vcupShoot(caster: Entity, power: number, loft: number, range: number): void;
+  vcupSportDash(caster: Entity, distance: number, catchBall: boolean): void;
+  vcupSportShove(caster: Entity, target: Entity, distance: number): void;
 }
 
 // The seam consumed by extracted modules.
@@ -742,6 +773,9 @@ export function createSimContext(host: SimContextHost): SimContext {
     get marketListings() {
       return host.marketListings;
     },
+    get vcup() {
+      return host.vcup;
+    },
     emit: host.emit,
     error: host.error,
     lockoutNowMs: host.lockoutNowMs,
@@ -750,6 +784,9 @@ export function createSimContext(host: SimContextHost): SimContext {
     instanceOriginOf: host.instanceOriginOf,
     enterDungeon: host.enterDungeon,
     leaveDungeon: host.leaveDungeon,
+    dungeonDifficulty: host.dungeonDifficulty,
+    setDungeonDifficulty: host.setDungeonDifficulty,
+    awardHeroicMarks: host.awardHeroicMarks,
     dealDamage: host.dealDamage,
     handleDeath: host.handleDeath,
     cancelCast: host.cancelCast,
@@ -928,5 +965,11 @@ export function createSimContext(host: SimContextHost): SimContext {
     // Ravenpost mail: the quest turn-in letter hook (points at the PostOffice on Sim).
     queueQuestLetter: host.queueQuestLetter,
     applySetProcs: host.applySetProcs,
+    // The Vale Cup sport-move arms (points at social/vale_cup.ts).
+    vcupBallKick: host.vcupBallKick,
+    vcupBallPass: host.vcupBallPass,
+    vcupShoot: host.vcupShoot,
+    vcupSportDash: host.vcupSportDash,
+    vcupSportShove: host.vcupSportShove,
   };
 }

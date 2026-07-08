@@ -2,6 +2,7 @@
 /* eslint-disable */
 export const BASE_NEW = {
   cs_CZ: {
+    'error.heroicMarksNeeded': 'Potřebuješ {marks} Hrdinských značek k nákupu {name}.',
     'groundPickup.supplyCrateDeny': 'Bedna je zatlučená hřebíky.',
     'groundPickup.gravecallerSigilDeny': 'Pečeť odpuzuje tvůj dotyk.',
     'groundPickup.ledgerPageDeny':
@@ -208,6 +209,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Nyní jsi v režimu Nerušit: {message}',
   },
   da_DK: {
+    'error.heroicMarksNeeded': 'Du skal bruge {marks} Heroiske Mærker for at købe {name}.',
     'groundPickup.supplyCrateDeny': 'Kassen er sømmet til.',
     'groundPickup.gravecallerSigilDeny': 'Seglet frastøder din berøring.',
     'groundPickup.ledgerPageDeny':
@@ -333,6 +335,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Der er intet at høste fra dette kadaver.',
     'error.gatherNodeMissing': 'Det ressourcepunkt findes ikke.',
     'error.gatherNodeNotRespawned': 'Dette ressourcepunkt er endnu ikke genopstået for dig.',
+    'error.vcupDeserter': 'Banemesteren husker det. Kom tilbage senere.',
+    'error.vcupPartyTooBig': 'Den række kræver et mindre hold.',
+    'error.vcupNoNation': 'Vælg først en bannernation.',
     'error.noMerchant': 'Der er ingen købmand i nærheden.',
     'error.noSellQuest': 'Du kan ikke sælge questgenstande.',
     'error.noSuchChannel': "Der findes ingen kanal med navnet '{name}'. Kanaler: {list}.",
@@ -417,6 +422,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Du er nu i Forstyr Ikke-tilstand: {message}',
   },
   id_ID: {
+    'error.heroicMarksNeeded': 'Kamu butuh {marks} Tanda Heroik untuk membeli {name}.',
     'groundPickup.supplyCrateDeny': 'Peti itu dipaku rapat.',
     'groundPickup.gravecallerSigilDeny': 'Sigil itu menolak sentuhanmu.',
     'groundPickup.ledgerPageDeny':
@@ -546,6 +552,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Tidak ada yang bisa dipanen dari bangkai ini.',
     'error.gatherNodeMissing': 'Titik sumber daya itu tidak ada.',
     'error.gatherNodeNotRespawned': 'Titik sumber daya ini belum muncul kembali untukmu.',
+    'error.vcupDeserter': 'Penjaga lapangan ingat. Kembalilah nanti.',
+    'error.vcupPartyTooBig': 'Kelas itu butuh rombongan yang lebih kecil.',
+    'error.vcupNoNation': 'Pilih dulu negeri panji.',
     'error.noMerchant': 'Tidak ada pedagang di dekat sini.',
     'error.noSellQuest': 'Kamu tidak bisa menjual barang misi.',
     'error.noSuchChannel': "Tidak ada saluran bernama '{name}'. Saluran: {list}.",
@@ -630,6 +639,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Kamu kini dalam mode Jangan Diganggu: {message}',
   },
   nl_NL: {
+    'error.heroicMarksNeeded': 'Je hebt {marks} Heroïsche Merken nodig om {name} te kopen.',
     'groundPickup.supplyCrateDeny': 'De kist is dichtgespijkerd.',
     'groundPickup.gravecallerSigilDeny': 'Het zegel weert je aanraking af.',
     'groundPickup.ledgerPageDeny': 'De grootboekbladen zijn te strak ingebonden om mee te nemen.',
@@ -756,6 +766,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Er valt niets te oogsten van dit kadaver.',
     'error.gatherNodeMissing': 'Dat grondstofpunt bestaat niet.',
     'error.gatherNodeNotRespawned': 'Dit grondstofpunt is voor jou nog niet opnieuw verschenen.',
+    'error.vcupDeserter': 'De terreinknecht onthoudt het. Kom later terug.',
+    'error.vcupPartyTooBig': 'Die klasse vereist een kleinere groep.',
+    'error.vcupNoNation': 'Kies eerst een vaandelnatie.',
     'error.noMerchant': 'Er is geen handelaar in de buurt.',
     'error.noSellQuest': 'Je kunt geen questvoorwerpen verkopen.',
     'error.noSuchChannel': "Er is geen kanaal met de naam '{name}'. Kanalen: {list}.",
@@ -840,6 +853,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Je bent nu in de modus Niet Storen: {message}',
   },
   pl_PL: {
+    'error.heroicMarksNeeded': 'Potrzebujesz {marks} Znaków heroicznych, aby kupić {name}.',
     'groundPickup.supplyCrateDeny': 'Skrzynia jest zabita gwoździami na głucho.',
     'groundPickup.gravecallerSigilDeny': 'Sygil odpycha twój dotyk.',
     'groundPickup.ledgerPageDeny': 'Strony księgi są zszyte zbyt ciasno, by je zabrać.',
@@ -966,6 +980,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Z tego truchła nie ma nic do zebrania.',
     'error.gatherNodeMissing': 'Ten punkt zasobów nie istnieje.',
     'error.gatherNodeNotRespawned': 'Ten punkt zasobów jeszcze się dla ciebie nie odnowił.',
+    'error.vcupDeserter': 'Gospodarz boiska pamięta. Wróć później.',
+    'error.vcupPartyTooBig': 'Ta klasa wymaga mniejszej drużyny.',
+    'error.vcupNoNation': 'Najpierw wybierz nację sztandaru.',
     'error.noMerchant': 'W pobliżu nie ma kupca.',
     'error.noSellQuest': 'Nie możesz sprzedawać przedmiotów zadań.',
     'error.noSuchChannel': "Nie ma kanału o nazwie '{name}'. Kanały: {list}.",
@@ -1050,6 +1067,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Jesteś teraz w trybie Nie przeszkadzać: {message}',
   },
   sv_SE: {
+    'error.heroicMarksNeeded': 'Du behöver {marks} Heroiska märken för att köpa {name}.',
     'groundPickup.supplyCrateDeny': 'Lådan är igenspikad.',
     'groundPickup.gravecallerSigilDeny': 'Sigillet stöter bort din beröring.',
     'groundPickup.ledgerPageDeny': 'Liggarsidorna sitter för hårt bundna för att tas loss.',
@@ -1176,6 +1194,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Det finns inget att skörda från det här kadavret.',
     'error.gatherNodeMissing': 'Den där resurspunkten finns inte.',
     'error.gatherNodeNotRespawned': 'Den här resurspunkten har ännu inte återuppstått för dig.',
+    'error.vcupDeserter': 'Planvakten minns. Kom tillbaka senare.',
+    'error.vcupPartyTooBig': 'Den klassen kräver ett mindre sällskap.',
+    'error.vcupNoNation': 'Välj först en banernation.',
     'error.noMerchant': 'Det finns ingen köpman i närheten.',
     'error.noSellQuest': 'Du kan inte sälja uppdragsföremål.',
     'error.noSuchChannel': "Det finns ingen kanal som heter '{name}'. Kanaler: {list}.",
@@ -1260,6 +1281,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Du är nu i läget Stör ej: {message}',
   },
   tr_TR: {
+    'error.heroicMarksNeeded': '{name} satın almak için {marks} Kahramanca Nişan gerekiyor.',
     'groundPickup.supplyCrateDeny': 'Sandık çiviyle çakılıp kapatılmış.',
     'groundPickup.gravecallerSigilDeny': 'Mühür dokunuşunu geri itiyor.',
     'groundPickup.ledgerPageDeny': 'Defter sayfaları sökülemeyecek kadar sıkı ciltlenmiş.',
@@ -1383,6 +1405,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Bu leşte toplanacak bir şey yok.',
     'error.gatherNodeMissing': 'Öyle bir kaynak noktası yok.',
     'error.gatherNodeNotRespawned': 'Bu kaynak noktası senin için henüz yenilenmedi.',
+    'error.vcupDeserter': 'Saha bekçisi unutmaz. Sonra tekrar gel.',
+    'error.vcupPartyTooBig': 'Bu kademe daha küçük bir grup gerektiriyor.',
+    'error.vcupNoNation': 'Önce bir sancak ulusu seç.',
     'error.noMerchant': 'Yakınlarda hiç tüccar yok.',
     'error.noSellQuest': 'Görev eşyalarını satamazsın.',
     'error.noSuchChannel': "'{name}' adında bir kanal yok. Kanallar: {list}.",
@@ -1466,6 +1491,7 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Artık Rahatsız Etmeyin modundasın: {message}',
   },
   vi_VN: {
+    'error.heroicMarksNeeded': 'Bạn cần {marks} Dấu Ấn Anh Hùng để mua {name}.',
     'groundPickup.supplyCrateDeny': 'Thùng gỗ đã bị đóng đinh chặt.',
     'groundPickup.gravecallerSigilDeny': 'Ấn phù đẩy bật tay bạn ra.',
     'groundPickup.ledgerPageDeny': 'Những trang sổ cái được đóng quá chặt, không thể lấy đi.',
@@ -1593,6 +1619,9 @@ export const BASE_NEW = {
     'error.corpseNothingToHarvest': 'Xác này không có gì để thu hoạch.',
     'error.gatherNodeMissing': 'Điểm tài nguyên đó không tồn tại.',
     'error.gatherNodeNotRespawned': 'Điểm tài nguyên này chưa xuất hiện lại cho bạn.',
+    'error.vcupDeserter': 'Người giữ sân vẫn nhớ. Hãy quay lại sau.',
+    'error.vcupPartyTooBig': 'Hạng đấu đó cần một nhóm nhỏ hơn.',
+    'error.vcupNoNation': 'Hãy chọn một quốc kỳ trước đã.',
     'error.noMerchant': 'Không có thương nhân nào ở gần đây.',
     'error.noSellQuest': 'Bạn không thể bán vật phẩm nhiệm vụ.',
     'error.noSuchChannel': "Không có kênh nào tên là '{name}'. Các kênh: {list}.",

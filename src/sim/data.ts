@@ -61,6 +61,7 @@ import {
   TEMPLE_QUEST_ORDER,
   TEMPLE_QUESTS,
 } from './content/temple';
+import { VALE_CUP_BALL_MOB, VALE_CUP_BALL_TEMPLATE_ID } from './content/vale_cup';
 import { WARLOCK_PET_MOBS } from './content/warlock_pets';
 import {
   GRAVEYARD_POS,
@@ -117,6 +118,8 @@ export {
 } from './content/delves';
 
 import { DELVE_ITEMS } from './content/delves/items';
+import { HEROIC_ITEMS } from './content/heroic_loot';
+import { HEROIC_VENDOR_ITEMS } from './content/heroic_vendor';
 import { DELVE_MODULE_LAYOUTS, type DelveModuleId, delveModuleSpan } from './delve_layout';
 
 function mergeItems(...parts: Record<string, ItemDef>[]): Record<string, ItemDef> {
@@ -157,6 +160,8 @@ export const ITEMS: Record<string, ItemDef> = mergeItems(
   ZONE3_ITEMS,
   TEMPLE_ITEMS,
   DELVE_ITEMS,
+  HEROIC_VENDOR_ITEMS,
+  HEROIC_ITEMS,
 );
 
 export type { AggregatedSetEffect } from './content/item_sets';
@@ -171,6 +176,9 @@ export const MOBS: Record<string, MobTemplate> = {
   ...TEMPLE_MOBS,
   ...TEMPLE_DUNGEON_MOBS,
   ...DELVE_MOBS,
+  // The Vale Cup boarball: an inert, non-hostile ball entity (never camp-spawned;
+  // the match driver in social/vale_cup.ts spawns and despawns it).
+  [VALE_CUP_BALL_TEMPLATE_ID]: VALE_CUP_BALL_MOB,
 };
 
 export const NPCS: Record<string, NpcDef> = {
