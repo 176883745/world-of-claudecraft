@@ -3,14 +3,16 @@
 // arrays a renderer builds a BufferGeometry from, and a Vitest can exercise
 // directly.
 //
-// Why chunk boundaries never crack: `density` is a pure function of WORLD
-// space (x, y, z, seed), not of any chunk-local state. Two adjacent chunks
-// never share a cell (cells partition space exactly, one owner each), and
-// every vertex position AND normal is computed purely from continuous
-// samples of the same global density function at the same world coordinates
-// -- so a vertex a chunk places on its boundary face is bit-for-bit whatever
-// the neighboring chunk would have placed there too. There is no shared
-// "apron" data to keep in sync and nothing chunk-index-dependent to drift.
+// Chunk boundary contract: `density` is a pure function of WORLD space
+// (x, y, z, seed), so two chunks meshed with any overlap agree bit-for-bit on
+// vertex position and normal in that overlap (no chunk-index-dependent
+// state to drift). But a chunk meshed to EXACTLY its own bounds still cracks
+// at the shared face: the face-quad passes below only emit a quad for a cell
+// edge whose four surrounding cells are all inside the chunk, so the edges
+// that straddle two exact-abutting chunks are never emitted by either side.
+// Callers MUST mesh a volume padded at least one voxel past the chunk's own
+// bounds on every side (as `voxel_terrain.ts` does) so the padding bands
+// overlap and the shared boundary is covered twice, not zero times.
 export type DensityFn = (x: number, y: number, z: number) => number;
 
 export interface VoxelMesh {

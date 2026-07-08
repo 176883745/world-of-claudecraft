@@ -98,7 +98,6 @@ import { sparkleTexture } from './textures';
 import { targetIntensity } from './travel_speed_fx';
 import { TravelSpeedFxPainter } from './travel_speed_fx_painter';
 import { SCHOOL_COLORS, Vfx } from './vfx';
-import { buildVoxelTerrain } from './voxel_terrain';
 import { buildWater, type WaterView } from './water';
 import { Weather } from './weather';
 
@@ -1203,18 +1202,7 @@ export class Renderer {
       this.scene.add(cl);
     }
 
-    // VERIFICATION SWAP (voxel-terrain PR): replaced the production heightfield
-    // terrain with the new voxel-engine build so the voxel code's output can be
-    // checked against the real world. Revert to `buildTerrain(...)` before merge.
-    const voxelTerrain = buildVoxelTerrain(this.sim.cfg.seed);
-    this.terrainView = {
-      group: voxelTerrain.group,
-      update: () => {},
-      rebuildRegion: () => {},
-      rebakeNormalRegion: () => {},
-      setBrush: () => {},
-      clearBrush: () => {},
-    } as TerrainView;
+    this.terrainView = buildTerrain(this.sim.cfg.seed);
     setRenderCategory(this.terrainView.group, 'terrain');
     this.scene.add(this.terrainView.group);
     // Terrain chunks never move after build (the LOD update only toggles

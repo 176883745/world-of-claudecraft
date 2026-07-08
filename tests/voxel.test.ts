@@ -8,6 +8,8 @@ describe('voxel density field', () => {
     const x = -400;
     const z = -400; // far from the authored tunnel
     const surface = terrainHeight(x, z, seed);
+    const y = surface + 3.7; // arbitrary offset, not the surface itself
+    expect(voxelDensity(x, y, z, seed)).toBeCloseTo(y - terrainHeight(x, z, seed));
     expect(voxelDensity(x, surface - 1, z, seed)).toBeLessThan(0);
     expect(voxelDensity(x, surface + 1, z, seed)).toBeGreaterThan(0);
     expect(isSolidVoxel(x, surface - 1, z, seed)).toBe(true);
@@ -36,15 +38,15 @@ describe('voxel density field', () => {
     expect(isSolidVoxel(far.x + far.radius + 20, far.y, far.z, seed)).toBe(true);
   });
 
-  it('reports a finite bounding box that contains every waypoint', () => {
+  it('reports a bounding box expanded by each waypoint radius, not just the center', () => {
     const b = tunnelBounds(TUNNELS[0]);
     for (const w of TUNNELS[0].waypoints) {
-      expect(w.x).toBeGreaterThanOrEqual(b.minX);
-      expect(w.x).toBeLessThanOrEqual(b.maxX);
-      expect(w.y).toBeGreaterThanOrEqual(b.minY);
-      expect(w.y).toBeLessThanOrEqual(b.maxY);
-      expect(w.z).toBeGreaterThanOrEqual(b.minZ);
-      expect(w.z).toBeLessThanOrEqual(b.maxZ);
+      expect(b.minX).toBeLessThanOrEqual(w.x - w.radius);
+      expect(b.maxX).toBeGreaterThanOrEqual(w.x + w.radius);
+      expect(b.minY).toBeLessThanOrEqual(w.y - w.radius);
+      expect(b.maxY).toBeGreaterThanOrEqual(w.y + w.radius);
+      expect(b.minZ).toBeLessThanOrEqual(w.z - w.radius);
+      expect(b.maxZ).toBeGreaterThanOrEqual(w.z + w.radius);
     }
   });
 });
