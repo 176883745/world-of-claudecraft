@@ -1701,6 +1701,10 @@ export const hudChromeStrings = {
   archetypeTitle: {
     label: 'Title',
     none: 'None',
+    // The hobby craft (#1294): one opposite craft empowered up to rare
+    // alongside the active archetype's majors. Reuses the same per-craft
+    // name table below (a hobby id IS a craft id on the ring).
+    hobbyLabel: 'Hobby',
     armorcrafting: 'Armorer',
     weaponcrafting: 'Weaponsmith',
     jewelcrafting: 'Jeweler',
@@ -1727,5 +1731,13 @@ export const hudChromeStrings = {
     unknownRecipe: 'That recipe does not exist.',
     comboRequirementUnmet:
       'You do not have both required crafts at the required tier for that recipe.',
+    // #1297: denied because the recipe is station-bound (the level-20
+    // crafting hub) and the player is either not there or not high enough
+    // level.
+    notAtHub: 'You must be at the crafting hub, at the required level, to craft that.',
+    // #1301: denied because the rolling craft-output window is full.
+    throttled: 'You are crafting too quickly. Wait a moment and try again.',
+    // #1299: the recipe exists but this player has not learned it yet.
+    recipeNotLearned: 'You have not learned that recipe yet.',
   },
 };

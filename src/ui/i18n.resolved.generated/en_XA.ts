@@ -1434,6 +1434,7 @@ export const en_XA: EnTranslations = {
     "archetypeTitle": {
       "label": "[Ţíţļé]",
       "none": "[Ñóñé]",
+      "hobbyLabel": "[Ĥóƀƀý]",
       "armorcrafting": "[Áŕɱóŕéŕ]",
       "weaponcrafting": "[Ŵéáþóñšɱíţĥ]",
       "jewelcrafting": "[Ĵéŵéļéŕ]",
@@ -1456,7 +1457,10 @@ export const en_XA: EnTranslations = {
       "craftedToast": "[Çŕáƒţéð: {name}]",
       "insufficientMaterials": "[Ýóú ðó ñóţ ĥáʋé ţĥé ɱáţéŕíáļš ƒóŕ ţĥáţ.]",
       "unknownRecipe": "[Ţĥáţ ŕéçíþé ðóéš ñóţ éẋíšţ.]",
-      "comboRequirementUnmet": "[Ýóú ðó ñóţ ĥáʋé ƀóţĥ ŕéɋúíŕéð çŕáƒţš áţ ţĥé ŕéɋúíŕéð ţíéŕ ƒóŕ ţĥáţ ŕéçíþé.]"
+      "comboRequirementUnmet": "[Ýóú ðó ñóţ ĥáʋé ƀóţĥ ŕéɋúíŕéð çŕáƒţš áţ ţĥé ŕéɋúíŕéð ţíéŕ ƒóŕ ţĥáţ ŕéçíþé.]",
+      "notAtHub": "[Ýóú ɱúšţ ƀé áţ ţĥé çŕáƒţíñĝ ĥúƀ, áţ ţĥé ŕéɋúíŕéð ļéʋéļ, ţó çŕáƒţ ţĥáţ.]",
+      "throttled": "[Ýóú áŕé çŕáƒţíñĝ ţóó ɋúíçķļý. Ŵáíţ á ɱóɱéñţ áñð ţŕý áĝáíñ.]",
+      "recipeNotLearned": "[Ýóú ĥáʋé ñóţ ļéáŕñéð ţĥáţ ŕéçíþé ýéţ.]"
     }
   },
   "apiError": {

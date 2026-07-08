@@ -1434,6 +1434,7 @@ export const es_ES: EnTranslations = {
     "archetypeTitle": {
       "label": "Título",
       "none": "Ninguno",
+      "hobbyLabel": "Hobby",
       "armorcrafting": "Armero",
       "weaponcrafting": "Forjador de armas",
       "jewelcrafting": "Joyero",
@@ -1456,7 +1457,10 @@ export const es_ES: EnTranslations = {
       "craftedToast": "Elaborado: {name}",
       "insufficientMaterials": "No tienes los materiales para eso.",
       "unknownRecipe": "Esa receta no existe.",
-      "comboRequirementUnmet": "No tienes las dos profesiones requeridas al nivel necesario para esa receta."
+      "comboRequirementUnmet": "No tienes las dos profesiones requeridas al nivel necesario para esa receta.",
+      "notAtHub": "You must be at the crafting hub, at the required level, to craft that.",
+      "throttled": "You are crafting too quickly. Wait a moment and try again.",
+      "recipeNotLearned": "You have not learned that recipe yet."
     }
   },
   "apiError": {

@@ -8532,7 +8532,13 @@ export class Hud {
                   ? 'hudChrome.crafting.unknownRecipe'
                   : ev.reason === 'combo_requirement_unmet'
                     ? 'hudChrome.crafting.comboRequirementUnmet'
-                    : 'hudChrome.crafting.insufficientMaterials',
+                    : ev.reason === 'not_at_hub'
+                      ? 'hudChrome.crafting.notAtHub'
+                      : ev.reason === 'throttled'
+                        ? 'hudChrome.crafting.throttled'
+                        : ev.reason === 'recipe_not_learned'
+                          ? 'hudChrome.crafting.recipeNotLearned'
+                          : 'hudChrome.crafting.insufficientMaterials',
               ),
               '#ff6b6b',
             );

@@ -1434,6 +1434,7 @@ export const ko_KR: EnTranslations = {
     "archetypeTitle": {
       "label": "칭호",
       "none": "없음",
+      "hobbyLabel": "취미",
       "armorcrafting": "방어구 장인",
       "weaponcrafting": "무기 장인",
       "jewelcrafting": "보석 세공사",
@@ -1456,7 +1457,10 @@ export const ko_KR: EnTranslations = {
       "craftedToast": "제작 완료:{name}",
       "insufficientMaterials": "재료가 부족합니다.",
       "unknownRecipe": "해당 제작법이 존재하지 않습니다.",
-      "comboRequirementUnmet": "이 조합 제작법에 필요한 두 제작 기술의 숙련도에 도달하지 못했습니다."
+      "comboRequirementUnmet": "이 조합 제작법에 필요한 두 제작 기술의 숙련도에 도달하지 못했습니다.",
+      "notAtHub": "그것을 제작하려면 필요한 레벨로 제작 거점에 있어야 합니다.",
+      "throttled": "너무 빨리 제작하고 있습니다. 잠시 후 다시 시도하세요.",
+      "recipeNotLearned": "아직 그 제작법을 배우지 않았습니다."
     }
   },
   "apiError": {

@@ -1434,6 +1434,7 @@ export const zh_TW: EnTranslations = {
     "archetypeTitle": {
       "label": "稱號",
       "none": "無",
+      "hobbyLabel": "愛好",
       "armorcrafting": "鍛甲師",
       "weaponcrafting": "武器匠",
       "jewelcrafting": "珠寶匠",
@@ -1456,7 +1457,10 @@ export const zh_TW: EnTranslations = {
       "craftedToast": "已製作:{name}",
       "insufficientMaterials": "你沒有足夠的材料。",
       "unknownRecipe": "該配方不存在。",
-      "comboRequirementUnmet": "你尚未達到該配方所需組合的兩項製造技能等級。"
+      "comboRequirementUnmet": "你尚未達到該配方所需組合的兩項製造技能等級。",
+      "notAtHub": "必須達到所需等級並位於製作站，才能製作該物品。",
+      "throttled": "你製作得太快了，請稍等片刻後再試。",
+      "recipeNotLearned": "你還沒有學會這個配方。"
     }
   },
   "apiError": {

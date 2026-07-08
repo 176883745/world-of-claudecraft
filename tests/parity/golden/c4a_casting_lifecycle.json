@@ -35,7 +35,7 @@
       "tick": 1,
       "time": 0.05,
       "nextId": 409,
-      "state": "10694df5",
+      "state": "6e6ca103",
       "events": "cecb02cc",
       "rng": {
         "draws": 2,
@@ -61,6 +61,7 @@
             "damageTaken": 40
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 405,
@@ -105,6 +106,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 406,
@@ -149,6 +151,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 407,
@@ -400,7 +403,7 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 409,
-      "state": "ebd34616",
+      "state": "46a4bc4a",
       "events": "a54f5dee",
       "rng": {
         "draws": 5,
@@ -411,7 +414,7 @@
       "tick": 10,
       "time": 0.5,
       "nextId": 409,
-      "state": "f0d1ba46",
+      "state": "bed3de3a",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -422,7 +425,7 @@
       "tick": 15,
       "time": 0.75,
       "nextId": 409,
-      "state": "3272ae75",
+      "state": "af475a83",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -433,7 +436,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 409,
-      "state": "864ac083",
+      "state": "70666bb9",
       "events": "a8084a91",
       "rng": {
         "draws": 5,
@@ -444,7 +447,7 @@
       "tick": 25,
       "time": 1.25,
       "nextId": 409,
-      "state": "81878999",
+      "state": "32dec6af",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -455,7 +458,7 @@
       "tick": 30,
       "time": 1.5,
       "nextId": 409,
-      "state": "8051df6c",
+      "state": "3cd21f08",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -466,7 +469,7 @@
       "tick": 35,
       "time": 1.75,
       "nextId": 409,
-      "state": "26a9fe8e",
+      "state": "5dbea0a2",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -477,7 +480,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 409,
-      "state": "47660f31",
+      "state": "f1842647",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -488,7 +491,7 @@
       "tick": 45,
       "time": 2.25,
       "nextId": 409,
-      "state": "442890f8",
+      "state": "c371689c",
       "events": "c186acdc",
       "rng": {
         "draws": 26,
@@ -499,7 +502,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 409,
-      "state": "0d27f428",
+      "state": "206ab84c",
       "events": "741638a5",
       "rng": {
         "draws": 50,
@@ -510,7 +513,7 @@
       "tick": 55,
       "time": 2.75,
       "nextId": 409,
-      "state": "fd3052e7",
+      "state": "047ebeb5",
       "events": "741638a5",
       "rng": {
         "draws": 68,
@@ -521,7 +524,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 409,
-      "state": "c6f5b836",
+      "state": "efa8692a",
       "events": "741638a5",
       "rng": {
         "draws": 84,
@@ -532,7 +535,7 @@
       "tick": 65,
       "time": 3.25,
       "nextId": 409,
-      "state": "2dc1739b",
+      "state": "6a1397d1",
       "events": "741638a5",
       "rng": {
         "draws": 104,
@@ -543,7 +546,7 @@
       "tick": 70,
       "time": 3.5,
       "nextId": 409,
-      "state": "6d1e9871",
+      "state": "dcc54f87",
       "events": "741638a5",
       "rng": {
         "draws": 128,
@@ -554,7 +557,7 @@
       "tick": 75,
       "time": 3.75,
       "nextId": 409,
-      "state": "80e4b42c",
+      "state": "22d1b1c8",
       "events": "741638a5",
       "rng": {
         "draws": 153,
@@ -565,7 +568,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 409,
-      "state": "2cb25603",
+      "state": "12d2b439",
       "events": "b3301486",
       "rng": {
         "draws": 162,
@@ -576,7 +579,7 @@
       "tick": 85,
       "time": 4.25,
       "nextId": 409,
-      "state": "310e79b7",
+      "state": "8213d945",
       "events": "1f242d33",
       "rng": {
         "draws": 202,
@@ -587,7 +590,7 @@
       "tick": 90,
       "time": 4.5,
       "nextId": 409,
-      "state": "663ee343",
+      "state": "ca6afe79",
       "events": "741638a5",
       "rng": {
         "draws": 227,
@@ -598,7 +601,7 @@
       "tick": 95,
       "time": 4.75,
       "nextId": 409,
-      "state": "f9714a65",
+      "state": "75e1b773",
       "events": "741638a5",
       "rng": {
         "draws": 266,
@@ -609,7 +612,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 409,
-      "state": "966d5820",
+      "state": "199c6c24",
       "events": "741638a5",
       "rng": {
         "draws": 288,
@@ -620,7 +623,7 @@
       "tick": 105,
       "time": 5.25,
       "nextId": 409,
-      "state": "566b179d",
+      "state": "a18b4cab",
       "events": "741638a5",
       "rng": {
         "draws": 302,
@@ -631,7 +634,7 @@
       "tick": 110,
       "time": 5.5,
       "nextId": 409,
-      "state": "ee9be8db",
+      "state": "a9555911",
       "events": "741638a5",
       "rng": {
         "draws": 323,
@@ -642,7 +645,7 @@
       "tick": 115,
       "time": 5.75,
       "nextId": 409,
-      "state": "fe7d6a93",
+      "state": "7818bcc9",
       "events": "741638a5",
       "rng": {
         "draws": 363,
@@ -653,7 +656,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 409,
-      "state": "9b49a29a",
+      "state": "75aa3836",
       "events": "741638a5",
       "rng": {
         "draws": 384,
@@ -664,7 +667,7 @@
       "tick": 123,
       "time": 6.15,
       "nextId": 409,
-      "state": "2cd52b7a",
+      "state": "0ce25b56",
       "events": "c4ff0425",
       "rng": {
         "draws": 420,
@@ -691,6 +694,7 @@
             "damageTaken": 93
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 405,
@@ -735,6 +739,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 406,
@@ -779,6 +784,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 407,
@@ -1057,7 +1063,7 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 409,
-      "state": "8006ee8f",
+      "state": "373cd57d",
       "events": "da7b67ec",
       "rng": {
         "draws": 429,
@@ -1068,7 +1074,7 @@
       "tick": 130,
       "time": 6.5,
       "nextId": 409,
-      "state": "2ea180ad",
+      "state": "f6005dfb",
       "events": "741638a5",
       "rng": {
         "draws": 461,
@@ -1079,7 +1085,7 @@
       "tick": 135,
       "time": 6.75,
       "nextId": 409,
-      "state": "1b059034",
+      "state": "1111b6d0",
       "events": "741638a5",
       "rng": {
         "draws": 498,
@@ -1090,7 +1096,7 @@
       "tick": 140,
       "time": 7,
       "nextId": 409,
-      "state": "97138a18",
+      "state": "553e20fc",
       "events": "741638a5",
       "rng": {
         "draws": 522,
@@ -1101,7 +1107,7 @@
       "tick": 145,
       "time": 7.25,
       "nextId": 409,
-      "state": "79ac11ef",
+      "state": "6de7689d",
       "events": "0eac3803",
       "rng": {
         "draws": 551,
@@ -1112,7 +1118,7 @@
       "tick": 145,
       "time": 7.25,
       "nextId": 409,
-      "state": "269efe21",
+      "state": "85781027",
       "events": "d112a023",
       "rng": {
         "draws": 551,
@@ -1139,6 +1145,7 @@
             "damageTaken": 93
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 405,
@@ -1183,6 +1190,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 406,
@@ -1229,6 +1237,7 @@
             "damageTaken": 40
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 407,
@@ -1516,7 +1525,7 @@
       "tick": 150,
       "time": 7.5,
       "nextId": 409,
-      "state": "8dfffe57",
+      "state": "b42f1f11",
       "events": "81b41966",
       "rng": {
         "draws": 585,
@@ -1527,7 +1536,7 @@
       "tick": 153,
       "time": 7.65,
       "nextId": 409,
-      "state": "fa3b2263",
+      "state": "cbdf0d49",
       "events": "03e7272b",
       "rng": {
         "draws": 606,
@@ -1554,6 +1563,7 @@
             "damageTaken": 93
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 405,
@@ -1598,6 +1608,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 406,
@@ -1645,6 +1656,7 @@
             "damageTaken": 60
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 407,
@@ -1930,7 +1942,7 @@
       "tick": 155,
       "time": 7.75,
       "nextId": 409,
-      "state": "6f714724",
+      "state": "86c4d240",
       "events": "741638a5",
       "rng": {
         "draws": 618,
@@ -1941,7 +1953,7 @@
       "tick": 158,
       "time": 7.9,
       "nextId": 409,
-      "state": "5b44394b",
+      "state": "65228f51",
       "events": "741638a5",
       "rng": {
         "draws": 627,
@@ -1968,6 +1980,7 @@
             "damageTaken": 93
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 405,
@@ -2012,6 +2025,7 @@
           "companionUpgrades": {},
           "counters": {},
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 406,
@@ -2059,6 +2073,7 @@
             "damageTaken": 60
           },
           "craftSkills": {},
+          "craftThrottle": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 407,
