@@ -15,7 +15,9 @@
 
 import { type AssistCandidate, resolveAssist } from '../assist';
 import { GATHERING_PROFESSIONS } from '../content/professions';
+import { YUMI_TEMPLATE_ID } from '../content/yumi';
 import { CLASSES, ITEMS, zoneAt } from '../data';
+import * as deedsMod from '../deeds';
 import { graveyardReadout } from '../entity_roster';
 import { isGatheringProfessionId, queueGatheringGrant } from '../professions/gathering';
 import {
@@ -194,6 +196,7 @@ export function chat(ctx: SimContext, text: string, pid?: number): SentChat | nu
       return null;
     }
     const result = ctx.rng.int(lo, hi);
+    deedsMod.onChatRollForDeeds(ctx, r.meta.entityId, lo, hi, result);
     const text = `${result} (${lo}-${hi})`;
     const party = ctx.partyOf(r.meta.entityId);
     if (party) {
@@ -808,6 +811,8 @@ export function chat(ctx: SimContext, text: string, pid?: number): SentChat | nu
         if (t) text = def.target.replace('%t', t.name === r.meta.name ? 'themselves' : t.name);
       }
       broadcastEmote(ctx, r.meta, r.e, text);
+      // A cheer with a live Yumi in earshot counts; range matches the /say emote.
+      if (key === 'cheer') deedsMod.onCheerForDeeds(ctx, r.meta, r.e, YUMI_TEMPLATE_ID, SAY_RANGE);
       return null;
     }
   }

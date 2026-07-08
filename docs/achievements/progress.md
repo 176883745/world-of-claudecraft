@@ -7,7 +7,7 @@ response names the next file by full path.
 | # | File | Status | Completed | Notes |
 |---|---|---|---|---|
 | 0 | overview.md + catalog/ | DRAFTED | 2026-07-08 | Awaiting maintainer packet review |
-| 1 | phase-01-sim-core.md | NOT STARTED | | |
+| 1 | phase-01-sim-core.md | DONE | 2026-07-08 | 186 deeds + evaluator + persisted state + retro-on-join; all 7 Fiesta deeds shipped (bot-roster gate); goldens deliberately regenerated (draw digests unchanged); deferred list in the commit body |
 | 1Q | phase-01-qa.md | NOT STARTED | | |
 | 2 | phase-02-iworld-wire.md | NOT STARTED | | |
 | 2Q | phase-02-qa.md | NOT STARTED | | |

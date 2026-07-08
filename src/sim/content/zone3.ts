@@ -1148,6 +1148,18 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
     banker: true,
     greeting: 'Every crate, coffer, and trinket is safe with the Gilded Strongbox.',
   },
+  chronicler_edda_hartwell: {
+    id: 'chronicler_edda_hartwell',
+    name: 'Chronicler Edda Hartwell',
+    title: 'The Peaks Chronicle',
+    // Just inside the south gate at the east fence terminus, overlooking the
+    // road up from Fenbridge (clear of the house footprint at {8,650}).
+    pos: { x: -3, z: 650 },
+    facing: 0.2,
+    color: 0x7d6f94,
+    questIds: [],
+    greeting: 'The mountain forgets nothing, $N, and neither do I. Let us see what you have done.',
+  },
 };
 
 // ---------------------------------------------------------------------------

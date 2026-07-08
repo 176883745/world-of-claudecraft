@@ -7480,6 +7480,21 @@ export const it_IT: EnTranslations = {
         "title": "Custode del Campo della Scrofa",
         "greeting": "La tregua regge al Campo della Scrofa, {className}: solo calci e spallate. Ti va di giocare per il Secchio di Rame?"
       },
+      "chronicler_saul": {
+        "name": "Saul the Chronicler",
+        "title": "The Vale Chronicle",
+        "greeting": "Every deed worth doing is worth writing down twice, {playerName}: once for the ledger and once for the fireside."
+      },
+      "chronicler_osric_fenn": {
+        "name": "Chronicler Osric Fenn",
+        "title": "The Marsh Chronicle",
+        "greeting": "Mind the damp on the pages, {playerName}. The fen eats more books than readers ever will."
+      },
+      "chronicler_edda_hartwell": {
+        "name": "Chronicler Edda Hartwell",
+        "title": "The Peaks Chronicle",
+        "greeting": "The mountain forgets nothing, {playerName}, and neither do I. Let us see what you have done."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Guardamarea",

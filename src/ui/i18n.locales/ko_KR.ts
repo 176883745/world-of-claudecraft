@@ -6350,6 +6350,18 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.groundskeeper_bram.title': '소우필드의 관리인',
   'entities.npcs.groundskeeper_bram.greeting':
     '소우필드에서는 휴전이 지켜지고 있소, {className}. 발과 어깨만 쓸 수 있소. 구리 들통을 걸고 한판 하겠소?',
+  'entities.npcs.chronicler_saul.name': '연대기 기록관 사울',
+  'entities.npcs.chronicler_saul.title': '이스트브룩 골짜기 연대기',
+  'entities.npcs.chronicler_saul.greeting':
+    '할 가치가 있는 일은 두 번 적을 가치가 있지, {playerName}. 한 번은 장부에, 한 번은 난롯가 이야기로 말일세.',
+  'entities.npcs.chronicler_osric_fenn.name': '연대기 기록관 오스릭 펜',
+  'entities.npcs.chronicler_osric_fenn.title': '마이어펜 습지 연대기',
+  'entities.npcs.chronicler_osric_fenn.greeting':
+    '책장이 눅눅해지지 않게 조심하게, {playerName}. 늪은 독자보다 훨씬 많은 책을 삼킨다네.',
+  'entities.npcs.chronicler_edda_hartwell.name': '연대기 기록관 에다 하트웰',
+  'entities.npcs.chronicler_edda_hartwell.title': '쏜피크 고지 연대기',
+  'entities.npcs.chronicler_edda_hartwell.greeting':
+    '산은 아무것도 잊지 않네, {playerName}. 나도 마찬가지지. 자네가 이룬 일을 보여 주게.',
   'entities.zones.eastbrook_vale.pois.10.label': '소우필드',
   'entities.abilities.sport_kick.name': '킥',
   'entities.abilities.sport_kick.description': '조준 지점을 향해 공을 땅볼로 차 보냅니다.',

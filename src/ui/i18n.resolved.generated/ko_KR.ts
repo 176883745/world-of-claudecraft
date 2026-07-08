@@ -7480,6 +7480,21 @@ export const ko_KR: EnTranslations = {
         "title": "소우필드의 관리인",
         "greeting": "소우필드에서는 휴전이 지켜지고 있소, {className}. 발과 어깨만 쓸 수 있소. 구리 들통을 걸고 한판 하겠소?"
       },
+      "chronicler_saul": {
+        "name": "연대기 기록관 사울",
+        "title": "이스트브룩 골짜기 연대기",
+        "greeting": "할 가치가 있는 일은 두 번 적을 가치가 있지, {playerName}. 한 번은 장부에, 한 번은 난롯가 이야기로 말일세."
+      },
+      "chronicler_osric_fenn": {
+        "name": "연대기 기록관 오스릭 펜",
+        "title": "마이어펜 습지 연대기",
+        "greeting": "책장이 눅눅해지지 않게 조심하게, {playerName}. 늪은 독자보다 훨씬 많은 책을 삼킨다네."
+      },
+      "chronicler_edda_hartwell": {
+        "name": "연대기 기록관 에다 하트웰",
+        "title": "쏜피크 고지 연대기",
+        "greeting": "산은 아무것도 잊지 않네, {playerName}. 나도 마찬가지지. 자네가 이룬 일을 보여 주게."
+      },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",
         "title": "조수지기",

@@ -6488,6 +6488,18 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.groundskeeper_bram.title': 'Хранитель Свиного поля',
   'entities.npcs.groundskeeper_bram.greeting':
     'На Свином поле действует перемирие, {className}: только ноги и плечи. Сыграем за Медное ведро?',
+  'entities.npcs.chronicler_saul.name': 'Летописец Саул',
+  'entities.npcs.chronicler_saul.title': 'Летопись Истврукской долины',
+  'entities.npcs.chronicler_saul.greeting':
+    'Всякое дело, достойное свершения, достойно записи дважды, {playerName}: раз в книгу и раз для рассказов у очага.',
+  'entities.npcs.chronicler_osric_fenn.name': 'Летописец Осрик Фенн',
+  'entities.npcs.chronicler_osric_fenn.title': 'Летопись Мирефенской топи',
+  'entities.npcs.chronicler_osric_fenn.greeting':
+    'Береги страницы от сырости, {playerName}. Топь пожирает больше книг, чем все читатели вместе.',
+  'entities.npcs.chronicler_edda_hartwell.name': 'Летописец Эдда Хартвелл',
+  'entities.npcs.chronicler_edda_hartwell.title': 'Летопись Терновых высот',
+  'entities.npcs.chronicler_edda_hartwell.greeting':
+    'Гора ничего не забывает, {playerName}, и я тоже. Посмотрим, какие деяния за тобой числятся.',
   'entities.zones.eastbrook_vale.pois.10.label': 'Свиное поле',
   'entities.abilities.sport_kick.name': 'Удар',
   'entities.abilities.sport_kick.description': 'Катит мяч по земле к точке прицела.',

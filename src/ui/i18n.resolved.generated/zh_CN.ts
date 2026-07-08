@@ -7480,6 +7480,21 @@ export const zh_CN: EnTranslations = {
         "title": "母猪场看守",
         "greeting": "休战约定在母猪场依然有效，{className}：只许用脚和肩膀。想为铜奶桶一战吗？"
       },
+      "chronicler_saul": {
+        "name": "编年史者绍尔",
+        "title": "东溪谷编年史",
+        "greeting": "值得做的事迹，就值得写下两遍，{playerName}：一遍记进账册，一遍留给炉边。"
+      },
+      "chronicler_osric_fenn": {
+        "name": "编年史者奥斯里克·芬恩",
+        "title": "泥沼湿地编年史",
+        "greeting": "当心书页受潮，{playerName}。沼泽吞掉的书可比读者读掉的多。"
+      },
+      "chronicler_edda_hartwell": {
+        "name": "编年史者艾达·哈特维尔",
+        "title": "荆峰高地编年史",
+        "greeting": "高山什么都不会忘记，{playerName}，我也一样。让我看看你都做过什么吧。"
+      },
       "tidewatcher_ondrel": {
         "name": "翁德雷尔·凡恩",
         "title": "守潮者",

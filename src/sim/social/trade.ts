@@ -177,6 +177,9 @@ export function tradeConfirm(ctx: SimContext, pid?: number): void {
     ctx.emit({ type: 'log', text: 'Trade complete.', color: '#8df', pid: tPid });
     ctx.emit({ type: 'tradeDone', pid: tPid });
   }
+  // The goods have moved; count the completed trade for both sides.
+  ctx.bumpDeedStat(metaA, 'tradesCompleted', 1);
+  ctx.bumpDeedStat(metaB, 'tradesCompleted', 1);
   closeTrade(ctx, session);
 }
 

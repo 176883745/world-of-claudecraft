@@ -693,6 +693,18 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
     greeting:
       'The Gilded Strongbox keeps clean ledgers and cleaner vaults. What shall we stow for you?',
   },
+  chronicler_osric_fenn: {
+    id: 'chronicler_osric_fenn',
+    name: 'Chronicler Osric Fenn',
+    title: 'The Marsh Chronicle',
+    // Just inside the south gate beside Warden Fenwick's post, looking back
+    // down the causeway (west of x=9: the inn's collider margin, see above).
+    pos: { x: 6, z: 305 },
+    facing: -2.4,
+    color: 0x6b8f6a,
+    questIds: [],
+    greeting: 'Mind the damp on the pages, $N. The fen eats more books than readers ever will.',
+  },
 };
 
 // ---------------------------------------------------------------------------

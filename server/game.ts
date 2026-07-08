@@ -218,6 +218,7 @@ export const SIM_LAP_PHASES = [
   'market',
   'postOffice',
   'delayedEv',
+  'deeds',
   'gridRefresh',
 ].map((n) => `sim.${n}`);
 const ARENA_WIRE_HZ = 0.1;

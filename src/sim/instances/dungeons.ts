@@ -178,6 +178,8 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
   // Spirit Healer inside an instance).
   if (p.ghost) resurrectOnInstanceReentry(ctx, r.meta, p, p.pos);
   ctx.emit({ type: 'log', text: dungeon.enterText, color: '#b9f', pid: r.meta.entityId });
+  // Stepping through the moongate is a Chronicle task.
+  if (dungeonId === 'drowned_temple') ctx.markVisited(r.meta, 'dungeon:drowned_temple');
 }
 
 function canEnterNythraxisRaid(meta: PlayerMeta): boolean {
@@ -255,6 +257,8 @@ function claimInstance(
   inst.partyKey = key;
   inst.difficulty = difficulty;
   inst.emptyFor = 0;
+  // The Sanctum speed deed measures from the claim.
+  inst.claimedAt = ctx.time;
   const origin = instanceOriginOf(inst);
   for (const spawn of dungeon.spawns) {
     const template = MOBS[spawn.mobId];
@@ -326,6 +330,7 @@ function freeInstance(ctx: SimContext, inst: InstanceSlot): void {
   inst.objectIds = [];
   inst.exitId = null;
   inst.emptyFor = 0;
+  inst.claimedAt = undefined;
 }
 
 // Heroic participation reward: the final boss of a heroic instance drops
@@ -370,6 +375,8 @@ export function awardHeroicMarks(ctx: SimContext, mob: Entity, recipients: Playe
       loot.items.push({ itemId: HEROIC_MARK_ITEM_ID, count: 1, personalFor: [meta.entityId] });
     }
     awarded = true;
+    // The heroic-mark circuit flag re-checks.
+    ctx.markDeedsDirty(meta.entityId);
   }
   if (!awarded) return;
   mob.loot = loot;

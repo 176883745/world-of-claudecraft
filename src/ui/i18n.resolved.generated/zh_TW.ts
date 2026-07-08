@@ -7480,6 +7480,21 @@ export const zh_TW: EnTranslations = {
         "title": "母豬場看守",
         "greeting": "休戰約定在母豬場依然有效，{className}：只許用腳和肩膀。想為銅奶桶一戰嗎？"
       },
+      "chronicler_saul": {
+        "name": "編年史者紹爾",
+        "title": "東溪谷編年史",
+        "greeting": "值得做的事蹟，就值得寫下兩遍，{playerName}：一遍記進帳冊，一遍留給爐邊。"
+      },
+      "chronicler_osric_fenn": {
+        "name": "編年史者奧斯里克·芬恩",
+        "title": "泥沼濕地編年史",
+        "greeting": "當心書頁受潮，{playerName}。沼澤吞掉的書可比讀者讀掉的多。"
+      },
+      "chronicler_edda_hartwell": {
+        "name": "編年史者艾達·哈特維爾",
+        "title": "荊峰高地編年史",
+        "greeting": "高山什麼都不會忘記，{playerName}，我也一樣。讓我看看你都做過什麼吧。"
+      },
       "tidewatcher_ondrel": {
         "name": "翁德瑞爾·韋恩",
         "title": "守潮者",

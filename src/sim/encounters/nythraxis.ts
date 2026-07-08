@@ -27,6 +27,7 @@
 
 import { isStunned } from '../combat/cc';
 import { ITEMS, MOBS, NPCS, QUESTS } from '../data';
+import * as deedsMod from '../deeds';
 import { createMob, createNpc } from '../entity';
 import { applyHeroicMobTuning, mobTemplateForDungeonDifficulty } from '../instances/difficulty';
 import { heroicLockoutId } from '../instances/dungeons';
@@ -506,9 +507,12 @@ export function grantNythraxisLockout(ctx: SimContext, boss: Entity): void {
   const lockId = isHeroicNythraxis(ctx, boss)
     ? heroicLockoutId('nythraxis_boss_arena')
     : 'nythraxis_boss_arena';
-  for (const meta of nythraxisRoomMetas(ctx, boss)) {
+  const metas = nythraxisRoomMetas(ctx, boss);
+  for (const meta of metas) {
     meta.raidLockouts.set(lockId, until);
   }
+  // Raid deed credit rides the same room roster as the lockout.
+  deedsMod.onNythraxisKillForDeeds(ctx, boss, metas);
 }
 
 // ----- phase-one mechanics --------------------------------------------------------
@@ -541,10 +545,13 @@ export function updateNythraxisGravebreaker(
     if (d > NYTHRAXIS_GRAVEBREAKER_RANGE) continue;
     const delta = Math.abs(normAngle(angleTo(boss.pos, p.pos) - boss.facing));
     if (delta > NYTHRAXIS_GRAVEBREAKER_HALF_ARC) continue;
-    const mult = p.id === boss.aggroTargetId ? 1 : 1.5;
+    const offTarget = p.id !== boss.aggroTargetId;
+    const mult = offTarget ? 1.5 : 1;
     const mitigated = rawDmg * mult * (1 - armorReduction(ctx.effectiveArmor(p), boss.level));
     const dmg = Math.max(1, Math.round(mitigated));
     ctx.dealDamage(boss, p, dmg, false, 'physical', 'Gravebreaker', 'hit', true);
+    // An arc hit on anyone but the current target taints the positioning task.
+    if (offTarget) deedsMod.onBossSplashHitForDeeds(ctx, boss);
   }
 }
 
@@ -911,6 +918,8 @@ export function updateNythraxisDeathlessRage(
   const ragePct = isHeroicNythraxis(ctx, boss)
     ? NYTHRAXIS_DEATHLESS_PCT_HEROIC
     : NYTHRAXIS_DEATHLESS_PCT;
+  // The cast resolved uninterrupted: the wardens task fails for this attempt.
+  deedsMod.onDeathlessRageResolvedForDeeds(ctx, boss);
   for (const p of playersInNythraxisRoom(ctx, boss)) {
     ctx.dealDamage(
       boss,

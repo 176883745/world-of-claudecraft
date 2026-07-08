@@ -15,8 +15,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 406,
-      "state": "bf8f6ae7",
+      "nextId": 409,
+      "state": "1e59e810",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -42,9 +42,18 @@
           "counters": {},
           "craftSkills": {},
           "craftThrottle": {},
+          "deedStats": {
+            "counters": {},
+            "dungeonClears": {},
+            "itemsDiscovered": [
+              "baked_bread",
+              "footpad_jerkin",
+              "rusty_dagger"
+            ]
+          },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 405,
+          "entityId": 408,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -78,7 +87,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 62,
-          "id": 405,
+          "id": 408,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -123,9 +132,9 @@
     {
       "tick": 10,
       "time": 0.5,
-      "nextId": 417,
-      "state": "0e31013d",
-      "events": "2758fde1",
+      "nextId": 420,
+      "state": "76399374",
+      "events": "36e6ec57",
       "rng": {
         "draws": 3,
         "digest": "ad960248"
@@ -134,9 +143,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 417,
-      "state": "40bd45dd",
-      "events": "9cfda0e2",
+      "nextId": 420,
+      "state": "08833ed4",
+      "events": "e8535d0d",
       "rng": {
         "draws": 3,
         "digest": "ad960248"
@@ -145,8 +154,8 @@
     {
       "tick": 30,
       "time": 1.5,
-      "nextId": 417,
-      "state": "46bead9b",
+      "nextId": 420,
+      "state": "73d0135a",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -156,8 +165,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 417,
-      "state": "ede443ed",
+      "nextId": 420,
+      "state": "8822e9a4",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -167,8 +176,8 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 417,
-      "state": "04f24c3f",
+      "nextId": 420,
+      "state": "bfc67186",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -178,8 +187,8 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 417,
-      "state": "ab2f5399",
+      "nextId": 420,
+      "state": "0ccaf728",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -189,9 +198,9 @@
     {
       "tick": 69,
       "time": 3.45,
-      "nextId": 418,
-      "state": "a6618b9b",
-      "events": "b6936edd",
+      "nextId": 421,
+      "state": "fb3afd5a",
+      "events": "1ea15824",
       "rng": {
         "draws": 3,
         "digest": "ad960248"
@@ -220,9 +229,39 @@
           },
           "craftSkills": {},
           "craftThrottle": {},
+          "deedStats": {
+            "counters": {
+              "damageDealt": 636,
+              "kills": 1
+            },
+            "dungeonClears": {},
+            "itemsDiscovered": [
+              "baked_bread",
+              "footpad_jerkin",
+              "rusty_dagger"
+            ]
+          },
+          "deedsEarned": [
+            [
+              "cmb_first_blood",
+              ""
+            ],
+            [
+              "dlv_varric_ringers",
+              ""
+            ],
+            [
+              "prog_finding_your_feet",
+              ""
+            ],
+            [
+              "prog_first_steps",
+              ""
+            ]
+          ],
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 405,
+          "entityId": 408,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -238,6 +277,7 @@
           "lifetimeXp": 11398,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
+          "renown": 25,
           "talents": {
             "choices": {},
             "ranks": {}
@@ -257,7 +297,7 @@
           "dodgeChance": 0.0715,
           "fiveSecondRule": 102.45,
           "hp": 50000,
-          "id": 405,
+          "id": 408,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -307,7 +347,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 416,
+          "id": 419,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -340,8 +380,8 @@
     {
       "tick": 70,
       "time": 3.5,
-      "nextId": 418,
-      "state": "0ed9340b",
+      "nextId": 421,
+      "state": "1ddc8a4a",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -351,8 +391,8 @@
     {
       "tick": 71,
       "time": 3.55,
-      "nextId": 418,
-      "state": "46ce79ff",
+      "nextId": 421,
+      "state": "52d553c6",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -382,9 +422,39 @@
           },
           "craftSkills": {},
           "craftThrottle": {},
+          "deedStats": {
+            "counters": {
+              "damageDealt": 636,
+              "kills": 1
+            },
+            "dungeonClears": {},
+            "itemsDiscovered": [
+              "baked_bread",
+              "footpad_jerkin",
+              "rusty_dagger"
+            ]
+          },
+          "deedsEarned": [
+            [
+              "cmb_first_blood",
+              ""
+            ],
+            [
+              "dlv_varric_ringers",
+              ""
+            ],
+            [
+              "prog_finding_your_feet",
+              ""
+            ],
+            [
+              "prog_first_steps",
+              ""
+            ]
+          ],
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 405,
+          "entityId": 408,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -400,6 +470,7 @@
           "lifetimeXp": 11398,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
+          "renown": 25,
           "talents": {
             "choices": {},
             "ranks": {}
@@ -419,7 +490,7 @@
           "dodgeChance": 0.0715,
           "fiveSecondRule": 102.55,
           "hp": 50000,
-          "id": 405,
+          "id": 408,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -469,7 +540,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 416,
+          "id": 419,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",

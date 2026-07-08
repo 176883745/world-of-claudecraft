@@ -18,6 +18,7 @@
 // are consumed here via SimContext callbacks (points-at Sim until A3 flips them).
 
 import { ARENA_SLOT_COUNT, arenaOrigin, DUNGEON_X_THRESHOLD } from '../data';
+import * as deedsMod from '../deeds';
 import {
   ARENA_SPAWN_A,
   ARENA_SPAWN_B,
@@ -939,6 +940,10 @@ export function endArenaMatch(
   scoreTeam('A', deltaA, wonA);
   scoreTeam('B', -deltaA, wonB);
 
+  // Ranked standings feed the meter deeds; the Fiesta end-of-bout moments
+  // resolve while augment picks are still on the meta.
+  deedsMod.onArenaMatchEndForDeeds(ctx, match, winnerTeam);
+
   if (reason === 'forfeit') {
     returnFromArena(ctx, match);
     return;
@@ -993,6 +998,9 @@ export function returnFromArena(ctx: SimContext, match: ArenaMatch): void {
       if (meta) {
         ctx.fiestaRestoreChar(meta, e);
         ctx.clearFiestaAugments(meta, e);
+        // The evaluator skips standardized fighters; re-evaluate at the real
+        // level after restore.
+        ctx.markDeedsDirty(meta.entityId);
       }
     }
     resetForArena(ctx, e);

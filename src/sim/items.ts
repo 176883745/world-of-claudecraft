@@ -84,6 +84,8 @@ export function equipItem(ctx: SimContext, itemId: string, pid?: number): void {
   ctx.removeItem(itemId, 1, meta.entityId);
   if (old) addItemSilent(old, 1, meta);
   meta.equipment[slot] = itemId;
+  // The all-slots deed reads equipment, so re-check this player's triggers.
+  ctx.markDeedsDirty(meta.entityId);
   recalcPlayerStats(p, meta.cls, meta.equipment, ctx.playerMods(meta));
   ctx.emit({ type: 'log', text: `Equipped ${def.name}.`, color: '#8f8', pid: meta.entityId });
 }
@@ -103,6 +105,8 @@ export function unequipItem(ctx: SimContext, slot: EquipSlot, pid?: number): boo
     return false;
   }
   delete meta.equipment[slot];
+  // The all-slots deed reads equipment, so re-check this player's triggers.
+  ctx.markDeedsDirty(meta.entityId);
   // addItemSilent (not addItem): returning a piece you already owned to bags is
   // not a fresh acquisition, so it must not fire collect-quest credit. No quest
   // today keys on an unequip, so there is nothing to award here regardless.

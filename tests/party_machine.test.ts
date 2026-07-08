@@ -46,6 +46,7 @@ function makeCtx() {
     error(pid: number, text: string) {
       errors.push({ pid, text });
     },
+    bumpDeedStat() {},
     emit(ev: SimEvent) {
       events.push(ev);
     },

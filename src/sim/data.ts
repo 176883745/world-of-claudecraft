@@ -214,6 +214,11 @@ export const QUEST_ORDER: string[] = [
   ...TEMPLE_QUEST_ORDER,
 ];
 
+// The Book of Deeds catalog: re-exported so consumers read every flat content
+// table from this one merge module (the table itself lives in content/deeds.ts;
+// DEED_ORDER is append-only, see the contract there).
+export { DEED_ORDER, DEEDS } from './content/deeds';
+
 // Camps spawn in array order, each drawing world-gen RNG, so an entry inserted
 // before others shifts their spawn positions. New rare-elite camps
 // (ZONE1_CHAPEL_CAMPS) and the Eastbrook rare Grix are appended LAST so every

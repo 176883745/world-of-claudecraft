@@ -6033,6 +6033,18 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.groundskeeper_bram.title': '母猪场看守',
   'entities.npcs.groundskeeper_bram.greeting':
     '休战约定在母猪场依然有效，{className}：只许用脚和肩膀。想为铜奶桶一战吗？',
+  'entities.npcs.chronicler_saul.name': '编年史者绍尔',
+  'entities.npcs.chronicler_saul.title': '东溪谷编年史',
+  'entities.npcs.chronicler_saul.greeting':
+    '值得做的事迹，就值得写下两遍，{playerName}：一遍记进账册，一遍留给炉边。',
+  'entities.npcs.chronicler_osric_fenn.name': '编年史者奥斯里克·芬恩',
+  'entities.npcs.chronicler_osric_fenn.title': '泥沼湿地编年史',
+  'entities.npcs.chronicler_osric_fenn.greeting':
+    '当心书页受潮，{playerName}。沼泽吞掉的书可比读者读掉的多。',
+  'entities.npcs.chronicler_edda_hartwell.name': '编年史者艾达·哈特维尔',
+  'entities.npcs.chronicler_edda_hartwell.title': '荆峰高地编年史',
+  'entities.npcs.chronicler_edda_hartwell.greeting':
+    '高山什么都不会忘记，{playerName}，我也一样。让我看看你都做过什么吧。',
   'entities.zones.eastbrook_vale.pois.10.label': '母猪场',
   'entities.abilities.sport_kick.name': '踢球',
   'entities.abilities.sport_kick.description': '沿地面把球踢向瞄准点。',

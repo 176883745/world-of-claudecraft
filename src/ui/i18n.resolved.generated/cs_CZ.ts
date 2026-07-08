@@ -7480,6 +7480,21 @@ export const cs_CZ: EnTranslations = {
         "title": "Správce Prasečího pole",
         "greeting": "Na Prasečím poli platí příměří, {className}: jen kopy a ramena. Chceš si zahrát o Měděný kbelík?"
       },
+      "chronicler_saul": {
+        "name": "Saul the Chronicler",
+        "title": "The Vale Chronicle",
+        "greeting": "Every deed worth doing is worth writing down twice, {playerName}: once for the ledger and once for the fireside."
+      },
+      "chronicler_osric_fenn": {
+        "name": "Chronicler Osric Fenn",
+        "title": "The Marsh Chronicle",
+        "greeting": "Mind the damp on the pages, {playerName}. The fen eats more books than readers ever will."
+      },
+      "chronicler_edda_hartwell": {
+        "name": "Chronicler Edda Hartwell",
+        "title": "The Peaks Chronicle",
+        "greeting": "The mountain forgets nothing, {playerName}, and neither do I. Let us see what you have done."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Hlídač přílivu",

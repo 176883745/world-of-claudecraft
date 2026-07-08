@@ -7480,6 +7480,21 @@ export const ja_JP: EnTranslations = {
         "title": "ソウフィールドの番人",
         "greeting": "ソウフィールドでは休戦が守られている、{className}よ。使っていいのは足と肩だけだ。銅のミルク桶を懸けて一戦どうだ?"
       },
+      "chronicler_saul": {
+        "name": "年代記官ソール",
+        "title": "イーストブルック渓谷の年代記",
+        "greeting": "為すに値する行いは、二度書き記すに値する、{playerName}よ。一度は台帳に、もう一度は炉辺の語り草に。"
+      },
+      "chronicler_osric_fenn": {
+        "name": "年代記官オズリック・フェン",
+        "title": "マイアフェン湿地の年代記",
+        "greeting": "ページの湿気に気をつけることだ、{playerName}よ。沼は読者よりずっと多くの本を呑み込むのだ。"
+      },
+      "chronicler_edda_hartwell": {
+        "name": "年代記官エッダ・ハートウェル",
+        "title": "ソーンピーク高地の年代記",
+        "greeting": "山は何ひとつ忘れない、{playerName}よ。私もだ。あなたの成したことを見せてもらおう。"
+      },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",
         "title": "潮見の番人",

@@ -198,6 +198,8 @@ export function harvestNode(ctx: SimContext, nodeId: string, pid?: number): void
     return;
   }
   ctx.addItem(result.itemId!, 1, meta.entityId);
+  // Zone gather mark: one entry per zone and node type ever harvested.
+  ctx.markVisited(meta, `gather:${node.zoneId}:${node.type}`);
 }
 
 export interface PendingGatherGrant {

@@ -2029,6 +2029,10 @@ export type SimEvent = { pid?: number } & (
   // level past the cap, and unlocking a cosmetic lifetime-XP milestone
   | { type: 'virtualLevelUp'; level: number }
   | { type: 'milestoneUnlocked'; milestoneId: string }
+  // Book of Deeds unlock (always personal: emitted with pid). Carries the deed
+  // ID only, never English text; `retro` marks the on-join back-credit pass so
+  // the client can batch those into one summary line instead of banner spam.
+  | { type: 'deedUnlocked'; deedId: string; retro?: boolean }
   | { type: 'learnAbility'; abilityId: string; rank: number }
   | { type: 'loot'; text: string }
   | {
@@ -2645,6 +2649,189 @@ export const MILESTONES: MilestoneDef[] = [
   { id: 'eternal', lifetimeXp: 5_000_000, kind: 'title' },
 ];
 
+// ---------------------------------------------------------------------------
+// The Book of Deeds (achievements). Strictly cosmetic: deeds grant Renown,
+// titles, and nameplate borders, never power, convenience, or actionable
+// information. The catalog lives in content/deeds.ts (DEEDS/DEED_ORDER); the
+// evaluator in deeds.ts grants against these shapes. Names/descs are English
+// content re-localized at the client boundary; the sim only ever emits deed
+// IDS (the deedUnlocked event), never deed text, so the emit surface stays
+// language-agnostic.
+// ---------------------------------------------------------------------------
+
+export type DeedCategory =
+  | 'progression'
+  | 'combat'
+  | 'dungeon'
+  | 'delve'
+  | 'chronicle'
+  | 'collection'
+  | 'pvp'
+  | 'social'
+  | 'exploration'
+  | 'feat'
+  | 'hidden';
+
+// Persisted lifetime counters (DeedStats numeric fields). Each key has exactly
+// one increment site and at least one deed reading it; do not add a counter no
+// deed reads. The one non-sim producer is `guildsFounded`: guild creation
+// resolves entirely in the server social layer, so its bump is a server
+// observer (until that lands, the deed reading it simply cannot grant). These
+// are the PERSISTED lifetime surface; the session-scoped RewardCounters (the
+// RL reward channel) stays untouched even where the two double up at a site
+// by design.
+export type DeedStatKey =
+  | 'kills'
+  | 'deaths'
+  | 'damageDealt'
+  | 'crits'
+  | 'dummyDamage'
+  | 'lootCopper'
+  | 'duelsWon'
+  | 'duelsLost'
+  | 'tradesCompleted'
+  | 'mailAttachmentsSent'
+  | 'craftsPerformed'
+  | 'partiesJoined'
+  | 'fullPartyDungeonClears'
+  | 'guildsFounded'
+  | 'marketSaleCopper'
+  | 'groundObjectsLooted'
+  | 'dungeonFinalBossKills'
+  | 'thunzharrKills'
+  | 'bloatCleanKills';
+
+// The canonical counter key list (init/serialize iterate it in this fixed
+// order so equal states always serialize byte-equal).
+export const DEED_STAT_KEYS: readonly DeedStatKey[] = [
+  'kills',
+  'deaths',
+  'damageDealt',
+  'crits',
+  'dummyDamage',
+  'lootCopper',
+  'duelsWon',
+  'duelsLost',
+  'tradesCompleted',
+  'mailAttachmentsSent',
+  'craftsPerformed',
+  'partiesJoined',
+  'fullPartyDungeonClears',
+  'guildsFounded',
+  'marketSaleCopper',
+  'groundObjectsLooted',
+  'dungeonFinalBossKills',
+  'thunzharrKills',
+  'bloatCleanKills',
+];
+
+// Numeric readings computed from already-persisted PlayerMeta state (never new
+// tracking). Resolved by the meter table in deeds.ts; a trigger of kind
+// 'meter' grants at reading >= amount and therefore retro-grants on load.
+export type DeedMeterId =
+  | 'prestigeRank'
+  | 'talentPoints'
+  | 'arenaRankedMatches'
+  | 'arenaRankedWins'
+  | 'vcupWins'
+  | 'vcupGuildWins'
+  | 'bankPurchasedSlots'
+  | 'townFocusPoints'
+  | 'delveLoreCount'
+  | 'companionRankBest'
+  | 'itemsDiscoveredCount'
+  | 'poorItemsDiscoveredCount';
+
+// Boolean predicates over already-persisted state (see the flag table in
+// deeds.ts). Like meters, they retro-grant on load.
+export type DeedFlagId =
+  | 'talentSpecChosen'
+  | 'talentCapstone'
+  | 'hasRestedXp'
+  | 'guildMember'
+  | 'allEquipSlotsFilled'
+  | 'nonDefaultSkin'
+  | 'heroicMarkCircuit'
+  | 'companionsBothMax'
+  | 'firstEraCap';
+
+// Discriminated union of DATA records (content carries no functions). The
+// generic evaluator satisfies every kind except 'manual', which is granted
+// only by an explicit grantDeed call at a bespoke sim site (encounter
+// mechanical/perfection/restriction/speed tasks, hidden delights).
+export type DeedTrigger =
+  // Entity.level at or above.
+  | { kind: 'level'; level: number }
+  // PlayerMeta.lifetimeXp at or above (the milestone unification kind).
+  | { kind: 'lifetimeXp'; amount: number }
+  // Membership in questsDone (all of, for the plural form).
+  | { kind: 'quest'; questId: string }
+  | { kind: 'quests'; questIds: string[] }
+  // A lifetime counter from deedStats at or above count.
+  | { kind: 'stat'; stat: DeedStatKey; count: number }
+  // deedStats.dungeonClears (keys '<dungeonId>' and '<dungeonId>:heroic');
+  // difficulty absent sums both keys.
+  | { kind: 'dungeonClears'; dungeonId: string; difficulty?: 'normal' | 'heroic'; count: number }
+  // The EXISTING persisted PlayerMeta.delveClears (keys '<delveId>:<tierId>').
+  // delveId absent sums every key (the all-delves total); tier absent sums the
+  // delve's tiers.
+  | { kind: 'delveClears'; delveId?: string; tier?: 'normal' | 'heroic'; count: number }
+  // The existing persisted Ashen Coliseum standings (one-way unlock: the deed
+  // stays earned if rating later falls).
+  | { kind: 'arenaRating'; bracket: '1v1' | '2v2'; rating: number }
+  // craftSkills: with craftId, that one craft at or above level; without, at
+  // least `count` (default 1) crafts on the ring at or above level.
+  | { kind: 'craftSkill'; craftId?: string; level: number; count?: number }
+  // gatheringProficiency: same shape as craftSkill over the three professions.
+  | { kind: 'gathering'; professionId?: GatheringProfessionId; amount: number; count?: number }
+  // At least `count` (default all) of the listed ids in deedStats.itemsDiscovered.
+  | { kind: 'collectItems'; itemIds: string[]; count?: number }
+  // Membership in deedStats.visited (stable authored marks like 'npc:saul' or
+  // 'poi:eastbrook_vale:Eastbrook'; every mark is fed by an explicit site).
+  | { kind: 'visit'; markId: string }
+  | { kind: 'visits'; markIds: string[]; count?: number }
+  // All listed deeds earned, plus (optionally) all listed quests done. The
+  // quest arm exists for the Chronicle chapters, which mix both.
+  | { kind: 'meta'; deedIds: string[]; questIds?: string[] }
+  // A numeric reading over persisted state at or above amount.
+  | { kind: 'meter'; meter: DeedMeterId; amount: number }
+  // A boolean predicate over persisted state.
+  | { kind: 'flag'; flag: DeedFlagId }
+  // Granted only by an explicit grantDeed call at a bespoke sim site. Never
+  // satisfied by the generic evaluator and never retro-granted.
+  | { kind: 'manual' };
+
+// Cosmetic reward carried on the def. The title text / border slug is English
+// content (localized at the client boundary like name/desc).
+export type DeedReward = { kind: 'title'; text: string } | { kind: 'border'; slug: string };
+
+export interface DeedDef {
+  id: string;
+  name: string; // English; client-localized
+  desc: string; // English; client-localized
+  category: DeedCategory;
+  // Renown scale: 5 routine, 10 standard, 25 notable, 50 prestige; 0 for
+  // luck-dependent deeds and every feat. The account score never decreases.
+  renown: 0 | 5 | 10 | 25 | 50;
+  trigger: DeedTrigger;
+  reward?: DeedReward;
+  // Fully invisible until earned (name, desc, and existence).
+  hidden?: boolean;
+  // Zero-Renown trophy shelf; excluded from completion percentages.
+  feat?: boolean;
+}
+
+// Persisted per-character lifetime counters and marks backing deed triggers.
+// Bounded by construction: itemsDiscovered holds only real ITEMS ids and
+// visited only authored marks (both guarded at the write sites).
+export interface DeedStats {
+  counters: Record<DeedStatKey, number>;
+  itemsDiscovered: Set<string>;
+  visited: Set<string>;
+  // '<dungeonId>' (normal) and '<dungeonId>:heroic' final-boss clear counts.
+  dungeonClears: Record<string, number>;
+}
+
 // Prestige cost. Each prestige rank requires a full level-cap bar's worth of
 // post-cap lifetime XP, so prestige rank is a pure function of XP actually
 // earned past the cap. This is the anti-abuse guard: the prestige command can't
@@ -2963,6 +3150,10 @@ export interface DelveRun {
   surfaceExitId: number | null;
   /** Active lockpicking attempt on the finale chest (single interactor, v1), or null. In-memory only. */
   lockpick: LockSession | null;
+  /** Whole-run roster watermark: the most players ever observed inside this run
+   * at an entry (delves cap at 2). The solo-clear restriction deed reads it at
+   * completion; a mid-run joiner permanently raises it. In-memory only. */
+  deedMaxParty?: number;
   /** Sister Nhalia boss mechanics (The Drowned Litany finale only). */
   nhaliaBoss?: DrownedLitanyBossState;
   /** Drowned Reliquary Rite shrine puzzle (The Drowned Litany finale only). */

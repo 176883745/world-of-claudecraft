@@ -114,6 +114,15 @@ import {
   SPIRIT_HEALER_NPC_ID,
   zoneAt,
 } from './data';
+import * as deedsMod from './deeds';
+import {
+  createDeedRuntime,
+  type DeedRuntime,
+  freshDeedStats,
+  restoreDeedStats,
+  type SavedDeedStats,
+  serializeDeedStats,
+} from './deeds';
 import * as companionMod from './delves/companion';
 import * as lockpickMod from './delves/lockpick_controller';
 import * as runsMod from './delves/runs';
@@ -360,6 +369,7 @@ import {
   type CrowdControlDrCategory,
   cloneInvSlot,
   DELVE_COMPANION_HEAL_INTERVAL,
+  type DeedStats,
   type DelveDef,
   type DelveModuleDef,
   type DelveRun,
@@ -712,6 +722,9 @@ export interface InstanceSlot {
   objectIds: number[];
   exitId: number | null;
   emptyFor: number;
+  // Sim-time (seconds) this slot was claimed, cleared with the claim. Session
+  // state (instances never persist); the Sanctum speed deed reads it.
+  claimedAt?: number;
 }
 
 export interface ResolvedAbility {
@@ -954,6 +967,18 @@ export interface PlayerMeta {
   // World-boss loot lockouts live in `raidLockouts` (keyed worldboss:<mobId>), so the
   // eligibility gate and the rendered raid-lockout countdown are one value. See
   // world_boss.ts (markWorldBossLooted / isWorldBossLootEligible).
+  // The Book of Deeds (src/sim/deeds.ts). `deedsEarned` maps deed id to the
+  // utcDay it was earned ('' when the host set no calendar). `deedStats` is
+  // the persisted lifetime surface behind the counter/collection/visit
+  // triggers (the session RewardCounters stay the RL reward channel).
+  // `activeTitle` is the selected cosmetic title (a deed id; the setter
+  // command is a later slice, only persist/load lives here). `renown` is the
+  // incrementally maintained sum of earned deeds' renown, recomputed from the
+  // earned set on every load (the saved number exists for a SQL sort index).
+  deedsEarned: Map<string, string>;
+  deedStats: DeedStats;
+  activeTitle: string | null;
+  renown: number;
 }
 
 // Away-from-keyboard / do-not-disturb presence. `afk` still delivers whispers
@@ -1093,6 +1118,18 @@ export interface CharacterState {
   // Active-archetype state (#1129, superseded scope; JSONB, back-compat: absent on
   // older saves loads as emptyArchetypeState, see normalizeArchetypeState).
   archetype?: Partial<ArchetypeState>;
+  // The Book of Deeds (JSONB; ALL optional and written only once non-empty, so
+  // pre-deed saves load cleanly and stay byte-equal until the system engages).
+  // `deeds` maps deed id to the utcDay earned ('' when unknown); `renown` is
+  // denormalized for a later SQL sort index and RECOMPUTED from `deeds` on
+  // load (the sim is authoritative). Loading also unions the legacy
+  // `unlockedMilestones` ids into `deeds` (milestone unification), while new
+  // grants keep dual-writing `unlockedMilestones` for one release as
+  // forward-only rollback insurance.
+  deeds?: Record<string, string>;
+  deedStats?: SavedDeedStats;
+  activeTitle?: string | null;
+  renown?: number;
 }
 
 export interface PetState {
@@ -1249,6 +1286,11 @@ export class Sim {
   readonly devCommands: boolean;
   private pendingMobRespawns: PendingMobRespawn[] = [];
   private groundAoEs: GroundAoE[] = [];
+  // Book of Deeds: players whose deed-relevant state changed this tick (the
+  // evaluator drains it at the tick tail) and the session-only encounter/match
+  // bookkeeping behind the manual deeds. Both exposed as live SimContext views.
+  deedDirtyPids = new Set<number>();
+  deedRuntime: DeedRuntime = createDeedRuntime();
   // World-boss scheduler, one slot per WORLD_BOSSES entry. `nextAt` is the next
   // sim-time (seconds) a boss is due to rise; `entityId` is the live boss entity
   // (null once none is alive). Driven by updateWorldBosses() in the tick prologue.
@@ -1294,8 +1336,15 @@ export class Sim {
       resolvedAbility: (abilityId, pid) => this.resolvedAbility(abilityId, pid),
       cancelCast: (p) => this.cancelCast(p),
       standUp: (p) => this.standUp(p),
-      dealDamage: (source, target, amount, crit, school, ability, kind, noRage) =>
-        this.dealDamage(source, target, amount, crit, school, ability, kind, noRage),
+      dealDamage: (source, target, amount, crit, school, ability, kind, noRage) => {
+        this.dealDamage(source, target, amount, crit, school, ability, kind, noRage);
+        // The one sim-side observer of a lethal fall (hid_fall_death): the
+        // shared pure kernel labels the hit 'Falling' with a null source, and
+        // this wrapper keeps the deed hook out of the kernel both hosts run.
+        if (source === null && ability === 'Falling' && target.kind === 'player' && target.dead) {
+          deedsMod.onFallDeathForDeeds(this.ctx, target);
+        }
+      },
     };
     // Party/raid machine (A1): constructed after ctx (it consumes the seam). The
     // ctx party callbacks are lazy arrows, so this assignment before any tick/command
@@ -1740,6 +1789,10 @@ export class Sim {
       delveDaily: { date: '', firstClearXp: new Set(), markClears: 0 },
       townFocus: {},
       heroicDaily: { date: '', marked: new Set() },
+      deedsEarned: new Map(),
+      deedStats: freshDeedStats(),
+      activeTitle: null,
+      renown: 0,
     };
     // A fresh character sets out provisioned (class-defined starter rations);
     // a saved character loads its own bags from savedState below.
@@ -1853,6 +1906,17 @@ export class Sim {
       if (s.heroicDaily) {
         meta.heroicDaily = { date: s.heroicDaily.date, marked: new Set(s.heroicDaily.marked) };
       }
+      // The Book of Deeds. Earned days load verbatim; the legacy milestone set
+      // unions into the earned map (milestone unification); renown is
+      // RECOMPUTED from the earned set below (the sim is authoritative, the
+      // saved number only feeds a SQL sort index).
+      for (const [deedId, day] of Object.entries(s.deeds ?? {})) {
+        if (typeof day === 'string') meta.deedsEarned.set(deedId, day);
+      }
+      meta.deedStats = restoreDeedStats(s.deedStats);
+      meta.activeTitle = typeof s.activeTitle === 'string' ? s.activeTitle : null;
+      deedsMod.unionLegacyMilestones(meta);
+      deedsMod.recomputeRenown(meta);
     }
 
     // Host-stamped bank bonus slots (see the opt doc above). Applied on BOTH the
@@ -1935,6 +1999,17 @@ export class Sim {
       meta.mailWelcomed = true;
       this.postOffice.sendWelcome(meta);
     }
+    // Book of Deeds retro-on-join, after the saved state is fully restored:
+    // seed the discovery ledger from current holdings, apply the retro
+    // fallbacks a predicate cannot express, then evaluate every predicate
+    // against the loaded state (a pure function of that state and the
+    // catalog: no rng, so join order cannot fork the draw order). Counters
+    // start at zero, so counter deeds never retro-grant; the emitted events
+    // carry retro: true and drain with the next tick to this player only.
+    deedsMod.seedItemDiscovery(this.ctx, meta);
+    deedsMod.retroFallbackGrants(this.ctx, meta);
+    deedsMod.evaluateDeedsFor(this.ctx, meta, player, true);
+    this.deedDirtyPids.delete(player.id);
     return player.id;
   }
 
@@ -2027,6 +2102,8 @@ export class Sim {
     // pet is already persisted by now. Drop the transient stash entry here so the map
     // can't grow unbounded across sessions.
     this.delvePetStash.delete(pid);
+    // Same session hygiene for the deed runtime's per-pid maps.
+    deedsMod.dropDeedSessionState(this.ctx, pid);
     if (this.primaryId === pid)
       this.primaryId = this.players.size > 0 ? [...this.players.keys()][0] : -1;
   }
@@ -2150,6 +2227,16 @@ export class Sim {
       mailWelcomed: meta.mailWelcomed,
       townFocus: { ...meta.townFocus },
       // World-boss lockouts serialize via raidLockouts (above), not a separate field.
+      // Book of Deeds: every field conditional (absent while empty/null/zero)
+      // so pre-deed saves stay byte-equal until the system engages. The
+      // legacy unlockedMilestones above stays dual-written for one release.
+      ...(meta.deedsEarned.size > 0 ? { deeds: Object.fromEntries(meta.deedsEarned) } : {}),
+      ...(() => {
+        const deedStats = serializeDeedStats(meta.deedStats);
+        return deedStats ? { deedStats } : {};
+      })(),
+      ...(meta.activeTitle !== null ? { activeTitle: meta.activeTitle } : {}),
+      ...(meta.renown > 0 ? { renown: meta.renown } : {}),
     };
     return sanitizeRemovedZone1Content(state).state;
   }
@@ -2167,6 +2254,7 @@ export class Sim {
     meta.skinCatalog = catalog;
     e.skin = idx;
     e.skinCatalog = catalog;
+    this.deedDirtyPids.add(meta.entityId); // col_true_colors reads the skin state
     return true;
   }
 
@@ -2179,7 +2267,10 @@ export class Sim {
    *  Sim, so this is a passive display field. Offline/headless leave it ''. */
   setPlayerGuild(pid: number, guild: string): void {
     const e = this.entities.get(pid);
-    if (e) e.guild = guild;
+    if (e) {
+      e.guild = guild;
+      this.deedDirtyPids.add(pid); // soc_guild_joined reads the stamped name
+    }
   }
 
   /** Cosmetic skin-select event: rolls a rarity rank (once) and emits the
@@ -2700,6 +2791,18 @@ export class Sim {
       get vcup() {
         return sim.vcup;
       },
+      // Book of Deeds live views (both mutated in place, never reassigned).
+      get deedDirtyPids() {
+        return sim.deedDirtyPids;
+      },
+      get deedRuntime() {
+        return sim.deedRuntime;
+      },
+      // Offline Fiesta practice-bot roster (fiesta_bots.ts mutates it in place);
+      // the deeds real-bout gate reads it through the seam.
+      get fiestaBotPids() {
+        return sim.fiestaBotPids;
+      },
       // LATE-bound (not .bind(sim)): a moved emit site (C5 meleeSwing/rangedSwing)
       // now emits via ctx.emit, and tests swap (sim as any).emit post-construction to
       // observe events (mob_blind/mob_cleave). An early .bind(sim) would capture the
@@ -3007,6 +3110,14 @@ export class Sim {
       partyCapacity: (party) => sim.party.partyCapacity(party),
       marketListingBelongsTo: (listing, meta) => sim.market.marketListingBelongsTo(listing, meta),
       queueQuestLetter: (questId, pid) => sim.postOffice.queueQuestLetter(questId, pid),
+      // Book of Deeds seam callbacks (owned by deeds.ts). Late-bound arrows so
+      // sim.ctx resolves at call time (the Q1 pattern).
+      bumpDeedStat: (meta, stat, delta) => deedsMod.bumpDeedStat(sim.ctx, meta, stat, delta),
+      markItemDiscovered: (meta, itemId, rolledQuality) =>
+        deedsMod.markItemDiscovered(sim.ctx, meta, itemId, rolledQuality),
+      markVisited: (meta, markId) => deedsMod.markVisited(sim.ctx, meta, markId),
+      markDeedsDirty: (pid) => deedsMod.markDeedsDirty(sim.ctx, pid),
+      grantDeed: (meta, deedId, opts) => deedsMod.grantDeed(sim.ctx, meta, deedId, opts),
       // The Vale Cup sport-move arms (owned by social/vale_cup.ts). Late-bound
       // arrows so sim.ctx resolves at call time (the Q1 pattern).
       vcupBallKick: (caster, power, loft, range) =>
@@ -3073,6 +3184,7 @@ export class Sim {
     if (r.e.resourceType === 'mana') r.e.resource = r.e.maxResource;
     this.refreshKnownAbilities(r.meta, false);
     this.syncPetLevel(r.e);
+    this.deedDirtyPids.add(r.meta.entityId); // level/lifetimeXp predicates re-check
   }
 
   // -------------------------------------------------------------------------
@@ -3090,27 +3202,38 @@ export class Sim {
     return talentPointBudget(this.ctx, pid);
   }
 
+  // A successful talent mutation marks the player deed-dirty from these thin
+  // wrappers (the talent predicates read the persisted allocation), keeping
+  // the extracted module untouched.
+  private markTalentDeeds(ok: boolean, pid?: number): boolean {
+    if (ok) {
+      const r = this.resolve(pid);
+      if (r) this.deedDirtyPids.add(r.meta.entityId);
+    }
+    return ok;
+  }
+
   // Commit a whole staged allocation in one shot (the UI's "Apply"). Rejects any
   // allocation that fails server-side validation with a reason event (FR-4.5).
   applyTalents(alloc: TalentAllocation, pid?: number): boolean {
-    return applyTalentAllocation(this.ctx, alloc, pid);
+    return this.markTalentDeeds(applyTalentAllocation(this.ctx, alloc, pid), pid);
   }
 
   // Spend a single point into a node (incremental API; the UI mostly stages then
   // applies). Validated identically by building + checking a candidate alloc.
   spendTalent(nodeId: string, pid?: number): boolean {
-    return spendTalentPoint(this.ctx, nodeId, pid);
+    return this.markTalentDeeds(spendTalentPoint(this.ctx, nodeId, pid), pid);
   }
 
   // Choose / change specialization. Switching specs drops the previous spec
   // tree's points (they belonged to that tree); the class tree is untouched.
   setSpec(specId: string | null, pid?: number): boolean {
-    return setTalentSpec(this.ctx, specId, pid);
+    return this.markTalentDeeds(setTalentSpec(this.ctx, specId, pid), pid);
   }
 
   // Free respec (out of combat): wipe all talent points. Spec is retained.
   respec(pid?: number): boolean {
-    return respecTalents(this.ctx, pid);
+    return this.markTalentDeeds(respecTalents(this.ctx, pid), pid);
   }
 
   // Save the current build (talents + spec + the given action-bar slot map) as a
@@ -3128,7 +3251,7 @@ export class Sim {
   // Apply a saved loadout's talents (out of combat). The action bar is restored
   // client-side from the loadout's stored slot map. Re-validated server-side.
   switchLoadout(index: number, pid?: number): boolean {
-    return switchTalentLoadout(this.ctx, index, pid);
+    return this.markTalentDeeds(switchTalentLoadout(this.ctx, index, pid), pid);
   }
 
   deleteLoadout(index: number, pid?: number): boolean {
@@ -3212,8 +3335,17 @@ export class Sim {
         this.updatePlayerAutoAttack(p, meta);
         lap?.('p.autoAtk');
         updateRegen(this.ctx, p, meta);
+        // Rested XP feeds one one-shot deed predicate, so only the 0 to
+        // positive transition needs a dirty mark (a resting player must not
+        // stay perpetually dirty for the tick-tail evaluator).
+        const wasUnrested = meta.restedXp === 0;
         updateRested(p, meta);
-        drainGatheringGrants(meta);
+        if (wasUnrested && meta.restedXp > 0) this.deedDirtyPids.add(p.id);
+        if (meta.pendingGatherGrants.length > 0) {
+          drainGatheringGrants(meta);
+          // Proficiency just became visible; the gathering predicates re-check.
+          this.deedDirtyPids.add(p.id);
+        }
         lap?.('p.regen');
       } else if (p.ghost) {
         // A released spirit only runs (boosted speed via moveSpeedMult); it does not
@@ -3299,6 +3431,12 @@ export class Sim {
     lap?.('postOffice');
     drainDelayedEvents(this.ctx);
     lap?.('delayedEv');
+    // The Book of Deeds evaluator runs at the very end of the tail: it sees
+    // same-tick delayed-event results, and because it draws ZERO rng (pure
+    // predicate checks over dirty players plus a 1 Hz proximity sweep) its
+    // position cannot fork the draw order (the Vale Cup tail precedent).
+    deedsMod.updateDeeds(this.ctx);
+    lap?.('deeds');
 
     // movement re-bucketing: queries during the next tick and the server's
     // snapshot broadcast right after this one see fresh cells
@@ -4999,6 +5137,8 @@ export class Sim {
         add.aiState = dist2d(add.pos, victim.pos) > this.mobMeleeRange(add) ? 'chase' : 'attack';
         addThreat(add, victim.id, 1);
       }
+      // Book of Deeds kill-order tasks track every add this attempt summoned.
+      deedsMod.onBossAddsSummonedForDeeds(this.ctx, boss, [add.id]);
     }
   }
 
@@ -5065,6 +5205,9 @@ export class Sim {
     const { meta } = r;
     const def = ITEMS[itemId];
     addStacked(meta.inventory, itemId, count);
+    // Every grant that reaches the hub is an acquisition for the Book of
+    // Deeds discovery ledger (loot, craft, quest reward, vendor, mail, trade).
+    deedsMod.markItemDiscovered(this.ctx, meta, itemId);
     this.emit({
       type: 'loot',
       // biome-ignore lint/style/useTemplate: keep this scanner-friendly shape for i18n extraction.
@@ -5086,6 +5229,9 @@ export class Sim {
     const { meta } = r;
     const def = ITEMS[itemId];
     meta.inventory.push({ itemId, count: 1, instance });
+    // Discovery ledger: the instance's rolled quality (gathered rares) beats
+    // the static def quality for the quality-first marks.
+    deedsMod.markItemDiscovered(this.ctx, meta, itemId, instance.rolled?.quality);
     this.emit({
       type: 'loot',
       text: `You receive: ${def?.name ?? itemId}.`,
@@ -5265,6 +5411,9 @@ export class Sim {
       });
     }
     this.addItem(caught, 1, meta.entityId);
+    // Book of Deeds: a real fish (never weeds or boots) from this zone's
+    // waters feeds the per-zone first-cast mark.
+    deedsMod.onFishCaughtForDeeds(this.ctx, meta, zoneAt(p.pos.z).id, caught);
   }
 
   useItem(itemId: string, pid?: number): ItemUseResult | undefined {
@@ -5463,6 +5612,7 @@ export class Sim {
       return;
     }
     meta.townFocus = result.allocation as Record<string, number>;
+    this.deedDirtyPids.add(meta.entityId); // soc_civic_duty reads the allocation
   }
 
   interact(pid?: number): void {
@@ -5487,6 +5637,9 @@ export class Sim {
       this.error(meta.entityId, "You can't do that while dead.");
       return;
     }
+    // Book of Deeds: chronicler talks feed their visited mark; talking to any
+    // other NPC resets the Saul consecutive-talk counter.
+    deedsMod.onNpcTalkedForDeeds(this.ctx, meta, npc.templateId);
     if (this.interactNpcForQuests(npc, meta)) return;
     for (const qid of npc.questIds) {
       const quest = QUESTS[qid];
