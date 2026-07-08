@@ -14,6 +14,8 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const ru_RU: Partial<Record<TranslationKey, string>> = {
+  'hudChrome.vcup.guildBoardWl': '{wins} побед, {losses} поражений',
+  'hudChrome.vcup.shootPower': 'СИЛА',
   'hudChrome.discord.roleTag.coredevs': 'Ведущий разработчик',
   'hudChrome.options.version': 'v{version} ({build})',
   'auth.emailPlaceholder': 'ivan@example.com',
@@ -30,10 +32,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.toLabel': 'Кому',
   'itemUi.kind.bag': 'Сумка',
   'itemUi.tooltip.bagSlots': 'Сумка на {slots} ячеек',
-  // Guild roster last-seen (M16 non-Latin fill)
   'hudChrome.social.lastSeen': 'Последний вход: {when}',
   'hudChrome.social.lastSeenNever': 'никогда',
-  // Daily rewards (M16 non-Latin fill)
   'hudChrome.dailyRewards.title': 'Ежедневные награды',
   'hudChrome.dailyRewards.close': 'Закрыть ежедневные награды',
   'hudChrome.dailyRewards.loading': 'Загрузка ежедневных наград...',
@@ -240,7 +240,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.interfaceModeTouch': 'Сенсорный',
   'hudChrome.options.interfaceModeNote':
     'В режиме «Авто» управление для компьютера или сенсорное выбирается по вашему устройству. Выберите «Компьютер», чтобы включить клавиатуру и мышь (удобно на планшете с клавиатурой), или «Сенсорный» для экранного управления.',
-  // Character-sheet stat tooltips (hudChrome.statInfo.*).
   'hudChrome.statInfo.fromYour': 'От вашей характеристики ({value} {stat}):',
   'hudChrome.statInfo.names.spellPower': 'Сила заклинаний',
   'hudChrome.statInfo.names.critRating': 'Рейтинг крит. удара',
@@ -334,6 +333,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.jitter': 'Джиттер',
   'hudChrome.perf.labels.predLead': 'Упреждение прогноза',
   'hudChrome.perf.labels.snapshot': 'Частота снимков',
+  'hudChrome.perf.labels.serverTick': 'Частота тиков сервера',
   'hudChrome.perf.labels.connection': 'Соединение',
   'hudChrome.perf.labels.drawCalls': 'Вызовы отрисовки',
   'hudChrome.perf.labels.triangles': 'Треугольники',
@@ -2683,18 +2683,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.auctioneer_voss.title': 'Хранитель мирового рынка',
   'entities.npcs.auctioneer_voss.greeting':
     'Мировой рынок доступен и здесь, {className}. Покупайте у искателей приключений всего королевства или выставляйте свои товары.',
-  'entities.npcs.bursar_fernando.name': 'Казначей Фернандо',
-  'entities.npcs.bursar_fernando.title': 'Золочёный сундук',
-  'entities.npcs.bursar_fernando.greeting':
-    'Добро пожаловать в Золочёный сундук. Ваше добро надёжно хранится за нашими замками.',
-  'entities.npcs.bursar_petra_vell.name': 'Казначей Петра Велль',
-  'entities.npcs.bursar_petra_vell.title': 'Золочёный сундук',
-  'entities.npcs.bursar_petra_vell.greeting':
-    'В Золочёном сундуке чистые счётные книги и ещё более чистые хранилища. Что вам угодно оставить на хранение?',
-  'entities.npcs.bursar_aldous_crane.name': 'Казначей Олдос Крейн',
-  'entities.npcs.bursar_aldous_crane.title': 'Золочёный сундук',
-  'entities.npcs.bursar_aldous_crane.greeting':
-    'Любой ящик, ларец и безделушка в Золочёном сундуке в полной сохранности.',
   'entities.npcs.tidewatcher_ondrel.name': 'Ондрел Вейн',
   'entities.npcs.tidewatcher_ondrel.title': 'Страж приливов',
   'entities.npcs.tidewatcher_ondrel.greeting':
@@ -3357,7 +3345,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'news.prerelease': 'Предварительная версия',
   'news.viewOnGithub': 'Открыть на GitHub',
   'wiki.cta': 'Открыть Вики',
-  // --- qol-changes: character profile, attack-move, login/create labels ---
   'character.portraitAlt': 'Портрет {name}',
   'character.viewProfile': 'Профиль',
   'character.profile': 'Профиль',
@@ -3372,7 +3359,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'auth.chromaOption': 'Расцветка {n}',
   'auth.noAccountPrompt': 'Впервые в мире?',
   'auth.haveAccountPrompt': 'Уже есть аккаунт?',
-
   'entities.items.conjured_bread.name': 'Сотворённая овсяная лепёшка',
   'entities.items.conjured_bread2.name': 'Сотворённый чёрный каравай',
   'entities.items.conjured_bread3.name': 'Сотворённый медовый пряник',
@@ -3433,7 +3419,12 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Топор из древнего дерева',
   'entities.items.goldleaf_sickle.name': 'Золотолистный серп',
   'entities.items.sunpetal_sickle.name': 'Солнцелепестковый серп',
-  // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
+  'entities.items.thorium_ore.name': 'Ториевая руда',
+  'entities.items.arcanite_bar.name': 'Слиток аркана',
+  'entities.items.ashwood_log.name': 'Бревно пепельного дерева',
+  'entities.items.elderwood_log.name': 'Бревно древней бузины',
+  'entities.items.goldleaf_herb.name': 'Трава золотолист',
+  'entities.items.sunpetal_herb.name': 'Трава солнцелепест',
   'hud.core.chatChannels.add': 'Добавить канал чата',
   'hud.core.chatChannels.addTitle': 'Добавить канал',
   'hud.core.chatChannels.close': 'Закрыть вкладку {channel}',
@@ -3698,7 +3689,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.controller.menuAction': 'Игровое меню',
   'hudChrome.controller.help':
     'Левый стик — движение, правый — камера. Откройте окно, чтобы использовать экранный указатель.',
-  // New-adventurer tutorial (PR #729)
   'hud.tutorial.title': 'Новый искатель приключений',
   'hud.tutorial.stepLabel': 'Шаг {current} из {total}',
   'hud.tutorial.skip': 'Пропустить обучение',
@@ -3849,11 +3839,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Ваши данные были скачаны. Мы отправили вам подтверждение по email.',
   'hudChrome.account.exportFailed':
     'Не удалось экспортировать ваши данные. Попробуйте снова через мгновение.',
-  // On-screen quest tracker (hudChrome.questTracker.*): collapsed count badge + header toggle hover hint.
   'hudChrome.questTracker.count': '({count})',
   'hudChrome.questTracker.collapseHint': 'Свернуть трекер заданий',
   'hudChrome.questTracker.expandHint': 'Развернуть трекер заданий',
-  // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.cannotDestroy': 'Этот предмет нельзя уничтожить.',
   'hudChrome.bags.rightClickDestroy': 'Правый клик, чтобы уничтожить',
   'hudChrome.bags.filterGroupAria': 'Фильтровать сумки по категории',
@@ -3874,7 +3862,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.bags.backpack': 'Рюкзак',
   'hudChrome.bags.socketEmpty': 'Пустая ячейка для сумки',
   'hudChrome.bags.unequipHint': 'Нажмите, чтобы снять эту сумку',
-  // Guide (/guide) localization.
   'guide.brand': 'World of ClaudeCraft',
   'guide.brandShort': 'ClaudeCraft',
   'guide.tagline': 'Классическая MMO, в которую можно играть бесплатно прямо в браузере.',
@@ -4269,7 +4256,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.notFound.title': 'Не удалось найти эту страницу',
   'guide.notFound.body': 'Страница, которую вы искали, не существует или могла быть перемещена.',
   'guide.notFound.home': 'Вернуться к обзору',
-  // Guide (/guide) localization.
   'guide.bestiary.heading': 'Бестиарий',
   'guide.bestiary.intro':
     'Существа этого мира, сгруппированные по семействам. Это враги, которых вы встречаете под открытым небом. Самые смертоносные твари ждут, не указанные здесь, за дверями подземелий.',
@@ -4626,7 +4612,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Три зоны, с юга на север, каждая на ступень выше по уровню. Следуйте за цепочкой заданий, и сама земля проведет вас от долины к вершинам.',
   'guide.worldPage.places': 'Примечательные места',
   'guide.worldPage.residents': 'Кого вы встретите',
-  // guide.* enrichment fill (lore, gear, social, stats, economy, progression)
   'guide.arenaPage.powerupsBody':
     'Прямо посреди схватки на арену падают и светящиеся сферы, доступные тому, кто доберётся до них первым. Они нарочно сделаны вызывающе яркими и держатся лишь короткий миг: Демон скорости дарит вспышку слепящей прыти, Колосс раздувает вас в неповоротливого великана, Лунные ботинки превращают шаг в прыжок при пониженной гравитации, а Берсерк дарует внезапный прилив неистовства.',
   'guide.arenaPage.powerupsTitle': 'Усиления на ринге',
@@ -4667,13 +4652,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.dungeonsPage.templeLoreBody':
     'У храма есть своя легенда, что древнее культа, за которым вы гонитесь в иных местах. На берегу Глиммермира, озерца, что пьёт лунный свет и возвращает утопленников, одинокий страж хранит врата бледного сияния. Под поверхностью к ним ведёт лестница из холодного камня. Те, кто канул там, утонули не по злосчастной случайности: то был Бледный Хор, ушедший под воду в молитве и не переставший петь. Старые хранители нацарапали на скалах единственное предостережение, прежде чем вода забрала их, молитву чему-то, что они звали Утонувшей луной, а более твёрдая рука приписала под ней два слова: она лишь спит.',
   'guide.dungeonsPage.templeLoreTitle': 'Утонувший храм, чуть глубже',
-  'guide.economy.bankBody':
-    'В каждом узловом городе есть отделение Золочёного сундука, банкирского дома этих земель. Поговорите с казначеем, и он откроет ваше хранилище: личный запас места помимо сумок, который остаётся за персонажем навсегда. Всё, что вы оставили, будет спокойно ждать вас в любом отделении.',
-  'guide.economy.bankHow':
-    'Пока хранилище открыто, щёлкните предмет в сумках, чтобы положить его, и щёлкните предмет в хранилище, чтобы забрать обратно. Хранилище принимает только вещи, но не монеты, а квестовые предметы всегда остаются при вас. Если сумки переполнились в дороге, отдельная кнопка разом убирает все ремесленные материалы.',
-  'guide.economy.bankSlots':
-    'Свежее хранилище невелико, но растёт вместе с вами. Казначей продаёт дополнительные ячейки за монеты, и каждая следующая ступень дороже прежней. Игра онлайн приносит и бонусное место: за подтверждённую почту, привязанные аккаунты и друзей, которых вы привели в игру.',
-  'guide.economy.bankTitle': 'Банк',
   'guide.economy.buyingBody':
     'Встаньте рядом с торговцем, чтобы открыть его окно. Вы можете купить всё, что у него в запасе, если хватит средств, и продать за монеты почти всё из своих сумок. Если вы продали что-то по ошибке, торговец придержит ваши недавние продажи, чтобы вы могли выкупить их обратно.',
   'guide.economy.buyingTitle': 'Покупка и продажа',
@@ -4989,7 +4967,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.worldPage.gladeTitle': 'Тихий уголок: Поляна Брайтвуда',
   'guide.worldPage.gladeBody':
     'Не всякая история в Vale рассказывает о мёртвых. На севере солнечная роща под названием Brightwood Glade живёт в собственном, более мягком ритме: сплошь тихие тропы и пятнистый свет под ветвями. Это спокойный контрапункт следу, по которому вы идёте, и его стоит увидеть, когда дорога даст время побродить.',
-  // APM telemetry label from release/v0.14.0
   'hudChrome.perf.labels.apm': 'APM',
   'entities.zones.eastbrook_vale.pois.9.label': 'Поляна Брайтвуда',
   'entities.items.reliquary_plate_chest.name': 'Хауберк стражи реликвария',
@@ -5375,7 +5352,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'распускает «{name}», периодическое исцеление, восполняя {total} за {duration} сек',
   'hudChrome.itemSet.bonusLine': '({pieces}) {bonus}',
   'hudChrome.abilityScaling.bonus': '(+{value})',
-  // Discord integration (two-way login, rewards, relay, in-game flair).
   'hudChrome.discord.close': 'Закрыть',
   'hudChrome.discord.keybind': 'Панель Discord',
   'hudChrome.discord.disabled': 'Интеграция с Discord сейчас недоступна.',
@@ -5495,7 +5471,15 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.relay.wts.label': 'Продам',
   'hudChrome.discord.relay.wtb.label': 'Куплю',
   'hudChrome.discord.relay.help.label': 'Нужна помощь',
-  // Developer badge (M16 non-Latin fills).
+  'hudChrome.crafting.title': 'Крафт',
+  'hudChrome.crafting.close': 'Закрыть крафт',
+  'hudChrome.crafting.craft': 'Создать',
+  'hudChrome.crafting.reagentsNeeded': 'Требуется:',
+  'hudChrome.crafting.empty': 'Известных рецептов пока нет.',
+  'hudChrome.crafting.resultAria': 'Создать {name}',
+  'hudChrome.crafting.craftedToast': 'Создано: {name}',
+  'hudChrome.crafting.insufficientMaterials': 'У вас недостаточно материалов.',
+  'hudChrome.crafting.unknownRecipe': 'Такого рецепта не существует.',
   'hudChrome.devBadge.title': 'Разработчик',
   'hudChrome.devBadge.tiers.tinkerer': 'Мастеровой',
   'hudChrome.devBadge.tiers.artificer': 'Искусник',
@@ -5535,7 +5519,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'desktop.crash.quit': 'Выйти',
   'desktop.crash.fatalBody':
     'World of ClaudeCraft столкнулась с непредвиденной ошибкой и будет закрыта.',
-  // Map editor (/editor), added with the editor catalog domain.
   'editor.appTitle': 'Редактор карт',
   'editor.docTitle': 'Редактор карт - World of ClaudeCraft',
   'editor.untitledMap': 'Карта без названия',
@@ -6059,15 +6042,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.dailyRewards.remainingMinutes': '{minutes}м',
   'hudChrome.dailyRewards.sol': '{amount} SOL',
   'hudChrome.dailyRewards.usd': '{amount} USD',
-  'hudChrome.crafting.title': 'Крафт',
-  'hudChrome.crafting.close': 'Закрыть крафт',
-  'hudChrome.crafting.craft': 'Создать',
-  'hudChrome.crafting.reagentsNeeded': 'Требуется:',
-  'hudChrome.crafting.empty': 'Известных рецептов пока нет.',
-  'hudChrome.crafting.resultAria': 'Создать {name}',
-  'hudChrome.crafting.craftedToast': 'Создано: {name}',
-  'hudChrome.crafting.insufficientMaterials': 'У вас недостаточно материалов.',
-  'hudChrome.crafting.unknownRecipe': 'Такого рецепта не существует.',
   'guide.professions.intro':
     'Помимо боя и заданий, мир вознаграждает и тех, кто трудится на земле и у горна: собирайте сырье, превращайте его в снаряжение на ремесленных станциях десяти разных ремесел и обретайте одну из десяти призваний, которые эти ремесла олицетворяют.',
   'guide.professions.gatherTitle': 'Сбор: горное дело, лесозаготовка и травничество',
@@ -6109,7 +6083,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.professions.archetypeIdentityTitle': 'Что значит ваше призвание',
   'guide.professions.archetypeIdentityBody':
     'Ваше текущее призвание — это заявление о том, кем является ваш персонаж в этом мире, отражающееся в том, как к вам обращаются другие и сам мир. Конкретные награды и признание, связанные с ним, еще уточняются; загляните позже, когда система будет доработана.',
-  // apiError.* server error-code catalog (M16 non-Latin fill, Phase 22)
   'apiError.validation.failed':
     'Некоторые поля заполнены неверно. Проверьте форму и попробуйте снова.',
   'apiError.json.malformed': 'Не удалось прочитать запрос. Повторите попытку.',
@@ -6173,52 +6146,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'apiError.discord.swag_claimed': 'Вы уже получили эту награду.',
   'apiError.discord.swag_tier': 'Достигните более высокого ранга, чтобы получить это.',
   'apiError.discord.swag_points': 'Недостаточно очков.',
-  // The Ravenpost mailbox (M16 non-Latin fill)
   'hudChrome.mailbox.title': 'Почтовый ящик',
   'hudChrome.mailbox.subtitle': 'Вороновая почта',
-  'hudChrome.bank.title': 'Банк',
-  'hudChrome.bank.subtitle': 'Золочёный сундук',
-  'hudChrome.bank.close': 'Закрыть банк',
-  'hudChrome.bank.capacity': '{used}/{total}',
-  'hudChrome.bank.capacityAria': 'Занято ячеек банка: {used} из {total}',
-  'hudChrome.bank.empty': 'Ваш банк пуст.',
-  'hudChrome.bank.tooFar': 'Чтобы открыть банк, нужно стоять у банкира.',
-  'hudChrome.bank.buySlots': 'Купить {count} ячеек',
-  'hudChrome.bank.buySlotsMaxed': 'Полностью расширен',
-  'hudChrome.bank.buyConfirm': 'Купить {count} дополнительных ячеек банка за {price}?',
-  'hudChrome.bank.buyConfirmAccept': 'Купить',
-  'hudChrome.bank.withdrawHint': 'Нажмите, чтобы забрать',
-  'hudChrome.bank.withdrawPartialHint': 'Shift+клик, чтобы забрать часть',
-  'hudChrome.bank.depositHint': 'Нажмите, чтобы положить',
-  'hudChrome.bank.depositPartialHint': 'Shift+клик, чтобы положить часть',
-  'hudChrome.bank.cannotDeposit': 'Нельзя хранить в банке',
-  'hudChrome.bank.depositQuantityTitle': 'Положить {item}',
-  'hudChrome.bank.depositQuantityInput': 'Количество для внесения',
-  'hudChrome.bank.depositQuantityConfirm': 'Положить',
-  'hudChrome.bank.withdrawQuantityTitle': 'Забрать {item}',
-  'hudChrome.bank.withdrawQuantityInput': 'Количество для получения',
-  'hudChrome.bank.withdrawQuantityConfirm': 'Забрать',
-  'hudChrome.bank.filterGroupAria': 'Фильтровать банк по категории',
-  'hudChrome.bank.sortAria': 'Сортировать предметы в банке',
-  'hudChrome.bank.searchAria': 'Поиск предметов в банке по названию',
-  'hudChrome.bank.depositAll': 'Положить все материалы',
-  'hudChrome.bank.depositAllDone': 'Материалов положено: {count}.',
-  'hudChrome.bank.depositAllFull': 'Материалов положено: {count}. Банк заполнен.',
-  'hudChrome.bank.depositAllNone': 'Банк заполнен: ничего не положено.',
-  'hudChrome.bank.bonusTitle': 'Бонусные ячейки',
-  'hudChrome.bank.bonusEarned': '+{count}',
-  'hudChrome.bank.bonusStatusEarned': '+{count}',
-  'hudChrome.bank.bonusSourceEmail': 'Почта подтверждена',
-  'hudChrome.bank.bonusSourceDiscord': 'Discord привязан',
-  'hudChrome.bank.bonusSourceWallet': 'Кошелёк привязан',
-  'hudChrome.bank.bonusSourceReferral': 'Приглашённые друзья',
-  'hudChrome.bank.bonusAdvertEmail': 'Подтвердите почту, чтобы получить 2 ячейки.',
-  'hudChrome.bank.bonusAdvertDiscord': 'Привяжите Discord, чтобы получить 2 ячейки.',
-  'hudChrome.bank.bonusAdvertWallet': 'Привяжите кошелёк, чтобы получить 2 ячейки.',
-  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
-  'hudChrome.bank.bonusReferralExplainer':
-    'Пригласите друга: когда он достигнет 10 уровня, вы оба получите по 2 ячейки, до 5 друзей.',
-  'hudChrome.bank.bonusSectionAria': 'Бонусные ячейки банка и способы их получить',
   'hudChrome.mailbox.close': 'Закрыть почтовый ящик',
   'hudChrome.mailbox.tabInbox': 'Входящие',
   'hudChrome.mailbox.tabInboxWithCount': 'Входящие ({count})',
@@ -6260,7 +6189,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.result.letterGone': 'Этого письма больше нет в вашем ящике.',
   'hudChrome.mailbox.result.takeParcelsFirst': 'Сначала заберите посылки, затем удаляйте письмо.',
   'worldContent.mailboxName': 'Почтовый ящик',
-  // Ravenpost authored letters (M16 non-Latin fill)
   'entities.letters.ravenpost_welcome.sender': 'Вороновая почта',
   'entities.letters.ravenpost_welcome.subject': 'Теперь вороны летают и для вас',
   'entities.letters.ravenpost_welcome.body':
@@ -6277,7 +6205,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.letters.letter_q_hollow.subject': 'То, что вы совершили во тьме',
   'entities.letters.letter_q_hollow.body':
     'Мало кто узнает, что было погребено в той лощине, и ещё меньше тех, кто поверит. Я знаю и не забуду.\n\nПусть ваша дорога будет светла.\n- Брат Алдрик',
-  // Event calendar (M16 non-Latin fill)
   'hudChrome.calendar.title': 'Календарь событий',
   'hudChrome.calendar.close': 'Закрыть календарь',
   'hudChrome.calendar.keybindLabel': 'Календарь событий',
@@ -6340,13 +6267,11 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.archetypeTitle.enchanting': 'Зачарователь',
   'hudChrome.archetypeTitle.tailoring': 'Портной',
   'hudChrome.archetypeTitle.leatherworking': 'Кожевник',
-  // Release v0.22.0 locale fill.
   'hudChrome.crafting.reagentLine': '{name}: {have}/{required}',
   'hudChrome.crafting.comboRequirementUnmet':
     'У вас нет обоих требуемых ремесел нужного уровня для этого рецепта.',
   'hudChrome.mobile.actionPageIndicator': 'Стр. {page}',
   'hudChrome.mobile.spellbookPageLabel': 'Страница {page}',
-  // The Vale Cup boarball minigame (docs/prd/vale-cup.md).
   'hudChrome.keybinds.valecup': 'Кубок Долины',
   'hudChrome.vcup.title': 'Кубок Долины',
   'hudChrome.vcup.close': 'Закрыть окно Кубка Долины',
@@ -6516,7 +6441,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.groundskeeper_bram.greeting':
     'На Свином поле действует перемирие, {className}: только ноги и плечи. Сыграем за Медное ведро?',
   'entities.zones.eastbrook_vale.pois.10.label': 'Свиное поле',
-  // The Vale Cup sport kit ability names + descriptions.
   'entities.abilities.sport_kick.name': 'Удар',
   'entities.abilities.sport_kick.description': 'Катит мяч по земле к точке прицела.',
   'entities.abilities.sport_shoot.name': 'Удар по воротам',
@@ -6543,6 +6467,66 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.sport_second_wind.name': 'Второе дыхание',
   'entities.abilities.sport_second_wind.description':
     'Обретите ноги: скорость передвижения повышена на 50% на 4 сек.',
-  'hudChrome.vcup.guildBoardWl': '{wins} В, {losses} П',
-  'hudChrome.vcup.shootPower': 'СИЛА',
+  'entities.npcs.bursar_fernando.name': 'Казначей Фернандо',
+  'entities.npcs.bursar_fernando.title': 'Золочёный сундук',
+  'entities.npcs.bursar_fernando.greeting':
+    'Добро пожаловать в Золочёный сундук. Ваше добро надёжно хранится за нашими замками.',
+  'entities.npcs.bursar_petra_vell.name': 'Казначей Петра Велль',
+  'entities.npcs.bursar_petra_vell.title': 'Золочёный сундук',
+  'entities.npcs.bursar_petra_vell.greeting':
+    'В Золочёном сундуке чистые счётные книги и ещё более чистые хранилища. Что вам угодно оставить на хранение?',
+  'entities.npcs.bursar_aldous_crane.name': 'Казначей Олдос Крейн',
+  'entities.npcs.bursar_aldous_crane.title': 'Золочёный сундук',
+  'entities.npcs.bursar_aldous_crane.greeting':
+    'Любой ящик, ларец и безделушка в Золочёном сундуке в полной сохранности.',
+  'guide.economy.bankBody':
+    'В каждом узловом городе есть отделение Золочёного сундука, банкирского дома этих земель. Поговорите с казначеем, и он откроет ваше хранилище: личный запас места помимо сумок, который остаётся за персонажем навсегда. Всё, что вы оставили, будет спокойно ждать вас в любом отделении.',
+  'guide.economy.bankHow':
+    'Пока хранилище открыто, щёлкните предмет в сумках, чтобы положить его, и щёлкните предмет в хранилище, чтобы забрать обратно. Хранилище принимает только вещи, но не монеты, а квестовые предметы всегда остаются при вас. Если сумки переполнились в дороге, отдельная кнопка разом убирает все ремесленные материалы.',
+  'guide.economy.bankSlots':
+    'Свежее хранилище невелико, но растёт вместе с вами. Казначей продаёт дополнительные ячейки за монеты, и каждая следующая ступень дороже прежней. Игра онлайн приносит и бонусное место: за подтверждённую почту, привязанные аккаунты и друзей, которых вы привели в игру.',
+  'guide.economy.bankTitle': 'Банк',
+  'hudChrome.bank.title': 'Банк',
+  'hudChrome.bank.subtitle': 'Золочёный сундук',
+  'hudChrome.bank.close': 'Закрыть банк',
+  'hudChrome.bank.capacity': '{used}/{total}',
+  'hudChrome.bank.capacityAria': 'Занято ячеек банка: {used} из {total}',
+  'hudChrome.bank.empty': 'Ваш банк пуст.',
+  'hudChrome.bank.tooFar': 'Чтобы открыть банк, нужно стоять у банкира.',
+  'hudChrome.bank.buySlots': 'Купить {count} ячеек',
+  'hudChrome.bank.buySlotsMaxed': 'Полностью расширен',
+  'hudChrome.bank.buyConfirm': 'Купить {count} дополнительных ячеек банка за {price}?',
+  'hudChrome.bank.buyConfirmAccept': 'Купить',
+  'hudChrome.bank.withdrawHint': 'Нажмите, чтобы забрать',
+  'hudChrome.bank.withdrawPartialHint': 'Shift+клик, чтобы забрать часть',
+  'hudChrome.bank.depositHint': 'Нажмите, чтобы положить',
+  'hudChrome.bank.depositPartialHint': 'Shift+клик, чтобы положить часть',
+  'hudChrome.bank.cannotDeposit': 'Нельзя хранить в банке',
+  'hudChrome.bank.depositQuantityTitle': 'Положить {item}',
+  'hudChrome.bank.depositQuantityInput': 'Количество для внесения',
+  'hudChrome.bank.depositQuantityConfirm': 'Положить',
+  'hudChrome.bank.withdrawQuantityTitle': 'Забрать {item}',
+  'hudChrome.bank.withdrawQuantityInput': 'Количество для получения',
+  'hudChrome.bank.withdrawQuantityConfirm': 'Забрать',
+  'hudChrome.bank.filterGroupAria': 'Фильтровать банк по категории',
+  'hudChrome.bank.sortAria': 'Сортировать предметы в банке',
+  'hudChrome.bank.searchAria': 'Поиск предметов в банке по названию',
+  'hudChrome.bank.depositAll': 'Положить все материалы',
+  'hudChrome.bank.depositAllDone': 'Материалов положено: {count}.',
+  'hudChrome.bank.depositAllFull': 'Материалов положено: {count}. Банк заполнен.',
+  'hudChrome.bank.depositAllNone': 'Банк заполнен: ничего не положено.',
+  'hudChrome.bank.bonusTitle': 'Бонусные ячейки',
+  'hudChrome.bank.bonusEarned': '+{count}',
+  'hudChrome.bank.bonusStatusEarned': '+{count}',
+  'hudChrome.bank.bonusSourceEmail': 'Почта подтверждена',
+  'hudChrome.bank.bonusSourceDiscord': 'Discord привязан',
+  'hudChrome.bank.bonusSourceWallet': 'Кошелёк привязан',
+  'hudChrome.bank.bonusSourceReferral': 'Приглашённые друзья',
+  'hudChrome.bank.bonusAdvertEmail': 'Подтвердите почту, чтобы получить 2 ячейки.',
+  'hudChrome.bank.bonusAdvertDiscord': 'Привяжите Discord, чтобы получить 2 ячейки.',
+  'hudChrome.bank.bonusAdvertWallet': 'Привяжите кошелёк, чтобы получить 2 ячейки.',
+  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
+  'hudChrome.bank.bonusReferralExplainer':
+    'Пригласите друга: когда он достигнет 10 уровня, вы оба получите по 2 ячейки, до 5 друзей.',
+  'hudChrome.bank.bonusSectionAria': 'Бонусные ячейки банка и способы их получить',
 };

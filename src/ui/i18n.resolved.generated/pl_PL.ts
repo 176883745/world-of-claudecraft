@@ -398,14 +398,14 @@ export const pl_PL: EnTranslations = {
     },
     "vcup": {
       "title": "Puchar Doliny",
-      "shootPower": "SIŁA",
+      "shootPower": "MOC",
       "close": "Zamknij okno Pucharu Doliny",
       "offlineNote": "Księga rozgrywek jest zamknięta. Puchar Doliny jest teraz niedostępny.",
-      "recordLine": "Twój bilans: {wins} zwycięstw, {losses} porażek, {draws} remisów.",
-      "bracketsAria": "Przedział meczu",
+      "recordLine": "Twój bilans: zwycięstwa {wins}, porażki {losses}, remisy {draws}.",
+      "bracketsAria": "Format meczu",
       "bracketLabel": "{n} na {n}",
       "waitingCount": "Oczekuje: {count}",
-      "nationsHeading": "Nacja",
+      "nationsHeading": "Sztandar nacji",
       "nation": {
         "vale": "Dolina Wschodniego Strumienia",
         "mirefen": "Mokrzaw",
@@ -420,48 +420,48 @@ export const pl_PL: EnTranslations = {
       "rolesHeading": "Rola sportowa",
       "role": {
         "allrounder": {
-          "name": "Uniwersalny",
-          "desc": "Wszystkiego po trochu: kopnięcie, świeca i uczciwy blok barkiem."
+          "name": "Wszechstronny",
+          "desc": "Wszystkiego po trochu: kopnięcie, wykop i uczciwy bark."
         },
         "striker": {
           "name": "Napastnik",
-          "desc": "Żyje dla świecy i szybkiego zwodu."
+          "desc": "Żyje dla dalekiego wykopu i szybkiego zwodu."
         },
         "sweeper": {
-          "name": "Obrońca",
-          "desc": "Spycha biegnących z piłki i wybija ją lagą."
+          "name": "Libero",
+          "desc": "Odpycha biegnących od piłki i wybija ją daleko."
         },
         "keeper": {
           "name": "Bramkarz",
-          "desc": "Strzeże pola bramkowego chwytem, nurkowaniem i wykopem."
+          "desc": "Strzeże pola bramkowego chwytem, rzutem i wybiciem."
         }
       },
       "queue": "Dołącz do kolejki",
       "leaveQueue": "Opuść kolejkę",
-      "queueNote": "Do kolejki dołączysz skądkolwiek; gwizdek wezwie cię na Pole Maciory.",
-      "queuedStatus": "W kolejce do przedziału {bracket}: pozycja {position} z {count}.",
-      "blockNation": "Najpierw wybierz nację sztandaru.",
-      "blockPartySize": "Ten przedział wymaga mniejszej drużyny.",
+      "queueNote": "Do kolejki dołączysz z dowolnego miejsca; gwizdek wezwie cię na Maciorowe Błonie.",
+      "queuedStatus": "W kolejce do {bracket}: miejsce {position} z {count}.",
+      "blockNation": "Najpierw wybierz sztandar nacji.",
+      "blockPartySize": "Ten format wymaga mniejszej drużyny.",
       "blockNotLeader": "Tylko przywódca drużyny może zapisać zespół do kolejki.",
       "inMatchNote": "Twoja drużyna jest na boisku. Graj dalej!",
-      "deserterNote": "Gospodarz pamięta. Do kolejki możesz wrócić za {seconds} s.",
-      "liveHeading": "Teraz na Polu Maciory",
+      "deserterNote": "Opiekun Murawy pamięta. Do kolejki wrócisz za {seconds} s.",
+      "liveHeading": "Teraz na Maciorowym Błoniu",
       "liveAria": "Puchar Doliny: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Podejdź na Pole Maciory, aby oglądać z trybun.",
-      "noLive": "Na boisku panuje cisza. Nie trwa żaden mecz.",
+      "walkUp": "Podejdź na Maciorowe Błonie, aby oglądać z trybun.",
+      "noLive": "Na boisku cisza. Żaden mecz się nie toczy.",
       "boardHeading": "Tablica zwycięzców",
-      "boardEmpty": "Nie zapisano jeszcze żadnych zwycięzców. Miedziany Skopek czeka.",
-      "boardWins": "{count} zwycięstw",
+      "boardEmpty": "Nie zapisano jeszcze zwycięzców. Miedziany Skopek czeka.",
+      "boardWins": "zwycięstwa: {count}",
       "enterAsGuild": "Wystąp pod sztandarem gildii {guild}",
-      "guildRecordLine": "Bilans twojej gildii: {wins} zwycięstw, {losses} porażek.",
+      "guildRecordLine": "Bilans twojej gildii: zwycięstwa {wins}, porażki {losses}.",
       "guildBoardHeading": "Sztandary gildii",
-      "guildBoardEmpty": "Żadna gildia nie wyszła jeszcze na boisko. Zatknij swój sztandar!",
+      "guildBoardEmpty": "Żadna gildia nie wyszła jeszcze na boisko. Wznieś swój sztandar!",
       "guildBoardWl": "{wins} Z, {losses} P",
       "practice": "Trening z botami",
       "practiceNote": "Od razu rozpoczyna prywatny mecz z botami na twoim własnym boisku treningowym.",
-      "practicingNow": "Właśnie trenują ({count}):",
+      "practicingNow": "Trenują teraz ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Kolejka Pucharu Doliny: {bracket}, pozycja {position} z {count}",
+      "indicatorQueued": "Kolejka Pucharu Doliny: {bracket}, miejsce {position} z {count}",
       "indicatorLive": "Puchar Doliny",
       "indicatorOpen": "Otwórz okno Pucharu Doliny",
       "phaseCountdown": "Rozpoczęcie za {seconds}",
@@ -469,39 +469,39 @@ export const pl_PL: EnTranslations = {
       "phaseGolden": "ZŁOTY GOL",
       "phaseOver": "KONIEC MECZU",
       "bannerFound": "Puchar Doliny wzywa: {nationA} kontra {nationB}!",
-      "bannerCountdown": "Rozpoczęcie za {seconds}...",
-      "bannerKickoff": "ZACZYNAMY!",
+      "bannerCountdown": "Pierwszy gwizdek za {seconds}...",
+      "bannerKickoff": "ROZPOCZĘCIE!",
       "bannerGoal": "GOL! {nation} zdobywa bramkę!",
       "bannerSave": "{name} BRONI!",
       "bannerGolden": "ZŁOTY GOL: następna bramka wygrywa!",
       "bannerEnd": "Koniec meczu: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Zwycięstwo na Polu Maciory!",
-      "bannerDraw": "Remis na Polu Maciory.",
-      "bannerLoss": "Porażka na Polu Maciory.",
-      "logQueued": "Dołączasz do kolejki Pucharu Doliny w przedziale {bracket} (pozycja {position}).",
+      "bannerWin": "Zwycięstwo na Maciorowym Błoniu!",
+      "bannerDraw": "Remis na Maciorowym Błoniu.",
+      "bannerLoss": "Porażka na Maciorowym Błoniu.",
+      "logQueued": "Dołączasz do kolejki Pucharu Doliny w formacie {bracket} (miejsce {position}).",
       "logUnqueued": "Opuszczasz kolejkę Pucharu Doliny.",
       "logFound": "Twój mecz Pucharu Doliny jest gotowy: {nationA} kontra {nationB}.",
       "logRoster": "Twoja strona: {allies}. Ich strona: {enemies}.",
-      "logGoal": "{name} zdobywa gola dla drużyny {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} broni strzał!",
-      "logWin": "Wygrywasz potyczkę na Polu Maciory.",
-      "logDraw": "Potyczka na Polu Maciory kończy się remisem.",
-      "logLoss": "Przegrywasz potyczkę na Polu Maciory.",
+      "logGoal": "{name} zdobywa gola dla {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
+      "logSave": "{name} broni!",
+      "logWin": "Wygrywasz starcie na Maciorowym Błoniu.",
+      "logDraw": "Starcie na Maciorowym Błoniu kończy się remisem.",
+      "logLoss": "Przegrywasz starcie na Maciorowym Błoniu.",
       "gossipOpen": "Księga rozgrywek",
       "gossipOpenAria": "Otwórz okno Pucharu Doliny",
       "mobileLabel": "Puchar",
       "briefing": {
         "subtitle": "Odprawa przedmeczowa",
         "vs": "kontra",
-        "rulesHeading": "Zasady gry",
+        "rulesHeading": "Jak grać",
         "rule1": "Kopnij lub podaj piłkę do bramki przeciwnika, aby zdobyć gola.",
         "rule2": "Wygrywa strona, która pierwsza zdobędzie 5 goli, albo ta z większą liczbą goli po końcowym gwizdku.",
         "rule3": "Remis po końcowym gwizdku przechodzi w złotego gola: następna bramka wygrywa.",
-        "rule4": "Bloki tylko cię przewracają. Pod żniwnym rozejmem nikt nie robi sobie krzywdy.",
+        "rule4": "Wślizgi tylko cię przewracają. Podczas żniwnego rozejmu nikomu nie dzieje się krzywda.",
         "rule5": "Każdy może podejść i kibicować ci z trybun.",
         "kitHeading": "Twój zestaw",
         "kitNote": "Te zagrania zastępują twoje umiejętności klasowe na czas meczu.",
-        "rosterHeading": "Skład drużyny",
+        "rosterHeading": "Skład drużyn",
         "you": "Ty",
         "bot": "Bot",
         "ready": "Zgłaszam gotowość",
@@ -517,19 +517,19 @@ export const pl_PL: EnTranslations = {
         "closesIn": "Zakłady zamykają się za {seconds} s",
         "closed": "Zakłady zamknięte",
         "prize": "Pula {amount}",
-        "splitAria": "Udział każdej drużyny w puli zakładów",
-        "expand": "Zobacz zakłady i obstawiaj",
+        "splitAria": "Udział puli zakładów na każdą z drużyn",
+        "expand": "Zobacz zakłady i obstaw",
         "collapse": "Ukryj zakłady",
-        "oddsLabel": "Wypłata",
-        "back": "Postaw na: {team}",
+        "oddsLabel": "Kurs",
+        "back": "Postaw na {team}",
         "form": "{wins}Z-{losses}P",
-        "mine": "Twój zakład: {amount} na drużynę {team}",
+        "mine": "Twój zakład: {amount} na {team}",
         "none": "Nie masz jeszcze zakładu na ten mecz.",
         "record": "Bilans zakładów: {wins}Z-{losses}P, {sign}{net}",
         "wonBanner": "Twój zakład wygrał!",
-        "wonLog": "Twój zakład w Pucharze Doliny wygrał: otrzymujesz {amount}.",
+        "wonLog": "Twój zakład w Pucharze Doliny wygrał: zwrócono {amount}.",
         "lostLog": "Twój zakład w Pucharze Doliny przegrał: {amount}.",
-        "refundLog": "Zakłady unieważnione, twoja stawka {amount} wróciła do ciebie."
+        "refundLog": "Zakłady unieważnione, twoja stawka {amount} została zwrócona."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const pl_PL: EnTranslations = {
         "jitter": "Drżenie",
         "predLead": "Wyprzedzenie predykcji",
         "snapshot": "Częstotliwość migawek",
+        "serverTick": "Częstotliwość tików serwera",
         "connection": "Połączenie",
         "drawCalls": "Wywołania rysowania",
         "triangles": "Trójkąty",
@@ -919,13 +920,13 @@ export const pl_PL: EnTranslations = {
       }
     },
     "townFocus": {
-      "title": "Skupienie miasta",
-      "hint": "Punkty skupienia dodają premię ponad bazowy uzysk każdego obiektu. Obiekty bez skupienia pozostają na poziomie bazowym.",
+      "title": "Priorytety miasta",
+      "hint": "Punkty priorytetu dodają premię ponad bazowy uzysk każdego elementu. Elementy bez priorytetu pozostają na poziomie bazowym.",
       "budgetLabel": "Pozostałe punkty: {remaining} / {budget}",
-      "saveButton": "Zapisz skupienie",
-      "notInTownHint": "Musisz być w mieście, aby ustawić skupienie.",
-      "increaseAria": "Zwiększ skupienie na: {component}",
-      "decreaseAria": "Zmniejsz skupienie na: {component}"
+      "saveButton": "Zapisz priorytety",
+      "notInTownHint": "Musisz być w mieście, aby ustawić priorytety.",
+      "increaseAria": "Zwiększ priorytet: {component}",
+      "decreaseAria": "Zmniejsz priorytet: {component}"
     },
     "party": {
       "promoteLeader": "Mianuj przywódcą",
@@ -2223,29 +2224,29 @@ export const pl_PL: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Puchar Doliny",
-      "intro": "Dzikówka na Polu Maciory: wybierz sztandar, wybierz rolę i poślij wypchaną dziczą skórę obok bramkarza, by zdobyć Miedziany Skopek. Bez krwi, bez łupów, tylko ryk trybun.",
-      "loreHeading": "Dzikówka i żniwny rozejm",
-      "loreOldSow": "Na długo zanim zbudzili się umarli, parobcy ze Wschodniego Strumienia grywali w dzikówkę na ścierniskach po żniwach: dwie gromady, jedna dzicza skóra wypchana słomą i dwie wozowe bramy zaciągnięte na oba końce błonia. Pierwsza piłka, Stara Maciora, wisi odlana w brązie nad kominkiem karczmy.",
-      "loreTruce": "Gdy Popielne Koloseum zaczęło urządzać wojenne igrzyska, marszałek Redbrook odpowiedział czymś łagodniejszym: stałym żniwnym rozejmem na starym błoniu. Wozowe bramy stały się słupkami, błonie zyskało mury, trybuny i nazwę, Pole Maciory, a nagrodą zawsze był ten sam poobijany skopek na mleko, z którego pili zwycięzcy: Miedziany Skopek.",
+      "intro": "Dzicza piłka na Maciorowym Błoniu: wybierz sztandar, wybierz rolę i kopnij wypchaną dziczą skórę za plecy bramkarza, by zdobyć Miedziany Skopek. Bez krwi, bez łupów, tylko ryk trybun.",
+      "loreHeading": "Dzicza piłka i żniwny rozejm",
+      "loreOldSow": "Na długo zanim zbudzili się umarli, parobkowie z Eastbrook grali w dziczą piłkę na ścierniskach po żniwach: dwie gromady, jedna dzicza skóra wypchana słomą i dwie wozowe bramy zaciągnięte na oba końce błonia. Pierwsza piłka, Stara Maciora, wisi odlana w brązie nad kominkiem tawerny.",
+      "loreTruce": "Gdy Popielne Koloseum zaczęło urządzać wojenne igrzyska, Marszałek Redbrook odpowiedział czymś łagodniejszym: stałym żniwnym rozejmem na starym błoniu. Wozowe bramy stały się słupkami, błonie zyskało mury, trybuny i nazwę, Maciorowe Błonie, a nagrodą zawsze był ten sam wgnieciony skopek na mleko, z którego pili zwycięzcy: Miedziany Skopek.",
       "howHeading": "Jak grać",
-      "howQueue": "Do kolejki dołączysz skądkolwiek przez okno Pucharu Doliny albo porozmawiaj z Gospodarzem Bramem przy wejściu na Pole Maciory. Wybierz przedział, od jednego do pięciu graczy na stronę, nację, pod której sztandarem zagrasz, i rolę sportową; stań w kolejce w pojedynkę albo zabierz swoją drużynę.",
-      "howMatch": "Przy pierwszym gwizdku twój klasowy zestaw umiejętności zostaje podmieniony na sportowy, a po meczu wraca dokładnie taki, jaki był. Kopnięcia celują w celownik na ziemi, piłka odbija się od band, a drybling to po prostu bieg z piłką. Zdobądź więcej goli niż druga strona przed końcowym gwizdkiem; remis przechodzi w złotego gola.",
-      "howTruce": "Na Polu Maciory nikt nie krwawi: bloki tylko przewracają, nic nie boli, a zwierzęta przesiedzą mecz na ławce.",
-      "spectateBody": "Na stadionie toczy się jeden mecz naraz, a każdy może podejść i oglądać z trybun.",
-      "nationsHeading": "Osiem nacji i ich sztandary",
-      "nationsBody": "Każda drużyna gra pod jakimś sztandarem. Kapitan wybiera nację, a jeśli obie strony niosą ten sam sztandar, goście grają w odwróconych barwach.",
-      "nationVale": "Zieleń i złoto pod snopem zboża: gospodarze, parobcy z krwi i kości.",
+      "howQueue": "Do kolejki dołączysz z dowolnego miejsca przez okno Pucharu Doliny albo rozmawiając z Opiekunem Murawy Bramem przy bramie Maciorowego Błonia. Wybierz format od jeden na jednego do pięciu na pięciu, sztandar nacji i rolę sportową; stawaj w kolejce solo albo z drużyną.",
+      "howMatch": "Przy pierwszym gwizdku twój zestaw klasowy zostaje podmieniony na sportowy, a po meczu wraca dokładnie taki, jaki był. Kopnięcia celują w celownik na ziemi, piłka odbija się od band, a drybling to po prostu bieg z piłką. Zdobądź więcej goli niż przeciwnik przed końcem meczu; remis rozstrzyga złoty gol.",
+      "howTruce": "Na Maciorowym Błoniu nikt nie krwawi: wślizgi tylko przewracają, nic nie boli, a zwierzęta oglądają mecz z boku.",
+      "spectateBody": "Na stadionie toczy się jeden mecz naraz i każdy może podejść i oglądać go z trybun.",
+      "nationsHeading": "Osiem nacji pod sztandarami",
+      "nationsBody": "Każda drużyna gra pod sztandarem. Kapitan wybiera nację, a jeśli obie strony niosą ten sam sztandar, goście grają w odwróconych barwach.",
+      "nationVale": "Zieleń i złoto pod snopem pszenicy: gospodarze, parobkowie z krwi i kości.",
       "nationMirefen": "Morska zieleń i szarość pod czaplą: cierpliwi, długonodzy, nigdy się nie spieszą.",
-      "nationThornpeak": "Lodowy błękit i biel pod górskim szczytem: pewny krok i upór.",
+      "nationThornpeak": "Lodowy błękit i biel pod górskim szczytem: pewni kroku i uparci.",
       "nationColiseum": "Czerwień i czerń ze skrzyżowanymi mieczami: grają, jakby to wciąż były wojenne igrzyska.",
-      "nationChoir": "Bladobłękitne i srebrne barwy pod dzwonem: upiorni, precyzyjni i bardzo cisi.",
-      "nationOgre": "Pomarańcz i umbra za pięścią: najpierw bark, i są z tego dumni.",
+      "nationChoir": "Bladobłękitni i srebrni pod dzwonem: niesamowici, precyzyjni i bardzo cisi.",
+      "nationOgre": "Pomarańcz i umbra za pięścią: grają barkiem naprzód i są z tego dumni.",
       "nationMoon": "Fiolet i srebro pod półksiężycem: nocni gracze, lekcy na nogach.",
       "nationCopperdig": "Miedź i brąz z kilofem: kopacze, którzy nigdy nie przestają biegać.",
       "rolesHeading": "Role sportowe",
-      "rolesBody": "Twoja rola decyduje o zestawie, z którym wychodzisz na boisko. Kopie każdy; reszta to kwestia temperamentu.",
+      "rolesBody": "Rola decyduje o zestawie, z którym wychodzisz na boisko. Kopie każdy; reszta to kwestia temperamentu.",
       "rewardsHeading": "Zasady rozejmu",
-      "rewardsBody": "Zasady rozejmu oznaczają brak doświadczenia i łupów: rozstrzygnięty mecz liczy się do twojego bilansu i na tablicy zwycięzców, a wraz z nim przychodzą punkty nagród dziennych. Dezercja z meczu odstawia cię na ławkę, a Gospodarz pamięta."
+      "rewardsBody": "Zasady rozejmu oznaczają brak doświadczenia i łupów: rozstrzygnięty mecz liczy się do twojego bilansu i tablicy zwycięzców, a wraz z nim przychodzą punkty nagród dziennych. Dezercja z meczu odsyła cię na ławkę, a Opiekun Murawy pamięta."
     },
     "wishPage": {
       "heading": "Rzeczy, które chciałbym wiedzieć wcześniej",
@@ -2332,33 +2333,33 @@ export const pl_PL: EnTranslations = {
       "cosmeticsApply": "Ustaw aktywny wygląd w wierszu wyglądu na ekranie postaci i swobodnie przełączaj się między wszystkim, co odblokowałeś."
     },
     "professions": {
-      "intro": "Poza walką i zadaniami świat nagradza cię za pracę na roli i przy kuźni: za zbieranie surowców, przekuwanie ich w ekwipunek przy stanowiskach rzemieślniczych dziesięciu fachów i za wrośnięcie w tożsamość jednego z dziesięciu archetypów, które te fachy reprezentują.",
+      "intro": "Poza walką i zadaniami świat nagradza pracę na roli i przy kuźni: zbieranie surowców, przekuwanie ich w ekwipunek przy stanowiskach dziesięciu różnych rzemiosł i wrastanie w tożsamość jednego z dziesięciu archetypów, które te fachy reprezentują.",
       "gatherTitle": "Zbieractwo: Górnictwo, Wyrąb i Zielarstwo",
-      "gatherIntro": "Trzy fachy zbierackie pozwalają pozyskiwać surowce prosto ze świata: Górnictwo wykuwa rudę i kamień z żył, Wyrąb ścina drewno z kęp drzew, a Zielarstwo zbiera dziko rosnące zioła i rośliny. Każdy z nich liczony jest osobno, więc praca w jednym nigdy nie spowalnia postępów w innym.",
-      "gatherWhatTitle": "Złoża surowców",
-      "gatherWhatBody": "Żyły rudy, kępy drzew i kępki ziół rozmieszczone są w strefach jako widoczne, niczyje obiekty. Podejdź do takiego złoża i użyj go, aby zebrać, co kryje. Zebrane złoże potrzebuje czasu, by się odnowić, zanim ty osobiście zbierzesz je ponownie, ale nigdy nie blokuje nikogo innego: inny gracz może w tym czasie zebrać to samo złoże.",
-      "gatherProficiencyTitle": "Biegłość i jakość surowca",
-      "gatherProficiencyBody": "Każdy udany zbiór buduje twoją biegłość w danym fachu zbierackim. Wyższa biegłość przesuwa to, co pozyskujesz ze złoża, ku rzadszym gatunkom surowca, od pospolitego wzwyż, choć najrzadsze gatunki pozostają rzadkie nawet przy wysokiej biegłości. Ćwiczenie nigdy nie psuje twoich szans, zawsze je tylko poprawia.",
+      "gatherIntro": "Trzy fachy zbierackie pozwalają czerpać surowce prosto ze świata: Górnictwo wydobywa rudę i kamień z żył, Wyrąb pozyskuje drewno z kęp drzew, a Zielarstwo zbiera dziko rosnące zioła i rośliny. Każdy z nich liczony jest osobno, więc praca w jednym nigdy nie spowalnia postępów w innym.",
+      "gatherWhatTitle": "Węzły zasobów",
+      "gatherWhatBody": "Żyły rudy, kępy drzew i kępki ziół rozmieszczone są w strefach jako widoczne, niczyje obiekty. Podejdź do jednego z nich i użyj go, aby zebrać, co skrywa. Po zbiorze węzeł potrzebuje czasu, by się odnowić, zanim ty osobiście zbierzesz z niego ponownie, ale nigdy nie blokuje innych: inny gracz może w tym czasie zebrać z tego samego węzła.",
+      "gatherProficiencyTitle": "Wprawa i jakość materiałów",
+      "gatherProficiencyBody": "Każdy udany zbiór buduje twoją wprawę w danym fachu zbierackim. Wyższa wprawa przesuwa to, co pozyskujesz z węzła, ku rzadszym gatunkom materiału, od pospolitych wzwyż, choć najrzadsze gatunki pozostają rzadkie nawet przy wysokiej wprawie. Praktyka nigdy nie psuje twoich szans, zawsze je tylko poprawia.",
       "gatherToolsTitle": "Narzędzia fachu",
-      "gatherToolsBody": "Sprzedawcy oferują podstawowe narzędzia dla każdego fachu zbierackiego, a lepsze można wytworzyć, więc praca przy złożu ma z czasem iść coraz sprawniej, w miarę jak się do niej wyposażasz, zamiast stać w miejscu. Narzędzia wyższego stopnia to zamierzona droga do bogatszych złóż i do wydajniejszej pracy przez długą sesję.",
+      "gatherToolsBody": "Sprzedawcy oferują podstawowe narzędzia dla każdego fachu zbierackiego, a lepsze można wytworzyć, więc praca przy węźle zasobów ma stawać się sprawniejsza wraz z lepszym wyposażeniem, a nie stać w miejscu. Narzędzia wyższego stopnia to zamierzona droga do bogatszych węzłów i wydajniejszej pracy podczas długiej sesji.",
       "craftTitle": "Dziesięć rzemiosł",
-      "craftIntro": "Dziesięć fachów rzemieślniczych zamienia zebrane surowce w gotowy ekwipunek i dobra: Płatnerstwo, Zbrojmistrzostwo i Jubilerstwo nadają surowej materii kształt noszonego ekwipunku; Alchemią i Inżynierią rządzą próby i błędy; Gotowanie, Inskrypcja i Zaklinanie sięgają po wytwory innych rzemiosł; Krawiectwo i Garbarstwo pracują według dokładnych wykrojów. Razem tworzą koło, w którym każde rzemiosło sąsiaduje z dwoma innymi i leży naprzeciw jednego.",
+      "craftIntro": "Dziesięć rzemiosł przetwarza zebrane materiały w gotowy ekwipunek i towary: Płatnerstwo, Zbrojmistrzostwo i Jubilerstwo nadają surowej materii kształt noszonego ekwipunku; Alchemia i Inżynieria opierają się na próbach i błędach; Gotowanie, Inskrypcja i Zaklinanie sięgają po wytwory innych rzemiosł; Krawiectwo i Garbarstwo pracują według dokładnych wzorów. Razem tworzą koło, w którym każde rzemiosło sąsiaduje z dwoma innymi i leży naprzeciw jednego.",
       "craftRingTitle": "Koło specjalności",
-      "craftRingBody": "Dziesięć rzemiosł ułożonych jest w stałym kręgu, a miejsce rzemiosła w tym kręgu ma znaczenie: rzemiosła sąsiadujące ze sobą na kole mają ze sobą więcej wspólnego niż te po przeciwnych stronach. Oddanie się jednemu rzemiosłu ma przypominać dołączenie do rodziny pokrewnych fachów, a nie wybór odosobnionej umiejętności.",
+      "craftRingBody": "Dziesięć rzemiosł ułożonych jest w stały krąg, a miejsce rzemiosła na tym kręgu ma znaczenie: rzemiosła sąsiadujące ze sobą na kole mają ze sobą więcej wspólnego niż te po przeciwnych stronach. Oddanie się jednemu rzemiosłu ma przypominać dołączenie do rodziny pokrewnych fachów, a nie wybór odosobnionej umiejętności.",
       "craftRecipesTitle": "Przepisy i składniki",
-      "craftRecipesBody": "Każde rzemiosło ma własne przepisy, a każdy z nich wymaga konkretnych składników, które zbierasz lub kupujesz. Najprostsze przepisy w każdym rzemiośle nie wymagają niczego poza pospolitymi materiałami i można je wykonywać od samego początku, więc pracę w fachu zaczynasz w chwili, gdy go podejmujesz, zamiast czekać na odblokowanie.",
-      "craftMasteryTitle": "Umiejętność i mistrzostwo",
-      "craftMasteryBody": "Udane wytwarzanie buduje umiejętność w danym rzemiośle, a bogatsze przepisy kryją się za wyższą umiejętnością: podstawowe przepisy są otwarte dla wszystkich, a coraz bardziej zaawansowane wymagają do podjęcia próby coraz większej wprawy. Rozwijanie umiejętności w rzemiośle to droga od prostych wyrobów na start do jego najambitniejszych przepisów.",
+      "craftRecipesBody": "Każde rzemiosło ma własne przepisy, a każdy z nich wymaga konkretnych składników, które zbierasz lub kupujesz. Najprostsze przepisy w każdym rzemiośle potrzebują wyłącznie pospolitych materiałów i są dostępne od samego początku, więc możesz zacząć pracę w fachu od chwili, gdy go podejmiesz, zamiast czekać na odblokowanie.",
+      "craftMasteryTitle": "Umiejętność i biegłość",
+      "craftMasteryBody": "Udane wytwarzanie buduje umiejętność w danym fachu, a bogatsze przepisy zamknięte są za wyższą umiejętnością: podstawowe przepisy są dostępne dla każdego, natomiast coraz bardziej zaawansowane wymagają coraz większej biegłości. Rozwijanie umiejętności w rzemiośle to droga od prostych wyrobów na start do jego najambitniejszych przepisów.",
       "craftComboTitle": "Przepisy łączone",
-      "craftComboBody": "Poza listą przepisów pojedynczego rzemiosła koło obsługuje też przepisy łączone, sięgające po dwa sąsiednie rzemiosła naraz i nagradzające postać (albo parę partnerów handlowych), która zainwestowała w sąsiadujące na kręgu fachy, a nie w jeden w odosobnieniu.",
+      "craftComboBody": "Poza listą przepisów pojedynczego rzemiosła koło wspiera też przepisy łączone, które wymagają dwóch sąsiadujących rzemiosł naraz, nagradzając postać (lub parę partnerów handlowych), która zainwestowała w sąsiednie fachy na kręgu, a nie w jeden w izolacji.",
       "archetypeTitle": "Dziesięć archetypów",
-      "archetypeIntro": "Każde z dziesięciu rzemiosł odpowiada też archetypowi, szerszej tożsamości, którą możesz przyjąć ponad samą pracę w fachu. Aktywny archetyp to jeden wybór naraz, a nie lista do odhaczenia: nosisz jeden i możesz później zmienić go na inny, jeśli zechcesz.",
+      "archetypeIntro": "Każde z dziesięciu rzemiosł reprezentuje też archetyp, szerszą tożsamość, którą możesz przyjąć ponad samo uprawianie fachu. Aktywny archetyp to pojedynczy wybór, nie lista do odhaczenia: nosisz jeden i możesz go później zmienić, jeśli zechcesz.",
       "archetypeChooseTitle": "Wybór archetypu",
-      "archetypeChooseBody": "Swój pierwszy archetyp deklarujesz przez wczesne zadanie fabularne w pierwszej strefie, które formalnie przyjmuje cię do tej tożsamości. Dopóki nie ukończysz tego zadania, nie masz jeszcze żadnego archetypu.",
+      "archetypeChooseBody": "Swój pierwszy archetyp deklarujesz podczas wczesnego zadania fabularnego w pierwszej strefie, które formalnie przyjmuje cię do tej tożsamości. Dopóki nie ukończysz tego zadania, nie masz jeszcze wybranego żadnego archetypu.",
       "archetypeSwitchTitle": "Zmiana zdania",
-      "archetypeSwitchBody": "Zadeklarowanie archetypu nie przykuwa cię do niego na zawsze. Zmiana na inny archetyp wymaga najpierw ukończenia powtarzalnego zadania \"zadośćuczynienia\" wobec starego, a z każdą zmianą oczekiwane następnym razem zadośćuczynienie rośnie odrobinę, więc zmiana pozostaje znacząca, a nie darmowa.",
+      "archetypeSwitchBody": "Raz zadeklarowany archetyp nie wiąże cię na zawsze. Zmiana na inny archetyp wymaga najpierw ukończenia powtarzalnego zadania \"zadośćuczynienia\" wobec starego, a z każdą kolejną zmianą oczekiwane zadośćuczynienie robi się nieco surowsze, dzięki czemu zmiana pozostaje znacząca, a nie darmowa.",
       "archetypeIdentityTitle": "Co oznacza twój archetyp",
-      "archetypeIdentityBody": "Twój aktywny archetyp mówi, kim twoja postać jest w świecie, co widać w tym, jak zwracają się do ciebie inni i sam świat. Dokładne nagrody i wyróżnienia, które się z nim wiążą, są wciąż dopracowywane; zaglądaj tu w miarę, jak system się wypełnia."
+      "archetypeIdentityBody": "Aktywny archetyp to deklaracja, kim twoja postać jest w świecie, widoczna w tym, jak zwracają się do ciebie inni i sam świat. Dokładne nagrody i wyróżnienia z nim związane wciąż są dopracowywane; zaglądaj tu, w miarę jak system się rozrasta."
     },
     "economy": {
       "intro": "Monety napędzają cały świat: kupują twoje wyposażenie, zaopatrzenie i ekwipunek podróżny oraz przechodzą z rąk do rąk między graczami. Zbierasz to wszystko po prostu grając, więc traktuj tę stronę jako mapę tego, skąd pochodzą i dokąd trafiają twoje pieniądze.",
@@ -4958,39 +4959,39 @@ export const pl_PL: EnTranslations = {
       },
       "sport_shoot": {
         "name": "Strzał",
-        "description": "Przytrzymaj, aby zebrać siłę; puść, aby strzelić na bramkę. Zbyt duża siła posyła piłkę nad poprzeczką."
+        "description": "Przytrzymaj, aby nabrać mocy, i puść, aby strzelić na bramkę. Zbyt mocny strzał poszybuje nad poprzeczką."
       },
       "sport_pass": {
         "name": "Podanie",
-        "description": "Zagraj pewne podanie do wskazanego partnera, wyprzedzając jego bieg."
+        "description": "Mocne podanie po ziemi do wskazanego towarzysza, wyprzedzające jego bieg."
       },
       "sport_boot": {
-        "name": "Świeca",
-        "description": "Długi, wysoki wykop w stronę punktu celowania. Tłum to uwielbia."
+        "name": "Potężny Wykop",
+        "description": "Długie, wysokie wykopnięcie w stronę punktu celowania. Trybuny to uwielbiają."
       },
       "sport_hoof": {
-        "name": "Laga",
-        "description": "Przyłóż nisko i mocno, posyłając piłkę w głąb boiska."
+        "name": "Na Pałę",
+        "description": "Huknij piłkę nisko i mocno w głąb boiska."
       },
       "sport_punt": {
-        "name": "Daleki wykop",
-        "description": "Bramkarski wykop, wysoko i daleko."
+        "name": "Dalekie Wybicie",
+        "description": "Bramkarskie wybicie, wysoko i daleko."
       },
       "sport_feint": {
         "name": "Zwód",
-        "description": "Szybki zryw ze zwodem w stronę punktu celowania."
+        "description": "Szybki zwód i zryw w stronę punktu celowania."
       },
       "sport_dive": {
-        "name": "Nurkowanie",
-        "description": "Rzuć się w stronę punktu celowania. Dośrodkowana piłka przywiera do ciebie."
+        "name": "Rzut do piłki",
+        "description": "Rzucasz się w stronę punktu celowania. Dośrodkowana piłka przywiera do ciebie."
       },
       "sport_shoulder": {
-        "name": "Blok barkiem",
-        "description": "Uczciwy blok barkiem w duchu żniwnego rozejmu. Zwala rywala z nóg i odcina go od piłki."
+        "name": "Bark",
+        "description": "Uczciwe natarcie barkiem w duchu żniwnego rozejmu. Posyła rywala na ziemię, z dala od piłki."
       },
       "sport_second_wind": {
-        "name": "Świeże nogi",
-        "description": "Złap wiatr w nogi: poruszasz się o 50% szybciej przez 4 s."
+        "name": "Świeże Nogi",
+        "description": "Łapiesz oddech: poruszasz się o 50% szybciej przez 4 s."
       },
       "flamestrike": {
         "name": "Ognista nawała",
@@ -6213,6 +6214,24 @@ export const pl_PL: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Sierp Słonecznopłatkowy"
       },
+      "thorium_ore": {
+        "name": "Ruda Toru"
+      },
+      "arcanite_bar": {
+        "name": "Sztabka Arkanitu"
+      },
+      "ashwood_log": {
+        "name": "Kłoda Jesionu Popiołowego"
+      },
+      "elderwood_log": {
+        "name": "Kłoda Starego Bzu"
+      },
+      "goldleaf_herb": {
+        "name": "Ziele Złotolistne"
+      },
+      "sunpetal_herb": {
+        "name": "Ziele Słonecznego Płatka"
+      },
       "bristleback_maul": {
         "name": "Młot Gallowglass"
       },
@@ -7393,9 +7412,9 @@ export const pl_PL: EnTranslations = {
         "greeting": "Spocznij, duchu. Mogę zwrócić cię twojemu ciału, lecz powrotna przeprawa pozostawia słabość."
       },
       "groundskeeper_bram": {
-        "name": "Gospodarz Bram",
-        "title": "Opiekun Pola Maciory",
-        "greeting": "Rozejm na Polu Maciory trwa, {className}: tylko wykopy i bloki barkiem. Zagrasz o Miedziany Skopek?"
+        "name": "Opiekun Murawy Bram",
+        "title": "Opiekun Maciorowego Błonia",
+        "greeting": "Na Maciorowym Błoniu obowiązuje rozejm, {className}: tylko kopniaki i barki. Zagrasz o Miedziany Skopek?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const pl_PL: EnTranslations = {
             "label": "Polana Jasnoboru"
           },
           "10": {
-            "label": "Pole Maciory"
+            "label": "Maciorowe Błonie"
           }
         }
       },

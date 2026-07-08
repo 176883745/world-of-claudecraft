@@ -14,6 +14,8 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const ja_JP: Partial<Record<TranslationKey, string>> = {
+  'hudChrome.vcup.guildBoardWl': '{wins} 勝 {losses} 敗',
+  'hudChrome.vcup.shootPower': 'パワー',
   'hudChrome.discord.roleTag.coredevs': 'コア開発者',
   'hudChrome.options.version': 'v{version} ({build})',
   'auth.emailPlaceholder': 'mail@example.com',
@@ -30,10 +32,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.toLabel': '宛先',
   'itemUi.kind.bag': 'バッグ',
   'itemUi.tooltip.bagSlots': '{slots}スロットのバッグ',
-  // Guild roster last-seen (M16 non-Latin fill)
   'hudChrome.social.lastSeen': '最終ログイン: {when}',
   'hudChrome.social.lastSeenNever': 'なし',
-  // Daily rewards (M16 non-Latin fill)
   'hudChrome.dailyRewards.title': 'デイリー報酬',
   'hudChrome.dailyRewards.close': 'デイリー報酬を閉じる',
   'hudChrome.dailyRewards.loading': 'デイリー報酬を読み込み中...',
@@ -241,7 +241,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.interfaceModeTouch': 'タッチ',
   'hudChrome.options.interfaceModeNote':
     '自動では、デバイスに応じてデスクトップ操作かタッチ操作を選びます。デスクトップを選ぶとキーボードとマウスに固定され（キーボード付きタブレットなどに便利）、タッチを選ぶと画面上の操作になります。',
-  // Character-sheet stat tooltips (hudChrome.statInfo.*).
   'hudChrome.statInfo.fromYour': 'あなたの{stat}{value}による効果:',
   'hudChrome.statInfo.names.spellPower': '呪文威力',
   'hudChrome.statInfo.names.critRating': 'クリティカルレーティング',
@@ -324,6 +323,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.jitter': 'ジッター',
   'hudChrome.perf.labels.predLead': '予測リード',
   'hudChrome.perf.labels.snapshot': 'スナップショットレート',
+  'hudChrome.perf.labels.serverTick': 'サーバーティックレート',
   'hudChrome.perf.labels.connection': '接続',
   'hudChrome.perf.labels.drawCalls': 'ドローコール',
   'hudChrome.perf.labels.triangles': '三角形',
@@ -2652,18 +2652,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.auctioneer_voss.title': '世界市場の守り手',
   'entities.npcs.auctioneer_voss.greeting':
     '世界市場はここでも利用できます、{className}。王国中の冒険者から買うことも、自分の品を売ることもできます。',
-  'entities.npcs.bursar_fernando.name': '出納官フェルナンド',
-  'entities.npcs.bursar_fernando.title': '金張りの金庫',
-  'entities.npcs.bursar_fernando.greeting':
-    '金張りの金庫へようこそ。あなたの品々は我々の錠の内で安全に保管されます。',
-  'entities.npcs.bursar_petra_vell.name': '出納官ペトラ・ヴェル',
-  'entities.npcs.bursar_petra_vell.title': '金張りの金庫',
-  'entities.npcs.bursar_petra_vell.greeting':
-    '金張りの金庫は帳簿も金庫室も清く保っています。何をお預かりしましょうか？',
-  'entities.npcs.bursar_aldous_crane.name': '出納官アルダス・クレイン',
-  'entities.npcs.bursar_aldous_crane.title': '金張りの金庫',
-  'entities.npcs.bursar_aldous_crane.greeting':
-    'どんな木箱も、金櫃も、装身具も、金張りの金庫にお預けいただければ安全です。',
   'entities.npcs.tidewatcher_ondrel.name': 'オンドレル・ヴェイン',
   'entities.npcs.tidewatcher_ondrel.title': '潮見の番人',
   'entities.npcs.tidewatcher_ondrel.greeting':
@@ -3321,7 +3309,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'news.prerelease': 'プレリリース',
   'news.viewOnGithub': 'GitHubで見る',
   'wiki.cta': 'Wikiを見る',
-  // --- qol-changes: character profile, attack-move, login/create labels ---
   'character.portraitAlt': '{name}の肖像',
   'character.viewProfile': 'プロフィールを見る',
   'character.profile': 'プロフィール',
@@ -3336,7 +3323,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'auth.chromaOption': 'カラー {n}',
   'auth.noAccountPrompt': '初めてですか？',
   'auth.haveAccountPrompt': 'アカウントをお持ちですか？',
-
   'entities.items.conjured_bread.name': '魔法のオートケーキ',
   'entities.items.conjured_bread2.name': '魔法の黒パン',
   'entities.items.conjured_bread3.name': '魔法のハニーケーキ',
@@ -3397,9 +3383,14 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': '古木の斧',
   'entities.items.goldleaf_sickle.name': '金葉の鎌',
   'entities.items.sunpetal_sickle.name': '陽花弁の鎌',
+  'entities.items.thorium_ore.name': 'トリウム鉱石',
+  'entities.items.arcanite_bar.name': 'アーケナイトの延べ棒',
+  'entities.items.ashwood_log.name': 'アッシュウッドの丸太',
+  'entities.items.elderwood_log.name': 'エルダーウッドの丸太',
+  'entities.items.goldleaf_herb.name': 'ゴールドリーフ草',
+  'entities.items.sunpetal_herb.name': 'サンペタル草',
   'entities.mobs.nythraxis_skeleton_warrior.name': '蘇った王家の衛兵',
   'entities.mobs.nythraxis_scourge_of_thornpeak.name': 'ナイスラクシス、ソーンピークの災厄',
-  // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'チャットチャンネルを追加',
   'hud.core.chatChannels.addTitle': 'チャンネルを追加',
   'hud.core.chatChannels.close': '{channel}タブを閉じる',
@@ -3653,7 +3644,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.controller.menuAction': 'ゲームメニュー',
   'hudChrome.controller.help':
     '左スティックで移動、右スティックで視点。ウィンドウを開くと画面ポインターが使えます。',
-  // New-adventurer tutorial (PR #729)
   'hud.tutorial.title': '新米冒険者',
   'hud.tutorial.stepLabel': 'ステップ {current}/{total}',
   'hud.tutorial.skip': 'チュートリアルをスキップ',
@@ -3800,11 +3790,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.exportDone': 'データをダウンロードしました。確認のメールをお送りしました。',
   'hudChrome.account.exportFailed':
     'データをエクスポートできませんでした。しばらくしてからやり直してください。',
-  // On-screen quest tracker (hudChrome.questTracker.*): collapsed count badge + header toggle hover hint.
   'hudChrome.questTracker.count': '（{count}）',
   'hudChrome.questTracker.collapseHint': 'クエストトラッカーを折りたたむ',
   'hudChrome.questTracker.expandHint': 'クエストトラッカーを展開する',
-  // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.cannotDestroy': 'このアイテムは破壊できません。',
   'hudChrome.bags.rightClickDestroy': '右クリックで破壊',
   'hudChrome.bags.filterGroupAria': 'バッグをカテゴリーで絞り込む',
@@ -3825,7 +3813,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.bags.backpack': 'バックパック',
   'hudChrome.bags.socketEmpty': '空のバッグスロット',
   'hudChrome.bags.unequipHint': 'クリックしてこのバッグを外す',
-  // Guide (/guide) localization.
   'guide.brand': 'World of ClaudeCraft',
   'guide.brandShort': 'ClaudeCraft',
   'guide.tagline': 'ブラウザで無料で遊べる、クラシックスタイルのMMO。',
@@ -4209,7 +4196,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.notFound.title': 'そのページが見つかりませんでした',
   'guide.notFound.body': 'お探しのページは存在しないか、移動した可能性があります。',
   'guide.notFound.home': '概要に戻る',
-  // Guide (/guide) localization.
   'guide.bestiary.heading': 'モンスター図鑑',
   'guide.bestiary.intro':
     '世界に棲む生き物たちを、種族ごとにまとめて紹介します。ここに載っているのは、フィールドで出会う敵たちです。最も危険な存在は図鑑には載らず、ダンジョンの扉の奥で待ち構えています。',
@@ -4532,7 +4518,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '南から北へ三つのゾーンが並び、それぞれレベルが一段ずつ上がります。クエストの道筋をたどれば、土地が谷から峰々へとあなたを運んでいきます。',
   'guide.worldPage.places': '注目の場所',
   'guide.worldPage.residents': '出会う者たち',
-  // guide.* enrichment fill (lore, gear, social, stats, economy, progression)
   'guide.arenaPage.powerupsBody':
     '戦いの最中、光り輝くオーブがアリーナに落ちてきます。先に取った者の自由になり、しかも狙い通りに度を越していて、効果はほんの一瞬だけ。スピードデーモンは目もくらむ速さへ、コロッサスはのっそりと歩く巨人へ、ムーンブーツは低重力で跳ね回るジャンプへ、バーサーカーは突如あふれる怒りへとあなたを変えます。',
   'guide.arenaPage.powerupsTitle': 'リングのパワーアップ',
@@ -4573,13 +4558,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.dungeonsPage.templeLoreBody':
     '神殿には、あなたが他所で追うカルトよりも古い、それ自身の伝説があります。月明かりを飲み込み、溺れた者を返すという山上の湖グリマーミアの岸辺で、一人の見張り役が淡い光の門を守っています。水面の下には、そこへ続く冷たい石の階段が伸びています。そこに沈んだ者たちは不運で溺れたのではありません。彼らは礼拝のうちに沈み、決して歌うのをやめなかった蒼白の聖歌隊でした。古き守り人たちは水に呑まれる前に、岩へただ一つの警告を刻みました。彼らが溺れし月と呼ぶものへの祈りです。そしてその下に、より落ち着いた手が二つの言葉を書き添えていました。それはただ眠っているだけだ、と。',
   'guide.dungeonsPage.templeLoreTitle': '水没の神殿、もう少し深く',
-  'guide.economy.bankBody':
-    '各拠点の町には、この地の銀行商会である金張りの金庫の支店があります。そこの出納官に話しかけると自分の金庫が開きます。バッグとは別の私的な収納で、キャラクターが生涯持ち続けるものです。預けた品は、次にどの支店を訪れてもそのまま安全に待っています。',
-  'guide.economy.bankHow':
-    '金庫を開いた状態でバッグの品をクリックすると預けられ、金庫の品をクリックすると引き出せます。金庫に入るのは品物だけで、コインは預けられず、クエストアイテムも手元に残ります。旅の途中でバッグがいっぱいになったら、製作素材をまとめて預けるボタンもあります。',
-  'guide.economy.bankSlots':
-    '作りたての金庫は小さめですが、あなたとともに広がっていきます。出納官は追加の枠をコインで販売しており、値段は段階ごとに上がります。さらにオンラインでのプレイなら、メール認証やアカウント連携、友人の紹介などでボーナスの空きも手に入ります。',
-  'guide.economy.bankTitle': '銀行',
   'guide.economy.buyingBody':
     '商人のそばに立つと、その取引窓が開きます。お金が足りれば品揃えのどれでも買え、バッグの中のほとんどのものをコインに換えて売れます。間違って何かを売ってしまっても、商人は最近の売却品を取り置いてくれるので、買い戻すことができます。',
   'guide.economy.buyingTitle': '売買',
@@ -4894,7 +4872,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.worldPage.gladeTitle': '静かな一角：ブライトウッド・グレード',
   'guide.worldPage.gladeBody':
     'Valeの物語がすべて死者について語るわけではありません。北にはBrightwood Gladeと呼ばれる陽だまりの木立があり、静かな小道と枝々の下に揺れる木漏れ日とともに、穏やかな独自の調子を保っています。あなたが追う足跡への柔らかな対照であり、道に寄り道の余裕があるなら見る価値があります。',
-  // APM telemetry label from release/v0.14.0
   'hudChrome.perf.labels.apm': 'APM',
   'entities.zones.eastbrook_vale.pois.9.label': 'ブライトウッドの林間',
   'entities.items.reliquary_plate_chest.name': '聖遺物庫衛兵のホーバーク',
@@ -5264,7 +5241,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.itemProc.hot': '{name}を咲かせ、継続回復で{duration}秒かけて{total}を回復する',
   'hudChrome.itemSet.bonusLine': '({pieces}) {bonus}',
   'hudChrome.abilityScaling.bonus': '(+{value})',
-  // Discord integration (two-way login, rewards, relay, in-game flair).
   'hudChrome.discord.close': '閉じる',
   'hudChrome.discord.keybind': 'Discordパネル',
   'hudChrome.discord.disabled': 'Discord連携は現在利用できません。',
@@ -5383,7 +5359,15 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.relay.wts.label': '売却希望',
   'hudChrome.discord.relay.wtb.label': '購入希望',
   'hudChrome.discord.relay.help.label': 'ヘルプが必要',
-  // Developer badge (M16 non-Latin fills).
+  'hudChrome.crafting.title': '製作',
+  'hudChrome.crafting.close': '製作を閉じる',
+  'hudChrome.crafting.craft': '製作',
+  'hudChrome.crafting.reagentsNeeded': '必要素材:',
+  'hudChrome.crafting.empty': '既知のレシピはありません。',
+  'hudChrome.crafting.resultAria': '{name}を製作',
+  'hudChrome.crafting.craftedToast': '製作しました:{name}',
+  'hudChrome.crafting.insufficientMaterials': '材料が不足しています。',
+  'hudChrome.crafting.unknownRecipe': 'そのレシピは存在しません。',
   'hudChrome.devBadge.title': '開発者',
   'hudChrome.devBadge.tiers.tinkerer': '修繕屋',
   'hudChrome.devBadge.tiers.artificer': '工匠',
@@ -5424,7 +5408,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'desktop.crash.reload': '再読み込み',
   'desktop.crash.quit': '終了',
   'desktop.crash.fatalBody': 'World of ClaudeCraft で予期しないエラーが発生したため、終了します。',
-  // Map editor (/editor), added with the editor catalog domain.
   'editor.appTitle': 'マップエディター',
   'editor.docTitle': 'マップエディター - World of ClaudeCraft',
   'editor.untitledMap': '無題のマップ',
@@ -5941,15 +5924,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.dailyRewards.remainingMinutes': '{minutes}分',
   'hudChrome.dailyRewards.sol': '{amount} SOL',
   'hudChrome.dailyRewards.usd': '{amount} USD',
-  'hudChrome.crafting.title': '製作',
-  'hudChrome.crafting.close': '製作を閉じる',
-  'hudChrome.crafting.craft': '製作',
-  'hudChrome.crafting.reagentsNeeded': '必要素材:',
-  'hudChrome.crafting.empty': '既知のレシピはありません。',
-  'hudChrome.crafting.resultAria': '{name}を製作',
-  'hudChrome.crafting.craftedToast': '製作しました:{name}',
-  'hudChrome.crafting.insufficientMaterials': '材料が不足しています。',
-  'hudChrome.crafting.unknownRecipe': 'そのレシピは存在しません。',
   'guide.professions.intro':
     '戦闘やクエストだけでなく、この世界は大地を耕し鍛冶場に立つあなたにも報いてくれる。原材料を採集し、十種の異なる製作台でそれを装備へと変え、それらの職が体現する十の生き方のひとつとして自らのアイデンティティを築いていく。',
   'guide.professions.gatherTitle': '採集：採掘、伐採、薬草学',
@@ -5991,7 +5965,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.professions.archetypeIdentityTitle': 'あなたの生き方が意味するもの',
   'guide.professions.archetypeIdentityBody':
     'あなたの現在の生き方は、あなたのキャラクターがこの世界で何者であるかについての表明であり、他者や世界があなたをどう呼ぶかに反映される。それに伴う具体的な報酬や認知はまだ調整中だ。システムが充実していくのを見守ってほしい。',
-  // apiError.* server error-code catalog (M16 non-Latin fill, Phase 22)
   'apiError.validation.failed': '一部の項目が無効です。入力内容を確認してもう一度お試しください。',
   'apiError.json.malformed': 'リクエストを読み取れませんでした。もう一度お試しください。',
   'apiError.body.too_large': 'リクエストが大きすぎます。データを減らしてもう一度お試しください。',
@@ -6059,52 +6032,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'apiError.discord.swag_claimed': 'この報酬は既に受け取っています。',
   'apiError.discord.swag_tier': 'これを受け取るにはより高いランクが必要です。',
   'apiError.discord.swag_points': 'ポイントが足りません。',
-  // The Ravenpost mailbox (M16 non-Latin fill)
   'hudChrome.mailbox.title': 'メールボックス',
   'hudChrome.mailbox.subtitle': 'レイヴンポスト',
-  'hudChrome.bank.title': '銀行',
-  'hudChrome.bank.subtitle': '金張りの金庫',
-  'hudChrome.bank.close': '銀行を閉じる',
-  'hudChrome.bank.capacity': '{used}/{total}',
-  'hudChrome.bank.capacityAria': '使用中の銀行スロット: {total}個中{used}個',
-  'hudChrome.bank.empty': '銀行は空です。',
-  'hudChrome.bank.tooFar': '銀行を利用するには銀行員のそばにいる必要があります。',
-  'hudChrome.bank.buySlots': 'スロットを{count}個購入',
-  'hudChrome.bank.buySlotsMaxed': '完全に拡張済み',
-  'hudChrome.bank.buyConfirm': '{price}で銀行スロットを追加で{count}個購入しますか？',
-  'hudChrome.bank.buyConfirmAccept': '購入',
-  'hudChrome.bank.withdrawHint': 'クリックで引き出す',
-  'hudChrome.bank.withdrawPartialHint': 'Shift+クリックで一部だけ引き出す',
-  'hudChrome.bank.depositHint': 'クリックで預ける',
-  'hudChrome.bank.depositPartialHint': 'Shift+クリックで一部だけ預ける',
-  'hudChrome.bank.cannotDeposit': '銀行に預けられません',
-  'hudChrome.bank.depositQuantityTitle': '{item}を預ける',
-  'hudChrome.bank.depositQuantityInput': '預ける数量',
-  'hudChrome.bank.depositQuantityConfirm': '預ける',
-  'hudChrome.bank.withdrawQuantityTitle': '{item}を引き出す',
-  'hudChrome.bank.withdrawQuantityInput': '引き出す数量',
-  'hudChrome.bank.withdrawQuantityConfirm': '引き出す',
-  'hudChrome.bank.filterGroupAria': '銀行をカテゴリーで絞り込む',
-  'hudChrome.bank.sortAria': '銀行のアイテムを並べ替える',
-  'hudChrome.bank.searchAria': '名前で銀行のアイテムを検索',
-  'hudChrome.bank.depositAll': 'すべての素材を預ける',
-  'hudChrome.bank.depositAllDone': '素材を預けました：{count}。',
-  'hudChrome.bank.depositAllFull': '素材を預けました：{count}。銀行がいっぱいになりました。',
-  'hudChrome.bank.depositAllNone': '銀行がいっぱいです：何も預けられませんでした。',
-  'hudChrome.bank.bonusTitle': 'ボーナススロット',
-  'hudChrome.bank.bonusEarned': '+{count}',
-  'hudChrome.bank.bonusStatusEarned': '+{count}',
-  'hudChrome.bank.bonusSourceEmail': 'メール認証済み',
-  'hudChrome.bank.bonusSourceDiscord': 'Discord連携済み',
-  'hudChrome.bank.bonusSourceWallet': 'ウォレット連携済み',
-  'hudChrome.bank.bonusSourceReferral': '招待した友達',
-  'hudChrome.bank.bonusAdvertEmail': 'メールを認証すると2スロット獲得できます。',
-  'hudChrome.bank.bonusAdvertDiscord': 'Discordを連携すると2スロット獲得できます。',
-  'hudChrome.bank.bonusAdvertWallet': 'ウォレットを連携すると2スロット獲得できます。',
-  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
-  'hudChrome.bank.bonusReferralExplainer':
-    '友達を招待しましょう：友達がレベル10に達すると、お互いに2スロット獲得できます。友達は最大5人までです。',
-  'hudChrome.bank.bonusSectionAria': 'ボーナス銀行スロットと獲得方法',
   'hudChrome.mailbox.close': 'メールボックスを閉じる',
   'hudChrome.mailbox.tabInbox': '受信箱',
   'hudChrome.mailbox.tabInboxWithCount': '受信箱（{count}）',
@@ -6146,7 +6075,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.result.letterGone': 'その手紙はもうメールボックスにありません。',
   'hudChrome.mailbox.result.takeParcelsFirst': '手紙を捨てる前に小包を取り出してください。',
   'worldContent.mailboxName': 'メールボックス',
-  // Ravenpost authored letters (M16 non-Latin fill)
   'entities.letters.ravenpost_welcome.sender': 'レイヴンポスト',
   'entities.letters.ravenpost_welcome.subject': 'ワタリガラスはあなたのために飛ぶ',
   'entities.letters.ravenpost_welcome.body':
@@ -6163,7 +6091,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.letters.letter_q_hollow.subject': 'あなたが暗闇で成したこと',
   'entities.letters.letter_q_hollow.body':
     'あの窪地に何が葬られていたのかを知る者はごくわずかで、信じる者はさらに少ないでしょう。私は知っています。そして忘れません。\n\nあなたの道に光がありますように。\n- アルドリック修道士',
-  // Event calendar (M16 non-Latin fill)
   'hudChrome.calendar.title': 'イベントカレンダー',
   'hudChrome.calendar.close': 'カレンダーを閉じる',
   'hudChrome.calendar.keybindLabel': 'イベントカレンダー',
@@ -6223,13 +6150,11 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.archetypeTitle.enchanting': 'エンチャンター',
   'hudChrome.archetypeTitle.tailoring': '仕立て屋',
   'hudChrome.archetypeTitle.leatherworking': '皮革職人',
-  // Release v0.22.0 locale fill.
   'hudChrome.crafting.reagentLine': '{name}: {have}/{required}',
   'hudChrome.crafting.comboRequirementUnmet':
     'その組み合わせレシピに必要な両方の生産スキルの熟練度に達していません。',
   'hudChrome.mobile.actionPageIndicator': '{page}ページ',
   'hudChrome.mobile.spellbookPageLabel': 'ページ{page}',
-  // The Vale Cup boarball minigame (docs/prd/vale-cup.md).
   'hudChrome.keybinds.valecup': 'ヴェイルカップ',
   'hudChrome.vcup.title': 'ヴェイルカップ',
   'hudChrome.vcup.close': 'ヴェイルカップウィンドウを閉じる',
@@ -6388,7 +6313,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.groundskeeper_bram.greeting':
     'ソウフィールドでは休戦が守られている、{className}よ。使っていいのは足と肩だけだ。銅のミルク桶を懸けて一戦どうだ?',
   'entities.zones.eastbrook_vale.pois.10.label': 'ソウフィールド',
-  // The Vale Cup sport kit ability names + descriptions.
   'entities.abilities.sport_kick.name': 'キック',
   'entities.abilities.sport_kick.description': '狙った地点へボールをグラウンダーで蹴り出す。',
   'entities.abilities.sport_shoot.name': 'シュート',
@@ -6413,6 +6337,66 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '収穫休戦の掟にかなった正々堂々の肩当たり。相手をボールから弾き飛ばす。',
   'entities.abilities.sport_second_wind.name': 'フレッシュレッグス',
   'entities.abilities.sport_second_wind.description': '脚を取り戻す:4秒間、移動速度が50%上昇する。',
-  'hudChrome.vcup.guildBoardWl': '{wins}勝{losses}敗',
-  'hudChrome.vcup.shootPower': 'パワー',
+  'entities.npcs.bursar_fernando.name': '出納官フェルナンド',
+  'entities.npcs.bursar_fernando.title': '金張りの金庫',
+  'entities.npcs.bursar_fernando.greeting':
+    '金張りの金庫へようこそ。あなたの品々は我々の錠の内で安全に保管されます。',
+  'entities.npcs.bursar_petra_vell.name': '出納官ペトラ・ヴェル',
+  'entities.npcs.bursar_petra_vell.title': '金張りの金庫',
+  'entities.npcs.bursar_petra_vell.greeting':
+    '金張りの金庫は帳簿も金庫室も清く保っています。何をお預かりしましょうか？',
+  'entities.npcs.bursar_aldous_crane.name': '出納官アルダス・クレイン',
+  'entities.npcs.bursar_aldous_crane.title': '金張りの金庫',
+  'entities.npcs.bursar_aldous_crane.greeting':
+    'どんな木箱も、金櫃も、装身具も、金張りの金庫にお預けいただければ安全です。',
+  'guide.economy.bankBody':
+    '各拠点の町には、この地の銀行商会である金張りの金庫の支店があります。そこの出納官に話しかけると自分の金庫が開きます。バッグとは別の私的な収納で、キャラクターが生涯持ち続けるものです。預けた品は、次にどの支店を訪れてもそのまま安全に待っています。',
+  'guide.economy.bankHow':
+    '金庫を開いた状態でバッグの品をクリックすると預けられ、金庫の品をクリックすると引き出せます。金庫に入るのは品物だけで、コインは預けられず、クエストアイテムも手元に残ります。旅の途中でバッグがいっぱいになったら、製作素材をまとめて預けるボタンもあります。',
+  'guide.economy.bankSlots':
+    '作りたての金庫は小さめですが、あなたとともに広がっていきます。出納官は追加の枠をコインで販売しており、値段は段階ごとに上がります。さらにオンラインでのプレイなら、メール認証やアカウント連携、友人の紹介などでボーナスの空きも手に入ります。',
+  'guide.economy.bankTitle': '銀行',
+  'hudChrome.bank.title': '銀行',
+  'hudChrome.bank.subtitle': '金張りの金庫',
+  'hudChrome.bank.close': '銀行を閉じる',
+  'hudChrome.bank.capacity': '{used}/{total}',
+  'hudChrome.bank.capacityAria': '使用中の銀行スロット: {total}個中{used}個',
+  'hudChrome.bank.empty': '銀行は空です。',
+  'hudChrome.bank.tooFar': '銀行を利用するには銀行員のそばにいる必要があります。',
+  'hudChrome.bank.buySlots': 'スロットを{count}個購入',
+  'hudChrome.bank.buySlotsMaxed': '完全に拡張済み',
+  'hudChrome.bank.buyConfirm': '{price}で銀行スロットを追加で{count}個購入しますか？',
+  'hudChrome.bank.buyConfirmAccept': '購入',
+  'hudChrome.bank.withdrawHint': 'クリックで引き出す',
+  'hudChrome.bank.withdrawPartialHint': 'Shift+クリックで一部だけ引き出す',
+  'hudChrome.bank.depositHint': 'クリックで預ける',
+  'hudChrome.bank.depositPartialHint': 'Shift+クリックで一部だけ預ける',
+  'hudChrome.bank.cannotDeposit': '銀行に預けられません',
+  'hudChrome.bank.depositQuantityTitle': '{item}を預ける',
+  'hudChrome.bank.depositQuantityInput': '預ける数量',
+  'hudChrome.bank.depositQuantityConfirm': '預ける',
+  'hudChrome.bank.withdrawQuantityTitle': '{item}を引き出す',
+  'hudChrome.bank.withdrawQuantityInput': '引き出す数量',
+  'hudChrome.bank.withdrawQuantityConfirm': '引き出す',
+  'hudChrome.bank.filterGroupAria': '銀行をカテゴリーで絞り込む',
+  'hudChrome.bank.sortAria': '銀行のアイテムを並べ替える',
+  'hudChrome.bank.searchAria': '名前で銀行のアイテムを検索',
+  'hudChrome.bank.depositAll': 'すべての素材を預ける',
+  'hudChrome.bank.depositAllDone': '素材を預けました：{count}。',
+  'hudChrome.bank.depositAllFull': '素材を預けました：{count}。銀行がいっぱいになりました。',
+  'hudChrome.bank.depositAllNone': '銀行がいっぱいです：何も預けられませんでした。',
+  'hudChrome.bank.bonusTitle': 'ボーナススロット',
+  'hudChrome.bank.bonusEarned': '+{count}',
+  'hudChrome.bank.bonusStatusEarned': '+{count}',
+  'hudChrome.bank.bonusSourceEmail': 'メール認証済み',
+  'hudChrome.bank.bonusSourceDiscord': 'Discord連携済み',
+  'hudChrome.bank.bonusSourceWallet': 'ウォレット連携済み',
+  'hudChrome.bank.bonusSourceReferral': '招待した友達',
+  'hudChrome.bank.bonusAdvertEmail': 'メールを認証すると2スロット獲得できます。',
+  'hudChrome.bank.bonusAdvertDiscord': 'Discordを連携すると2スロット獲得できます。',
+  'hudChrome.bank.bonusAdvertWallet': 'ウォレットを連携すると2スロット獲得できます。',
+  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
+  'hudChrome.bank.bonusReferralExplainer':
+    '友達を招待しましょう：友達がレベル10に達すると、お互いに2スロット獲得できます。友達は最大5人までです。',
+  'hudChrome.bank.bonusSectionAria': 'ボーナス銀行スロットと獲得方法',
 };

@@ -622,6 +622,7 @@ export const ko_KR: EnTranslations = {
         "jitter": "지터",
         "predLead": "예측 리드",
         "snapshot": "스냅샷 전송률",
+        "serverTick": "서버 틱 속도",
         "connection": "연결",
         "drawCalls": "드로우 콜",
         "triangles": "삼각형",
@@ -6212,6 +6213,24 @@ export const ko_KR: EnTranslations = {
       },
       "sunpetal_sickle": {
         "name": "태양꽃잎 낫"
+      },
+      "thorium_ore": {
+        "name": "토륨 광석"
+      },
+      "arcanite_bar": {
+        "name": "비전 주괴"
+      },
+      "ashwood_log": {
+        "name": "잿빛나무 통나무"
+      },
+      "elderwood_log": {
+        "name": "고대 딱총나무 통나무"
+      },
+      "goldleaf_herb": {
+        "name": "금빛잎 약초"
+      },
+      "sunpetal_herb": {
+        "name": "태양꽃잎 약초"
       },
       "bristleback_maul": {
         "name": "갤로글래스 망치"

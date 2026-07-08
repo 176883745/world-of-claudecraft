@@ -112,6 +112,7 @@ function bareClient(pid: number): ClientWorld {
   c.duelInfo = null;
   c.lastSnapAt = 0;
   c.snapInterval = 50;
+  c.serverTickHz = null;
   c.missingSince = new Map();
   c.pendingFacingDelta = 0;
   c.connected = true;
@@ -1964,8 +1965,7 @@ describe('lockpick view rebuilds from events on the online client', () => {
 // ---------------------------------------------------------------------------
 // W0a: full self-snapshot delta round-trip gate.
 //
-// `selfWireJson` (server/game.ts) emits its heavy "delta" fields through a
-// `maybe(key, value)` closure that ships a key only when its serialized form
+// `selfWireJson` (server/game.ts) emits its heavy "delta" fields through a// `maybe(key, value)` closure that ships a key only when its serialized form
 // changed since this session last received it; `applySnapshot` (src/net/
 // online.ts) mirrors each with `if (s.X !== undefined)` (or the inline
 // `s.X ?? e.X` form for `stats`/`weapon`). This is the single most fragile codec
@@ -2067,8 +2067,7 @@ const FAR_FUTURE_MS = 8_000_000_000_000;
 
 // Dirty every one of the registered `maybe()` delta fields with a distinguishable,
 // non-default value so the round-trip + no-op-omission assertions are meaningful
-// (a fresh session carries all of them on snapshot #1 regardless, since lastSent is
-// empty). Most fields are set on their real PlayerMeta/Entity/session source;
+// (a fresh session carries all of them on snapshot #1 regardless, since lastSent is// empty). Most fields are set on their real PlayerMeta/Entity/session source;
 // for the few whose authentic setup is mutually exclusive in one player state we
 // poke the exact source field the encoder reads, per the brief (the gate asserts
 // the CODEC, not gameplay validity, which the parity/sim suites own):
@@ -2250,6 +2249,7 @@ describe('full self-state snapshot delta fixture', () => {
     expect(client.companionState?.companionId).toBe('companion_tessa'); // dcompanion -> companionState
     expect(client.delveMarks).toBe(7); // dmarks -> delveMarks
     expect(client.companionUpgrades).toEqual({ companion_tessa: 2 }); // dcomp -> companionUpgrades
+    expect(client.gatheringProficiency).toEqual({ mining: 6, logging: 0, herbalism: 0 }); // gprof -> gatheringProficiency
     expect(client.professionsState).toEqual({
       skills: [
         { professionId: 'mining', skill: 6, maxSkill: 300 },
@@ -2283,8 +2283,7 @@ describe('full self-state snapshot delta fixture', () => {
     const delveRunRef = client.delveRun;
 
     // a second broadcast with NO intervening sim.tick() and no state mutation: the
-    // maybe() closure sees byte-identical JSON for every registered key and omits every one
-    fc.sent.length = 0;
+    // maybe() closure sees byte-identical JSON for every registered key and omits every one    fc.sent.length = 0;
     broadcast(server);
     const snap2 = lastSnap(fc.sent);
     for (const key of ALL_DELTA_KEYS) {
@@ -2316,7 +2315,7 @@ describe('delta-key contract pins (anti-drift)', () => {
   it('ALL_DELTA_KEYS equals the maybe(...) keys scraped from server/game.ts (multi-line lockouts incl.)', () => {
     const src = readFileSync(resolve(process.cwd(), 'server/game.ts'), 'utf8');
     // tolerate whitespace/newline between `(` and the quote so the multi-line
-    // maybe('lockouts', ...) call (game.ts ~2166-2169) is captured, not undercounted to 24
+    // maybe('lockouts', ...) call (game.ts ~2166-2169) is captured, not undercounted
     const re = /\bmaybe\(\s*['"](\w+)['"]/g;
     const scraped = new Set<string>();
     for (let m = re.exec(src); m !== null; m = re.exec(src)) scraped.add(m[1]);
@@ -2741,5 +2740,79 @@ describe('entity-anchored world event scoping', () => {
         .filter((ev: { type: string }) => ev.type === 'delveRitePulse');
     expect(pulses(near)).toHaveLength(1);
     expect(pulses(far)).toHaveLength(0);
+  });
+});
+
+describe('server tick rate on the snap head', () => {
+  it('omits tickHz while the meter warms up, then reports the measured rate', () => {
+    const server = new GameServer();
+    const fc = fakeWs();
+    joinServer(server, fc, 1, 'Ticky');
+    broadcast(server);
+    // fresh server: nothing measured yet, so the head omits the field entirely
+    // and the ops profile reports null rather than a fake number
+    expect(lastSnap(fc.sent).tickHz).toBeUndefined();
+    expect(server.perfProfile().tickHz).toBeNull();
+    // Drive the meter the way start() does (one record per callback against
+    // wall ms); the loop timer itself cannot run under vitest without flaking.
+    const internals = server as any;
+    internals.tickRateMeter.record(0, 1);
+    for (let t = 50; t <= 3000; t += 50) internals.tickRateMeter.record(t, 1);
+    internals.tickHz = internals.tickRateMeter.rate(3000);
+    fc.sent.length = 0;
+    broadcast(server);
+    const snap = lastSnap(fc.sent);
+    // parsed by JSON.parse in fakeWs, so this also proves the head stays valid JSON
+    expect(snap.tickHz).toBeCloseTo(20, 1);
+    expect(snap.tick).toBeTypeOf('number');
+    // the same reading rides the ops /api/perf payload (both dispatch arms
+    // share perfProfile), rounded for the wire
+    expect(server.perfProfile().tickHz).toBeCloseTo(20, 1);
+  });
+
+  it('throttles tickHz on the head, re-emitting once the interval elapses', () => {
+    const server = new GameServer();
+    const fc = fakeWs();
+    joinServer(server, fc, 1, 'Ticky');
+    const internals = server as any;
+    internals.tickRateMeter.record(0, 1);
+    for (let t = 50; t <= 3000; t += 50) internals.tickRateMeter.record(t, 1);
+    internals.tickHz = internals.tickRateMeter.rate(3000);
+    // first head after warm-up carries the value
+    broadcast(server);
+    expect(lastSnap(fc.sent).tickHz).toBeCloseTo(20, 1);
+    // a second head within the throttle window (no sim.time advance) omits it,
+    // so the slow-moving scalar does not ride every 20 Hz snapshot. The client
+    // holds its last reading across that gap (see the mirror test below).
+    fc.sent.length = 0;
+    broadcast(server);
+    expect(lastSnap(fc.sent).tickHz).toBeUndefined();
+    // once sim.time advances past the interval, the next head carries it again
+    for (let i = 0; i < 20; i++) server.sim.tick(); // ~1s of sim time
+    fc.sent.length = 0;
+    broadcast(server);
+    expect(lastSnap(fc.sent).tickHz).toBeCloseTo(20, 1);
+  });
+});
+
+describe('client mirror of the server tick rate', () => {
+  it('mirrors tickHz from the snap head and keeps the last value when omitted', () => {
+    const client = bareClient(1);
+    expect(client.serverTickHz).toBeNull();
+    (client as any).applySnapshot({ t: 'snap', tickHz: 19.6, ents: [] });
+    expect(client.serverTickHz).toBe(19.6);
+    // a warm-up-era head omits the field: the mirror holds the last reading
+    (client as any).applySnapshot({ t: 'snap', ents: [] });
+    expect(client.serverTickHz).toBe(19.6);
+  });
+
+  it('rejects junk tickHz values instead of poisoning the mirror', () => {
+    const client = bareClient(1);
+    (client as any).applySnapshot({ t: 'snap', tickHz: 20, ents: [] });
+    // Infinity is the one value only Number.isFinite rejects (typeof passes, > 0 passes)
+    for (const junk of ['20', Number.NaN, Number.POSITIVE_INFINITY, -1, 0, null]) {
+      (client as any).applySnapshot({ t: 'snap', tickHz: junk, ents: [] });
+    }
+    expect(client.serverTickHz).toBe(20);
   });
 });

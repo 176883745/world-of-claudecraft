@@ -109,6 +109,7 @@ import type { Presence, PresenceStatus, SocialActor, SocialTransport } from './s
 import { SocialService } from './social';
 import { PgSocialDb } from './social_db';
 import { TickProfiler } from './tick_profiler';
+import { hrtimeToMs, TickRateMeter } from './tick_rate_meter';
 import { holderInfoForPubkey } from './woc_balance';
 import { isBackpressureExceeded } from './ws_backpressure';
 
@@ -133,6 +134,11 @@ const FULL_RATE_RADIUS_SQ = 55 * 55;
 const HALF_RATE_RADIUS_SQ = 80 * 80;
 const HALF_RATE_DIVISOR = 2;
 const QUARTER_RATE_DIVISOR = 4;
+// How often the achieved tick rate rides the snapshot head. The meter's 3s
+// sliding window moves slowly and the client holds the last value across
+// omissions, so ~2 Hz keeps the overlay live without paying the scalar on
+// every 20 Hz head. In sim seconds (the head already carries sim.time).
+const TICK_HZ_HEAD_INTERVAL_S = 0.5;
 // cached wire fragments of despawned entities are swept once a minute
 const WIRE_CACHE_SWEEP_TICKS = 1200;
 const EVENT_RADIUS = 90;
@@ -906,6 +912,14 @@ export class GameServer {
   private readonly startedAt = Date.now();
   private peakOnline = 0;
   private tickMsAvg = 0;
+  // Achieved sim ticks per wall-clock second. The cost metrics above go blind
+  // when the dt clamp discards wall time under saturation; this is the number
+  // that actually sags. Rides the snapshot head (throttled) + perfProfile().
+  private readonly tickRateMeter = new TickRateMeter();
+  private tickHz: number | null = null;
+  // sim.time (seconds) of the last head that carried tickHz; throttles the
+  // scalar to TICK_HZ_HEAD_INTERVAL_S so it does not ride every 20 Hz head.
+  private lastTickHzHeadTime: number | null = null;
   // Rolling per-phase loop timing, localizes a stutter to a phase. Always-on
   // (the hot path allocates nothing); read via perfProfile() for admin/ops.
   private readonly tickProfiler = new TickProfiler([
@@ -1249,6 +1263,7 @@ export class GameServer {
             this.tickProfiler.add(phase, Number(t - mark) / 1e6);
             mark = t;
           };
+          let ticksRun = 0;
           while (acc >= DT) {
             this.clearStaleInputs();
             lap('stale');
@@ -1260,9 +1275,16 @@ export class GameServer {
             lap('events');
             this.runAntibotTick();
             lap('antibot');
+            ticksRun++;
             acc -= DT;
           }
           this.expireLinkdeadSessions();
+          // Anchor the achieved-rate meter to the wall clock (hrtime), never to
+          // callback counts: late timer fires and the dt clamp are exactly the
+          // losses it exists to expose.
+          const nowMs = hrtimeToMs(now);
+          this.tickRateMeter.record(nowMs, ticksRun);
+          this.tickHz = this.tickRateMeter.rate(nowMs);
           this.broadcastSnapshots();
           lap('broadcast');
           this.tickProfiler.add('bcastGrid', Number(this.bcastGridNs) / 1e6);
@@ -2270,10 +2292,13 @@ export class GameServer {
   }
 
   // Rolling per-phase loop timing for the admin/ops perf view + load harness.
-  perfProfile(): { online: number; simEntities: number } & ReturnType<TickProfiler['profile']> {
+  perfProfile(): { online: number; simEntities: number; tickHz: number | null } & ReturnType<
+    TickProfiler['profile']
+  > {
     return {
       online: this.clients.size,
       simEntities: this.sim.entities.size,
+      tickHz: this.tickHz == null ? null : round2(this.tickHz),
       ...this.tickProfiler.profile(),
     };
   }
@@ -2336,7 +2361,7 @@ export class GameServer {
     const p = this.tickProfiler.profile().phases;
     const fmt = (n: string) => `${n}=${p[n].p95}/${p[n].max}`;
     console.log(
-      `[perf] online=${this.clients.size} ents=${this.sim.entities.size} tickMs=${round2(tickMs)}${overBudget ? ' OVER' : ''}` +
+      `[perf] online=${this.clients.size} ents=${this.sim.entities.size} tickHz=${this.tickHz == null ? 'n/a' : round2(this.tickHz)} tickMs=${round2(tickMs)}${overBudget ? ' OVER' : ''}` +
         ` | p95/max ${['total', 'tick', 'broadcast', 'bcastSelf', 'bcastGrid', 'events', 'social'].map(fmt).join(' ')}` +
         ` | visits=${this.bcVisits} serializes=${this.bcSerializes} serializeMs=${round2(Number(this.bcSerializeNs) / 1e6)}`,
     );
@@ -3727,7 +3752,24 @@ export class GameServer {
   private broadcastSnapshots(): void {
     if (this.clients.size === 0) return;
     const tick = this.sim.tickCount;
-    const head = `{"t":"snap","tick":${tick},"time":${round2(this.sim.time)}`;
+    // tickHz rides the head at ~2 Hz, not on every snapshot: it is omitted while
+    // the meter warms up (first ~1s, so a fresh server never shows a bogus
+    // reading), and between-emissions the client holds the last value. A warmed
+    // meter reports a positive rate: a window with zero committed ticks cannot
+    // coexist with a firing broadcast (acc accrues every callback), and a fully
+    // stalled loop sends nothing. Old clients and warm-up read alike as absent.
+    let tickHzJson = '';
+    if (this.tickHz != null) {
+      const now = this.sim.time;
+      if (
+        this.lastTickHzHeadTime == null ||
+        now - this.lastTickHzHeadTime >= TICK_HZ_HEAD_INTERVAL_S
+      ) {
+        tickHzJson = `,"tickHz":${round2(this.tickHz)}`;
+        this.lastTickHzHeadTime = now;
+      }
+    }
+    const head = `{"t":"snap","tick":${tick},"time":${round2(this.sim.time)}${tickHzJson}`;
     // Guard each session: a throw while building one player's snapshot must not
     // starve every other session of its snapshot this tick (server/CLAUDE.md).
     forEachGuarded(
@@ -4003,6 +4045,8 @@ export class GameServer {
     maybe('dclears', this.sim.delveClearsFor(anchorSession.pid));
     maybe('delveDaily', this.sim.delveDailyWire(anchorSession.pid));
     // Gathering profession proficiency (Mining/Logging/Herbalism), a small
+    // per-player map, so kept per-tick like the other small maps above.
+    maybe('gprof', this.sim.gatheringProficiencyFor(anchorSession.pid));
     // per-player read, so kept per-tick like the other small maps above. Wire
     // key `prof` and IWorld member `professionsState` are the settled names
     // for the professions facet (#1164, src/sim/professions/CLAUDE.md). `gprof`
@@ -4285,9 +4329,10 @@ export class GameServer {
         if (!s) continue;
         const match = this.sim.vcupMatchOf(ev.pid);
         if (!match || !match.rated) continue;
+        if (!ev.won) continue;
         void dailyRewardService
           .recordValeCupResult(s.accountId, {
-            won: ev.won,
+            won: true,
             bracket: match.bracket,
             matchId: match.id,
           })
@@ -4295,7 +4340,6 @@ export class GameServer {
             if (points > 0) this.sendDailyRewardPointsGained(s, points);
           })
           .catch((err) => console.error('daily reward vale cup task failed:', err));
-        if (!ev.won) continue;
         // One card per decided match: every winner's vcupResult lands on the
         // same tick and the match-id dedupe key collapses them, so the first
         // one enumerates the whole winning side (linked teammates get tagged

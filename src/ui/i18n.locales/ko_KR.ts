@@ -14,6 +14,8 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const ko_KR: Partial<Record<TranslationKey, string>> = {
+  'hudChrome.vcup.guildBoardWl': '{wins}승 {losses}패',
+  'hudChrome.vcup.shootPower': '파워',
   'hudChrome.discord.roleTag.coredevs': '핵심 개발자',
   'hudChrome.options.version': 'v{version} ({build})',
   'auth.emailPlaceholder': 'you@example.com',
@@ -30,10 +32,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.toLabel': '받는 사람',
   'itemUi.kind.bag': '가방',
   'itemUi.tooltip.bagSlots': '{slots}칸 가방',
-  // Guild roster last-seen (M16 non-Latin fill)
   'hudChrome.social.lastSeen': '마지막 접속: {when}',
   'hudChrome.social.lastSeenNever': '없음',
-  // Daily rewards (M16 non-Latin fill)
   'hudChrome.dailyRewards.title': '일일 보상',
   'hudChrome.dailyRewards.close': '일일 보상 닫기',
   'hudChrome.dailyRewards.loading': '일일 보상 불러오는 중...',
@@ -239,7 +239,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.interfaceModeTouch': '터치',
   'hudChrome.options.interfaceModeNote':
     '자동은 기기에 따라 데스크톱 또는 터치 조작을 선택합니다. 데스크톱을 선택하면 키보드와 마우스로 고정되며(키보드가 있는 태블릿 등에 유용), 터치를 선택하면 화면 조작이 됩니다.',
-  // Character-sheet stat tooltips (hudChrome.statInfo.*).
   'hudChrome.statInfo.fromYour': '당신의 {value} {stat}에서:',
   'hudChrome.statInfo.names.spellPower': '주문력',
   'hudChrome.statInfo.names.critRating': '치명타 등급',
@@ -325,6 +324,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.jitter': '지터',
   'hudChrome.perf.labels.predLead': '예측 리드',
   'hudChrome.perf.labels.snapshot': '스냅샷 전송률',
+  'hudChrome.perf.labels.serverTick': '서버 틱 속도',
   'hudChrome.perf.labels.connection': '연결',
   'hudChrome.perf.labels.drawCalls': '드로우 콜',
   'hudChrome.perf.labels.triangles': '삼각형',
@@ -2645,18 +2645,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.auctioneer_voss.title': '세계 시장 관리자',
   'entities.npcs.auctioneer_voss.greeting':
     '세계 시장은 이곳에서도 이용할 수 있습니다, {className}. 왕국의 모험가들에게서 물건을 사거나 자신의 물건을 내놓으십시오.',
-  'entities.npcs.bursar_fernando.name': '출납관 페르난도',
-  'entities.npcs.bursar_fernando.title': '도금 금고',
-  'entities.npcs.bursar_fernando.greeting':
-    '도금 금고에 오신 것을 환영합니다. 당신의 물건은 우리의 자물쇠 뒤에서 안전하게 보관됩니다.',
-  'entities.npcs.bursar_petra_vell.name': '출납관 페트라 벨',
-  'entities.npcs.bursar_petra_vell.title': '도금 금고',
-  'entities.npcs.bursar_petra_vell.greeting':
-    '도금 금고는 장부도 깔끔하고 금고는 더욱 깨끗합니다. 무엇을 보관해 드릴까요?',
-  'entities.npcs.bursar_aldous_crane.name': '출납관 알도스 크레인',
-  'entities.npcs.bursar_aldous_crane.title': '도금 금고',
-  'entities.npcs.bursar_aldous_crane.greeting':
-    '어떤 상자든, 금궤든, 장신구든 도금 금고에 맡기시면 안전합니다.',
   'entities.npcs.tidewatcher_ondrel.name': '온드렐 베인',
   'entities.npcs.tidewatcher_ondrel.title': '조수지기',
   'entities.npcs.tidewatcher_ondrel.greeting':
@@ -3316,7 +3304,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'news.prerelease': '사전 출시',
   'news.viewOnGithub': 'GitHub에서 보기',
   'wiki.cta': '위키 둘러보기',
-  // --- qol-changes: character profile, attack-move, login/create labels ---
   'character.portraitAlt': '{name}의 초상화',
   'character.viewProfile': '프로필 보기',
   'character.profile': '프로필',
@@ -3331,7 +3318,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'auth.chromaOption': '색상 {n}',
   'auth.noAccountPrompt': '처음이신가요?',
   'auth.haveAccountPrompt': '이미 계정이 있으신가요?',
-
   'entities.items.conjured_bread.name': '마력의 귀리빵',
   'entities.items.conjured_bread2.name': '마력의 검은 빵',
   'entities.items.conjured_bread3.name': '마력의 꿀과자',
@@ -3392,7 +3378,12 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': '고목 도끼',
   'entities.items.goldleaf_sickle.name': '금엽 낫',
   'entities.items.sunpetal_sickle.name': '태양꽃잎 낫',
-  // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
+  'entities.items.thorium_ore.name': '토륨 광석',
+  'entities.items.arcanite_bar.name': '비전 주괴',
+  'entities.items.ashwood_log.name': '잿빛나무 통나무',
+  'entities.items.elderwood_log.name': '고대 딱총나무 통나무',
+  'entities.items.goldleaf_herb.name': '금빛잎 약초',
+  'entities.items.sunpetal_herb.name': '태양꽃잎 약초',
   'hud.core.chatChannels.add': '채팅 채널 추가',
   'hud.core.chatChannels.addTitle': '채널 추가',
   'hud.core.chatChannels.close': '{channel} 탭 닫기',
@@ -3654,7 +3645,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.controller.menuAction': '게임 메뉴',
   'hudChrome.controller.help':
     '왼쪽 스틱으로 이동, 오른쪽 스틱으로 시점 조작. 창을 열면 화면 포인터를 사용할 수 있습니다.',
-  // New-adventurer tutorial (PR #729)
   'hud.tutorial.title': '새내기 모험가',
   'hud.tutorial.stepLabel': '{total}단계 중 {current}단계',
   'hud.tutorial.skip': '튜토리얼 건너뛰기',
@@ -3801,11 +3791,9 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.exportBtn': '내 데이터 다운로드',
   'hudChrome.account.exportDone': '데이터가 다운로드되었습니다. 확인 메일을 보내드렸습니다.',
   'hudChrome.account.exportFailed': '데이터를 내보낼 수 없습니다. 잠시 후 다시 시도하세요.',
-  // On-screen quest tracker (hudChrome.questTracker.*): collapsed count badge + header toggle hover hint.
   'hudChrome.questTracker.count': '({count})',
   'hudChrome.questTracker.collapseHint': '퀘스트 추적기 접기',
   'hudChrome.questTracker.expandHint': '퀘스트 추적기 펼치기',
-  // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.cannotDestroy': '이 아이템은 파괴할 수 없습니다.',
   'hudChrome.bags.rightClickDestroy': '마우스 오른쪽 버튼으로 파괴',
   'hudChrome.bags.filterGroupAria': '가방을 분류별로 필터링',
@@ -3826,7 +3814,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.bags.backpack': '배낭',
   'hudChrome.bags.socketEmpty': '빈 가방 칸',
   'hudChrome.bags.unequipHint': '클릭하여 이 가방을 해제',
-  // Guide (/guide) localization.
   'guide.brand': 'World of ClaudeCraft',
   'guide.brandShort': 'ClaudeCraft',
   'guide.tagline': '브라우저에서 무료로 즐기는 클래식 스타일 MMO입니다.',
@@ -4211,7 +4198,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.notFound.title': '해당 페이지를 찾을 수 없습니다',
   'guide.notFound.body': '찾으시는 페이지가 존재하지 않거나 이동되었을 수 있습니다.',
   'guide.notFound.home': '개요로 돌아가기',
-  // Guide (/guide) localization.
   'guide.bestiary.heading': '몬스터 도감',
   'guide.bestiary.intro':
     '세계의 생명체들을 종족별로 묶었습니다. 이들은 야외에서 마주치는 적입니다. 가장 치명적인 것들은 도감에 오르지 않은 채, 던전 문 너머에서 기다립니다.',
@@ -4538,7 +4524,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '남쪽에서 북쪽으로 이어지는 세 지역은 각각 레벨이 한 단계씩 높아집니다. 퀘스트 길을 따라가면 땅이 당신을 골짜기에서 봉우리까지 이끌어 줍니다.',
   'guide.worldPage.places': '주요 명소',
   'guide.worldPage.residents': '만나게 될 이들',
-  // guide.* enrichment fill (lore, gear, social, stats, economy, progression)
   'guide.arenaPage.powerupsBody':
     '빛나는 구슬이 전투 도중 투기장 안으로 떨어지기도 하며, 먼저 닿는 사람이 임자입니다. 일부러 과장되게 만들어졌고 효과는 잠깐뿐입니다. 눈이 멀 듯한 속도를 주는 스피드 데몬, 굼뜬 거인으로 부풀어 오르는 콜로서스, 저중력으로 통통 튀어 오르게 하는 문 부츠, 그리고 분노가 한순간에 폭발하는 버서커가 있습니다.',
   'guide.arenaPage.powerupsTitle': '원형 안의 강화 효과',
@@ -4579,13 +4564,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.dungeonsPage.templeLoreBody':
     '이 신전에는 당신이 다른 곳에서 쫓는 교단보다 오래된 그만의 전설이 있습니다. 달빛을 들이마시고 익사자를 되돌려 주는 작은 호수, 글리머미어의 기슭에서 한 외로운 감시자가 창백한 빛의 관문을 지킵니다. 수면 아래로는 차가운 돌계단이 그곳까지 내려갑니다. 그곳에 가라앉은 이들은 불운으로 익사한 것이 아닙니다. 그들은 창백한 합창단이었고, 경배 속에 물밑으로 들어가 노래를 멈추지 않았습니다. 옛 수호자들은 물이 자신들을 삼키기 전에 바위에 단 하나의 경고를 새겼습니다. 익사한 달이라 부르던 무언가를 향한 기도였고, 그 아래에 한층 차분한 손길이 두 마디를 덧붙였습니다. 그것은 잠들어 있을 뿐.',
   'guide.dungeonsPage.templeLoreTitle': '익사한 신전, 조금 더 깊이',
-  'guide.economy.bankBody':
-    '모든 거점 마을에는 이 땅의 은행 상회인 도금 금고의 지점이 있습니다. 그곳의 출납관에게 말을 걸면 자신의 금고가 열립니다. 가방과는 별개인 개인 보관 공간으로, 캐릭터가 평생 유지합니다. 맡겨 둔 물건은 다음에 어느 지점을 찾아가도 안전하게 기다리고 있습니다.',
-  'guide.economy.bankHow':
-    '금고가 열린 상태에서 가방의 물건을 클릭하면 맡겨지고, 금고의 물건을 클릭하면 되찾습니다. 금고에는 물건만 보관할 수 있고 동전은 맡길 수 없으며, 퀘스트 아이템은 늘 몸에 지니게 됩니다. 여행 중에 가방이 가득 차면 제작 재료를 한 번에 맡기는 버튼도 있습니다.',
-  'guide.economy.bankSlots':
-    '갓 연 금고는 작지만 당신과 함께 자랍니다. 출납관은 추가 칸을 동전에 판매하며 가격은 단계마다 높아집니다. 온라인으로 플레이하면 이메일 인증, 계정 연동, 친구 초대 등으로 보너스 공간도 얻을 수 있습니다.',
-  'guide.economy.bankTitle': '은행',
   'guide.economy.buyingBody':
     '상인 가까이 서면 상점 창이 열립니다. 형편이 닿는 한 그들이 갖춘 물건은 무엇이든 살 수 있고, 가방 속 대부분은 동전을 받고 팔 수 있습니다. 실수로 무언가를 팔았다면, 상인이 최근 판매 내역을 보관해 두므로 되살 수 있습니다.',
   'guide.economy.buyingTitle': '사고팔기',
@@ -4901,7 +4879,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.worldPage.gladeTitle': '고요한 한구석: 브라이트우드 숲',
   'guide.worldPage.gladeBody':
     '계곡의 모든 이야기가 죽은 자들에 관한 것은 아닙니다. 북쪽에는 브라이트우드 숲이라 불리는 햇살 드는 숲이 있어, 가지 아래로 어른거리는 빛과 조용한 길과 함께 더 부드러운 고유한 리듬을 지킵니다. 당신이 따라가는 흔적에 대한 차분한 대비이며, 길이 잠시 여유를 줄 때 둘러볼 만한 곳입니다.',
-  // APM telemetry label from release/v0.14.0
   'hudChrome.perf.labels.apm': 'APM',
   'entities.zones.eastbrook_vale.pois.9.label': '브라이트우드 숲',
   'entities.items.reliquary_plate_chest.name': '성물실 수호 갑옷',
@@ -5272,7 +5249,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.itemProc.hot': '{name}을 피워 {duration}초 동안 {total}의 생명력을 회복시킵니다',
   'hudChrome.itemSet.bonusLine': '({pieces}) {bonus}',
   'hudChrome.abilityScaling.bonus': '(+{value})',
-  // Discord integration (two-way login, rewards, relay, in-game flair).
   'hudChrome.discord.close': '닫기',
   'hudChrome.discord.keybind': 'Discord 패널',
   'hudChrome.discord.disabled': '현재 Discord 연동을 사용할 수 없습니다.',
@@ -5389,7 +5365,15 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.relay.wts.label': '판매 희망',
   'hudChrome.discord.relay.wtb.label': '구매 희망',
   'hudChrome.discord.relay.help.label': '도움 요청',
-  // Developer badge (M16 non-Latin fills).
+  'hudChrome.crafting.title': '제작',
+  'hudChrome.crafting.close': '제작 닫기',
+  'hudChrome.crafting.craft': '제작',
+  'hudChrome.crafting.reagentsNeeded': '필요 재료:',
+  'hudChrome.crafting.empty': '알려진 제작법이 없습니다.',
+  'hudChrome.crafting.resultAria': '{name} 제작',
+  'hudChrome.crafting.craftedToast': '제작 완료:{name}',
+  'hudChrome.crafting.insufficientMaterials': '재료가 부족합니다.',
+  'hudChrome.crafting.unknownRecipe': '해당 제작법이 존재하지 않습니다.',
   'hudChrome.devBadge.title': '개발자',
   'hudChrome.devBadge.tiers.tinkerer': '수선공',
   'hudChrome.devBadge.tiers.artificer': '장인',
@@ -5431,7 +5415,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'desktop.crash.reload': '다시 불러오기',
   'desktop.crash.quit': '종료',
   'desktop.crash.fatalBody': 'World of ClaudeCraft에 예기치 않은 오류가 발생하여 종료해야 합니다.',
-  // Map editor (/editor), added with the editor catalog domain.
   'editor.appTitle': '맵 편집기',
   'editor.docTitle': '맵 편집기 - World of ClaudeCraft',
   'editor.untitledMap': '제목 없는 맵',
@@ -5935,15 +5918,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.dailyRewards.remainingMinutes': '{minutes}분',
   'hudChrome.dailyRewards.sol': '{amount} SOL',
   'hudChrome.dailyRewards.usd': '{amount} USD',
-  'hudChrome.crafting.title': '제작',
-  'hudChrome.crafting.close': '제작 닫기',
-  'hudChrome.crafting.craft': '제작',
-  'hudChrome.crafting.reagentsNeeded': '필요 재료:',
-  'hudChrome.crafting.empty': '알려진 제작법이 없습니다.',
-  'hudChrome.crafting.resultAria': '{name} 제작',
-  'hudChrome.crafting.craftedToast': '제작 완료:{name}',
-  'hudChrome.crafting.insufficientMaterials': '재료가 부족합니다.',
-  'hudChrome.crafting.unknownRecipe': '해당 제작법이 존재하지 않습니다.',
   'guide.professions.intro':
     '전투와 퀘스트를 넘어, 이 세계는 땅을 일구고 대장간에서 일하는 당신에게도 보상을 준다: 원재료를 채집하고, 열 가지 서로 다른 제작소에서 이를 장비로 바꾸며, 그 직업들이 상징하는 열 가지 원형 중 하나로서 정체성을 확립하는 것이다.',
   'guide.professions.gatherTitle': '채집: 채광, 벌목, 약초학',
@@ -5985,7 +5959,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.professions.archetypeIdentityTitle': '당신의 원형이 의미하는 것',
   'guide.professions.archetypeIdentityBody':
     '당신의 현재 원형은 이 세계에서 당신의 캐릭터가 누구인지에 대한 선언이며, 다른 이들과 세계가 당신을 부르는 방식에 반영된다. 그에 따르는 구체적인 보상과 인정은 아직 다듬어지는 중이다. 시스템이 채워지는 대로 다시 확인해 보라.',
-  // apiError.* server error-code catalog (M16 non-Latin fill, Phase 22)
   'apiError.validation.failed': '일부 항목이 올바르지 않습니다. 양식을 확인하고 다시 시도하세요.',
   'apiError.json.malformed': '요청을 읽을 수 없습니다. 다시 시도해 주세요.',
   'apiError.body.too_large': '요청이 너무 큽니다. 데이터를 줄여 다시 시도하세요.',
@@ -6047,52 +6020,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'apiError.discord.swag_claimed': '이미 이 보상을 받았습니다.',
   'apiError.discord.swag_tier': '이 보상을 받으려면 더 높은 등급에 도달하세요.',
   'apiError.discord.swag_points': '포인트가 부족합니다.',
-  // The Ravenpost mailbox (M16 non-Latin fill)
   'hudChrome.mailbox.title': '우편함',
   'hudChrome.mailbox.subtitle': '레이븐포스트',
-  'hudChrome.bank.title': '은행',
-  'hudChrome.bank.subtitle': '도금 금고',
-  'hudChrome.bank.close': '은행 닫기',
-  'hudChrome.bank.capacity': '{used}/{total}',
-  'hudChrome.bank.capacityAria': '사용 중인 은행 칸: {total}칸 중 {used}칸',
-  'hudChrome.bank.empty': '은행이 비어 있습니다.',
-  'hudChrome.bank.tooFar': '은행을 이용하려면 은행원 옆에 있어야 합니다.',
-  'hudChrome.bank.buySlots': '{count}칸 구매',
-  'hudChrome.bank.buySlotsMaxed': '완전히 확장됨',
-  'hudChrome.bank.buyConfirm': '{price}에 은행 칸 {count}개를 추가로 구매하시겠습니까?',
-  'hudChrome.bank.buyConfirmAccept': '구매',
-  'hudChrome.bank.withdrawHint': '클릭하여 꺼내기',
-  'hudChrome.bank.withdrawPartialHint': 'Shift+클릭하여 일부만 꺼내기',
-  'hudChrome.bank.depositHint': '클릭하여 넣기',
-  'hudChrome.bank.depositPartialHint': 'Shift+클릭하여 일부만 넣기',
-  'hudChrome.bank.cannotDeposit': '은행에 보관할 수 없음',
-  'hudChrome.bank.depositQuantityTitle': '{item} 넣기',
-  'hudChrome.bank.depositQuantityInput': '넣을 수량',
-  'hudChrome.bank.depositQuantityConfirm': '넣기',
-  'hudChrome.bank.withdrawQuantityTitle': '{item} 꺼내기',
-  'hudChrome.bank.withdrawQuantityInput': '꺼낼 수량',
-  'hudChrome.bank.withdrawQuantityConfirm': '꺼내기',
-  'hudChrome.bank.filterGroupAria': '은행을 분류별로 필터링',
-  'hudChrome.bank.sortAria': '은행 아이템 정렬',
-  'hudChrome.bank.searchAria': '이름으로 은행 아이템 검색',
-  'hudChrome.bank.depositAll': '모든 재료 보관',
-  'hudChrome.bank.depositAllDone': '보관한 재료: {count}.',
-  'hudChrome.bank.depositAllFull': '보관한 재료: {count}. 은행이 가득 찼습니다.',
-  'hudChrome.bank.depositAllNone': '은행이 가득 참: 아무것도 보관하지 못했습니다.',
-  'hudChrome.bank.bonusTitle': '보너스 칸',
-  'hudChrome.bank.bonusEarned': '+{count}',
-  'hudChrome.bank.bonusStatusEarned': '+{count}',
-  'hudChrome.bank.bonusSourceEmail': '이메일 인증됨',
-  'hudChrome.bank.bonusSourceDiscord': 'Discord 연동됨',
-  'hudChrome.bank.bonusSourceWallet': '지갑 연동됨',
-  'hudChrome.bank.bonusSourceReferral': '추천한 친구',
-  'hudChrome.bank.bonusAdvertEmail': '이메일을 인증하면 2칸을 얻습니다.',
-  'hudChrome.bank.bonusAdvertDiscord': 'Discord를 연동하면 2칸을 얻습니다.',
-  'hudChrome.bank.bonusAdvertWallet': '지갑을 연동하면 2칸을 얻습니다.',
-  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
-  'hudChrome.bank.bonusReferralExplainer':
-    '친구를 초대하세요: 친구가 10레벨에 도달하면 서로 2칸씩 얻으며, 최대 5명까지 가능합니다.',
-  'hudChrome.bank.bonusSectionAria': '보너스 은행 칸과 획득 방법',
   'hudChrome.mailbox.close': '우편함 닫기',
   'hudChrome.mailbox.tabInbox': '받은 편지함',
   'hudChrome.mailbox.tabInboxWithCount': '받은 편지함 ({count})',
@@ -6135,7 +6064,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.result.letterGone': '그 편지는 더 이상 우편함에 없습니다.',
   'hudChrome.mailbox.result.takeParcelsFirst': '편지를 버리기 전에 소포를 먼저 꺼내세요.',
   'worldContent.mailboxName': '우편함',
-  // Ravenpost authored letters (M16 non-Latin fill)
   'entities.letters.ravenpost_welcome.sender': '레이븐포스트',
   'entities.letters.ravenpost_welcome.subject': '이제 까마귀가 당신을 위해 날아갑니다',
   'entities.letters.ravenpost_welcome.body':
@@ -6152,7 +6080,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.letters.letter_q_hollow.subject': '그대가 어둠 속에서 해낸 일',
   'entities.letters.letter_q_hollow.body':
     '그 구렁에 무엇이 묻혀 있었는지 아는 이는 거의 없고, 믿을 이는 더 적을 것입니다. 저는 알고 있고, 잊지 않겠습니다.\n\n그대의 길에 늘 빛이 함께하기를.\n- 알드릭 수사',
-  // Event calendar (M16 non-Latin fill)
   'hudChrome.calendar.title': '이벤트 달력',
   'hudChrome.calendar.close': '달력 닫기',
   'hudChrome.calendar.keybindLabel': '이벤트 달력',
@@ -6213,13 +6140,11 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.archetypeTitle.enchanting': '마법부여사',
   'hudChrome.archetypeTitle.tailoring': '재단사',
   'hudChrome.archetypeTitle.leatherworking': '가죽공예사',
-  // Release v0.22.0 locale fill.
   'hudChrome.crafting.reagentLine': '{name}: {have}/{required}',
   'hudChrome.crafting.comboRequirementUnmet':
     '이 조합 제작법에 필요한 두 제작 기술의 숙련도에 도달하지 못했습니다.',
   'hudChrome.mobile.actionPageIndicator': '{page}페이지',
   'hudChrome.mobile.spellbookPageLabel': '페이지 {page}',
-  // The Vale Cup boarball minigame (docs/prd/vale-cup.md).
   'hudChrome.keybinds.valecup': '베일 컵',
   'hudChrome.vcup.title': '베일 컵',
   'hudChrome.vcup.close': '베일 컵 창 닫기',
@@ -6381,7 +6306,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.groundskeeper_bram.greeting':
     '소우필드에서는 휴전이 지켜지고 있소, {className}. 발과 어깨만 쓸 수 있소. 구리 들통을 걸고 한판 하겠소?',
   'entities.zones.eastbrook_vale.pois.10.label': '소우필드',
-  // The Vale Cup sport kit ability names + descriptions.
   'entities.abilities.sport_kick.name': '킥',
   'entities.abilities.sport_kick.description': '조준 지점을 향해 공을 땅볼로 차 보냅니다.',
   'entities.abilities.sport_shoot.name': '슛',
@@ -6408,6 +6332,66 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.sport_second_wind.name': '재도약',
   'entities.abilities.sport_second_wind.description':
     '기운을 되찾습니다: 4초 동안 이동 속도가 50% 증가합니다.',
-  'hudChrome.vcup.guildBoardWl': '{wins}승 {losses}패',
-  'hudChrome.vcup.shootPower': '파워',
+  'entities.npcs.bursar_fernando.name': '출납관 페르난도',
+  'entities.npcs.bursar_fernando.title': '도금 금고',
+  'entities.npcs.bursar_fernando.greeting':
+    '도금 금고에 오신 것을 환영합니다. 당신의 물건은 우리의 자물쇠 뒤에서 안전하게 보관됩니다.',
+  'entities.npcs.bursar_petra_vell.name': '출납관 페트라 벨',
+  'entities.npcs.bursar_petra_vell.title': '도금 금고',
+  'entities.npcs.bursar_petra_vell.greeting':
+    '도금 금고는 장부도 깔끔하고 금고는 더욱 깨끗합니다. 무엇을 보관해 드릴까요?',
+  'entities.npcs.bursar_aldous_crane.name': '출납관 알도스 크레인',
+  'entities.npcs.bursar_aldous_crane.title': '도금 금고',
+  'entities.npcs.bursar_aldous_crane.greeting':
+    '어떤 상자든, 금궤든, 장신구든 도금 금고에 맡기시면 안전합니다.',
+  'guide.economy.bankBody':
+    '모든 거점 마을에는 이 땅의 은행 상회인 도금 금고의 지점이 있습니다. 그곳의 출납관에게 말을 걸면 자신의 금고가 열립니다. 가방과는 별개인 개인 보관 공간으로, 캐릭터가 평생 유지합니다. 맡겨 둔 물건은 다음에 어느 지점을 찾아가도 안전하게 기다리고 있습니다.',
+  'guide.economy.bankHow':
+    '금고가 열린 상태에서 가방의 물건을 클릭하면 맡겨지고, 금고의 물건을 클릭하면 되찾습니다. 금고에는 물건만 보관할 수 있고 동전은 맡길 수 없으며, 퀘스트 아이템은 늘 몸에 지니게 됩니다. 여행 중에 가방이 가득 차면 제작 재료를 한 번에 맡기는 버튼도 있습니다.',
+  'guide.economy.bankSlots':
+    '갓 연 금고는 작지만 당신과 함께 자랍니다. 출납관은 추가 칸을 동전에 판매하며 가격은 단계마다 높아집니다. 온라인으로 플레이하면 이메일 인증, 계정 연동, 친구 초대 등으로 보너스 공간도 얻을 수 있습니다.',
+  'guide.economy.bankTitle': '은행',
+  'hudChrome.bank.title': '은행',
+  'hudChrome.bank.subtitle': '도금 금고',
+  'hudChrome.bank.close': '은행 닫기',
+  'hudChrome.bank.capacity': '{used}/{total}',
+  'hudChrome.bank.capacityAria': '사용 중인 은행 칸: {total}칸 중 {used}칸',
+  'hudChrome.bank.empty': '은행이 비어 있습니다.',
+  'hudChrome.bank.tooFar': '은행을 이용하려면 은행원 옆에 있어야 합니다.',
+  'hudChrome.bank.buySlots': '{count}칸 구매',
+  'hudChrome.bank.buySlotsMaxed': '완전히 확장됨',
+  'hudChrome.bank.buyConfirm': '{price}에 은행 칸 {count}개를 추가로 구매하시겠습니까?',
+  'hudChrome.bank.buyConfirmAccept': '구매',
+  'hudChrome.bank.withdrawHint': '클릭하여 꺼내기',
+  'hudChrome.bank.withdrawPartialHint': 'Shift+클릭하여 일부만 꺼내기',
+  'hudChrome.bank.depositHint': '클릭하여 넣기',
+  'hudChrome.bank.depositPartialHint': 'Shift+클릭하여 일부만 넣기',
+  'hudChrome.bank.cannotDeposit': '은행에 보관할 수 없음',
+  'hudChrome.bank.depositQuantityTitle': '{item} 넣기',
+  'hudChrome.bank.depositQuantityInput': '넣을 수량',
+  'hudChrome.bank.depositQuantityConfirm': '넣기',
+  'hudChrome.bank.withdrawQuantityTitle': '{item} 꺼내기',
+  'hudChrome.bank.withdrawQuantityInput': '꺼낼 수량',
+  'hudChrome.bank.withdrawQuantityConfirm': '꺼내기',
+  'hudChrome.bank.filterGroupAria': '은행을 분류별로 필터링',
+  'hudChrome.bank.sortAria': '은행 아이템 정렬',
+  'hudChrome.bank.searchAria': '이름으로 은행 아이템 검색',
+  'hudChrome.bank.depositAll': '모든 재료 보관',
+  'hudChrome.bank.depositAllDone': '보관한 재료: {count}.',
+  'hudChrome.bank.depositAllFull': '보관한 재료: {count}. 은행이 가득 찼습니다.',
+  'hudChrome.bank.depositAllNone': '은행이 가득 참: 아무것도 보관하지 못했습니다.',
+  'hudChrome.bank.bonusTitle': '보너스 칸',
+  'hudChrome.bank.bonusEarned': '+{count}',
+  'hudChrome.bank.bonusStatusEarned': '+{count}',
+  'hudChrome.bank.bonusSourceEmail': '이메일 인증됨',
+  'hudChrome.bank.bonusSourceDiscord': 'Discord 연동됨',
+  'hudChrome.bank.bonusSourceWallet': '지갑 연동됨',
+  'hudChrome.bank.bonusSourceReferral': '추천한 친구',
+  'hudChrome.bank.bonusAdvertEmail': '이메일을 인증하면 2칸을 얻습니다.',
+  'hudChrome.bank.bonusAdvertDiscord': 'Discord를 연동하면 2칸을 얻습니다.',
+  'hudChrome.bank.bonusAdvertWallet': '지갑을 연동하면 2칸을 얻습니다.',
+  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
+  'hudChrome.bank.bonusReferralExplainer':
+    '친구를 초대하세요: 친구가 10레벨에 도달하면 서로 2칸씩 얻으며, 최대 5명까지 가능합니다.',
+  'hudChrome.bank.bonusSectionAria': '보너스 은행 칸과 획득 방법',
 };

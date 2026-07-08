@@ -409,57 +409,57 @@ export const tr_TR: EnTranslations = {
       "nation": {
         "vale": "Doğudere Vadisi",
         "mirefen": "Mirefen",
-        "thornpeak": "Dikenzirve",
-        "coliseum": "Kül Kolezyumu",
-        "choir": "Solgun Koro",
+        "thornpeak": "Thornpeak",
+        "coliseum": "Kül Koliseumu",
+        "choir": "Soluk Koro",
         "ogre": "Ogre Klanları",
-        "moon": "Solgun Ay",
+        "moon": "Soluk Ay",
         "copperdig": "Bakır Kazısı"
       },
-      "awayNote": "İki taraf da aynı sancağı taşıyorsa deplasman tarafı renklerin tersine çevrilmiş haliyle oynar.",
-      "rolesHeading": "Saha mevkisi",
+      "awayNote": "İki taraf da aynı sancağı taşıyorsa deplasman tarafı ters renk paletiyle oynar.",
+      "rolesHeading": "Spor rolü",
       "role": {
         "allrounder": {
           "name": "Çok Yönlü",
-          "desc": "Her şeyden biraz: vuruş, koca vuruş ve kurallı bir omuz."
+          "desc": "Her şeyden biraz: vuruş, aşırtma ve dürüst bir omuz."
         },
         "striker": {
-          "name": "Forvet",
-          "desc": "Koca vuruş ve hızlı çalım için yaşar."
+          "name": "Golcü",
+          "desc": "Uzun vuruş ve hızlı çalım için yaşar."
         },
         "sweeper": {
           "name": "Libero",
-          "desc": "Koşan rakipleri toptan devirir ve topu uzaklaştırır."
+          "desc": "Koşucuları toptan omuzlayıp uzaklaştırır ve topu sertçe temizler."
         },
         "keeper": {
           "name": "Kaleci",
-          "desc": "Kale sahasını tutuşla, dalışla ve degajla korur."
+          "desc": "Kale sahasını tutuş, dalış ve degajla korur."
         }
       },
       "queue": "Sıraya Gir",
       "leaveQueue": "Sıradan Ayrıl",
-      "queueNote": "Dilediğin yerden sıraya gir; düdük seni Ekinlik'e çağırır.",
-      "queuedStatus": "{bracket} için sıradasın: sıra {position} / {count}.",
+      "queueNote": "Her yerden sıraya girebilirsin; düdük seni Domuz Tarlası'na çağırır.",
+      "queuedStatus": "{bracket} için sırada: sıra {position} / {count}.",
       "blockNation": "Önce bir sancak ulusu seç.",
-      "blockPartySize": "Bu kategori daha küçük bir grup gerektirir.",
+      "blockPartySize": "Bu kategori daha küçük bir grup gerektiriyor.",
       "blockNotLeader": "Takımı sıraya yalnızca grup lideri sokabilir.",
       "inMatchNote": "Takımın sahada. Oyuna devam!",
       "deserterNote": "Saha Bekçisi unutmaz. {seconds} sn sonra yeniden sıraya girebilirsin.",
-      "liveHeading": "Şimdi Ekinlik'te",
+      "liveHeading": "Şimdi Domuz Tarlası'nda",
       "liveAria": "Vadi Kupası: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Tribünlerden izlemek için Ekinlik'e gel.",
-      "noLive": "Saha sessiz. Oynanan maç yok.",
+      "walkUp": "Tribünlerden izlemek için Domuz Tarlası'na gel.",
+      "noLive": "Saha sessiz. Şu an oynanan maç yok.",
       "boardHeading": "Kazananlar panosu",
       "boardEmpty": "Henüz kayıtlı kazanan yok. Bakır Kova bekliyor.",
       "boardWins": "{count} galibiyet",
       "enterAsGuild": "{guild} sancağı altında katıl",
       "guildRecordLine": "Lonca sicilin: {wins} galibiyet, {losses} mağlubiyet.",
       "guildBoardHeading": "Lonca sancakları",
-      "guildBoardEmpty": "Henüz hiçbir lonca sahaya çıkmadı. Sancağını dalgalandır!",
+      "guildBoardEmpty": "Henüz sahaya çıkan lonca yok. Sancağını dalgalandır!",
       "guildBoardWl": "{wins} G, {losses} M",
       "practice": "Botlara Karşı Antrenman",
       "practiceNote": "Kendi antrenman sahanda hemen özel bir bot maçı başlatır.",
-      "practicingNow": "Şu anda antrenman yapanlar ({count}):",
+      "practicingNow": "Şu an antrenmanda ({count}):",
       "clock": "{minutes}:{seconds}",
       "indicatorQueued": "Vadi Kupası sırası: {bracket}, sıra {position} / {count}",
       "indicatorLive": "Vadi Kupası",
@@ -468,47 +468,47 @@ export const tr_TR: EnTranslations = {
       "phaseGoal": "GOL!",
       "phaseGolden": "ALTIN GOL",
       "phaseOver": "MAÇ SONU",
-      "bannerFound": "Vadi Kupası çağırıyor: {nationA} - {nationB}!",
+      "bannerFound": "Vadi Kupası çağırıyor: {nationA} ile {nationB} karşı karşıya!",
       "bannerCountdown": "Başlama vuruşuna {seconds}...",
       "bannerKickoff": "BAŞLAMA VURUŞU!",
-      "bannerGoal": "GOL! Golü atan: {nation}!",
+      "bannerGoal": "GOL! {nation} attı!",
       "bannerSave": "{name} KURTARDI!",
       "bannerGolden": "ALTIN GOL: sıradaki gol kazandırır!",
       "bannerEnd": "Maç sonu: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Ekinlik'te zafer!",
-      "bannerDraw": "Ekinlik'te beraberlik.",
-      "bannerLoss": "Ekinlik'te yenilgi.",
-      "logQueued": "{bracket} için Vadi Kupası sırasına giriyorsun ({position}. sıra).",
-      "logUnqueued": "Vadi Kupası sırasından ayrılıyorsun.",
-      "logFound": "Vadi Kupası maçın hazır: {nationA} - {nationB}.",
-      "logRoster": "Senin tarafın: {allies}. Karşı taraf: {enemies}.",
+      "bannerWin": "Domuz Tarlası'nda zafer!",
+      "bannerDraw": "Domuz Tarlası'nda beraberlik.",
+      "bannerLoss": "Domuz Tarlası'nda yenilgi.",
+      "logQueued": "{bracket} için Vadi Kupası sırasına girdin (sıra {position}).",
+      "logUnqueued": "Vadi Kupası sırasından ayrıldın.",
+      "logFound": "Vadi Kupası maçın hazır: {nationA} ile {nationB} karşı karşıya.",
+      "logRoster": "Senin taraf: {allies}. Karşı taraf: {enemies}.",
       "logGoal": "{name}, {nation} adına gol attı! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} topu kurtarıyor!",
-      "logWin": "Ekinlik'teki karşılaşmayı kazandın.",
-      "logDraw": "Ekinlik'teki karşılaşma beraberlikle bitiyor.",
-      "logLoss": "Ekinlik'teki karşılaşmayı kaybettin.",
+      "logSave": "{name} kurtarışı yaptı!",
+      "logWin": "Domuz Tarlası'ndaki karşılaşmayı kazandın.",
+      "logDraw": "Domuz Tarlası'ndaki karşılaşma beraberlikle bitti.",
+      "logLoss": "Domuz Tarlası'ndaki karşılaşmayı kaybettin.",
       "gossipOpen": "Fikstür defteri",
       "gossipOpenAria": "Vadi Kupası penceresini aç",
       "mobileLabel": "Kupa",
       "briefing": {
-        "subtitle": "Maç öncesi hazırlık",
+        "subtitle": "Maç öncesi brifing",
         "vs": "vs",
         "rulesHeading": "Nasıl oynanır",
-        "rule1": "Gol atmak için topu vuruşla ya da pasla rakip kaleye gönder.",
-        "rule2": "5 gole ilk ulaşan kazanır; maç sonu düdüğü çaldığında ise en çok golü atan.",
-        "rule3": "Maç sonunda skor eşitse altın gole geçilir: sıradaki gol kazandırır.",
-        "rule4": "Müdahaleler seni yalnızca yere yuvarlar. Hasat ateşkesi altında kimse zarar görmez.",
-        "rule5": "İsteyen herkes gelip tribünlerden sana tezahürat yapabilir.",
+        "rule1": "Gol atmak için topu vurarak ya da pasla rakip kaleye gönder.",
+        "rule2": "5 gole ilk ulaşan kazanır; süre dolduğunda ise en çok golü atan.",
+        "rule3": "Normal süre sonunda eşitlik altın gole gider: sıradaki gol kazandırır.",
+        "rule4": "Müdahaleler seni yalnızca yere yuvarlar. Hasat ateşkesi altında kimseye zarar gelmez.",
+        "rule5": "İsteyen herkes gelip tribünlerden seni destekleyebilir.",
         "kitHeading": "Donanımın",
         "kitNote": "Bu hareketler maç boyunca sınıf yeteneklerinin yerine geçer.",
-        "rosterHeading": "Takım kadrosu",
+        "rosterHeading": "Kadro listesi",
         "you": "Sen",
         "bot": "Bot",
         "ready": "Hazırım",
         "readyDone": "Hazır",
         "readyAria": "Başlama vuruşu için hazır ol",
         "waiting": "Karşı tarafın hazır olması bekleniyor...",
-        "whistle": "Düdük {seconds} sn içinde çalıyor.",
+        "whistle": "Düdük {seconds} sn içinde çalacak.",
         "readyCount": "{ready} / {total} hazır"
       },
       "bet": {
@@ -517,19 +517,19 @@ export const tr_TR: EnTranslations = {
         "closesIn": "Bahisler {seconds} sn içinde kapanır",
         "closed": "Bahisler kapandı",
         "prize": "Havuz {amount}",
-        "splitAria": "Bahis havuzunun takımlara göre dağılımı",
+        "splitAria": "Bahis havuzunun takımlara göre payı",
         "expand": "Bahisleri gör ve oyna",
         "collapse": "Bahisleri gizle",
-        "oddsLabel": "Oran",
+        "oddsLabel": "Kazandırır",
         "back": "{team} tarafını tut",
         "form": "{wins}G-{losses}M",
         "mine": "Bahsin: {team} üzerine {amount}",
         "none": "Bu maçta henüz bahsin yok.",
         "record": "Bahis sicili: {wins}G-{losses}M, {sign}{net}",
-        "wonBanner": "Bahsini kazandın!",
-        "wonLog": "Vadi Kupası bahsini kazandın: {amount} ödendi.",
-        "lostLog": "Vadi Kupası bahsini kaybettin: {amount}.",
-        "refundLog": "Bahisler geçersiz sayıldı, {amount} tutarındaki bahsin iade edildi."
+        "wonBanner": "Bahsin kazandı!",
+        "wonLog": "Vadi Kupası bahsin kazandı: {amount} ödendi.",
+        "lostLog": "Vadi Kupası bahsin kaybetti: {amount}.",
+        "refundLog": "Bahisler iptal edildi, {amount} tutarındaki bahsin iade edildi."
       }
     },
     "options": {
@@ -620,8 +620,9 @@ export const tr_TR: EnTranslations = {
         "fps01Low": "%0,1 Düşük",
         "ping": "Ping",
         "jitter": "Titreme",
-        "predLead": "Tahmin Farkı",
+        "predLead": "Tahmin Avansı",
         "snapshot": "Anlık Görüntü Hızı",
+        "serverTick": "Sunucu Tik Hızı",
         "connection": "Bağlantı",
         "drawCalls": "Çizim Çağrıları",
         "triangles": "Üçgenler",
@@ -920,12 +921,12 @@ export const tr_TR: EnTranslations = {
     },
     "townFocus": {
       "title": "Kasaba Odağı",
-      "hint": "Odak puanları her birimin taban verimine ek bir katkı sağlar. Odaklanılmayan birimler tabanda kalır.",
+      "hint": "Odak puanları her bileşenin temel getirisinin üzerine bir bonus ekler. Odaklanılmayan bileşenler temel düzeyde kalır.",
       "budgetLabel": "Kalan puan: {remaining} / {budget}",
       "saveButton": "Odağı Kaydet",
       "notInTownHint": "Odağını ayarlamak için kasabada olmalısın.",
-      "increaseAria": "{component} üzerindeki odağı artır",
-      "decreaseAria": "{component} üzerindeki odağı azalt"
+      "increaseAria": "{component} odağını artır",
+      "decreaseAria": "{component} odağını azalt"
     },
     "party": {
       "promoteLeader": "Lider Yap",
@@ -2223,29 +2224,29 @@ export const tr_TR: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Vadi Kupası",
-      "intro": "Ekinlik'te domuztopu: bir sancak seç, bir mevki seç ve Bakır Kova için samanla doldurulmuş bir domuz postunu kalecinin yanından içeri gönder. Kan yok, ganimet yok; yalnızca tribünlerin uğultusu var.",
+      "intro": "Domuz Tarlası'nda Domuztopu: bir sancak seç, bir rol seç ve saman doldurulmuş domuz derisini kalecinin yanından geçirip Bakır Kova'yı kap. Kan yok, ganimet yok; yalnızca tribünlerin uğultusu.",
       "loreHeading": "Domuztopu ve hasat ateşkesi",
-      "loreOldSow": "Ölüler uyanmadan çok önce, Doğudere'nin ırgatları hasattan sonra anız tarlalarında domuztopu oynardı: iki kalabalık, samanla doldurulmuş tek bir domuz postu ve çayırın iki ucuna çekilmiş iki araba kapısı. İlk top, yani Koca Domuz, tunç kaplanmış halde hanın ocağının üzerinde asılı durur.",
-      "loreTruce": "Kül Kolezyumu savaş oyunlarını resmen onaylamaya başlayınca, Mareşal Redbrook buna daha yumuşak bir şeyle karşılık verdi: eski çayırda kalıcı bir hasat ateşkesi. Araba kapıları kale direklerine dönüştü; çayır duvarlar, tribünler ve bir ad kazandı: Ekinlik. Ödülse hep aynıydı: kazananların içinden içtiği o ezik süt kovası, yani Bakır Kova.",
+      "loreOldSow": "Ölüler uyanmadan çok önce, Doğudere'nin ırgatları hasattan sonra anız tarlalarında domuztopu oynardı: iki kalabalık, samanla doldurulmuş bir domuz derisi ve çayırın iki ucuna çekilmiş iki araba kapısı. İlk top, Koca Domuz, bronzlanmış halde meyhane ocağının üstünde asılıdır.",
+      "loreTruce": "Kül Koliseumu savaş oyunlarına resmiyet kazandırmaya başlayınca, Mareşal Redbrook buna daha yumuşak bir şeyle karşılık verdi: eski çayırda kalıcı bir hasat ateşkesi. Araba kapıları kale direği oldu; çayır duvarlara, tribünlere ve bir isme kavuştu: Domuz Tarlası. Ödülse hep aynıydı: kazananların içinden içtiği o ezik süt kovası, Bakır Kova.",
       "howHeading": "Nasıl oynanır",
-      "howQueue": "Vadi Kupası penceresinden dilediğin yerden sıraya gir ya da Ekinlik kapısındaki Saha Bekçisi Bram ile konuş. Teke tekten beşe beşe kadar bir kategori, bir sancak ulusu ve bir saha mevkisi seç; sıraya tek başına gir ya da grubunu da getir.",
-      "howMatch": "Başlama vuruşuyla birlikte sınıf donanımın bir spor donanımıyla değiştirilir ve maçtan sonra olduğu gibi geri yüklenir. Vuruşlar yerdeki nişangâha nişan alır, top kenar tahtalarından seker ve top sürmek topla birlikte koşmaktan ibarettir. Maç sonundan önce karşı taraftan daha çok gol at; beraberlik altın gole gider.",
-      "howTruce": "Ekinlik'te kimsenin kanı akmaz: müdahaleler yalnızca yere yuvarlar, hiçbir şey acıtmaz ve evciller maçı dışarıdan izler.",
+      "howQueue": "Vadi Kupası penceresinden her yerden sıraya gir ya da Domuz Tarlası kapısındaki Saha Bekçisi Bram ile konuş. Teke tekten beşe beşe kadar bir kategori, bir sancak ulusu ve bir spor rolü seç; tek başına sıraya gir ya da grubunu getir.",
+      "howMatch": "Başlama vuruşuyla birlikte sınıf yeteneklerin bir spor donanımıyla değiştirilir ve maçtan sonra aynen geri yüklenir. Vuruşlar yerdeki nişangaha nişan alır, top bantlardan seker ve top sürmek topla birlikte koşmaktan ibarettir. Normal süre dolmadan karşı taraftan çok gol at; beraberlik altın gole gider.",
+      "howTruce": "Domuz Tarlası'nda kimse kanamaz: müdahaleler yalnızca yere yuvarlar, hiçbir şey acıtmaz ve evcil hayvanlar maçı dışarıdan izler.",
       "spectateBody": "Stadyumda aynı anda tek maç oynanır ve isteyen herkes gelip tribünlerden izleyebilir.",
       "nationsHeading": "Sekiz sancak ulusu",
-      "nationsBody": "Her takım bir sancak altında oynar. Ulusu kaptan seçer; iki taraf da aynı sancağı taşıyorsa deplasman tarafı renklerin tersine çevrilmiş haliyle oynar.",
-      "nationVale": "Buğday demetini dalgalandıran yeşil ve altın: ev sahibi taraf, iliklerine kadar ırgat.",
-      "nationMirefen": "Balıkçıl altında petrol mavisi ve gri: sabırlı, uzun bacaklı, hiç acele etmez.",
-      "nationThornpeak": "Dağ zirvesi altında buz mavisi ve beyaz: ayağı sağlam ve inatçı.",
-      "nationColiseum": "Çapraz kılıçlı kırmızı ve siyah: hâlâ bir savaş oyunuymuş gibi oynarlar.",
-      "nationChoir": "Çan altında uçuk mavi ve gümüş: tekinsiz, isabetli ve çok sessiz.",
-      "nationOgre": "Yumruğun ardında turuncu ve toprak rengi: önce omuz atarlar, bununla da övünürler.",
-      "nationMoon": "Hilal altında mor ve gümüş: gece oyuncuları, ayakları hafif.",
-      "nationCopperdig": "Kazmalı bakır ve kahverengi: koşmayı hiç bırakmayan kazıcılar.",
-      "rolesHeading": "Saha mevkileri",
-      "rolesBody": "Mevkin, sahaya hangi donanımla çıkacağını belirler. Herkes topa vurur; gerisi mizaç meselesidir.",
+      "nationsBody": "Her takım bir sancak altında oynar. Ulusu kaptan seçer ve iki taraf da aynı sancağı taşıyorsa deplasman tarafı ters renk paletiyle oynar.",
+      "nationVale": "Yeşil ve altın, başak demeti sancağıyla: ev sahibi taraf, iliklerine kadar ırgat.",
+      "nationMirefen": "Balıkçılın altında petrol mavisi ve gri: sabırlı, uzun bacaklı, hiç acele etmez.",
+      "nationThornpeak": "Dağ zirvesinin altında buz mavisi ve beyaz: ayağı sağlam ve inatçı.",
+      "nationColiseum": "Çapraz kılıçlarla kırmızı ve siyah: hâlâ bir savaş oyunuymuş gibi oynarlar.",
+      "nationChoir": "Çanın altında uçuk mavi ve gümüş: ürkütücü, isabetli ve çok sessiz.",
+      "nationOgre": "Yumruğun ardında turuncu ve koyu kahve: önce omuz atarlar ve bununla gurur duyarlar.",
+      "nationMoon": "Hilalin altında mor ve gümüş: gece oyuncuları, ayakları hafif.",
+      "nationCopperdig": "Kazma armalı bakır ve kahverengi: koşmayı hiç bırakmayan kazıcılar.",
+      "rolesHeading": "Spor rolleri",
+      "rolesBody": "Rolün, sahaya çıkarken taşıyacağın donanımı belirler. Herkes vuruş yapar; gerisi mizaç meselesidir.",
       "rewardsHeading": "Ateşkes kuralları",
-      "rewardsBody": "Ateşkes kuralları deneyim de ganimet de olmadığı anlamına gelir: sonuçlanan bir maç siciline ve kazananlar panosuna işlenir, günlük ödül puanları da cabası. Maçı yarıda bırakıp kaçmak seni bir süreliğine yedek kulübesine oturtur; Saha Bekçisi de unutmaz."
+      "rewardsBody": "Ateşkes kuralları deneyim ve ganimet olmadığı anlamına gelir: sonuçlanan bir maç siciline ve kazananlar panosuna işlenir, günlük ödül puanları da beraberinde gelir. Maçı terk etmek yerini kızağa alır ve Saha Bekçisi unutmaz."
     },
     "wishPage": {
       "heading": "Keşke önceden bilseydim dediklerim",
@@ -2332,33 +2333,33 @@ export const tr_TR: EnTranslations = {
       "cosmeticsApply": "Aktif görünümünüzü karakter ekranınızdaki görünüş satırından belirleyin ve açtığınız her şey arasında özgürce geçiş yapın."
     },
     "professions": {
-      "intro": "Dünya seni savaşın ve görevlerin ötesinde, toprağı ve ocağı işlediğin için de ödüllendirir: ham maddeler toplar, onları on farklı zanaatın üretim tezgahlarında teçhizata dönüştürür ve bu zanaatların temsil ettiği on arketipten biri olarak kendine bir kimlik edinirsin.",
-      "gatherTitle": "Toplama: Madencilik, Ağaç Kesme ve Bitkicilik",
-      "gatherIntro": "Üç toplama mesleği, ham maddeleri doğrudan dünyadan çekip çıkarmanı sağlar: Madencilik damarlardan cevher ve taş çıkarır, Ağaç Kesme ağaç kümelerini kereste için devirir, Bitkicilik ise yabanda yetişen ot ve bitkileri toplar. Her biri ayrı ayrı izlenir; birinde çalışmak diğerindeki ilerlemeni asla yavaşlatmaz.",
+      "intro": "Dünya seni savaşın ve görevlerin ötesinde, toprağı ve ocağı işlediğin için de ödüllendirir: ham madde toplamak, on farklı zanaat kolunun üretim tezgahlarında onları teçhizata dönüştürmek ve bu zanaatların temsil ettiği on arketipten birinin kimliğine yerleşmek.",
+      "gatherTitle": "Toplayıcılık: Madencilik, Ağaç kesme ve Bitkicilik",
+      "gatherIntro": "Üç toplayıcılık kolu ham maddeyi doğrudan dünyadan çekip almanı sağlar: Madencilik damarlardan cevher ve taş çıkarır, Ağaç kesme ağaç kümelerinden kereste devirir, Bitkicilik ise yabani büyüyen ot ve bitkileri toplar. Her biri ayrı ayrı izlenir; birinde çalışmak diğerindeki ilerlemeni asla yavaşlatmaz.",
       "gatherWhatTitle": "Kaynak noktaları",
-      "gatherWhatBody": "Cevher damarları, ağaç kümeleri ve ot öbekleri bölgelere görünür, sahipsiz yapılar olarak yerleştirilmiştir. Birine yaklaş ve içinde ne varsa toplamak için onunla etkileşime geç. Bir noktayı topladıktan sonra, senin onu yeniden toplayabilmen için toparlanmaya zaman ister; ama bu başkasını asla engellemez: bu arada başka bir oyuncu aynı noktayı toplayabilir.",
+      "gatherWhatBody": "Cevher damarları, ağaç kümeleri ve ot öbekleri bölgelere görünür, sahipsiz nesneler olarak yerleştirilmiştir. Birine yaklaş ve içindekini toplamak için onunla etkileşime geç. Bir kaynağı topladıktan sonra, senin onu yeniden toplayabilmen için toparlanmaya ihtiyaç duyar; ama bu başkasını asla engellemez: bu arada başka bir oyuncu aynı kaynağı toplayabilir.",
       "gatherProficiencyTitle": "Yetkinlik ve malzeme kalitesi",
-      "gatherProficiencyBody": "Her başarılı hasat, o toplama mesleğindeki yetkinliğini geliştirir. Yüksek yetkinlik, bir noktadan çıkardıklarını sıradan olandan başlayarak daha nadir malzeme derecelerine doğru kaydırır; yine de en nadir dereceler, yüksek yetkinlikte bile nadir kalır. Daha fazla pratik şansını asla düşürmez, yalnızca iyileştirir.",
-      "gatherToolsTitle": "Mesleğin aletleri",
-      "gatherToolsBody": "Satıcılar her toplama mesleği için temel aletler satar; daha iyileri ise zanaatla üretilebilir. Böylece bir kaynak noktasında çalışmak, hep aynı kalmak yerine donandıkça daha yetkin hissettirir. Daha yüksek kademeli aletler, daha zengin noktalara erişmenin ve uzun bir oturumda onları daha verimli işlemenin amaçlanan yoludur.",
+      "gatherProficiencyBody": "Başarılı her hasat o toplayıcılık kolundaki yetkinliğini artırır. Daha yüksek yetkinlik, bir kaynaktan çıkardıklarını sıradan olandan yukarıya doğru daha nadir malzeme derecelerine kaydırır; yine de en nadir dereceler yüksek yetkinlikte bile nadir kalır. Daha çok pratik şansını asla düşürmez, yalnızca iyileştirir.",
+      "gatherToolsTitle": "Zanaatın aletleri",
+      "gatherToolsBody": "Satıcılar her toplayıcılık kolu için temel aletler satar ve daha iyileri üretilebilir; böylece bir kaynak noktasında çalışmak, hep aynı kalmak yerine donandıkça daha yetkin hissettirir. Daha yüksek kademe aletler, daha zengin kaynaklara erişmenin ve uzun bir oturumda onları daha verimli işlemenin amaçlanan yoludur.",
       "craftTitle": "On zanaat",
-      "craftIntro": "On zanaat mesleği, toplanan malzemeleri bitmiş teçhizata ve mallara dönüştürür: Zırhçılık, Silah Ustalığı ve Kuyumculuk ham maddeyi giyilebilir teçhizata biçimlendirir; Simya ve Mühendislik deneme yanılmayla ilerler; Aşçılık, Kâtiplik ve Efsunculuk diğer zanaatların ürünlerine dokunur; Terzilik ve Dericilik ise kesin kalıplarla çalışır. Hepsi birlikte bir çark oluşturur; her zanaat iki komşusunun yanında, bir diğerinin ise tam karşısında durur.",
+      "craftIntro": "On zanaat kolu, toplanan malzemeleri bitmiş teçhizata ve mala dönüştürür: Zırhçılık, Silah Ustalığı ve Kuyumculuk ham maddeyi giyilebilir teçhizata şekillendirir; Simya ve Mühendislik deneme yanılmayla ilerler; Aşçılık, Kâtiplik ve Efsunculuk diğer zanaatların ürünlerine dokunur; Terzilik ve Dericilik ise kesin kalıplarla çalışır. Hep birlikte bir çark oluştururlar: her zanaat iki komşusunun yanında ve bir diğerinin karşısında yer alır.",
       "craftRingTitle": "Uzmanlıklar çarkı",
-      "craftRingBody": "On zanaat sabit bir halka üzerinde dizilidir ve bir zanaatın o halkadaki yeri önemlidir: çark üzerinde yan yana duran zanaatlar, karşı taraflardakilere göre birbirleriyle daha çok ortak nokta paylaşır. Bir zanaata bağlanmak, yalıtılmış bir beceri seçmek gibi değil, akraba mesleklerden oluşan bir aileye katılmak gibi hissettirmelidir.",
+      "craftRingBody": "On zanaat sabit bir halkaya dizilmiştir ve bir zanaatın o halkadaki yeri önemlidir: çark üzerinde yan yana duran zanaatlar, karşı taraftakilere kıyasla birbirleriyle daha çok ortaklık taşır. Bir zanaata bağlanmak, yalıtılmış bir beceri seçmek gibi değil, akraba işlerden oluşan bir aileye katılmak gibi hissettirmelidir.",
       "craftRecipesTitle": "Tarifler ve malzemeler",
-      "craftRecipesBody": "Her zanaatın kendi tarifleri vardır; her tarif, topladığın ya da satın aldığın belirli malzemeler ister. Her zanaattaki en temel tarifler sıradan malzemelerden başkasını istemez ve daha en baştan üretilebilir; böylece bir mesleği edindiğin anda, bir kilidin açılmasını beklemeden çalışmaya başlayabilirsin.",
+      "craftRecipesBody": "Her zanaatın kendi tarifleri vardır ve her tarif, topladığın ya da satın aldığın belirli malzemeler ister. Her zanaattaki en temel tarifler yalnızca sıradan malzeme ister ve en baştan üretilebilir; böylece bir zanaata, kilidinin açılmasını beklemeden, edindiğin anda başlayabilirsin.",
       "craftMasteryTitle": "Beceri ve ustalık",
-      "craftMasteryBody": "Başarılı üretim o meslekteki becerini geliştirir ve daha zengin tarifler daha yüksek becerinin ardına kilitlenmiştir: temel tarifler herkese açıktır, gittikçe daha ileri olanlar ise denemek için gittikçe daha fazla ustalık ister. Bir zanaatta becerini büyütmek, basit başlangıç mallarından o zanaatın daha iddialı tariflerine giden yoldur.",
+      "craftMasteryBody": "Başarılı her üretim o zanaattaki becerini geliştirir ve daha zengin tarifler daha yüksek beceri gerektirir: temel tarifler herkese açıkken, giderek daha ileri tarifleri denemek giderek daha fazla ustalık ister. Bir zanaatta becerini büyütmek, basit başlangıç mallarından daha iddialı tariflere giden yoldur.",
       "craftComboTitle": "Birleşim tarifleri",
-      "craftComboBody": "Çark, tek bir zanaatın kendi tarif listesinin ötesinde, iki komşu zanaatı aynı anda çağıran birleşim tariflerini de destekler; bunlar halka üzerinde tek başına bir zanaata değil, yan yana duran mesleklere yatırım yapmış bir karakteri (ya da birbiriyle ticaret yapan iki ortağı) ödüllendirir.",
+      "craftComboBody": "Tek bir zanaatın kendi tarif listesinin ötesinde, çark aynı anda iki komşu zanaata başvuran birleşim tariflerini de destekler; bu, tek başına bir zanaata değil, halkadaki komşu işlere yatırım yapmış bir karakteri (ya da ticaret yapan bir çifti) ödüllendirir.",
       "archetypeTitle": "On arketip",
-      "archetypeIntro": "On zanaatın her biri aynı zamanda bir arketipi, yani o mesleği icra etmenin ötesinde benimseyebileceğin daha geniş bir kimliği temsil eder. Etkin arketipin işaretleyip biriktireceğin bir liste değil, her seferinde tek bir seçimdir: bir tanesini taşırsın ve istersen hangisini taşıdığını sonradan değiştirebilirsin.",
+      "archetypeIntro": "On zanaatın her biri aynı zamanda bir arketipi, yani o işi yapmanın ötesinde benimseyebileceğin daha geniş bir kimliği temsil eder. Etkin arketipin bir kontrol listesi değil, her seferinde tek bir seçimdir: bir tane taşırsın ve istersen daha sonra hangisini taşıdığını değiştirebilirsin.",
       "archetypeChooseTitle": "Arketipini seçmek",
-      "archetypeChooseBody": "İlk arketipini, seni o kimliğe resmen kabul eden, birinci bölgedeki erken bir hikaye göreviyle ilan edersin. O görevi tamamlayana dek henüz hiçbir arketip seçmiş sayılmazsın.",
-      "archetypeSwitchTitle": "Fikrini değiştirmek",
-      "archetypeSwitchBody": "Bir kez arketip ilan etmiş olmak seni ona sonsuza dek bağlamaz. Farklı bir arketipe geçmek, önce eskisi için tekrarlanabilir bir \"gönül alma\" görevini tamamlamayı gerektirir ve her geçişinde, bir sonraki sefer senden beklenen bedel biraz daha ağırlaşır; böylece geçiş yapmak bedelsiz değil, anlamlı kalır.",
-      "archetypeIdentityTitle": "Arketipinin anlamı",
-      "archetypeIdentityBody": "Etkin arketipin, karakterinin bu dünyada kim olduğuna dair bir beyandır ve bu, başkalarının ve dünyanın sana nasıl hitap ettiğine yansır. Onunla gelen ödüllerin ve tanınırlığın ayrıntıları hâlâ son haline getiriliyor; sistem doldukça yeniden göz at."
+      "archetypeChooseBody": "İlk arketipini, seni bu kimliğe resmen kabul eden erken bir birinci bölge hikaye görevi aracılığıyla ilan edersin. O görevi tamamlayana dek henüz hiçbir arketip seçmiş sayılmazsın.",
+      "archetypeSwitchTitle": "Fikir değiştirmek",
+      "archetypeSwitchBody": "Bir kez arketip ilan etmiş olmak seni sonsuza dek ona bağlamaz. Farklı bir arketipe geçmek, önce eskisi için tekrarlanabilir bir \"gönül alma\" görevini tamamlamayı gerektirir ve her geçişte, bir sonraki sefer senden beklenen bedel biraz daha ağırlaşır; böylece geçiş yapmak bedelsiz değil, anlamlı kalır.",
+      "archetypeIdentityTitle": "Arketipin ne anlama gelir",
+      "archetypeIdentityBody": "Etkin arketipin, karakterinin bu dünyada kim olduğuna dair bir beyandır ve başkalarının ve dünyanın sana nasıl hitap ettiğine yansır. Beraberinde gelen ödüller ve tanınırlık hâlâ son haline getiriliyor; sistem tamamlandıkça yeniden göz at."
     },
     "economy": {
       "intro": "Para tüm dünyayı çevirir: teçhizatınızı, erzakınızı ve yolculuk gereçlerinizi alır, oyuncular arasında el değiştirir. Bütün bunları sadece oynayarak öğrenirsiniz, bu yüzden bu sayfayı paranızın nereden gelip nereye gittiğinin bir haritası olarak düşünün.",
@@ -4954,43 +4955,43 @@ export const tr_TR: EnTranslations = {
     "abilities": {
       "sport_kick": {
         "name": "Vuruş",
-        "description": "Topu yerden, nişan noktasına doğru gönder."
+        "description": "Topu yerden nişan noktasına doğru gönder."
       },
       "sport_shoot": {
         "name": "Şut",
-        "description": "Güç toplamak için basılı tut, kaleye şut çekmek için bırak. Fazla güç topu kalenin üstünden aşırır."
+        "description": "Basılı tutarak güç topla, bırakınca kaleye şut çek. Fazla güç topu üstten aşırır."
       },
       "sport_pass": {
         "name": "Pas",
-        "description": "Hedefindeki takım arkadaşına, koşusunun önüne sağlam bir pas at."
+        "description": "Hedeflediğin takım arkadaşına, koşusunun önüne sağlam bir pas at."
       },
       "sport_boot": {
-        "name": "Koca Vuruş",
-        "description": "Nişan noktasına doğru uzun, havadan bir vuruş. Tribünler buna bayılır."
+        "name": "Aşırtma",
+        "description": "Nişan noktasına doğru uzun, havadan bir vuruş. Seyirci buna bayılır."
       },
       "sport_hoof": {
-        "name": "Uzaklaştırma",
-        "description": "Topu yerden ve sert biçimde ileri gönder."
+        "name": "Sert Vuruş",
+        "description": "Topu yerden ve sert bir şekilde ileri gönder."
       },
       "sport_punt": {
         "name": "Uzun Degaj",
-        "description": "Kaleciye özgü bir degaj: yüksek ve uzak."
+        "description": "Kaleci degajı: yüksek ve uzak."
       },
       "sport_feint": {
         "name": "Çalım",
-        "description": "Nişan noktasına doğru hızlı bir yana kaçış."
+        "description": "Nişan noktasına doğru hızlı bir yana kaçış hamlesi."
       },
       "sport_dive": {
         "name": "Dalış",
         "description": "Kendini nişan noktasına doğru fırlat. Önünden geçen top sana yapışır."
       },
       "sport_shoulder": {
-        "name": "Omuz",
-        "description": "Hasat ateşkesine yakışır, kurallı bir omuz. Rakibi toptan devirir."
+        "name": "Omuzlama",
+        "description": "Hasat ateşkesine yakışır dürüst bir omuz. Rakibi toptan yuvarlayarak uzaklaştırır."
       },
       "sport_second_wind": {
         "name": "Taze Bacaklar",
-        "description": "Bacaklarını tazele: 4 sn boyunca %50 daha hızlı hareket et."
+        "description": "Bacaklarını topla: 4 sn boyunca %50 daha hızlı hareket et."
       },
       "flamestrike": {
         "name": "Alev Vuruşu",
@@ -6213,6 +6214,24 @@ export const tr_TR: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Güneşyaprağı Orağı"
       },
+      "thorium_ore": {
+        "name": "Toryum Cevheri"
+      },
+      "arcanite_bar": {
+        "name": "Arkanit Külçesi"
+      },
+      "ashwood_log": {
+        "name": "Kül Ağacı Kütüğü"
+      },
+      "elderwood_log": {
+        "name": "Yaşlı Mürver Kütüğü"
+      },
+      "goldleaf_herb": {
+        "name": "Altın Yaprak Otu"
+      },
+      "sunpetal_herb": {
+        "name": "Güneş Yaprağı Otu"
+      },
       "bristleback_maul": {
         "name": "Gallowglass Balyozu"
       },
@@ -7394,8 +7413,8 @@ export const tr_TR: EnTranslations = {
       },
       "groundskeeper_bram": {
         "name": "Saha Bekçisi Bram",
-        "title": "Ekinlik'in Bekçisi",
-        "greeting": "Ekinlik'te ateşkes geçerlidir, {className}: yalnızca vuruş ve omuz. Bakır Kova için oynamaya var mısın?"
+        "title": "Domuz Tarlası'nın Bekçisi",
+        "greeting": "Domuz Tarlası'nda ateşkes geçerli, {className}: yalnızca vuruş ve omuz. Bakır Kova için oynamaya var mısın?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const tr_TR: EnTranslations = {
             "label": "Parlakorman Açıklığı"
           },
           "10": {
-            "label": "Ekinlik"
+            "label": "Domuz Tarlası"
           }
         }
       },

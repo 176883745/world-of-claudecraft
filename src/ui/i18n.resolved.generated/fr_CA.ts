@@ -400,8 +400,8 @@ export const fr_CA: EnTranslations = {
       "title": "La Coupe du Val",
       "shootPower": "PUISSANCE",
       "close": "Fermer la fenêtre de la Coupe du Val",
-      "offlineNote": "Le registre des rencontres est fermé. La Coupe du Val n'est pas disponible pour le moment.",
-      "recordLine": "Votre bilan : {wins} victoires, {losses} défaites, {draws} nuls.",
+      "offlineNote": "Le livre des rencontres est fermé. La Coupe du Val n'est pas disponible pour le moment.",
+      "recordLine": "Votre palmarès : {wins} victoires, {losses} défaites, {draws} nuls.",
       "bracketsAria": "Format du match",
       "bracketLabel": "{n}c{n}",
       "waitingCount": "{count} en attente",
@@ -414,48 +414,48 @@ export const fr_CA: EnTranslations = {
         "choir": "Le Chœur pâle",
         "ogre": "Les Clans ogres",
         "moon": "La Lune pâle",
-        "copperdig": "La Mine de cuivre"
+        "copperdig": "La Fouille du cuivre"
       },
-      "awayNote": "Si les deux camps arborent la même bannière, l'équipe à l'extérieur joue aux couleurs inversées.",
+      "awayNote": "Si les deux camps arborent la même bannière, l'équipe visiteuse joue avec la palette inversée.",
       "rolesHeading": "Rôle sportif",
       "role": {
         "allrounder": {
           "name": "Polyvalent",
-          "desc": "Un peu de tout : coup de pied, grosse botte et coup d'épaule loyal."
+          "desc": "Un peu de tout : frappe, botte et un coup d'épaule loyal."
         },
         "striker": {
           "name": "Attaquant",
-          "desc": "Ne vit que pour la grosse botte et le pas de côté éclair."
+          "desc": "Vit pour la longue botte et le crochet éclair."
         },
         "sweeper": {
           "name": "Libéro",
-          "desc": "Bouscule les porteurs de ballon et dégage loin devant."
+          "desc": "Bouscule les porteurs loin du ballon et dégage au loin."
         },
         "keeper": {
           "name": "Gardien",
-          "desc": "Garde la surface de but : prise sûre, plongeon et dégagement."
+          "desc": "Garde la surface de but à coups de prises, de plongeons et de dégagements."
         }
       },
       "queue": "Rejoindre la file",
       "leaveQueue": "Quitter la file",
-      "queueNote": "Inscrivez-vous depuis n'importe où ; le coup de sifflet vous appellera au Champ de la Truie.",
+      "queueNote": "Entrez en file depuis n'importe où ; le coup de sifflet vous appellera au Pré de la Truie.",
       "queuedStatus": "En file pour {bracket} : position {position} sur {count}.",
       "blockNation": "Choisissez d'abord une nation de bannière.",
       "blockPartySize": "Ce format demande un groupe plus petit.",
-      "blockNotLeader": "Seul le chef de groupe peut inscrire l'équipe.",
+      "blockNotLeader": "Seul le chef du groupe peut inscrire l'équipe en file.",
       "inMatchNote": "Votre équipe est sur le terrain. Jouez !",
-      "deserterNote": "L'intendant s'en souvient. Vous pourrez vous réinscrire dans {seconds} s.",
-      "liveHeading": "En ce moment au Champ de la Truie",
+      "deserterNote": "L'intendant s'en souvient. Vous pourrez reprendre la file dans {seconds} sec.",
+      "liveHeading": "En ce moment au Pré de la Truie",
       "liveAria": "Coupe du Val : {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Approchez-vous du Champ de la Truie pour regarder depuis les tribunes.",
+      "walkUp": "Approchez-vous du Pré de la Truie pour regarder depuis les tribunes.",
       "noLive": "Le terrain est calme. Aucun match en cours.",
       "boardHeading": "Tableau des vainqueurs",
-      "boardEmpty": "Aucun vainqueur inscrit pour l'instant. Le Seau de cuivre attend.",
+      "boardEmpty": "Aucun vainqueur enregistré pour l'instant. Le Seau de cuivre attend.",
       "boardWins": "{count} victoires",
       "enterAsGuild": "Entrer sous la bannière de {guild}",
-      "guildRecordLine": "Bilan de votre guilde : {wins} victoires, {losses} défaites.",
+      "guildRecordLine": "Palmarès de votre guilde : {wins} victoires, {losses} défaites.",
       "guildBoardHeading": "Bannières de guilde",
-      "guildBoardEmpty": "Aucune guilde n'est encore entrée sur le terrain. Faites flotter votre bannière !",
+      "guildBoardEmpty": "Aucune guilde n'est encore entrée sur le terrain. Hissez votre bannière !",
       "guildBoardWl": "{wins} V, {losses} D",
       "practice": "Entraînement contre des bots",
       "practiceNote": "Lance aussitôt un match privé contre des bots sur votre propre terrain d'entraînement.",
@@ -468,53 +468,53 @@ export const fr_CA: EnTranslations = {
       "phaseGoal": "BUT !",
       "phaseGolden": "BUT EN OR",
       "phaseOver": "FIN DU MATCH",
-      "bannerFound": "La Coupe du Val vous appelle : {nationA} contre {nationB} !",
+      "bannerFound": "La Coupe du Val appelle : {nationA} contre {nationB} !",
       "bannerCountdown": "Coup d'envoi dans {seconds}...",
       "bannerKickoff": "COUP D'ENVOI !",
       "bannerGoal": "BUT ! {nation} marque !",
       "bannerSave": "ARRÊT DE {name} !",
-      "bannerGolden": "BUT EN OR : le prochain but l'emporte !",
+      "bannerGolden": "BUT EN OR : le prochain but gagne !",
       "bannerEnd": "Fin du match : {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Victoire au Champ de la Truie !",
-      "bannerDraw": "Match nul au Champ de la Truie.",
-      "bannerLoss": "Défaite au Champ de la Truie.",
+      "bannerWin": "Victoire au Pré de la Truie !",
+      "bannerDraw": "Match nul au Pré de la Truie.",
+      "bannerLoss": "Défaite au Pré de la Truie.",
       "logQueued": "Vous rejoignez la file de la Coupe du Val en {bracket} (position {position}).",
       "logUnqueued": "Vous quittez la file de la Coupe du Val.",
       "logFound": "Votre match de la Coupe du Val est prêt : {nationA} contre {nationB}.",
       "logRoster": "Votre camp : {allies}. Leur camp : {enemies}.",
       "logGoal": "{name} marque pour {nation} ! {nationA} {scoreA}, {nationB} {scoreB}.",
       "logSave": "{name} fait l'arrêt !",
-      "logWin": "Vous remportez la rencontre au Champ de la Truie.",
-      "logDraw": "La rencontre au Champ de la Truie se termine sur un match nul.",
-      "logLoss": "Vous perdez la rencontre au Champ de la Truie.",
-      "gossipOpen": "Le registre des rencontres",
+      "logWin": "Vous gagnez la rencontre au Pré de la Truie.",
+      "logDraw": "La rencontre au Pré de la Truie se termine sur un match nul.",
+      "logLoss": "Vous perdez la rencontre au Pré de la Truie.",
+      "gossipOpen": "Le livre des rencontres",
       "gossipOpenAria": "Ouvrir la fenêtre de la Coupe du Val",
       "mobileLabel": "Coupe",
       "briefing": {
-        "subtitle": "Causerie d'avant-match",
+        "subtitle": "Briefing d'avant-match",
         "vs": "contre",
         "rulesHeading": "Comment jouer",
-        "rule1": "Frappez ou passez le ballon dans le but adverse pour marquer.",
-        "rule2": "La première équipe à 5 buts l'emporte, ou celle qui en compte le plus au coup de sifflet final.",
-        "rule3": "Un match à égalité à la fin du temps réglementaire se joue au but en or : le prochain but l'emporte.",
-        "rule4": "Les tacles ne font que vous culbuter. Personne ne se blesse sous la trêve des moissons.",
-        "rule5": "Chacun peut venir vous encourager depuis les tribunes.",
+        "rule1": "Envoyez le ballon dans le but adverse, d'une frappe ou d'une passe, pour marquer.",
+        "rule2": "Le premier à 5 buts gagne, ou celui qui en a le plus au coup de sifflet final.",
+        "rule3": "Un match à égalité à la fin du temps réglementaire se joue au but en or : le prochain but gagne.",
+        "rule4": "Les tacles ne font que vous faire culbuter. Personne n'est blessé sous la trêve des moissons.",
+        "rule5": "Chacun peut s'approcher et vous encourager depuis les tribunes.",
         "kitHeading": "Votre panoplie",
-        "kitNote": "Ces gestes remplacent vos techniques de classe le temps du match.",
+        "kitNote": "Ces techniques remplacent vos capacités de classe le temps du match.",
         "rosterHeading": "La feuille de match",
         "you": "Vous",
         "bot": "Bot",
         "ready": "Je suis prêt",
         "readyDone": "Prêt",
         "readyAria": "Se déclarer prêt pour le coup d'envoi",
-        "waiting": "En attendant que l'autre camp se déclare prêt...",
-        "whistle": "Le coup de sifflet retentit dans {seconds} s.",
+        "waiting": "En attente que l'autre camp se déclare prêt...",
+        "whistle": "Le coup de sifflet retentit dans {seconds}s.",
         "readyCount": "{ready} sur {total} prêts"
       },
       "bet": {
         "title": "Paris du match",
         "aria": "Paris sur le match de la Coupe du Val",
-        "closesIn": "Clôture des paris dans {seconds} s",
+        "closesIn": "Les paris ferment dans {seconds}s",
         "closed": "Paris clos",
         "prize": "Cagnotte {amount}",
         "splitAria": "Part de la cagnotte misée sur chaque équipe",
@@ -524,12 +524,12 @@ export const fr_CA: EnTranslations = {
         "back": "Miser sur {team}",
         "form": "{wins}V-{losses}D",
         "mine": "Votre pari : {amount} sur {team}",
-        "none": "Vous n'avez pas encore parié sur ce match.",
-        "record": "Bilan des paris : {wins}V-{losses}D, {sign}{net}",
-        "wonBanner": "Votre pari est gagnant !",
-        "wonLog": "Votre pari sur la Coupe du Val est gagnant : {amount} récupérés.",
-        "lostLog": "Votre pari sur la Coupe du Val est perdu : {amount}.",
-        "refundLog": "Paris annulés : votre mise de {amount} vous a été rendue."
+        "none": "Vous n'avez pas encore de pari sur ce match.",
+        "record": "Bilan de paris : {wins}V-{losses}D, {sign}{net}",
+        "wonBanner": "Votre pari est gagné !",
+        "wonLog": "Votre pari de la Coupe du Val est gagné : {amount} récupérés.",
+        "lostLog": "Votre pari de la Coupe du Val est perdu : {amount}.",
+        "refundLog": "Paris annulés, votre mise de {amount} vous a été rendue."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const fr_CA: EnTranslations = {
         "jitter": "Gigue",
         "predLead": "Avance de prédiction",
         "snapshot": "Fréquence d'instantanés",
+        "serverTick": "Fréquence de tick serveur",
         "connection": "Connexion",
         "drawCalls": "Appels de rendu",
         "triangles": "Triangles",
@@ -920,7 +921,7 @@ export const fr_CA: EnTranslations = {
     },
     "townFocus": {
       "title": "Priorités de la ville",
-      "hint": "Les points de priorité ajoutent un bonus au rendement de base de chaque élément. Les éléments sans priorité restent à leur rendement de base.",
+      "hint": "Les points de priorité ajoutent un bonus au rendement de base de chaque composante. Les composantes sans priorité restent au rendement de base.",
       "budgetLabel": "Points restants : {remaining} / {budget}",
       "saveButton": "Enregistrer les priorités",
       "notInTownHint": "Vous devez être en ville pour définir vos priorités.",
@@ -2223,29 +2224,29 @@ export const fr_CA: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "La Coupe du Val",
-      "intro": "La balle au sanglier au Champ de la Truie : choisissez une bannière, choisissez un rôle, et poussez une peau de sanglier empaillée derrière le gardien pour le Seau de cuivre. Pas de sang, pas de butin, rien que la clameur des tribunes.",
+      "intro": "La balle au sanglier au Pré de la Truie : choisissez une bannière, choisissez un rôle, et envoyez une peau de sanglier empaillée derrière un gardien pour remporter le Seau de cuivre. Pas de sang, pas de butin, juste la clameur des tribunes.",
       "loreHeading": "La balle au sanglier et la trêve des moissons",
-      "loreOldSow": "Bien avant le réveil des morts, les valets de ferme d'Eastbrook jouaient à la balle au sanglier sur les chaumes après la moisson : deux bandes, une peau de sanglier bourrée de paille, et deux ridelles de chariot traînées à chaque bout du pré. La première balle, la Vieille Truie, trône, bronzée, au-dessus de l'âtre de la taverne.",
-      "loreTruce": "Quand le Colisée cendré se mit à organiser des jeux de guerre, le maréchal Redbrook répondit par quelque chose de plus doux : une trêve des moissons permanente sur le vieux pré. Les ridelles de chariot devinrent des poteaux de but ; le pré gagna des murs, des tribunes et un nom, le Champ de la Truie ; et le prix resta toujours le même seau à lait cabossé dans lequel buvaient les vainqueurs : le Seau de cuivre.",
+      "loreOldSow": "Bien avant que les morts ne s'éveillent, les valets de ferme d'Eastbrook jouaient à la balle au sanglier sur les chaumes après la moisson : deux bandes de joueurs, une peau de sanglier bourrée de paille, et deux portails de chariot traînés aux deux bouts du pré. Le premier ballon, la Vieille Truie, pend, bronzé, au-dessus de l'âtre de la taverne.",
+      "loreTruce": "Quand le Colisée cendré se mit à organiser des jeux de guerre, le maréchal Redbrook répondit par quelque chose de plus doux : une trêve des moissons permanente sur le vieux pré. Les portails de chariot devinrent des poteaux de but, le pré gagna des murs, des tribunes et un nom, le Pré de la Truie, et le prix fut toujours le même seau à lait cabossé dans lequel buvaient les vainqueurs : le Seau de cuivre.",
       "howHeading": "Comment jouer",
-      "howQueue": "Inscrivez-vous depuis n'importe où via la fenêtre de la Coupe du Val, ou parlez à l'intendant Bram aux portes du Champ de la Truie. Choisissez un format, du 1 contre 1 au 5 contre 5, une nation de bannière et un rôle sportif ; inscrivez-vous seul ou venez avec votre groupe.",
-      "howMatch": "Au coup d'envoi, votre panoplie de classe est remplacée par une panoplie sportive, puis restituée à l'identique après le match. Les frappes visent le réticule au sol, le ballon rebondit sur les bandes, et dribbler, c'est simplement courir avec le ballon. Marquez plus de buts que l'autre camp avant la fin du temps réglementaire ; un match nul se joue au but en or.",
-      "howTruce": "Personne ne saigne au Champ de la Truie : les tacles font culbuter, rien ne fait mal, et les familiers restent sur le banc.",
-      "spectateBody": "Un seul match se joue à la fois au stade, et chacun peut s'approcher pour regarder depuis les tribunes.",
+      "howQueue": "Mettez-vous en file depuis n'importe où via la fenêtre de la Coupe du Val, ou parlez à l'intendant Bram à la porte du Pré de la Truie. Choisissez un format, du un contre un au cinq contre cinq, une nation de bannière et un rôle sportif ; entrez en file en solo ou avec votre groupe.",
+      "howMatch": "Au coup d'envoi, votre panoplie de classe est remplacée par une panoplie sportive, puis restaurée à l'identique après le match. Les frappes visent le réticule au sol, le ballon rebondit sur les bandes, et dribbler consiste simplement à courir avec le ballon. Marquez plus de buts que l'autre camp avant la fin du temps réglementaire ; en cas d'égalité, on joue le but en or.",
+      "howTruce": "Personne ne saigne au Pré de la Truie : les tacles font culbuter, rien ne blesse, et les familiers regardent le match depuis le banc.",
+      "spectateBody": "Un seul match se joue à la fois au stade, et chacun peut s'approcher et regarder depuis les tribunes.",
       "nationsHeading": "Les huit nations de bannière",
-      "nationsBody": "Chaque équipe joue sous une bannière. Le capitaine choisit la nation, et si les deux camps arborent la même, l'équipe à l'extérieur joue aux couleurs inversées.",
-      "nationVale": "Vert et or, la gerbe de blé au vent : l'équipe à domicile, valets de ferme jusqu'à la moelle.",
+      "nationsBody": "Chaque équipe joue sous une bannière. Le capitaine choisit la nation, et si les deux camps arborent la même, l'équipe visiteuse joue avec la palette inversée.",
+      "nationVale": "Vert et or, sous la gerbe de blé : l'équipe locale, valets de ferme jusqu'à la moelle.",
       "nationMirefen": "Sarcelle et gris sous le héron : patients, hauts sur pattes, jamais pressés.",
       "nationThornpeak": "Bleu glacier et blanc sous le pic : le pied sûr et la tête dure.",
-      "nationColiseum": "Rouge et noir, épées croisées : ils jouent comme si c'était encore un jeu de guerre.",
+      "nationColiseum": "Rouge et noir aux épées croisées : ils jouent comme si c'était encore un jeu de guerre.",
       "nationChoir": "Bleu pâle et argent sous la cloche : inquiétants, précis et très silencieux.",
       "nationOgre": "Orange et terre d'ombre derrière le poing : l'épaule d'abord, et fiers de l'être.",
-      "nationMoon": "Violet et argent sous le croissant : des joueurs de la nuit, légers sur leurs appuis.",
-      "nationCopperdig": "Cuivre et brun sous la pioche : des piocheurs qui ne cessent jamais de courir.",
-      "rolesHeading": "Les rôles sportifs",
-      "rolesBody": "Votre rôle détermine la panoplie que vous emportez sur le terrain. Tout le monde tape dans le ballon ; le reste est affaire de tempérament.",
-      "rewardsHeading": "Les règles de la trêve",
-      "rewardsBody": "Règles de trêve obligent : ni expérience, ni butin. Un match joué jusqu'à son terme compte dans votre bilan et sur le tableau des vainqueurs, et rapporte au passage des points de récompenses quotidiennes. Déserter un match vous met au banc pour un temps, et l'intendant s'en souvient."
+      "nationMoon": "Violet et argent sous le croissant : des joueurs de nuit, légers sur leurs appuis.",
+      "nationCopperdig": "Cuivre et brun sous la pioche : des piocheurs qui ne s'arrêtent jamais de courir.",
+      "rolesHeading": "Rôles sportifs",
+      "rolesBody": "Votre rôle décide de la panoplie que vous emportez sur le terrain. Tout le monde frappe le ballon ; le reste est affaire de tempérament.",
+      "rewardsHeading": "Règles de trêve",
+      "rewardsBody": "Règles de trêve obligent : ni expérience ni butin. Un match décidé compte pour votre palmarès et le tableau des vainqueurs, et des points de récompense quotidienne l'accompagnent. Déserter un match vous envoie sur le banc, et l'intendant s'en souvient."
     },
     "wishPage": {
       "heading": "Ce que j'aurais aimé savoir",
@@ -2332,33 +2333,33 @@ export const fr_CA: EnTranslations = {
       "cosmeticsApply": "Définissez votre apparence active depuis la rangée d'allure de votre écran de personnage, et passez librement de l'une à l'autre parmi tout ce que vous avez débloqué."
     },
     "professions": {
-      "intro": "Au-delà des combats et des quêtes, le monde vous récompense de travailler la terre et la forge : récoltez des matières premières, transformez-les en équipement aux ateliers de dix métiers différents, et installez-vous dans l'identité de l'un des dix archétypes que ces métiers incarnent.",
-      "gatherTitle": "La récolte : minage, bûcheronnage et herboristerie",
-      "gatherIntro": "Trois métiers de récolte vous permettent de tirer les matières premières directement du monde : le minage arrache minerai et pierre aux filons, le bûcheronnage abat du bois dans les bosquets, et l'herboristerie cueille herbes et plantes sauvages. Chacun est suivi séparément : progresser dans l'un ne ralentit jamais votre progression dans un autre.",
+      "intro": "Au-delà des combats et des quêtes, le monde vous récompense de travailler la terre et la forge : récolter des matières premières, les transformer en équipement aux ateliers des dix métiers d'artisanat, et vous installer dans une identité, celle de l'un des dix archétypes que ces métiers incarnent.",
+      "gatherTitle": "Récolte : Minage, Bûcheronnage et Herboristerie",
+      "gatherIntro": "Trois métiers de récolte vous permettent de tirer des matières premières directement du monde : le Minage extrait minerai et pierre des filons, le Bûcheronnage abat le bois des bosquets, et l'Herboristerie cueille herbes et plantes sauvages. Chacun est suivi séparément : en pratiquer un ne ralentit jamais vos progrès dans un autre.",
       "gatherWhatTitle": "Les gisements de ressources",
-      "gatherWhatBody": "Filons de minerai, bosquets et carrés d'herbes sont disséminés dans les zones, bien visibles et sans propriétaire. Approchez-vous de l'un d'eux et interagissez pour récolter ce qu'il renferme. Une fois que vous avez récolté un gisement, il lui faut du temps pour se reconstituer avant que vous puissiez, vous, le récolter à nouveau ; il ne bloque jamais personne d'autre : un autre joueur peut récolter le même gisement entre-temps.",
-      "gatherProficiencyTitle": "Maîtrise et qualité des matériaux",
-      "gatherProficiencyBody": "Chaque récolte réussie renforce votre maîtrise de ce métier de récolte. Une maîtrise plus élevée oriente ce que vous tirez d'un gisement vers des qualités de matériaux plus rares, en partant du commun, même si les qualités les plus rares restent rares à haute maîtrise. La pratique ne dessert jamais vos chances : elle ne fait que les améliorer.",
+      "gatherWhatBody": "Filons de minerai, bosquets de bois et carrés d'herbes sont disséminés dans les zones comme des éléments visibles, sans propriétaire. Approchez-vous et interagissez pour récolter ce qu'ils contiennent. Une fois un gisement récolté, il lui faut du temps pour se régénérer avant que vous puissiez, vous, le récolter à nouveau, mais il ne bloque jamais personne d'autre : un autre joueur peut récolter le même gisement entre-temps.",
+      "gatherProficiencyTitle": "Aptitude et qualité des matériaux",
+      "gatherProficiencyBody": "Chaque récolte réussie augmente votre aptitude dans ce métier de récolte. Une aptitude plus élevée oriente ce que vous tirez d'un gisement vers des qualités de matériaux plus rares, du commun vers le haut, même si les qualités les plus rares le restent, aptitude élevée ou non. La pratique ne nuit jamais à vos chances, elle ne fait que les améliorer.",
       "gatherToolsTitle": "Les outils du métier",
-      "gatherToolsBody": "Les marchands vendent des outils de base pour chaque métier de récolte, et de meilleurs peuvent être fabriqués : travailler un gisement doit devenir plus efficace à mesure que vous vous équipez, au lieu de rester figé. Les outils de palier supérieur sont la voie prévue pour accéder aux gisements les plus riches et les exploiter plus efficacement sur la durée.",
+      "gatherToolsBody": "Les marchands vendent des outils de base pour chaque métier de récolte, et de meilleurs peuvent être fabriqués : exploiter un gisement doit gagner en efficacité à mesure que vous vous équipez, plutôt que de rester figé. Les outils de niveau supérieur sont la voie prévue pour accéder aux gisements les plus riches et les exploiter plus efficacement sur la durée.",
       "craftTitle": "Les dix métiers d'artisanat",
-      "craftIntro": "Dix métiers d'artisanat transforment les matériaux récoltés en équipement et en marchandises : l'armurerie, la forge d'armes et la joaillerie façonnent la matière brute en pièces portables ; l'alchimie et l'ingénierie avancent par essais et erreurs ; la cuisine, la calligraphie et l'enchantement touchent chacun à l'ouvrage des autres métiers ; la couture et le travail du cuir suivent des patrons exacts. Ensemble, ils forment une roue où chaque métier voisine avec deux autres et se trouve à l'opposé d'un autre.",
+      "craftIntro": "Dix métiers d'artisanat transforment les matériaux récoltés en équipement et en marchandises : la fabrication d'armures, la forge d'armes et la joaillerie façonnent la matière brute en équipement portable ; l'alchimie et l'ingénierie avancent par essais et erreurs ; la cuisine, la calligraphie et l'enchantement touchent chacun au produit des autres métiers ; la couture et le travail du cuir suivent des patrons précis. Ensemble, ils forment une roue où chaque métier siège entre deux voisins, à l'opposé d'un autre.",
       "craftRingTitle": "Une roue de spécialités",
-      "craftRingBody": "Les dix métiers sont disposés en anneau fixe, et la place d'un métier sur cet anneau compte : des métiers voisins sur la roue partagent plus entre eux que des métiers placés aux antipodes. S'engager dans un métier doit donner le sentiment de rejoindre une famille de métiers apparentés, pas de choisir une compétence isolée.",
+      "craftRingBody": "Les dix métiers sont disposés en un anneau fixe, et la place d'un métier sur cet anneau compte : les métiers voisins sur la roue ont plus en commun entre eux que ceux qui se font face. S'engager dans un métier doit donner le sentiment de rejoindre une famille de métiers apparentés, pas de choisir une compétence isolée.",
       "craftRecipesTitle": "Recettes et composants",
-      "craftRecipesBody": "Chaque métier possède ses propres recettes, chacune réclamant des composants précis que vous récoltez ou achetez. Les recettes les plus simples de chaque métier ne demandent que des matériaux communs et se fabriquent dès le tout début, si bien que vous pouvez exercer un métier dès l'instant où vous l'adoptez, sans attendre de le débloquer.",
+      "craftRecipesBody": "Chaque métier a ses propres recettes, chacune réclamant des composants précis que vous récoltez ou achetez. Les recettes les plus simples de chaque métier ne demandent que des matériaux communs et se fabriquent dès le tout début, si bien que vous pouvez exercer un métier dès que vous l'adoptez au lieu d'attendre de le débloquer.",
       "craftMasteryTitle": "Compétence et maîtrise",
-      "craftMasteryBody": "Réussir une fabrication renforce votre compétence dans ce métier, et les recettes les plus riches se méritent : les recettes de base sont ouvertes à tous, tandis que les plus avancées exigent toujours plus de maîtrise pour être tentées. Faire grandir votre compétence dans un métier, c'est le chemin qui mène des simples produits de débutant à ses recettes les plus ambitieuses.",
+      "craftMasteryBody": "Réussir une fabrication fait progresser votre compétence dans ce métier, et les recettes les plus riches exigent une compétence plus élevée : les recettes de base sont ouvertes à chacun, tandis que les plus avancées demandent une maîtrise toujours plus grande pour être tentées. Faire grandir votre compétence dans un métier est le chemin qui mène des simples produits de départ à ses recettes les plus ambitieuses.",
       "craftComboTitle": "Recettes combinées",
-      "craftComboBody": "Au-delà de la liste de recettes d'un seul métier, la roue autorise aussi des recettes combinées qui font appel à deux métiers voisins à la fois, récompensant un personnage (ou une paire de partenaires d'échange) qui a investi dans des métiers adjacents sur l'anneau plutôt que dans un seul métier isolé.",
+      "craftComboBody": "Au-delà de la liste de recettes propre à chaque métier, la roue permet aussi des recettes combinées qui font appel à deux métiers voisins à la fois, récompensant un personnage (ou un duo de partenaires d'échange) qui a investi dans des métiers adjacents sur l'anneau plutôt que dans un seul, isolé.",
       "archetypeTitle": "Les dix archétypes",
-      "archetypeIntro": "Chacun des dix métiers d'artisanat incarne aussi un archétype, une identité plus large que vous pouvez endosser au-delà du simple exercice du métier. Votre archétype actif est un choix unique, pas une liste à cocher : vous n'en portez qu'un à la fois, et vous pourrez en changer plus tard si vous le souhaitez.",
+      "archetypeIntro": "Chacun des dix métiers d'artisanat incarne aussi un archétype, une identité plus large que vous pouvez adopter au-delà du simple exercice du métier. Votre archétype actif est un choix unique, pas une liste à cocher : vous n'en portez qu'un à la fois, et vous pourrez en changer plus tard si vous le souhaitez.",
       "archetypeChooseTitle": "Choisir son archétype",
-      "archetypeChooseBody": "Vous déclarez votre premier archétype au fil d'une quête d'histoire de la zone un, tôt dans l'aventure, qui vous accueille officiellement dans cette identité. Tant que cette quête n'est pas achevée, vous n'avez encore choisi aucun archétype.",
+      "archetypeChooseBody": "Vous déclarez votre premier archétype au fil d'une quête d'histoire de la première zone, tôt dans l'aventure, qui vous accueille officiellement dans cette identité. Tant que cette quête n'est pas terminée, vous n'avez encore choisi aucun archétype.",
       "archetypeSwitchTitle": "Changer d'avis",
-      "archetypeSwitchBody": "Avoir déclaré un archétype ne vous y enferme pas pour toujours. Pour en changer, il faut d'abord accomplir, envers l'ancien, une quête réitérable où vous faites amende honorable, et à chaque changement, l'amende attendue la fois suivante se fait un peu plus lourde : changer garde ainsi du poids au lieu d'être gratuit.",
+      "archetypeSwitchBody": "Avoir déclaré un archétype une fois ne vous y enferme pas pour toujours. Passer à un autre archétype demande d'abord d'accomplir une quête répétable où vous faites amende honorable envers l'ancien, et à chaque changement, l'amende attendue la fois suivante devient un peu plus exigeante, pour que changer garde du sens au lieu d'être gratuit.",
       "archetypeIdentityTitle": "Ce que votre archétype signifie",
-      "archetypeIdentityBody": "Votre archétype actif est une déclaration sur qui est votre personnage dans le monde, reconnue dans la manière dont les autres et le monde s'adressent à vous. Les récompenses et les marques de reconnaissance exactes qui l'accompagnent sont encore en cours de finalisation ; revenez voir à mesure que le système s'étoffe."
+      "archetypeIdentityBody": "Votre archétype actif dit qui est votre personnage dans le monde, et se reflète dans la façon dont les autres et le monde s'adressent à vous. Les récompenses et marques de reconnaissance exactes qui l'accompagnent sont encore en cours de finalisation ; revenez voir à mesure que le système se met en place."
     },
     "economy": {
       "intro": "L'argent fait tourner le monde entier : il achète votre équipement, vos provisions et votre matériel de voyage, et passe de main en main entre joueurs. Vous ramassez tout cela rien qu'en jouant, alors voyez cette page comme une carte d'où vient votre argent et où il va.",
@@ -4958,15 +4959,15 @@ export const fr_CA: EnTranslations = {
       },
       "sport_shoot": {
         "name": "Tir",
-        "description": "Maintenez pour charger la puissance, relâchez pour tirer au but. Trop de puissance, et le ballon file au-dessus."
+        "description": "Maintenez pour charger la puissance, relâchez pour tirer au but. Trop de puissance et le ballon file au-dessus."
       },
       "sport_pass": {
         "name": "Passe",
-        "description": "Adressez une passe appuyée à l'équipier ciblé, dans le sens de sa course."
+        "description": "Adressez une passe appuyée à votre coéquipier ciblé, dans sa course."
       },
       "sport_boot": {
         "name": "Grosse botte",
-        "description": "Un long ballon botté en cloche vers le point visé. La foule adore."
+        "description": "Une longue balle bottée en cloche vers le point visé. La foule adore."
       },
       "sport_hoof": {
         "name": "Coup de sabot",
@@ -4978,19 +4979,19 @@ export const fr_CA: EnTranslations = {
       },
       "sport_feint": {
         "name": "Feinte",
-        "description": "Un brusque pas de côté vers le point visé."
+        "description": "Une brève accélération de côté vers le point visé."
       },
       "sport_dive": {
         "name": "Plongeon",
-        "description": "Jetez-vous vers le point visé. Un ballon qui croise votre course vous reste dans les mains."
+        "description": "Jetez-vous vers le point visé. Un ballon qui croise votre course vous colle aux mains."
       },
       "sport_shoulder": {
         "name": "Coup d'épaule",
-        "description": "Un coup d'épaule loyal, dans l'esprit de la trêve des moissons. L'adversaire culbute et lâche le ballon."
+        "description": "Un coup d'épaule loyal, dans l'esprit de la trêve des moissons. Envoie l'adversaire culbuter loin du ballon."
       },
       "sport_second_wind": {
         "name": "Jambes fraîches",
-        "description": "Retrouvez vos jambes : vous vous déplacez 50% plus vite pendant 4 s."
+        "description": "Retrouvez vos jambes : déplacement 50 % plus rapide pendant 4 sec."
       },
       "flamestrike": {
         "name": "Frappe enflammée",
@@ -6213,6 +6214,24 @@ export const fr_CA: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Faucille Pétale de Soleil"
       },
+      "thorium_ore": {
+        "name": "Minerai de Thorium"
+      },
+      "arcanite_bar": {
+        "name": "Barre d'Arcanite"
+      },
+      "ashwood_log": {
+        "name": "Bûche de Frêne Gris"
+      },
+      "elderwood_log": {
+        "name": "Bûche de Sureau Ancien"
+      },
+      "goldleaf_herb": {
+        "name": "Herbe Feuille d'Or"
+      },
+      "sunpetal_herb": {
+        "name": "Herbe Pétale de Soleil"
+      },
       "bristleback_maul": {
         "name": "Marteau Gallowglass"
       },
@@ -7394,8 +7413,8 @@ export const fr_CA: EnTranslations = {
       },
       "groundskeeper_bram": {
         "name": "Intendant Bram",
-        "title": "Gardien du Champ de la Truie",
-        "greeting": "La trêve tient au Champ de la Truie, {className} : coups de botte et coups d'épaule, rien de plus. Ça te dit de jouer pour le Seau de cuivre ?"
+        "title": "Gardien du Pré de la Truie",
+        "greeting": "La trêve tient au Pré de la Truie, {className} : des bottes et des épaules, rien de plus. Envie de jouer pour le Seau de cuivre ?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const fr_CA: EnTranslations = {
             "label": "Clairière de Brightwood"
           },
           "10": {
-            "label": "Le Champ de la Truie"
+            "label": "Le Pré de la Truie"
           }
         }
       },

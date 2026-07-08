@@ -259,6 +259,11 @@ export function harvestCorpse(
     return;
   }
   mob.harvestClaimedBy = claim.claimedBy;
+  // #1145: a rare-or-better monster material is stamped with the harvester's
+  // name (a non-fungible instance slot); anything below that rarity stays a
+  // plain fungible grant, same as before this issue. One rarity roll per
+  // yielded component, same one-draw-per-yield convention as
+  // resolveCorpseFocusHarvest's own tier roll.
   const yields = resolveCorpseFocusHarvest(componentTags ?? [], components ?? [], ctx.rng);
   for (const y of yields) {
     const itemId = HARVEST_COMPONENT_ITEMS[y.component];

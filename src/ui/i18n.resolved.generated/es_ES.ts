@@ -400,7 +400,7 @@ export const es_ES: EnTranslations = {
       "title": "La Copa del Valle",
       "shootPower": "POTENCIA",
       "close": "Cerrar la ventana de la Copa del Valle",
-      "offlineNote": "El libro de encuentros está cerrado. La Copa del Valle no está disponible en este momento.",
+      "offlineNote": "El libro de encuentros está cerrado. La Copa del Valle no está disponible ahora mismo.",
       "recordLine": "Tu historial: {wins} victorias, {losses} derrotas, {draws} empates.",
       "bracketsAria": "Categoría del partido",
       "bracketLabel": "{n}v{n}",
@@ -416,16 +416,16 @@ export const es_ES: EnTranslations = {
         "moon": "La Luna Pálida",
         "copperdig": "La Excavación de Cobre"
       },
-      "awayNote": "Si ambos bandos enarbolan el mismo estandarte, el equipo visitante juega con la paleta invertida.",
+      "awayNote": "Si ambos bandos lucen el mismo estandarte, el visitante juega con la paleta invertida.",
       "rolesHeading": "Rol deportivo",
       "role": {
         "allrounder": {
-          "name": "Todoterreno",
+          "name": "Polivalente",
           "desc": "Un poco de cada cosa: patada, patadón y un hombrazo limpio."
         },
         "striker": {
           "name": "Delantero",
-          "desc": "Vive para el patadón largo y la finta rápida."
+          "desc": "Vive para el patadón largo y el quiebro rápido."
         },
         "sweeper": {
           "name": "Líbero",
@@ -433,32 +433,32 @@ export const es_ES: EnTranslations = {
         },
         "keeper": {
           "name": "Guardameta",
-          "desc": "Defiende el área con agarre, zambullida y saque largo."
+          "desc": "Defiende el área con agarre, estirada y saque largo."
         }
       },
-      "queue": "Entrar en la cola",
+      "queue": "Unirse a la cola",
       "leaveQueue": "Salir de la cola",
-      "queueNote": "Entra en cola desde cualquier lugar; el silbato te llamará al Campo de la Cerda.",
+      "queueNote": "Ponte en cola desde cualquier lugar; el silbato te llamará al Sembradal.",
       "queuedStatus": "En cola para {bracket}: posición {position} de {count}.",
       "blockNation": "Primero elige una nación de estandarte.",
       "blockPartySize": "Esa categoría requiere un grupo más pequeño.",
       "blockNotLeader": "Solo el líder del grupo puede poner al equipo en cola.",
-      "inMatchNote": "Tu equipo está en el terreno de juego. ¡A jugar!",
-      "deserterNote": "El guardacampo lo recuerda. Podrás volver a entrar en cola en {seconds} s.",
-      "liveHeading": "Ahora en el Campo de la Cerda",
+      "inMatchNote": "Tu equipo está en el campo. ¡A jugar!",
+      "deserterNote": "El Guardacampo lo recuerda. Podrás volver a la cola en {seconds} s.",
+      "liveHeading": "Ahora en el Sembradal",
       "liveAria": "Copa del Valle: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Acércate al Campo de la Cerda para mirar desde las gradas.",
-      "noLive": "El terreno de juego está en silencio. No se está jugando ningún partido.",
-      "boardHeading": "Tablón de ganadores",
-      "boardEmpty": "Aún no hay ganadores registrados. El Cubo de Cobre espera.",
+      "walkUp": "Acércate al Sembradal para mirar desde las gradas.",
+      "noLive": "El campo está en silencio. No se juega ningún partido.",
+      "boardHeading": "Tablón de vencedores",
+      "boardEmpty": "Aún no hay vencedores registrados. El Cubo de Cobre espera.",
       "boardWins": "{count} victorias",
-      "enterAsGuild": "Participar bajo el estandarte de {guild}",
+      "enterAsGuild": "Entrar bajo el estandarte de {guild}",
       "guildRecordLine": "Historial de tu hermandad: {wins} victorias, {losses} derrotas.",
       "guildBoardHeading": "Estandartes de hermandad",
-      "guildBoardEmpty": "Ninguna hermandad ha saltado al campo todavía. ¡Enarbola tu estandarte!",
+      "guildBoardEmpty": "Ninguna hermandad ha saltado al campo aún. ¡Iza tu estandarte!",
       "guildBoardWl": "{wins} V, {losses} D",
       "practice": "Práctica contra bots",
-      "practiceNote": "Comienza de inmediato un partido privado contra bots en tu propio campo de práctica.",
+      "practiceNote": "Inicia de inmediato un partido privado contra bots en tu propio campo de práctica.",
       "practicingNow": "Practicando ahora ({count}):",
       "clock": "{minutes}:{seconds}",
       "indicatorQueued": "Cola de la Copa del Valle: {bracket}, posición {position} de {count}",
@@ -472,21 +472,21 @@ export const es_ES: EnTranslations = {
       "bannerCountdown": "Saque inicial en {seconds}...",
       "bannerKickoff": "¡SAQUE INICIAL!",
       "bannerGoal": "¡GOL! ¡{nation} marca!",
-      "bannerSave": "¡PARADA DE {name}!",
-      "bannerGolden": "GOL DE ORO: ¡el próximo gol gana!",
-      "bannerEnd": "Final del partido: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "¡Victoria en el Campo de la Cerda!",
-      "bannerDraw": "Empate en el Campo de la Cerda.",
-      "bannerLoss": "Derrota en el Campo de la Cerda.",
+      "bannerSave": "¡{name} LA PARA!",
+      "bannerGolden": "GOL DE ORO: ¡el próximo tanto gana!",
+      "bannerEnd": "Final: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "¡Victoria en el Sembradal!",
+      "bannerDraw": "Empate en el Sembradal.",
+      "bannerLoss": "Derrota en el Sembradal.",
       "logQueued": "Entras en la cola de la Copa del Valle para {bracket} (posición {position}).",
       "logUnqueued": "Sales de la cola de la Copa del Valle.",
       "logFound": "Tu partido de la Copa del Valle está listo: {nationA} contra {nationB}.",
       "logRoster": "Tu bando: {allies}. Su bando: {enemies}.",
       "logGoal": "¡{name} marca para {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "¡{name} detiene el disparo!",
-      "logWin": "Ganas el encuentro en el Campo de la Cerda.",
-      "logDraw": "El encuentro en el Campo de la Cerda termina en empate.",
-      "logLoss": "Pierdes el encuentro en el Campo de la Cerda.",
+      "logSave": "¡{name} hace la parada!",
+      "logWin": "Ganas el encuentro en el Sembradal.",
+      "logDraw": "El encuentro en el Sembradal termina en empate.",
+      "logLoss": "Pierdes el encuentro en el Sembradal.",
       "gossipOpen": "El libro de encuentros",
       "gossipOpenAria": "Abrir la ventana de la Copa del Valle",
       "mobileLabel": "Copa",
@@ -494,42 +494,42 @@ export const es_ES: EnTranslations = {
         "subtitle": "Charla previa al partido",
         "vs": "vs",
         "rulesHeading": "Cómo se juega",
-        "rule1": "Patea o pasa el balón hacia la portería enemiga para marcar.",
-        "rule2": "Gana el primero en llegar a 5 goles, o quien tenga más goles cuando suene el final del partido.",
-        "rule3": "Un partido empatado al final del tiempo se decide con gol de oro: el próximo gol gana.",
+        "rule1": "Mete el balón en la portería rival de una patada o un pase para marcar.",
+        "rule2": "Gana el primero en llegar a 5 goles, o quien tenga más goles cuando suene el final.",
+        "rule3": "Un partido igualado al final del tiempo se decide con gol de oro: el próximo tanto gana.",
         "rule4": "Las entradas solo te hacen rodar. Nadie sale herido bajo la tregua de la cosecha.",
         "rule5": "Cualquiera puede acercarse y animarte desde las gradas.",
-        "kitHeading": "Tu equipamiento",
+        "kitHeading": "Tu equipación",
         "kitNote": "Estos movimientos sustituyen a tus habilidades de clase durante el partido.",
         "rosterHeading": "La alineación",
         "you": "Tú",
         "bot": "Bot",
-        "ready": "¡Listo!",
+        "ready": "Estoy listo",
         "readyDone": "Listo",
         "readyAria": "Prepararse para el saque inicial",
-        "waiting": "Esperando a que el otro equipo esté listo...",
+        "waiting": "Esperando a que el otro bando se prepare...",
         "whistle": "El silbato sonará en {seconds} s.",
-        "readyCount": "{ready} de {total} listos"
+        "readyCount": "{ready} de {total} preparados"
       },
       "bet": {
         "title": "Apuestas del partido",
         "aria": "Apuestas del partido de la Copa del Valle",
         "closesIn": "Las apuestas cierran en {seconds} s",
         "closed": "Apuestas cerradas",
-        "prize": "Bolsa: {amount}",
-        "splitAria": "Parte de la bolsa de apuestas en cada equipo",
+        "prize": "Bote {amount}",
+        "splitAria": "Proporción del bote de apuestas en cada equipo",
         "expand": "Ver apuestas y apostar",
         "collapse": "Ocultar apuestas",
         "oddsLabel": "Paga",
         "back": "Apostar por {team}",
         "form": "{wins}V-{losses}D",
-        "mine": "Tu apuesta: {amount} por {team}",
-        "none": "Aún no tienes ninguna apuesta en este partido.",
+        "mine": "Tu apuesta: {amount} a {team}",
+        "none": "Aún no tienes apuesta en este partido.",
         "record": "Historial de apuestas: {wins}V-{losses}D, {sign}{net}",
-        "wonBanner": "¡Tu apuesta ha ganado!",
-        "wonLog": "Tu apuesta de la Copa del Valle ha ganado: recuperas {amount}.",
-        "lostLog": "Tu apuesta de la Copa del Valle ha perdido: {amount}.",
-        "refundLog": "Apuestas anuladas: se te devuelve tu apuesta de {amount}."
+        "wonBanner": "¡Tu apuesta ganó!",
+        "wonLog": "Tu apuesta de la Copa del Valle ganó: recibes {amount}.",
+        "lostLog": "Perdiste tu apuesta de la Copa del Valle: {amount}.",
+        "refundLog": "Apuestas anuladas: se devolvió tu apuesta de {amount}."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const es_ES: EnTranslations = {
         "jitter": "Fluctuación",
         "predLead": "Adelanto de predicción",
         "snapshot": "Tasa de instantáneas",
+        "serverTick": "Tasa de ticks del servidor",
         "connection": "Conexión",
         "drawCalls": "Llamadas de dibujado",
         "triangles": "Triángulos",
@@ -1550,7 +1551,7 @@ export const es_ES: EnTranslations = {
       "bestiary": "Bestiario",
       "models": "Modelos 3D",
       "gear": "Equipo y objetos",
-      "professions": "Profesiones",
+      "professions": "Oficios",
       "economy": "Economía y comercio",
       "social": "Social y grupos",
       "stats": "Personaje y características",
@@ -2223,29 +2224,29 @@ export const es_ES: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "La Copa del Valle",
-      "intro": "Balonjabalí en el Campo de la Cerda: elige un estandarte, elige un rol y manda una piel de jabalí rellena más allá del guardameta por el Cubo de Cobre. Sin sangre, sin botín, solo el rugido de las gradas.",
+      "intro": "Balonjabalí en el Sembradal: elige un estandarte, elige un rol y cuela una piel de jabalí rellena más allá del guardameta para ganar el Cubo de Cobre. Sin sangre, sin botín, solo el rugido de las gradas.",
       "loreHeading": "El balonjabalí y la tregua de la cosecha",
-      "loreOldSow": "Mucho antes de que despertaran los muertos, los campesinos de Eastbrook jugaban al balonjabalí en los rastrojos después de la cosecha: dos cuadrillas, una piel de jabalí rellena de paja y dos portones de carreta arrastrados a cada extremo del prado. El primer balón, la Vieja Cerda, cuelga bañado en bronce sobre la chimenea de la taberna.",
-      "loreTruce": "Cuando el Coliseo Cinéreo empezó a autorizar juegos de guerra, el mariscal Redbrook respondió con algo más amable: una tregua de la cosecha permanente sobre el viejo prado. Los portones de carreta se volvieron porterías; el prado ganó muros, gradas y un nombre, el Campo de la Cerda; y el premio fue siempre el mismo cubo de leche abollado del que bebían los ganadores: el Cubo de Cobre.",
+      "loreOldSow": "Mucho antes de que despertaran los muertos, los peones de Eastbrook jugaban al balonjabalí en los rastrojos tras la cosecha: dos cuadrillas, una piel de jabalí rellena de paja y dos portones de carreta arrastrados a cada extremo del prado. El primer balón, la Vieja Cerda, cuelga, bañado en bronce, sobre la chimenea de la taberna.",
+      "loreTruce": "Cuando el Coliseo Cinéreo empezó a sancionar juegos de guerra, el mariscal Redbrook respondió con algo más amable: una tregua de la cosecha permanente sobre el viejo prado. Los portones de carreta se volvieron porterías; el prado ganó muros, gradas y un nombre, el Sembradal; y el premio fue siempre el mismo cubo de leche abollado del que bebían los vencedores: el Cubo de Cobre.",
       "howHeading": "Cómo se juega",
-      "howQueue": "Entra en cola desde cualquier lugar a través de la ventana de la Copa del Valle, o habla con el guardacampo Bram en la puerta del Campo de la Cerda. Elige una categoría, desde uno contra uno hasta cinco contra cinco, una nación de estandarte y un rol deportivo; entra en cola en solitario o trae a tu grupo.",
-      "howMatch": "Con el saque inicial, tu equipamiento de clase se cambia por un equipamiento deportivo y se restaura exactamente igual al terminar. Las patadas apuntan a la retícula del suelo, el balón rebota en las vallas y regatear es simplemente correr con el balón. Marca más goles que el otro equipo antes del final del partido; un empate se decide con gol de oro.",
-      "howTruce": "Nadie sangra en el Campo de la Cerda: las entradas solo te hacen rodar, nada duele y las mascotas se quedan fuera del partido.",
+      "howQueue": "Ponte en cola desde cualquier lugar mediante la ventana de la Copa del Valle, o habla con el Guardacampo Bram en la puerta del Sembradal. Elige una categoría, desde uno contra uno hasta cinco contra cinco, una nación de estandarte y un rol deportivo; entra en cola en solitario o trae a tu grupo.",
+      "howMatch": "Al saque inicial, tus habilidades de clase se cambian por una equipación deportiva y se restauran exactamente al terminar. Las patadas apuntan a la retícula del suelo, el balón rebota en las vallas y regatear es simplemente correr con el balón. Marca más goles que el rival antes del final del tiempo; un empate se decide con gol de oro.",
+      "howTruce": "Nadie sangra en el Sembradal: las entradas solo te hacen rodar, nada duele y las mascotas se quedan fuera del partido.",
       "spectateBody": "En el estadio se juega un partido a la vez, y cualquiera puede acercarse y mirar desde las gradas.",
       "nationsHeading": "Las ocho naciones de estandarte",
-      "nationsBody": "Cada equipo juega bajo un estandarte. El capitán elige la nación y, si ambos bandos enarbolan la misma, el equipo visitante juega con la paleta invertida.",
-      "nationVale": "Verde y oro, con la gavilla de trigo al viento: el equipo local, campesinos hasta la médula.",
+      "nationsBody": "Cada equipo juega bajo un estandarte. El capitán elige la nación, y si ambos bandos lucen el mismo, el equipo visitante juega con la paleta invertida.",
+      "nationVale": "Verde y oro, con la gavilla de trigo al viento: el equipo local, peones de campo hasta la médula.",
       "nationMirefen": "Verde azulado y gris bajo la garza: pacientes, zancudos, nunca con prisa.",
-      "nationThornpeak": "Azul hielo y blanco bajo el pico de la montaña: de paso firme y tercos.",
-      "nationColiseum": "Rojo y negro con espadas cruzadas: juegan como si esto siguiera siendo un juego de guerra.",
-      "nationChoir": "Azul pálido y plata bajo la campana: inquietantes, precisos y muy callados.",
-      "nationOgre": "Naranja y pardo tras el puño: primero el hombro, y a mucha honra.",
-      "nationMoon": "Violeta y plata bajo la luna creciente: jugadores nocturnos, ligeros de pies.",
+      "nationThornpeak": "Azul hielo y blanco bajo el pico de la montaña: de paso firme y tozudos.",
+      "nationColiseum": "Rojo y negro con espadas cruzadas: juegan como si aún fuera un juego de guerra.",
+      "nationChoir": "Azul pálido y plata bajo la campana: inquietantes, precisos y muy silenciosos.",
+      "nationOgre": "Naranja y tierra tras el puño: hombro por delante, y orgullosos de ello.",
+      "nationMoon": "Violeta y plata bajo la luna creciente: jugadores nocturnos, de pies ligeros.",
       "nationCopperdig": "Cobre y marrón con el pico: excavadores que nunca dejan de correr.",
       "rolesHeading": "Roles deportivos",
-      "rolesBody": "Tu rol decide el equipamiento que llevas al terreno de juego. Todos patean el balón; el resto es cuestión de temperamento.",
-      "rewardsHeading": "Las reglas de la tregua",
-      "rewardsBody": "Las reglas de la tregua significan que no hay experiencia ni botín: un partido decidido cuenta para tu historial y para el tablón de ganadores, y trae consigo puntos de recompensas diarias. Desertar de un partido te manda al banquillo un tiempo, y el guardacampo lo recuerda."
+      "rolesBody": "Tu rol decide la equipación que llevas al campo. Todos patean; el resto es cuestión de temperamento.",
+      "rewardsHeading": "Reglas de la tregua",
+      "rewardsBody": "Las reglas de la tregua implican que no hay experiencia ni botín: un partido decidido cuenta para tu historial y el tablón de vencedores, y trae consigo puntos de recompensa diaria. Desertar de un partido suspende tu plaza, y el Guardacampo lo recuerda."
     },
     "wishPage": {
       "heading": "Lo que me habría gustado saber",
@@ -2332,33 +2333,33 @@ export const es_ES: EnTranslations = {
       "cosmeticsApply": "Define tu aspecto activo desde la fila de apariencia en tu pantalla de personaje, y cambia con libertad entre cuanto hayas desbloqueado."
     },
     "professions": {
-      "intro": "Más allá del combate y las misiones, el mundo te recompensa por trabajar la tierra y la forja: recolectar materias primas, convertirlas en equipo en las estaciones de artesanía de diez oficios distintos y asentarte en una identidad como uno de los diez arquetipos que esos oficios representan.",
+      "intro": "Más allá del combate y las misiones, el mundo te recompensa por trabajar la tierra y la fragua: recolectar materias primas, convertirlas en equipo en las estaciones de artesanía de diez oficios distintos y asentarte en una identidad como uno de los diez arquetipos que esos oficios representan.",
       "gatherTitle": "Recolección: Minería, Tala y Herboristería",
-      "gatherIntro": "Tres oficios de recolección te permiten extraer materias primas directamente del mundo: la Minería arranca mineral y piedra de las vetas, la Tala derriba madera de las arboledas y la Herboristería recoge hierbas y plantas silvestres. Cada uno se registra por separado, así que trabajar en uno nunca frena tu progreso en otro.",
+      "gatherIntro": "Tres oficios de recolección te permiten extraer materias primas directamente del mundo: la Minería arranca mineral y piedra de las vetas, la Tala derriba madera de las arboledas y la Herboristería recoge hierbas y plantas silvestres. Cada uno se registra por separado, así que trabajar uno nunca frena tu progreso en otro.",
       "gatherWhatTitle": "Nodos de recursos",
-      "gatherWhatBody": "Las vetas de mineral, las arboledas y los parches de hierbas están repartidos por las zonas como elementos visibles y sin dueño. Acércate a uno e interactúa con él para recolectar lo que contenga. Una vez que has recolectado un nodo, necesita tiempo para recuperarse antes de que tú, personalmente, puedas recolectarlo de nuevo, aunque nunca bloquea a nadie más: otro jugador puede recolectar exactamente el mismo nodo mientras tanto.",
-      "gatherProficiencyTitle": "Competencia y calidad del material",
-      "gatherProficiencyBody": "Cada recolección exitosa aumenta tu competencia en ese oficio de recolección. Una competencia más alta inclina lo que sacas de un nodo hacia grados más raros de material, de lo común hacia arriba, aunque los grados más raros siguen siendo raros incluso con una competencia alta. Practicar más nunca perjudica tus probabilidades, solo las mejora.",
+      "gatherWhatBody": "Las vetas de mineral, las arboledas y las matas de hierbas están repartidas por las zonas como elementos visibles y sin dueño. Acércate a uno e interactúa con él para cosechar lo que contenga. Una vez que has cosechado un nodo, necesita tiempo para recuperarse antes de que tú, personalmente, puedas cosecharlo de nuevo, aunque nunca bloquea a nadie más: otro jugador puede cosechar ese mismo nodo mientras tanto.",
+      "gatherProficiencyTitle": "Pericia y calidad del material",
+      "gatherProficiencyBody": "Cada cosecha lograda aumenta tu pericia en ese oficio de recolección. Una pericia mayor inclina lo que extraes de un nodo hacia grados de material más raros, de lo común en adelante, aunque los grados más raros siguen siendo raros incluso con una pericia alta. Practicar más nunca perjudica tus probabilidades, solo las mejora.",
       "gatherToolsTitle": "Las herramientas del oficio",
-      "gatherToolsBody": "Los vendedores ofrecen herramientas básicas para cada oficio de recolección, y las mejores se pueden fabricar, así que trabajar un nodo de recursos está pensado para que te sientas más capaz a medida que te equipas, en lugar de quedarse igual. Las herramientas de nivel superior son el camino previsto para desbloquear el acceso a nodos más ricos y trabajarlos con más eficiencia durante una sesión larga.",
-      "craftTitle": "Los diez oficios",
-      "craftIntro": "Diez oficios de artesanía convierten los materiales recolectados en equipo y bienes terminados: la Armería, la Forja de armas y la Joyería convierten la materia prima en equipo para vestir; la Alquimia y la Ingeniería avanzan a base de ensayo y error; la Cocina, la Inscripción y el Encantamiento tocan cada uno la obra de otros oficios; la Sastrería y la Peletería trabajan a partir de patrones exactos. Juntos forman una rueda, con cada oficio junto a dos vecinos y frente a otro.",
+      "gatherToolsBody": "Los vendedores ofrecen herramientas básicas para cada oficio de recolección, y se pueden fabricar otras mejores, de modo que trabajar un nodo de recursos se sienta cada vez más eficaz a medida que te equipas, en lugar de quedarse estático. Las herramientas de mayor calidad son la vía prevista para acceder a nodos más ricos y trabajarlos con más eficiencia en sesiones largas.",
+      "craftTitle": "Los diez oficios de artesanía",
+      "craftIntro": "Diez oficios de artesanía convierten los materiales recolectados en equipo y bienes acabados: la Forja de armaduras, la Forja de armas y la Joyería dan forma a la materia prima como equipo que puedes llevar; la Alquimia y la Ingeniería avanzan a base de ensayo y error; la Cocina, la Inscripción y el Encantamiento trabajan sobre la producción de otros oficios; la Sastrería y la Peletería trabajan a partir de patrones exactos. Juntos forman una rueda, con cada oficio junto a dos vecinos y frente a otro.",
       "craftRingTitle": "Una rueda de especialidades",
-      "craftRingBody": "Los diez oficios están dispuestos en una rueda fija, y el lugar que un oficio ocupa en esa rueda importa: los oficios contiguos en la rueda comparten más entre sí que los que están en lados opuestos. Comprometerse con un oficio debe sentirse como unirse a una familia de oficios afines, no como elegir una habilidad aislada.",
-      "craftRecipesTitle": "Recetas y componentes",
-      "craftRecipesBody": "Cada oficio tiene sus propias recetas, y cada una pide componentes concretos que recolectas o compras. Las recetas más básicas de cada oficio no piden más que materiales comunes y se pueden elaborar desde el primer momento, así que puedes empezar a ejercer un oficio en cuanto lo aprendes, en lugar de esperar a desbloquearlo.",
+      "craftRingBody": "Los diez oficios están dispuestos en un anillo fijo, y el lugar que ocupa cada uno en ese anillo importa: los oficios contiguos en la rueda comparten más entre sí que los situados en lados opuestos. Comprometerse con un oficio debe sentirse como unirse a una familia de oficios afines, no como escoger una habilidad aislada.",
+      "craftRecipesTitle": "Recetas y reactivos",
+      "craftRecipesBody": "Cada oficio tiene sus propias recetas, cada una con reactivos concretos que recolectas o compras. Las recetas más básicas de cada oficio solo piden materiales comunes y pueden fabricarse desde el primer momento, así que puedes empezar a ejercer un oficio en cuanto lo adoptas, sin esperar a desbloquearlo.",
       "craftMasteryTitle": "Habilidad y maestría",
-      "craftMasteryBody": "Elaborar con éxito aumenta tu habilidad en ese oficio, y las recetas más ricas están reservadas a una habilidad mayor: las recetas básicas están abiertas a todos, mientras que las progresivamente más avanzadas piden progresivamente más maestría para intentarlas. Aumentar tu habilidad en un oficio es el camino que lleva de los sencillos bienes iniciales a sus recetas más ambiciosas.",
+      "craftMasteryBody": "Fabricar con éxito aumenta tu habilidad en ese oficio, y las recetas más ricas exigen una habilidad mayor: las recetas básicas están abiertas a cualquiera, mientras que las progresivamente más avanzadas piden progresivamente más maestría para intentarlas. Aumentar tu habilidad en un oficio es el camino de los bienes sencillos de inicio a sus recetas más ambiciosas.",
       "craftComboTitle": "Recetas combinadas",
-      "craftComboBody": "Más allá de la lista de recetas propia de cada oficio, la rueda también admite recetas combinadas que recurren a dos oficios vecinos a la vez, premiando a un personaje (o a una pareja de socios comerciales) que haya invertido en oficios adyacentes de la rueda en lugar de en uno aislado.",
+      "craftComboBody": "Más allá de la lista de recetas propia de cada oficio, la rueda también admite recetas combinadas que recurren a dos oficios vecinos a la vez, y premian a un personaje (o a una pareja de socios comerciales) que haya invertido en oficios adyacentes del anillo en lugar de en uno aislado.",
       "archetypeTitle": "Los diez arquetipos",
-      "archetypeIntro": "Cada uno de los diez oficios representa también un arquetipo, una identidad más amplia que puedes adoptar más allá de ejercer ese oficio. Tu arquetipo activo es una única elección a la vez, no una lista de tareas: llevas uno, y puedes cambiarlo más adelante si así lo decides.",
+      "archetypeIntro": "Cada uno de los diez oficios de artesanía representa también un arquetipo, una identidad más amplia que puedes adoptar más allá de ejercer ese oficio. Tu arquetipo activo es una única elección a la vez, no una lista de tareas: llevas uno, y puedes cambiarlo más adelante si así lo decides.",
       "archetypeChooseTitle": "Elegir tu arquetipo",
-      "archetypeChooseBody": "Declaras tu primer arquetipo a través de una misión temprana de la historia de la zona uno que te acepta formalmente en esa identidad. Hasta que completes esa misión, todavía no has elegido ningún arquetipo.",
-      "archetypeSwitchTitle": "Cambiar de opinión",
-      "archetypeSwitchBody": "Haber declarado un arquetipo una vez no te ata a él para siempre. Cambiar a un arquetipo distinto exige completar primero una misión repetible de «hacer las paces» con el antiguo, y cada vez que cambias, las enmiendas que se esperan de ti la próxima vez se vuelven un poco más exigentes, de modo que cambiar siga teniendo peso en lugar de salir gratis.",
+      "archetypeChooseBody": "Declaras tu primer arquetipo mediante una misión de historia temprana de la zona uno que te acepta formalmente en esa identidad. Hasta que completes esa misión, aún no has elegido ningún arquetipo.",
+      "archetypeSwitchTitle": "Cambiar de idea",
+      "archetypeSwitchBody": "Haber declarado un arquetipo una vez no te ata a él para siempre. Cambiar a un arquetipo distinto exige completar primero una misión repetible de \"enmendar las cosas\" con el anterior, y con cada cambio la enmienda que se te pedirá la próxima vez se vuelve un poco más exigente, de modo que cambiar siga teniendo peso en lugar de salir gratis.",
       "archetypeIdentityTitle": "Qué significa tu arquetipo",
-      "archetypeIdentityBody": "Tu arquetipo activo es una declaración de quién es tu personaje en el mundo, reconocida en cómo se dirigen a ti los demás y el propio mundo. Las recompensas y el reconocimiento exactos que lo acompañan aún se están terminando de definir; vuelve a consultar a medida que el sistema se complete."
+      "archetypeIdentityBody": "Tu arquetipo activo es una declaración de quién es tu personaje en el mundo, reconocida en cómo se dirigen a ti los demás y el propio mundo. Las recompensas y el reconocimiento exactos que lo acompañan aún se están definiendo; vuelve a consultar a medida que el sistema se complete."
     },
     "economy": {
       "intro": "Las monedas engrasan el mundo entero: compran tu equipo, tus suministros y tus enseres de viaje, y cambian de manos entre los jugadores. Consigues todas estas cosas solo con jugar, así que piensa en esta página como un mapa de dónde viene y adónde va tu dinero.",
@@ -4962,35 +4963,35 @@ export const es_ES: EnTranslations = {
       },
       "sport_pass": {
         "name": "Pase",
-        "description": "Envía un pase firme y raso al compañero que tienes como objetivo, adelantando el balón a su carrera."
+        "description": "Envía un pase firme y raso a tu compañero marcado, anticipando su carrera."
       },
       "sport_boot": {
         "name": "Patadón",
-        "description": "Un patadón largo y elevado hacia el punto de mira. Al público le encanta."
+        "description": "Un patadón largo y elevado hacia el punto de mira. El público lo adora."
       },
       "sport_hoof": {
         "name": "Despeje",
         "description": "Golpea el balón raso y con fuerza campo arriba."
       },
       "sport_punt": {
-        "name": "Saque Largo",
-        "description": "Un saque de guardameta, alto y lejano."
+        "name": "Saque largo",
+        "description": "El saque de un guardameta, alto y lejano."
       },
       "sport_feint": {
         "name": "Finta",
-        "description": "Un amague veloz que te impulsa hacia el punto de mira."
+        "description": "Un quiebro rápido y explosivo hacia el punto de mira."
       },
       "sport_dive": {
-        "name": "Zambullida",
-        "description": "Lánzate hacia el punto de mira. Un balón cruzado se te queda pegado."
+        "name": "Estirada",
+        "description": "Lánzate hacia el punto de mira. Un balón cruzado se queda pegado a ti."
       },
       "sport_shoulder": {
         "name": "Hombrazo",
-        "description": "Un hombrazo limpio, digno de la tregua de la cosecha. Manda a los rivales rodando lejos del balón."
+        "description": "Un hombrazo limpio, digno de la tregua de la cosecha. Los manda rodando lejos del balón."
       },
       "sport_second_wind": {
-        "name": "Piernas Frescas",
-        "description": "Recupera las piernas: te mueves un 50% más rápido durante 4 s."
+        "name": "Piernas frescas",
+        "description": "Recupera las piernas: muévete un 50% más rápido durante 4 s."
       },
       "flamestrike": {
         "name": "Llamarada",
@@ -6213,6 +6214,24 @@ export const es_ES: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Hoz de Pétalo Solar"
       },
+      "thorium_ore": {
+        "name": "Mineral de Torio"
+      },
+      "arcanite_bar": {
+        "name": "Barra de Arcanita"
+      },
+      "ashwood_log": {
+        "name": "Tronco de Ceniza"
+      },
+      "elderwood_log": {
+        "name": "Tronco de Saúco"
+      },
+      "goldleaf_herb": {
+        "name": "Hierba Hoja de Oro"
+      },
+      "sunpetal_herb": {
+        "name": "Hierba Pétalo de Sol"
+      },
       "bristleback_maul": {
         "name": "Martillo Gallowglass"
       },
@@ -7394,8 +7413,8 @@ export const es_ES: EnTranslations = {
       },
       "groundskeeper_bram": {
         "name": "Guardacampo Bram",
-        "title": "Guardián del Campo de la Cerda",
-        "greeting": "La tregua se mantiene en el Campo de la Cerda, {className}: solo patadones y hombrazos. ¿Te animas a jugar por el Cubo de Cobre?"
+        "title": "Guarda del Sembradal",
+        "greeting": "La tregua se respeta en el Sembradal, {className}: solo patadas y hombrazos. ¿Te animas a jugar por el Cubo de Cobre?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const es_ES: EnTranslations = {
             "label": "Claro de Brightwood"
           },
           "10": {
-            "label": "El Campo de la Cerda"
+            "label": "El Sembradal"
           }
         }
       },

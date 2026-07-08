@@ -129,3 +129,74 @@ export function setTownFocus(
   }
   return { ok: true, allocation };
 }
+
+// Re-spec cost model (#1144): re-aiming an existing town-focus allocation
+// trades speed for cost across three payment tiers, per design. Every tier
+// resolves the SAME reallocation; only how it is paid for changes. 'time'
+// spends only real-world duration; 'timeAndPartial' spends less duration for
+// a small coin/material cost; 'instant' spends no duration at all for the
+// full coin/material cost. Content-driven (RESPEC_TIER_CONFIG below), not
+// hardcoded inline, so tuning (#1148) only ever touches this table.
+export type RespecPaymentTier = 'time' | 'timeAndPartial' | 'instant';
+
+export interface RespecTierConfig {
+  /** Real-world milliseconds the re-spec takes, per point of change, at this tier. */
+  readonly durationMsPerPoint: number;
+  /** Coin cost per point of change, at this tier. */
+  readonly coinPerPoint: number;
+  /** Material cost per point of change, at this tier. */
+  readonly materialsPerPoint: number;
+}
+
+/**
+ * The three payment tiers from the design doc: time-only (free, slow),
+ * time-plus-partial (faster, small cost), and instant (no wait, full cost).
+ * Placeholder values pending the #1148 tuning pass; the shape (duration
+ * strictly decreasing, cost strictly increasing, tier by tier) is the
+ * contract this module and its tests hold constant.
+ */
+export const RESPEC_TIER_CONFIG: Readonly<Record<RespecPaymentTier, RespecTierConfig>> = {
+  time: { durationMsPerPoint: 60_000, coinPerPoint: 0, materialsPerPoint: 0 },
+  timeAndPartial: { durationMsPerPoint: 15_000, coinPerPoint: 5, materialsPerPoint: 1 },
+  instant: { durationMsPerPoint: 0, coinPerPoint: 25, materialsPerPoint: 5 },
+};
+
+export interface RespecCost {
+  readonly durationMs: number;
+  readonly coin: number;
+  readonly materials: number;
+}
+
+/** Sum of per-component-type absolute point changes between two allocations. */
+function reallocationMagnitude(
+  previous: FocusAllocation,
+  requested: Readonly<Record<string, number>>,
+): number {
+  const componentTypes = new Set([...Object.keys(previous), ...Object.keys(requested)]);
+  let magnitude = 0;
+  for (const componentType of componentTypes) {
+    magnitude += Math.abs(pointsFor(requested, componentType) - pointsFor(previous, componentType));
+  }
+  return magnitude;
+}
+
+/**
+ * Cost/duration to re-aim from `previous` to `requested` at the given
+ * payment `tier`. Scales linearly with how many focus points actually move
+ * (a no-op reallocation costs nothing at any tier). Never mutates state or
+ * touches Sim/Entity; the caller applies the computed cost and, once paid,
+ * calls `setTownFocus` to commit the new allocation.
+ */
+export function computeRespecCost(
+  previous: FocusAllocation,
+  requested: Readonly<Record<string, number>>,
+  tier: RespecPaymentTier,
+): RespecCost {
+  const magnitude = reallocationMagnitude(previous, requested);
+  const config = RESPEC_TIER_CONFIG[tier];
+  return {
+    durationMs: magnitude * config.durationMsPerPoint,
+    coin: magnitude * config.coinPerPoint,
+    materials: magnitude * config.materialsPerPoint,
+  };
+}

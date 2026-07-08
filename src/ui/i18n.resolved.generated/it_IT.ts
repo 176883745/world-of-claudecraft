@@ -402,64 +402,64 @@ export const it_IT: EnTranslations = {
       "close": "Chiudi la finestra della Coppa della Valle",
       "offlineNote": "Il libro degli incontri è chiuso. La Coppa della Valle non è disponibile al momento.",
       "recordLine": "Il tuo bilancio: {wins} vittorie, {losses} sconfitte, {draws} pareggi.",
-      "bracketsAria": "Categoria della partita",
-      "bracketLabel": "{n}v{n}",
+      "bracketsAria": "Formato della partita",
+      "bracketLabel": "{n}c{n}",
       "waitingCount": "{count} in attesa",
-      "nationsHeading": "Nazione dello stendardo",
+      "nationsHeading": "Nazione del vessillo",
       "nation": {
         "vale": "Valle di Eastbrook",
-        "mirefen": "Mirefen",
+        "mirefen": "Il Mirefen",
         "thornpeak": "Thornpeak",
-        "coliseum": "Colosseo Cinereo",
-        "choir": "Coro Pallido",
-        "ogre": "Clan degli Ogre",
-        "moon": "Luna Pallida",
-        "copperdig": "Miniera di Rame"
+        "coliseum": "Il Colosseo Cinereo",
+        "choir": "Il Coro Pallido",
+        "ogre": "I Clan degli Ogre",
+        "moon": "La Luna Pallida",
+        "copperdig": "Lo Scavo di Rame"
       },
-      "awayNote": "Se entrambe le parti issano lo stesso stendardo, la squadra ospite gioca con i colori invertiti.",
+      "awayNote": "Se entrambe le squadre battono lo stesso vessillo, quella in trasferta gioca con i colori invertiti.",
       "rolesHeading": "Ruolo sportivo",
       "role": {
         "allrounder": {
-          "name": "Tuttofare",
-          "desc": "Un po' di tutto: calcio, campanile e una spallata leale."
+          "name": "Tuttocampista",
+          "desc": "Un po' di tutto: calcio, calcione e una spallata leale."
         },
         "striker": {
           "name": "Attaccante",
-          "desc": "Vive per il campanile e per la finta rapida."
+          "desc": "Vive per il calcione lungo e lo scatto laterale."
         },
         "sweeper": {
           "name": "Libero",
-          "desc": "Butta giù i portatori di palla con la spallata e spazza il pallone lontano."
+          "desc": "Sbalza gli avversari lontano dalla palla e la spazza via."
         },
         "keeper": {
           "name": "Portiere",
           "desc": "Difende l'area di porta con presa, tuffo e rinvio."
         }
       },
-      "queue": "Mettiti in coda",
+      "queue": "Entra in coda",
       "leaveQueue": "Lascia la coda",
       "queueNote": "Mettiti in coda da qualsiasi luogo; il fischio ti chiamerà al Campo della Scrofa.",
       "queuedStatus": "In coda per {bracket}: posizione {position} di {count}.",
-      "blockNation": "Prima scegli una nazione dello stendardo.",
-      "blockPartySize": "Quella categoria richiede un gruppo più piccolo.",
+      "blockNation": "Scegli prima una nazione del vessillo.",
+      "blockPartySize": "Quel formato richiede un gruppo più piccolo.",
       "blockNotLeader": "Solo il capogruppo può mettere in coda la squadra.",
       "inMatchNote": "La tua squadra è in campo. Gioca!",
-      "deserterNote": "Il Custode del Campo ricorda. Potrai rimetterti in coda tra {seconds} sec.",
+      "deserterNote": "Il Guardacampo non dimentica. Potrai rimetterti in coda tra {seconds} sec.",
       "liveHeading": "Ora al Campo della Scrofa",
       "liveAria": "Coppa della Valle: {nationA} {scoreA}, {nationB} {scoreB}",
       "walkUp": "Avvicinati al Campo della Scrofa per guardare dagli spalti.",
-      "noLive": "Il campo è silenzioso. Nessuna partita in corso.",
-      "boardHeading": "Albo dei vincitori",
+      "noLive": "Il campo è tranquillo. Nessuna partita in corso.",
+      "boardHeading": "Tabellone dei vincitori",
       "boardEmpty": "Nessun vincitore registrato finora. Il Secchio di Rame attende.",
       "boardWins": "{count} vittorie",
-      "enterAsGuild": "Entra sotto lo stendardo di {guild}",
+      "enterAsGuild": "Entra sotto il vessillo di {guild}",
       "guildRecordLine": "Bilancio della tua gilda: {wins} vittorie, {losses} sconfitte.",
-      "guildBoardHeading": "Stendardi delle gilde",
-      "guildBoardEmpty": "Nessuna gilda è ancora scesa in campo. Issa il tuo stendardo!",
+      "guildBoardHeading": "Vessilli di gilda",
+      "guildBoardEmpty": "Nessuna gilda è ancora scesa in campo. Batti il tuo vessillo!",
       "guildBoardWl": "{wins} V, {losses} S",
-      "practice": "Allenati contro i bot",
-      "practiceNote": "Avvia subito una partita privata contro i bot su un campo di allenamento tutto tuo.",
-      "practicingNow": "Si stanno allenando ora ({count}):",
+      "practice": "Allenamento contro i bot",
+      "practiceNote": "Avvia subito una partita privata contro i bot sul tuo campo di allenamento.",
+      "practicingNow": "In allenamento ora ({count}):",
       "clock": "{minutes}:{seconds}",
       "indicatorQueued": "Coda della Coppa della Valle: {bracket}, posizione {position} di {count}",
       "indicatorLive": "Coppa della Valle",
@@ -478,42 +478,42 @@ export const it_IT: EnTranslations = {
       "bannerWin": "Vittoria al Campo della Scrofa!",
       "bannerDraw": "Pareggio al Campo della Scrofa.",
       "bannerLoss": "Sconfitta al Campo della Scrofa.",
-      "logQueued": "Ti unisci alla coda della Coppa della Valle per {bracket} (posizione {position}).",
+      "logQueued": "Entri nella coda della Coppa della Valle per {bracket} (posizione {position}).",
       "logUnqueued": "Lasci la coda della Coppa della Valle.",
       "logFound": "La tua partita della Coppa della Valle è pronta: {nationA} contro {nationB}.",
       "logRoster": "La tua squadra: {allies}. La loro: {enemies}.",
       "logGoal": "{name} segna per {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} fa la parata!",
-      "logWin": "Vinci la sfida al Campo della Scrofa.",
-      "logDraw": "La sfida al Campo della Scrofa finisce in pareggio.",
-      "logLoss": "Perdi la sfida al Campo della Scrofa.",
+      "logSave": "{name} compie la parata!",
+      "logWin": "Vinci l'incontro al Campo della Scrofa.",
+      "logDraw": "L'incontro al Campo della Scrofa finisce in pareggio.",
+      "logLoss": "Perdi l'incontro al Campo della Scrofa.",
       "gossipOpen": "Il libro degli incontri",
       "gossipOpenAria": "Apri la finestra della Coppa della Valle",
       "mobileLabel": "Coppa",
       "briefing": {
         "subtitle": "Riunione pre-partita",
-        "vs": "contro",
+        "vs": "vs",
         "rulesHeading": "Come si gioca",
         "rule1": "Calcia o passa la palla nella porta avversaria per segnare.",
-        "rule2": "Vince chi arriva per primo a 5 gol, o chi ne ha segnati di più al fischio finale.",
+        "rule2": "Vince chi per primo arriva a 5 gol, o chi ne ha di più al fischio finale.",
         "rule3": "Una partita in parità al fischio finale va al gol d'oro: il prossimo gol vince.",
         "rule4": "I contrasti ti fanno solo ruzzolare. Nessuno si fa male sotto la tregua del raccolto.",
-        "rule5": "Chiunque può avvicinarsi e fare il tifo per te dagli spalti.",
-        "kitHeading": "Il tuo corredo",
-        "kitNote": "Queste mosse sostituiscono le abilità della tua classe per la durata della partita.",
+        "rule5": "Chiunque può avvicinarsi e fare il tifo dagli spalti.",
+        "kitHeading": "Il tuo kit",
+        "kitNote": "Queste mosse sostituiscono le tue abilità di classe per la partita.",
         "rosterHeading": "La distinta",
         "you": "Tu",
         "bot": "Bot",
         "ready": "Sono pronto",
         "readyDone": "Pronto",
         "readyAria": "Dichiarati pronto per il calcio d'inizio",
-        "waiting": "In attesa che l'altra squadra sia pronta...",
-        "whistle": "Il fischio d'inizio suona tra {seconds}s.",
-        "readyCount": "{ready} di {total} pronti"
+        "waiting": "In attesa che l'altra squadra si dichiari pronta...",
+        "whistle": "Il fischio arriva tra {seconds}s.",
+        "readyCount": "{ready} pronti su {total}"
       },
       "bet": {
         "title": "Scommesse sulla partita",
-        "aria": "Scommesse sulle partite della Coppa della Valle",
+        "aria": "Scommesse sulla partita della Coppa della Valle",
         "closesIn": "Le scommesse chiudono tra {seconds}s",
         "closed": "Scommesse chiuse",
         "prize": "Montepremi {amount}",
@@ -527,8 +527,8 @@ export const it_IT: EnTranslations = {
         "none": "Non hai ancora scommesso su questa partita.",
         "record": "Bilancio scommesse: {wins}V-{losses}S, {sign}{net}",
         "wonBanner": "La tua scommessa ha vinto!",
-        "wonLog": "La tua scommessa sulla Coppa della Valle ha vinto: {amount} riscossi.",
-        "lostLog": "La tua scommessa sulla Coppa della Valle ha perso: {amount}.",
+        "wonLog": "La tua scommessa sulla Coppa della Valle ha vinto: {amount} restituiti.",
+        "lostLog": "Hai perso la tua scommessa sulla Coppa della Valle: {amount}.",
         "refundLog": "Scommesse annullate, la tua puntata di {amount} è stata restituita."
       }
     },
@@ -622,6 +622,7 @@ export const it_IT: EnTranslations = {
         "jitter": "Jitter",
         "predLead": "Anticipo di predizione",
         "snapshot": "Frequenza snapshot",
+        "serverTick": "Frequenza tick del server",
         "connection": "Connessione",
         "drawCalls": "Chiamate di disegno",
         "triangles": "Triangoli",
@@ -920,12 +921,12 @@ export const it_IT: EnTranslations = {
     },
     "townFocus": {
       "title": "Priorità della città",
-      "hint": "I punti priorità aggiungono un bonus alla resa di base di ogni componente. I componenti senza priorità restano alla resa di base.",
+      "hint": "I punti priorità aggiungono un bonus sopra la resa base di ogni componente. I componenti senza priorità restano alla resa base.",
       "budgetLabel": "Punti rimanenti: {remaining} / {budget}",
       "saveButton": "Salva priorità",
-      "notInTownHint": "Devi essere in città per impostare le priorità.",
-      "increaseAria": "Aumenta la priorità su {component}",
-      "decreaseAria": "Riduci la priorità su {component}"
+      "notInTownHint": "Devi essere in città per impostare la priorità.",
+      "increaseAria": "Aumenta la priorità di {component}",
+      "decreaseAria": "Riduci la priorità di {component}"
     },
     "party": {
       "promoteLeader": "Promuovi a Capo",
@@ -2223,29 +2224,29 @@ export const it_IT: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "La Coppa della Valle",
-      "intro": "Palla di cinghiale al Campo della Scrofa: scegli uno stendardo, scegli un ruolo e calcia una pelle di cinghiale imbottita oltre il portiere per conquistare il Secchio di Rame. Niente sangue, niente bottino, solo il boato degli spalti.",
+      "intro": "Palla di cinghiale al Campo della Scrofa: scegli un vessillo, scegli un ruolo e calcia una pelle di cinghiale imbottita oltre un portiere per il Secchio di Rame. Niente sangue, niente bottino, solo il boato degli spalti.",
       "loreHeading": "La palla di cinghiale e la tregua del raccolto",
-      "loreOldSow": "Molto prima che i morti si destassero, i braccianti di Eastbrook giocavano a palla di cinghiale sui campi di stoppie dopo il raccolto: due torme, una pelle di cinghiale imbottita di paglia e due cancelli da carro trascinati ai capi opposti del prato. La prima palla, la Vecchia Scrofa, pende bronzata sopra il focolare della taverna.",
-      "loreTruce": "Quando il Colosseo Cinereo cominciò a sancire i giochi di guerra, il Maresciallo Redbrook rispose con qualcosa di più gentile: una tregua del raccolto permanente sul vecchio prato. I cancelli da carro diventarono i pali delle porte, il prato ebbe mura, spalti e un nome, il Campo della Scrofa, e il premio fu sempre lo stesso secchio del latte ammaccato da cui bevevano i vincitori: il Secchio di Rame.",
+      "loreOldSow": "Molto prima che i morti si destassero, i braccianti di Eastbrook giocavano a palla di cinghiale sui campi di stoppie dopo il raccolto: due torme, una pelle di cinghiale imbottita di paglia e due cancelli da carro trascinati ai due capi del prato. La prima palla, la Vecchia Scrofa, pende bronzata sopra il focolare della taverna.",
+      "loreTruce": "Quando il Colosseo Cinereo cominciò a patrocinare giochi di guerra, il Maresciallo Redbrook rispose con qualcosa di più gentile: una tregua del raccolto permanente sul vecchio prato. I cancelli da carro divennero pali delle porte, il prato ebbe muri, spalti e un nome, il Campo della Scrofa, e il premio fu sempre lo stesso secchio del latte ammaccato da cui bevevano i vincitori: il Secchio di Rame.",
       "howHeading": "Come si gioca",
-      "howQueue": "Mettiti in coda da qualsiasi luogo tramite la finestra della Coppa della Valle, oppure parla con il Custode del Campo Bram al cancello del Campo della Scrofa. Scegli una categoria dall'uno contro uno al cinque contro cinque, una nazione dello stendardo e un ruolo sportivo; entra in coda da solo o porta il tuo gruppo.",
-      "howMatch": "Al calcio d'inizio le abilità della tua classe vengono sostituite da un corredo sportivo, e ripristinate esattamente com'erano alla fine. I calci mirano al reticolo a terra, la palla rimbalza sulle sponde e per dribblare basta correre con la palla. Segna più gol dell'altra squadra prima del fischio finale; in caso di pareggio si va al gol d'oro.",
-      "howTruce": "Al Campo della Scrofa nessuno sanguina: i contrasti fanno solo ruzzolare, niente fa male e i famigli restano fuori dalla partita.",
+      "howQueue": "Mettiti in coda da qualsiasi luogo tramite la finestra della Coppa della Valle, oppure parla con il Guardacampo Bram al cancello del Campo della Scrofa. Scegli un formato dall'uno contro uno fino al cinque contro cinque, una nazione del vessillo e un ruolo sportivo; entra in coda da solo o porta il tuo gruppo.",
+      "howMatch": "Al calcio d'inizio il tuo kit di classe viene sostituito da un kit sportivo e ripristinato esattamente alla fine. I calci mirano al reticolo a terra, la palla rimbalza sulle sponde e dribblare significa semplicemente correre con la palla. Segna più gol dell'altra squadra prima del fischio finale; un pareggio va al gol d'oro.",
+      "howTruce": "Nessuno sanguina al Campo della Scrofa: i contrasti fanno solo ruzzolare, niente fa male e i famigli restano fuori dalla partita.",
       "spectateBody": "Allo stadio si gioca una partita alla volta, e chiunque può avvicinarsi e guardare dagli spalti.",
-      "nationsHeading": "Le otto nazioni degli stendardi",
-      "nationsBody": "Ogni squadra gioca sotto uno stendardo. Il capitano sceglie la nazione e, se entrambe le parti issano lo stesso, la squadra ospite gioca con i colori invertiti.",
+      "nationsHeading": "Le otto nazioni del vessillo",
+      "nationsBody": "Ogni squadra gioca sotto un vessillo. Il capitano sceglie la nazione e, se entrambe le squadre battono lo stesso vessillo, quella in trasferta gioca con i colori invertiti.",
       "nationVale": "Verde e oro, con il covone di grano al vento: la squadra di casa, braccianti fino al midollo.",
       "nationMirefen": "Verde acqua e grigio sotto l'airone: pazienti, dalle gambe lunghe, mai frettolosi.",
-      "nationThornpeak": "Blu ghiaccio e bianco sotto la vetta della montagna: dal passo sicuro e testardi.",
+      "nationThornpeak": "Blu ghiaccio e bianco sotto la vetta: dal passo sicuro e testardi.",
       "nationColiseum": "Rosso e nero con le spade incrociate: giocano come se fosse ancora un gioco di guerra.",
       "nationChoir": "Azzurro pallido e argento sotto la campana: inquietanti, precisi e molto silenziosi.",
       "nationOgre": "Arancio e terra d'ombra dietro il pugno: prima la spallata, e ne vanno fieri.",
       "nationMoon": "Viola e argento sotto la falce di luna: giocatori notturni, leggeri sui piedi.",
       "nationCopperdig": "Rame e marrone con il piccone: scavatori che non smettono mai di correre.",
       "rolesHeading": "Ruoli sportivi",
-      "rolesBody": "Il tuo ruolo decide il corredo che porti in campo. Tutti calciano; il resto è temperamento.",
+      "rolesBody": "Il tuo ruolo decide il kit che porti in campo. Tutti calciano; il resto è temperamento.",
       "rewardsHeading": "Le regole della tregua",
-      "rewardsBody": "Le regole della tregua significano niente esperienza e niente bottino: una partita conclusa conta per il tuo bilancio e per l'albo dei vincitori, e porta con sé punti delle ricompense giornaliere. Disertare una partita ti lascia in panchina per un po', e il Custode del Campo ricorda."
+      "rewardsBody": "Le regole della tregua significano niente esperienza e niente bottino: una partita decisa conta per il tuo bilancio e per il tabellone dei vincitori, e con essa arrivano i punti delle ricompense giornaliere. Disertare una partita mette in panchina il tuo posto, e il Guardacampo non dimentica."
     },
     "wishPage": {
       "heading": "Cose che avrei voluto sapere",
@@ -2332,33 +2333,33 @@ export const it_IT: EnTranslations = {
       "cosmeticsApply": "Imposta il tuo aspetto attivo dalla riga dell'aspetto nella schermata del personaggio, e passa liberamente tra tutto ciò che hai sbloccato."
     },
     "professions": {
-      "intro": "Oltre al combattimento e alle missioni, il mondo ti ricompensa per il lavoro nei campi e alla forgia: raccogliere materie prime, trasformarle in equipaggiamento alle postazioni di artigianato di dieci mestieri diversi e assumere un'identità come uno dei dieci archetipi che quei mestieri rappresentano.",
+      "intro": "Oltre al combattimento e alle missioni, il mondo ti ricompensa per il lavoro della terra e della forgia: raccogliere materie prime, trasformarle in equipaggiamento alle postazioni artigiane di dieci mestieri diversi e assumere un'identità come uno dei dieci archetipi che quei mestieri rappresentano.",
       "gatherTitle": "Raccolta: Estrazione mineraria, Taglio del legname ed Erbalismo",
-      "gatherIntro": "Tre mestieri di raccolta ti permettono di estrarre materie prime direttamente dal mondo: l'Estrazione mineraria cava minerale e pietra dai filoni, il Taglio del legname abbatte tronchi dai boschetti e l'Erbalismo raccoglie erbe e piante che crescono selvatiche. Ognuno è tracciato separatamente, quindi praticarne uno non rallenta mai i tuoi progressi in un altro.",
+      "gatherIntro": "Tre mestieri di raccolta ti permettono di estrarre materie prime direttamente dal mondo: l'Estrazione mineraria cava minerale e pietra dalle vene, il Taglio del legname abbatte tronchi dai gruppi di alberi e l'Erbalismo raccoglie erbe e piante selvatiche. Ognuno è tracciato separatamente, quindi esercitarne uno non rallenta mai i tuoi progressi in un altro.",
       "gatherWhatTitle": "Nodi di risorse",
-      "gatherWhatBody": "Filoni di minerale, boschetti e chiazze d'erbe sono disseminati per le zone come elementi visibili e senza proprietario. Avvicinati a uno e interagisci per raccogliere ciò che contiene. Una volta che hai raccolto da un nodo, gli serve tempo per riprendersi prima che tu, personalmente, possa raccoglierne di nuovo, ma non blocca mai nessun altro: nel frattempo un altro giocatore può raccogliere dallo stesso identico nodo.",
+      "gatherWhatBody": "Vene di minerale, gruppi di alberi e macchie di erbe sono collocati nelle zone come elementi visibili e senza padrone. Avvicinati a uno e interagisci per raccogliere ciò che contiene. Una volta raccolto un nodo, serve tempo perché si riprenda prima che tu, personalmente, possa raccoglierlo di nuovo, ma non blocca mai nessun altro: un altro giocatore può raccogliere lo stesso identico nodo nel frattempo.",
       "gatherProficiencyTitle": "Competenza e qualità dei materiali",
-      "gatherProficiencyBody": "Ogni raccolta riuscita accresce la tua competenza in quel mestiere. Una competenza più alta sposta ciò che ottieni da un nodo verso gradi di materiale più rari, dal comune in su, anche se i gradi più rari restano rari perfino ad alta competenza. Più pratica non peggiora mai le tue probabilità: le migliora soltanto.",
+      "gatherProficiencyBody": "Ogni raccolto riuscito accresce la tua competenza in quel mestiere di raccolta. Una competenza più alta sposta ciò che estrai da un nodo verso gradi di materiale più rari, dal comune in su, anche se i gradi più rari restano rari perfino ad alta competenza. Più pratica non peggiora mai le tue probabilità, le migliora soltanto.",
       "gatherToolsTitle": "Gli attrezzi del mestiere",
-      "gatherToolsBody": "I mercanti vendono attrezzi di base per ogni mestiere di raccolta, e se ne possono fabbricare di migliori: lavorare un nodo di risorse è pensato per diventare più efficace man mano che ti equipaggi, non per restare statico. Gli attrezzi di livello superiore sono la via prevista per accedere ai nodi più ricchi e lavorarli con più efficienza in una lunga sessione.",
-      "craftTitle": "I dieci mestieri",
-      "craftIntro": "Dieci mestieri artigiani trasformano i materiali raccolti in equipaggiamento e beni finiti: l'Armaiolo, il Fabbro d'armi e il Gioielliere danno forma alla materia grezza in equipaggiamento da indossare; l'Alchimista e l'Ingegnere procedono per tentativi ed errori; il Cuoco, lo Scriba e l'Incantatore toccano ciascuno i prodotti degli altri mestieri; il Sarto e il Conciatore lavorano su modelli esatti. Insieme formano una ruota, in cui ogni mestiere siede accanto a due vicini e di fronte a un altro.",
+      "gatherToolsBody": "I venditori offrono attrezzi di base per ogni mestiere di raccolta, e se ne possono creare di migliori, così lavorare un nodo di risorse deve risultare sempre più efficace man mano che ti equipaggi, invece di restare statico. Gli attrezzi di livello superiore sono la via prevista per accedere ai nodi più ricchi e lavorarli con più efficienza in una lunga sessione.",
+      "craftTitle": "I dieci mestieri artigiani",
+      "craftIntro": "Dieci mestieri artigiani trasformano i materiali raccolti in equipaggiamento e beni finiti: Fabbricazione di armature, Fabbricazione di armi e Gioielleria danno forma alla materia grezza in equipaggiamento indossabile; Alchimia e Ingegneria procedono per tentativi ed errori; Cucina, Inscrizione e Incantamento toccano ciascuno il prodotto di altri mestieri; Sartoria e Conciatura lavorano da modelli esatti. Insieme formano una ruota, con ogni mestiere accanto a due vicini e opposto a un altro.",
       "craftRingTitle": "Una ruota di specialità",
-      "craftRingBody": "I dieci mestieri sono disposti in un anello fisso, e dove un mestiere siede su quell'anello conta: i mestieri vicini sulla ruota hanno più cose in comune tra loro di quelli sui lati opposti. Dedicarsi a un mestiere è pensato per sembrare l'ingresso in una famiglia di mestieri affini, non la scelta di un'abilità isolata.",
+      "craftRingBody": "I dieci mestieri sono disposti in un anello fisso, e la posizione di un mestiere su quell'anello conta: i mestieri vicini tra loro sulla ruota hanno più cose in comune di quelli sui lati opposti. Impegnarsi in un mestiere deve dare la sensazione di entrare in una famiglia di mestieri affini, non di scegliere un'abilità isolata.",
       "craftRecipesTitle": "Ricette e reagenti",
-      "craftRecipesBody": "Ogni mestiere ha le proprie ricette, ognuna delle quali richiede reagenti specifici che raccogli o compri. Le ricette più semplici di ogni mestiere chiedono soltanto materiali comuni e si possono realizzare fin da subito, così puoi iniziare a praticare un mestiere nel momento in cui lo scegli, senza aspettare di sbloccarlo.",
+      "craftRecipesBody": "Ogni mestiere ha le proprie ricette, ognuna delle quali richiede reagenti specifici da raccogliere o comprare. Le ricette più basilari di ogni mestiere non chiedono altro che materiali comuni e si possono creare fin dall'inizio, così puoi cominciare a esercitare un mestiere nel momento in cui lo scegli, senza dover aspettare di sbloccarlo.",
       "craftMasteryTitle": "Abilità e maestria",
-      "craftMasteryBody": "Creare oggetti con successo accresce la tua abilità in quel mestiere, e le ricette più ricche sono riservate a chi ha un'abilità più alta: le ricette di base sono aperte a tutti, mentre quelle via via più avanzate chiedono via via più maestria per essere tentate. Far crescere la tua abilità in un mestiere è il cammino dai semplici beni per principianti alle sue ricette più ambiziose.",
+      "craftMasteryBody": "Creare con successo accresce l'abilità in quel mestiere, e le ricette più ricche sono riservate a un'abilità più alta: quelle di base sono aperte a chiunque, mentre quelle via via più avanzate richiedono via via più maestria per essere tentate. Far crescere la tua abilità in un mestiere è il percorso dai semplici beni iniziali alle sue ricette più ambiziose.",
       "craftComboTitle": "Ricette combinate",
-      "craftComboBody": "Oltre al ricettario di un singolo mestiere, la ruota supporta anche ricette combinate che attingono a due mestieri vicini allo stesso tempo, premiando un personaggio (o una coppia di soci commerciali) che ha investito in mestieri adiacenti sull'anello anziché in uno solo, isolato.",
+      "craftComboBody": "Oltre alla lista di ricette di un singolo mestiere, la ruota supporta anche ricette combinate che richiedono due mestieri vicini allo stesso tempo, premiando un personaggio (o una coppia di partner commerciali) che ha investito in mestieri adiacenti sull'anello anziché in uno solo isolato.",
       "archetypeTitle": "I dieci archetipi",
-      "archetypeIntro": "Ognuno dei dieci mestieri rappresenta anche un archetipo, un'identità più ampia che puoi adottare oltre al semplice esercizio di quel mestiere. Il tuo archetipo attivo è una scelta singola alla volta, non una lista da spuntare: ne porti uno, e in seguito puoi cambiarlo se lo desideri.",
+      "archetypeIntro": "Ognuno dei dieci mestieri artigiani rappresenta anche un archetipo, un'identità più ampia che puoi adottare oltre al semplice esercizio del mestiere. L'archetipo attivo è una scelta singola alla volta, non una lista da spuntare: ne porti uno solo, e in seguito puoi cambiarlo se lo desideri.",
       "archetypeChooseTitle": "Scegliere il tuo archetipo",
-      "archetypeChooseBody": "Dichiari il tuo primo archetipo tramite una delle prime missioni di storia della zona uno, che ti accoglie formalmente in quell'identità. Finché non completi quella missione, non hai ancora scelto alcun archetipo.",
+      "archetypeChooseBody": "Dichiari il tuo primo archetipo tramite una missione di trama iniziale della prima zona, che ti accoglie formalmente in quell'identità. Finché non completi quella missione, non hai ancora scelto alcun archetipo.",
       "archetypeSwitchTitle": "Cambiare idea",
-      "archetypeSwitchBody": "Aver dichiarato un archetipo una volta non ti ci vincola per sempre. Passare a un archetipo diverso significa prima completare una missione ripetibile di \"riparazione\" verso quello vecchio, e ogni volta che cambi, le riparazioni attese la volta successiva si fanno un po' più onerose, così cambiare resta una scelta significativa anziché gratuita.",
+      "archetypeSwitchBody": "Aver dichiarato un archetipo una volta non ti ci vincola per sempre. Passare a un archetipo diverso richiede prima di completare una missione ripetibile per \"fare ammenda\" verso quello vecchio, e a ogni cambio l'ammenda attesa la volta successiva diventa un po' più esigente, così che cambiare resti significativo anziché gratuito.",
       "archetypeIdentityTitle": "Cosa significa il tuo archetipo",
-      "archetypeIdentityBody": "Il tuo archetipo attivo è una dichiarazione di chi è il tuo personaggio nel mondo, riconosciuta nel modo in cui gli altri e il mondo si rivolgono a te. Le ricompense e i riconoscimenti esatti che lo accompagnano sono ancora in fase di definizione; ripassa di qui man mano che il sistema si completa."
+      "archetypeIdentityBody": "L'archetipo attivo è una dichiarazione su chi è il tuo personaggio nel mondo, riconosciuta nel modo in cui gli altri e il mondo si rivolgono a te. Le ricompense e i riconoscimenti esatti che lo accompagnano sono ancora in via di definizione; torna a controllare man mano che il sistema prende forma."
     },
     "economy": {
       "intro": "Le monete fanno girare tutto il mondo: comprano il tuo equipaggiamento, le provviste e l'attrezzatura da viaggio, e passano di mano tra i giocatori. Raccogli tutto questo semplicemente giocando, perciò considera questa pagina come una mappa di dove arriva e dove va il tuo denaro.",
@@ -4954,23 +4955,23 @@ export const it_IT: EnTranslations = {
     "abilities": {
       "sport_kick": {
         "name": "Calcio",
-        "description": "Spingi il pallone rasoterra verso il punto di mira."
+        "description": "Spingi la palla rasoterra verso il punto mirato."
       },
       "sport_shoot": {
         "name": "Tiro",
-        "description": "Tieni premuto per caricare la potenza, rilascia per tirare in porta. Con troppa potenza il pallone vola sopra la traversa."
+        "description": "Tieni premuto per caricare la potenza, rilascia per tirare in porta. Con troppa potenza la palla vola alta."
       },
       "sport_pass": {
         "name": "Passaggio",
-        "description": "Fai scorrere un passaggio teso al compagno che hai come bersaglio, anticipandone la corsa."
+        "description": "Un passaggio rasoterra deciso al compagno selezionato, anticipando la sua corsa."
       },
       "sport_boot": {
-        "name": "Campanile",
-        "description": "Un lungo pallone a campanile verso il punto di mira. Il pubblico ne va matto."
+        "name": "Calcione",
+        "description": "Un calcione alto e lungo verso il punto mirato. La folla lo adora."
       },
       "sport_hoof": {
         "name": "Spazzata",
-        "description": "Martella il pallone basso e forte verso l'altra metà del campo."
+        "description": "Martella la palla bassa e forte verso l'altra metà campo."
       },
       "sport_punt": {
         "name": "Rinvio Lungo",
@@ -4978,19 +4979,19 @@ export const it_IT: EnTranslations = {
       },
       "sport_feint": {
         "name": "Finta",
-        "description": "Un rapido scatto laterale verso il punto di mira."
+        "description": "Uno scatto laterale rapido verso il punto mirato."
       },
       "sport_dive": {
         "name": "Tuffo",
-        "description": "Lanciati verso il punto di mira. Un pallone che incrocia la tua traiettoria ti resta incollato addosso."
+        "description": "Ti lanci verso il punto mirato. Una palla in traiettoria ti resta incollata."
       },
       "sport_shoulder": {
         "name": "Spallata",
-        "description": "Una spallata leale, degna della tregua del raccolto. Manda l'avversario a ruzzolare lontano dal pallone."
+        "description": "Una spallata leale da tregua del raccolto. Manda l'avversario a ruzzolare lontano dalla palla."
       },
       "sport_second_wind": {
         "name": "Gambe Fresche",
-        "description": "Ritrova le gambe: ti muovi il 50% più veloce per 4 sec."
+        "description": "Ritrovi le gambe: ti muovi il 50% più veloce per 4 sec."
       },
       "flamestrike": {
         "name": "Ondata di Fiamme",
@@ -6213,6 +6214,24 @@ export const it_IT: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Falcetto Petalo di Sole"
       },
+      "thorium_ore": {
+        "name": "Minerale di Torio"
+      },
+      "arcanite_bar": {
+        "name": "Barra di Arcanite"
+      },
+      "ashwood_log": {
+        "name": "Tronco di Frassino Cinereo"
+      },
+      "elderwood_log": {
+        "name": "Tronco di Sambuco Antico"
+      },
+      "goldleaf_herb": {
+        "name": "Erba Fogliadoro"
+      },
+      "sunpetal_herb": {
+        "name": "Erba Petalosole"
+      },
       "bristleback_maul": {
         "name": "Martello Gallowglass"
       },
@@ -7393,7 +7412,7 @@ export const it_IT: EnTranslations = {
         "greeting": "Riposa ora, spirito. Posso restituirti al tuo corpo, ma il ritorno dalla traversata ti lascia debole."
       },
       "groundskeeper_bram": {
-        "name": "Custode del Campo Bram",
+        "name": "Guardacampo Bram",
         "title": "Custode del Campo della Scrofa",
         "greeting": "La tregua regge al Campo della Scrofa, {className}: solo calci e spallate. Ti va di giocare per il Secchio di Rame?"
       },
@@ -8306,7 +8325,7 @@ export const it_IT: EnTranslations = {
             "label": "Radura di Brightwood"
           },
           "10": {
-            "label": "Campo della Scrofa"
+            "label": "Il Campo della Scrofa"
           }
         }
       },

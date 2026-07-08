@@ -403,29 +403,29 @@ export const sv_SE: EnTranslations = {
       "offlineNote": "Matchboken är stängd. Dalcupen är inte tillgänglig just nu.",
       "recordLine": "Ditt facit: {wins} vinster, {losses} förluster, {draws} oavgjorda.",
       "bracketsAria": "Spelform",
-      "bracketLabel": "{n}v{n}",
+      "bracketLabel": "{n} mot {n}",
       "waitingCount": "{count} väntar",
-      "nationsHeading": "Banernation",
+      "nationsHeading": "Banérnation",
       "nation": {
         "vale": "Östbäcksdalen",
         "mirefen": "Dykärret",
         "thornpeak": "Törntoppen",
-        "coliseum": "Ashen Coliseum",
-        "choir": "Den bleka kören",
-        "ogre": "Ogreklanerna",
-        "moon": "Den bleka månen",
+        "coliseum": "Askgrå kolosseum",
+        "choir": "Bleka kören",
+        "ogre": "Ogerklanerna",
+        "moon": "Bleka månen",
         "copperdig": "Kopparbrottet"
       },
-      "awayNote": "Om båda lagen bär samma baner spelar bortalaget i omvänd färgställning.",
-      "rolesHeading": "Spelarroll",
+      "awayNote": "Om båda sidor för samma banér spelar bortalaget i inverterade färger.",
+      "rolesHeading": "Sportroll",
       "role": {
         "allrounder": {
           "name": "Allroundspelare",
-          "desc": "Lite av varje: spark, långboll och en juste axeltackling."
+          "desc": "Lite av allt: spark, storspark och en ärlig axel."
         },
         "striker": {
           "name": "Anfallare",
-          "desc": "Lever för långbollen och den kvicka finten."
+          "desc": "Lever för den långa sparken och det snabba sidosteget."
         },
         "sweeper": {
           "name": "Libero",
@@ -433,35 +433,35 @@ export const sv_SE: EnTranslations = {
         },
         "keeper": {
           "name": "Målvakt",
-          "desc": "Vaktar målområdet med grepp, dykning och utspark."
+          "desc": "Vaktar målområdet med grepp, dyk och utspark."
         }
       },
       "queue": "Ställ dig i kön",
       "leaveQueue": "Lämna kön",
-      "queueNote": "Köa varifrån som helst; visselpipan kallar dig till Suggfältet.",
-      "queuedStatus": "I kö för {bracket}: plats {position} av {count}.",
-      "blockNation": "Välj en banernation först.",
-      "blockPartySize": "Den spelformen kräver en mindre grupp.",
-      "blockNotLeader": "Endast gruppledaren kan ställa laget i kö.",
+      "queueNote": "Köa varifrån som helst; visslan kallar dig till Suggfältet.",
+      "queuedStatus": "Köad för {bracket}: plats {position} av {count}.",
+      "blockNation": "Välj en banérnation först.",
+      "blockPartySize": "Den spelformen kräver ett mindre sällskap.",
+      "blockNotLeader": "Bara sällskapets ledare kan köa laget.",
       "inMatchNote": "Ditt lag är på planen. Spela vidare!",
-      "deserterNote": "Planskötaren minns. Du kan köa igen om {seconds} sek.",
-      "liveHeading": "Just nu på Suggfältet",
+      "deserterNote": "Vaktmästaren minns. Du får köa igen om {seconds} sek.",
+      "liveHeading": "Nu på Suggfältet",
       "liveAria": "Dalcupen: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Gå fram till Suggfältet för att titta från läktaren.",
-      "noLive": "Planen ligger tyst. Ingen match spelas.",
-      "boardHeading": "Segertavlan",
-      "boardEmpty": "Inga segrare noterade ännu. Kopparspannen väntar.",
+      "walkUp": "Gå fram till Suggfältet för att titta från läktarna.",
+      "noLive": "Planen är tyst. Ingen match spelas.",
+      "boardHeading": "Vinnartavlan",
+      "boardEmpty": "Inga vinnare noterade ännu. Kopparspannen väntar.",
       "boardWins": "{count} vinster",
-      "enterAsGuild": "Ställ upp under {guild}s baner",
+      "enterAsGuild": "Träd in under banéret för {guild}",
       "guildRecordLine": "Ditt gilles facit: {wins} vinster, {losses} förluster.",
-      "guildBoardHeading": "Gillesbaner",
-      "guildBoardEmpty": "Inget gille har tagit planen ännu. Hissa ert baner!",
+      "guildBoardHeading": "Gillesbanér",
+      "guildBoardEmpty": "Inget gille har beträtt planen ännu. Hissa ert banér!",
       "guildBoardWl": "{wins} V, {losses} F",
-      "practice": "Öva mot bottar",
-      "practiceNote": "Startar direkt en privat botmatch på din egen träningsplan.",
-      "practicingNow": "Övar just nu ({count}):",
+      "practice": "Träning mot bottar",
+      "practiceNote": "Startar genast en privat botmatch på din egen träningsplan.",
+      "practicingNow": "Tränar just nu ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Dalcupskön: {bracket}, plats {position} av {count}",
+      "indicatorQueued": "Dalcupskö: {bracket}, plats {position} av {count}",
       "indicatorLive": "Dalcupen",
       "indicatorOpen": "Öppna Dalcupsfönstret",
       "phaseCountdown": "Avspark om {seconds}",
@@ -481,7 +481,7 @@ export const sv_SE: EnTranslations = {
       "logQueued": "Du ställer dig i Dalcupskön för {bracket} (plats {position}).",
       "logUnqueued": "Du lämnar Dalcupskön.",
       "logFound": "Din Dalcupsmatch är redo: {nationA} mot {nationB}.",
-      "logRoster": "Ditt lag: {allies}. Deras lag: {enemies}.",
+      "logRoster": "Din sida: {allies}. Deras sida: {enemies}.",
       "logGoal": "{name} gör mål för {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
       "logSave": "{name} står för räddningen!",
       "logWin": "Du vinner drabbningen på Suggfältet.",
@@ -491,14 +491,14 @@ export const sv_SE: EnTranslations = {
       "gossipOpenAria": "Öppna Dalcupsfönstret",
       "mobileLabel": "Cupen",
       "briefing": {
-        "subtitle": "Genomgång inför matchen",
+        "subtitle": "Genomgång före matchen",
         "vs": "mot",
         "rulesHeading": "Så spelar du",
-        "rule1": "Sparka eller passa in bollen i motståndarmålet för att göra mål.",
-        "rule2": "Först till 5 mål vinner, eller flest mål när matchen blåses av.",
-        "rule3": "Står det lika vid full tid väntar gyllene mål: nästa mål vinner.",
+        "rule1": "Sparka eller passa in bollen i motståndarnas mål för att göra poäng.",
+        "rule2": "Först till 5 mål vinner, eller flest mål när det blåses för full tid.",
+        "rule3": "En jämn match vid full tid går till gyllene mål: nästa mål vinner.",
         "rule4": "Tacklingar får dig bara att tumla omkull. Ingen kommer till skada under skördefreden.",
-        "rule5": "Vem som helst kan komma förbi och heja på dig från läktaren.",
+        "rule5": "Vem som helst kan gå fram och heja på dig från läktarna.",
         "kitHeading": "Din uppsättning",
         "kitNote": "De här dragen ersätter dina klassförmågor under matchen.",
         "rosterHeading": "Laguppställningen",
@@ -507,29 +507,29 @@ export const sv_SE: EnTranslations = {
         "ready": "Jag är redo",
         "readyDone": "Redo",
         "readyAria": "Gör dig redo för avspark",
-        "waiting": "Väntar på att motståndarna ska bli redo...",
-        "whistle": "Visselpipan ljuder om {seconds} sek.",
+        "waiting": "Väntar på att andra sidan ska bli redo...",
+        "whistle": "Visslan ljuder om {seconds}s.",
         "readyCount": "{ready} av {total} redo"
       },
       "bet": {
         "title": "Matchvad",
-        "aria": "Vadslagning på Dalcupsmatchen",
-        "closesIn": "Vaden stänger om {seconds} sek",
-        "closed": "Vadslagningen är stängd",
+        "aria": "Vadslagning på Dalcupsmatch",
+        "closesIn": "Vadslagningen stänger om {seconds}s",
+        "closed": "Vadslagningen stängd",
         "prize": "Pott {amount}",
-        "splitAria": "Varje lags andel av spelpotten",
-        "expand": "Visa vaden och satsa",
-        "collapse": "Dölj vaden",
-        "oddsLabel": "Ger",
+        "splitAria": "Andel av vadslagningspotten på varje lag",
+        "expand": "Visa vad och satsa",
+        "collapse": "Dölj vad",
+        "oddsLabel": "Betalar",
         "back": "Satsa på {team}",
         "form": "{wins}V-{losses}F",
         "mine": "Ditt vad: {amount} på {team}",
         "none": "Du har inget vad på den här matchen ännu.",
-        "record": "Spelfacit: {wins}V-{losses}F, {sign}{net}",
+        "record": "Vadslagningsfacit: {wins}V-{losses}F, {sign}{net}",
         "wonBanner": "Ditt vad vann!",
-        "wonLog": "Ditt Dalcupsvad vann: {amount} utbetalades.",
+        "wonLog": "Ditt Dalcupsvad vann: {amount} tillbaka.",
         "lostLog": "Ditt Dalcupsvad förlorade: {amount}.",
-        "refundLog": "Vaden ogiltigförklarades, din insats på {amount} betalades tillbaka."
+        "refundLog": "Vaden ogiltigförklarades, din insats på {amount} återlämnades."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const sv_SE: EnTranslations = {
         "jitter": "Jitter",
         "predLead": "Prediktionsförsprång",
         "snapshot": "Ögonblicksfrekvens",
+        "serverTick": "Servertickfrekvens",
         "connection": "Anslutning",
         "drawCalls": "Ritanrop",
         "triangles": "Trianglar",
@@ -920,7 +921,7 @@ export const sv_SE: EnTranslations = {
     },
     "townFocus": {
       "title": "Stadsfokus",
-      "hint": "Fokuspoäng lägger en bonus ovanpå varje komponents grundutbyte. Komponenter utan fokus ligger kvar på grundnivån.",
+      "hint": "Fokuspoäng ger en bonus ovanpå varje komponents grundavkastning. Ofokuserade komponenter stannar på grundnivån.",
       "budgetLabel": "Poäng kvar: {remaining} / {budget}",
       "saveButton": "Spara fokus",
       "notInTownHint": "Du måste vara i staden för att ställa in ditt fokus.",
@@ -2223,29 +2224,29 @@ export const sv_SE: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Dalcupen",
-      "intro": "Vildsvinsboll på Suggfältet: välj ett baner, välj en roll och sparka en uppstoppad vildsvinshud förbi en målvakt för att vinna Kopparspannen. Inget blod, inget byte, bara läktarnas vrål.",
+      "intro": "Vildsvinsboll på Suggfältet: välj ett banér, välj en roll och sparka en uppstoppad vildsvinshud förbi en målvakt i kampen om Kopparspannen. Inget blod, inget byte, bara vrålet från läktarna.",
       "loreHeading": "Vildsvinsboll och skördefreden",
-      "loreOldSow": "Långt innan de döda vaknade spelade Östbäcks lantarbetare vildsvinsboll på stubbåkrarna efter skörden: två folkhopar, en vildsvinshud stoppad med halm och två vagnsgrindar släpade till var sin ände av ängen. Den första bollen, Gamla suggan, hänger bronserad ovanför värdshusets härd.",
-      "loreTruce": "När Ashen Coliseum började sanktionera krigsspel svarade marskalk Redbrook med något mildare: en stående skördefred på den gamla ängen. Vagnsgrindarna blev målstolpar, ängen fick väggar, läktare och ett namn, Suggfältet, och priset var alltid samma buckliga mjölkspann som segrarna drack ur: Kopparspannen.",
+      "loreOldSow": "Långt innan de döda vaknade spelade Östbäcks lantarbetare vildsvinsboll på stubbåkrarna efter skörden: två hopar, en vildsvinshud fylld med halm och två vagnsgrindar släpade till var sin ände av ängen. Den första bollen, Gamla suggan, hänger bronserad ovanför värdshusets härd.",
+      "loreTruce": "När Askgrå kolosseum började sanktionera krigslekar svarade marskalk Redbrook med något mildare: en stående skördefred på den gamla ängen. Vagnsgrindarna blev målstolpar, ängen fick väggar, läktare och ett namn, Suggfältet, och priset var alltid samma buckliga mjölkspann som vinnarna drack ur: Kopparspannen.",
       "howHeading": "Så spelar du",
-      "howQueue": "Köa varifrån som helst via Dalcupsfönstret, eller prata med planskötare Bram vid Suggfältets port. Välj en spelform från en mot en upp till fem mot fem, en banernation och en spelarroll; köa själv eller ta med din grupp.",
-      "howMatch": "Vid avspark byts din klassuppsättning ut mot en sportuppsättning och återställs exakt efteråt. Sparkar riktas mot marksiktet, bollen studsar mot sargen och att dribbla är helt enkelt att springa med bollen. Gör fler mål än motståndarna före full tid; oavgjort avgörs med gyllene mål.",
-      "howTruce": "Ingen blöder på Suggfältet: tacklingar tumlar omkull, inget gör ont och följeslagare sitter över matchen.",
-      "spectateBody": "En match i taget spelas på arenan, och vem som helst kan gå fram och titta från läktaren.",
-      "nationsHeading": "De åtta banernationerna",
-      "nationsBody": "Varje lag spelar under ett baner. Kaptenen väljer nation, och om båda lagen bär samma baner spelar bortalaget i omvänd färgställning.",
-      "nationVale": "Grönt och guld under vetekärven: hemmalaget, lantarbetare ut i fingerspetsarna.",
+      "howQueue": "Ställ dig i kö varifrån som helst via Dalcupsfönstret, eller prata med Vaktmästare Bram vid Suggfältets port. Välj en spelform från en mot en upp till fem mot fem, en banérnation och en sportroll; köa ensam eller ta med ditt sällskap.",
+      "howMatch": "Vid avspark byts din klassuppsättning ut mot en sportuppsättning och återställs exakt efteråt. Sparkar siktar mot marksiktet, bollen studsar mot sargen, och att dribbla är bara att springa med bollen. Gör fler mål än motståndarna före full tid; oavgjort går till gyllene mål.",
+      "howTruce": "Ingen blöder på Suggfältet: tacklingar tumlar, inget gör ont, och husdjur sitter över matchen.",
+      "spectateBody": "En match i taget spelas på stadion, och vem som helst kan gå fram och titta från läktarna.",
+      "nationsHeading": "De åtta banérnationerna",
+      "nationsBody": "Varje lag spelar under ett banér. Kaptenen väljer nation, och om båda sidor för samma banér spelar bortalaget i inverterade färger.",
+      "nationVale": "Grönt och guld under vetekärven: hemmalaget, lantarbetare in i märgen.",
       "nationMirefen": "Blågrönt och grått under hägern: tålmodiga, långbenta, aldrig jäktade.",
-      "nationThornpeak": "Isblått och vitt under bergstoppen: säkra på foten och envisa.",
-      "nationColiseum": "Rött och svart med korsade svärd: de spelar som om det fortfarande vore ett krigsspel.",
+      "nationThornpeak": "Isblått och vitt under bergstoppen: stadiga på foten och envisa.",
+      "nationColiseum": "Rött och svart med korsade svärd: de spelar som om det fortfarande vore en krigslek.",
       "nationChoir": "Blekblått och silver under klockan: kusliga, precisa och mycket tysta.",
       "nationOgre": "Orange och umbra bakom näven: axeln först och stolta över det.",
       "nationMoon": "Violett och silver under månskäran: nattspelare, lätta på foten.",
       "nationCopperdig": "Koppar och brunt med hackan: grävare som aldrig slutar springa.",
-      "rolesHeading": "Spelarroller",
-      "rolesBody": "Din roll avgör vilken uppsättning du bär med dig ut på planen. Alla sparkar; resten är temperament.",
-      "rewardsHeading": "Fredens regler",
-      "rewardsBody": "Fredens regler betyder ingen erfarenhet och inget byte: en avgjord match räknas in i ditt facit och på segertavlan, och poäng till dagliga belöningar följer med. Att överge en match bänkar dig en stund, och planskötaren minns."
+      "rolesHeading": "Sportroller",
+      "rolesBody": "Din roll avgör vilken uppsättning du bär in på planen. Alla sparkar; resten är temperament.",
+      "rewardsHeading": "Fredsregler",
+      "rewardsBody": "Fredsreglerna innebär ingen erfarenhet och inget byte: en avgjord match räknas in i ditt facit och på vinnartavlan, och poäng till dagliga belöningar följer med. Att överge en match bänkar din plats, och Vaktmästaren minns."
     },
     "wishPage": {
       "heading": "Saker jag önskar att jag visste",
@@ -2332,33 +2333,33 @@ export const sv_SE: EnTranslations = {
       "cosmeticsApply": "Ställ in ditt aktiva utseende från utseenderaden på din karaktärsskärm, och växla fritt bland allt du har låst upp."
     },
     "professions": {
-      "intro": "Bortom strid och uppdrag belönar världen dig för att bruka jorden och smedjan: samla råmaterial, förvandla dem till utrustning vid tio olika yrkens hantverksstationer och finna dig till rätta i en identitet som en av de tio arketyper yrkena representerar.",
+      "intro": "Bortom strider och uppdrag belönar världen dig för att bruka jorden och smedjan: samla råmaterial, förvandla dem till utrustning vid hantverksstationerna för tio olika yrken, och slå dig till ro i en identitet som en av de tio arketyper yrkena representerar.",
       "gatherTitle": "Insamling: Gruvdrift, Skogsavverkning och Örtkunskap",
-      "gatherIntro": "Tre insamlingsyrken låter dig hämta råmaterial direkt ur världen: Gruvdrift bryter malm och sten ur ådror, Skogsavverkning fäller timmer ur träddungar och Örtkunskap samlar örter och växter som växer vilt. Vart och ett följs separat: att utöva ett saktar aldrig ner dina framsteg i ett annat.",
-      "gatherWhatTitle": "Fyndigheter",
-      "gatherWhatBody": "Malmådror, träddungar och örtfläckar står utplacerade i zonerna som synliga, oägda inslag. Gå fram till en och interagera med den för att skörda vad den rymmer. När du har skördat en fyndighet behöver den tid att återhämta sig innan just du kan skörda den igen, men den spärrar aldrig någon annan: en annan spelare kan skörda precis samma fyndighet under tiden.",
-      "gatherProficiencyTitle": "Skicklighet och materialkvalitet",
-      "gatherProficiencyBody": "Varje lyckad skörd bygger din skicklighet i det insamlingsyrket. Högre skicklighet vrider det du får ur en fyndighet mot sällsyntare materialkvaliteter, från vanlig och uppåt, även om de allra sällsyntaste kvaliteterna förblir sällsynta också vid hög skicklighet. Mer övning skadar aldrig dina odds, den förbättrar dem bara.",
+      "gatherIntro": "Tre insamlingsyrken låter dig hämta råmaterial direkt ur världen: Gruvdrift bryter malm och sten ur ådror, Skogsavverkning fäller timmer ur träddungar, och Örtkunskap samlar örter och växter som växer vilt. Vart och ett spåras separat, så att arbeta med ett saktar aldrig ner dina framsteg i ett annat.",
+      "gatherWhatTitle": "Resursfyndplatser",
+      "gatherWhatBody": "Malmådror, träddungar och örtsnår ligger utplacerade i zonerna som synliga fasta punkter utan ägare. Gå fram till en och interagera med den för att skörda vad den rymmer. När du har skördat en fyndplats behöver den tid att återhämta sig innan just du kan skörda den igen, men den blockerar aldrig någon annan: en annan spelare kan skörda samma fyndplats under tiden.",
+      "gatherProficiencyTitle": "Färdighet och materialkvalitet",
+      "gatherProficiencyBody": "Varje lyckad skörd bygger din färdighet i det insamlingsyrket. Högre färdighet skiftar vad du får ut ur en fyndplats mot sällsyntare materialkvaliteter, från vanlig och uppåt, även om de sällsyntaste kvaliteterna förblir sällsynta även vid hög färdighet. Mer övning skadar aldrig dina odds, den förbättrar dem bara.",
       "gatherToolsTitle": "Yrkets verktyg",
-      "gatherToolsBody": "Handlare säljer enkla verktyg för varje insamlingsyrke, och bättre kan tillverkas, så att arbetet vid en fyndighet ska kännas allt mer kraftfullt när du rustar dig för det i stället för att stå stilla. Verktyg av högre klass är den tänkta vägen att låsa upp rikare fyndigheter och bearbeta dem effektivare under en lång session.",
+      "gatherToolsBody": "Handlare säljer grundverktyg för varje insamlingsyrke, och bättre kan tillverkas, så tanken är att arbetet vid en resursfyndplats ska kännas allt kraftfullare i takt med att du rustar upp för det, snarare än att förbli oförändrat. Verktyg av högre klass är den avsedda vägen att låsa upp rikare fyndplatser och att arbeta dem mer effektivt under en lång session.",
       "craftTitle": "De tio hantverken",
-      "craftIntro": "Tio hantverksyrken förvandlar insamlade material till färdig utrustning och varor: Rustningssmide, Vapensmide och Juvelerarkonst formar rått material till bärbar utrustning; Alkemi och Ingenjörskonst drivs av försök och misstag; Matlagning, Skrivkonst och Förtrollning berör vart och ett andra hantverks alster; Skrädderi och Garveri arbetar efter exakta mönster. Tillsammans bildar de ett hjul, där varje hantverk sitter intill två grannar och mitt emot ett annat.",
+      "craftIntro": "Tio hantverksyrken förvandlar insamlade material till färdig utrustning och varor: Rustningssmide, Vapensmide och Juvelerarkonst formar råmaterial till bärbar utrustning; Alkemi och Ingenjörskonst drivs av försök och misstag; Matlagning, Skrivkonst och Förtrollning arbetar var och en med andra hantverks produkter; Skrädderi och Garvning arbetar efter exakta mönster. Tillsammans bildar de ett hjul, där varje hantverk sitter bredvid två grannar och mittemot ett annat.",
       "craftRingTitle": "Ett hjul av specialiteter",
-      "craftRingBody": "De tio hantverken är ordnade i en fast ring, och var ett hantverk sitter på ringen spelar roll: hantverk som ligger intill varandra på hjulet har mer gemensamt med varandra än hantverk på motsatta sidor. Att satsa på ett hantverk ska kännas som att gå med i en familj av besläktade yrken, inte som att välja en isolerad färdighet.",
+      "craftRingBody": "De tio hantverken är ordnade i en fast ring, och var ett hantverk sitter på ringen spelar roll: hantverk bredvid varandra på hjulet har mer gemensamt än hantverk på motsatta sidor. Att satsa på ett hantverk ska kännas som att gå med i en familj av besläktade yrken, inte som att välja en isolerad färdighet.",
       "craftRecipesTitle": "Recept och reagenser",
-      "craftRecipesBody": "Varje hantverk har sina egna recept, som vart och ett kräver särskilda reagenser du samlar in eller köper. De mest grundläggande recepten i varje hantverk begär inget annat än vanliga material och kan tillverkas från allra första början, så att du kan börja utöva ett yrke i samma stund som du tar upp det i stället för att vänta på att låsa upp det.",
-      "craftMasteryTitle": "Färdighet och mästerskap",
-      "craftMasteryBody": "Lyckat hantverk bygger din färdighet i det yrket, och rikare recept är låsta bakom högre färdighet: grundrecepten är öppna för alla, medan allt mer avancerade recept kräver allt mer mästerskap för att ens få försöka. Att odla din färdighet i ett hantverk är vägen från enkla nybörjarvaror till dess mer ambitiösa recept.",
+      "craftRecipesBody": "Varje hantverk har sina egna recept, som vart och ett kräver särskilda reagenser du samlar eller köper. De mest grundläggande recepten i varje hantverk kräver inget annat än vanliga material och kan tillverkas från allra första början, så du kan börja utöva ett yrke i samma stund som du tar upp det i stället för att vänta på att låsa upp det.",
+      "craftMasteryTitle": "Skicklighet och mästerskap",
+      "craftMasteryBody": "Lyckade hantverk bygger skicklighet i det yrket, och rikare recept är låsta bakom högre skicklighet: grundrecepten är öppna för alla, medan allt mer avancerade recept kräver allt större mästerskap för att ens kunna prövas. Att öka din skicklighet i ett hantverk är vägen från enkla nybörjarvaror till dess mer ambitiösa recept.",
       "craftComboTitle": "Kombinationsrecept",
-      "craftComboBody": "Utöver ett enskilt hantverks egen receptlista stöder hjulet också kombinationsrecept som kräver två angränsande hantverk på samma gång, vilket belönar en karaktär (eller ett par handelspartner) som har satsat på närliggande yrken på ringen i stället för ett i isolering.",
+      "craftComboBody": "Utöver ett enskilt hantverks egen receptlista stöder hjulet också kombinationsrecept som kräver två angränsande hantverk på en gång, vilket belönar en karaktär (eller ett par handelspartner) som har satsat på närliggande yrken på ringen snarare än ett i isolering.",
       "archetypeTitle": "De tio arketyperna",
-      "archetypeIntro": "Vart och ett av de tio hantverken står också för en arketyp, en bredare identitet du kan anta bortom att bara utöva yrket. Din aktiva arketyp är ett enda val i taget, ingen checklista: du bär en, och kan byta till en annan senare om du vill.",
+      "archetypeIntro": "Vart och ett av de tio hantverken står också för en arketyp, en bredare identitet du kan anta bortom att bara utöva yrket. Din aktiva arketyp är ett enda val i taget, inte en checklista: du bär en, och kan byta senare om du vill.",
       "archetypeChooseTitle": "Att välja arketyp",
-      "archetypeChooseBody": "Du utropar din första arketyp genom ett tidigt berättelseuppdrag i zon ett som formellt upptar dig i den identiteten. Innan du har slutfört det uppdraget har du inte valt någon arketyp alls.",
+      "archetypeChooseBody": "Du antar din första arketyp genom ett tidigt berättelseuppdrag i zon ett som formellt upptar dig i den identiteten. Innan du har slutfört det uppdraget har du inte valt någon arketyp alls.",
       "archetypeSwitchTitle": "Att ändra sig",
-      "archetypeSwitchBody": "Att en gång ha utropat en arketyp låser dig inte för alltid. Att byta till en annan arketyp innebär att först slutföra ett upprepningsbart \"gottgörelseuppdrag\" för din gamla, och för varje byte blir den gottgörelse som förväntas av dig nästa gång lite brantare, så att byten förblir betydelsefulla i stället för kostnadsfria.",
+      "archetypeSwitchBody": "Att en gång ha antagit en arketyp låser dig inte vid den för alltid. Att byta till en annan arketyp innebär att du först slutför ett upprepningsbart \"gottgörelseuppdrag\" för din gamla, och för varje byte blir gottgörelsen som förväntas av dig nästa gång lite brantare, så att byten förblir meningsfulla i stället för kostnadsfria.",
       "archetypeIdentityTitle": "Vad din arketyp betyder",
-      "archetypeIdentityBody": "Din aktiva arketyp är ett uttalande om vem din karaktär är i världen, och märks i hur andra och världen tilltalar dig. Exakt vilka belöningar och vilket erkännande som följer med håller fortfarande på att slutföras; titta in igen allt eftersom systemet fylls på."
+      "archetypeIdentityBody": "Din aktiva arketyp är ett uttalande om vem din karaktär är i världen, och den märks i hur andra och världen tilltalar dig. Exakt vilka belöningar och vilket erkännande som följer med håller ännu på att färdigställas; titta in igen allteftersom systemet fylls på."
     },
     "economy": {
       "intro": "Mynt smörjer hela världen: de köper din utrustning, dina förnödenheter och din reseutrustning, och byter ägare mellan spelare. Du plockar upp allt detta bara genom att spela, så se den här sidan som en karta över var dina pengar kommer ifrån och var de tar vägen.",
@@ -4954,7 +4955,7 @@ export const sv_SE: EnTranslations = {
     "abilities": {
       "sport_kick": {
         "name": "Spark",
-        "description": "Slå bollen längs marken mot siktpunkten."
+        "description": "Peta bollen längs marken mot siktpunkten."
       },
       "sport_shoot": {
         "name": "Skott",
@@ -4962,35 +4963,35 @@ export const sv_SE: EnTranslations = {
       },
       "sport_pass": {
         "name": "Passning",
-        "description": "Rulla en distinkt passning till din valda lagkamrat, lagd i löpvägen."
+        "description": "Rulla en fast passning till din markerade lagkamrat, lagd i löpriktningen."
       },
       "sport_boot": {
-        "name": "Långboll",
-        "description": "En lång, lyft boll mot siktpunkten. Publiken älskar det."
+        "name": "Storspark",
+        "description": "En lång, hög spark mot siktpunkten. Publiken älskar den."
       },
       "sport_hoof": {
         "name": "Rensning",
-        "description": "Dundra iväg bollen lågt och hårt framåt i planen."
+        "description": "Hamra bollen lågt och hårt uppåt planen."
       },
       "sport_punt": {
-        "name": "Utspark",
+        "name": "Lång utspark",
         "description": "En målvaktsutspark, hög och lång."
       },
       "sport_feint": {
         "name": "Fint",
-        "description": "En kvick rusning i sidled mot siktpunkten."
+        "description": "En snabb rusch i sidled mot siktpunkten."
       },
       "sport_dive": {
-        "name": "Dykning",
-        "description": "Kasta dig mot siktpunkten. En boll i luften fastnar hos dig."
+        "name": "Dyk",
+        "description": "Kasta dig mot siktpunkten. Ett inlägg fastnar i famnen på dig."
       },
       "sport_shoulder": {
         "name": "Axeltackling",
-        "description": "En juste axeltackling i skördefredens anda. Motståndaren tumlar bort från bollen."
+        "description": "En ärlig axeltackling i skördefredens anda. Skickar dem tumlande bort från bollen."
       },
       "sport_second_wind": {
         "name": "Fräscha ben",
-        "description": "Hitta benen: rör dig 50% snabbare i 4 sek."
+        "description": "Hitta benen: rör dig 50 % snabbare i 4 sek."
       },
       "flamestrike": {
         "name": "Flamslag",
@@ -6213,6 +6214,24 @@ export const sv_SE: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Solkronbladsskära"
       },
+      "thorium_ore": {
+        "name": "Toriummalm"
+      },
+      "arcanite_bar": {
+        "name": "Arkanittacka"
+      },
+      "ashwood_log": {
+        "name": "Askvedstock"
+      },
+      "elderwood_log": {
+        "name": "Uråldrig Flädervedsstock"
+      },
+      "goldleaf_herb": {
+        "name": "Guldbladsört"
+      },
+      "sunpetal_herb": {
+        "name": "Solkronbladsört"
+      },
       "bristleback_maul": {
         "name": "Gallowglass-hammare"
       },
@@ -7393,9 +7412,9 @@ export const sv_SE: EnTranslations = {
         "greeting": "Vila nu, ande. Jag kan återbörda dig till din kropp, men överfarten tillbaka lämnar dig svag."
       },
       "groundskeeper_bram": {
-        "name": "Planskötare Bram",
-        "title": "Suggfältets väktare",
-        "greeting": "Freden håller på Suggfältet, {className}: bara sparkar och axeltacklingar. Lust att spela om Kopparspannen?"
+        "name": "Vaktmästare Bram",
+        "title": "Suggfältets vårdare",
+        "greeting": "Freden håller på Suggfältet, {className}: bara sparkar och axeltacklingar. Vill du spela om Kopparspannen?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",

@@ -671,7 +671,7 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupPartyTooBig': 'Esa categoría necesita un grupo más pequeño.',
     'error.vcupNoNation': 'Primero elige una nación de estandarte.',
     'error.vcupPracticeFull':
-      'Todos los campos de práctica están ocupados. Inténtalo de nuevo en un momento.',
+      'Los campos de práctica están todos ocupados. Inténtalo de nuevo en un momento.',
     'log.talentsUpdated': 'Talentos actualizados.',
     'log.talentsReset': 'Talentos restablecidos.',
     'log.savedBuild': 'Configuración “{name}” guardada.',
@@ -913,7 +913,7 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupPartyTooBig': 'Esa categoría necesita un grupo más pequeño.',
     'error.vcupNoNation': 'Primero elige una nación de estandarte.',
     'error.vcupPracticeFull':
-      'Todos los campos de práctica están ocupados. Inténtalo de nuevo en un momento.',
+      'Los campos de práctica están todos ocupados. Inténtalo de nuevo en un momento.',
     'log.talentsUpdated': 'Talentos actualizados.',
     'log.talentsReset': 'Talentos restablecidos.',
     'log.savedBuild': 'Configuración “{name}” guardada.',
@@ -2046,7 +2046,7 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupPartyTooBig': 'Diese Klasse braucht eine kleinere Gruppe.',
     'error.vcupNoNation': 'Wählt zuerst eine Bannernation.',
     'error.vcupPracticeFull':
-      'Die Trainingsplätze sind alle belegt. Versucht es gleich noch einmal.',
+      'Alle Trainingsplätze sind gerade belegt. Versucht es gleich noch einmal.',
     'log.talentsUpdated': 'Talente aktualisiert.',
     'log.talentsReset': 'Talente zurückgesetzt.',
     'log.savedBuild': 'Skillung „{name}“ gespeichert.',
@@ -3219,7 +3219,7 @@ const BASE_DICT: Record<SupportedLanguage, Partial<Record<BaseSimMessageKey, str
     'error.vcupPartyTooBig': 'Essa categoria exige um grupo menor.',
     'error.vcupNoNation': 'Escolha primeiro uma nação de bandeira.',
     'error.vcupPracticeFull':
-      'Os campos de treino estão todos ocupados. Tente de novo em instantes.',
+      'Os campos de treino estão todos ocupados. Tente novamente em instantes.',
     'log.talentsUpdated': 'Talentos atualizados.',
     'log.talentsReset': 'Talentos redefinidos.',
     'log.savedBuild': 'Estrutura “{name}” salva.',

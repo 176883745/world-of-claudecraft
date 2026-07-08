@@ -400,62 +400,62 @@ export const de_DE: EnTranslations = {
       "title": "Der Talpokal",
       "shootPower": "KRAFT",
       "close": "Das Talpokal-Fenster schließen",
-      "offlineNote": "Das Spielplanbuch ist geschlossen. Der Talpokal ist derzeit nicht verfügbar.",
+      "offlineNote": "Das Spielplanbuch ist geschlossen. Der Talpokal ist gerade nicht verfügbar.",
       "recordLine": "Deine Bilanz: {wins} Siege, {losses} Niederlagen, {draws} Unentschieden.",
-      "bracketsAria": "Spielklasse",
-      "bracketLabel": "{n}-gegen-{n}",
+      "bracketsAria": "Spielstaffel",
+      "bracketLabel": "{n}v{n}",
       "waitingCount": "Wartende: {count}",
       "nationsHeading": "Bannernation",
       "nation": {
         "vale": "Eastbrook-Tal",
-        "mirefen": "Das Mirefen-Moor",
+        "mirefen": "Das Mirefen",
         "thornpeak": "Thornpeak",
         "coliseum": "Das Aschene Kolosseum",
         "choir": "Der Bleiche Chor",
-        "ogre": "Die Ogerclans",
+        "ogre": "Die Oger-Clans",
         "moon": "Der Bleiche Mond",
-        "copperdig": "Die Kupfermine"
+        "copperdig": "Die Kupfergrube"
       },
-      "awayNote": "Fliegen beide Seiten dasselbe Banner, spielt die Auswärtsseite in umgekehrten Farben.",
+      "awayNote": "Fliegen beide Seiten dasselbe Banner, spielt die Auswärtsseite in den umgekehrten Farben.",
       "rolesHeading": "Sportrolle",
       "role": {
         "allrounder": {
           "name": "Allrounder",
-          "desc": "Von allem etwas: Kick, weiter Schlag und ein fairer Rempler."
+          "desc": "Von allem etwas: Kick, Weitschlag und ein fairer Rempler."
         },
         "striker": {
           "name": "Stürmer",
-          "desc": "Lebt für den weiten Schlag und die schnelle Finte."
+          "desc": "Lebt für den weiten Schlag und den schnellen Haken."
         },
         "sweeper": {
-          "name": "Libero",
-          "desc": "Rempelt Läufer vom Ball und bolzt ihn aus der Gefahr."
+          "name": "Ausputzer",
+          "desc": "Rempelt Läufer vom Ball und schlägt ihn weit nach vorn."
         },
         "keeper": {
-          "name": "Torwart",
+          "name": "Torhüter",
           "desc": "Hütet den Torraum mit Griff, Hechtsprung und Abschlag."
         }
       },
-      "queue": "Der Warteschlange beitreten",
-      "leaveQueue": "Die Warteschlange verlassen",
-      "queueNote": "Stell dich von überall an; der Pfiff ruft dich aufs Sauenfeld.",
+      "queue": "In die Warteschlange",
+      "leaveQueue": "Warteschlange verlassen",
+      "queueNote": "Stell dich von überall an; der Anpfiff ruft dich zum Saufeld.",
       "queuedStatus": "In der Warteschlange für {bracket}: Position {position} von {count}.",
       "blockNation": "Wähle zuerst eine Bannernation.",
-      "blockPartySize": "Diese Spielklasse verlangt eine kleinere Gruppe.",
-      "blockNotLeader": "Nur der Gruppenanführer kann das Team anmelden.",
+      "blockPartySize": "Diese Staffel braucht eine kleinere Gruppe.",
+      "blockNotLeader": "Nur der Gruppenanführer kann das Team in die Warteschlange stellen.",
       "inMatchNote": "Dein Team steht auf dem Platz. Weiterspielen!",
-      "deserterNote": "Der Platzwart vergisst nicht. In {seconds} Sek. darfst du dich wieder anstellen.",
-      "liveHeading": "Jetzt auf dem Sauenfeld",
+      "deserterNote": "Der Platzwart vergisst nicht. Du kannst dich in {seconds} Sek. wieder anstellen.",
+      "liveHeading": "Jetzt auf dem Saufeld",
       "liveAria": "Talpokal: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Geh zum Sauenfeld und schau von den Rängen aus zu.",
-      "noLive": "Der Platz liegt still. Es läuft gerade kein Spiel.",
+      "walkUp": "Komm zum Saufeld, um von den Rängen aus zuzusehen.",
+      "noLive": "Der Platz ruht. Es wird gerade kein Spiel gespielt.",
       "boardHeading": "Siegertafel",
       "boardEmpty": "Noch keine Sieger verzeichnet. Der Kupfereimer wartet.",
       "boardWins": "{count} Siege",
       "enterAsGuild": "Unter dem Banner von {guild} antreten",
-      "guildRecordLine": "Die Bilanz deiner Gilde: {wins} Siege, {losses} Niederlagen.",
+      "guildRecordLine": "Deine Gildenbilanz: {wins} Siege, {losses} Niederlagen.",
       "guildBoardHeading": "Gildenbanner",
-      "guildBoardEmpty": "Noch keine Gilde hat den Platz betreten. Hisse dein Banner!",
+      "guildBoardEmpty": "Noch keine Gilde hat den Platz betreten. Zeig dein Banner!",
       "guildBoardWl": "{wins} S, {losses} N",
       "practice": "Training gegen Bots",
       "practiceNote": "Startet sofort ein privates Bot-Spiel auf deinem eigenen Trainingsplatz.",
@@ -475,39 +475,39 @@ export const de_DE: EnTranslations = {
       "bannerSave": "{name} HÄLT!",
       "bannerGolden": "GOLDEN GOAL: Der nächste Treffer gewinnt!",
       "bannerEnd": "Abpfiff: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Sieg auf dem Sauenfeld!",
-      "bannerDraw": "Unentschieden auf dem Sauenfeld.",
-      "bannerLoss": "Niederlage auf dem Sauenfeld.",
-      "logQueued": "Ihr tretet der Talpokal-Warteschlange für {bracket} bei (Position {position}).",
-      "logUnqueued": "Ihr verlasst die Talpokal-Warteschlange.",
-      "logFound": "Euer Talpokal-Spiel ist bereit: {nationA} gegen {nationB}.",
-      "logRoster": "Eure Seite: {allies}. Die Gegenseite: {enemies}.",
+      "bannerWin": "Sieg auf dem Saufeld!",
+      "bannerDraw": "Unentschieden auf dem Saufeld.",
+      "bannerLoss": "Niederlage auf dem Saufeld.",
+      "logQueued": "Du reihst dich in die Talpokal-Warteschlange für {bracket} ein (Position {position}).",
+      "logUnqueued": "Du verlässt die Talpokal-Warteschlange.",
+      "logFound": "Dein Talpokal-Spiel ist bereit: {nationA} gegen {nationB}.",
+      "logRoster": "Deine Seite: {allies}. Die Gegenseite: {enemies}.",
       "logGoal": "{name} trifft für {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} pariert!",
-      "logWin": "Ihr gewinnt die Partie auf dem Sauenfeld.",
-      "logDraw": "Die Partie auf dem Sauenfeld endet unentschieden.",
-      "logLoss": "Ihr verliert die Partie auf dem Sauenfeld.",
+      "logSave": "{name} hält den Ball!",
+      "logWin": "Du gewinnst die Partie auf dem Saufeld.",
+      "logDraw": "Die Partie auf dem Saufeld endet unentschieden.",
+      "logLoss": "Du verlierst die Partie auf dem Saufeld.",
       "gossipOpen": "Das Spielplanbuch",
       "gossipOpenAria": "Das Talpokal-Fenster öffnen",
       "mobileLabel": "Pokal",
       "briefing": {
-        "subtitle": "Spielbesprechung",
+        "subtitle": "Besprechung vor dem Spiel",
         "vs": "gegen",
         "rulesHeading": "So wird gespielt",
-        "rule1": "Schieße oder passe den Ball ins gegnerische Tor, um zu treffen.",
-        "rule2": "Wer zuerst 5 Tore erzielt, gewinnt, oder wer beim Abpfiff die meisten hat.",
-        "rule3": "Steht es beim Abpfiff unentschieden, folgt das Golden Goal: Der nächste Treffer gewinnt.",
-        "rule4": "Rempler werfen dich nur um. Unter dem Erntefrieden kommt niemand zu Schaden.",
+        "rule1": "Schieße oder passe den Ball ins gegnerische Tor, um zu punkten.",
+        "rule2": "Wer zuerst 5 Tore erzielt, gewinnt, oder wer beim Abpfiff die meisten Tore hat.",
+        "rule3": "Steht es beim Abpfiff unentschieden, geht es ins Golden Goal: Der nächste Treffer gewinnt.",
+        "rule4": "Tacklings werfen dich nur um. Unter dem Erntefrieden wird niemand verletzt.",
         "rule5": "Jeder kann vorbeikommen und dich von den Rängen aus anfeuern.",
-        "kitHeading": "Dein Repertoire",
-        "kitNote": "Diese Manöver ersetzen für dieses Spiel deine Klassenfähigkeiten.",
+        "kitHeading": "Deine Ausrüstung",
+        "kitNote": "Diese Manöver ersetzen für das Spiel deine Klassenfähigkeiten.",
         "rosterHeading": "Die Aufstellung",
         "you": "Du",
         "bot": "Bot",
         "ready": "Ich bin bereit",
         "readyDone": "Bereit",
         "readyAria": "Bereit machen für den Anstoß",
-        "waiting": "Warte, bis die Gegenseite bereit ist...",
+        "waiting": "Warte, bis die andere Seite bereit ist...",
         "whistle": "Der Anpfiff ertönt in {seconds}s.",
         "readyCount": "{ready} von {total} bereit"
       },
@@ -517,19 +517,19 @@ export const de_DE: EnTranslations = {
         "closesIn": "Wettschluss in {seconds}s",
         "closed": "Wetten geschlossen",
         "prize": "Topf {amount}",
-        "splitAria": "Anteil des Wetttopfs je Team",
+        "splitAria": "Anteil des Wett-Topfs je Team",
         "expand": "Wetten ansehen und setzen",
         "collapse": "Wetten ausblenden",
         "oddsLabel": "Quote",
         "back": "Auf {team} setzen",
         "form": "{wins}S-{losses}N",
         "mine": "Deine Wette: {amount} auf {team}",
-        "none": "Du hast auf dieses Spiel noch nicht gewettet.",
+        "none": "Du hast auf dieses Spiel noch keine Wette platziert.",
         "record": "Wettbilanz: {wins}S-{losses}N, {sign}{net}",
         "wonBanner": "Deine Wette hat gewonnen!",
-        "wonLog": "Eure Talpokal-Wette hat gewonnen: {amount} ausgezahlt.",
-        "lostLog": "Eure Talpokal-Wette ist verloren: {amount}.",
-        "refundLog": "Wetten annulliert, Euer Einsatz von {amount} wurde zurückerstattet."
+        "wonLog": "Deine Talpokal-Wette hat gewonnen: {amount} ausgezahlt.",
+        "lostLog": "Deine Talpokal-Wette ist verloren: {amount}.",
+        "refundLog": "Wetten annulliert, dein Einsatz von {amount} wurde zurückgezahlt."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const de_DE: EnTranslations = {
         "jitter": "Jitter",
         "predLead": "Prädiktionsvorlauf",
         "snapshot": "Snapshot-Rate",
+        "serverTick": "Server-Tickrate",
         "connection": "Verbindung",
         "drawCalls": "Draw Calls",
         "triangles": "Dreiecke",
@@ -920,10 +921,10 @@ export const de_DE: EnTranslations = {
     },
     "townFocus": {
       "title": "Stadtfokus",
-      "hint": "Fokuspunkte legen einen Bonus auf den Grundertrag jeder Einrichtung obendrauf. Einrichtungen ohne Fokus bleiben beim Grundertrag.",
+      "hint": "Fokuspunkte gewähren einen Bonus auf den Grundertrag jeder Einrichtung. Einrichtungen ohne Fokus bleiben beim Grundertrag.",
       "budgetLabel": "Verbleibende Punkte: {remaining} / {budget}",
       "saveButton": "Fokus speichern",
-      "notInTownHint": "Du musst dich in der Stadt befinden, um deinen Fokus festzulegen.",
+      "notInTownHint": "Du musst in der Stadt sein, um deinen Fokus festzulegen.",
       "increaseAria": "Fokus auf {component} erhöhen",
       "decreaseAria": "Fokus auf {component} verringern"
     },
@@ -2223,29 +2224,29 @@ export const de_DE: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Der Talpokal",
-      "intro": "Eberball auf dem Sauenfeld: Wähle ein Banner, wähle eine Rolle und schieße eine ausgestopfte Eberhaut am Torwart vorbei, um den Kupfereimer zu holen. Kein Blut, keine Beute, nur das Tosen der Ränge.",
-      "loreHeading": "Eberball und der Erntefrieden",
-      "loreOldSow": "Lange bevor die Toten erwachten, spielten Eastbrooks Feldarbeiter nach der Ernte Eberball auf den Stoppelfeldern: zwei Haufen, eine mit Stroh ausgestopfte Eberhaut und zwei Wagentore, an die beiden Enden des Angers geschleppt. Der erste Ball, die Alte Sau, hängt in Bronze über dem Kamin der Taverne.",
-      "loreTruce": "Als das Aschene Kolosseum begann, Kriegsspiele auszurichten, antwortete Marschall Redbrook mit etwas Sanfterem: einem stehenden Erntefrieden auf dem alten Anger. Aus den Wagentoren wurden Torpfosten, der Anger bekam Mauern, Ränge und einen Namen, das Sauenfeld, und der Preis war immer derselbe verbeulte Milcheimer, aus dem die Sieger tranken: der Kupfereimer.",
+      "intro": "Keilerball auf dem Saufeld: Wähle ein Banner, wähle eine Rolle und schieß eine ausgestopfte Eberhaut an einem Torhüter vorbei, um den Kupfereimer zu holen. Kein Blut, keine Beute, nur das Tosen der Ränge.",
+      "loreHeading": "Keilerball und der Erntefrieden",
+      "loreOldSow": "Lange bevor die Toten erwachten, spielten Eastbrooks Feldarbeiter nach der Ernte Keilerball auf den Stoppelfeldern: zwei Haufen Leute, eine mit Stroh ausgestopfte Eberhaut und zwei Wagentore, an beide Enden des Angers gezerrt. Der erste Ball, die Alte Sau, hängt in Bronze über dem Kamin der Taverne.",
+      "loreTruce": "Als das Aschene Kolosseum begann, Kriegsspiele auszurichten, antwortete Marschall Redbrook mit etwas Sanfterem: einem ständigen Erntefrieden auf dem alten Anger. Die Wagentore wurden zu Torpfosten, der Anger bekam Wände, Ränge und einen Namen, das Saufeld, und der Preis war immer derselbe verbeulte Milcheimer, aus dem die Sieger tranken: der Kupfereimer.",
       "howHeading": "So wird gespielt",
-      "howQueue": "Stell dich von überall aus über das Talpokal-Fenster an, oder sprich mit Platzwart Bram am Tor des Sauenfelds. Wähle eine Spielklasse von eins gegen eins bis fünf gegen fünf, eine Bannernation und eine Sportrolle; stell dich allein an oder bring deine Gruppe mit.",
-      "howMatch": "Beim Anstoß wird dein Klassenrepertoire gegen ein Sportrepertoire getauscht und danach exakt wiederhergestellt. Schüsse zielen auf das Bodenfadenkreuz, der Ball prallt von den Banden ab, und Dribbeln heißt einfach, mit dem Ball zu laufen. Erziele bis zum Abpfiff mehr Tore als die Gegenseite; ein Unentschieden geht ins Golden Goal.",
-      "howTruce": "Auf dem Sauenfeld fließt kein Blut: Rempler werfen um, nichts tut weh, und Begleiter setzen das Spiel aus.",
-      "spectateBody": "Im Stadion läuft immer nur ein Spiel, und jeder kann vorbeikommen und von den Rängen aus zuschauen.",
+      "howQueue": "Stell dich von überall über das Talpokal-Fenster an, oder sprich mit Platzwart Bram am Tor des Saufelds. Wähle eine Staffel von eins gegen eins bis fünf gegen fünf, eine Bannernation und eine Sportrolle; stell dich allein an oder bring deine Gruppe mit.",
+      "howMatch": "Beim Anstoß werden deine Klassenfähigkeiten gegen eine Sportausrüstung getauscht und danach exakt wiederhergestellt. Kicks zielen auf das Fadenkreuz am Boden, der Ball prallt von der Bande ab, und Dribbeln heißt einfach, mit dem Ball zu laufen. Erziele bis zum Abpfiff mehr Tore als die Gegenseite; ein Unentschieden geht ins Golden Goal.",
+      "howTruce": "Auf dem Saufeld blutet niemand: Tacklings lassen dich nur purzeln, nichts tut weh, und Begleiter setzen das Spiel aus.",
+      "spectateBody": "Im Stadion läuft immer nur ein Spiel, und jeder kann einfach vorbeikommen und von den Rängen aus zusehen.",
       "nationsHeading": "Die acht Bannernationen",
-      "nationsBody": "Jedes Team spielt unter einem Banner. Der Kapitän wählt die Nation, und fliegen beide Seiten dasselbe Banner, spielt die Auswärtsseite in umgekehrten Farben.",
+      "nationsBody": "Jedes Team spielt unter einem Banner. Der Kapitän wählt die Nation, und fliegen beide Seiten dasselbe Banner, spielt die Auswärtsseite in den umgekehrten Farben.",
       "nationVale": "Grün und Gold unter der Weizengarbe: die Heimmannschaft, Feldarbeiter bis ins Mark.",
       "nationMirefen": "Blaugrün und Grau unter dem Reiher: geduldig, langbeinig, nie in Eile.",
       "nationThornpeak": "Eisblau und Weiß unter dem Berggipfel: trittsicher und stur.",
       "nationColiseum": "Rot und Schwarz mit gekreuzten Schwertern: Sie spielen, als wäre es noch immer ein Kriegsspiel.",
-      "nationChoir": "Blassblau und Silber unter der Glocke: unheimlich, präzise und sehr still.",
+      "nationChoir": "Fahlblau und Silber unter der Glocke: unheimlich, präzise und sehr still.",
       "nationOgre": "Orange und Umbra hinter der Faust: Schulter voran und stolz darauf.",
-      "nationMoon": "Violett und Silber unter der Mondsichel: Nachtspieler, leicht auf den Füßen.",
-      "nationCopperdig": "Kupfer und Braun mit der Spitzhacke: Schaufler, die nie aufhören zu laufen.",
+      "nationMoon": "Violett und Silber unter der Mondsichel: Nachtspieler, leicht auf den Beinen.",
+      "nationCopperdig": "Kupfer und Braun mit der Spitzhacke: Schaufler, die nie aufhören zu rennen.",
       "rolesHeading": "Sportrollen",
-      "rolesBody": "Deine Rolle bestimmt das Repertoire, das du mit auf den Platz nimmst. Kicken können alle; der Rest ist Temperament.",
-      "rewardsHeading": "Regeln des Erntefriedens",
-      "rewardsBody": "Der Erntefrieden bedeutet: keine Erfahrung und keine Beute. Ein entschiedenes Spiel zählt für deine Bilanz und die Siegertafel, und Punkte für die täglichen Belohnungen gibt es obendrein. Wer ein Spiel im Stich lässt, dessen Platz wird gesperrt, und der Platzwart vergisst nicht."
+      "rolesBody": "Deine Rolle bestimmt die Ausrüstung, die du auf den Platz trägst. Kicken kann jeder; der Rest ist Temperament.",
+      "rewardsHeading": "Friedensregeln",
+      "rewardsBody": "Friedensregeln bedeuten keine Erfahrung und keine Beute: Ein entschiedenes Spiel zählt für deine Bilanz und die Siegertafel, und Punkte für die täglichen Belohnungen gibt es obendrauf. Wer ein Spiel im Stich lässt, kassiert eine Sperre, und der Platzwart vergisst nicht."
     },
     "wishPage": {
       "heading": "Was ich gern früher gewusst hätte",
@@ -2332,33 +2333,33 @@ export const de_DE: EnTranslations = {
       "cosmeticsApply": "Lege dein aktives Aussehen in der Aussehen-Zeile auf deinem Charakterbildschirm fest und wechsle frei zwischen allem, was du freigeschaltet hast."
     },
     "professions": {
-      "intro": "Jenseits von Kampf und Quests belohnt dich die Welt für die Arbeit auf dem Feld und an der Esse: Du sammelst Rohstoffe, verwandelst sie an den Handwerksstationen von zehn verschiedenen Gewerken in Ausrüstung und findest deine Identität als einer der zehn Archetypen, für die diese Gewerke stehen.",
+      "intro": "Jenseits von Kampf und Quests belohnt dich die Welt für die Arbeit an Land und Esse: Rohstoffe sammeln, sie an den Werkstationen von zehn verschiedenen Gewerben zu Ausrüstung verarbeiten und in eine Identität als einer der zehn Archetypen hineinwachsen, für die diese Gewerbe stehen.",
       "gatherTitle": "Sammeln: Bergbau, Holzfällen und Kräuterkunde",
-      "gatherIntro": "Drei Sammelberufe lassen dich Rohstoffe direkt aus der Welt holen: Der Bergbau schlägt Erz und Stein aus Adern, das Holzfällen erntet Nutzholz aus Baumbeständen, und die Kräuterkunde sammelt wild wachsende Kräuter und Pflanzen. Jeder wird getrennt gezählt, sodass die Arbeit im einen nie deinen Fortschritt im anderen bremst.",
-      "gatherWhatTitle": "Ressourcenvorkommen",
-      "gatherWhatBody": "Erzadern, Baumbestände und Kräuterflecken stehen sichtbar und herrenlos in den Gebieten verteilt. Geh zu einem Vorkommen und interagiere damit, um zu ernten, was es hergibt. Hast du ein Vorkommen abgeerntet, braucht es Zeit, sich zu erholen, ehe du persönlich es erneut ernten kannst; andere blockiert das nie: Ein anderer Spieler kann dasselbe Vorkommen in der Zwischenzeit abbauen.",
-      "gatherProficiencyTitle": "Fertigkeit und Materialgüte",
-      "gatherProficiencyBody": "Jede erfolgreiche Ernte steigert deine Fertigkeit in diesem Sammelberuf. Eine höhere Fertigkeit verschiebt das, was du aus einem Vorkommen holst, hin zu selteneren Materialgüten, von gewöhnlich an aufwärts; die seltensten Güten bleiben aber auch bei hoher Fertigkeit selten. Mehr Übung schadet deinen Chancen nie, sie verbessert sie immer nur.",
+      "gatherIntro": "Drei Sammelgewerbe lassen dich Rohstoffe direkt aus der Welt ziehen: Bergbau schlägt Erz und Stein aus Adern, Holzfällen fällt Nutzholz aus Baumbeständen, und Kräuterkunde sammelt wild wachsende Kräuter und Pflanzen. Jedes wird getrennt gezählt, sodass die Arbeit an einem nie deinen Fortschritt in einem anderen bremst.",
+      "gatherWhatTitle": "Rohstoffvorkommen",
+      "gatherWhatBody": "Erzadern, Baumbestände und Kräuterflecken stehen sichtbar und herrenlos draußen in den Gebieten. Geh auf eines zu und interagiere damit, um zu ernten, was es enthält. Hast du ein Vorkommen abgeerntet, braucht es Zeit, um sich zu erholen, bevor du persönlich es erneut ernten kannst; andere blockiert es aber nie: Ein anderer Spieler kann dasselbe Vorkommen in der Zwischenzeit ernten.",
+      "gatherProficiencyTitle": "Fertigkeit und Materialqualität",
+      "gatherProficiencyBody": "Jede erfolgreiche Ernte steigert deine Fertigkeit in diesem Sammelgewerbe. Höhere Fertigkeit verschiebt, was du aus einem Vorkommen holst, hin zu selteneren Materialgüten, von gewöhnlich aufwärts, wobei die seltensten Güten auch bei hoher Fertigkeit selten bleiben. Mehr Übung schadet deinen Chancen nie, sie verbessert sie immer nur.",
       "gatherToolsTitle": "Das Werkzeug des Handwerks",
-      "gatherToolsBody": "Händler verkaufen einfache Werkzeuge für jeden Sammelberuf, und bessere lassen sich herstellen: Ein Vorkommen zu bearbeiten soll sich umso fähiger anfühlen, je besser du dafür ausgerüstet bist, statt immer gleich zu bleiben. Werkzeuge höherer Stufe sind der vorgesehene Weg, reichere Vorkommen zu erschließen und sie über eine lange Sitzung hinweg effizienter abzubauen.",
+      "gatherToolsBody": "Händler verkaufen einfache Werkzeuge für jedes Sammelgewerbe, und bessere lassen sich herstellen; die Arbeit an einem Rohstoffvorkommen soll sich also fähiger anfühlen, je besser du dafür ausgerüstet bist, statt immer gleich zu bleiben. Werkzeuge höherer Stufe sind der vorgesehene Weg, um Zugang zu reicheren Vorkommen zu erhalten und sie über eine lange Sitzung hinweg effizienter zu bearbeiten.",
       "craftTitle": "Die zehn Handwerke",
-      "craftIntro": "Zehn Handwerksberufe verwandeln gesammelte Materialien in fertige Ausrüstung und Waren: Rüstungsschmiedekunst, Waffenschmiedekunst und Juwelierskunst formen rohe Materie zu tragbarer Ausrüstung; Alchemie und Ingenieurskunst leben von Versuch und Irrtum; Kochkunst, Schreibkunst und Verzauberkunst wirken jeweils auf die Erzeugnisse anderer Handwerke ein; Schneiderei und Gerberei arbeiten nach exakten Mustern. Zusammen bilden sie ein Rad: Jedes Handwerk sitzt neben zwei Nachbarn und liegt einem weiteren direkt gegenüber.",
-      "craftRingTitle": "Ein Rad der Spezialgebiete",
-      "craftRingBody": "Die zehn Handwerke sind in einem festen Ring angeordnet, und wo ein Handwerk auf diesem Ring sitzt, hat Bedeutung: Benachbarte Handwerke haben mehr miteinander gemein als solche auf gegenüberliegenden Seiten. Sich einem Handwerk zu verschreiben soll sich anfühlen, als träte man in eine Familie verwandter Gewerke ein, nicht wie die Wahl einer isolierten Fertigkeit.",
+      "craftIntro": "Zehn Handwerksgewerbe verwandeln gesammelte Materialien in fertige Ausrüstung und Waren: Rüstungsschmieden, Waffenschmieden und Juwelierskunst formen rohen Stoff zu tragbarer Ausrüstung; Alchemie und Ingenieurskunst leben von Versuch und Irrtum; Kochkunst, Inschriftenkunde und Verzauberungskunst greifen jeweils auf die Erzeugnisse anderer Handwerke zurück; Schneiderei und Gerberei arbeiten nach exakten Schnittmustern. Zusammen bilden sie ein Rad, auf dem jedes Handwerk neben zwei Nachbarn und einem anderen genau gegenüber sitzt.",
+      "craftRingTitle": "Ein Rad der Spezialitäten",
+      "craftRingBody": "Die zehn Handwerke sind in einem festen Ring angeordnet, und wo ein Handwerk auf diesem Ring sitzt, spielt eine Rolle: Nebeneinanderliegende Handwerke haben mehr miteinander gemein als solche auf gegenüberliegenden Seiten. Sich einem Handwerk zu verschreiben soll sich anfühlen, als träte man einer Familie verwandter Gewerbe bei, nicht wie das Wählen einer isolierten Fertigkeit.",
       "craftRecipesTitle": "Rezepte und Reagenzien",
-      "craftRecipesBody": "Jedes Handwerk hat seine eigenen Rezepte, und jedes verlangt bestimmte Reagenzien, die du sammelst oder kaufst. Die einfachsten Rezepte eines Handwerks brauchen nichts als gewöhnliche Materialien und lassen sich vom ersten Moment an herstellen: Du kannst ein Gewerk in dem Augenblick ausüben, in dem du es aufnimmst, statt auf eine Freischaltung zu warten.",
+      "craftRecipesBody": "Jedes Handwerk hat eigene Rezepte, und jedes verlangt bestimmte Reagenzien, die du sammelst oder kaufst. Die einfachsten Rezepte jedes Handwerks brauchen nichts als gewöhnliche Materialien und lassen sich von Anfang an herstellen, sodass du ein Gewerbe in dem Moment aufnehmen kannst, in dem du es erlernst, statt erst auf eine Freischaltung zu warten.",
       "craftMasteryTitle": "Fertigkeit und Meisterschaft",
-      "craftMasteryBody": "Erfolgreiches Handwerken steigert deine Fertigkeit in diesem Gewerk, und reichere Rezepte liegen hinter höherer Fertigkeit: Die Grundrezepte stehen allen offen, während zunehmend fortgeschrittene Rezepte zunehmend mehr Meisterschaft verlangen, um sie überhaupt zu versuchen. Deine Fertigkeit in einem Handwerk auszubauen ist der Weg von einfachen Anfängerwaren zu seinen ehrgeizigeren Rezepten.",
+      "craftMasteryBody": "Erfolgreiches Herstellen steigert deine Fertigkeit in diesem Gewerbe, und reichhaltigere Rezepte sind hinter höherer Fertigkeit verschlossen: Die Grundrezepte stehen allen offen, während zunehmend fortgeschrittene Rezepte für den Versuch zunehmend mehr Meisterschaft verlangen. Deine Fertigkeit in einem Handwerk auszubauen ist der Weg von einfachen Anfängerwaren zu seinen ehrgeizigeren Rezepten.",
       "craftComboTitle": "Kombinationsrezepte",
-      "craftComboBody": "Über die Rezeptliste eines einzelnen Handwerks hinaus kennt das Rad auch Kombinationsrezepte, die zwei benachbarte Handwerke zugleich fordern. Sie belohnen einen Charakter (oder ein Paar von Handelspartnern), der in benachbarte Gewerke auf dem Ring investiert hat statt in eines allein.",
+      "craftComboBody": "Über die eigene Rezeptliste eines einzelnen Handwerks hinaus unterstützt das Rad auch Kombinationsrezepte, die zwei benachbarte Handwerke zugleich fordern, und belohnt damit einen Charakter (oder ein Paar von Handelspartnern), der in benachbarte Gewerbe auf dem Ring investiert hat statt in eines allein.",
       "archetypeTitle": "Die zehn Archetypen",
-      "archetypeIntro": "Jedes der zehn Handwerke steht zugleich für einen Archetyp, eine umfassendere Identität, die du über die bloße Ausübung des Gewerks hinaus annehmen kannst. Dein aktiver Archetyp ist eine einzelne Wahl, keine Abhakliste: Du trägst genau einen und kannst später wechseln, wenn du möchtest.",
+      "archetypeIntro": "Jedes der zehn Handwerke steht zugleich für einen Archetyp, eine umfassendere Identität, die du über das bloße Ausüben des Gewerbes hinaus annehmen kannst. Dein aktiver Archetyp ist eine einzelne Wahl, keine Checkliste: Du trägst einen und kannst später wechseln, wenn du möchtest.",
       "archetypeChooseTitle": "Deinen Archetyp wählen",
-      "archetypeChooseBody": "Deinen ersten Archetyp erklärst du über eine frühe Geschichtsquest im ersten Gebiet, die dich offiziell in diese Identität aufnimmt. Bis du diese Quest abgeschlossen hast, hast du überhaupt noch keinen Archetyp gewählt.",
+      "archetypeChooseBody": "Deinen ersten Archetyp erklärst du über eine frühe Story-Quest im ersten Gebiet, die dich förmlich in diese Identität aufnimmt. Bis du diese Quest abgeschlossen hast, hast du noch gar keinen Archetyp gewählt.",
       "archetypeSwitchTitle": "Es dir anders überlegen",
-      "archetypeSwitchBody": "Einen Archetyp einmal erklärt zu haben bindet dich nicht für immer. Zu einem anderen Archetyp zu wechseln heißt, zuerst eine wiederholbare Quest der Wiedergutmachung für deinen alten abzuschließen, und mit jedem Wechsel fällt die beim nächsten Mal erwartete Wiedergutmachung ein wenig strenger aus. So bleibt ein Wechsel bedeutsam statt kostenlos.",
+      "archetypeSwitchBody": "Einmal einen Archetyp erklärt zu haben, bindet dich nicht für immer. Wer zu einem anderen Archetyp wechseln will, muss zuerst eine wiederholbare Quest der Wiedergutmachung für den alten abschließen, und mit jedem Wechsel fällt die nächste erwartete Wiedergutmachung ein wenig strenger aus, damit der Wechsel bedeutsam bleibt statt kostenlos.",
       "archetypeIdentityTitle": "Was dein Archetyp bedeutet",
-      "archetypeIdentityBody": "Dein aktiver Archetyp ist eine Aussage darüber, wer dein Charakter in der Welt ist, und spiegelt sich darin, wie andere und die Welt dich ansprechen. Die genauen Belohnungen und Anerkennungen, die damit einhergehen, werden noch ausgearbeitet; schau wieder vorbei, während das System Gestalt annimmt."
+      "archetypeIdentityBody": "Dein aktiver Archetyp ist eine Aussage darüber, wer dein Charakter in der Welt ist, und spiegelt sich darin, wie andere und die Welt dich ansprechen. Die genauen Belohnungen und die Anerkennung, die damit einhergehen, werden noch ausgearbeitet; schau wieder vorbei, während das System Gestalt annimmt."
     },
     "economy": {
       "intro": "Münzen halten die ganze Welt in Schwung: Sie kaufen deine Ausrüstung, Vorräte und dein Reisegerät und wechseln zwischen Spielern den Besitzer. All das sammelst du ganz nebenbei beim Spielen ein, sieh diese Seite also als eine Karte, woher dein Geld kommt und wohin es geht.",
@@ -4954,27 +4955,27 @@ export const de_DE: EnTranslations = {
     "abilities": {
       "sport_kick": {
         "name": "Kick",
-        "description": "Stoßt den Ball flach über den Boden zum Zielpunkt."
+        "description": "Stoß den Ball flach über den Boden zum Zielpunkt."
       },
       "sport_shoot": {
-        "name": "Schuss",
-        "description": "Haltet gedrückt, um Kraft aufzubauen, und lasst los, um aufs Tor zu schießen. Zu viel Kraft, und der Ball segelt drüber."
+        "name": "Torschuss",
+        "description": "Halten, um Kraft aufzubauen, loslassen, um aufs Tor zu schießen. Zu viel Kraft und der Ball segelt drüber."
       },
       "sport_pass": {
         "name": "Pass",
-        "description": "Spielt einen strammen Pass in den Lauf eures anvisierten Mitspielers."
+        "description": "Spiel einen scharfen Pass auf deinen anvisierten Mitspieler, genau in seinen Lauf."
       },
       "sport_boot": {
-        "name": "Weiter Schlag",
-        "description": "Ein weiter, hoher Schlag zum Zielpunkt. Die Menge liebt es."
+        "name": "Weitschlag",
+        "description": "Ein hoher, weiter Schlag Richtung Zielpunkt. Die Menge liebt es."
       },
       "sport_hoof": {
         "name": "Bolzen",
-        "description": "Drescht den Ball flach und hart nach vorn."
+        "description": "Drisch den Ball flach und hart nach vorn übers Feld."
       },
       "sport_punt": {
         "name": "Weiter Abschlag",
-        "description": "Ein Abschlag des Torwarts, hoch und weit."
+        "description": "Ein Abschlag des Torhüters, hoch und weit."
       },
       "sport_feint": {
         "name": "Finte",
@@ -4982,15 +4983,15 @@ export const de_DE: EnTranslations = {
       },
       "sport_dive": {
         "name": "Hechtsprung",
-        "description": "Werft euch zum Zielpunkt. Eine Flanke bleibt an euch haften."
+        "description": "Wirf dich zum Zielpunkt. Ein hereinfliegender Ball bleibt an dir haften."
       },
       "sport_shoulder": {
         "name": "Rempler",
-        "description": "Ein fairer Rempler im Geiste des Erntefriedens. Schickt den Gegner taumelnd vom Ball."
+        "description": "Ein fairer Rempler nach den Regeln des Erntefriedens. Wirft den Gegner purzelnd vom Ball."
       },
       "sport_second_wind": {
         "name": "Frische Beine",
-        "description": "Kommt in Tritt: Bewegt euch 4 Sek. lang 50% schneller."
+        "description": "Finde deine Beine: Bewege dich 4 Sek. lang 50% schneller."
       },
       "flamestrike": {
         "name": "Flammenschlag",
@@ -6213,6 +6214,24 @@ export const de_DE: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Sonnenblütensichel"
       },
+      "thorium_ore": {
+        "name": "Thoriumerz"
+      },
+      "arcanite_bar": {
+        "name": "Arkanitbarren"
+      },
+      "ashwood_log": {
+        "name": "Aschenholzscheit"
+      },
+      "elderwood_log": {
+        "name": "Altholunderscheit"
+      },
+      "goldleaf_herb": {
+        "name": "Goldblattkraut"
+      },
+      "sunpetal_herb": {
+        "name": "Sonnenblütenkraut"
+      },
       "bristleback_maul": {
         "name": "Gallowglass-Hammer"
       },
@@ -7394,8 +7413,8 @@ export const de_DE: EnTranslations = {
       },
       "groundskeeper_bram": {
         "name": "Platzwart Bram",
-        "title": "Hüter des Sauenfelds",
-        "greeting": "Auf dem Sauenfeld gilt der Erntefrieden, {className}: nur Tritte und Rempler. Lust auf ein Spiel um den Kupfereimer?"
+        "title": "Hüter des Saufelds",
+        "greeting": "Auf dem Saufeld gilt der Erntefrieden, {className}: nur Kicks und Rempler. Lust auf ein Spiel um den Kupfereimer?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const de_DE: EnTranslations = {
             "label": "Hellholz-Lichtung"
           },
           "10": {
-            "label": "Sauenfeld"
+            "label": "Das Saufeld"
           }
         }
       },

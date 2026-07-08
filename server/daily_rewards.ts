@@ -863,11 +863,11 @@ export class DailyRewardService {
     return awardedPoints;
   }
 
-  // Vale Cup sibling of recordArenaResult: arena-style win/loss points with the
-  // same online-time multiplier. Only DECIDED matches reach this (the game loop
-  // skips draws) and only RATED ones (the sim marks bot-backfilled and practice
-  // matches unrated; the loop gates on match.rated). The match id keys the
-  // dedupe row, so one match yields at most one grant per account.
+  // Vale Cup daily task: ranked wins only. The game loop gates this to rated
+  // matches (the sim marks bot-backfilled and practice matches unrated); this
+  // method also no-ops losses so the task cannot award participation points.
+  // The match id keys the dedupe row, so one match yields at most one grant per
+  // account.
   async recordValeCupResult(
     accountId: number,
     result: {
@@ -877,6 +877,7 @@ export class DailyRewardService {
       completedAt?: Date;
     },
   ): Promise<number> {
+    if (!result.won) return 0;
     const completedAt = result.completedAt ?? new Date();
     const { day, config } = await dailyRewardClock(completedAt);
     await this.db.ensureDay(day, config.prizePoolUsd, config.wocUsdPrice);
@@ -889,9 +890,7 @@ export class DailyRewardService {
     let awardedPoints = 0;
     for (const task of tasks) {
       const taskConfig = task.config ?? {};
-      const basePoints = result.won
-        ? numberConfig(taskConfig, 'winBasePoints', task.basePoints ?? task.points)
-        : numberConfig(taskConfig, 'lossBasePoints', 10);
+      const basePoints = numberConfig(taskConfig, 'winBasePoints', task.basePoints ?? task.points);
       const { points, multiplier } = onlineMultiplierPoints(basePoints, taskConfig, onlineMinutes);
       if (points <= 0) continue;
       const recorded = await this.db.addPoints(
@@ -899,13 +898,13 @@ export class DailyRewardService {
         accountId,
         'task',
         points,
-        `task:${task.taskId}:vale_cup:${result.matchId}:${result.won ? 'win' : 'loss'}`,
+        `task:${task.taskId}:vale_cup:${result.matchId}:win`,
         {
           taskId: task.taskId,
           taskType: task.type,
           bracket: result.bracket,
           matchId: result.matchId,
-          won: result.won,
+          won: true,
           onlineMinutes,
           multiplier,
           basePoints,

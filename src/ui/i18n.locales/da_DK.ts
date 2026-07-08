@@ -2,6 +2,255 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const da_DK: Partial<Record<TranslationKey, string>> = {
+  'entities.abilities.sport_boot.description':
+    'Et langt, højt spark mod sigtepunktet. Publikum elsker det.',
+  'entities.abilities.sport_boot.name': 'Kæmpespark',
+  'entities.abilities.sport_dive.description':
+    'Kast dig mod sigtepunktet. Et indlæg klæber sig fast til dig.',
+  'entities.abilities.sport_dive.name': 'Dyk',
+  'entities.abilities.sport_feint.description': 'Et hurtigt sidespring mod sigtepunktet.',
+  'entities.abilities.sport_feint.name': 'Finte',
+  'entities.abilities.sport_hoof.description': 'Hamr bolden lavt og hårdt op ad banen.',
+  'entities.abilities.sport_hoof.name': 'Ryd Bolden',
+  'entities.abilities.sport_kick.description': 'Spark bolden langs jorden mod sigtepunktet.',
+  'entities.abilities.sport_kick.name': 'Spark',
+  'entities.abilities.sport_pass.description':
+    'Spil en fast aflevering til din udvalgte holdkammerat, lige foran deres løb.',
+  'entities.abilities.sport_pass.name': 'Aflevering',
+  'entities.abilities.sport_punt.description': 'Et målmandsudspark, højt og langt.',
+  'entities.abilities.sport_punt.name': 'Langt Udspark',
+  'entities.abilities.sport_second_wind.description':
+    'Find benene: bevæg dig 50% hurtigere i 4 sek.',
+  'entities.abilities.sport_second_wind.name': 'Friske Ben',
+  'entities.abilities.sport_shoot.description':
+    'Hold for at lade op, slip for at skyde på mål. For meget kraft sender bolden over mål.',
+  'entities.abilities.sport_shoot.name': 'Skud',
+  'entities.abilities.sport_shoulder.description':
+    'Et fair skulderpuf under høstfreden. Sender dem tumlende væk fra bolden.',
+  'entities.abilities.sport_shoulder.name': 'Skulderpuf',
+  'entities.npcs.groundskeeper_bram.greeting':
+    'Freden holder på Somarken, {className}: kun spark og skulderpuf. Har du lyst til at spille om Kobberspanden?',
+  'entities.npcs.groundskeeper_bram.name': 'Banemester Bram',
+  'entities.npcs.groundskeeper_bram.title': 'Somarkens Vogter',
+  'entities.zones.eastbrook_vale.pois.10.label': 'Somarken',
+  'guide.nav.professions': 'Professioner',
+  'guide.nav.valeCup': 'Dalpokalen',
+  'guide.professions.archetypeChooseBody':
+    'Du erklærer din første arketype gennem et tidligt historieopdrag i zone et, som formelt optager dig i den identitet. Før du har fuldført det opdrag, har du slet ikke valgt en arketype endnu.',
+  'guide.professions.archetypeChooseTitle': 'Valg af din arketype',
+  'guide.professions.archetypeIdentityBody':
+    'Din aktive arketype er en erklæring om, hvem din karakter er i verden, og den anerkendes i, hvordan andre og verden tiltaler dig. De præcise belønninger og den anerkendelse, der følger med, er stadig ved at blive fastlagt; kig forbi igen, efterhånden som systemet vokser til.',
+  'guide.professions.archetypeIdentityTitle': 'Hvad din arketype betyder',
+  'guide.professions.archetypeIntro':
+    'Hvert af de ti håndværk står også for en arketype, en bredere identitet du kan påtage dig ud over blot at arbejde med faget. Din aktive arketype er ét valg ad gangen, ikke en tjekliste: du bærer én og kan senere skifte til en anden, hvis du vil.',
+  'guide.professions.archetypeSwitchBody':
+    'At have erklæret en arketype én gang låser dig ikke fast for evigt. At skifte til en anden arketype kræver først, at du fuldfører et gentageligt "gør bod"-opdrag for din gamle, og hver gang du skifter, bliver den bod, der forventes af dig næste gang, lidt større, så et skifte forbliver meningsfuldt frem for omkostningsfrit.',
+  'guide.professions.archetypeSwitchTitle': 'At skifte mening',
+  'guide.professions.archetypeTitle': 'De ti arketyper',
+  'guide.professions.craftComboBody':
+    'Ud over et enkelt håndværks egen opskriftsliste understøtter hjulet også kombinationsopskrifter, der trækker på to nabohåndværk på én gang, og belønner en karakter (eller et par handelspartnere), som har investeret i tilstødende fag på ringen frem for ét i isolation.',
+  'guide.professions.craftComboTitle': 'Kombinationsopskrifter',
+  'guide.professions.craftIntro':
+    'Ti håndværksfag forvandler indsamlede materialer til færdigt udstyr og varer: Rustningssmedning, Våbensmedning og Juvelering former råstof til udstyr, man kan bære; Alkymi og Ingeniørkunst drives af forsøg og fejl; Madlavning, Skriverkunst og Fortryllelse rører hver ved andre håndværks frembringelser; Skrædderi og Garveri arbejder ud fra nøjagtige mønstre. Sammen danner de et hjul, hvor hvert håndværk sidder ved siden af to naboer og over for ét andet.',
+  'guide.professions.craftMasteryBody':
+    'Vellykket håndværk opbygger færdighed i faget, og rigere opskrifter er låst bag højere færdighed: de grundlæggende opskrifter er åbne for alle, mens stadig mere avancerede kræver stadig mere mesterskab at forsøge sig med. At øge din færdighed i et håndværk er vejen fra simple begyndervarer til fagets mere ambitiøse opskrifter.',
+  'guide.professions.craftMasteryTitle': 'Færdighed og mesterskab',
+  'guide.professions.craftRecipesBody':
+    'Hvert håndværk har sine egne opskrifter, som hver kræver bestemte reagenser, du samler eller køber. De mest grundlæggende opskrifter i hvert håndværk kræver ikke andet end almindelige materialer og kan laves fra første færd, så du kan begynde at arbejde med et fag i samme øjeblik, du tager det op, i stedet for at vente på at låse det op.',
+  'guide.professions.craftRecipesTitle': 'Opskrifter og reagenser',
+  'guide.professions.craftRingBody':
+    'De ti håndværk er ordnet i en fast ring, og hvor et håndværk sidder på ringen, betyder noget: håndværk ved siden af hinanden på hjulet har mere til fælles end håndværk på modsatte sider. At binde sig til ét håndværk skal føles som at træde ind i en familie af beslægtede fag, ikke som at vælge en isoleret færdighed.',
+  'guide.professions.craftRingTitle': 'Et hjul af specialer',
+  'guide.professions.craftTitle': 'De ti håndværk',
+  'guide.professions.gatherIntro':
+    'Tre samlerfag lader dig hente råmaterialer direkte ud af verden: Minedrift slår malm og sten løs fra årer, Skovhugst fælder tømmer i trægrupper, og Urtekundskab samler urter og planter, der vokser vildt. Hvert fag spores for sig, så arbejde i det ene aldrig sinker dine fremskridt i et andet.',
+  'guide.professions.gatherProficiencyBody':
+    'Hver vellykket høst opbygger din kyndighed i det samlerfag. Højere kyndighed forskyder, hvad du får ud af en forekomst, mod sjældnere materialegrader, fra almindelig og opefter, selvom de sjældneste grader forbliver sjældne selv ved høj kyndighed. Mere øvelse skader aldrig dine odds, den forbedrer dem kun.',
+  'guide.professions.gatherProficiencyTitle': 'Kyndighed og materialekvalitet',
+  'guide.professions.gatherTitle': 'Samlerfag: Minedrift, Skovhugst og Urtekundskab',
+  'guide.professions.gatherToolsBody':
+    'Handlende sælger grundlæggende værktøj til hvert samlerfag, og bedre kan fremstilles, så arbejdet ved en ressourceforekomst gerne skulle føles stærkere og stærkere, efterhånden som du udstyrer dig til det, frem for at stå i stampe. Værktøj af højere grad er den tiltænkte vej til at få adgang til rigere forekomster og arbejde dem mere effektivt over en lang session.',
+  'guide.professions.gatherToolsTitle': 'Fagets værktøj',
+  'guide.professions.gatherWhatBody':
+    'Malmårer, trægrupper og urtebede står ude i zonerne som synlige forekomster, som ingen ejer. Gå hen til en og interager med den for at høste, hvad den rummer. Når du har høstet en forekomst, skal den bruge tid på at komme sig, før du personligt kan høste den igen, men den blokerer aldrig for andre: en anden spiller kan høste den selvsamme forekomst i mellemtiden.',
+  'guide.professions.gatherWhatTitle': 'Ressourceforekomster',
+  'guide.professions.intro':
+    'Ud over kamp og opdrag belønner verden dig for at arbejde med jorden og essen: at samle råmaterialer, forvandle dem til udstyr ved ti forskellige fags håndværksstationer og finde sig til rette i en identitet som en af de ti arketyper, fagene står for.',
+  'guide.valeCupPage.heading': 'Dalpokalen',
+  'guide.valeCupPage.howHeading': 'Sådan spiller du',
+  'guide.valeCupPage.howMatch':
+    'Ved kampstart byttes dit klassesæt ud med et sportssæt og gendannes nøjagtigt bagefter. Spark sigter mod jordsigtet, bolden preller af på banderne, og driblinger er bare at løbe med bolden. Scor flere mål end den anden side inden fuld tid; uafgjort går til gyldent mål.',
+  'guide.valeCupPage.howQueue':
+    'Stil dig i kø hvor som helst gennem Dalpokal-vinduet, eller tal med Banemester Bram ved Somarkens port. Vælg en række fra en mod en op til fem mod fem, en bannernation og en sportsrolle; stil op alene, eller tag din gruppe med.',
+  'guide.valeCupPage.howTruce':
+    'Ingen bløder på Somarken: tacklinger ender i kolbøtter, intet gør ondt, og kæledyr sidder kampen over.',
+  'guide.valeCupPage.intro':
+    'Vildsvinebold på Somarken: vælg et banner, vælg en rolle, og spark et udstoppet vildsvineskind forbi en målmand for at vinde Kobberspanden. Intet blod, intet bytte, kun tribunernes brøl.',
+  'guide.valeCupPage.loreHeading': 'Vildsvinebold og høstfreden',
+  'guide.valeCupPage.loreOldSow':
+    'Længe før de døde vågnede, spillede Østbæks karle vildsvinebold på stubmarkerne efter høst: to flokke, ét vildsvineskind stoppet med halm og to vognporte slæbt til hver sin ende af grønningen. Den første bold, Den Gamle So, hænger bronzeret over kroens ildsted.',
+  'guide.valeCupPage.loreTruce':
+    'Da Askekolosseet begyndte at godkende krigslege, svarede Marskal Redbrook med noget mildere: en stående høstfred på den gamle grønning. Vognportene blev til målstolper, grønningen fik mure, tribuner og et navn, Somarken, og præmien var altid den samme bulede mælkespand, som vinderne drak af: Kobberspanden.',
+  'guide.valeCupPage.nationChoir':
+    'Lyseblå og sølv under klokken: uhyggelige, præcise og meget stille.',
+  'guide.valeCupPage.nationColiseum':
+    'Rød og sort med korslagte sværd: de spiller, som var det stadig en krigsleg.',
+  'guide.valeCupPage.nationCopperdig':
+    'Kobber og brun med hakken: gravere, der aldrig holder op med at løbe.',
+  'guide.valeCupPage.nationMirefen':
+    'Blågrøn og grå under hejren: tålmodige, langbenede, aldrig forjagede.',
+  'guide.valeCupPage.nationMoon': 'Violet og sølv under halvmånen: natspillere, lette på fødderne.',
+  'guide.valeCupPage.nationOgre': 'Orange og umbra bag næven: skulderen først, og stolte af det.',
+  'guide.valeCupPage.nationThornpeak':
+    'Isblå og hvid under bjergtinden: sikre på fødderne og stædige.',
+  'guide.valeCupPage.nationVale':
+    'Grøn og guld under hvedeneget: hjemmeholdet, bondekarle ind til benet.',
+  'guide.valeCupPage.nationsBody':
+    'Hvert hold spiller under et banner. Anføreren vælger nationen, og fører begge sider det samme, spiller udeholdet i den omvendte palet.',
+  'guide.valeCupPage.nationsHeading': 'De otte bannernationer',
+  'guide.valeCupPage.rewardsBody':
+    'Fredens regler betyder ingen erfaring og intet bytte: en afgjort kamp tæller med i din statistik og på vindertavlen, og der følger daglige belønningspoint med. Deserterer du en kamp, sættes din plads på bænken, og Banemesteren husker det.',
+  'guide.valeCupPage.rewardsHeading': 'Fredens regler',
+  'guide.valeCupPage.rolesBody':
+    'Din rolle afgør det sæt, du bærer med ind på banen. Alle sparker; resten er temperament.',
+  'guide.valeCupPage.rolesHeading': 'Sportsroller',
+  'guide.valeCupPage.spectateBody':
+    'Én kamp spilles ad gangen på stadion, og enhver kan gå hen og se med fra tribunerne.',
+  'hudChrome.keybinds.valecup': 'Dalpokalen',
+  'hudChrome.mobile.dailyRewards': 'Belønninger',
+  'hudChrome.perf.labels.predLead': 'Forudsigelsesforspring',
+  'hudChrome.townFocus.budgetLabel': 'Point tilbage: {remaining} / {budget}',
+  'hudChrome.townFocus.decreaseAria': 'Sænk fokus på {component}',
+  'hudChrome.townFocus.hint':
+    'Fokuspoint lægger en bonus oven på hver komponents grundudbytte. Ufokuserede komponenter bliver på grundniveauet.',
+  'hudChrome.townFocus.increaseAria': 'Øg fokus på {component}',
+  'hudChrome.townFocus.notInTownHint': 'Du skal være i byen for at sætte dit fokus.',
+  'hudChrome.townFocus.saveButton': 'Gem fokus',
+  'hudChrome.townFocus.title': 'Byfokus',
+  'hudChrome.vcup.awayNote':
+    'Fører begge sider det samme banner, spiller udeholdet i den omvendte palet.',
+  'hudChrome.vcup.bannerCountdown': 'Kampstart om {seconds}...',
+  'hudChrome.vcup.bannerDraw': 'Uafgjort på Somarken.',
+  'hudChrome.vcup.bannerEnd': 'Fuld tid: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.bannerFound': 'Dalpokalen kalder: {nationA} mod {nationB}!',
+  'hudChrome.vcup.bannerGoal': 'MÅL! {nation} scorer!',
+  'hudChrome.vcup.bannerGolden': 'GYLDENT MÅL: næste scoring vinder!',
+  'hudChrome.vcup.bannerKickoff': 'KAMPSTART!',
+  'hudChrome.vcup.bannerLoss': 'Nederlag på Somarken.',
+  'hudChrome.vcup.bannerSave': '{name} REDDER!',
+  'hudChrome.vcup.bannerWin': 'Sejr på Somarken!',
+  'hudChrome.vcup.bet.aria': 'Væddemål på Dalpokal-kamp',
+  'hudChrome.vcup.bet.back': 'Hold på {team}',
+  'hudChrome.vcup.bet.closed': 'Væddemål lukket',
+  'hudChrome.vcup.bet.closesIn': 'Væddemål lukker om {seconds}s',
+  'hudChrome.vcup.bet.collapse': 'Skjul væddemål',
+  'hudChrome.vcup.bet.expand': 'Se væddemål og sats',
+  'hudChrome.vcup.bet.form': '{wins}S-{losses}N',
+  'hudChrome.vcup.bet.lostLog': 'Dit Dalpokal-væddemål tabte: {amount}.',
+  'hudChrome.vcup.bet.mine': 'Dit væddemål: {amount} på {team}',
+  'hudChrome.vcup.bet.none': 'Du har endnu ikke væddet på denne kamp.',
+  'hudChrome.vcup.bet.oddsLabel': 'Udbetaler',
+  'hudChrome.vcup.bet.prize': 'Pulje {amount}',
+  'hudChrome.vcup.bet.record': 'Væddestatistik: {wins}S-{losses}N, {sign}{net}',
+  'hudChrome.vcup.bet.refundLog': 'Væddemål annulleret, din indsats på {amount} blev returneret.',
+  'hudChrome.vcup.bet.splitAria': 'Andel af væddepuljen på hvert hold',
+  'hudChrome.vcup.bet.title': 'Kampvæddemål',
+  'hudChrome.vcup.bet.wonBanner': 'Dit væddemål vandt!',
+  'hudChrome.vcup.bet.wonLog': 'Dit Dalpokal-væddemål vandt: {amount} retur.',
+  'hudChrome.vcup.blockNation': 'Vælg en bannernation først.',
+  'hudChrome.vcup.blockNotLeader': 'Kun gruppelederen kan sætte holdet i kø.',
+  'hudChrome.vcup.blockPartySize': 'Den række kræver en mindre gruppe.',
+  'hudChrome.vcup.boardEmpty': 'Ingen vindere noteret endnu. Kobberspanden venter.',
+  'hudChrome.vcup.boardHeading': 'Vindertavlen',
+  'hudChrome.vcup.boardWins': '{count} sejre',
+  'hudChrome.vcup.bracketLabel': '{n} mod {n}',
+  'hudChrome.vcup.bracketsAria': 'Kamprække',
+  'hudChrome.vcup.briefing.bot': 'Bot',
+  'hudChrome.vcup.briefing.kitHeading': 'Dit sæt',
+  'hudChrome.vcup.briefing.kitNote': 'Disse træk erstatter dine klasseevner under kampen.',
+  'hudChrome.vcup.briefing.ready': 'Jeg er klar',
+  'hudChrome.vcup.briefing.readyAria': 'Meld dig klar til kampstart',
+  'hudChrome.vcup.briefing.readyCount': '{ready} af {total} klar',
+  'hudChrome.vcup.briefing.readyDone': 'Klar',
+  'hudChrome.vcup.briefing.rosterHeading': 'Holdkortet',
+  'hudChrome.vcup.briefing.rule1': 'Spark eller aflever bolden i modstandernes mål for at score.',
+  'hudChrome.vcup.briefing.rule2': 'Først til 5 mål vinder, eller flest mål når der fløjtes af.',
+  'hudChrome.vcup.briefing.rule3':
+    'Står det lige ved fuld tid, går kampen til gyldent mål: næste scoring vinder.',
+  'hudChrome.vcup.briefing.rule4':
+    'Tacklinger vælter dig kun omkuld. Ingen kommer til skade under høstfreden.',
+  'hudChrome.vcup.briefing.rule5': 'Enhver kan gå hen og heppe på dig fra tribunerne.',
+  'hudChrome.vcup.briefing.rulesHeading': 'Sådan spiller du',
+  'hudChrome.vcup.briefing.subtitle': 'Briefing før kampen',
+  'hudChrome.vcup.briefing.vs': 'mod',
+  'hudChrome.vcup.briefing.waiting': 'Venter på, at den anden side melder klar...',
+  'hudChrome.vcup.briefing.whistle': 'Fløjten lyder om {seconds}s.',
+  'hudChrome.vcup.briefing.you': 'Dig',
+  'hudChrome.vcup.clock': '{minutes}:{seconds}',
+  'hudChrome.vcup.close': 'Luk Dalpokal-vinduet',
+  'hudChrome.vcup.deserterNote':
+    'Banemesteren husker det. Du kan stille dig i kø igen om {seconds} sek.',
+  'hudChrome.vcup.enterAsGuild': 'Stil op under {guild}s banner',
+  'hudChrome.vcup.gossipOpen': 'Kampbogen',
+  'hudChrome.vcup.gossipOpenAria': 'Åbn Dalpokal-vinduet',
+  'hudChrome.vcup.guildBoardEmpty': 'Intet laug har endnu været på banen. Hejs jeres banner!',
+  'hudChrome.vcup.guildBoardHeading': 'Laugsbannere',
+  'hudChrome.vcup.guildBoardWl': '{wins} S, {losses} N',
+  'hudChrome.vcup.guildRecordLine': 'Dit laugs statistik: {wins} sejre, {losses} nederlag.',
+  'hudChrome.vcup.inMatchNote': 'Dit hold er på banen. Spil videre!',
+  'hudChrome.vcup.indicatorLive': 'Dalpokalen',
+  'hudChrome.vcup.indicatorOpen': 'Åbn Dalpokal-vinduet',
+  'hudChrome.vcup.indicatorQueued': 'Dalpokal-kø: {bracket}, plads {position} af {count}',
+  'hudChrome.vcup.leaveQueue': 'Forlad køen',
+  'hudChrome.vcup.liveAria': 'Dalpokalen: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.liveHeading': 'Lige nu på Somarken',
+  'hudChrome.vcup.logDraw': 'Dysten på Somarken ender uafgjort.',
+  'hudChrome.vcup.logFound': 'Din Dalpokal-kamp er klar: {nationA} mod {nationB}.',
+  'hudChrome.vcup.logGoal': '{name} scorer for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
+  'hudChrome.vcup.logLoss': 'Du taber dysten på Somarken.',
+  'hudChrome.vcup.logQueued': 'Du stiller dig i Dalpokal-køen til {bracket} (plads {position}).',
+  'hudChrome.vcup.logRoster': 'Din side: {allies}. Deres side: {enemies}.',
+  'hudChrome.vcup.logSave': '{name} redder!',
+  'hudChrome.vcup.logUnqueued': 'Du forlader Dalpokal-køen.',
+  'hudChrome.vcup.logWin': 'Du vinder dysten på Somarken.',
+  'hudChrome.vcup.mobileLabel': 'Pokal',
+  'hudChrome.vcup.nation.choir': 'Det Blege Kor',
+  'hudChrome.vcup.nation.coliseum': 'Askekolosseet',
+  'hudChrome.vcup.nation.copperdig': 'Kobbergraven',
+  'hudChrome.vcup.nation.mirefen': 'Mosekæret',
+  'hudChrome.vcup.nation.moon': 'Den Blege Måne',
+  'hudChrome.vcup.nation.ogre': 'Ogreklanerne',
+  'hudChrome.vcup.nation.thornpeak': 'Tornetop',
+  'hudChrome.vcup.nation.vale': 'Østbæk Dal',
+  'hudChrome.vcup.nationsHeading': 'Bannernation',
+  'hudChrome.vcup.noLive': 'Banen er stille. Der spilles ingen kamp.',
+  'hudChrome.vcup.offlineNote': 'Kampbogen er lukket. Dalpokalen er ikke tilgængelig lige nu.',
+  'hudChrome.vcup.phaseCountdown': 'Kampstart om {seconds}',
+  'hudChrome.vcup.phaseGoal': 'MÅL!',
+  'hudChrome.vcup.phaseGolden': 'GYLDENT MÅL',
+  'hudChrome.vcup.phaseOver': 'FULD TID',
+  'hudChrome.vcup.practice': 'Træning mod bots',
+  'hudChrome.vcup.practiceNote': 'Starter straks en privat botkamp på din egen træningsbane.',
+  'hudChrome.vcup.practicingNow': 'Træner lige nu ({count}):',
+  'hudChrome.vcup.queue': 'Stil dig i kø',
+  'hudChrome.vcup.queueNote': 'Stil dig i kø hvor som helst; fløjten kalder dig til Somarken.',
+  'hudChrome.vcup.queuedStatus': 'I kø til {bracket}: plads {position} af {count}.',
+  'hudChrome.vcup.recordLine': 'Din statistik: {wins} sejre, {losses} nederlag, {draws} uafgjorte.',
+  'hudChrome.vcup.role.allrounder.desc':
+    'Lidt af det hele: spark, kæmpespark og et fair skulderpuf.',
+  'hudChrome.vcup.role.allrounder.name': 'Allrounder',
+  'hudChrome.vcup.role.keeper.desc': 'Vogter målfeltet med greb, dyk og udspark.',
+  'hudChrome.vcup.role.keeper.name': 'Målmand',
+  'hudChrome.vcup.role.striker.desc': 'Lever for det lange spark og det hurtige sidespring.',
+  'hudChrome.vcup.role.striker.name': 'Angriber',
+  'hudChrome.vcup.role.sweeper.desc':
+    'Puffer løbere væk fra bolden og rydder den langt op ad banen.',
+  'hudChrome.vcup.role.sweeper.name': 'Libero',
+  'hudChrome.vcup.rolesHeading': 'Sportsrolle',
+  'hudChrome.vcup.shootPower': 'KRAFT',
+  'hudChrome.vcup.title': 'Dalpokalen',
+  'hudChrome.vcup.waitingCount': '{count} venter',
+  'hudChrome.vcup.walkUp': 'Gå hen til Somarken for at se med fra tribunerne.',
   'hudChrome.archetypeTitle.label': 'Titel',
   'hudChrome.archetypeTitle.none': 'Ingen',
   'hudChrome.archetypeTitle.armorcrafting': 'Rustningssmed',
@@ -1890,6 +2139,12 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Gammeltræsøkse',
   'entities.items.goldleaf_sickle.name': 'Guldbladssegl',
   'entities.items.sunpetal_sickle.name': 'Solkronbladssegl',
+  'entities.items.thorium_ore.name': 'Thoriummalm',
+  'entities.items.arcanite_bar.name': 'Arkanitbarre',
+  'entities.items.ashwood_log.name': 'Askeved Stamme',
+  'entities.items.elderwood_log.name': 'Gammel Hyldeved Stamme',
+  'entities.items.goldleaf_herb.name': 'Guldbladurt',
+  'entities.items.sunpetal_herb.name': 'Solkroneurt',
   'entities.items.moongate_rubbing.name': 'Værneaftryk',
   'entities.items.moonpale_scale.name': 'Måneblegt Skæl',
   'entities.items.moonscale_saber.name': 'Måneskæl-Sabel',
@@ -4813,6 +5068,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.programs': 'Shaders',
   'hudChrome.perf.labels.renderScale': 'Renderingsskala',
   'hudChrome.perf.labels.snapshot': 'Snapshothastighed',
+  'hudChrome.perf.labels.serverTick': 'Servertickhastighed',
   'hudChrome.perf.labels.textures': 'Teksturer',
   'hudChrome.perf.labels.triangles': 'Trekanter',
   'hudChrome.perf.opacity': 'Baggrundsgennemsigtighed',
@@ -5644,7 +5900,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'worldContent.dungeonInstanceBusy': 'Alle instanser af {name} er optaget. Prøv igen snart.',
   'worldContent.dungeonPartyWarning':
     '{name} er beregnet til en fuld gruppe på {count}. Træd varsomt.',
-  // Aura effect tooltip summaries.
   'hudChrome.auraEffect.dot': 'Giver {value} {school}-skade hvert {interval}. sek',
   'hudChrome.auraEffect.hot': 'Gendanner {value} helbred hvert {interval}. sek',
   'hudChrome.auraEffect.absorb': 'Absorberer {value} skade',
@@ -5956,7 +6211,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Opdater',
   'errors.api.desktopCodeInvalid':
     'Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.',
-  // Ravenpost authored letters
   'entities.letters.ravenpost_welcome.sender': 'Ravneposten',
   'entities.letters.ravenpost_welcome.subject': 'Ravnene flyver nu for dig',
   'entities.letters.ravenpost_welcome.body':
@@ -6044,7 +6298,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'apiError.two_factor.not_enabled': 'To-faktor er ikke aktiveret.',
   'apiError.two_factor.setup_required': 'Start opsætning af to-faktor først.',
   'apiError.validation.failed': 'Nogle felter er ugyldige. Tjek formularen og prøv igen.',
-  // Release v0.22.0 locale fill.
   'download.linuxCta': 'Download til Linux',
   'download.linuxHint':
     'AppImage: gør det eksekverbart, og kør det derefter. Ingen installation nødvendig.',
@@ -6153,7 +6406,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mobile.targetCycleShort': 'Mål',
   'hudChrome.options.mobileCameraJoystick': 'Kamera joystick',
   'hudChrome.options.mobileLeftHanded': 'Venstrehånds layout',
-  // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Et håndværk at kalde dit eget',
   'entities.quests.q_archetype_acceptance.text':
     'Hver eneste håndværker fra Eastbrook sætter sig til sidst over på et håndværk, som de kalder deres eget. Bevis dig selv med en enkelt gerning, {playerName}, og erklær din vej.',
@@ -6165,32 +6417,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_prof_make_amends.completion':
     'Foretagne ændringer; en ny vej er åben for dig.',
   'entities.quests.q_prof_make_amends.objectives.0.label': 'Skovulv dræbt',
-  'entities.abilities.sport_boot.description':
-    'Et langt, højt spark mod sigtepunktet. Publikum elsker det.',
-  'entities.abilities.sport_boot.name': 'Langspark',
-  'entities.abilities.sport_dive.description':
-    'Kast dig mod sigtepunktet. En bold på tværs klæber til dig.',
-  'entities.abilities.sport_dive.name': 'Dyk',
-  'entities.abilities.sport_feint.description': 'Et hurtigt ryk til siden mod sigtepunktet.',
-  'entities.abilities.sport_feint.name': 'Finte',
-  'entities.abilities.sport_hoof.description': 'Bank bolden lavt og hårdt op ad banen.',
-  'entities.abilities.sport_hoof.name': 'Hammerspark',
-  'entities.abilities.sport_kick.description': 'Spark bolden langs jorden mod sigtepunktet.',
-  'entities.abilities.sport_kick.name': 'Spark',
-  'entities.abilities.sport_pass.description':
-    'Spil en fast aflevering til din udpegede medspiller, lagt foran løbet.',
-  'entities.abilities.sport_pass.name': 'Aflevering',
-  'entities.abilities.sport_punt.description': 'Et målmandsudspark, højt og langt.',
-  'entities.abilities.sport_punt.name': 'Langt Udspark',
-  'entities.abilities.sport_second_wind.description':
-    'Find benene: bevæg dig 50% hurtigere i 4 sek.',
-  'entities.abilities.sport_second_wind.name': 'Friske Ben',
-  'entities.abilities.sport_shoot.description':
-    'Hold knappen inde for at lade op, og slip for at skyde på mål. For meget kraft sender bolden over.',
-  'entities.abilities.sport_shoot.name': 'Skud',
-  'entities.abilities.sport_shoulder.description':
-    'Et fair skulderskub under høstfreden. Sender dem tumlende væk fra bolden.',
-  'entities.abilities.sport_shoulder.name': 'Skulderskub',
   'entities.npcs.bursar_aldous_crane.greeting':
     'Hver kasse, hvert skrin og hvert smykke er i sikkerhed hos Det Forgyldte Pengeskrin.',
   'entities.npcs.bursar_aldous_crane.name': 'Skatmester Aldous Crane',
@@ -6203,11 +6429,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Det Forgyldte Pengeskrin fører rene regnskaber og endnu renere hvælv. Hvad skal vi opbevare for dig?',
   'entities.npcs.bursar_petra_vell.name': 'Skatmester Petra Vell',
   'entities.npcs.bursar_petra_vell.title': 'Det Forgyldte Pengeskrin',
-  'entities.npcs.groundskeeper_bram.greeting':
-    'Freden holder på Somarken, {className}: kun spark og skulderskub. Har du lyst til at spille om Kobberspanden?',
-  'entities.npcs.groundskeeper_bram.name': 'Banemester Bram',
-  'entities.npcs.groundskeeper_bram.title': 'Somarkens Vogter',
-  'entities.zones.eastbrook_vale.pois.10.label': 'Somarken',
   'guide.economy.bankBody':
     'Hver hjemmebase har en filial af Det Forgyldte Pengeskrin, rigets bankhus. Tal med skatmesteren der for at åbne din boks, en privat opbevaringsplads ud over dine tasker, som din karakter beholder livet ud. Hvad end du efterlader hos dem, venter i sikkerhed, uanset hvilken filial du besøger næste gang.',
   'guide.economy.bankHow':
@@ -6215,89 +6436,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'guide.economy.bankSlots':
     'En ny boks starter i det små og vokser med dig. Skatmesteren sælger flere pladser for mønter til stadigt stejlere priser, og at spille online giver bonusplads oveni, for ting som en bekræftet e-mail, forbundne konti og venner, du bringer ind i spillet.',
   'guide.economy.bankTitle': 'Banken',
-  'guide.nav.professions': 'Professioner',
-  'guide.nav.valeCup': 'Dalpokalen',
-  'guide.professions.archetypeChooseBody':
-    'Du erklærer din første arketype gennem et tidligt historieopdrag i zone ét, som formelt optager dig i den identitet. Før du har fuldført det opdrag, har du slet ikke valgt en arketype endnu.',
-  'guide.professions.archetypeChooseTitle': 'At vælge din arketype',
-  'guide.professions.archetypeIdentityBody':
-    'Din aktive arketype er et udsagn om, hvem din karakter er i verden, og den anerkendes i den måde, andre og verden tiltaler dig på. De nøjagtige belønninger og den anerkendelse, der følger med, er stadig ved at blive lagt fast; kig forbi igen, efterhånden som systemet fyldes ud.',
-  'guide.professions.archetypeIdentityTitle': 'Hvad din arketype betyder',
-  'guide.professions.archetypeIntro':
-    'Hvert af de ti håndværk står også for en arketype, en bredere identitet du kan tage på dig ud over blot at arbejde i faget. Din aktive arketype er ét valg ad gangen, ikke en tjekliste: du bærer én og kan senere skifte til en anden, hvis du vælger det.',
-  'guide.professions.archetypeSwitchBody':
-    'Har du én gang erklæret en arketype, er du ikke låst til den for evigt. At skifte til en anden arketype kræver, at du først fuldfører et gentageligt "gør det godt igen"-opdrag for din gamle, og hver gang du skifter, vokser den bod, der forventes af dig næste gang, en smule, så et skifte forbliver betydningsfuldt frem for omkostningsfrit.',
-  'guide.professions.archetypeSwitchTitle': 'At skifte mening',
-  'guide.professions.archetypeTitle': 'De ti arketyper',
-  'guide.professions.craftComboBody':
-    'Ud over det enkelte håndværks egen opskriftsliste understøtter hjulet også kombinationsopskrifter, der trækker på to nabohåndværk på én gang og belønner en karakter (eller et par handelspartnere), der har investeret i tilstødende fag på ringen frem for ét i isolation.',
-  'guide.professions.craftComboTitle': 'Kombinationsopskrifter',
-  'guide.professions.craftIntro':
-    'Ti håndværksfag forvandler indsamlede materialer til færdigt udstyr og varer: Rustningssmedning, Våbensmedning og Juvelering former råstof til udstyr, du kan bære; Alkymi og Ingeniørkunst drives af forsøg og fejl; Madlavning, Skriverkunst og Fortryllelse rører hver især ved andre håndværks frembringelser; Skrædderi og Garveri arbejder efter nøjagtige mønstre. Tilsammen danner de et hjul, hvor hvert håndværk sidder ved siden af to naboer og over for ét andet.',
-  'guide.professions.craftMasteryBody':
-    'Vellykket håndværk opbygger færdighed i det fag, og rigere opskrifter ligger gemt bag højere færdighed: de grundlæggende opskrifter er åbne for alle, mens gradvist mere avancerede kræver gradvist mere mesterskab at give sig i kast med. At øge din færdighed i et håndværk er vejen fra simple begyndervarer til dets mere ambitiøse opskrifter.',
-  'guide.professions.craftMasteryTitle': 'Færdighed og mesterskab',
-  'guide.professions.craftRecipesBody':
-    'Hvert håndværk har sine egne opskrifter, som hver kræver bestemte reagenser, du samler eller køber. De mest grundlæggende opskrifter i hvert håndværk kræver ikke andet end almindelige materialer og kan laves fra allerførste færd, så du kan begynde at arbejde i et fag i samme øjeblik, du tager det op, i stedet for at vente på at låse det op.',
-  'guide.professions.craftRecipesTitle': 'Opskrifter og reagenser',
-  'guide.professions.craftRingBody':
-    'De ti håndværk ligger i en fast ring, og hvor et håndværk sidder på ringen, betyder noget: håndværk, der ligger ved siden af hinanden på hjulet, har mere til fælles end håndværk på hver sin modsatte side. At binde sig til ét håndværk skal føles som at træde ind i en familie af beslægtede fag, ikke som at vælge en isoleret færdighed.',
-  'guide.professions.craftRingTitle': 'Et hjul af specialer',
-  'guide.professions.craftTitle': 'De ti håndværk',
-  'guide.professions.gatherIntro':
-    'Tre indsamlingsfag lader dig hente råmaterialer direkte ud af verden: Minedrift bryder malm og sten ud af årer, Skovhugst fælder tømmer i trægrupper, og Urtekundskab samler urter og planter, der vokser vildt. Hvert fag følges for sig, så arbejde i det ene aldrig sinker dine fremskridt i et andet.',
-  'guide.professions.gatherProficiencyBody':
-    'Hver vellykket høst opbygger din færdighed i det indsamlingsfag. Højere færdighed rykker det, du henter ud af et punkt, mod sjældnere kvaliteter af materiale, fra almindelig og opefter, selvom de sjældneste kvaliteter forbliver sjældne selv med høj færdighed. Mere øvelse skader aldrig dine chancer, den forbedrer dem kun.',
-  'guide.professions.gatherProficiencyTitle': 'Færdighed og materialekvalitet',
-  'guide.professions.gatherTitle': 'Indsamling: Minedrift, Skovhugst og Urtekundskab',
-  'guide.professions.gatherToolsBody':
-    'Handlende sælger simpelt værktøj til hvert indsamlingsfag, og bedre værktøj kan fremstilles, så du gerne skulle føle dig mere formående ved et ressourcepunkt, efterhånden som du udruster dig til det, frem for at stå i stampe. Værktøj af højere klasse er den tiltænkte vej til at låse op for rigere punkter og udnytte dem mere effektivt gennem en lang session.',
-  'guide.professions.gatherToolsTitle': 'Fagets værktøj',
-  'guide.professions.gatherWhatBody':
-    'Malmårer, trægrupper og urtebede står ude i zonerne som synlige steder uden ejer. Gå hen til et og interager med det for at høste, hvad det rummer. Når du har høstet et punkt, skal det bruge tid på at komme sig, før netop du kan høste det igen, men det spærrer aldrig for andre: en anden spiller kan høste selvsamme punkt i mellemtiden.',
-  'guide.professions.gatherWhatTitle': 'Ressourcepunkter',
-  'guide.professions.intro':
-    'Ud over kamp og opdrag belønner verden dig for at arbejde med jorden og essen: du samler råmaterialer, forvandler dem til udstyr ved ti forskellige fags håndværksstationer og finder dig til rette i en identitet som en af de ti arketyper, de fag står for.',
-  'guide.valeCupPage.heading': 'Dalpokalen',
-  'guide.valeCupPage.howHeading': 'Sådan spiller du',
-  'guide.valeCupPage.howMatch':
-    'Ved kampstart byttes dit klassesæt ud med et sportssæt, og det gendannes nøjagtigt bagefter. Spark sigter efter sigtemarkøren på jorden, bolden preller af banderne, og at drible er bare at løbe med bolden. Scor flere mål end den anden side inden fuld tid; uafgjort går til golden goal.',
-  'guide.valeCupPage.howQueue':
-    'Gå i kø hvor som helst fra gennem Dalpokal-vinduet, eller tal med Banemester Bram ved porten til Somarken. Vælg en række fra én mod én op til fem mod fem, en bannernation og en sportsrolle; gå i kø alene, eller tag din gruppe med.',
-  'guide.valeCupPage.howTruce':
-    'Ingen bløder på Somarken: tacklinger vælter kun folk omkuld, intet gør ondt, og kæledyr sidder kampen over.',
-  'guide.valeCupPage.intro':
-    'Vildsvinebold på Somarken: vælg et banner, vælg en rolle, og spark en udstoppet vildsvinehud forbi en målmand for at vinde Kobberspanden. Intet blod, intet bytte, kun brølet fra tribunerne.',
-  'guide.valeCupPage.loreHeading': 'Vildsvinebold og høstfreden',
-  'guide.valeCupPage.loreOldSow':
-    'Længe før de døde vågnede, spillede Østbæks gårdkarle vildsvinebold på stubmarkerne efter høsten: to flokke, én vildsvinehud stoppet med halm og to vognlåger slæbt hen i hver sin ende af fælleden. Den første bold, Den Gamle So, hænger bronzeret over kroens arne.',
-  'guide.valeCupPage.loreTruce':
-    'Da Det Askegrå Colosseum begyndte at sanktionere krigslege, svarede Marskal Redbrook med noget mildere: en stående høstfred på den gamle fælled. Vognlågerne blev til målstolper, fælleden fik mure, tribuner og et navn, Somarken, og præmien var altid den samme bulede mælkespand, som vinderne drak af: Kobberspanden.',
-  'guide.valeCupPage.nationChoir':
-    'Lyseblå og sølv under klokken: uhyggelige, præcise og meget tavse.',
-  'guide.valeCupPage.nationColiseum':
-    'Rød og sort med korslagte sværd: de spiller, som var det stadig en krigsleg.',
-  'guide.valeCupPage.nationCopperdig':
-    'Kobber og brun med hakken: gravere, der aldrig holder op med at løbe.',
-  'guide.valeCupPage.nationMirefen':
-    'Blågrøn og grå under hejren: tålmodige, langbenede, aldrig forjagede.',
-  'guide.valeCupPage.nationMoon': 'Violet og sølv under halvmånen: natspillere, lette på fødderne.',
-  'guide.valeCupPage.nationOgre': 'Orange og umbra bag næven: skulderen først, og stolte af det.',
-  'guide.valeCupPage.nationThornpeak':
-    'Isblå og hvid under bjergtinden: sikre på fødderne og stædige.',
-  'guide.valeCupPage.nationVale':
-    'Grøn og guld under hvedeneget: hjemmeholdet, gårdkarle ind til benet.',
-  'guide.valeCupPage.nationsBody':
-    'Hvert hold spiller under et banner. Anføreren vælger nationen, og fører begge sider det samme banner, spiller udeholdet i den omvendte palet.',
-  'guide.valeCupPage.nationsHeading': 'De otte bannernationer',
-  'guide.valeCupPage.rewardsBody':
-    'Høstfredens regler betyder ingen erfaring og intet bytte: en afgjort kamp tæller med i din statistik og på vindertavlen, og daglige belønningspoint følger med. Forlader du en kamp, sættes din plads på bænken, og Banemesteren glemmer det ikke.',
-  'guide.valeCupPage.rewardsHeading': 'Høstfredens regler',
-  'guide.valeCupPage.rolesBody':
-    'Din rolle afgør det sæt, du bærer med ud på banen. Alle sparker; resten er temperament.',
-  'guide.valeCupPage.rolesHeading': 'Sportsroller',
-  'guide.valeCupPage.spectateBody':
-    'Der spilles én kamp ad gangen på stadion, og alle kan gå derhen og se med fra tribunerne.',
   'hudChrome.bank.bonusAdvertDiscord': 'Forbind din Discord for at optjene 2 pladser.',
   'hudChrome.bank.bonusAdvertEmail': 'Bekræft din e-mail for at optjene 2 pladser.',
   'hudChrome.bank.bonusAdvertWallet': 'Forbind en wallet for at optjene 2 pladser.',
@@ -6341,139 +6479,4 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.bank.withdrawQuantityConfirm': 'Tag ud',
   'hudChrome.bank.withdrawQuantityInput': 'Antal at tage ud',
   'hudChrome.bank.withdrawQuantityTitle': 'Tag {item} ud',
-  'hudChrome.keybinds.valecup': 'Dalpokalen',
-  'hudChrome.mobile.dailyRewards': 'Belønninger',
-  'hudChrome.perf.labels.predLead': 'Forudsigelsesforspring',
-  'hudChrome.townFocus.budgetLabel': 'Point tilbage: {remaining} / {budget}',
-  'hudChrome.townFocus.decreaseAria': 'Sænk fokus på {component}',
-  'hudChrome.townFocus.hint':
-    'Fokuspoint lægger en bonus oven i hver komponents grundudbytte. Komponenter uden fokus bliver på grundniveauet.',
-  'hudChrome.townFocus.increaseAria': 'Øg fokus på {component}',
-  'hudChrome.townFocus.notInTownHint': 'Du skal være i byen for at sætte dit fokus.',
-  'hudChrome.townFocus.saveButton': 'Gem fokus',
-  'hudChrome.townFocus.title': 'Byfokus',
-  'hudChrome.vcup.awayNote':
-    'Fører begge sider det samme banner, spiller udeholdet i den omvendte palet.',
-  'hudChrome.vcup.bannerCountdown': 'Kampstart om {seconds}...',
-  'hudChrome.vcup.bannerDraw': 'Uafgjort på Somarken.',
-  'hudChrome.vcup.bannerEnd': 'Fuld tid: {nationA} {scoreA}, {nationB} {scoreB}',
-  'hudChrome.vcup.bannerFound': 'Dalpokalen kalder: {nationA} mod {nationB}!',
-  'hudChrome.vcup.bannerGoal': 'MÅL! {nation} scorer!',
-  'hudChrome.vcup.bannerGolden': 'GOLDEN GOAL: næste mål vinder!',
-  'hudChrome.vcup.bannerKickoff': 'KAMPSTART!',
-  'hudChrome.vcup.bannerLoss': 'Nederlag på Somarken.',
-  'hudChrome.vcup.bannerSave': '{name} REDDER!',
-  'hudChrome.vcup.bannerWin': 'Sejr på Somarken!',
-  'hudChrome.vcup.bet.aria': 'Væddemål på Dalpokal-kampen',
-  'hudChrome.vcup.bet.back': 'Hold på {team}',
-  'hudChrome.vcup.bet.closed': 'Væddemål lukket',
-  'hudChrome.vcup.bet.closesIn': 'Væddemål lukker om {seconds}s',
-  'hudChrome.vcup.bet.collapse': 'Skjul væddemål',
-  'hudChrome.vcup.bet.expand': 'Se væddemål og sæt en indsats',
-  'hudChrome.vcup.bet.form': '{wins}V-{losses}T',
-  'hudChrome.vcup.bet.lostLog': 'Dit Dalpokal-væddemål tabte: {amount}.',
-  'hudChrome.vcup.bet.mine': 'Din indsats: {amount} på {team}',
-  'hudChrome.vcup.bet.none': 'Du har endnu ikke væddet på denne kamp.',
-  'hudChrome.vcup.bet.oddsLabel': 'Giver',
-  'hudChrome.vcup.bet.prize': 'Pulje {amount}',
-  'hudChrome.vcup.bet.record': 'Væddemålsstatistik: {wins}V-{losses}T, {sign}{net}',
-  'hudChrome.vcup.bet.refundLog':
-    'Væddemålene blev annulleret, din indsats på {amount} er betalt tilbage.',
-  'hudChrome.vcup.bet.splitAria': 'Andel af væddemålspuljen på hvert hold',
-  'hudChrome.vcup.bet.title': 'Kampvæddemål',
-  'hudChrome.vcup.bet.wonBanner': 'Dit væddemål vandt!',
-  'hudChrome.vcup.bet.wonLog': 'Dit Dalpokal-væddemål vandt: {amount} udbetalt.',
-  'hudChrome.vcup.blockNation': 'Vælg først en bannernation.',
-  'hudChrome.vcup.blockNotLeader': 'Kun gruppelederen kan sætte holdet i kø.',
-  'hudChrome.vcup.blockPartySize': 'Den række kræver en mindre gruppe.',
-  'hudChrome.vcup.boardEmpty': 'Ingen vindere skrevet op endnu. Kobberspanden venter.',
-  'hudChrome.vcup.boardHeading': 'Vindertavlen',
-  'hudChrome.vcup.boardWins': '{count} sejre',
-  'hudChrome.vcup.bracketLabel': '{n} mod {n}',
-  'hudChrome.vcup.bracketsAria': 'Kamprække',
-  'hudChrome.vcup.briefing.bot': 'Bot',
-  'hudChrome.vcup.briefing.kitHeading': 'Dit sæt',
-  'hudChrome.vcup.briefing.kitNote': 'Disse træk erstatter dine klasseevner under kampen.',
-  'hudChrome.vcup.briefing.ready': 'Jeg er klar',
-  'hudChrome.vcup.briefing.readyAria': 'Meld dig klar til kampstart',
-  'hudChrome.vcup.briefing.readyCount': '{ready} af {total} klar',
-  'hudChrome.vcup.briefing.readyDone': 'Klar',
-  'hudChrome.vcup.briefing.rosterHeading': 'Holdkortet',
-  'hudChrome.vcup.briefing.rule1': 'Spark eller aflever bolden i modstandernes mål for at score.',
-  'hudChrome.vcup.briefing.rule2': 'Først til 5 mål vinder, eller flest mål når der fløjtes af.',
-  'hudChrome.vcup.briefing.rule3':
-    'Står det lige ved fuld tid, går kampen til golden goal: næste mål vinder.',
-  'hudChrome.vcup.briefing.rule4':
-    'Tacklinger vælter dig kun omkuld. Ingen kommer til skade under høstfreden.',
-  'hudChrome.vcup.briefing.rule5': 'Alle kan komme forbi og heppe på dig fra tribunerne.',
-  'hudChrome.vcup.briefing.rulesHeading': 'Sådan spiller du',
-  'hudChrome.vcup.briefing.subtitle': 'Optakt til kampen',
-  'hudChrome.vcup.briefing.vs': 'mod',
-  'hudChrome.vcup.briefing.waiting': 'Venter på at den anden side melder klar...',
-  'hudChrome.vcup.briefing.whistle': 'Fløjten lyder om {seconds}s.',
-  'hudChrome.vcup.briefing.you': 'Dig',
-  'hudChrome.vcup.clock': '{minutes}:{seconds}',
-  'hudChrome.vcup.close': 'Luk Dalpokal-vinduet',
-  'hudChrome.vcup.deserterNote':
-    'Banemesteren glemmer det ikke. Du kan gå i kø igen om {seconds} sek.',
-  'hudChrome.vcup.enterAsGuild': 'Stil op under banneret for {guild}',
-  'hudChrome.vcup.gossipOpen': 'Kampbogen',
-  'hudChrome.vcup.gossipOpenAria': 'Åbn Dalpokal-vinduet',
-  'hudChrome.vcup.guildBoardEmpty': 'Intet laug har endnu taget banen. Hejs jeres banner!',
-  'hudChrome.vcup.guildBoardHeading': 'Laugsbannere',
-  'hudChrome.vcup.guildBoardWl': '{wins} V, {losses} T',
-  'hudChrome.vcup.guildRecordLine': 'Dit laugs statistik: {wins} sejre, {losses} nederlag.',
-  'hudChrome.vcup.inMatchNote': 'Dit hold er på banen. Spil videre!',
-  'hudChrome.vcup.indicatorLive': 'Dalpokalen',
-  'hudChrome.vcup.indicatorOpen': 'Åbn Dalpokal-vinduet',
-  'hudChrome.vcup.indicatorQueued': 'Dalpokal-kø: {bracket}, plads {position} af {count}',
-  'hudChrome.vcup.leaveQueue': 'Forlad køen',
-  'hudChrome.vcup.liveAria': 'Dalpokalen: {nationA} {scoreA}, {nationB} {scoreB}',
-  'hudChrome.vcup.liveHeading': 'Nu på Somarken',
-  'hudChrome.vcup.logDraw': 'Dysten på Somarken ender uafgjort.',
-  'hudChrome.vcup.logFound': 'Din Dalpokal-kamp er klar: {nationA} mod {nationB}.',
-  'hudChrome.vcup.logGoal': '{name} scorer for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
-  'hudChrome.vcup.logLoss': 'Du taber dysten på Somarken.',
-  'hudChrome.vcup.logQueued': 'Du går i Dalpokal-køen til {bracket} (plads {position}).',
-  'hudChrome.vcup.logRoster': 'Din side: {allies}. Deres side: {enemies}.',
-  'hudChrome.vcup.logSave': '{name} redder den!',
-  'hudChrome.vcup.logUnqueued': 'Du forlader Dalpokal-køen.',
-  'hudChrome.vcup.logWin': 'Du vinder dysten på Somarken.',
-  'hudChrome.vcup.mobileLabel': 'Pokal',
-  'hudChrome.vcup.nation.choir': 'Det Blege Kor',
-  'hudChrome.vcup.nation.coliseum': 'Det Askegrå Colosseum',
-  'hudChrome.vcup.nation.copperdig': 'Kobbergraven',
-  'hudChrome.vcup.nation.mirefen': 'Mosekæret',
-  'hudChrome.vcup.nation.moon': 'Den Blege Måne',
-  'hudChrome.vcup.nation.ogre': 'Ogre-klanerne',
-  'hudChrome.vcup.nation.thornpeak': 'Tornetop',
-  'hudChrome.vcup.nation.vale': 'Østbæk Dal',
-  'hudChrome.vcup.nationsHeading': 'Bannernation',
-  'hudChrome.vcup.noLive': 'Banen ligger stille. Der spilles ingen kamp.',
-  'hudChrome.vcup.offlineNote': 'Kampbogen er lukket. Dalpokalen er ikke tilgængelig lige nu.',
-  'hudChrome.vcup.phaseCountdown': 'Kampstart om {seconds}',
-  'hudChrome.vcup.phaseGoal': 'MÅL!',
-  'hudChrome.vcup.phaseGolden': 'GOLDEN GOAL',
-  'hudChrome.vcup.phaseOver': 'FULD TID',
-  'hudChrome.vcup.practice': 'Træning mod bots',
-  'hudChrome.vcup.practiceNote': 'Starter straks en privat kamp mod bots på din egen træningsbane.',
-  'hudChrome.vcup.practicingNow': 'Træner lige nu ({count}):',
-  'hudChrome.vcup.queue': 'Gå i kø',
-  'hudChrome.vcup.queueNote': 'Gå i kø hvor som helst fra; fløjten kalder dig til Somarken.',
-  'hudChrome.vcup.queuedStatus': 'I kø til {bracket}: plads {position} af {count}.',
-  'hudChrome.vcup.recordLine': 'Din statistik: {wins} sejre, {losses} nederlag, {draws} uafgjorte.',
-  'hudChrome.vcup.role.allrounder.desc':
-    'Lidt af det hele: spark, langspark og et fair skulderskub.',
-  'hudChrome.vcup.role.allrounder.name': 'Allrounder',
-  'hudChrome.vcup.role.keeper.desc': 'Vogter målfeltet med greb, dyk og udspark.',
-  'hudChrome.vcup.role.keeper.name': 'Målmand',
-  'hudChrome.vcup.role.striker.desc': 'Lever for det lange spark og den hurtige finte.',
-  'hudChrome.vcup.role.striker.name': 'Angriber',
-  'hudChrome.vcup.role.sweeper.desc': 'Skubber løbere af bolden og banker den væk.',
-  'hudChrome.vcup.role.sweeper.name': 'Stopper',
-  'hudChrome.vcup.rolesHeading': 'Sportsrolle',
-  'hudChrome.vcup.shootPower': 'KRAFT',
-  'hudChrome.vcup.title': 'Dalpokalen',
-  'hudChrome.vcup.waitingCount': '{count} venter',
-  'hudChrome.vcup.walkUp': 'Gå hen til Somarken for at se med fra tribunerne.',
 };

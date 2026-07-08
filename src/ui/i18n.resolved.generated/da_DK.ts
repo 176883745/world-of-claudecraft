@@ -410,9 +410,9 @@ export const da_DK: EnTranslations = {
         "vale": "Østbæk Dal",
         "mirefen": "Mosekæret",
         "thornpeak": "Tornetop",
-        "coliseum": "Det Askegrå Colosseum",
+        "coliseum": "Askekolosseet",
         "choir": "Det Blege Kor",
-        "ogre": "Ogre-klanerne",
+        "ogre": "Ogreklanerne",
         "moon": "Den Blege Måne",
         "copperdig": "Kobbergraven"
       },
@@ -421,44 +421,44 @@ export const da_DK: EnTranslations = {
       "role": {
         "allrounder": {
           "name": "Allrounder",
-          "desc": "Lidt af det hele: spark, langspark og et fair skulderskub."
+          "desc": "Lidt af det hele: spark, kæmpespark og et fair skulderpuf."
         },
         "striker": {
           "name": "Angriber",
-          "desc": "Lever for det lange spark og den hurtige finte."
+          "desc": "Lever for det lange spark og det hurtige sidespring."
         },
         "sweeper": {
-          "name": "Stopper",
-          "desc": "Skubber løbere af bolden og banker den væk."
+          "name": "Libero",
+          "desc": "Puffer løbere væk fra bolden og rydder den langt op ad banen."
         },
         "keeper": {
           "name": "Målmand",
           "desc": "Vogter målfeltet med greb, dyk og udspark."
         }
       },
-      "queue": "Gå i kø",
+      "queue": "Stil dig i kø",
       "leaveQueue": "Forlad køen",
-      "queueNote": "Gå i kø hvor som helst fra; fløjten kalder dig til Somarken.",
+      "queueNote": "Stil dig i kø hvor som helst; fløjten kalder dig til Somarken.",
       "queuedStatus": "I kø til {bracket}: plads {position} af {count}.",
-      "blockNation": "Vælg først en bannernation.",
+      "blockNation": "Vælg en bannernation først.",
       "blockPartySize": "Den række kræver en mindre gruppe.",
       "blockNotLeader": "Kun gruppelederen kan sætte holdet i kø.",
       "inMatchNote": "Dit hold er på banen. Spil videre!",
-      "deserterNote": "Banemesteren glemmer det ikke. Du kan gå i kø igen om {seconds} sek.",
-      "liveHeading": "Nu på Somarken",
+      "deserterNote": "Banemesteren husker det. Du kan stille dig i kø igen om {seconds} sek.",
+      "liveHeading": "Lige nu på Somarken",
       "liveAria": "Dalpokalen: {nationA} {scoreA}, {nationB} {scoreB}",
       "walkUp": "Gå hen til Somarken for at se med fra tribunerne.",
-      "noLive": "Banen ligger stille. Der spilles ingen kamp.",
+      "noLive": "Banen er stille. Der spilles ingen kamp.",
       "boardHeading": "Vindertavlen",
-      "boardEmpty": "Ingen vindere skrevet op endnu. Kobberspanden venter.",
+      "boardEmpty": "Ingen vindere noteret endnu. Kobberspanden venter.",
       "boardWins": "{count} sejre",
-      "enterAsGuild": "Stil op under banneret for {guild}",
+      "enterAsGuild": "Stil op under {guild}s banner",
       "guildRecordLine": "Dit laugs statistik: {wins} sejre, {losses} nederlag.",
       "guildBoardHeading": "Laugsbannere",
-      "guildBoardEmpty": "Intet laug har endnu taget banen. Hejs jeres banner!",
-      "guildBoardWl": "{wins} V, {losses} T",
+      "guildBoardEmpty": "Intet laug har endnu været på banen. Hejs jeres banner!",
+      "guildBoardWl": "{wins} S, {losses} N",
       "practice": "Træning mod bots",
-      "practiceNote": "Starter straks en privat kamp mod bots på din egen træningsbane.",
+      "practiceNote": "Starter straks en privat botkamp på din egen træningsbane.",
       "practicingNow": "Træner lige nu ({count}):",
       "clock": "{minutes}:{seconds}",
       "indicatorQueued": "Dalpokal-kø: {bracket}, plads {position} af {count}",
@@ -466,24 +466,24 @@ export const da_DK: EnTranslations = {
       "indicatorOpen": "Åbn Dalpokal-vinduet",
       "phaseCountdown": "Kampstart om {seconds}",
       "phaseGoal": "MÅL!",
-      "phaseGolden": "GOLDEN GOAL",
+      "phaseGolden": "GYLDENT MÅL",
       "phaseOver": "FULD TID",
       "bannerFound": "Dalpokalen kalder: {nationA} mod {nationB}!",
       "bannerCountdown": "Kampstart om {seconds}...",
       "bannerKickoff": "KAMPSTART!",
       "bannerGoal": "MÅL! {nation} scorer!",
       "bannerSave": "{name} REDDER!",
-      "bannerGolden": "GOLDEN GOAL: næste mål vinder!",
+      "bannerGolden": "GYLDENT MÅL: næste scoring vinder!",
       "bannerEnd": "Fuld tid: {nationA} {scoreA}, {nationB} {scoreB}",
       "bannerWin": "Sejr på Somarken!",
       "bannerDraw": "Uafgjort på Somarken.",
       "bannerLoss": "Nederlag på Somarken.",
-      "logQueued": "Du går i Dalpokal-køen til {bracket} (plads {position}).",
+      "logQueued": "Du stiller dig i Dalpokal-køen til {bracket} (plads {position}).",
       "logUnqueued": "Du forlader Dalpokal-køen.",
       "logFound": "Din Dalpokal-kamp er klar: {nationA} mod {nationB}.",
       "logRoster": "Din side: {allies}. Deres side: {enemies}.",
       "logGoal": "{name} scorer for {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
-      "logSave": "{name} redder den!",
+      "logSave": "{name} redder!",
       "logWin": "Du vinder dysten på Somarken.",
       "logDraw": "Dysten på Somarken ender uafgjort.",
       "logLoss": "Du taber dysten på Somarken.",
@@ -491,14 +491,14 @@ export const da_DK: EnTranslations = {
       "gossipOpenAria": "Åbn Dalpokal-vinduet",
       "mobileLabel": "Pokal",
       "briefing": {
-        "subtitle": "Optakt til kampen",
+        "subtitle": "Briefing før kampen",
         "vs": "mod",
         "rulesHeading": "Sådan spiller du",
         "rule1": "Spark eller aflever bolden i modstandernes mål for at score.",
         "rule2": "Først til 5 mål vinder, eller flest mål når der fløjtes af.",
-        "rule3": "Står det lige ved fuld tid, går kampen til golden goal: næste mål vinder.",
+        "rule3": "Står det lige ved fuld tid, går kampen til gyldent mål: næste scoring vinder.",
         "rule4": "Tacklinger vælter dig kun omkuld. Ingen kommer til skade under høstfreden.",
-        "rule5": "Alle kan komme forbi og heppe på dig fra tribunerne.",
+        "rule5": "Enhver kan gå hen og heppe på dig fra tribunerne.",
         "kitHeading": "Dit sæt",
         "kitNote": "Disse træk erstatter dine klasseevner under kampen.",
         "rosterHeading": "Holdkortet",
@@ -507,29 +507,29 @@ export const da_DK: EnTranslations = {
         "ready": "Jeg er klar",
         "readyDone": "Klar",
         "readyAria": "Meld dig klar til kampstart",
-        "waiting": "Venter på at den anden side melder klar...",
+        "waiting": "Venter på, at den anden side melder klar...",
         "whistle": "Fløjten lyder om {seconds}s.",
         "readyCount": "{ready} af {total} klar"
       },
       "bet": {
         "title": "Kampvæddemål",
-        "aria": "Væddemål på Dalpokal-kampen",
+        "aria": "Væddemål på Dalpokal-kamp",
         "closesIn": "Væddemål lukker om {seconds}s",
         "closed": "Væddemål lukket",
         "prize": "Pulje {amount}",
-        "splitAria": "Andel af væddemålspuljen på hvert hold",
-        "expand": "Se væddemål og sæt en indsats",
+        "splitAria": "Andel af væddepuljen på hvert hold",
+        "expand": "Se væddemål og sats",
         "collapse": "Skjul væddemål",
-        "oddsLabel": "Giver",
+        "oddsLabel": "Udbetaler",
         "back": "Hold på {team}",
-        "form": "{wins}V-{losses}T",
-        "mine": "Din indsats: {amount} på {team}",
+        "form": "{wins}S-{losses}N",
+        "mine": "Dit væddemål: {amount} på {team}",
         "none": "Du har endnu ikke væddet på denne kamp.",
-        "record": "Væddemålsstatistik: {wins}V-{losses}T, {sign}{net}",
+        "record": "Væddestatistik: {wins}S-{losses}N, {sign}{net}",
         "wonBanner": "Dit væddemål vandt!",
-        "wonLog": "Dit Dalpokal-væddemål vandt: {amount} udbetalt.",
+        "wonLog": "Dit Dalpokal-væddemål vandt: {amount} retur.",
         "lostLog": "Dit Dalpokal-væddemål tabte: {amount}.",
-        "refundLog": "Væddemålene blev annulleret, din indsats på {amount} er betalt tilbage."
+        "refundLog": "Væddemål annulleret, din indsats på {amount} blev returneret."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const da_DK: EnTranslations = {
         "jitter": "Jitter",
         "predLead": "Forudsigelsesforspring",
         "snapshot": "Snapshothastighed",
+        "serverTick": "Servertickhastighed",
         "connection": "Forbindelse",
         "drawCalls": "Tegnekald",
         "triangles": "Trekanter",
@@ -920,7 +921,7 @@ export const da_DK: EnTranslations = {
     },
     "townFocus": {
       "title": "Byfokus",
-      "hint": "Fokuspoint lægger en bonus oven i hver komponents grundudbytte. Komponenter uden fokus bliver på grundniveauet.",
+      "hint": "Fokuspoint lægger en bonus oven på hver komponents grundudbytte. Ufokuserede komponenter bliver på grundniveauet.",
       "budgetLabel": "Point tilbage: {remaining} / {budget}",
       "saveButton": "Gem fokus",
       "notInTownHint": "Du skal være i byen for at sætte dit fokus.",
@@ -2223,29 +2224,29 @@ export const da_DK: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Dalpokalen",
-      "intro": "Vildsvinebold på Somarken: vælg et banner, vælg en rolle, og spark en udstoppet vildsvinehud forbi en målmand for at vinde Kobberspanden. Intet blod, intet bytte, kun brølet fra tribunerne.",
+      "intro": "Vildsvinebold på Somarken: vælg et banner, vælg en rolle, og spark et udstoppet vildsvineskind forbi en målmand for at vinde Kobberspanden. Intet blod, intet bytte, kun tribunernes brøl.",
       "loreHeading": "Vildsvinebold og høstfreden",
-      "loreOldSow": "Længe før de døde vågnede, spillede Østbæks gårdkarle vildsvinebold på stubmarkerne efter høsten: to flokke, én vildsvinehud stoppet med halm og to vognlåger slæbt hen i hver sin ende af fælleden. Den første bold, Den Gamle So, hænger bronzeret over kroens arne.",
-      "loreTruce": "Da Det Askegrå Colosseum begyndte at sanktionere krigslege, svarede Marskal Redbrook med noget mildere: en stående høstfred på den gamle fælled. Vognlågerne blev til målstolper, fælleden fik mure, tribuner og et navn, Somarken, og præmien var altid den samme bulede mælkespand, som vinderne drak af: Kobberspanden.",
+      "loreOldSow": "Længe før de døde vågnede, spillede Østbæks karle vildsvinebold på stubmarkerne efter høst: to flokke, ét vildsvineskind stoppet med halm og to vognporte slæbt til hver sin ende af grønningen. Den første bold, Den Gamle So, hænger bronzeret over kroens ildsted.",
+      "loreTruce": "Da Askekolosseet begyndte at godkende krigslege, svarede Marskal Redbrook med noget mildere: en stående høstfred på den gamle grønning. Vognportene blev til målstolper, grønningen fik mure, tribuner og et navn, Somarken, og præmien var altid den samme bulede mælkespand, som vinderne drak af: Kobberspanden.",
       "howHeading": "Sådan spiller du",
-      "howQueue": "Gå i kø hvor som helst fra gennem Dalpokal-vinduet, eller tal med Banemester Bram ved porten til Somarken. Vælg en række fra én mod én op til fem mod fem, en bannernation og en sportsrolle; gå i kø alene, eller tag din gruppe med.",
-      "howMatch": "Ved kampstart byttes dit klassesæt ud med et sportssæt, og det gendannes nøjagtigt bagefter. Spark sigter efter sigtemarkøren på jorden, bolden preller af banderne, og at drible er bare at løbe med bolden. Scor flere mål end den anden side inden fuld tid; uafgjort går til golden goal.",
-      "howTruce": "Ingen bløder på Somarken: tacklinger vælter kun folk omkuld, intet gør ondt, og kæledyr sidder kampen over.",
-      "spectateBody": "Der spilles én kamp ad gangen på stadion, og alle kan gå derhen og se med fra tribunerne.",
+      "howQueue": "Stil dig i kø hvor som helst gennem Dalpokal-vinduet, eller tal med Banemester Bram ved Somarkens port. Vælg en række fra en mod en op til fem mod fem, en bannernation og en sportsrolle; stil op alene, eller tag din gruppe med.",
+      "howMatch": "Ved kampstart byttes dit klassesæt ud med et sportssæt og gendannes nøjagtigt bagefter. Spark sigter mod jordsigtet, bolden preller af på banderne, og driblinger er bare at løbe med bolden. Scor flere mål end den anden side inden fuld tid; uafgjort går til gyldent mål.",
+      "howTruce": "Ingen bløder på Somarken: tacklinger ender i kolbøtter, intet gør ondt, og kæledyr sidder kampen over.",
+      "spectateBody": "Én kamp spilles ad gangen på stadion, og enhver kan gå hen og se med fra tribunerne.",
       "nationsHeading": "De otte bannernationer",
-      "nationsBody": "Hvert hold spiller under et banner. Anføreren vælger nationen, og fører begge sider det samme banner, spiller udeholdet i den omvendte palet.",
-      "nationVale": "Grøn og guld under hvedeneget: hjemmeholdet, gårdkarle ind til benet.",
+      "nationsBody": "Hvert hold spiller under et banner. Anføreren vælger nationen, og fører begge sider det samme, spiller udeholdet i den omvendte palet.",
+      "nationVale": "Grøn og guld under hvedeneget: hjemmeholdet, bondekarle ind til benet.",
       "nationMirefen": "Blågrøn og grå under hejren: tålmodige, langbenede, aldrig forjagede.",
       "nationThornpeak": "Isblå og hvid under bjergtinden: sikre på fødderne og stædige.",
       "nationColiseum": "Rød og sort med korslagte sværd: de spiller, som var det stadig en krigsleg.",
-      "nationChoir": "Lyseblå og sølv under klokken: uhyggelige, præcise og meget tavse.",
+      "nationChoir": "Lyseblå og sølv under klokken: uhyggelige, præcise og meget stille.",
       "nationOgre": "Orange og umbra bag næven: skulderen først, og stolte af det.",
       "nationMoon": "Violet og sølv under halvmånen: natspillere, lette på fødderne.",
       "nationCopperdig": "Kobber og brun med hakken: gravere, der aldrig holder op med at løbe.",
       "rolesHeading": "Sportsroller",
-      "rolesBody": "Din rolle afgør det sæt, du bærer med ud på banen. Alle sparker; resten er temperament.",
-      "rewardsHeading": "Høstfredens regler",
-      "rewardsBody": "Høstfredens regler betyder ingen erfaring og intet bytte: en afgjort kamp tæller med i din statistik og på vindertavlen, og daglige belønningspoint følger med. Forlader du en kamp, sættes din plads på bænken, og Banemesteren glemmer det ikke."
+      "rolesBody": "Din rolle afgør det sæt, du bærer med ind på banen. Alle sparker; resten er temperament.",
+      "rewardsHeading": "Fredens regler",
+      "rewardsBody": "Fredens regler betyder ingen erfaring og intet bytte: en afgjort kamp tæller med i din statistik og på vindertavlen, og der følger daglige belønningspoint med. Deserterer du en kamp, sættes din plads på bænken, og Banemesteren husker det."
     },
     "wishPage": {
       "heading": "Ting jeg ville ønske jeg vidste",
@@ -2332,33 +2333,33 @@ export const da_DK: EnTranslations = {
       "cosmeticsApply": "Vælg dit aktive udseende fra udseenderækken på din karakterskærm, og skift frit mellem alt, du har låst op."
     },
     "professions": {
-      "intro": "Ud over kamp og opdrag belønner verden dig for at arbejde med jorden og essen: du samler råmaterialer, forvandler dem til udstyr ved ti forskellige fags håndværksstationer og finder dig til rette i en identitet som en af de ti arketyper, de fag står for.",
-      "gatherTitle": "Indsamling: Minedrift, Skovhugst og Urtekundskab",
-      "gatherIntro": "Tre indsamlingsfag lader dig hente råmaterialer direkte ud af verden: Minedrift bryder malm og sten ud af årer, Skovhugst fælder tømmer i trægrupper, og Urtekundskab samler urter og planter, der vokser vildt. Hvert fag følges for sig, så arbejde i det ene aldrig sinker dine fremskridt i et andet.",
-      "gatherWhatTitle": "Ressourcepunkter",
-      "gatherWhatBody": "Malmårer, trægrupper og urtebede står ude i zonerne som synlige steder uden ejer. Gå hen til et og interager med det for at høste, hvad det rummer. Når du har høstet et punkt, skal det bruge tid på at komme sig, før netop du kan høste det igen, men det spærrer aldrig for andre: en anden spiller kan høste selvsamme punkt i mellemtiden.",
-      "gatherProficiencyTitle": "Færdighed og materialekvalitet",
-      "gatherProficiencyBody": "Hver vellykket høst opbygger din færdighed i det indsamlingsfag. Højere færdighed rykker det, du henter ud af et punkt, mod sjældnere kvaliteter af materiale, fra almindelig og opefter, selvom de sjældneste kvaliteter forbliver sjældne selv med høj færdighed. Mere øvelse skader aldrig dine chancer, den forbedrer dem kun.",
+      "intro": "Ud over kamp og opdrag belønner verden dig for at arbejde med jorden og essen: at samle råmaterialer, forvandle dem til udstyr ved ti forskellige fags håndværksstationer og finde sig til rette i en identitet som en af de ti arketyper, fagene står for.",
+      "gatherTitle": "Samlerfag: Minedrift, Skovhugst og Urtekundskab",
+      "gatherIntro": "Tre samlerfag lader dig hente råmaterialer direkte ud af verden: Minedrift slår malm og sten løs fra årer, Skovhugst fælder tømmer i trægrupper, og Urtekundskab samler urter og planter, der vokser vildt. Hvert fag spores for sig, så arbejde i det ene aldrig sinker dine fremskridt i et andet.",
+      "gatherWhatTitle": "Ressourceforekomster",
+      "gatherWhatBody": "Malmårer, trægrupper og urtebede står ude i zonerne som synlige forekomster, som ingen ejer. Gå hen til en og interager med den for at høste, hvad den rummer. Når du har høstet en forekomst, skal den bruge tid på at komme sig, før du personligt kan høste den igen, men den blokerer aldrig for andre: en anden spiller kan høste den selvsamme forekomst i mellemtiden.",
+      "gatherProficiencyTitle": "Kyndighed og materialekvalitet",
+      "gatherProficiencyBody": "Hver vellykket høst opbygger din kyndighed i det samlerfag. Højere kyndighed forskyder, hvad du får ud af en forekomst, mod sjældnere materialegrader, fra almindelig og opefter, selvom de sjældneste grader forbliver sjældne selv ved høj kyndighed. Mere øvelse skader aldrig dine odds, den forbedrer dem kun.",
       "gatherToolsTitle": "Fagets værktøj",
-      "gatherToolsBody": "Handlende sælger simpelt værktøj til hvert indsamlingsfag, og bedre værktøj kan fremstilles, så du gerne skulle føle dig mere formående ved et ressourcepunkt, efterhånden som du udruster dig til det, frem for at stå i stampe. Værktøj af højere klasse er den tiltænkte vej til at låse op for rigere punkter og udnytte dem mere effektivt gennem en lang session.",
+      "gatherToolsBody": "Handlende sælger grundlæggende værktøj til hvert samlerfag, og bedre kan fremstilles, så arbejdet ved en ressourceforekomst gerne skulle føles stærkere og stærkere, efterhånden som du udstyrer dig til det, frem for at stå i stampe. Værktøj af højere grad er den tiltænkte vej til at få adgang til rigere forekomster og arbejde dem mere effektivt over en lang session.",
       "craftTitle": "De ti håndværk",
-      "craftIntro": "Ti håndværksfag forvandler indsamlede materialer til færdigt udstyr og varer: Rustningssmedning, Våbensmedning og Juvelering former råstof til udstyr, du kan bære; Alkymi og Ingeniørkunst drives af forsøg og fejl; Madlavning, Skriverkunst og Fortryllelse rører hver især ved andre håndværks frembringelser; Skrædderi og Garveri arbejder efter nøjagtige mønstre. Tilsammen danner de et hjul, hvor hvert håndværk sidder ved siden af to naboer og over for ét andet.",
+      "craftIntro": "Ti håndværksfag forvandler indsamlede materialer til færdigt udstyr og varer: Rustningssmedning, Våbensmedning og Juvelering former råstof til udstyr, man kan bære; Alkymi og Ingeniørkunst drives af forsøg og fejl; Madlavning, Skriverkunst og Fortryllelse rører hver ved andre håndværks frembringelser; Skrædderi og Garveri arbejder ud fra nøjagtige mønstre. Sammen danner de et hjul, hvor hvert håndværk sidder ved siden af to naboer og over for ét andet.",
       "craftRingTitle": "Et hjul af specialer",
-      "craftRingBody": "De ti håndværk ligger i en fast ring, og hvor et håndværk sidder på ringen, betyder noget: håndværk, der ligger ved siden af hinanden på hjulet, har mere til fælles end håndværk på hver sin modsatte side. At binde sig til ét håndværk skal føles som at træde ind i en familie af beslægtede fag, ikke som at vælge en isoleret færdighed.",
+      "craftRingBody": "De ti håndværk er ordnet i en fast ring, og hvor et håndværk sidder på ringen, betyder noget: håndværk ved siden af hinanden på hjulet har mere til fælles end håndværk på modsatte sider. At binde sig til ét håndværk skal føles som at træde ind i en familie af beslægtede fag, ikke som at vælge en isoleret færdighed.",
       "craftRecipesTitle": "Opskrifter og reagenser",
-      "craftRecipesBody": "Hvert håndværk har sine egne opskrifter, som hver kræver bestemte reagenser, du samler eller køber. De mest grundlæggende opskrifter i hvert håndværk kræver ikke andet end almindelige materialer og kan laves fra allerførste færd, så du kan begynde at arbejde i et fag i samme øjeblik, du tager det op, i stedet for at vente på at låse det op.",
+      "craftRecipesBody": "Hvert håndværk har sine egne opskrifter, som hver kræver bestemte reagenser, du samler eller køber. De mest grundlæggende opskrifter i hvert håndværk kræver ikke andet end almindelige materialer og kan laves fra første færd, så du kan begynde at arbejde med et fag i samme øjeblik, du tager det op, i stedet for at vente på at låse det op.",
       "craftMasteryTitle": "Færdighed og mesterskab",
-      "craftMasteryBody": "Vellykket håndværk opbygger færdighed i det fag, og rigere opskrifter ligger gemt bag højere færdighed: de grundlæggende opskrifter er åbne for alle, mens gradvist mere avancerede kræver gradvist mere mesterskab at give sig i kast med. At øge din færdighed i et håndværk er vejen fra simple begyndervarer til dets mere ambitiøse opskrifter.",
+      "craftMasteryBody": "Vellykket håndværk opbygger færdighed i faget, og rigere opskrifter er låst bag højere færdighed: de grundlæggende opskrifter er åbne for alle, mens stadig mere avancerede kræver stadig mere mesterskab at forsøge sig med. At øge din færdighed i et håndværk er vejen fra simple begyndervarer til fagets mere ambitiøse opskrifter.",
       "craftComboTitle": "Kombinationsopskrifter",
-      "craftComboBody": "Ud over det enkelte håndværks egen opskriftsliste understøtter hjulet også kombinationsopskrifter, der trækker på to nabohåndværk på én gang og belønner en karakter (eller et par handelspartnere), der har investeret i tilstødende fag på ringen frem for ét i isolation.",
+      "craftComboBody": "Ud over et enkelt håndværks egen opskriftsliste understøtter hjulet også kombinationsopskrifter, der trækker på to nabohåndværk på én gang, og belønner en karakter (eller et par handelspartnere), som har investeret i tilstødende fag på ringen frem for ét i isolation.",
       "archetypeTitle": "De ti arketyper",
-      "archetypeIntro": "Hvert af de ti håndværk står også for en arketype, en bredere identitet du kan tage på dig ud over blot at arbejde i faget. Din aktive arketype er ét valg ad gangen, ikke en tjekliste: du bærer én og kan senere skifte til en anden, hvis du vælger det.",
-      "archetypeChooseTitle": "At vælge din arketype",
-      "archetypeChooseBody": "Du erklærer din første arketype gennem et tidligt historieopdrag i zone ét, som formelt optager dig i den identitet. Før du har fuldført det opdrag, har du slet ikke valgt en arketype endnu.",
+      "archetypeIntro": "Hvert af de ti håndværk står også for en arketype, en bredere identitet du kan påtage dig ud over blot at arbejde med faget. Din aktive arketype er ét valg ad gangen, ikke en tjekliste: du bærer én og kan senere skifte til en anden, hvis du vil.",
+      "archetypeChooseTitle": "Valg af din arketype",
+      "archetypeChooseBody": "Du erklærer din første arketype gennem et tidligt historieopdrag i zone et, som formelt optager dig i den identitet. Før du har fuldført det opdrag, har du slet ikke valgt en arketype endnu.",
       "archetypeSwitchTitle": "At skifte mening",
-      "archetypeSwitchBody": "Har du én gang erklæret en arketype, er du ikke låst til den for evigt. At skifte til en anden arketype kræver, at du først fuldfører et gentageligt \"gør det godt igen\"-opdrag for din gamle, og hver gang du skifter, vokser den bod, der forventes af dig næste gang, en smule, så et skifte forbliver betydningsfuldt frem for omkostningsfrit.",
+      "archetypeSwitchBody": "At have erklæret en arketype én gang låser dig ikke fast for evigt. At skifte til en anden arketype kræver først, at du fuldfører et gentageligt \"gør bod\"-opdrag for din gamle, og hver gang du skifter, bliver den bod, der forventes af dig næste gang, lidt større, så et skifte forbliver meningsfuldt frem for omkostningsfrit.",
       "archetypeIdentityTitle": "Hvad din arketype betyder",
-      "archetypeIdentityBody": "Din aktive arketype er et udsagn om, hvem din karakter er i verden, og den anerkendes i den måde, andre og verden tiltaler dig på. De nøjagtige belønninger og den anerkendelse, der følger med, er stadig ved at blive lagt fast; kig forbi igen, efterhånden som systemet fyldes ud."
+      "archetypeIdentityBody": "Din aktive arketype er en erklæring om, hvem din karakter er i verden, og den anerkendes i, hvordan andre og verden tiltaler dig. De præcise belønninger og den anerkendelse, der følger med, er stadig ved at blive fastlagt; kig forbi igen, efterhånden som systemet vokser til."
     },
     "economy": {
       "intro": "Mønter smører hele verden: de køber dit udstyr, dine forsyninger og dit rejsegrej og skifter hænder mellem spillere. Du opsamler det hele bare ved at spille, så tænk på denne side som et kort over, hvor dine penge kommer fra og går hen.",
@@ -4958,19 +4959,19 @@ export const da_DK: EnTranslations = {
       },
       "sport_shoot": {
         "name": "Skud",
-        "description": "Hold knappen inde for at lade op, og slip for at skyde på mål. For meget kraft sender bolden over."
+        "description": "Hold for at lade op, slip for at skyde på mål. For meget kraft sender bolden over mål."
       },
       "sport_pass": {
         "name": "Aflevering",
-        "description": "Spil en fast aflevering til din udpegede medspiller, lagt foran løbet."
+        "description": "Spil en fast aflevering til din udvalgte holdkammerat, lige foran deres løb."
       },
       "sport_boot": {
-        "name": "Langspark",
+        "name": "Kæmpespark",
         "description": "Et langt, højt spark mod sigtepunktet. Publikum elsker det."
       },
       "sport_hoof": {
-        "name": "Hammerspark",
-        "description": "Bank bolden lavt og hårdt op ad banen."
+        "name": "Ryd Bolden",
+        "description": "Hamr bolden lavt og hårdt op ad banen."
       },
       "sport_punt": {
         "name": "Langt Udspark",
@@ -4978,15 +4979,15 @@ export const da_DK: EnTranslations = {
       },
       "sport_feint": {
         "name": "Finte",
-        "description": "Et hurtigt ryk til siden mod sigtepunktet."
+        "description": "Et hurtigt sidespring mod sigtepunktet."
       },
       "sport_dive": {
         "name": "Dyk",
-        "description": "Kast dig mod sigtepunktet. En bold på tværs klæber til dig."
+        "description": "Kast dig mod sigtepunktet. Et indlæg klæber sig fast til dig."
       },
       "sport_shoulder": {
-        "name": "Skulderskub",
-        "description": "Et fair skulderskub under høstfreden. Sender dem tumlende væk fra bolden."
+        "name": "Skulderpuf",
+        "description": "Et fair skulderpuf under høstfreden. Sender dem tumlende væk fra bolden."
       },
       "sport_second_wind": {
         "name": "Friske Ben",
@@ -6213,6 +6214,24 @@ export const da_DK: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Solkronbladssegl"
       },
+      "thorium_ore": {
+        "name": "Thoriummalm"
+      },
+      "arcanite_bar": {
+        "name": "Arkanitbarre"
+      },
+      "ashwood_log": {
+        "name": "Askeved Stamme"
+      },
+      "elderwood_log": {
+        "name": "Gammel Hyldeved Stamme"
+      },
+      "goldleaf_herb": {
+        "name": "Guldbladurt"
+      },
+      "sunpetal_herb": {
+        "name": "Solkroneurt"
+      },
       "bristleback_maul": {
         "name": "Gallowglass-Hammer"
       },
@@ -7395,7 +7414,7 @@ export const da_DK: EnTranslations = {
       "groundskeeper_bram": {
         "name": "Banemester Bram",
         "title": "Somarkens Vogter",
-        "greeting": "Freden holder på Somarken, {className}: kun spark og skulderskub. Har du lyst til at spille om Kobberspanden?"
+        "greeting": "Freden holder på Somarken, {className}: kun spark og skulderpuf. Har du lyst til at spille om Kobberspanden?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",

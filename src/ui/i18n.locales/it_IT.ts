@@ -14,6 +14,269 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const it_IT: Partial<Record<TranslationKey, string>> = {
+  'entities.abilities.sport_boot.description':
+    'Un calcione alto e lungo verso il punto mirato. La folla lo adora.',
+  'entities.abilities.sport_boot.name': 'Calcione',
+  'entities.abilities.sport_dive.description':
+    'Ti lanci verso il punto mirato. Una palla in traiettoria ti resta incollata.',
+  'entities.abilities.sport_dive.name': 'Tuffo',
+  'entities.abilities.sport_feint.description': 'Uno scatto laterale rapido verso il punto mirato.',
+  'entities.abilities.sport_feint.name': 'Finta',
+  'entities.abilities.sport_hoof.description':
+    "Martella la palla bassa e forte verso l'altra metà campo.",
+  'entities.abilities.sport_hoof.name': 'Spazzata',
+  'entities.abilities.sport_kick.description': 'Spingi la palla rasoterra verso il punto mirato.',
+  'entities.abilities.sport_kick.name': 'Calcio',
+  'entities.abilities.sport_pass.description':
+    'Un passaggio rasoterra deciso al compagno selezionato, anticipando la sua corsa.',
+  'entities.abilities.sport_pass.name': 'Passaggio',
+  'entities.abilities.sport_punt.description': 'Il rinvio del portiere, alto e lontano.',
+  'entities.abilities.sport_punt.name': 'Rinvio Lungo',
+  'entities.abilities.sport_second_wind.description':
+    'Ritrovi le gambe: ti muovi il 50% più veloce per 4 sec.',
+  'entities.abilities.sport_second_wind.name': 'Gambe Fresche',
+  'entities.abilities.sport_shoot.description':
+    'Tieni premuto per caricare la potenza, rilascia per tirare in porta. Con troppa potenza la palla vola alta.',
+  'entities.abilities.sport_shoot.name': 'Tiro',
+  'entities.abilities.sport_shoulder.description':
+    "Una spallata leale da tregua del raccolto. Manda l'avversario a ruzzolare lontano dalla palla.",
+  'entities.abilities.sport_shoulder.name': 'Spallata',
+  'entities.npcs.groundskeeper_bram.greeting':
+    'La tregua regge al Campo della Scrofa, {className}: solo calci e spallate. Ti va di giocare per il Secchio di Rame?',
+  'entities.npcs.groundskeeper_bram.name': 'Guardacampo Bram',
+  'entities.npcs.groundskeeper_bram.title': 'Custode del Campo della Scrofa',
+  'entities.zones.eastbrook_vale.pois.10.label': 'Il Campo della Scrofa',
+  'guide.nav.professions': 'Professioni',
+  'guide.nav.valeCup': 'Coppa della Valle',
+  'guide.professions.archetypeChooseBody':
+    "Dichiari il tuo primo archetipo tramite una missione di trama iniziale della prima zona, che ti accoglie formalmente in quell'identità. Finché non completi quella missione, non hai ancora scelto alcun archetipo.",
+  'guide.professions.archetypeChooseTitle': 'Scegliere il tuo archetipo',
+  'guide.professions.archetypeIdentityBody':
+    "L'archetipo attivo è una dichiarazione su chi è il tuo personaggio nel mondo, riconosciuta nel modo in cui gli altri e il mondo si rivolgono a te. Le ricompense e i riconoscimenti esatti che lo accompagnano sono ancora in via di definizione; torna a controllare man mano che il sistema prende forma.",
+  'guide.professions.archetypeIdentityTitle': 'Cosa significa il tuo archetipo',
+  'guide.professions.archetypeIntro':
+    "Ognuno dei dieci mestieri artigiani rappresenta anche un archetipo, un'identità più ampia che puoi adottare oltre al semplice esercizio del mestiere. L'archetipo attivo è una scelta singola alla volta, non una lista da spuntare: ne porti uno solo, e in seguito puoi cambiarlo se lo desideri.",
+  'guide.professions.archetypeSwitchBody':
+    'Aver dichiarato un archetipo una volta non ti ci vincola per sempre. Passare a un archetipo diverso richiede prima di completare una missione ripetibile per "fare ammenda" verso quello vecchio, e a ogni cambio l\'ammenda attesa la volta successiva diventa un po\' più esigente, così che cambiare resti significativo anziché gratuito.',
+  'guide.professions.archetypeSwitchTitle': 'Cambiare idea',
+  'guide.professions.archetypeTitle': 'I dieci archetipi',
+  'guide.professions.craftComboBody':
+    "Oltre alla lista di ricette di un singolo mestiere, la ruota supporta anche ricette combinate che richiedono due mestieri vicini allo stesso tempo, premiando un personaggio (o una coppia di partner commerciali) che ha investito in mestieri adiacenti sull'anello anziché in uno solo isolato.",
+  'guide.professions.craftComboTitle': 'Ricette combinate',
+  'guide.professions.craftIntro':
+    'Dieci mestieri artigiani trasformano i materiali raccolti in equipaggiamento e beni finiti: Fabbricazione di armature, Fabbricazione di armi e Gioielleria danno forma alla materia grezza in equipaggiamento indossabile; Alchimia e Ingegneria procedono per tentativi ed errori; Cucina, Inscrizione e Incantamento toccano ciascuno il prodotto di altri mestieri; Sartoria e Conciatura lavorano da modelli esatti. Insieme formano una ruota, con ogni mestiere accanto a due vicini e opposto a un altro.',
+  'guide.professions.craftMasteryBody':
+    "Creare con successo accresce l'abilità in quel mestiere, e le ricette più ricche sono riservate a un'abilità più alta: quelle di base sono aperte a chiunque, mentre quelle via via più avanzate richiedono via via più maestria per essere tentate. Far crescere la tua abilità in un mestiere è il percorso dai semplici beni iniziali alle sue ricette più ambiziose.",
+  'guide.professions.craftMasteryTitle': 'Abilità e maestria',
+  'guide.professions.craftRecipesBody':
+    "Ogni mestiere ha le proprie ricette, ognuna delle quali richiede reagenti specifici da raccogliere o comprare. Le ricette più basilari di ogni mestiere non chiedono altro che materiali comuni e si possono creare fin dall'inizio, così puoi cominciare a esercitare un mestiere nel momento in cui lo scegli, senza dover aspettare di sbloccarlo.",
+  'guide.professions.craftRecipesTitle': 'Ricette e reagenti',
+  'guide.professions.craftRingBody':
+    "I dieci mestieri sono disposti in un anello fisso, e la posizione di un mestiere su quell'anello conta: i mestieri vicini tra loro sulla ruota hanno più cose in comune di quelli sui lati opposti. Impegnarsi in un mestiere deve dare la sensazione di entrare in una famiglia di mestieri affini, non di scegliere un'abilità isolata.",
+  'guide.professions.craftRingTitle': 'Una ruota di specialità',
+  'guide.professions.craftTitle': 'I dieci mestieri artigiani',
+  'guide.professions.gatherIntro':
+    "Tre mestieri di raccolta ti permettono di estrarre materie prime direttamente dal mondo: l'Estrazione mineraria cava minerale e pietra dalle vene, il Taglio del legname abbatte tronchi dai gruppi di alberi e l'Erbalismo raccoglie erbe e piante selvatiche. Ognuno è tracciato separatamente, quindi esercitarne uno non rallenta mai i tuoi progressi in un altro.",
+  'guide.professions.gatherProficiencyBody':
+    'Ogni raccolto riuscito accresce la tua competenza in quel mestiere di raccolta. Una competenza più alta sposta ciò che estrai da un nodo verso gradi di materiale più rari, dal comune in su, anche se i gradi più rari restano rari perfino ad alta competenza. Più pratica non peggiora mai le tue probabilità, le migliora soltanto.',
+  'guide.professions.gatherProficiencyTitle': 'Competenza e qualità dei materiali',
+  'guide.professions.gatherTitle':
+    'Raccolta: Estrazione mineraria, Taglio del legname ed Erbalismo',
+  'guide.professions.gatherToolsBody':
+    'I venditori offrono attrezzi di base per ogni mestiere di raccolta, e se ne possono creare di migliori, così lavorare un nodo di risorse deve risultare sempre più efficace man mano che ti equipaggi, invece di restare statico. Gli attrezzi di livello superiore sono la via prevista per accedere ai nodi più ricchi e lavorarli con più efficienza in una lunga sessione.',
+  'guide.professions.gatherToolsTitle': 'Gli attrezzi del mestiere',
+  'guide.professions.gatherWhatBody':
+    'Vene di minerale, gruppi di alberi e macchie di erbe sono collocati nelle zone come elementi visibili e senza padrone. Avvicinati a uno e interagisci per raccogliere ciò che contiene. Una volta raccolto un nodo, serve tempo perché si riprenda prima che tu, personalmente, possa raccoglierlo di nuovo, ma non blocca mai nessun altro: un altro giocatore può raccogliere lo stesso identico nodo nel frattempo.',
+  'guide.professions.gatherWhatTitle': 'Nodi di risorse',
+  'guide.professions.intro':
+    "Oltre al combattimento e alle missioni, il mondo ti ricompensa per il lavoro della terra e della forgia: raccogliere materie prime, trasformarle in equipaggiamento alle postazioni artigiane di dieci mestieri diversi e assumere un'identità come uno dei dieci archetipi che quei mestieri rappresentano.",
+  'guide.valeCupPage.heading': 'La Coppa della Valle',
+  'guide.valeCupPage.howHeading': 'Come si gioca',
+  'guide.valeCupPage.howMatch':
+    "Al calcio d'inizio il tuo kit di classe viene sostituito da un kit sportivo e ripristinato esattamente alla fine. I calci mirano al reticolo a terra, la palla rimbalza sulle sponde e dribblare significa semplicemente correre con la palla. Segna più gol dell'altra squadra prima del fischio finale; un pareggio va al gol d'oro.",
+  'guide.valeCupPage.howQueue':
+    "Mettiti in coda da qualsiasi luogo tramite la finestra della Coppa della Valle, oppure parla con il Guardacampo Bram al cancello del Campo della Scrofa. Scegli un formato dall'uno contro uno fino al cinque contro cinque, una nazione del vessillo e un ruolo sportivo; entra in coda da solo o porta il tuo gruppo.",
+  'guide.valeCupPage.howTruce':
+    'Nessuno sanguina al Campo della Scrofa: i contrasti fanno solo ruzzolare, niente fa male e i famigli restano fuori dalla partita.',
+  'guide.valeCupPage.intro':
+    'Palla di cinghiale al Campo della Scrofa: scegli un vessillo, scegli un ruolo e calcia una pelle di cinghiale imbottita oltre un portiere per il Secchio di Rame. Niente sangue, niente bottino, solo il boato degli spalti.',
+  'guide.valeCupPage.loreHeading': 'La palla di cinghiale e la tregua del raccolto',
+  'guide.valeCupPage.loreOldSow':
+    'Molto prima che i morti si destassero, i braccianti di Eastbrook giocavano a palla di cinghiale sui campi di stoppie dopo il raccolto: due torme, una pelle di cinghiale imbottita di paglia e due cancelli da carro trascinati ai due capi del prato. La prima palla, la Vecchia Scrofa, pende bronzata sopra il focolare della taverna.',
+  'guide.valeCupPage.loreTruce':
+    'Quando il Colosseo Cinereo cominciò a patrocinare giochi di guerra, il Maresciallo Redbrook rispose con qualcosa di più gentile: una tregua del raccolto permanente sul vecchio prato. I cancelli da carro divennero pali delle porte, il prato ebbe muri, spalti e un nome, il Campo della Scrofa, e il premio fu sempre lo stesso secchio del latte ammaccato da cui bevevano i vincitori: il Secchio di Rame.',
+  'guide.valeCupPage.nationChoir':
+    'Azzurro pallido e argento sotto la campana: inquietanti, precisi e molto silenziosi.',
+  'guide.valeCupPage.nationColiseum':
+    'Rosso e nero con le spade incrociate: giocano come se fosse ancora un gioco di guerra.',
+  'guide.valeCupPage.nationCopperdig':
+    'Rame e marrone con il piccone: scavatori che non smettono mai di correre.',
+  'guide.valeCupPage.nationMirefen':
+    "Verde acqua e grigio sotto l'airone: pazienti, dalle gambe lunghe, mai frettolosi.",
+  'guide.valeCupPage.nationMoon':
+    'Viola e argento sotto la falce di luna: giocatori notturni, leggeri sui piedi.',
+  'guide.valeCupPage.nationOgre':
+    "Arancio e terra d'ombra dietro il pugno: prima la spallata, e ne vanno fieri.",
+  'guide.valeCupPage.nationThornpeak':
+    'Blu ghiaccio e bianco sotto la vetta: dal passo sicuro e testardi.',
+  'guide.valeCupPage.nationVale':
+    'Verde e oro, con il covone di grano al vento: la squadra di casa, braccianti fino al midollo.',
+  'guide.valeCupPage.nationsBody':
+    'Ogni squadra gioca sotto un vessillo. Il capitano sceglie la nazione e, se entrambe le squadre battono lo stesso vessillo, quella in trasferta gioca con i colori invertiti.',
+  'guide.valeCupPage.nationsHeading': 'Le otto nazioni del vessillo',
+  'guide.valeCupPage.rewardsBody':
+    'Le regole della tregua significano niente esperienza e niente bottino: una partita decisa conta per il tuo bilancio e per il tabellone dei vincitori, e con essa arrivano i punti delle ricompense giornaliere. Disertare una partita mette in panchina il tuo posto, e il Guardacampo non dimentica.',
+  'guide.valeCupPage.rewardsHeading': 'Le regole della tregua',
+  'guide.valeCupPage.rolesBody':
+    'Il tuo ruolo decide il kit che porti in campo. Tutti calciano; il resto è temperamento.',
+  'guide.valeCupPage.rolesHeading': 'Ruoli sportivi',
+  'guide.valeCupPage.spectateBody':
+    'Allo stadio si gioca una partita alla volta, e chiunque può avvicinarsi e guardare dagli spalti.',
+  'hudChrome.keybinds.valecup': 'Coppa della Valle',
+  'hudChrome.mobile.dailyRewards': 'Ricompense',
+  'hudChrome.perf.labels.predLead': 'Anticipo di predizione',
+  'hudChrome.townFocus.budgetLabel': 'Punti rimanenti: {remaining} / {budget}',
+  'hudChrome.townFocus.decreaseAria': 'Riduci la priorità di {component}',
+  'hudChrome.townFocus.hint':
+    'I punti priorità aggiungono un bonus sopra la resa base di ogni componente. I componenti senza priorità restano alla resa base.',
+  'hudChrome.townFocus.increaseAria': 'Aumenta la priorità di {component}',
+  'hudChrome.townFocus.notInTownHint': 'Devi essere in città per impostare la priorità.',
+  'hudChrome.townFocus.saveButton': 'Salva priorità',
+  'hudChrome.townFocus.title': 'Priorità della città',
+  'hudChrome.vcup.awayNote':
+    'Se entrambe le squadre battono lo stesso vessillo, quella in trasferta gioca con i colori invertiti.',
+  'hudChrome.vcup.bannerCountdown': "Calcio d'inizio tra {seconds}...",
+  'hudChrome.vcup.bannerDraw': 'Pareggio al Campo della Scrofa.',
+  'hudChrome.vcup.bannerEnd': 'Fischio finale: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.bannerFound': 'La Coppa della Valle chiama: {nationA} contro {nationB}!',
+  'hudChrome.vcup.bannerGoal': 'GOL! Segna {nation}!',
+  'hudChrome.vcup.bannerGolden': "GOL D'ORO: il prossimo gol vince!",
+  'hudChrome.vcup.bannerKickoff': "CALCIO D'INIZIO!",
+  'hudChrome.vcup.bannerLoss': 'Sconfitta al Campo della Scrofa.',
+  'hudChrome.vcup.bannerSave': '{name} PARA!',
+  'hudChrome.vcup.bannerWin': 'Vittoria al Campo della Scrofa!',
+  'hudChrome.vcup.bet.aria': 'Scommesse sulla partita della Coppa della Valle',
+  'hudChrome.vcup.bet.back': 'Punta su {team}',
+  'hudChrome.vcup.bet.closed': 'Scommesse chiuse',
+  'hudChrome.vcup.bet.closesIn': 'Le scommesse chiudono tra {seconds}s',
+  'hudChrome.vcup.bet.collapse': 'Nascondi le scommesse',
+  'hudChrome.vcup.bet.expand': 'Vedi le scommesse e punta',
+  'hudChrome.vcup.bet.form': '{wins}V-{losses}S',
+  'hudChrome.vcup.bet.lostLog': 'Hai perso la tua scommessa sulla Coppa della Valle: {amount}.',
+  'hudChrome.vcup.bet.mine': 'La tua scommessa: {amount} su {team}',
+  'hudChrome.vcup.bet.none': 'Non hai ancora scommesso su questa partita.',
+  'hudChrome.vcup.bet.oddsLabel': 'Paga',
+  'hudChrome.vcup.bet.prize': 'Montepremi {amount}',
+  'hudChrome.vcup.bet.record': 'Bilancio scommesse: {wins}V-{losses}S, {sign}{net}',
+  'hudChrome.vcup.bet.refundLog':
+    'Scommesse annullate, la tua puntata di {amount} è stata restituita.',
+  'hudChrome.vcup.bet.splitAria': 'Quota del montepremi puntata su ciascuna squadra',
+  'hudChrome.vcup.bet.title': 'Scommesse sulla partita',
+  'hudChrome.vcup.bet.wonBanner': 'La tua scommessa ha vinto!',
+  'hudChrome.vcup.bet.wonLog':
+    'La tua scommessa sulla Coppa della Valle ha vinto: {amount} restituiti.',
+  'hudChrome.vcup.blockNation': 'Scegli prima una nazione del vessillo.',
+  'hudChrome.vcup.blockNotLeader': 'Solo il capogruppo può mettere in coda la squadra.',
+  'hudChrome.vcup.blockPartySize': 'Quel formato richiede un gruppo più piccolo.',
+  'hudChrome.vcup.boardEmpty': 'Nessun vincitore registrato finora. Il Secchio di Rame attende.',
+  'hudChrome.vcup.boardHeading': 'Tabellone dei vincitori',
+  'hudChrome.vcup.boardWins': '{count} vittorie',
+  'hudChrome.vcup.bracketLabel': '{n}c{n}',
+  'hudChrome.vcup.bracketsAria': 'Formato della partita',
+  'hudChrome.vcup.briefing.bot': 'Bot',
+  'hudChrome.vcup.briefing.kitHeading': 'Il tuo kit',
+  'hudChrome.vcup.briefing.kitNote':
+    'Queste mosse sostituiscono le tue abilità di classe per la partita.',
+  'hudChrome.vcup.briefing.ready': 'Sono pronto',
+  'hudChrome.vcup.briefing.readyAria': "Dichiarati pronto per il calcio d'inizio",
+  'hudChrome.vcup.briefing.readyCount': '{ready} pronti su {total}',
+  'hudChrome.vcup.briefing.readyDone': 'Pronto',
+  'hudChrome.vcup.briefing.rosterHeading': 'La distinta',
+  'hudChrome.vcup.briefing.rule1': 'Calcia o passa la palla nella porta avversaria per segnare.',
+  'hudChrome.vcup.briefing.rule2':
+    'Vince chi per primo arriva a 5 gol, o chi ne ha di più al fischio finale.',
+  'hudChrome.vcup.briefing.rule3':
+    "Una partita in parità al fischio finale va al gol d'oro: il prossimo gol vince.",
+  'hudChrome.vcup.briefing.rule4':
+    'I contrasti ti fanno solo ruzzolare. Nessuno si fa male sotto la tregua del raccolto.',
+  'hudChrome.vcup.briefing.rule5': 'Chiunque può avvicinarsi e fare il tifo dagli spalti.',
+  'hudChrome.vcup.briefing.rulesHeading': 'Come si gioca',
+  'hudChrome.vcup.briefing.subtitle': 'Riunione pre-partita',
+  'hudChrome.vcup.briefing.vs': 'vs',
+  'hudChrome.vcup.briefing.waiting': "In attesa che l'altra squadra si dichiari pronta...",
+  'hudChrome.vcup.briefing.whistle': 'Il fischio arriva tra {seconds}s.',
+  'hudChrome.vcup.briefing.you': 'Tu',
+  'hudChrome.vcup.clock': '{minutes}:{seconds}',
+  'hudChrome.vcup.close': 'Chiudi la finestra della Coppa della Valle',
+  'hudChrome.vcup.deserterNote':
+    'Il Guardacampo non dimentica. Potrai rimetterti in coda tra {seconds} sec.',
+  'hudChrome.vcup.enterAsGuild': 'Entra sotto il vessillo di {guild}',
+  'hudChrome.vcup.gossipOpen': 'Il libro degli incontri',
+  'hudChrome.vcup.gossipOpenAria': 'Apri la finestra della Coppa della Valle',
+  'hudChrome.vcup.guildBoardEmpty': 'Nessuna gilda è ancora scesa in campo. Batti il tuo vessillo!',
+  'hudChrome.vcup.guildBoardHeading': 'Vessilli di gilda',
+  'hudChrome.vcup.guildBoardWl': '{wins} V, {losses} S',
+  'hudChrome.vcup.guildRecordLine':
+    'Bilancio della tua gilda: {wins} vittorie, {losses} sconfitte.',
+  'hudChrome.vcup.inMatchNote': 'La tua squadra è in campo. Gioca!',
+  'hudChrome.vcup.indicatorLive': 'Coppa della Valle',
+  'hudChrome.vcup.indicatorOpen': 'Apri la finestra della Coppa della Valle',
+  'hudChrome.vcup.indicatorQueued':
+    'Coda della Coppa della Valle: {bracket}, posizione {position} di {count}',
+  'hudChrome.vcup.leaveQueue': 'Lascia la coda',
+  'hudChrome.vcup.liveAria': 'Coppa della Valle: {nationA} {scoreA}, {nationB} {scoreB}',
+  'hudChrome.vcup.liveHeading': 'Ora al Campo della Scrofa',
+  'hudChrome.vcup.logDraw': "L'incontro al Campo della Scrofa finisce in pareggio.",
+  'hudChrome.vcup.logFound':
+    'La tua partita della Coppa della Valle è pronta: {nationA} contro {nationB}.',
+  'hudChrome.vcup.logGoal': '{name} segna per {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
+  'hudChrome.vcup.logLoss': "Perdi l'incontro al Campo della Scrofa.",
+  'hudChrome.vcup.logQueued':
+    'Entri nella coda della Coppa della Valle per {bracket} (posizione {position}).',
+  'hudChrome.vcup.logRoster': 'La tua squadra: {allies}. La loro: {enemies}.',
+  'hudChrome.vcup.logSave': '{name} compie la parata!',
+  'hudChrome.vcup.logUnqueued': 'Lasci la coda della Coppa della Valle.',
+  'hudChrome.vcup.logWin': "Vinci l'incontro al Campo della Scrofa.",
+  'hudChrome.vcup.mobileLabel': 'Coppa',
+  'hudChrome.vcup.nation.choir': 'Il Coro Pallido',
+  'hudChrome.vcup.nation.coliseum': 'Il Colosseo Cinereo',
+  'hudChrome.vcup.nation.copperdig': 'Lo Scavo di Rame',
+  'hudChrome.vcup.nation.mirefen': 'Il Mirefen',
+  'hudChrome.vcup.nation.moon': 'La Luna Pallida',
+  'hudChrome.vcup.nation.ogre': 'I Clan degli Ogre',
+  'hudChrome.vcup.nation.thornpeak': 'Thornpeak',
+  'hudChrome.vcup.nation.vale': 'Valle di Eastbrook',
+  'hudChrome.vcup.nationsHeading': 'Nazione del vessillo',
+  'hudChrome.vcup.noLive': 'Il campo è tranquillo. Nessuna partita in corso.',
+  'hudChrome.vcup.offlineNote':
+    'Il libro degli incontri è chiuso. La Coppa della Valle non è disponibile al momento.',
+  'hudChrome.vcup.phaseCountdown': "Calcio d'inizio tra {seconds}",
+  'hudChrome.vcup.phaseGoal': 'GOL!',
+  'hudChrome.vcup.phaseGolden': "GOL D'ORO",
+  'hudChrome.vcup.phaseOver': 'FISCHIO FINALE',
+  'hudChrome.vcup.practice': 'Allenamento contro i bot',
+  'hudChrome.vcup.practiceNote':
+    'Avvia subito una partita privata contro i bot sul tuo campo di allenamento.',
+  'hudChrome.vcup.practicingNow': 'In allenamento ora ({count}):',
+  'hudChrome.vcup.queue': 'Entra in coda',
+  'hudChrome.vcup.queueNote':
+    'Mettiti in coda da qualsiasi luogo; il fischio ti chiamerà al Campo della Scrofa.',
+  'hudChrome.vcup.queuedStatus': 'In coda per {bracket}: posizione {position} di {count}.',
+  'hudChrome.vcup.recordLine':
+    'Il tuo bilancio: {wins} vittorie, {losses} sconfitte, {draws} pareggi.',
+  'hudChrome.vcup.role.allrounder.desc': "Un po' di tutto: calcio, calcione e una spallata leale.",
+  'hudChrome.vcup.role.allrounder.name': 'Tuttocampista',
+  'hudChrome.vcup.role.keeper.desc': "Difende l'area di porta con presa, tuffo e rinvio.",
+  'hudChrome.vcup.role.keeper.name': 'Portiere',
+  'hudChrome.vcup.role.striker.desc': 'Vive per il calcione lungo e lo scatto laterale.',
+  'hudChrome.vcup.role.striker.name': 'Attaccante',
+  'hudChrome.vcup.role.sweeper.desc': 'Sbalza gli avversari lontano dalla palla e la spazza via.',
+  'hudChrome.vcup.role.sweeper.name': 'Libero',
+  'hudChrome.vcup.rolesHeading': 'Ruolo sportivo',
+  'hudChrome.vcup.shootPower': 'POTENZA',
+  'hudChrome.vcup.title': 'La Coppa della Valle',
+  'hudChrome.vcup.waitingCount': '{count} in attesa',
+  'hudChrome.vcup.walkUp': 'Avvicinati al Campo della Scrofa per guardare dagli spalti.',
   'hudChrome.archetypeTitle.label': 'Titolo',
   'hudChrome.archetypeTitle.none': 'Nessuno',
   'hudChrome.archetypeTitle.armorcrafting': 'Armaiolo',
@@ -1025,7 +1288,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hud.tutorial.returnTitle': 'Reclama la ricompensa',
   'hud.tutorial.returnBody':
     'Il tuo incarico è compiuto. Torna dal maresciallo Redbrook e premi {interactKey} per consegnarlo.',
-  // Character-sheet stat tooltips (hudChrome.statInfo.*).
   'hudChrome.statInfo.fromYour': 'Dai tuoi {value} punti {stat}:',
   'hudChrome.statInfo.desc.str':
     "Aumenta la tua potenza d'attacco, così i colpi della tua arma sono più potenti.",
@@ -1100,6 +1362,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.perf.labels.ping': 'Ping',
   'hudChrome.perf.labels.jitter': 'Jitter',
   'hudChrome.perf.labels.snapshot': 'Frequenza snapshot',
+  'hudChrome.perf.labels.serverTick': 'Frequenza tick del server',
   'hudChrome.perf.labels.connection': 'Connessione',
   'hudChrome.perf.labels.drawCalls': 'Chiamate di disegno',
   'hudChrome.perf.labels.triangles': 'Triangoli',
@@ -2233,9 +2496,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'abilityUi.cast.demonHeal': 'Cura demoniaca',
   'questUi.tracker.title': 'Missioni',
   'questUi.tracker.complete': 'Completata',
-
   'questUi.tracker.showOnMap': 'Mostra {name} sulla mappa',
-
   'questUi.tracker.hideFromMap': 'Nascondi {name} dalla mappa',
   'questUi.log.title': 'Registro missioni',
   'questUi.log.close': 'Chiudi registro missioni',
@@ -3948,7 +4209,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'news.prerelease': 'Anteprima',
   'news.viewOnGithub': 'Vedi su GitHub',
   'wiki.cta': 'Sfoglia la Wiki',
-  // --- qol-changes: character profile, attack-move, login/create labels ---
   'character.portraitAlt': 'Ritratto di {name}',
   'character.viewProfile': 'Vedi profilo',
   'character.profile': 'Profilo',
@@ -3963,7 +4223,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'auth.chromaOption': 'Croma {n}',
   'auth.noAccountPrompt': 'Nuovo nel mondo?',
   'auth.haveAccountPrompt': 'Hai già un account?',
-
   'entities.items.conjured_bread.name': "Focaccia d'avena evocata",
   'entities.items.conjured_bread2.name': 'Pagnotta nera evocata',
   'entities.items.conjured_bread3.name': 'Dolce al miele evocato',
@@ -4024,7 +4283,12 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.items.elderwood_axe.name': 'Ascia di Legno Antico',
   'entities.items.goldleaf_sickle.name': 'Falcetto Fogliadoro',
   'entities.items.sunpetal_sickle.name': 'Falcetto Petalo di Sole',
-  // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
+  'entities.items.thorium_ore.name': 'Minerale di Torio',
+  'entities.items.arcanite_bar.name': 'Barra di Arcanite',
+  'entities.items.ashwood_log.name': 'Tronco di Frassino Cinereo',
+  'entities.items.elderwood_log.name': 'Tronco di Sambuco Antico',
+  'entities.items.goldleaf_herb.name': 'Erba Fogliadoro',
+  'entities.items.sunpetal_herb.name': 'Erba Petalosole',
   'hud.core.chatChannels.add': 'Aggiungi canale di chat',
   'hud.core.chatChannels.addTitle': 'Aggiungi canale',
   'hud.core.chatChannels.close': 'Chiudi la scheda {channel}',
@@ -4364,11 +4628,9 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.title': 'Account',
   'hudChrome.account.walletSummary':
     'Verifica un portafoglio Solana per mostrare il distintivo da titolare sulla tua scheda giocatore.',
-  // On-screen quest tracker (hudChrome.questTracker.*): collapsed count badge + header toggle hover hint.
   'hudChrome.questTracker.count': '({count})',
   'hudChrome.questTracker.collapseHint': 'Comprimi il riquadro Missioni',
   'hudChrome.questTracker.expandHint': 'Espandi il riquadro Missioni',
-  // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.filterGroupAria': 'Filtra le borse per categoria',
   'hudChrome.bags.filterAll': 'Tutti',
   'hudChrome.bags.filterWeapon': 'Armi',
@@ -4383,7 +4645,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.bags.searchPlaceholder': 'Cerca oggetti',
   'hudChrome.bags.searchAria': 'Cerca gli oggetti della borsa per nome',
   'hudChrome.bags.noMatch': 'Nessun oggetto corrisponde ai tuoi filtri.',
-  // v0.13.0 release i18n fill: bug report, chat window, character takeover, admin bug reports
   'character.inWorldHint': 'Già nel mondo. Esci altrove, oppure prendine il controllo.',
   'character.takeOver': 'Prendi il controllo',
   'character.takeOverConfirm':
@@ -4418,7 +4679,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.chatWindow.resetAction': 'Ripristina',
   'hudChrome.chatWindow.resize': 'Trascina per ridimensionare la finestra della chat',
   'hudChrome.options.clickFeedback': 'Indicatore di clic',
-  // v0.13.0 adaptive browser-effects perf tier (PR #759)
   'hudChrome.options.browserEffects': 'Effetti del browser',
   'hudChrome.options.browserEffectsAuto': 'Auto',
   'hudChrome.options.browserEffectsFull': 'Completi',
@@ -4426,7 +4686,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.browserEffectsMinimal': 'Minimi',
   'hudChrome.options.browserEffectsNote':
     "La modalità automatica attenua gli effetti CSS pesanti (sfocatura, bagliore, movimento dello sfondo) in base al tuo browser e dispositivo. Riducila manualmente se l'interfaccia sembra lenta.",
-  // Guide (/guide) localization.
   'guide.bestiary.heading': 'Bestiario',
   'guide.bestiary.intro':
     "Le creature del mondo, raggruppate per famiglia. Sono i nemici che incontri all'aperto. Le cose più letali attendono, non elencate, dietro le porte dei dungeon.",
@@ -5102,7 +5361,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
     'Tre zone, da sud a nord, ognuna un gradino più in alto di livello. Segui la scia delle missioni e la terra ti porta dalla valle alle vette.',
   'guide.worldPage.places': 'Luoghi notevoli',
   'guide.worldPage.residents': 'Chi incontrerai',
-  // guide.* enrichment fill (lore, gear, social, stats, economy, progression)
   'guide.arenaPage.powerupsBody':
     "Durante lo scontro nell'arena cadono anche sfere luminose, libere per chiunque le raggiunga per primo. Sono volutamente sopra le righe e durano solo un istante: Demone della Velocità per un lampo di ritmo accecante, Colosso per gonfiarti in un gigante ingombrante, Stivali Lunari per un balzo rimbalzante a bassa gravità, e Berserker per un'improvvisa ondata di furia.",
   'guide.arenaPage.powerupsTitle': "Potenziamenti nell'arena",
@@ -5457,9 +5715,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'guide.worldPage.gladeTitle': 'Un angolo quieto: la Radura di Brightwood',
   'guide.worldPage.gladeBody':
     'Non ogni storia della Valle parla dei morti. A nord, una radura assolata chiamata Brightwood Glade mantiene un ritmo più gentile tutto suo, fatto di sentieri silenziosi e luce screziata sotto i rami. È un contrappunto lieve alla pista che stai seguendo e vale la pena vederla quando la strada ti lascia spazio per vagare.',
-  // APM telemetry label from release/v0.14.0
   'hudChrome.perf.labels.apm': 'APM',
-  // Account-security portal (2FA, verified email change, GDPR export) from PR #833.
   'auth.twoFactorLabel': 'Codice di autenticazione',
   'auth.twoFactorPlaceholder': 'Codice a 6 cifre o codice di recupero',
   'auth.twoFactorHint':
@@ -5712,7 +5968,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'sim.lockpick.tierMedium': 'Medio',
   'sim.lockpick.tierPremium': 'Pregiato',
   'sim.lockpick.toolSlips': 'Quello strumento scivola via da questa serratura.',
-  // Guide (/guide) localization.,
   'lockpickUi.pickTitle': 'Scassina la Serratura',
   'lockpickUi.cofferTitle': 'Forziere Ricolmo',
   'lockpickUi.cache': 'Scrigno {tier}',
@@ -5760,8 +6015,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'worldContent.delveSurfaceExitInteract': 'Premi F per risalire',
   'sim.delve.objectiveClearRoom': 'Ripulisci la stanza.',
   'sim.delve.objectiveDefeatBoss': 'Sconfiggi il boss.',
-  // Account-security portal (2FA, verified email change, GDPR export) from PR #833.,
-  // Aura effect tooltip summaries.
   'hudChrome.auraEffect.dot': 'Infligge {value} danni da {school} ogni {interval} s',
   'hudChrome.auraEffect.hot': 'Ripristina {value} salute ogni {interval} s',
   'hudChrome.auraEffect.absorb': 'Assorbe {value} danni',
@@ -6081,7 +6334,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Non ora',
   'hudChrome.nativeUpdate.title': 'Aggiornamento disponibile',
   'hudChrome.nativeUpdate.update': 'Aggiorna',
-  // Ravenpost authored letters
   'entities.letters.ravenpost_welcome.sender': 'La Posta dei Corvi',
   'entities.letters.ravenpost_welcome.subject': 'Ora i corvi volano per te',
   'entities.letters.ravenpost_welcome.body':
@@ -6176,7 +6428,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'apiError.two_factor.setup_required':
     "Avvia prima la configurazione dell'autenticazione a due fattori.",
   'apiError.validation.failed': 'Alcuni campi non sono validi. Controlla il modulo e riprova.',
-  // Release v0.22.0 locale fill.
   'download.linuxCta': 'Scarica per Linux',
   'download.linuxHint':
     'AppImage: rendilo eseguibile, quindi eseguilo. Nessuna installazione necessaria.',
@@ -6287,7 +6538,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mobile.targetCycleShort': 'Bersaglio',
   'hudChrome.options.mobileCameraJoystick': 'Joystick della fotocamera',
   'hudChrome.options.mobileLeftHanded': 'Disposizione per mancini',
-  // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Un mestiere da chiamare tuo',
   'entities.quests.q_archetype_acceptance.text':
     'Ogni artigiano di Eastbrook alla fine sceglie un mestiere da considerare proprio. Mettiti alla prova con una sola azione, {playerName}, e dichiara il tuo percorso.',
@@ -6299,34 +6549,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_prof_make_amends.completion':
     'Modifiche apportate; una nuova strada è aperta per te.',
   'entities.quests.q_prof_make_amends.objectives.0.label': 'Lupo della Foresta ucciso',
-  'entities.abilities.sport_boot.name': 'Campanile',
-  'entities.abilities.sport_boot.description':
-    'Un lungo pallone a campanile verso il punto di mira. Il pubblico ne va matto.',
-  'entities.abilities.sport_dive.name': 'Tuffo',
-  'entities.abilities.sport_dive.description':
-    'Lanciati verso il punto di mira. Un pallone che incrocia la tua traiettoria ti resta incollato addosso.',
-  'entities.abilities.sport_feint.name': 'Finta',
-  'entities.abilities.sport_feint.description': 'Un rapido scatto laterale verso il punto di mira.',
-  'entities.abilities.sport_hoof.name': 'Spazzata',
-  'entities.abilities.sport_hoof.description':
-    "Martella il pallone basso e forte verso l'altra metà del campo.",
-  'entities.abilities.sport_kick.name': 'Calcio',
-  'entities.abilities.sport_kick.description':
-    'Spingi il pallone rasoterra verso il punto di mira.',
-  'entities.abilities.sport_pass.name': 'Passaggio',
-  'entities.abilities.sport_pass.description':
-    'Fai scorrere un passaggio teso al compagno che hai come bersaglio, anticipandone la corsa.',
-  'entities.abilities.sport_punt.name': 'Rinvio Lungo',
-  'entities.abilities.sport_punt.description': 'Il rinvio del portiere, alto e lontano.',
-  'entities.abilities.sport_second_wind.name': 'Gambe Fresche',
-  'entities.abilities.sport_second_wind.description':
-    'Ritrova le gambe: ti muovi il 50% più veloce per 4 sec.',
-  'entities.abilities.sport_shoot.name': 'Tiro',
-  'entities.abilities.sport_shoot.description':
-    'Tieni premuto per caricare la potenza, rilascia per tirare in porta. Con troppa potenza il pallone vola sopra la traversa.',
-  'entities.abilities.sport_shoulder.name': 'Spallata',
-  'entities.abilities.sport_shoulder.description':
-    "Una spallata leale, degna della tregua del raccolto. Manda l'avversario a ruzzolare lontano dal pallone.",
   'entities.npcs.bursar_aldous_crane.name': 'Economo Aldous Crane',
   'entities.npcs.bursar_aldous_crane.title': 'Il Forziere Dorato',
   'entities.npcs.bursar_aldous_crane.greeting':
@@ -6339,11 +6561,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.bursar_petra_vell.title': 'Il Forziere Dorato',
   'entities.npcs.bursar_petra_vell.greeting':
     'Il Forziere Dorato tiene registri puliti e caveau ancora più puliti. Cosa possiamo custodire per te?',
-  'entities.npcs.groundskeeper_bram.name': 'Custode del Campo Bram',
-  'entities.npcs.groundskeeper_bram.title': 'Custode del Campo della Scrofa',
-  'entities.npcs.groundskeeper_bram.greeting':
-    'La tregua regge al Campo della Scrofa, {className}: solo calci e spallate. Ti va di giocare per il Secchio di Rame?',
-  'entities.zones.eastbrook_vale.pois.10.label': 'Campo della Scrofa',
   'guide.economy.bankTitle': 'La banca',
   'guide.economy.bankBody':
     "Ogni città principale ospita una filiale del Forziere Dorato, la casa bancaria del reame. Parla con l'economo del posto per aprire il tuo caveau, una riserva privata di spazio oltre le tue borse che il tuo personaggio conserva per tutta la vita. Qualunque cosa lasci in custodia ti aspetta al sicuro, quale che sia la filiale che visiterai la prossima volta.",
@@ -6351,92 +6568,6 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
     'Con il caveau aperto, clicca un oggetto nelle borse per depositarlo e cliccalo nel caveau per riprenderlo. Il caveau custodisce solo beni, mai monete, e gli oggetti missione restano con te. Quando le borse si riempiono a metà viaggio, un solo pulsante vi riversa in una volta sola tutti i tuoi materiali da artigianato.',
   'guide.economy.bankSlots':
     "Un caveau nuovo parte piccolo e cresce con te. L'economo vende altri spazi in cambio di monete a prezzi sempre più ripidi, e giocare online frutta spazio bonus in aggiunta, per cose come un'email verificata, gli account collegati e gli amici che porti nel gioco.",
-  'guide.nav.professions': 'Professioni',
-  'guide.nav.valeCup': 'Coppa della Valle',
-  'guide.professions.intro':
-    "Oltre al combattimento e alle missioni, il mondo ti ricompensa per il lavoro nei campi e alla forgia: raccogliere materie prime, trasformarle in equipaggiamento alle postazioni di artigianato di dieci mestieri diversi e assumere un'identità come uno dei dieci archetipi che quei mestieri rappresentano.",
-  'guide.professions.gatherTitle':
-    'Raccolta: Estrazione mineraria, Taglio del legname ed Erbalismo',
-  'guide.professions.gatherIntro':
-    "Tre mestieri di raccolta ti permettono di estrarre materie prime direttamente dal mondo: l'Estrazione mineraria cava minerale e pietra dai filoni, il Taglio del legname abbatte tronchi dai boschetti e l'Erbalismo raccoglie erbe e piante che crescono selvatiche. Ognuno è tracciato separatamente, quindi praticarne uno non rallenta mai i tuoi progressi in un altro.",
-  'guide.professions.gatherWhatTitle': 'Nodi di risorse',
-  'guide.professions.gatherWhatBody':
-    "Filoni di minerale, boschetti e chiazze d'erbe sono disseminati per le zone come elementi visibili e senza proprietario. Avvicinati a uno e interagisci per raccogliere ciò che contiene. Una volta che hai raccolto da un nodo, gli serve tempo per riprendersi prima che tu, personalmente, possa raccoglierne di nuovo, ma non blocca mai nessun altro: nel frattempo un altro giocatore può raccogliere dallo stesso identico nodo.",
-  'guide.professions.gatherProficiencyTitle': 'Competenza e qualità dei materiali',
-  'guide.professions.gatherProficiencyBody':
-    'Ogni raccolta riuscita accresce la tua competenza in quel mestiere. Una competenza più alta sposta ciò che ottieni da un nodo verso gradi di materiale più rari, dal comune in su, anche se i gradi più rari restano rari perfino ad alta competenza. Più pratica non peggiora mai le tue probabilità: le migliora soltanto.',
-  'guide.professions.gatherToolsTitle': 'Gli attrezzi del mestiere',
-  'guide.professions.gatherToolsBody':
-    'I mercanti vendono attrezzi di base per ogni mestiere di raccolta, e se ne possono fabbricare di migliori: lavorare un nodo di risorse è pensato per diventare più efficace man mano che ti equipaggi, non per restare statico. Gli attrezzi di livello superiore sono la via prevista per accedere ai nodi più ricchi e lavorarli con più efficienza in una lunga sessione.',
-  'guide.professions.craftTitle': 'I dieci mestieri',
-  'guide.professions.craftIntro':
-    "Dieci mestieri artigiani trasformano i materiali raccolti in equipaggiamento e beni finiti: l'Armaiolo, il Fabbro d'armi e il Gioielliere danno forma alla materia grezza in equipaggiamento da indossare; l'Alchimista e l'Ingegnere procedono per tentativi ed errori; il Cuoco, lo Scriba e l'Incantatore toccano ciascuno i prodotti degli altri mestieri; il Sarto e il Conciatore lavorano su modelli esatti. Insieme formano una ruota, in cui ogni mestiere siede accanto a due vicini e di fronte a un altro.",
-  'guide.professions.craftRingTitle': 'Una ruota di specialità',
-  'guide.professions.craftRingBody':
-    "I dieci mestieri sono disposti in un anello fisso, e dove un mestiere siede su quell'anello conta: i mestieri vicini sulla ruota hanno più cose in comune tra loro di quelli sui lati opposti. Dedicarsi a un mestiere è pensato per sembrare l'ingresso in una famiglia di mestieri affini, non la scelta di un'abilità isolata.",
-  'guide.professions.craftRecipesTitle': 'Ricette e reagenti',
-  'guide.professions.craftRecipesBody':
-    'Ogni mestiere ha le proprie ricette, ognuna delle quali richiede reagenti specifici che raccogli o compri. Le ricette più semplici di ogni mestiere chiedono soltanto materiali comuni e si possono realizzare fin da subito, così puoi iniziare a praticare un mestiere nel momento in cui lo scegli, senza aspettare di sbloccarlo.',
-  'guide.professions.craftMasteryTitle': 'Abilità e maestria',
-  'guide.professions.craftMasteryBody':
-    "Creare oggetti con successo accresce la tua abilità in quel mestiere, e le ricette più ricche sono riservate a chi ha un'abilità più alta: le ricette di base sono aperte a tutti, mentre quelle via via più avanzate chiedono via via più maestria per essere tentate. Far crescere la tua abilità in un mestiere è il cammino dai semplici beni per principianti alle sue ricette più ambiziose.",
-  'guide.professions.craftComboTitle': 'Ricette combinate',
-  'guide.professions.craftComboBody':
-    "Oltre al ricettario di un singolo mestiere, la ruota supporta anche ricette combinate che attingono a due mestieri vicini allo stesso tempo, premiando un personaggio (o una coppia di soci commerciali) che ha investito in mestieri adiacenti sull'anello anziché in uno solo, isolato.",
-  'guide.professions.archetypeTitle': 'I dieci archetipi',
-  'guide.professions.archetypeIntro':
-    "Ognuno dei dieci mestieri rappresenta anche un archetipo, un'identità più ampia che puoi adottare oltre al semplice esercizio di quel mestiere. Il tuo archetipo attivo è una scelta singola alla volta, non una lista da spuntare: ne porti uno, e in seguito puoi cambiarlo se lo desideri.",
-  'guide.professions.archetypeChooseTitle': 'Scegliere il tuo archetipo',
-  'guide.professions.archetypeChooseBody':
-    "Dichiari il tuo primo archetipo tramite una delle prime missioni di storia della zona uno, che ti accoglie formalmente in quell'identità. Finché non completi quella missione, non hai ancora scelto alcun archetipo.",
-  'guide.professions.archetypeIdentityTitle': 'Cosa significa il tuo archetipo',
-  'guide.professions.archetypeIdentityBody':
-    'Il tuo archetipo attivo è una dichiarazione di chi è il tuo personaggio nel mondo, riconosciuta nel modo in cui gli altri e il mondo si rivolgono a te. Le ricompense e i riconoscimenti esatti che lo accompagnano sono ancora in fase di definizione; ripassa di qui man mano che il sistema si completa.',
-  'guide.professions.archetypeSwitchTitle': 'Cambiare idea',
-  'guide.professions.archetypeSwitchBody':
-    'Aver dichiarato un archetipo una volta non ti ci vincola per sempre. Passare a un archetipo diverso significa prima completare una missione ripetibile di "riparazione" verso quello vecchio, e ogni volta che cambi, le riparazioni attese la volta successiva si fanno un po\' più onerose, così cambiare resta una scelta significativa anziché gratuita.',
-  'guide.valeCupPage.heading': 'La Coppa della Valle',
-  'guide.valeCupPage.intro':
-    'Palla di cinghiale al Campo della Scrofa: scegli uno stendardo, scegli un ruolo e calcia una pelle di cinghiale imbottita oltre il portiere per conquistare il Secchio di Rame. Niente sangue, niente bottino, solo il boato degli spalti.',
-  'guide.valeCupPage.loreHeading': 'La palla di cinghiale e la tregua del raccolto',
-  'guide.valeCupPage.loreOldSow':
-    'Molto prima che i morti si destassero, i braccianti di Eastbrook giocavano a palla di cinghiale sui campi di stoppie dopo il raccolto: due torme, una pelle di cinghiale imbottita di paglia e due cancelli da carro trascinati ai capi opposti del prato. La prima palla, la Vecchia Scrofa, pende bronzata sopra il focolare della taverna.',
-  'guide.valeCupPage.loreTruce':
-    'Quando il Colosseo Cinereo cominciò a sancire i giochi di guerra, il Maresciallo Redbrook rispose con qualcosa di più gentile: una tregua del raccolto permanente sul vecchio prato. I cancelli da carro diventarono i pali delle porte, il prato ebbe mura, spalti e un nome, il Campo della Scrofa, e il premio fu sempre lo stesso secchio del latte ammaccato da cui bevevano i vincitori: il Secchio di Rame.',
-  'guide.valeCupPage.howHeading': 'Come si gioca',
-  'guide.valeCupPage.howQueue':
-    "Mettiti in coda da qualsiasi luogo tramite la finestra della Coppa della Valle, oppure parla con il Custode del Campo Bram al cancello del Campo della Scrofa. Scegli una categoria dall'uno contro uno al cinque contro cinque, una nazione dello stendardo e un ruolo sportivo; entra in coda da solo o porta il tuo gruppo.",
-  'guide.valeCupPage.howMatch':
-    "Al calcio d'inizio le abilità della tua classe vengono sostituite da un corredo sportivo, e ripristinate esattamente com'erano alla fine. I calci mirano al reticolo a terra, la palla rimbalza sulle sponde e per dribblare basta correre con la palla. Segna più gol dell'altra squadra prima del fischio finale; in caso di pareggio si va al gol d'oro.",
-  'guide.valeCupPage.howTruce':
-    'Al Campo della Scrofa nessuno sanguina: i contrasti fanno solo ruzzolare, niente fa male e i famigli restano fuori dalla partita.',
-  'guide.valeCupPage.nationsHeading': 'Le otto nazioni degli stendardi',
-  'guide.valeCupPage.nationsBody':
-    'Ogni squadra gioca sotto uno stendardo. Il capitano sceglie la nazione e, se entrambe le parti issano lo stesso, la squadra ospite gioca con i colori invertiti.',
-  'guide.valeCupPage.nationVale':
-    'Verde e oro, con il covone di grano al vento: la squadra di casa, braccianti fino al midollo.',
-  'guide.valeCupPage.nationColiseum':
-    'Rosso e nero con le spade incrociate: giocano come se fosse ancora un gioco di guerra.',
-  'guide.valeCupPage.nationCopperdig':
-    'Rame e marrone con il piccone: scavatori che non smettono mai di correre.',
-  'guide.valeCupPage.nationMirefen':
-    "Verde acqua e grigio sotto l'airone: pazienti, dalle gambe lunghe, mai frettolosi.",
-  'guide.valeCupPage.nationMoon':
-    'Viola e argento sotto la falce di luna: giocatori notturni, leggeri sui piedi.',
-  'guide.valeCupPage.nationChoir':
-    'Azzurro pallido e argento sotto la campana: inquietanti, precisi e molto silenziosi.',
-  'guide.valeCupPage.nationOgre':
-    "Arancio e terra d'ombra dietro il pugno: prima la spallata, e ne vanno fieri.",
-  'guide.valeCupPage.nationThornpeak':
-    'Blu ghiaccio e bianco sotto la vetta della montagna: dal passo sicuro e testardi.',
-  'guide.valeCupPage.rolesHeading': 'Ruoli sportivi',
-  'guide.valeCupPage.rolesBody':
-    'Il tuo ruolo decide il corredo che porti in campo. Tutti calciano; il resto è temperamento.',
-  'guide.valeCupPage.rewardsHeading': 'Le regole della tregua',
-  'guide.valeCupPage.rewardsBody':
-    "Le regole della tregua significano niente esperienza e niente bottino: una partita conclusa conta per il tuo bilancio e per l'albo dei vincitori, e porta con sé punti delle ricompense giornaliere. Disertare una partita ti lascia in panchina per un po', e il Custode del Campo ricorda.",
-  'guide.valeCupPage.spectateBody':
-    'Allo stadio si gioca una partita alla volta, e chiunque può avvicinarsi e guardare dagli spalti.',
   'hudChrome.bank.title': 'Banca',
   'hudChrome.bank.subtitle': 'Il Forziere Dorato',
   'hudChrome.bank.close': 'Chiudi la banca',
@@ -6480,150 +6611,4 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.bank.bonusReferralExplainer':
     'Invita un amico: quando raggiunge il livello 10 guadagnate 2 spazi ciascuno, fino a 5 amici.',
   'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
-  'hudChrome.keybinds.valecup': 'Coppa della Valle',
-  'hudChrome.mobile.dailyRewards': 'Ricompense',
-  'hudChrome.perf.labels.predLead': 'Anticipo di predizione',
-  'hudChrome.townFocus.title': 'Priorità della città',
-  'hudChrome.townFocus.hint':
-    'I punti priorità aggiungono un bonus alla resa di base di ogni componente. I componenti senza priorità restano alla resa di base.',
-  'hudChrome.townFocus.budgetLabel': 'Punti rimanenti: {remaining} / {budget}',
-  'hudChrome.townFocus.saveButton': 'Salva priorità',
-  'hudChrome.townFocus.notInTownHint': 'Devi essere in città per impostare le priorità.',
-  'hudChrome.townFocus.increaseAria': 'Aumenta la priorità su {component}',
-  'hudChrome.townFocus.decreaseAria': 'Riduci la priorità su {component}',
-  'hudChrome.vcup.title': 'La Coppa della Valle',
-  'hudChrome.vcup.close': 'Chiudi la finestra della Coppa della Valle',
-  'hudChrome.vcup.gossipOpen': 'Il libro degli incontri',
-  'hudChrome.vcup.gossipOpenAria': 'Apri la finestra della Coppa della Valle',
-  'hudChrome.vcup.indicatorLive': 'Coppa della Valle',
-  'hudChrome.vcup.indicatorOpen': 'Apri la finestra della Coppa della Valle',
-  'hudChrome.vcup.indicatorQueued':
-    'Coda della Coppa della Valle: {bracket}, posizione {position} di {count}',
-  'hudChrome.vcup.mobileLabel': 'Coppa',
-  'hudChrome.vcup.offlineNote':
-    'Il libro degli incontri è chiuso. La Coppa della Valle non è disponibile al momento.',
-  'hudChrome.vcup.nationsHeading': 'Nazione dello stendardo',
-  'hudChrome.vcup.nation.vale': 'Valle di Eastbrook',
-  'hudChrome.vcup.nation.coliseum': 'Colosseo Cinereo',
-  'hudChrome.vcup.nation.copperdig': 'Miniera di Rame',
-  'hudChrome.vcup.nation.mirefen': 'Mirefen',
-  'hudChrome.vcup.nation.moon': 'Luna Pallida',
-  'hudChrome.vcup.nation.choir': 'Coro Pallido',
-  'hudChrome.vcup.nation.ogre': 'Clan degli Ogre',
-  'hudChrome.vcup.nation.thornpeak': 'Thornpeak',
-  'hudChrome.vcup.awayNote':
-    'Se entrambe le parti issano lo stesso stendardo, la squadra ospite gioca con i colori invertiti.',
-  'hudChrome.vcup.rolesHeading': 'Ruolo sportivo',
-  'hudChrome.vcup.role.striker.name': 'Attaccante',
-  'hudChrome.vcup.role.striker.desc': 'Vive per il campanile e per la finta rapida.',
-  'hudChrome.vcup.role.keeper.name': 'Portiere',
-  'hudChrome.vcup.role.keeper.desc': "Difende l'area di porta con presa, tuffo e rinvio.",
-  'hudChrome.vcup.role.sweeper.name': 'Libero',
-  'hudChrome.vcup.role.sweeper.desc':
-    'Butta giù i portatori di palla con la spallata e spazza il pallone lontano.',
-  'hudChrome.vcup.role.allrounder.name': 'Tuttofare',
-  'hudChrome.vcup.role.allrounder.desc': "Un po' di tutto: calcio, campanile e una spallata leale.",
-  'hudChrome.vcup.bracketsAria': 'Categoria della partita',
-  'hudChrome.vcup.bracketLabel': '{n}v{n}',
-  'hudChrome.vcup.queue': 'Mettiti in coda',
-  'hudChrome.vcup.leaveQueue': 'Lascia la coda',
-  'hudChrome.vcup.queueNote':
-    'Mettiti in coda da qualsiasi luogo; il fischio ti chiamerà al Campo della Scrofa.',
-  'hudChrome.vcup.queuedStatus': 'In coda per {bracket}: posizione {position} di {count}.',
-  'hudChrome.vcup.waitingCount': '{count} in attesa',
-  'hudChrome.vcup.blockNation': 'Prima scegli una nazione dello stendardo.',
-  'hudChrome.vcup.blockNotLeader': 'Solo il capogruppo può mettere in coda la squadra.',
-  'hudChrome.vcup.blockPartySize': 'Quella categoria richiede un gruppo più piccolo.',
-  'hudChrome.vcup.enterAsGuild': 'Entra sotto lo stendardo di {guild}',
-  'hudChrome.vcup.practice': 'Allenati contro i bot',
-  'hudChrome.vcup.practiceNote':
-    'Avvia subito una partita privata contro i bot su un campo di allenamento tutto tuo.',
-  'hudChrome.vcup.practicingNow': 'Si stanno allenando ora ({count}):',
-  'hudChrome.vcup.deserterNote':
-    'Il Custode del Campo ricorda. Potrai rimetterti in coda tra {seconds} sec.',
-  'hudChrome.vcup.inMatchNote': 'La tua squadra è in campo. Gioca!',
-  'hudChrome.vcup.liveHeading': 'Ora al Campo della Scrofa',
-  'hudChrome.vcup.liveAria': 'Coppa della Valle: {nationA} {scoreA}, {nationB} {scoreB}',
-  'hudChrome.vcup.noLive': 'Il campo è silenzioso. Nessuna partita in corso.',
-  'hudChrome.vcup.walkUp': 'Avvicinati al Campo della Scrofa per guardare dagli spalti.',
-  'hudChrome.vcup.boardHeading': 'Albo dei vincitori',
-  'hudChrome.vcup.boardEmpty': 'Nessun vincitore registrato finora. Il Secchio di Rame attende.',
-  'hudChrome.vcup.boardWins': '{count} vittorie',
-  'hudChrome.vcup.guildBoardHeading': 'Stendardi delle gilde',
-  'hudChrome.vcup.guildBoardEmpty': 'Nessuna gilda è ancora scesa in campo. Issa il tuo stendardo!',
-  'hudChrome.vcup.guildBoardWl': '{wins} V, {losses} S',
-  'hudChrome.vcup.guildRecordLine':
-    'Bilancio della tua gilda: {wins} vittorie, {losses} sconfitte.',
-  'hudChrome.vcup.recordLine':
-    'Il tuo bilancio: {wins} vittorie, {losses} sconfitte, {draws} pareggi.',
-  'hudChrome.vcup.clock': '{minutes}:{seconds}',
-  'hudChrome.vcup.shootPower': 'POTENZA',
-  'hudChrome.vcup.phaseCountdown': "Calcio d'inizio tra {seconds}",
-  'hudChrome.vcup.phaseGoal': 'GOL!',
-  'hudChrome.vcup.phaseGolden': "GOL D'ORO",
-  'hudChrome.vcup.phaseOver': 'FISCHIO FINALE',
-  'hudChrome.vcup.bannerCountdown': "Calcio d'inizio tra {seconds}...",
-  'hudChrome.vcup.bannerKickoff': "CALCIO D'INIZIO!",
-  'hudChrome.vcup.bannerGoal': 'GOL! Segna {nation}!',
-  'hudChrome.vcup.bannerGolden': "GOL D'ORO: il prossimo gol vince!",
-  'hudChrome.vcup.bannerSave': '{name} PARA!',
-  'hudChrome.vcup.bannerEnd': 'Fischio finale: {nationA} {scoreA}, {nationB} {scoreB}',
-  'hudChrome.vcup.bannerFound': 'La Coppa della Valle chiama: {nationA} contro {nationB}!',
-  'hudChrome.vcup.bannerWin': 'Vittoria al Campo della Scrofa!',
-  'hudChrome.vcup.bannerDraw': 'Pareggio al Campo della Scrofa.',
-  'hudChrome.vcup.bannerLoss': 'Sconfitta al Campo della Scrofa.',
-  'hudChrome.vcup.logFound':
-    'La tua partita della Coppa della Valle è pronta: {nationA} contro {nationB}.',
-  'hudChrome.vcup.logQueued':
-    'Ti unisci alla coda della Coppa della Valle per {bracket} (posizione {position}).',
-  'hudChrome.vcup.logUnqueued': 'Lasci la coda della Coppa della Valle.',
-  'hudChrome.vcup.logRoster': 'La tua squadra: {allies}. La loro: {enemies}.',
-  'hudChrome.vcup.logGoal': '{name} segna per {nation}! {nationA} {scoreA}, {nationB} {scoreB}.',
-  'hudChrome.vcup.logSave': '{name} fa la parata!',
-  'hudChrome.vcup.logWin': 'Vinci la sfida al Campo della Scrofa.',
-  'hudChrome.vcup.logDraw': 'La sfida al Campo della Scrofa finisce in pareggio.',
-  'hudChrome.vcup.logLoss': 'Perdi la sfida al Campo della Scrofa.',
-  'hudChrome.vcup.briefing.subtitle': 'Riunione pre-partita',
-  'hudChrome.vcup.briefing.rosterHeading': 'La distinta',
-  'hudChrome.vcup.briefing.you': 'Tu',
-  'hudChrome.vcup.briefing.bot': 'Bot',
-  'hudChrome.vcup.briefing.vs': 'contro',
-  'hudChrome.vcup.briefing.kitHeading': 'Il tuo corredo',
-  'hudChrome.vcup.briefing.kitNote':
-    'Queste mosse sostituiscono le abilità della tua classe per la durata della partita.',
-  'hudChrome.vcup.briefing.rulesHeading': 'Come si gioca',
-  'hudChrome.vcup.briefing.rule1': 'Calcia o passa la palla nella porta avversaria per segnare.',
-  'hudChrome.vcup.briefing.rule2':
-    'Vince chi arriva per primo a 5 gol, o chi ne ha segnati di più al fischio finale.',
-  'hudChrome.vcup.briefing.rule3':
-    "Una partita in parità al fischio finale va al gol d'oro: il prossimo gol vince.",
-  'hudChrome.vcup.briefing.rule4':
-    'I contrasti ti fanno solo ruzzolare. Nessuno si fa male sotto la tregua del raccolto.',
-  'hudChrome.vcup.briefing.rule5': 'Chiunque può avvicinarsi e fare il tifo per te dagli spalti.',
-  'hudChrome.vcup.briefing.ready': 'Sono pronto',
-  'hudChrome.vcup.briefing.readyAria': "Dichiarati pronto per il calcio d'inizio",
-  'hudChrome.vcup.briefing.readyDone': 'Pronto',
-  'hudChrome.vcup.briefing.readyCount': '{ready} di {total} pronti',
-  'hudChrome.vcup.briefing.waiting': "In attesa che l'altra squadra sia pronta...",
-  'hudChrome.vcup.briefing.whistle': "Il fischio d'inizio suona tra {seconds}s.",
-  'hudChrome.vcup.bet.title': 'Scommesse sulla partita',
-  'hudChrome.vcup.bet.aria': 'Scommesse sulle partite della Coppa della Valle',
-  'hudChrome.vcup.bet.expand': 'Vedi le scommesse e punta',
-  'hudChrome.vcup.bet.collapse': 'Nascondi le scommesse',
-  'hudChrome.vcup.bet.back': 'Punta su {team}',
-  'hudChrome.vcup.bet.closed': 'Scommesse chiuse',
-  'hudChrome.vcup.bet.closesIn': 'Le scommesse chiudono tra {seconds}s',
-  'hudChrome.vcup.bet.form': '{wins}V-{losses}S',
-  'hudChrome.vcup.bet.record': 'Bilancio scommesse: {wins}V-{losses}S, {sign}{net}',
-  'hudChrome.vcup.bet.mine': 'La tua scommessa: {amount} su {team}',
-  'hudChrome.vcup.bet.none': 'Non hai ancora scommesso su questa partita.',
-  'hudChrome.vcup.bet.oddsLabel': 'Paga',
-  'hudChrome.vcup.bet.prize': 'Montepremi {amount}',
-  'hudChrome.vcup.bet.splitAria': 'Quota del montepremi puntata su ciascuna squadra',
-  'hudChrome.vcup.bet.wonBanner': 'La tua scommessa ha vinto!',
-  'hudChrome.vcup.bet.wonLog':
-    'La tua scommessa sulla Coppa della Valle ha vinto: {amount} riscossi.',
-  'hudChrome.vcup.bet.lostLog': 'La tua scommessa sulla Coppa della Valle ha perso: {amount}.',
-  'hudChrome.vcup.bet.refundLog':
-    'Scommesse annullate, la tua puntata di {amount} è stata restituita.',
 };

@@ -866,16 +866,16 @@ export interface PlayerMeta {
   // Session-only: name of the last player who whispered us, for "/r" replies.
   // Never persisted — a fresh login starts with no reply target.
   lastWhisperFrom?: string;
-  // Session-only World Market browse query: the search string, the type / subtype /
-  // rarity filters, and the page index. The server filters + paginates against this,
-  // so the player can page through and filter the WHOLE market a window at a time.
-  // Never persisted, resets on login.
-  marketQuery: MarketQuery;
   // Session-only World Market browse filter. The market is capped at
   // MARKET_WIRE_LIMIT listings per snapshot to bound wire cost, so this
   // server-side substring filter (matched against item names) is how a player
   // reaches goods past the cap. Never persisted: resets on login.
   marketFilter: string;
+  // Session-only World Market browse query: the search string, the type / subtype /
+  // rarity filters, and the page index. The server filters + paginates against this,
+  // so the player can page through and filter the WHOLE market a window at a time.
+  // Never persisted, resets on login.
+  marketQuery: MarketQuery;
   // Flat per-craft skill tracking (#1126): one independent, additive-only skill
   // value per craft on the ten-craft ring (see professions/wheel.ts). Persisted
   // in CharacterState.
@@ -1648,11 +1648,11 @@ export class Sim {
       activeLoadout: -1,
       raidLockouts: new Map(),
       away: null,
-      marketQuery: defaultMarketQuery(),
       marketFilter: '',
       craftSkills: emptyCraftSkills(),
-      archetype: emptyArchetypeState(),
+      marketQuery: defaultMarketQuery(),
       mailWelcomed: false,
+      archetype: emptyArchetypeState(),
       delveMarks: 0,
       delveClears: {},
       companionUpgrades: {},
@@ -4946,19 +4946,27 @@ export class Sim {
     this.ctx.onInventoryChangedForQuests(meta);
   }
 
-  removeItem(itemId: string, count: number, pid?: number): void {
+  // Returns the `instance` payload of every instanced slot actually consumed
+  // (highest-index/most-recently-added slot first, matching the removal
+  // order below), so a caller that needs to attribute an effect to the
+  // SPECIFIC copy removed (e.g. #1149 Battlefield Experience) never guesses
+  // at a different slot than the one this call actually took from.
+  removeItem(itemId: string, count: number, pid?: number): ItemInstancePayload[] {
+    const consumedInstances: ItemInstancePayload[] = [];
     const r = this.resolve(pid);
-    if (!r) return;
+    if (!r) return consumedInstances;
     const { meta } = r;
     for (let i = meta.inventory.length - 1; i >= 0 && count > 0; i--) {
       const s = meta.inventory[i];
       if (s.itemId !== itemId) continue;
+      if (s.instance) consumedInstances.push(s.instance);
       const take = Math.min(s.count, count);
       s.count -= take;
       count -= take;
       if (s.count <= 0) meta.inventory.splice(i, 1);
     }
     this.ctx.onInventoryChangedForQuests(meta);
+    return consumedInstances;
   }
 
   // Fungible-only removal (#1165): skips instanced slots entirely, so a market

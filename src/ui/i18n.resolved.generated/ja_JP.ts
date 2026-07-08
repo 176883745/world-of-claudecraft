@@ -456,7 +456,7 @@ export const ja_JP: EnTranslations = {
       "guildRecordLine": "ギルド成績：{wins} 勝 {losses} 敗。",
       "guildBoardHeading": "ギルド旗",
       "guildBoardEmpty": "まだ参加したギルドはない。旗を掲げよう！",
-      "guildBoardWl": "{wins}勝{losses}敗",
+      "guildBoardWl": "{wins} 勝 {losses} 敗",
       "practice": "ボット練習試合",
       "practiceNote": "ソウフィールドでボットとのフル試合をすぐに始める。",
       "practicingNow": "練習中（{count}）：",
@@ -622,6 +622,7 @@ export const ja_JP: EnTranslations = {
         "jitter": "ジッター",
         "predLead": "予測リード",
         "snapshot": "スナップショットレート",
+        "serverTick": "サーバーティックレート",
         "connection": "接続",
         "drawCalls": "ドローコール",
         "triangles": "三角形",
@@ -6212,6 +6213,24 @@ export const ja_JP: EnTranslations = {
       },
       "sunpetal_sickle": {
         "name": "陽花弁の鎌"
+      },
+      "thorium_ore": {
+        "name": "トリウム鉱石"
+      },
+      "arcanite_bar": {
+        "name": "アーケナイトの延べ棒"
+      },
+      "ashwood_log": {
+        "name": "アッシュウッドの丸太"
+      },
+      "elderwood_log": {
+        "name": "エルダーウッドの丸太"
+      },
+      "goldleaf_herb": {
+        "name": "ゴールドリーフ草"
+      },
+      "sunpetal_herb": {
+        "name": "サンペタル草"
       },
       "bristleback_maul": {
         "name": "ギャロウグラスの大槌"

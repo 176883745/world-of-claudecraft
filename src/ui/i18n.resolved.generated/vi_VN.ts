@@ -308,7 +308,7 @@ export const vi_VN: EnTranslations = {
       "autorun": "Tự Chạy",
       "jump": "Nhảy",
       "leaderboard": "Xếp Hạng",
-      "dailyRewards": "Phần Thưởng",
+      "dailyRewards": "Thưởng",
       "nameplates": "Tên",
       "haptics": "Phản Hồi Rung",
       "hapticsOff": "Tắt Phản Hồi Rung",
@@ -400,136 +400,136 @@ export const vi_VN: EnTranslations = {
       "title": "Cúp Thung Lũng",
       "shootPower": "LỰC SÚT",
       "close": "Đóng cửa sổ Cúp Thung Lũng",
-      "offlineNote": "Cuốn sổ lịch thi đấu đang gấp lại. Cúp Thung Lũng hiện chưa mở.",
+      "offlineNote": "Sổ lịch thi đấu đã gấp lại. Cúp Thung Lũng hiện không mở.",
       "recordLine": "Thành tích của bạn: {wins} thắng, {losses} thua, {draws} hòa.",
-      "bracketsAria": "Thể thức trận đấu",
+      "bracketsAria": "Hạng đấu",
       "bracketLabel": "{n}v{n}",
       "waitingCount": "{count} đang chờ",
-      "nationsHeading": "Xứ cờ hiệu",
+      "nationsHeading": "Quốc gia cờ hiệu",
       "nation": {
         "vale": "Thung Lũng Đông Khê",
-        "mirefen": "Đầm Bùn Sâu",
+        "mirefen": "Đầm Lầy Bùn Sâu",
         "thornpeak": "Đỉnh Gai",
         "coliseum": "Đấu Trường Tro Tàn",
         "choir": "Hợp Ca Nhợt Nhạt",
-        "ogre": "Thị Tộc Ogre",
-        "moon": "Vầng Trăng Nhợt Nhạt",
+        "ogre": "Các Bộ Tộc Ogre",
+        "moon": "Trăng Nhợt",
         "copperdig": "Mỏ Đồng"
       },
-      "awayNote": "Nếu cả hai bên giương cùng một lá cờ hiệu, đội khách sẽ khoác bảng màu đảo ngược.",
-      "rolesHeading": "Vai trò trên sân",
+      "awayNote": "Nếu hai bên cùng giương một lá cờ, đội khách sẽ khoác bảng màu đảo ngược.",
+      "rolesHeading": "Vai trò thi đấu",
       "role": {
         "allrounder": {
-          "name": "Đa Năng",
-          "desc": "Mỗi thứ một chút: đá sệt, sút bổng, và một cú huých vai đúng luật."
+          "name": "Toàn Năng",
+          "desc": "Biết một chút mọi thứ: đá bóng, sút bổng, và một cú vai đúng luật."
         },
         "striker": {
           "name": "Tiền Đạo",
-          "desc": "Sống vì những cú sút bổng xa và bước lách người chớp nhoáng."
+          "desc": "Sống vì cú sút xa và pha lách người chớp nhoáng."
         },
         "sweeper": {
           "name": "Hậu Vệ Quét",
-          "desc": "Huých kẻ đi bóng văng khỏi bóng và phá bóng giải nguy."
+          "desc": "Húc văng đối thủ khỏi bóng và phá bóng lên."
         },
         "keeper": {
           "name": "Thủ Môn",
-          "desc": "Trấn giữ vòng cấm bằng đôi tay bắt bóng, cú bay người, và cú phát bóng dài."
+          "desc": "Trấn giữ khung thành với bắt bóng, bay người và phát bóng."
         }
       },
-      "queue": "Vào Hàng Đợi",
-      "leaveQueue": "Rời Hàng Đợi",
-      "queueNote": "Xếp hàng từ bất cứ đâu; tiếng còi sẽ gọi bạn tới Sân Lợn Nái.",
-      "queuedStatus": "Đang xếp hàng thể thức {bracket}: vị trí {position} trên {count}.",
-      "blockNation": "Hãy chọn một xứ cờ hiệu trước.",
-      "blockPartySize": "Thể thức đó cần tổ đội nhỏ hơn.",
-      "blockNotLeader": "Chỉ đội trưởng tổ đội mới xếp hàng được cho cả đội.",
-      "inMatchNote": "Đội của bạn đang trên sân. Chơi tiếp nào!",
+      "queue": "Vào Hàng Chờ",
+      "leaveQueue": "Rời Hàng Chờ",
+      "queueNote": "Xếp hàng từ bất cứ đâu; tiếng còi sẽ gọi bạn tới Sân Heo Nái.",
+      "queuedStatus": "Đang chờ cho {bracket}: vị trí {position} trên {count}.",
+      "blockNation": "Hãy chọn một quốc gia cờ hiệu trước.",
+      "blockPartySize": "Hạng đấu này cần một tổ đội nhỏ hơn.",
+      "blockNotLeader": "Chỉ trưởng nhóm mới có thể xếp hàng cho cả đội.",
+      "inMatchNote": "Đội của bạn đang trên sân. Tiếp tục thi đấu!",
       "deserterNote": "Quản Sân sẽ nhớ đấy. Bạn có thể xếp hàng lại sau {seconds} giây.",
-      "liveHeading": "Đang diễn ra tại Sân Lợn Nái",
+      "liveHeading": "Đang diễn ra tại Sân Heo Nái",
       "liveAria": "Cúp Thung Lũng: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Hãy đến Sân Lợn Nái để xem từ khán đài.",
-      "noLive": "Sân cỏ đang lặng yên. Không có trận nào diễn ra.",
-      "boardHeading": "Bảng Vinh Danh",
-      "boardEmpty": "Chưa có người thắng cuộc nào được ghi nhận. Xô Đồng vẫn đang chờ.",
+      "walkUp": "Hãy đi tới Sân Heo Nái để xem từ khán đài.",
+      "noLive": "Sân bóng đang yên ắng. Không có trận nào diễn ra.",
+      "boardHeading": "Bảng vô địch",
+      "boardEmpty": "Chưa có nhà vô địch nào được ghi danh. Chiếc Xô Đồng vẫn đang chờ.",
       "boardWins": "{count} trận thắng",
       "enterAsGuild": "Ra sân dưới cờ hiệu của {guild}",
       "guildRecordLine": "Thành tích bang hội của bạn: {wins} thắng, {losses} thua.",
-      "guildBoardHeading": "Cờ Hiệu Bang Hội",
-      "guildBoardEmpty": "Chưa bang hội nào ra sân. Hãy giương cờ hiệu của bạn!",
+      "guildBoardHeading": "Cờ hiệu bang hội",
+      "guildBoardEmpty": "Chưa có bang hội nào ra sân. Hãy giương cao cờ hiệu của bạn!",
       "guildBoardWl": "{wins} T, {losses} B",
-      "practice": "Tập Luyện với Bot",
-      "practiceNote": "Bắt đầu ngay một trận đấu riêng với bot trên sân tập của riêng bạn.",
+      "practice": "Tập Luyện Với Máy",
+      "practiceNote": "Bắt đầu ngay một trận riêng với máy trên sân tập của riêng bạn.",
       "practicingNow": "Đang tập luyện ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Hàng đợi Cúp Thung Lũng: {bracket}, vị trí {position} trên {count}",
+      "indicatorQueued": "Hàng chờ Cúp Thung Lũng: {bracket}, vị trí {position} trên {count}",
       "indicatorLive": "Cúp Thung Lũng",
       "indicatorOpen": "Mở cửa sổ Cúp Thung Lũng",
       "phaseCountdown": "Giao bóng sau {seconds}",
       "phaseGoal": "VÀO!",
       "phaseGolden": "BÀN THẮNG VÀNG",
       "phaseOver": "HẾT GIỜ",
-      "bannerFound": "Cúp Thung Lũng vẫy gọi: {nationA} gặp {nationB}!",
+      "bannerFound": "Cúp Thung Lũng vẫy gọi: {nationA} đấu {nationB}!",
       "bannerCountdown": "Giao bóng sau {seconds}...",
       "bannerKickoff": "GIAO BÓNG!",
       "bannerGoal": "VÀO! {nation} ghi bàn!",
       "bannerSave": "{name} CẢN PHÁ!",
-      "bannerGolden": "BÀN THẮNG VÀNG: bàn kế tiếp định đoạt trận đấu!",
+      "bannerGolden": "BÀN THẮNG VÀNG: bàn tiếp theo định đoạt trận đấu!",
       "bannerEnd": "Hết giờ: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Chiến thắng tại Sân Lợn Nái!",
-      "bannerDraw": "Một trận hòa tại Sân Lợn Nái.",
-      "bannerLoss": "Thất bại tại Sân Lợn Nái.",
-      "logQueued": "Bạn gia nhập hàng đợi Cúp Thung Lũng thể thức {bracket} (vị trí {position}).",
-      "logUnqueued": "Bạn rời hàng đợi Cúp Thung Lũng.",
-      "logFound": "Trận Cúp Thung Lũng của bạn đã sẵn sàng: {nationA} gặp {nationB}.",
-      "logRoster": "Bên bạn: {allies}. Bên họ: {enemies}.",
+      "bannerWin": "Chiến thắng tại Sân Heo Nái!",
+      "bannerDraw": "Một trận hòa tại Sân Heo Nái.",
+      "bannerLoss": "Thất bại tại Sân Heo Nái.",
+      "logQueued": "Bạn tham gia hàng chờ Cúp Thung Lũng cho {bracket} (vị trí {position}).",
+      "logUnqueued": "Bạn rời hàng chờ Cúp Thung Lũng.",
+      "logFound": "Trận Cúp Thung Lũng của bạn đã sẵn sàng: {nationA} đấu {nationB}.",
+      "logRoster": "Phe của bạn: {allies}. Phe đối phương: {enemies}.",
       "logGoal": "{name} ghi bàn cho {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
       "logSave": "{name} cản phá thành công!",
-      "logWin": "Bạn thắng trận so tài tại Sân Lợn Nái.",
-      "logDraw": "Trận so tài tại Sân Lợn Nái kết thúc với tỷ số hòa.",
-      "logLoss": "Bạn thua trận so tài tại Sân Lợn Nái.",
-      "gossipOpen": "Cuốn sổ lịch thi đấu",
+      "logWin": "Bạn thắng trận đấu tại Sân Heo Nái.",
+      "logDraw": "Trận đấu tại Sân Heo Nái kết thúc với tỷ số hòa.",
+      "logLoss": "Bạn thua trận đấu tại Sân Heo Nái.",
+      "gossipOpen": "Sổ lịch thi đấu",
       "gossipOpenAria": "Mở cửa sổ Cúp Thung Lũng",
       "mobileLabel": "Cúp",
       "briefing": {
-        "subtitle": "Phổ biến trước trận",
-        "vs": "vs",
+        "subtitle": "Họp trước trận",
+        "vs": "đấu",
         "rulesHeading": "Cách chơi",
-        "rule1": "Sút hoặc chuyền bóng vào khung thành đối phương để ghi bàn.",
-        "rule2": "Đội đầu tiên chạm 5 bàn sẽ thắng, hoặc đội nhiều bàn hơn khi còi hết giờ vang lên.",
-        "rule3": "Trận hòa khi hết giờ bước vào bàn thắng vàng: bàn kế tiếp định đoạt.",
-        "rule4": "Những pha vào bóng chỉ làm bạn ngã lăn. Không ai bị thương dưới lệnh hưu chiến mùa gặt.",
-        "rule5": "Bất cứ ai cũng có thể bước tới cổ vũ bạn từ khán đài.",
+        "rule1": "Đá hoặc chuyền bóng vào khung thành đối phương để ghi bàn.",
+        "rule2": "Đội đạt 5 bàn trước sẽ thắng, hoặc đội nhiều bàn hơn khi còi hết giờ vang lên.",
+        "rule3": "Trận hòa khi hết giờ sẽ vào bàn thắng vàng: bàn tiếp theo định đoạt.",
+        "rule4": "Cú vai chỉ khiến bạn ngã lăn. Không ai bị thương dưới lệnh hưu chiến mùa gặt.",
+        "rule5": "Ai cũng có thể tới cổ vũ bạn từ trên khán đài.",
         "kitHeading": "Bộ kỹ năng của bạn",
-        "kitNote": "Những chiêu này thay thế kỹ năng lớp nhân vật của bạn trong suốt trận đấu.",
+        "kitNote": "Các chiêu này thay thế kỹ năng lớp nhân vật của bạn trong trận đấu.",
         "rosterHeading": "Danh sách ra sân",
         "you": "Bạn",
-        "bot": "Bot",
+        "bot": "Máy",
         "ready": "Tôi sẵn sàng",
         "readyDone": "Sẵn sàng",
         "readyAria": "Sẵn sàng cho giờ giao bóng",
         "waiting": "Đang chờ phía bên kia sẵn sàng...",
-        "whistle": "Tiếng còi sẽ vang lên sau {seconds} giây.",
+        "whistle": "Tiếng còi vang lên sau {seconds} giây.",
         "readyCount": "{ready} trên {total} đã sẵn sàng"
       },
       "bet": {
         "title": "Cược Trận Đấu",
-        "aria": "Cá cược trận Cúp Thung Lũng",
+        "aria": "Cá cược trận đấu Cúp Thung Lũng",
         "closesIn": "Đóng cược sau {seconds} giây",
         "closed": "Đã đóng cược",
         "prize": "Quỹ cược {amount}",
-        "splitAria": "Tỷ phần quỹ cược đặt vào mỗi đội",
-        "expand": "Xem và đặt cược",
+        "splitAria": "Tỷ trọng quỹ cược đặt cho mỗi đội",
+        "expand": "Xem cược và đặt tiền",
         "collapse": "Ẩn cược",
-        "oddsLabel": "Trả",
+        "oddsLabel": "Trả thưởng",
         "back": "Cược cho {team}",
         "form": "{wins}T-{losses}B",
-        "mine": "Cược của bạn: {amount} vào {team}",
+        "mine": "Cược của bạn: {amount} cho {team}",
         "none": "Bạn chưa đặt cược cho trận này.",
         "record": "Thành tích cược: {wins}T-{losses}B, {sign}{net}",
-        "wonBanner": "Cược của bạn đã thắng!",
+        "wonBanner": "Cược của bạn thắng rồi!",
         "wonLog": "Cược Cúp Thung Lũng của bạn đã thắng: nhận về {amount}.",
         "lostLog": "Cược Cúp Thung Lũng của bạn đã thua: {amount}.",
-        "refundLog": "Cược bị hủy, tiền đặt {amount} của bạn đã được hoàn lại."
+        "refundLog": "Cược bị hủy, {amount} tiền cược của bạn đã được hoàn lại."
       }
     },
     "options": {
@@ -622,6 +622,7 @@ export const vi_VN: EnTranslations = {
         "jitter": "Nhiễu Động",
         "predLead": "Độ Sớm Dự Đoán",
         "snapshot": "Tốc Độ Ảnh Chụp",
+        "serverTick": "Tốc Độ Nhịp Máy Chủ",
         "connection": "Kết Nối",
         "drawCalls": "Lệnh Vẽ",
         "triangles": "Tam Giác",
@@ -920,10 +921,10 @@ export const vi_VN: EnTranslations = {
     },
     "townFocus": {
       "title": "Trọng Tâm Thị Trấn",
-      "hint": "Điểm trọng tâm cộng thêm phần thưởng lên trên sản lượng cơ bản của mỗi hạng mục. Hạng mục không được dồn điểm giữ nguyên mức cơ bản.",
+      "hint": "Điểm trọng tâm cộng thêm một khoản trên mức sản lượng cơ bản của từng hạng mục. Hạng mục không được dồn trọng tâm giữ nguyên mức cơ bản.",
       "budgetLabel": "Điểm còn lại: {remaining} / {budget}",
       "saveButton": "Lưu Trọng Tâm",
-      "notInTownHint": "Bạn phải ở trong thị trấn mới đặt được trọng tâm.",
+      "notInTownHint": "Bạn phải ở trong thị trấn để đặt trọng tâm.",
       "increaseAria": "Tăng trọng tâm cho {component}",
       "decreaseAria": "Giảm trọng tâm cho {component}"
     },
@@ -2223,29 +2224,29 @@ export const vi_VN: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Cúp Thung Lũng",
-      "intro": "Bóng lợn lòi tại Sân Lợn Nái: chọn một lá cờ hiệu, chọn một vai trò, và sút tấm da lợn lòi nhồi rơm vượt qua thủ môn để giành Xô Đồng. Không đổ máu, không chiến lợi phẩm, chỉ có tiếng gầm của khán đài.",
-      "loreHeading": "Bóng lợn lòi và lệnh hưu chiến mùa gặt",
-      "loreOldSow": "Từ rất lâu trước khi người chết thức giấc, các tá điền của Đông Khê đã chơi bóng lợn lòi trên những thửa ruộng trơ rạ sau mùa gặt: hai đám đông, một tấm da lợn lòi nhồi rơm, và hai cánh cổng xe ngựa được kéo về hai đầu bãi cỏ. Quả bóng đầu tiên, Lợn Nái Già, nay được mạ đồng treo phía trên lò sưởi quán rượu.",
-      "loreTruce": "Khi Đấu Trường Tro Tàn bắt đầu cấp phép cho các trò chơi chiến tranh, Cảnh Trưởng Redbrook đáp lại bằng một điều hiền hòa hơn: một lệnh hưu chiến mùa gặt thường trực trên bãi cỏ cũ. Những cánh cổng xe ngựa trở thành khung thành, bãi cỏ có tường, có khán đài, và có một cái tên, Sân Lợn Nái, còn phần thưởng thì luôn là chính chiếc xô sữa móp méo mà đội thắng cuộc dùng để uống mừng: Xô Đồng.",
+      "intro": "Bóng Heo Rừng tại Sân Heo Nái: chọn một cờ hiệu, chọn một vai trò, và sút tấm da heo rừng nhồi rơm qua tay thủ môn để giành Chiếc Xô Đồng. Không đổ máu, không chiến lợi phẩm, chỉ có tiếng gầm vang của khán đài.",
+      "loreHeading": "Bóng Heo Rừng và lệnh hưu chiến mùa gặt",
+      "loreOldSow": "Từ rất lâu trước khi người chết thức giấc, đám nông dân Đông Khê đã chơi bóng heo rừng trên những cánh đồng rạ sau mùa gặt: hai đám đông, một tấm da heo rừng nhồi rơm, và hai cánh cổng xe ngựa kéo về hai đầu bãi cỏ. Quả bóng đầu tiên, Heo Nái Già, được mạ đồng treo trên lò sưởi quán rượu.",
+      "loreTruce": "Khi Đấu Trường Tro Tàn bắt đầu tổ chức các trò chơi chiến tranh, Cảnh Trưởng Redbrook đáp lại bằng một điều dịu dàng hơn: một lệnh hưu chiến mùa gặt thường trực trên bãi cỏ xưa. Cánh cổng xe ngựa trở thành cột gôn, bãi cỏ có thêm tường, khán đài và một cái tên, Sân Heo Nái, còn phần thưởng luôn là chiếc xô sữa móp méo mà đội thắng dùng để uống mừng: Chiếc Xô Đồng.",
       "howHeading": "Cách chơi",
-      "howQueue": "Xếp hàng từ bất cứ đâu qua cửa sổ Cúp Thung Lũng, hoặc nói chuyện với Quản Sân Bram tại cổng Sân Lợn Nái. Chọn một thể thức từ một đấu một tới năm đấu năm, một xứ cờ hiệu, và một vai trò trên sân; xếp hàng một mình hoặc mang theo tổ đội của bạn.",
-      "howMatch": "Khi giao bóng, bộ kỹ năng lớp nhân vật của bạn được hoán đổi thành bộ kỹ năng thể thao và được trả lại nguyên vẹn sau đó. Các cú đá nhắm vào tâm ngắm dưới đất, bóng nảy bật khỏi ván chắn, còn rê bóng đơn giản là chạy cùng quả bóng. Ghi nhiều bàn hơn đối phương trước khi hết giờ; hòa thì bước vào bàn thắng vàng.",
-      "howTruce": "Không ai đổ máu tại Sân Lợn Nái: những pha vào bóng chỉ làm bạn ngã lăn, không gì gây đau đớn, và thú cưng ngồi ngoài trận đấu.",
-      "spectateBody": "Sân vận động mỗi lúc chỉ diễn ra một trận, và bất cứ ai cũng có thể bước tới xem từ khán đài.",
-      "nationsHeading": "Tám xứ cờ hiệu",
-      "nationsBody": "Mỗi đội thi đấu dưới một lá cờ hiệu. Đội trưởng chọn xứ, và nếu cả hai bên giương cùng một lá cờ, đội khách sẽ khoác bảng màu đảo ngược.",
-      "nationVale": "Xanh lục và vàng kim, giương bó lúa mì: đội chủ nhà, tá điền đến tận xương tủy.",
-      "nationMirefen": "Xanh mòng két và xám dưới cánh diệc: kiên nhẫn, chân dài, không bao giờ vội vã.",
-      "nationThornpeak": "Xanh băng và trắng dưới đỉnh núi: vững chân và bướng bỉnh.",
-      "nationColiseum": "Đỏ và đen với đôi kiếm bắt chéo: họ chơi như thể đây vẫn là một trò chơi chiến tranh.",
-      "nationChoir": "Xanh nhạt và bạc dưới quả chuông: ma mị, chuẩn xác, và rất lặng lẽ.",
-      "nationOgre": "Cam và nâu đất sau nắm đấm: vai lao đi trước và tự hào vì điều đó.",
-      "nationMoon": "Tím và bạc dưới vầng trăng lưỡi liềm: những cầu thủ của màn đêm, đôi chân nhẹ nhàng.",
-      "nationCopperdig": "Đồng và nâu với chiếc cuốc chim: những thợ đào không bao giờ ngừng chạy.",
-      "rolesHeading": "Các vai trò trên sân",
-      "rolesBody": "Vai trò quyết định bộ kỹ năng bạn mang vào sân. Ai cũng sút được; phần còn lại là khí chất.",
+      "howQueue": "Xếp hàng từ bất cứ đâu qua cửa sổ Cúp Thung Lũng, hoặc trò chuyện với Quản Sân Bram tại cổng Sân Heo Nái. Chọn hạng đấu từ một đấu một tới năm đấu năm, một quốc gia cờ hiệu, và một vai trò thi đấu; xếp hàng một mình hoặc dẫn theo tổ đội.",
+      "howMatch": "Khi giao bóng, bộ kỹ năng lớp nhân vật của bạn được thay bằng bộ kỹ năng thể thao và được khôi phục nguyên vẹn sau trận. Cú đá nhắm vào hồng tâm dưới đất, bóng nảy bật khỏi ván chắn, còn dẫn bóng chỉ đơn giản là chạy cùng bóng. Ghi nhiều bàn hơn đối phương trước khi hết giờ; hòa sẽ bước vào bàn thắng vàng.",
+      "howTruce": "Không ai đổ máu tại Sân Heo Nái: cú vai chỉ khiến bạn ngã lăn, chẳng có gì đau, còn thú cưng thì ngồi ngoài trận đấu.",
+      "spectateBody": "Mỗi lần chỉ có một trận diễn ra tại sân vận động, và bất kỳ ai cũng có thể tới xem từ khán đài.",
+      "nationsHeading": "Tám quốc gia cờ hiệu",
+      "nationsBody": "Mỗi đội thi đấu dưới một lá cờ. Đội trưởng chọn quốc gia, và nếu cả hai bên cùng giương một lá cờ, đội khách sẽ khoác bảng màu đảo ngược.",
+      "nationVale": "Xanh lục và vàng kim, giương cao bó lúa mì: đội chủ nhà, nông dân chính hiệu tới tận xương tủy.",
+      "nationMirefen": "Xanh mòng két và xám dưới cánh diệc: kiên nhẫn, chân dài, không bao giờ vội.",
+      "nationThornpeak": "Xanh băng và trắng dưới đỉnh núi: vững chân và lì lợm.",
+      "nationColiseum": "Đỏ và đen với đôi kiếm chéo: họ chơi như thể đây vẫn là một trò chơi chiến tranh.",
+      "nationChoir": "Xanh nhạt và bạc dưới quả chuông: kỳ dị, chuẩn xác, và rất lặng lẽ.",
+      "nationOgre": "Cam và nâu sẫm sau nắm đấm: lấy vai làm đầu và tự hào về điều đó.",
+      "nationMoon": "Tím và bạc dưới vầng trăng khuyết: những cầu thủ của màn đêm, bước chân nhẹ nhàng.",
+      "nationCopperdig": "Màu đồng và nâu với chiếc cuốc chim: những thợ đào không bao giờ ngừng chạy.",
+      "rolesHeading": "Vai trò thi đấu",
+      "rolesBody": "Vai trò quyết định bộ kỹ năng bạn mang vào sân. Ai cũng đá được; phần còn lại là khí chất.",
       "rewardsHeading": "Luật hưu chiến",
-      "rewardsBody": "Luật hưu chiến nghĩa là không kinh nghiệm và không chiến lợi phẩm: một trận phân thắng bại được tính vào thành tích của bạn và Bảng Vinh Danh, kèm theo điểm phần thưởng hằng ngày. Đào ngũ giữa trận khiến suất của bạn bị treo, và Quản Sân sẽ nhớ đấy."
+      "rewardsBody": "Luật hưu chiến nghĩa là không kinh nghiệm và không chiến lợi phẩm: một trận có kết quả được tính vào thành tích của bạn và bảng vô địch, kèm theo điểm phần thưởng hằng ngày. Bỏ trận sẽ khiến bạn bị treo lượt, và Quản Sân sẽ nhớ đấy."
     },
     "wishPage": {
       "heading": "Những điều tôi ước mình từng biết",
@@ -2332,33 +2333,33 @@ export const vi_VN: EnTranslations = {
       "cosmeticsApply": "Đặt diện mạo đang dùng từ hàng ngoại hình trên màn hình nhân vật, và đổi thoải mái giữa mọi thứ bạn đã mở khóa."
     },
     "professions": {
-      "intro": "Ngoài chiến đấu và nhiệm vụ, thế giới còn tưởng thưởng cho bạn khi làm lụng trên ruộng đất và bên lò rèn: thu thập nguyên liệu thô, biến chúng thành trang bị tại bàn chế tác của mười nghề khác nhau, và an cư trong một danh tính là một trong mười nguyên mẫu mà các nghề ấy đại diện.",
-      "gatherTitle": "Thu thập: Khai Mỏ, Đốn Gỗ, và Thảo Dược Học",
-      "gatherIntro": "Ba nghề thu thập cho bạn lấy nguyên liệu thô thẳng từ thế giới: Khai Mỏ đục quặng và đá từ các mạch khoáng, Đốn Gỗ hạ cây lấy gỗ từ những cụm rừng, và Thảo Dược Học hái thảo mộc cùng cây cỏ mọc hoang. Mỗi nghề được theo dõi riêng, nên làm nghề này không bao giờ làm chậm tiến độ của bạn ở nghề khác.",
+      "intro": "Ngoài chiến đấu và nhiệm vụ, thế giới còn tưởng thưởng cho bạn khi cày cuốc và rèn đúc: thu thập nguyên liệu thô, biến chúng thành trang bị tại các trạm chế tác của mười nghề khác nhau, và an cư trong một danh phận là một trong mười hình mẫu mà các nghề ấy đại diện.",
+      "gatherTitle": "Thu thập: Khai Khoáng, Đốn Gỗ và Thảo Dược Học",
+      "gatherIntro": "Ba nghề thu thập cho bạn lấy nguyên liệu thô thẳng từ thế giới: Khai Khoáng đục quặng và đá từ mạch khoáng, Đốn Gỗ hạ cây lấy gỗ từ các cụm rừng, và Thảo Dược Học hái cây cỏ mọc hoang. Mỗi nghề được theo dõi riêng, nên làm nghề này không bao giờ làm chậm tiến độ nghề kia.",
       "gatherWhatTitle": "Điểm tài nguyên",
-      "gatherWhatBody": "Mạch quặng, cụm cây gỗ, và vạt thảo mộc được đặt rải rác trong các vùng đất như những điểm cố định ai cũng thấy và không thuộc về ai. Hãy bước tới một điểm và tương tác với nó để thu hoạch những gì nó chứa. Khi bạn đã thu hoạch một điểm, nó cần thời gian hồi phục trước khi chính bạn thu hoạch lại được, nhưng nó không bao giờ chặn người khác: một người chơi khác vẫn có thể thu hoạch đúng điểm đó trong lúc ấy.",
+      "gatherWhatBody": "Các mạch quặng, cụm gỗ và bãi thảo dược được đặt rải rác trong các khu vực như những điểm cố định hữu hình, không thuộc về ai. Đi tới và tương tác với chúng để thu hoạch những gì chúng chứa. Sau khi bạn thu hoạch một điểm, nó cần thời gian hồi phục trước khi chính bạn có thể thu hoạch lại, nhưng nó không bao giờ chặn người khác: một người chơi khác vẫn có thể thu hoạch chính điểm đó trong lúc ấy.",
       "gatherProficiencyTitle": "Độ thành thạo và phẩm chất nguyên liệu",
-      "gatherProficiencyBody": "Mỗi lần thu hoạch thành công đều bồi đắp độ thành thạo của bạn trong nghề thu thập đó. Độ thành thạo cao hơn dịch chuyển những gì bạn lấy được từ một điểm về phía các hạng nguyên liệu hiếm hơn, từ hạng thường trở lên, dù các hạng hiếm nhất vẫn hiếm ngay cả khi thành thạo cao. Luyện tập nhiều không bao giờ làm giảm cơ may của bạn, mà chỉ luôn cải thiện nó.",
+      "gatherProficiencyBody": "Mỗi lần thu hoạch thành công đều tích lũy độ thành thạo trong nghề thu thập đó. Độ thành thạo cao hơn nghiêng thứ bạn lấy được từ một điểm tài nguyên về các phẩm cấp nguyên liệu hiếm hơn, từ mức thường trở lên, dù các phẩm cấp hiếm nhất vẫn hiếm kể cả ở độ thành thạo cao. Luyện tập thêm không bao giờ làm giảm cơ may của bạn, chỉ có thể cải thiện nó.",
       "gatherToolsTitle": "Dụng cụ hành nghề",
-      "gatherToolsBody": "Thương nhân bán dụng cụ cơ bản cho từng nghề thu thập, và những món tốt hơn có thể được chế tác, nên việc khai thác một điểm tài nguyên được thiết kế để ngày càng đắc lực khi bạn sắm sửa cho nó, thay vì giậm chân tại chỗ. Dụng cụ bậc cao hơn là con đường chính thống để mở khóa những điểm giàu tài nguyên hơn và khai thác chúng hiệu quả hơn trong một phiên chơi dài.",
+      "gatherToolsBody": "Thương nhân bán dụng cụ cơ bản cho từng nghề thu thập, và dụng cụ tốt hơn có thể được chế tác, nên việc khai thác một điểm tài nguyên được thiết kế để càng lúc càng thuần thục khi bạn sắm sửa cho nó thay vì đứng yên. Dụng cụ bậc cao hơn là con đường chính thống để mở lối tới những điểm tài nguyên giàu có hơn và khai thác chúng hiệu quả hơn trong một buổi dài.",
       "craftTitle": "Mười nghề chế tác",
-      "craftIntro": "Mười nghề chế tác biến nguyên liệu thu thập được thành trang bị và hàng hóa hoàn chỉnh: Chế Giáp, Rèn Vũ Khí, và Kim Hoàn nhào nặn vật chất thô thành trang bị mặc được; Giả Kim Thuật và Kỹ Thuật vận hành bằng thử và sai; Nấu Ăn, Khắc Chữ, và Phù Phép đều chạm tới thành phẩm của các nghề khác; May Vá và Thuộc Da làm việc theo những mẫu rập chính xác. Cùng nhau chúng tạo thành một bánh xe, mỗi nghề nằm cạnh hai nghề láng giềng và đối diện một nghề khác.",
-      "craftRingTitle": "Một bánh xe chuyên môn",
-      "craftRingBody": "Mười nghề chế tác được xếp trên một vòng tròn cố định, và vị trí của một nghề trên vòng đó rất quan trọng: các nghề nằm cạnh nhau trên bánh xe có nhiều điểm chung với nhau hơn các nghề ở hai phía đối diện. Gắn bó với một nghề được thiết kế để giống như gia nhập một gia đình những nghề có họ hàng, chứ không phải chọn một kỹ năng đơn độc.",
+      "craftIntro": "Mười nghề chế tác biến nguyên liệu thu thập thành trang bị và hàng hóa hoàn chỉnh: Chế Giáp, Rèn Vũ Khí và Kim Hoàn nhào nặn vật chất thô thành trang bị mặc được; Giả Kim và Cơ Khí vận hành bằng thử và sai; Nấu Ăn, Khắc Chữ và Phù Phép đều chạm tới sản phẩm của các nghề khác; May Vá và Thuộc Da làm việc theo những mẫu rập chính xác. Cùng nhau chúng tạo thành một bánh xe, mỗi nghề nằm cạnh hai nghề láng giềng và đối diện một nghề khác.",
+      "craftRingTitle": "Bánh xe chuyên môn",
+      "craftRingBody": "Mười nghề được xếp trên một vòng cố định, và vị trí của một nghề trên vòng đó rất quan trọng: các nghề kề nhau trên bánh xe có nhiều điểm chung với nhau hơn các nghề ở hai phía đối diện. Gắn bó với một nghề được thiết kế để giống như gia nhập một gia đình các nghề liên quan, chứ không phải chọn một kỹ năng đơn độc.",
       "craftRecipesTitle": "Công thức và nguyên liệu",
-      "craftRecipesBody": "Mỗi nghề có các công thức riêng, mỗi công thức đòi hỏi những nguyên liệu cụ thể bạn thu thập hoặc mua. Các công thức cơ bản nhất của mỗi nghề chỉ cần nguyên liệu thường và có thể chế tác ngay từ đầu, nên bạn có thể bắt tay vào một nghề ngay khoảnh khắc nhận nó, thay vì chờ mở khóa.",
+      "craftRecipesBody": "Mỗi nghề có công thức riêng, mỗi công thức cần những nguyên liệu cụ thể bạn thu thập hoặc mua. Các công thức cơ bản nhất của mỗi nghề chỉ cần nguyên liệu thường và chế được ngay từ đầu, nên bạn có thể bắt tay vào nghề ngay khi nhận nó thay vì phải chờ mở khóa.",
       "craftMasteryTitle": "Kỹ năng và tinh thông",
-      "craftMasteryBody": "Chế tác thành công bồi đắp kỹ năng trong nghề đó, và các công thức giá trị hơn nằm sau mức kỹ năng cao hơn: công thức cơ bản mở cho tất cả mọi người, còn những công thức càng cao cấp càng đòi hỏi nhiều tinh thông hơn để thử sức. Nuôi lớn kỹ năng trong một nghề chính là con đường đi từ những món hàng khởi đầu đơn giản đến các công thức tham vọng hơn của nó.",
+      "craftMasteryBody": "Chế tác thành công sẽ tích lũy kỹ năng trong nghề đó, và những công thức phong phú hơn nằm sau ngưỡng kỹ năng cao hơn: công thức cơ bản mở cho tất cả mọi người, trong khi các công thức càng cao cấp càng đòi hỏi nhiều tinh thông hơn mới thử được. Nâng kỹ năng trong một nghề là con đường từ hàng nhập môn đơn giản tới những công thức tham vọng hơn của nghề ấy.",
       "craftComboTitle": "Công thức kết hợp",
-      "craftComboBody": "Ngoài danh sách công thức của riêng từng nghề, bánh xe còn hỗ trợ các công thức kết hợp huy động hai nghề láng giềng cùng lúc, tưởng thưởng cho một nhân vật (hoặc một cặp bạn hàng) đã đầu tư vào những nghề kề nhau trên vòng tròn thay vì một nghề đơn lẻ.",
-      "archetypeTitle": "Mười nguyên mẫu",
-      "archetypeIntro": "Mỗi nghề trong mười nghề chế tác cũng đại diện cho một nguyên mẫu, một danh tính rộng hơn bạn có thể khoác lên ngoài việc chỉ hành nghề đó. Nguyên mẫu đang hoạt động của bạn là một lựa chọn duy nhất tại một thời điểm, không phải một danh sách để tích: bạn mang một cái, và có thể đổi sang cái khác về sau nếu muốn.",
-      "archetypeChooseTitle": "Chọn nguyên mẫu của bạn",
-      "archetypeChooseBody": "Bạn tuyên bố nguyên mẫu đầu tiên của mình qua một nhiệm vụ cốt truyện sớm ở vùng đất thứ nhất, nhiệm vụ chính thức đón nhận bạn vào danh tính đó. Chừng nào chưa hoàn thành nhiệm vụ ấy, bạn vẫn hoàn toàn chưa chọn nguyên mẫu nào.",
+      "craftComboBody": "Ngoài danh sách công thức của riêng từng nghề, bánh xe còn hỗ trợ các công thức kết hợp cần tới hai nghề kề nhau cùng lúc, tưởng thưởng cho nhân vật (hoặc một cặp bạn hàng trao đổi) đã đầu tư vào các nghề liền kề trên vòng thay vì một nghề đơn lẻ.",
+      "archetypeTitle": "Mười hình mẫu",
+      "archetypeIntro": "Mỗi nghề trong mười nghề chế tác cũng đại diện cho một hình mẫu, một danh phận rộng hơn mà bạn có thể khoác lên ngoài việc chỉ hành nghề. Hình mẫu đang mang là một lựa chọn duy nhất tại một thời điểm, không phải một danh sách cần hoàn thành: bạn mang một, và có thể đổi sang cái khác sau này nếu muốn.",
+      "archetypeChooseTitle": "Chọn hình mẫu của bạn",
+      "archetypeChooseBody": "Bạn tuyên bố hình mẫu đầu tiên của mình qua một nhiệm vụ cốt truyện sớm ở khu vực một, chính thức đón nhận bạn vào danh phận đó. Chừng nào chưa hoàn thành nhiệm vụ ấy, bạn vẫn chưa hề chọn hình mẫu nào.",
       "archetypeSwitchTitle": "Đổi ý",
-      "archetypeSwitchBody": "Đã tuyên bố một nguyên mẫu không có nghĩa bạn bị khóa với nó mãi mãi. Đổi sang một nguyên mẫu khác nghĩa là trước hết phải hoàn thành một nhiệm vụ \"chuộc lỗi\" lặp lại được cho nguyên mẫu cũ, và mỗi lần bạn đổi, phần chuộc lỗi được kỳ vọng ở lần kế tiếp lại nhích cao hơn một chút, để việc chuyển đổi luôn có sức nặng thay vì miễn phí.",
-      "archetypeIdentityTitle": "Nguyên mẫu của bạn có ý nghĩa gì",
-      "archetypeIdentityBody": "Nguyên mẫu đang hoạt động là một lời tuyên bố về con người nhân vật của bạn trong thế giới, được ghi nhận trong cách người khác và thế giới xưng hô với bạn. Phần thưởng và sự ghi nhận cụ thể đi kèm vẫn đang được hoàn thiện; hãy quay lại xem khi hệ thống được lấp đầy."
+      "archetypeSwitchBody": "Đã từng tuyên bố một hình mẫu không có nghĩa bạn bị khóa vào nó mãi mãi. Đổi sang hình mẫu khác đòi hỏi trước hết hoàn thành một nhiệm vụ \"chuộc lỗi\" lặp lại được cho hình mẫu cũ, và mỗi lần bạn đổi, phần chuộc lỗi được kỳ vọng ở lần sau lại cao hơn một chút, để việc đổi luôn có ý nghĩa thay vì không mất gì.",
+      "archetypeIdentityTitle": "Hình mẫu của bạn có ý nghĩa gì",
+      "archetypeIdentityBody": "Hình mẫu đang mang là một lời tuyên bố về việc nhân vật của bạn là ai trong thế giới, được ghi nhận trong cách người khác và thế giới xưng gọi bạn. Những phần thưởng và sự công nhận cụ thể đi kèm vẫn đang được hoàn thiện; hãy quay lại xem khi hệ thống dần đầy đủ."
     },
     "economy": {
       "intro": "Tiền bạc bôi trơn cả thế giới: nó mua trang bị, vật phẩm tiếp tế và đồ đi đường của bạn, và đổi tay giữa những người chơi. Bạn nhặt được tất cả những thứ này chỉ bằng cách chơi, nên hãy xem trang này như một bản đồ về nơi tiền của bạn đến từ đâu và đi về đâu.",
@@ -4953,44 +4954,44 @@ export const vi_VN: EnTranslations = {
   "entities": {
     "abilities": {
       "sport_kick": {
-        "name": "Đá Sệt",
-        "description": "Đẩy quả bóng lăn sệt trên mặt cỏ về phía điểm ngắm."
+        "name": "Đá Bóng",
+        "description": "Đẩy bóng lăn sệt trên mặt đất về phía điểm ngắm."
       },
       "sport_shoot": {
-        "name": "Dứt Điểm",
-        "description": "Giữ để tích lực, thả để dứt điểm về phía khung thành. Lực quá tay sẽ đưa bóng vọt xà ngang."
+        "name": "Sút Bóng",
+        "description": "Giữ để dồn lực, thả để sút vào khung thành. Dồn lực quá tay bóng sẽ bay vọt xà."
       },
       "sport_pass": {
         "name": "Chuyền Bóng",
-        "description": "Lăn một đường chuyền dứt khoát đến người đồng đội bạn đang chọn, đón đầu hướng chạy của họ."
+        "description": "Chuyền sệt chắc chân cho đồng đội đang chọn, đón trước đường chạy của họ."
       },
       "sport_boot": {
-        "name": "Sút Bổng",
-        "description": "Một cú sút bổng vồng cao thật xa về phía điểm ngắm. Khán đài mê mẩn nó."
+        "name": "Cú Sút Lớn",
+        "description": "Một cú sút bổng thật xa về phía điểm ngắm. Khán đài mê tít."
       },
       "sport_hoof": {
         "name": "Phá Bóng",
-        "description": "Nện quả bóng đi sệt và mạnh lên phía trên sân."
+        "description": "Nện bóng sệt và mạnh lên phía trên sân."
       },
       "sport_punt": {
         "name": "Phát Bóng Dài",
-        "description": "Cú phát bóng của thủ môn, vừa cao vừa xa."
+        "description": "Cú phát bóng của thủ môn, cao và xa."
       },
       "sport_feint": {
         "name": "Động Tác Giả",
-        "description": "Một cú bứt tốc lách người nhanh về phía điểm ngắm."
+        "description": "Một cú lách người bứt tốc nhanh về phía điểm ngắm."
       },
       "sport_dive": {
         "name": "Bay Người",
-        "description": "Quăng mình về phía điểm ngắm. Đường bóng tạt ngang sẽ dính chặt lấy bạn."
+        "description": "Lao người về phía điểm ngắm. Bóng bay ngang sẽ dính vào bạn."
       },
       "sport_shoulder": {
-        "name": "Huých Vai",
-        "description": "Một cú huých vai đúng luật hưu chiến mùa gặt. Khiến đối thủ ngã lăn rời khỏi bóng."
+        "name": "Va Vai",
+        "description": "Một cú vai đúng luật hưu chiến mùa gặt. Khiến đối thủ ngã lăn khỏi bóng."
       },
       "sport_second_wind": {
         "name": "Đôi Chân Sung Sức",
-        "description": "Tìm lại đôi chân của bạn: di chuyển nhanh hơn 50% trong 4 giây."
+        "description": "Lấy lại đôi chân: di chuyển nhanh hơn 50% trong 4 giây."
       },
       "flamestrike": {
         "name": "Cú Đánh Lửa",
@@ -6213,6 +6214,24 @@ export const vi_VN: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Liềm Cánh Hoa Mặt Trời"
       },
+      "thorium_ore": {
+        "name": "Quặng Thori"
+      },
+      "arcanite_bar": {
+        "name": "Thỏi Arcanite"
+      },
+      "ashwood_log": {
+        "name": "Khúc Gỗ Tần Bì Tro"
+      },
+      "elderwood_log": {
+        "name": "Khúc Gỗ Cơm Cháy Cổ"
+      },
+      "goldleaf_herb": {
+        "name": "Thảo Dược Lá Vàng"
+      },
+      "sunpetal_herb": {
+        "name": "Thảo Dược Cánh Mặt Trời"
+      },
       "bristleback_maul": {
         "name": "Búa Gallowglass"
       },
@@ -7394,8 +7413,8 @@ export const vi_VN: EnTranslations = {
       },
       "groundskeeper_bram": {
         "name": "Quản Sân Bram",
-        "title": "Người Trông Giữ Sân Lợn Nái",
-        "greeting": "Lệnh hưu chiến vẫn vững tại Sân Lợn Nái, {className}: chỉ có sút bóng và huých vai thôi. Muốn tranh tài vì Xô Đồng chứ?"
+        "title": "Người Trông Coi Sân Heo Nái",
+        "greeting": "Lệnh hưu chiến vẫn giữ vững tại Sân Heo Nái, {className}: chỉ có sút bóng và va vai thôi. Muốn thi đấu vì Chiếc Xô Đồng chứ?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const vi_VN: EnTranslations = {
             "label": "Trảng Rừng Sáng"
           },
           "10": {
-            "label": "Sân Lợn Nái"
+            "label": "Sân Heo Nái"
           }
         }
       },

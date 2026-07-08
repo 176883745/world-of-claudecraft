@@ -47,6 +47,7 @@ import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
 import {
   ALL_RECIPES as ALL_RECIPES_CONTENT,
   COMMON_RECIPES as COMMON_RECIPES_CONTENT,
+  TOOL_RECIPES as TOOL_RECIPES_CONTENT,
 } from './content/recipes';
 import {
   TEMPLE_CAMPS,
@@ -233,7 +234,7 @@ export const GROUND_OBJECTS: GroundObjectDef[] = [
 
 export const GATHER_NODES: GatherNodeDef[] = [...GATHER_NODES_CONTENT];
 
-export const COMMON_RECIPES = [...COMMON_RECIPES_CONTENT];
+export const COMMON_RECIPES = [...COMMON_RECIPES_CONTENT, ...TOOL_RECIPES_CONTENT];
 
 // Every recipe, common and combo alike (#1132 review): the recipeList read
 // surface below lists this, not just COMMON_RECIPES, so a combo recipe is

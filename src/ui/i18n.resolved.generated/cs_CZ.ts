@@ -394,126 +394,126 @@ export const cs_CZ: EnTranslations = {
       "targetFriendly": "Zacílit nejbližšího spojence",
       "targetFriendlyNext": "Procházet spojenecké cíle",
       "discord": "Discord",
-      "valecup": "Údolní pohár"
+      "valecup": "Pohár údolí"
     },
     "vcup": {
-      "title": "Údolní pohár",
+      "title": "Pohár údolí",
       "shootPower": "SÍLA",
-      "close": "Zavřít okno Údolního poháru",
-      "offlineNote": "Kniha rozpisů je zavřená. Údolní pohár teď není dostupný.",
-      "recordLine": "Tvoje bilance: {wins} výher, {losses} proher, {draws} remíz.",
-      "bracketsAria": "Bracket zápasu",
-      "bracketLabel": "{n}v{n}",
-      "waitingCount": "Čekajících: {count}",
-      "nationsHeading": "Praporový národ",
+      "close": "Zavřít okno Poháru údolí",
+      "offlineNote": "Kniha zápasů je zavřená. Pohár údolí teď není dostupný.",
+      "recordLine": "Tvá bilance: {wins} výher, {losses} proher, {draws} remíz.",
+      "bracketsAria": "Kategorie zápasu",
+      "bracketLabel": "{n} na {n}",
+      "waitingCount": "{count} čeká",
+      "nationsHeading": "Národní zástava",
       "nation": {
         "vale": "Eastbrookské údolí",
         "mirefen": "Mirefen",
         "thornpeak": "Thornpeak",
         "coliseum": "Popelavé koloseum",
-        "choir": "Bledý sbor",
+        "choir": "Bledý chór",
         "ogre": "Zlobří klany",
         "moon": "Bledý měsíc",
-        "copperdig": "Měděná štola"
+        "copperdig": "Měděný důl"
       },
-      "awayNote": "Pokud obě strany nesou stejný prapor, hosté nastoupí v obrácených barvách.",
+      "awayNote": "Pokud obě strany hrají pod stejnou zástavou, hostující strana nastoupí v obrácených barvách.",
       "rolesHeading": "Sportovní role",
       "role": {
         "allrounder": {
           "name": "Univerzál",
-          "desc": "Od všeho trochu: kop, nákop i poctivé rameno."
+          "desc": "Od všeho trochu: kop, odkop a férové rameno."
         },
         "striker": {
           "name": "Útočník",
-          "desc": "Žije pro dlouhý nákop a rychlou kličku."
+          "desc": "Žije pro dlouhý odkop a rychlou kličku."
         },
         "sweeper": {
-          "name": "Libero",
-          "desc": "Odstavuje běžce od míče a odkopává ho do bezpečí."
+          "name": "Zadák",
+          "desc": "Odstrkuje běžce od míče a odkopává ho do bezpečí."
         },
         "keeper": {
           "name": "Brankář",
-          "desc": "Střeží brankoviště jistýma rukama, robinzonádou a dlouhým výkopem."
+          "desc": "Střeží brankoviště chytáním, rybičkou a výkopem."
         }
       },
       "queue": "Vstoupit do fronty",
       "leaveQueue": "Opustit frontu",
-      "queueNote": "Do fronty se zařadíš odkudkoli; hvizd tě povolá na Prasečí pole.",
+      "queueNote": "Do fronty se zapiš odkudkoli; píšťalka tě zavolá na Prasečí pole.",
       "queuedStatus": "Ve frontě na {bracket}: pozice {position} z {count}.",
-      "blockNation": "Nejdřív si vyber praporový národ.",
-      "blockPartySize": "Tenhle bracket vyžaduje menší skupinu.",
-      "blockNotLeader": "Do fronty může tým zařadit jen vůdce skupiny.",
-      "inMatchNote": "Tvůj tým je na hřišti. Hraje se!",
-      "deserterNote": "Správce si to pamatuje. Znovu se můžeš zařadit za {seconds} s.",
+      "blockNation": "Nejdřív si vyber národní zástavu.",
+      "blockPartySize": "Tato kategorie vyžaduje menší skupinu.",
+      "blockNotLeader": "Tým může do fronty zapsat jen vůdce skupiny.",
+      "inMatchNote": "Tvůj tým je na hřišti. Hraje se dál!",
+      "deserterNote": "Správce hřiště si to pamatuje. Do fronty se můžeš znovu zapsat za {seconds} s.",
       "liveHeading": "Právě na Prasečím poli",
-      "liveAria": "Údolní pohár: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Přijď na Prasečí pole a sleduj zápas z tribun.",
-      "noLive": "Na hřišti je klid. Žádný zápas se nehraje.",
+      "liveAria": "Pohár údolí: {nationA} {scoreA}, {nationB} {scoreB}",
+      "walkUp": "Přijď k Prasečímu poli a sleduj zápas z tribun.",
+      "noLive": "Hřiště je tiché. Žádný zápas se nehraje.",
       "boardHeading": "Tabule vítězů",
-      "boardEmpty": "Zatím žádní zapsaní vítězové. Měděné vědro čeká.",
-      "boardWins": "Výhry: {count}",
-      "enterAsGuild": "Nastoupit pod praporem cechu {guild}",
+      "boardEmpty": "Zatím nejsou zaznamenáni žádní vítězové. Měděný kbelík čeká.",
+      "boardWins": "{count} výher",
+      "enterAsGuild": "Nastoupit pod zástavou cechu {guild}",
       "guildRecordLine": "Bilance tvého cechu: {wins} výher, {losses} proher.",
-      "guildBoardHeading": "Cechovní prapory",
-      "guildBoardEmpty": "Žádný cech zatím nenastoupil na hřiště. Vztyč svůj prapor!",
+      "guildBoardHeading": "Cechovní zástavy",
+      "guildBoardEmpty": "Žádný cech zatím nenastoupil na hřiště. Vyvěs svou zástavu!",
       "guildBoardWl": "{wins} V, {losses} P",
       "practice": "Trénink proti botům",
       "practiceNote": "Okamžitě spustí soukromý zápas s boty na tvém vlastním tréninkovém hřišti.",
       "practicingNow": "Právě trénují ({count}):",
       "clock": "{minutes}:{seconds}",
-      "indicatorQueued": "Fronta Údolního poháru: {bracket}, pozice {position} z {count}",
-      "indicatorLive": "Údolní pohár",
-      "indicatorOpen": "Otevřít okno Údolního poháru",
+      "indicatorQueued": "Fronta Poháru údolí: {bracket}, pozice {position} z {count}",
+      "indicatorLive": "Pohár údolí",
+      "indicatorOpen": "Otevřít okno Poháru údolí",
       "phaseCountdown": "Výkop za {seconds}",
       "phaseGoal": "GÓL!",
       "phaseGolden": "ZLATÝ GÓL",
       "phaseOver": "KONEC ZÁPASU",
-      "bannerFound": "Údolní pohár volá: {nationA} vs {nationB}!",
+      "bannerFound": "Pohár údolí volá: {nationA} proti {nationB}!",
       "bannerCountdown": "Výkop za {seconds}...",
       "bannerKickoff": "VÝKOP!",
       "bannerGoal": "GÓL! {nation} skóruje!",
       "bannerSave": "{name} CHYTÁ!",
-      "bannerGolden": "ZLATÝ GÓL: další branka vyhrává!",
+      "bannerGolden": "ZLATÝ GÓL: další branka vítězí!",
       "bannerEnd": "Konec zápasu: {nationA} {scoreA}, {nationB} {scoreB}",
       "bannerWin": "Vítězství na Prasečím poli!",
       "bannerDraw": "Remíza na Prasečím poli.",
       "bannerLoss": "Porážka na Prasečím poli.",
-      "logQueued": "Připojuješ se do fronty Údolního poháru na {bracket} (pozice {position}).",
-      "logUnqueued": "Opouštíš frontu Údolního poháru.",
-      "logFound": "Tvůj zápas Údolního poháru je připraven: {nationA} vs {nationB}.",
-      "logRoster": "Tvoje strana: {allies}. Jejich strana: {enemies}.",
+      "logQueued": "Zapisuješ se do fronty Poháru údolí na {bracket} (pozice {position}).",
+      "logUnqueued": "Opouštíš frontu Poháru údolí.",
+      "logFound": "Tvůj zápas Poháru údolí je připraven: {nationA} proti {nationB}.",
+      "logRoster": "Tvá strana: {allies}. Jejich strana: {enemies}.",
       "logGoal": "{name} skóruje za {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
       "logSave": "{name} předvádí zákrok!",
-      "logWin": "Vyhráváš klání na Prasečím poli.",
-      "logDraw": "Klání na Prasečím poli končí remízou.",
-      "logLoss": "Prohráváš klání na Prasečím poli.",
-      "gossipOpen": "Kniha rozpisů",
-      "gossipOpenAria": "Otevřít okno Údolního poháru",
+      "logWin": "Vyhráváš zápas na Prasečím poli.",
+      "logDraw": "Zápas na Prasečím poli končí remízou.",
+      "logLoss": "Prohráváš zápas na Prasečím poli.",
+      "gossipOpen": "Kniha zápasů",
+      "gossipOpenAria": "Otevřít okno Poháru údolí",
       "mobileLabel": "Pohár",
       "briefing": {
         "subtitle": "Předzápasová porada",
-        "vs": "vs",
+        "vs": "proti",
         "rulesHeading": "Jak hrát",
-        "rule1": "Kopni nebo přihraj míč do soupeřovy branky a skóruj.",
-        "rule2": "Vyhrává, kdo první dá 5 gólů, nebo kdo jich má víc, když zazní závěrečný hvizd.",
-        "rule3": "Nerozhodný stav na konci zápasu jde do zlatého gólu: další branka vyhrává.",
+        "rule1": "Skóruj kopnutím nebo přihrávkou míče do soupeřovy branky.",
+        "rule2": "Vyhrává, kdo první dá 5 gólů, nebo kdo jich má víc, když zazní konec.",
+        "rule3": "Nerozhodný stav na konci jde do zlatého gólu: další branka vítězí.",
         "rule4": "Skluzy tě jen povalí. Pod žňovým příměřím se nikomu nic nestane.",
         "rule5": "Kdokoli může přijít a fandit ti z tribun.",
-        "kitHeading": "Tvoje výbava",
-        "kitNote": "Tyto dovednosti ti po dobu zápasu nahradí schopnosti tvé třídy.",
+        "kitHeading": "Tvá výbava",
+        "kitNote": "Tyto dovednosti po dobu zápasu nahrazují tvé třídní schopnosti.",
         "rosterHeading": "Soupiska",
         "you": "Ty",
         "bot": "Bot",
         "ready": "Jsem připraven(a)",
         "readyDone": "Připraven(a)",
         "readyAria": "Připravit se na výkop",
-        "waiting": "Čeká se, až bude druhá strana připravena...",
-        "whistle": "Hvizd zazní za {seconds} s.",
-        "readyCount": "Připraveno {ready} z {total}"
+        "waiting": "Čeká se, až se připraví druhá strana...",
+        "whistle": "Píšťalka zazní za {seconds} s.",
+        "readyCount": "{ready} z {total} připraveno"
       },
       "bet": {
         "title": "Sázky na zápas",
-        "aria": "Sázky na zápas Údolního poháru",
+        "aria": "Sázky na zápas Poháru údolí",
         "closesIn": "Sázky se uzavírají za {seconds} s",
         "closed": "Sázky uzavřeny",
         "prize": "Bank {amount}",
@@ -523,13 +523,13 @@ export const cs_CZ: EnTranslations = {
         "oddsLabel": "Vyplácí",
         "back": "Vsadit na {team}",
         "form": "{wins}V-{losses}P",
-        "mine": "Tvoje sázka: {amount} na {team}",
+        "mine": "Tvá sázka: {amount} na {team}",
         "none": "Na tento zápas zatím nemáš žádnou sázku.",
-        "record": "Sázková bilance: {wins}V-{losses}P, {sign}{net}",
-        "wonBanner": "Tvoje sázka vyhrála!",
-        "wonLog": "Tvá sázka na Údolní pohár vyhrála: vráceno {amount}.",
-        "lostLog": "Tvá sázka na Údolní pohár prohrála: {amount}.",
-        "refundLog": "Sázky byly zrušeny, tvůj vklad {amount} se ti vrátil."
+        "record": "Sázkařská bilance: {wins}V-{losses}P, {sign}{net}",
+        "wonBanner": "Tvá sázka vyhrála!",
+        "wonLog": "Tvá sázka na Pohár údolí vyhrála: vráceno {amount}.",
+        "lostLog": "Tvá sázka na Pohár údolí prohrála: {amount}.",
+        "refundLog": "Sázky zrušeny, tvůj vklad {amount} byl vrácen."
       }
     },
     "options": {
@@ -620,8 +620,9 @@ export const cs_CZ: EnTranslations = {
         "fps01Low": "0,1 % low",
         "ping": "Ping",
         "jitter": "Jitter",
-        "predLead": "Předstih predikce",
+        "predLead": "Náskok predikce",
         "snapshot": "Frekvence snapshotů",
+        "serverTick": "Frekvence tiků serveru",
         "connection": "Připojení",
         "drawCalls": "Draw cally",
         "triangles": "Trojúhelníky",
@@ -920,10 +921,10 @@ export const cs_CZ: EnTranslations = {
     },
     "townFocus": {
       "title": "Zaměření města",
-      "hint": "Body zaměření přidávají bonus nad základní výnos každé složky. Nezaměřené složky zůstávají na základní úrovni.",
+      "hint": "Body zaměření přidávají bonus nad základní výnos každé součásti. Nezaměřené součásti zůstávají na základní hodnotě.",
       "budgetLabel": "Zbývající body: {remaining} / {budget}",
       "saveButton": "Uložit zaměření",
-      "notInTownHint": "Zaměření můžeš nastavit, jen když jsi ve městě.",
+      "notInTownHint": "Zaměření lze nastavit jen ve městě.",
       "increaseAria": "Zvýšit zaměření na {component}",
       "decreaseAria": "Snížit zaměření na {component}"
     },
@@ -1565,7 +1566,7 @@ export const cs_CZ: EnTranslations = {
       "combat": "Boj",
       "talents": "Talenty",
       "arena": "Aréna a PvP",
-      "valeCup": "Údolní pohár",
+      "valeCup": "Pohár údolí",
       "glossary": "Glosář",
       "wishIKnew": "Co bych rád věděl dřív",
       "faq": "FAQ",
@@ -2222,30 +2223,30 @@ export const cs_CZ: EnTranslations = {
       "ladderBody": "Hodnocené hraní sleduje tvoje postavení v čase. Podívej se na žebříček, kde sedíš a kdo drží vrchol světa."
     },
     "valeCupPage": {
-      "heading": "Údolní pohár",
-      "intro": "Kančí míč na Prasečím poli: vyber si prapor, vyber si roli a kopni vycpanou kančí kůži za brankáře, hraje se o Měděné vědro. Žádná krev, žádná kořist, jen hukot tribun.",
-      "loreHeading": "Kančí míč a žňové příměří",
-      "loreOldSow": "Dávno předtím, než se mrtví probudili, hrávali eastbrookští čeledíni po žních na strništích kančí míč: dva houfy, jedna kančí kůže vycpaná slámou a dvě vozové brány přitažené na oba konce návsi. První míč, Stará prasnice, visí pobronzovaný nad krbem hospody.",
-      "loreTruce": "Když Popelavé koloseum začalo zaštiťovat válečné hry, maršál Redbrook odpověděl něčím mírnějším: stálým žňovým příměřím na staré návsi. Z vozových bran se staly branky, náves dostala mantinely, tribuny i jméno, Prasečí pole, a cenou bylo vždy totéž promáčknuté vědro na mléko, ze kterého vítězové pili: Měděné vědro.",
+      "heading": "Pohár údolí",
+      "intro": "Kančbal na Prasečím poli: vyber si zástavu, vyber si roli a dostaň vycpanou kančí kůži za brankáře. Hraje se o Měděný kbelík: žádná krev, žádná kořist, jen řev tribun.",
+      "loreHeading": "Kančbal a žňové příměří",
+      "loreOldSow": "Dávno předtím, než se mrtví probudili, hrávali eastbrookští čeledíni kančbal na strništích po žních: dva houfy, jedna kančí kůže vycpaná slámou a dvě vozové brány dovlečené na oba konce louky. První míč, Stará prasnice, visí pokrytý bronzem nad krbem v hospodě.",
+      "loreTruce": "Když Popelavé koloseum začalo pořádat válečné hry, maršál Redbrook odpověděl něčím laskavějším: stálým žňovým příměřím na staré louce. Z vozových bran se staly branky, louka dostala mantinely, tribuny i jméno, Prasečí pole, a cenou byl vždycky tentýž promáčklý kbelík na mléko, ze kterého vítězové pili: Měděný kbelík.",
       "howHeading": "Jak hrát",
-      "howQueue": "Do fronty se zařadíš odkudkoli přes okno Údolního poháru, nebo si promluv se Správcem Bramem u brány Prasečího pole. Vyber si bracket od jednoho proti jednomu až po pět proti pěti, praporový národ a sportovní roli; do fronty se postav sólo, nebo vezmi svou skupinu.",
-      "howMatch": "Při výkopu se tvá třídní výbava vymění za sportovní a po zápase se přesně obnoví. Kopy míří na zaměřovací kruh na zemi, míč se odráží od mantinelů a driblovat znamená prostě běžet s míčem. Vstřel do konce zápasu víc gólů než druhá strana; remíza jde do zlatého gólu.",
-      "howTruce": "Na Prasečím poli nikdo nekrvácí: skluzy tě jen povalí, nic nebolí a mazlíčci zápas prosedí mimo hřiště.",
+      "howQueue": "Do fronty se zapiš odkudkoli přes okno Poháru údolí, nebo si promluv se správcem hřiště Bramem u brány Prasečího pole. Vyber kategorii od jednoho hráče na každé straně až po pět, národní zástavu a sportovní roli; do fronty se postav sám, nebo přiveď svou skupinu.",
+      "howMatch": "Při výkopu se tvá třídní výbava vymění za sportovní a po zápase se přesně obnoví. Kopy míří na zaměřovač na zemi, míč se odráží od mantinelů a driblink je prostě běh s míčem. Dej víc gólů než druhá strana, než zazní konec; remíza jde do zlatého gólu.",
+      "howTruce": "Na Prasečím poli nikdo nekrvácí: skluzy jen povalí, nic nebolí a mazlíčci zápas prosedí venku.",
       "spectateBody": "Na stadionu se hraje vždy jen jeden zápas a kdokoli může přijít a sledovat ho z tribun.",
-      "nationsHeading": "Osm praporových národů",
-      "nationsBody": "Každý tým hraje pod nějakým praporem. Národ vybírá kapitán, a pokud obě strany nesou stejný, hosté nastoupí v obrácených barvách.",
-      "nationVale": "Zelená a zlatá pod snopem pšenice: domácí tým, čeledíni tělem i duší.",
-      "nationMirefen": "Modrozelená a šedá pod volavkou: trpěliví, dlouhonozí, nikdy nespěchají.",
+      "nationsHeading": "Osm národních zástav",
+      "nationsBody": "Každý tým hraje pod zástavou. Národ vybírá kapitán, a pokud obě strany hrají pod stejnou, hostující strana nastoupí v obrácených barvách.",
+      "nationVale": "Zelená a zlatá pod snopem pšenice: domácí strana, čeledíni tělem i duší.",
+      "nationMirefen": "Modrozelená a šedá pod volavkou: trpěliví, dlouhonozí, nikdy ve spěchu.",
       "nationThornpeak": "Ledově modrá a bílá pod horským štítem: jistí v kroku a tvrdohlaví.",
       "nationColiseum": "Červená a černá se zkříženými meči: hrají, jako by to pořád byla válečná hra.",
-      "nationChoir": "Bledě modrá a stříbrná pod zvonem: tajemní, přesní a velmi tiší.",
-      "nationOgre": "Oranžová a umbra za pěstí: napřed rameno, a jsou na to hrdí.",
-      "nationMoon": "Fialová a stříbrná pod srpkem měsíce: noční hráči, lehkonozí.",
+      "nationChoir": "Bledě modrá a stříbrná pod zvonem: strašidelní, přesní a velmi tiší.",
+      "nationOgre": "Oranžová a umbrová za pěstí: napřed ramenem a jsou na to hrdí.",
+      "nationMoon": "Fialová a stříbrná pod srpkem měsíce: noční hráči, lehcí na nohou.",
       "nationCopperdig": "Měděná a hnědá s krumpáčem: kopáči, kteří nikdy nepřestanou běhat.",
       "rolesHeading": "Sportovní role",
-      "rolesBody": "Tvoje role určuje výbavu, se kterou nastoupíš na hřiště. Kopat umí každý; zbytek je otázka povahy.",
+      "rolesBody": "Tvá role určuje výbavu, kterou si neseš na hřiště. Kopou všichni; zbytek je povaha.",
       "rewardsHeading": "Pravidla příměří",
-      "rewardsBody": "Pravidla příměří znamenají, že nezískáš žádné zkušenosti ani kořist: rozhodnutý zápas se počítá do tvé bilance i na tabuli vítězů a přináší s sebou body denních odměn. Dezerce ze zápasu ti na čas zablokuje místo ve frontě a Správce si to pamatuje."
+      "rewardsBody": "Pravidla příměří znamenají žádné zkušenosti a žádnou kořist: rozhodnutý zápas se počítá do tvé bilance a na tabuli vítězů a přináší i body denních odměn. Dezerce ze zápasu ti zablokuje místo a správce hřiště si to pamatuje."
     },
     "wishPage": {
       "heading": "Co bych rád věděl dřív",
@@ -2332,33 +2333,33 @@ export const cs_CZ: EnTranslations = {
       "cosmeticsApply": "Aktivní vzhled nastavíš v řádku vzhledu na obrazovce postavy a mezi vším odemčeným můžeš volně přepínat."
     },
     "professions": {
-      "intro": "Kromě boje a úkolů tě svět odměňuje i za práci na poli a u kovadliny: za sběr surovin, jejich proměnu ve výbavu u řemeslných stanic deseti různých řemesel a za přijetí identity jednoho z deseti archetypů, které tato řemesla představují.",
+      "intro": "Kromě boje a úkolů tě svět odměňuje i za práci na poli a u výhně: za sběr surovin, jejich proměnu ve výbavu u výrobních stanic deseti různých řemesel a za přijetí identity jednoho z deseti archetypů, které tato řemesla představují.",
       "gatherTitle": "Sběr: Těžba, Dřevorubectví a Bylinkářství",
-      "gatherIntro": "Tři sběračská řemesla ti umožňují získávat suroviny přímo ze světa: Těžba láme rudu a kámen ze žil, Dřevorubectví kácí dřevo z porostů stromů a Bylinkářství sbírá planě rostoucí byliny a rostliny. Každé se sleduje zvlášť, takže práce v jednom nikdy nezpomalí tvůj postup v jiném.",
+      "gatherIntro": "Tři sběračské obory ti umožňují získávat suroviny přímo ze světa: Těžba dobývá rudu a kámen ze žil, Dřevorubectví kácí dřevo v porostech stromů a Bylinkářství sbírá divoce rostoucí byliny a rostliny. Každý se počítá zvlášť, takže práce v jednom nikdy nezpomalí tvůj postup v jiném.",
       "gatherWhatTitle": "Naleziště surovin",
-      "gatherWhatBody": "Rudné žíly, porosty stromů a trsy bylin jsou rozmístěny po zónách jako viditelné objekty, které nikomu nepatří. Přistup k některému z nich a interakcí sklidíš, co ukrývá. Jakmile naleziště sklidíš, potřebuje čas na zotavení, než ho budeš moci znovu sklidit právě ty; nikoho jiného ale neblokuje: jiný hráč může totéž naleziště mezitím sklidit také.",
-      "gatherProficiencyTitle": "Zdatnost a kvalita materiálu",
-      "gatherProficiencyBody": "Každá úspěšná sklizeň zvyšuje tvou zdatnost v daném sběračském řemesle. Vyšší zdatnost posouvá to, co z naleziště získáš, ke vzácnějším stupňům materiálu, od běžného výše; ty nejvzácnější stupně ale zůstávají vzácné i při vysoké zdatnosti. Další cvik tvým šancím nikdy neuškodí, vždy je jen zlepšuje.",
+      "gatherWhatBody": "Rudné žíly, porosty dřeva a záhony bylin jsou rozmístěny po zónách jako viditelné objekty, které nikomu nepatří. Přijď k jednomu a interakcí sklidíš, co ukrývá. Jakmile naleziště sklidíš, potřebuje čas na zotavení, než ho ty osobně sklidíš znovu, nikomu jinému ale nebrání: jiný hráč může totéž naleziště mezitím sklidit.",
+      "gatherProficiencyTitle": "Zběhlost a kvalita materiálu",
+      "gatherProficiencyBody": "Každá úspěšná sklizeň zvyšuje tvou zběhlost v daném sběračském oboru. Vyšší zběhlost posouvá to, co z naleziště získáš, ke vzácnějším stupňům materiálu, od běžného výše, i když ty nejvzácnější stupně zůstávají vzácné i při vysoké zběhlosti. Více praxe tvým šancím nikdy neškodí, vždy je jen zlepšuje.",
       "gatherToolsTitle": "Nástroje řemesla",
-      "gatherToolsBody": "Obchodníci prodávají základní nástroje pro každé sběračské řemeslo a lepší se dají vyrobit; práce na nalezišti ti tak má s lepší výbavou jít čím dál lépe od ruky, ne zůstávat stále stejná. Nástroje vyšších stupňů jsou zamýšlenou cestou, jak si zpřístupnit bohatší naleziště a zpracovávat je při dlouhém hraní efektivněji.",
+      "gatherToolsBody": "Obchodníci prodávají základní nástroje pro každý sběračský obor a lepší lze vyrobit, takže práce na nalezišti má s lepší výbavou působit stále schopněji, ne zůstávat pořád stejná. Nástroje vyšší úrovně jsou zamýšlená cesta k bohatším nalezištím a k jejich efektivnějšímu zpracování během dlouhé výpravy.",
       "craftTitle": "Deset řemesel",
-      "craftIntro": "Deset výrobních řemesel promění nasbírané materiály v hotovou výbavu a zboží: Zbrojířství, Kovářství zbraní a Klenotnictví tvarují surovou hmotu do nositelné výbavy; Alchymii a Inženýrství žene pokus a omyl; Vaření, Písařství a Očarovávání se každé dotýká výstupů jiných řemesel; Krejčovství a Koželužství pracují podle přesných střihů. Dohromady tvoří kolo, kde každé řemeslo sousedí se dvěma dalšími a proti jednomu stojí.",
+      "craftIntro": "Deset výrobních řemesel proměňuje nasbírané suroviny v hotovou výbavu a zboží: zbrojířství, kovářství zbraní a klenotnictví tvarují surovou hmotu v nositelnou výbavu; alchymie a inženýrství stojí na pokusech a omylech; vaření, písařství a očarovávání se dotýkají výstupů ostatních řemesel; krejčovství a koželužství pracují podle přesných střihů. Dohromady tvoří kolo, kde každé řemeslo sousedí se dvěma dalšími a stojí naproti jednomu.",
       "craftRingTitle": "Kolo specializací",
-      "craftRingBody": "Deset řemesel je uspořádáno do pevného kruhu a záleží na tom, kde na něm které řemeslo sedí: řemesla vedle sebe na kole toho mají společného víc než řemesla na opačných stranách. Věnovat se jednomu řemeslu má působit jako vstup do rodiny příbuzných řemesel, ne jako volba izolované dovednosti.",
+      "craftRingBody": "Deset řemesel je uspořádáno do pevného kruhu a na tom, kde řemeslo na kruhu sedí, záleží: řemesla vedle sebe toho mají společného víc než řemesla na protilehlých stranách. Oddat se jednomu řemeslu má působit jako vstup do rodiny příbuzných oborů, ne jako výběr izolované dovednosti.",
       "craftRecipesTitle": "Recepty a přísady",
-      "craftRecipesBody": "Každé řemeslo má vlastní recepty a každý z nich vyžaduje konkrétní přísady, které nasbíráš nebo koupíš. Ty nejzákladnější recepty v každém řemesle nechtějí nic než běžné materiály a dají se vyrábět od samého začátku, takže s řemeslem můžeš začít hned, jak se ho chopíš, místo čekání na jeho odemčení.",
+      "craftRecipesBody": "Každé řemeslo má vlastní recepty a každý vyžaduje konkrétní přísady, které nasbíráš nebo koupíš. Nejzákladnější recepty každého řemesla žádají jen běžné materiály a lze je vyrábět od samého začátku, takže se do oboru můžeš pustit hned, jak si ho osvojíš, místo čekání na odemčení.",
       "craftMasteryTitle": "Dovednost a mistrovství",
-      "craftMasteryBody": "Úspěšná výroba zvyšuje dovednost v daném řemesle a bohatší recepty jsou schované za vyšší dovedností: základní recepty jsou otevřené všem, zatímco postupně pokročilejší vyžadují k pokusu postupně víc mistrovství. Růst dovednosti v řemesle je cesta od jednoduchého začátečnického zboží k jeho ctižádostivějším receptům.",
+      "craftMasteryBody": "Úspěšná výroba zvyšuje dovednost v daném řemesle a bohatší recepty jsou zamčené za vyšší dovedností: základní recepty jsou otevřené všem, zatímco postupně pokročilejší vyžadují stále větší mistrovství. Růst dovednosti v řemesle je cesta od jednoduchého začátečnického zboží k jeho ambicióznějším receptům.",
       "craftComboTitle": "Kombinované recepty",
-      "craftComboBody": "Kromě vlastního seznamu receptů jednotlivých řemesel podporuje kolo i kombinované recepty, které volají po dvou sousedních řemeslech najednou; odměňují tak postavu (nebo dvojici obchodních partnerů), která vsadila na sousedící řemesla na kruhu, a ne na jedno v izolaci.",
+      "craftComboBody": "Kromě vlastního seznamu receptů jednotlivých řemesel podporuje kolo i kombinované recepty, které čerpají ze dvou sousedních řemesel najednou a odměňují postavu (nebo dvojici obchodních partnerů), která investovala do sousedících oborů na kruhu, ne do jednoho v izolaci.",
       "archetypeTitle": "Deset archetypů",
-      "archetypeIntro": "Každé z deseti řemesel zároveň představuje archetyp, širší identitu, kterou můžeš přijmout nad rámec pouhé práce v daném oboru. Aktivní archetyp je vždy jen jedna volba, ne odškrtávací seznam: neseš jeden a později ho můžeš změnit, pokud se tak rozhodneš.",
+      "archetypeIntro": "Každé z deseti řemesel zároveň představuje archetyp, širší identitu, kterou můžeš přijmout nad rámec samotné práce v daném oboru. Aktivní archetyp je vždy jen jedna volba, ne seznam k odškrtání: neseš jeden a později ho můžeš změnit, pokud se tak rozhodneš.",
       "archetypeChooseTitle": "Volba archetypu",
-      "archetypeChooseBody": "Svůj první archetyp vyhlásíš skrze raný příběhový úkol v první zóně, který tě do dané identity formálně přijme. Dokud tento úkol nedokončíš, žádný archetyp sis zatím vůbec nezvolil(a).",
-      "archetypeSwitchTitle": "Změna rozhodnutí",
-      "archetypeSwitchBody": "Jednou vyhlášený archetyp tě nesvazuje navždy. Přechod k jinému archetypu znamená nejprve dokončit opakovatelný úkol odčinění u toho starého, a s každou změnou je odčinění, které se od tebe příště očekává, o něco přísnější; změna tak zůstává významná, ne bezplatná.",
+      "archetypeChooseBody": "Svůj první archetyp vyhlašuješ skrze raný příběhový úkol v první zóně, který tě do dané identity formálně přijme. Dokud tento úkol nedokončíš, žádný archetyp sis ještě nezvolil.",
+      "archetypeSwitchTitle": "Změna názoru",
+      "archetypeSwitchBody": "Jednou vyhlášený archetyp tě nesvazuje navždy. Přechod k jinému archetypu znamená nejprve dokončit opakovatelný úkol \"odčinění\" u toho starého, a s každou další změnou je od tebe očekávané odčinění o něco náročnější, takže změna zůstává smysluplná, ne bezplatná.",
       "archetypeIdentityTitle": "Co tvůj archetyp znamená",
-      "archetypeIdentityBody": "Aktivní archetyp je prohlášení o tom, kým tvá postava ve světě je, a projevuje se tím, jak tě ostatní i svět oslovují. Přesné odměny a pocty, které s ním přicházejí, se ještě dolaďují; vracej se sem, jak se bude systém doplňovat."
+      "archetypeIdentityBody": "Tvůj aktivní archetyp je prohlášením o tom, kým tvá postava ve světě je, a projevuje se v tom, jak tě ostatní i svět oslovují. Přesné odměny a uznání, které s ním přicházejí, se ještě dolaďují; vracej se sem, jak se systém bude doplňovat."
     },
     "economy": {
       "intro": "Mince promazávají celý svět: kupují výbavu, zásoby a cestovní kit a mění majitele mezi hráči. Všechno to pochopíš hraním, takže ber tuto stránku jako mapu, odkud peníze přicházejí a kam odcházejí.",
@@ -4954,43 +4955,43 @@ export const cs_CZ: EnTranslations = {
     "abilities": {
       "sport_kick": {
         "name": "Kop",
-        "description": "Posuň míč po zemi směrem k zaměřenému bodu."
+        "description": "Pošli míč po zemi směrem k zaměřovanému bodu."
       },
       "sport_shoot": {
         "name": "Střela",
-        "description": "Podržením nabíjíš sílu, uvolněním vystřelíš na branku. Při přílišné síle míč přeletí branku."
+        "description": "Podržením nabíjíš sílu, uvolněním vystřelíš na branku. S přílišnou silou míč přeletí."
       },
       "sport_pass": {
         "name": "Přihrávka",
-        "description": "Pošli razantní přihrávku označenému spoluhráči do běhu."
+        "description": "Pošli razantní přihrávku označenému spoluhráči, přímo do běhu."
       },
       "sport_boot": {
-        "name": "Velký nákop",
-        "description": "Dlouhý vysoký nákop k zaměřenému bodu. Diváci ho milují."
+        "name": "Velký odkop",
+        "description": "Dlouhý vysoký odkop směrem k zaměřovanému bodu. Dav to miluje."
       },
       "sport_hoof": {
-        "name": "Odkop",
+        "name": "Napal to",
         "description": "Napal míč nízko a tvrdě dopředu po hřišti."
       },
       "sport_punt": {
         "name": "Dlouhý výkop",
-        "description": "Brankářský výkop, vysoký a daleký."
+        "description": "Brankářský výkop, vysoko a daleko."
       },
       "sport_feint": {
         "name": "Klička",
-        "description": "Rychlý úkrok se zrychlením směrem k zaměřenému bodu."
+        "description": "Rychlý úkrok stranou směrem k zaměřovanému bodu."
       },
       "sport_dive": {
-        "name": "Robinzonáda",
-        "description": "Vrhni se k zaměřenému bodu. Letící centr se ti přilepí do rukou."
+        "name": "Rybička",
+        "description": "Vrhni se k zaměřovanému bodu. Míč letící kolem se ti přilepí do rukou."
       },
       "sport_shoulder": {
         "name": "Rameno",
-        "description": "Poctivé rameno v duchu žňového příměří. Odstaví soupeře od míče a pošle ho k zemi."
+        "description": "Férové rameno podle žňového příměří. Odhodí soupeře od míče."
       },
       "sport_second_wind": {
         "name": "Čerstvé nohy",
-        "description": "Chytni druhý dech: pohybuješ se o 50 % rychleji na 4 s."
+        "description": "Najdi druhý dech: pohybuješ se o 50 % rychleji po dobu 4 s."
       },
       "flamestrike": {
         "name": "Plamenný úder",
@@ -6213,6 +6214,24 @@ export const cs_CZ: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Slunečnoplátečný srp"
       },
+      "thorium_ore": {
+        "name": "Thorium Ore"
+      },
+      "arcanite_bar": {
+        "name": "Arcanite Bar"
+      },
+      "ashwood_log": {
+        "name": "Ashwood Log"
+      },
+      "elderwood_log": {
+        "name": "Elderwood Log"
+      },
+      "goldleaf_herb": {
+        "name": "Goldleaf Herb"
+      },
+      "sunpetal_herb": {
+        "name": "Sunpetal Herb"
+      },
       "bristleback_maul": {
         "name": "Gallowglassské kladivo"
       },
@@ -7134,7 +7153,7 @@ export const cs_CZ: EnTranslations = {
         "name": "Zvonící zvon"
       },
       "vale_cup_ball": {
-        "name": "Kančí míč"
+        "name": "Kančbal"
       },
       "thunzharr_waking_peak": {
         "name": "Thunzharr, probouzející se štít"
@@ -7393,9 +7412,9 @@ export const cs_CZ: EnTranslations = {
         "greeting": "Odpočívej, duchu. Mohu tě vrátit do těla, ale přechod zpět tě oslabí."
       },
       "groundskeeper_bram": {
-        "name": "Správce Bram",
+        "name": "Správce hřiště Bram",
         "title": "Správce Prasečího pole",
-        "greeting": "Na Prasečím poli platí příměří, {className}: jen nákopy a ramena. Nechceš si zahrát o Měděné vědro?"
+        "greeting": "Na Prasečím poli platí příměří, {className}: jen kopy a ramena. Chceš si zahrát o Měděný kbelík?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",

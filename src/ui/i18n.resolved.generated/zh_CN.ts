@@ -398,7 +398,7 @@ export const zh_CN: EnTranslations = {
     },
     "vcup": {
       "title": "溪谷杯",
-      "shootPower": "力量",
+      "shootPower": "力度",
       "close": "关闭溪谷杯窗口",
       "offlineNote": "赛程簿已合上。溪谷杯目前不可用。",
       "recordLine": "你的战绩：{wins} 胜，{losses} 负，{draws} 平。",
@@ -622,6 +622,7 @@ export const zh_CN: EnTranslations = {
         "jitter": "抖动",
         "predLead": "预测提前量",
         "snapshot": "快照频率",
+        "serverTick": "服务器刻率",
         "connection": "连接",
         "drawCalls": "绘制调用",
         "triangles": "三角面",
@@ -6212,6 +6213,24 @@ export const zh_CN: EnTranslations = {
       },
       "sunpetal_sickle": {
         "name": "阳瓣镰刀"
+      },
+      "thorium_ore": {
+        "name": "瑟银矿石"
+      },
+      "arcanite_bar": {
+        "name": "秘银锭"
+      },
+      "ashwood_log": {
+        "name": "灰木原木"
+      },
+      "elderwood_log": {
+        "name": "古老接骨木原木"
+      },
+      "goldleaf_herb": {
+        "name": "金叶草"
+      },
+      "sunpetal_herb": {
+        "name": "阳瓣草"
       },
       "bristleback_maul": {
         "name": "加洛格拉斯之锤"

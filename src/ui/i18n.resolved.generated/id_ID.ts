@@ -400,106 +400,106 @@ export const id_ID: EnTranslations = {
       "title": "Piala Lembah",
       "shootPower": "TENAGA",
       "close": "Tutup jendela Piala Lembah",
-      "offlineNote": "Buku jadwal ditutup. Piala Lembah tidak tersedia saat ini.",
-      "recordLine": "Rekormu: {wins} menang, {losses} kalah, {draws} seri.",
-      "bracketsAria": "Bracket pertandingan",
+      "offlineNote": "Buku jadwal sedang tutup. Piala Lembah tidak tersedia saat ini.",
+      "recordLine": "Rekormu: {wins} menang, {losses} kalah, {draws} imbang.",
+      "bracketsAria": "Format pertandingan",
       "bracketLabel": "{n}v{n}",
       "waitingCount": "{count} menunggu",
       "nationsHeading": "Negeri panji",
       "nation": {
         "vale": "Lembah Eastbrook",
-        "mirefen": "Rawa Mirefen",
+        "mirefen": "Mirefen",
         "thornpeak": "Thornpeak",
-        "coliseum": "Ashen Coliseum",
+        "coliseum": "Koloseum Abu",
         "choir": "Paduan Suara Pucat",
         "ogre": "Klan Ogre",
         "moon": "Bulan Pucat",
         "copperdig": "Galian Tembaga"
       },
-      "awayNote": "Jika kedua pihak mengibarkan panji yang sama, tim tandang memakai palet warna yang dibalik.",
+      "awayNote": "Jika kedua tim mengibarkan panji yang sama, tim tandang memakai palet warna terbalik.",
       "rolesHeading": "Peran olahraga",
       "role": {
         "allrounder": {
           "name": "Serba Bisa",
-          "desc": "Sedikit dari segalanya: tendangan, tendangan lambung, dan dorongan bahu yang adil."
+          "desc": "Serba bisa: tendang, sepak jauh, dan benturan bahu yang adil."
         },
         "striker": {
           "name": "Penyerang",
-          "desc": "Hidup untuk tendangan lambung jauh dan gerak tipu yang cepat."
+          "desc": "Hidup untuk tendangan jauh dan gerak elak cepat."
         },
         "sweeper": {
           "name": "Penyapu",
-          "desc": "Menyeruduk pelari menjauh dari bola dan menyapunya jauh-jauh."
+          "desc": "Membenturkan pelari menjauh dari bola dan menyapunya jauh-jauh."
         },
         "keeper": {
           "name": "Kiper",
-          "desc": "Menjaga kotak gawang dengan tangkapan, terjunan, dan lambungan kiper."
+          "desc": "Menjaga kotak gawang dengan tangkapan, terjunan, dan sepakan jauh."
         }
       },
       "queue": "Masuk Antrean",
-      "leaveQueue": "Tinggalkan Antrean",
-      "queueNote": "Antre dari mana saja; peluit akan memanggilmu ke Padang Induk Babi.",
+      "leaveQueue": "Keluar dari Antrean",
+      "queueNote": "Mengantrelah dari mana saja; peluit akan memanggilmu ke Sowfield.",
       "queuedStatus": "Mengantre untuk {bracket}: posisi {position} dari {count}.",
       "blockNation": "Pilih negeri panji dulu.",
-      "blockPartySize": "Bracket itu membutuhkan party yang lebih kecil.",
-      "blockNotLeader": "Hanya pemimpin party yang bisa mendaftarkan tim ke antrean.",
-      "inMatchNote": "Timmu sedang di lapangan. Teruskan bermain!",
-      "deserterNote": "Sang Penjaga Lapangan mengingatnya. Kamu boleh antre lagi dalam {seconds} detik.",
-      "liveHeading": "Sedang berlangsung di Padang Induk Babi",
+      "blockPartySize": "Format itu membutuhkan party yang lebih kecil.",
+      "blockNotLeader": "Hanya pemimpin party yang bisa mengantrekan tim.",
+      "inMatchNote": "Timmu sedang di lapangan. Teruskan permainan!",
+      "deserterNote": "Sang Penjaga Lapangan mengingatnya. Kamu boleh mengantre lagi dalam {seconds} detik.",
+      "liveHeading": "Kini di Sowfield",
       "liveAria": "Piala Lembah: {nationA} {scoreA}, {nationB} {scoreB}",
-      "walkUp": "Datanglah ke Padang Induk Babi untuk menonton dari tribun.",
-      "noLive": "Lapangan sedang sepi. Tidak ada pertandingan yang dimainkan.",
+      "walkUp": "Datanglah ke Sowfield untuk menonton dari tribun.",
+      "noLive": "Lapangan sunyi. Tak ada pertandingan yang berlangsung.",
       "boardHeading": "Papan pemenang",
       "boardEmpty": "Belum ada pemenang tercatat. Ember Tembaga menanti.",
       "boardWins": "{count} kemenangan",
-      "enterAsGuild": "Bertanding di bawah panji {guild}",
-      "guildRecordLine": "Rekor guildmu: {wins} menang, {losses} kalah.",
+      "enterAsGuild": "Masuk di bawah panji {guild}",
+      "guildRecordLine": "Rekor guild-mu: {wins} menang, {losses} kalah.",
       "guildBoardHeading": "Panji guild",
       "guildBoardEmpty": "Belum ada guild yang turun ke lapangan. Kibarkan panjimu!",
       "guildBoardWl": "{wins} M, {losses} K",
-      "practice": "Latihan lawan Bot",
+      "practice": "Latihan vs. Bot",
       "practiceNote": "Langsung memulai pertandingan bot pribadi di lapangan latihanmu sendiri.",
       "practicingNow": "Sedang berlatih ({count}):",
-      "clock": "{minutes}:{seconds}",
+      "clock": "{minutes}.{seconds}",
       "indicatorQueued": "Antrean Piala Lembah: {bracket}, posisi {position} dari {count}",
       "indicatorLive": "Piala Lembah",
       "indicatorOpen": "Buka jendela Piala Lembah",
       "phaseCountdown": "Sepak mula dalam {seconds}",
       "phaseGoal": "GOL!",
       "phaseGolden": "GOL EMAS",
-      "phaseOver": "WAKTU PENUH",
+      "phaseOver": "PELUIT PANJANG",
       "bannerFound": "Piala Lembah memanggil: {nationA} vs {nationB}!",
       "bannerCountdown": "Sepak mula dalam {seconds}...",
       "bannerKickoff": "SEPAK MULA!",
       "bannerGoal": "GOL! {nation} mencetak gol!",
       "bannerSave": "{name} MENEPIS!",
       "bannerGolden": "GOL EMAS: gol berikutnya menang!",
-      "bannerEnd": "Waktu penuh: {nationA} {scoreA}, {nationB} {scoreB}",
-      "bannerWin": "Kemenangan di Padang Induk Babi!",
-      "bannerDraw": "Seri di Padang Induk Babi.",
-      "bannerLoss": "Kekalahan di Padang Induk Babi.",
+      "bannerEnd": "Peluit panjang: {nationA} {scoreA}, {nationB} {scoreB}",
+      "bannerWin": "Kemenangan di Sowfield!",
+      "bannerDraw": "Imbang di Sowfield.",
+      "bannerLoss": "Kekalahan di Sowfield.",
       "logQueued": "Kamu masuk antrean Piala Lembah untuk {bracket} (posisi {position}).",
-      "logUnqueued": "Kamu meninggalkan antrean Piala Lembah.",
-      "logFound": "Pertandingan Piala Lembahmu siap: {nationA} vs {nationB}.",
-      "logRoster": "Pihakmu: {allies}. Pihak lawan: {enemies}.",
+      "logUnqueued": "Kamu keluar dari antrean Piala Lembah.",
+      "logFound": "Pertandingan Piala Lembah-mu sudah siap: {nationA} vs {nationB}.",
+      "logRoster": "Timmu: {allies}. Tim lawan: {enemies}.",
       "logGoal": "{name} mencetak gol untuk {nation}! {nationA} {scoreA}, {nationB} {scoreB}.",
       "logSave": "{name} melakukan penyelamatan!",
-      "logWin": "Kamu memenangkan laga di Padang Induk Babi.",
-      "logDraw": "Laga di Padang Induk Babi berakhir seri.",
-      "logLoss": "Kamu kalah dalam laga di Padang Induk Babi.",
+      "logWin": "Kamu memenangkan laga di Sowfield.",
+      "logDraw": "Laga di Sowfield berakhir imbang.",
+      "logLoss": "Kamu kalah dalam laga di Sowfield.",
       "gossipOpen": "Buku jadwal pertandingan",
       "gossipOpenAria": "Buka jendela Piala Lembah",
       "mobileLabel": "Piala",
       "briefing": {
-        "subtitle": "Pengarahan pra-pertandingan",
+        "subtitle": "Pengarahan prapertandingan",
         "vs": "vs",
         "rulesHeading": "Cara bermain",
         "rule1": "Tendang atau umpan bola ke gawang lawan untuk mencetak gol.",
-        "rule2": "Yang pertama mencetak 5 gol menang, atau gol terbanyak saat peluit waktu penuh berbunyi.",
-        "rule3": "Skor imbang pada waktu penuh berlanjut ke gol emas: gol berikutnya menang.",
-        "rule4": "Tekel hanya membuatmu terjungkal. Tak ada yang terluka di bawah gencatan senjata panen.",
+        "rule2": "Yang pertama mencetak 5 gol menang, atau yang golnya terbanyak saat peluit panjang berbunyi.",
+        "rule3": "Skor imbang saat peluit panjang berlanjut ke gol emas: gol berikutnya menang.",
+        "rule4": "Tekel hanya membuatmu terjungkal. Tak ada yang terluka di bawah gencatan panen.",
         "rule5": "Siapa pun bisa datang dan menyemangatimu dari tribun.",
-        "kitHeading": "Perlengkapanmu",
+        "kitHeading": "Perangkatmu",
         "kitNote": "Gerakan-gerakan ini menggantikan kemampuan kelasmu selama pertandingan.",
         "rosterHeading": "Susunan pemain",
         "you": "Kamu",
@@ -507,28 +507,28 @@ export const id_ID: EnTranslations = {
         "ready": "Aku siap",
         "readyDone": "Siap",
         "readyAria": "Nyatakan siap untuk sepak mula",
-        "waiting": "Menunggu pihak lawan menyatakan siap...",
-        "whistle": "Peluit berbunyi dalam {seconds}d.",
+        "waiting": "Menunggu tim lawan menyatakan siap...",
+        "whistle": "Peluit berbunyi dalam {seconds} dtk.",
         "readyCount": "{ready} dari {total} siap"
       },
       "bet": {
         "title": "Taruhan Pertandingan",
         "aria": "Taruhan pertandingan Piala Lembah",
-        "closesIn": "Taruhan ditutup dalam {seconds}d",
+        "closesIn": "Taruhan ditutup dalam {seconds} dtk",
         "closed": "Taruhan ditutup",
-        "prize": "Kolam {amount}",
-        "splitAria": "Porsi kolam taruhan pada tiap tim",
-        "expand": "Lihat dan pasang taruhan",
+        "prize": "Pundi {amount}",
+        "splitAria": "Porsi pundi taruhan pada tiap tim",
+        "expand": "Lihat taruhan dan pasang",
         "collapse": "Sembunyikan taruhan",
         "oddsLabel": "Bayaran",
         "back": "Dukung {team}",
         "form": "{wins}M-{losses}K",
         "mine": "Taruhanmu: {amount} pada {team}",
-        "none": "Kamu belum punya taruhan pada pertandingan ini.",
+        "none": "Kamu belum bertaruh di pertandingan ini.",
         "record": "Rekor taruhan: {wins}M-{losses}K, {sign}{net}",
         "wonBanner": "Taruhanmu menang!",
-        "wonLog": "Taruhan Piala Lembahmu menang: {amount} dikembalikan.",
-        "lostLog": "Taruhan Piala Lembahmu kalah: {amount}.",
+        "wonLog": "Taruhan Piala Lembah-mu menang: {amount} dikembalikan.",
+        "lostLog": "Taruhan Piala Lembah-mu kalah: {amount}.",
         "refundLog": "Taruhan dibatalkan, uang taruhanmu sebesar {amount} dikembalikan."
       }
     },
@@ -620,8 +620,9 @@ export const id_ID: EnTranslations = {
         "fps01Low": "0,1% Terendah",
         "ping": "Ping",
         "jitter": "Jitter",
-        "predLead": "Selisih Prediksi",
+        "predLead": "Jarak Prediksi",
         "snapshot": "Laju Snapshot",
+        "serverTick": "Laju Tick Server",
         "connection": "Koneksi",
         "drawCalls": "Panggilan Gambar",
         "triangles": "Segitiga",
@@ -2223,29 +2224,29 @@ export const id_ID: EnTranslations = {
     },
     "valeCupPage": {
       "heading": "Piala Lembah",
-      "intro": "Bola babi hutan di Padang Induk Babi: pilih panji, pilih peran, dan sepak kulit babi hutan berisi jerami melewati kiper demi Ember Tembaga. Tanpa darah, tanpa jarahan, hanya gemuruh tribun.",
-      "loreHeading": "Bola babi hutan dan gencatan senjata panen",
-      "loreOldSow": "Jauh sebelum orang mati terbangun, para buruh tani Eastbrook bermain bola babi hutan di ladang jerami sehabis panen: dua gerombolan, satu kulit babi hutan yang dijejali jerami, dan dua gerbang pedati yang diseret ke kedua ujung tanah lapang. Bola pertamanya, Si Induk Babi Tua, tergantung berlapis perunggu di atas perapian kedai.",
-      "loreTruce": "Ketika Ashen Coliseum mulai merestui permainan perang, Marshal Redbrook menjawab dengan sesuatu yang lebih lembut: gencatan senjata panen yang tetap berlaku di tanah lapang tua itu. Gerbang pedati menjadi tiang gawang, tanah lapangnya mendapat tembok, tribun, dan sebuah nama, Padang Induk Babi, dan hadiahnya selalu ember susu penyok yang sama tempat para pemenang minum: Ember Tembaga.",
+      "intro": "Bola babi hutan di Sowfield: pilih panji, pilih peran, dan tendang kulit babi hutan berisi jerami melewati kiper demi Ember Tembaga. Tanpa darah, tanpa jarahan, hanya gemuruh tribun.",
+      "loreHeading": "Bola babi hutan dan gencatan panen",
+      "loreOldSow": "Jauh sebelum orang mati terbangun, buruh tani Eastbrook bermain bola babi hutan di ladang jerami usai panen: dua gerombolan, satu kulit babi hutan berisi jerami, dan dua gerbang pedati yang diseret ke kedua ujung lapangan hijau. Bola pertama, Si Induk Tua, digantung berlapis perunggu di atas perapian kedai.",
+      "loreTruce": "Ketika Koloseum Abu mulai merestui permainan perang, Marsekal Redbrook menjawab dengan sesuatu yang lebih lembut: gencatan panen tetap di lapangan hijau tua itu. Gerbang pedati menjadi tiang gawang, lapangan hijau itu mendapat tembok, tribun, dan sebuah nama, Sowfield, dan hadiahnya selalu sama, ember susu penyok yang dipakai minum para pemenang: Ember Tembaga.",
       "howHeading": "Cara bermain",
-      "howQueue": "Masuk antrean dari mana saja lewat jendela Piala Lembah, atau bicaralah dengan Penjaga Lapangan Bram di gerbang Padang Induk Babi. Pilih bracket dari satu lawan satu hingga lima lawan lima, satu negeri panji, dan satu peran olahraga; antre sendirian atau bawa party-mu.",
-      "howMatch": "Saat sepak mula, perlengkapan kelasmu ditukar dengan perlengkapan olahraga dan dikembalikan persis seperti semula setelahnya. Tendangan membidik retikel di tanah, bola memantul dari papan pembatas, dan menggiring bola hanyalah berlari membawa bola. Cetak gol lebih banyak dari pihak lawan sebelum waktu penuh; hasil seri berlanjut ke gol emas.",
-      "howTruce": "Tak ada yang berdarah di Padang Induk Babi: tekel hanya membuat terjungkal, tak ada yang terluka, dan peliharaan menepi selama pertandingan.",
-      "spectateBody": "Satu pertandingan berlangsung pada satu waktu di stadion, dan siapa pun bisa datang dan menonton dari tribun.",
+      "howQueue": "Masuk antrean dari mana saja lewat jendela Piala Lembah, atau bicaralah dengan Penjaga Lapangan Bram di gerbang Sowfield. Pilih format dari satu lawan satu hingga lima lawan lima, sebuah negeri panji, dan peran olahraga; masuk antrean sendirian atau bawa party-mu.",
+      "howMatch": "Saat sepak mula, perangkat kelasmu ditukar dengan perangkat olahraga dan dikembalikan persis seperti semula setelahnya. Tendangan mengarah ke retikel di tanah, bola memantul dari papan pembatas, dan menggiring bola hanyalah berlari bersama bola. Cetak gol lebih banyak dari lawan sebelum waktu habis; hasil imbang berlanjut ke gol emas.",
+      "howTruce": "Tak ada yang berdarah di Sowfield: tekel hanya membuat terjungkal, tak ada yang terluka, dan peliharaan menunggu di luar lapangan.",
+      "spectateBody": "Satu pertandingan berlangsung pada satu waktu di stadion, dan siapa pun bisa datang menonton dari tribun.",
       "nationsHeading": "Delapan negeri panji",
-      "nationsBody": "Setiap tim bermain di bawah sebuah panji. Kapten memilih negerinya, dan jika kedua pihak mengibarkan panji yang sama, tim tandang memakai palet warna yang dibalik.",
-      "nationVale": "Hijau dan emas, mengibarkan ikat gandum: tim tuan rumah, buruh tani sampai ke tulang.",
-      "nationMirefen": "Hijau kebiruan dan kelabu di bawah burung kuntul: sabar, berkaki panjang, tak pernah terburu-buru.",
-      "nationThornpeak": "Biru es dan putih di bawah puncak gunung: mantap berpijak dan keras kepala.",
-      "nationColiseum": "Merah dan hitam dengan pedang bersilang: mereka bermain seolah ini masih permainan perang.",
+      "nationsBody": "Setiap tim bermain di bawah sebuah panji. Kapten memilih negerinya, dan jika kedua tim mengibarkan panji yang sama, tim tandang memakai palet warna terbalik.",
+      "nationVale": "Hijau dan emas, mengibarkan berkas gandum: tim tuan rumah, buruh tani sejati.",
+      "nationMirefen": "Toska dan kelabu di bawah burung bangau: sabar, berkaki panjang, tak pernah terburu-buru.",
+      "nationThornpeak": "Biru es dan putih di bawah puncak gunung: berpijak mantap dan keras kepala.",
+      "nationColiseum": "Merah dan hitam dengan pedang bersilang: mereka bermain seakan ini masih permainan perang.",
       "nationChoir": "Biru pucat dan perak di bawah lonceng: menyeramkan, presisi, dan sangat pendiam.",
-      "nationOgre": "Jingga dan cokelat tanah di belakang kepalan: bahu lebih dulu dan bangga karenanya.",
+      "nationOgre": "Jingga dan cokelat tua di balik kepalan: bahu duluan, dan bangga akan itu.",
       "nationMoon": "Ungu dan perak di bawah bulan sabit: pemain malam, ringan langkahnya.",
       "nationCopperdig": "Tembaga dan cokelat dengan beliung: para penggali yang tak pernah berhenti berlari.",
       "rolesHeading": "Peran olahraga",
-      "rolesBody": "Peranmu menentukan perlengkapan yang kaubawa ke lapangan. Semua orang menendang; sisanya soal perangai.",
-      "rewardsHeading": "Aturan gencatan senjata",
-      "rewardsBody": "Aturan gencatan senjata berarti tanpa XP dan tanpa jarahan: pertandingan yang tuntas dihitung ke rekormu dan papan pemenang, dan poin hadiah harian menyertainya. Meninggalkan pertandingan membuat slotmu dibangkucadangkan, dan sang Penjaga Lapangan mengingatnya."
+      "rolesBody": "Peranmu menentukan perangkat yang kau bawa ke lapangan. Semua orang menendang; sisanya soal watak.",
+      "rewardsHeading": "Aturan gencatan",
+      "rewardsBody": "Aturan gencatan berarti tanpa pengalaman dan tanpa jarahan: pertandingan yang tuntas dihitung ke dalam rekormu dan papan pemenang, dan poin hadiah harian ikut serta. Meninggalkan pertandingan membekukan slotmu, dan Sang Penjaga Lapangan mengingatnya."
     },
     "wishPage": {
       "heading": "Hal-hal yang andai kuketahui dulu",
@@ -2332,33 +2333,33 @@ export const id_ID: EnTranslations = {
       "cosmeticsApply": "Atur penampilan aktifmu dari baris penampilan di layar karaktermu, dan berganti dengan bebas di antara semua yang telah kamu buka."
     },
     "professions": {
-      "intro": "Di luar pertarungan dan misi, dunia ini mengganjarmu karena menggarap tanah dan tungku tempa: mengumpulkan bahan mentah, mengubahnya menjadi perlengkapan di stasiun kerajinan sepuluh keahlian berbeda, dan menetap dalam sebuah identitas sebagai salah satu dari sepuluh arketipe yang diwakili keahlian-keahlian itu.",
+      "intro": "Di luar pertempuran dan misi, dunia mengganjarmu karena menggarap tanah dan tempaan: mengumpulkan bahan mentah, mengolahnya menjadi perlengkapan di stasiun kriya sepuluh kerajinan berbeda, dan menetap dalam identitas sebagai salah satu dari sepuluh arketipe yang diwakili kerajinan-kerajinan itu.",
       "gatherTitle": "Pengumpulan: Penambangan, Penebangan, dan Herbalisme",
-      "gatherIntro": "Tiga keahlian pengumpulan memungkinkanmu menarik bahan mentah langsung dari dunia: Penambangan memahat bijih dan batu dari urat tambang, Penebangan merobohkan kayu dari rumpun pepohonan, dan Herbalisme memetik herba dan tanaman yang tumbuh liar. Masing-masing dicatat terpisah, jadi menekuni yang satu tak pernah memperlambat kemajuanmu di yang lain.",
+      "gatherIntro": "Tiga profesi pengumpulan memungkinkanmu menarik bahan mentah langsung dari dunia: Penambangan memahat bijih dan batu dari urat tambang, Penebangan merobohkan kayu dari rumpun pohon, dan Herbalisme memetik herba serta tanaman liar. Masing-masing dicatat terpisah, jadi menekuni satu tak pernah memperlambat kemajuanmu di yang lain.",
       "gatherWhatTitle": "Simpul sumber daya",
-      "gatherWhatBody": "Urat bijih, rumpun kayu, dan petak herba ditempatkan di zona-zona sebagai objek tetap yang terlihat dan tak bertuan. Hampiri salah satunya dan berinteraksilah dengannya untuk memanen apa pun isinya. Setelah kamu memanen sebuah simpul, ia butuh waktu untuk pulih sebelum kamu pribadi bisa memanennya lagi, meski itu tak pernah menghalangi orang lain: pemain lain bisa memanen simpul yang sama persis sementara itu.",
+      "gatherWhatBody": "Urat bijih, rumpun kayu, dan petak herba ditempatkan di zona-zona sebagai objek yang terlihat dan tak bertuan. Dekati satu dan berinteraksilah untuk memanen isinya. Setelah kamu memanen sebuah simpul, simpul itu butuh waktu untuk pulih sebelum kamu pribadi bisa memanennya lagi, tapi itu tak pernah menghalangi orang lain: pemain lain bisa memanen simpul yang sama sementara itu.",
       "gatherProficiencyTitle": "Kecakapan dan mutu bahan",
-      "gatherProficiencyBody": "Setiap panen yang berhasil menumbuhkan kecakapanmu pada keahlian pengumpulan itu. Kecakapan yang lebih tinggi menggeser apa yang kamu tarik dari sebuah simpul ke arah mutu bahan yang lebih langka, dari yang umum ke atas, meski mutu paling langka tetap langka bahkan pada kecakapan tinggi. Lebih banyak latihan tak pernah merugikan peluangmu, ia hanya akan memperbaikinya.",
-      "gatherToolsTitle": "Peralatan keahlian",
-      "gatherToolsBody": "Pedagang menjual alat dasar untuk tiap keahlian pengumpulan, dan alat yang lebih baik bisa dibuat, jadi menggarap sebuah simpul sumber daya dimaksudkan agar terasa makin cakap seiring kamu melengkapi diri untuknya, bukan jalan di tempat. Alat bertingkat lebih tinggi adalah jalan yang dimaksudkan untuk membuka akses ke simpul yang lebih kaya dan menggarapnya lebih efisien sepanjang sesi yang panjang.",
+      "gatherProficiencyBody": "Setiap panen yang berhasil menumbuhkan kecakapanmu di profesi pengumpulan itu. Kecakapan yang lebih tinggi menggeser hasil yang kamu tarik dari sebuah simpul ke mutu bahan yang lebih langka, dari yang umum ke atas, meski mutu paling langka tetap langka bahkan pada kecakapan tinggi. Lebih banyak latihan tak pernah merugikan peluangmu, hanya memperbaikinya.",
+      "gatherToolsTitle": "Perkakas kerja",
+      "gatherToolsBody": "Pedagang menjual perkakas dasar untuk tiap profesi pengumpulan, dan yang lebih baik bisa dibuat, jadi menggarap simpul sumber daya dimaksudkan terasa makin cakap seiring perlengkapanmu membaik, bukan diam di tempat. Perkakas tingkat lebih tinggi adalah jalan yang dimaksudkan untuk membuka simpul yang lebih kaya dan menggarapnya lebih efisien sepanjang sesi yang panjang.",
       "craftTitle": "Sepuluh kerajinan",
-      "craftIntro": "Sepuluh kerajinan mengubah bahan yang dikumpulkan menjadi perlengkapan dan barang jadi: Penempaan Zirah, Penempaan Senjata, dan Kerajinan Permata membentuk bahan mentah menjadi perlengkapan yang bisa dikenakan; Alkimia dan Teknik berjalan lewat coba-coba; Memasak, Penulisan, dan Pemantraan masing-masing menyentuh hasil kerajinan lain; Menjahit dan Kerajinan Kulit bekerja dari pola yang persis. Bersama-sama semuanya membentuk sebuah roda, dengan tiap kerajinan duduk di samping dua tetangganya dan berseberangan dengan satu kerajinan lain.",
+      "craftIntro": "Sepuluh kerajinan mengubah bahan yang terkumpul menjadi perlengkapan dan barang jadi: Penempaan Zirah, Penempaan Senjata, dan Kriya Permata membentuk bahan mentah menjadi perlengkapan yang bisa dikenakan; Alkimia dan Rekayasa berjalan lewat coba-coba; Memasak, Inskripsi, dan Pemantraan masing-masing menyentuh hasil kerajinan lain; Menjahit dan Pengolahan Kulit bekerja dari pola yang persis. Bersama-sama semuanya membentuk sebuah roda, dengan tiap kerajinan duduk di samping dua tetangga dan berseberangan dengan satu kerajinan lain.",
       "craftRingTitle": "Roda spesialisasi",
-      "craftRingBody": "Sepuluh kerajinan tersusun dalam satu lingkaran tetap, dan posisi sebuah kerajinan pada lingkaran itu penting: kerajinan yang bersebelahan pada roda punya lebih banyak kesamaan satu sama lain daripada kerajinan di sisi yang berseberangan. Menekuni satu kerajinan dimaksudkan agar terasa seperti bergabung dengan satu keluarga keahlian yang berkerabat, bukan memungut satu keterampilan yang terpencil.",
+      "craftRingBody": "Sepuluh kerajinan tersusun dalam lingkaran tetap, dan posisi sebuah kerajinan di lingkaran itu penting: kerajinan yang bersebelahan di roda punya lebih banyak kesamaan satu sama lain dibanding kerajinan di sisi berlawanan. Berkomitmen pada satu kerajinan dimaksudkan terasa seperti bergabung dengan keluarga kerajinan serumpun, bukan memilih keterampilan yang terpencil.",
       "craftRecipesTitle": "Resep dan reagen",
-      "craftRecipesBody": "Setiap kerajinan punya resepnya sendiri, masing-masing meminta reagen tertentu yang kamu kumpulkan atau beli. Resep paling dasar di tiap kerajinan hanya meminta bahan umum dan bisa dibuat sejak awal sekali, jadi kamu bisa mulai menekuni sebuah kerajinan begitu mengambilnya alih-alih menunggu untuk membukanya.",
-      "craftMasteryTitle": "Keterampilan dan penguasaan",
-      "craftMasteryBody": "Berhasil membuat barang menumbuhkan keterampilanmu pada kerajinan itu, dan resep yang lebih kaya terkunci di balik keterampilan yang lebih tinggi: resep-resep dasar terbuka bagi semua orang, sementara resep yang kian mahir menuntut penguasaan yang kian tinggi untuk dicoba. Menumbuhkan keterampilanmu pada sebuah kerajinan adalah jalan dari barang pemula yang sederhana menuju resep-resepnya yang lebih ambisius.",
+      "craftRecipesBody": "Setiap kerajinan punya resepnya sendiri, masing-masing membutuhkan reagen tertentu yang kamu kumpulkan atau beli. Resep paling dasar di tiap kerajinan hanya meminta bahan umum dan bisa dibuat sejak awal, jadi kamu bisa mulai menekuni sebuah kerajinan begitu mengambilnya, tanpa menunggu untuk membukanya.",
+      "craftMasteryTitle": "Keahlian dan penguasaan",
+      "craftMasteryBody": "Berhasil membuat barang menumbuhkan keahlianmu di kerajinan itu, dan resep yang lebih kaya terkunci di balik keahlian yang lebih tinggi: resep dasar terbuka untuk semua orang, sementara resep yang makin maju menuntut penguasaan yang makin tinggi untuk dicoba. Menumbuhkan keahlian dalam sebuah kerajinan adalah jalan dari barang pemula sederhana menuju resep-resepnya yang lebih ambisius.",
       "craftComboTitle": "Resep kombinasi",
-      "craftComboBody": "Di luar daftar resep milik satu kerajinan sendiri, roda ini juga mendukung resep kombinasi yang memanggil dua kerajinan bertetangga sekaligus, mengganjar karakter (atau sepasang mitra dagang) yang menekuni keahlian-keahlian yang bersebelahan pada lingkaran itu alih-alih satu keahlian yang berdiri sendiri.",
+      "craftComboBody": "Di luar daftar resep tiap kerajinan, roda ini juga mendukung resep kombinasi yang memakai dua kerajinan bertetangga sekaligus, mengganjar karakter (atau sepasang mitra dagang) yang menekuni kerajinan bersebelahan di lingkaran alih-alih satu kerajinan secara terpisah.",
       "archetypeTitle": "Sepuluh arketipe",
-      "archetypeIntro": "Masing-masing dari sepuluh kerajinan juga mewakili sebuah arketipe, identitas yang lebih luas yang bisa kamu sandang lebih dari sekadar menekuni keahlian itu. Arketipe aktifmu adalah satu pilihan pada satu waktu, bukan daftar centang: kamu menyandang satu, dan bisa mengganti pilihanmu kelak jika mau.",
+      "archetypeIntro": "Masing-masing dari sepuluh kerajinan juga mewakili sebuah arketipe, identitas yang lebih luas yang bisa kamu sandang di luar sekadar menekuni kerajinannya. Arketipe aktifmu adalah satu pilihan pada satu waktu, bukan daftar centang: kamu menyandang satu, dan bisa menggantinya kelak jika mau.",
       "archetypeChooseTitle": "Memilih arketipemu",
-      "archetypeChooseBody": "Kamu menyatakan arketipe pertamamu lewat sebuah misi cerita awal di zona satu yang secara resmi menerimamu ke dalam identitas itu. Sebelum kamu menyelesaikan misi tersebut, kamu sama sekali belum memilih arketipe.",
+      "archetypeChooseBody": "Kamu menyatakan arketipe pertamamu melalui misi cerita awal di zona satu yang secara resmi menerimamu ke dalam identitas itu. Sebelum misi itu selesai, kamu sama sekali belum memilih arketipe.",
       "archetypeSwitchTitle": "Berubah pikiran",
-      "archetypeSwitchBody": "Pernah menyatakan sebuah arketipe tidak mengikatmu padanya selamanya. Berpindah ke arketipe lain berarti lebih dulu menyelesaikan misi \"menebus kesalahan\" yang dapat diulang untuk arketipe lamamu, dan setiap kali kamu berpindah, tebusan yang diminta darimu pada kesempatan berikutnya sedikit lebih berat, sehingga berpindah tetap berarti dan tidak tanpa harga.",
+      "archetypeSwitchBody": "Menyatakan sebuah arketipe sekali tidak mengikatmu selamanya. Berpindah ke arketipe lain berarti lebih dulu menyelesaikan misi \"menebus kesalahan\" yang dapat diulang untuk arketipe lamamu, dan setiap kali kamu berpindah, tebusan yang diminta berikutnya sedikit lebih berat, sehingga berpindah tetap bermakna, bukan tanpa harga.",
       "archetypeIdentityTitle": "Makna arketipemu",
-      "archetypeIdentityBody": "Arketipe aktifmu adalah pernyataan tentang siapa karaktermu di dunia ini, yang diakui lewat cara orang lain dan dunia menyapamu. Ganjaran dan pengakuan pasti yang menyertainya masih dirampungkan; tengoklah kembali seiring sistem ini terisi."
+      "archetypeIdentityBody": "Arketipe aktifmu adalah pernyataan tentang siapa karaktermu di dunia, terlihat dari cara orang lain dan dunia menyapamu. Hadiah dan pengakuan pastinya masih dirampungkan; tengok kembali seiring sistem ini dilengkapi."
     },
     "economy": {
       "intro": "Koin melumasi seluruh dunia: ia membeli perlengkapanmu, persediaan, dan perlengkapan perjalanan, serta berpindah tangan antarpemain. Kamu mengumpulkan semua ini hanya dengan bermain, jadi anggaplah halaman ini sebagai peta dari mana uangmu datang dan ke mana ia pergi.",
@@ -4953,44 +4954,44 @@ export const id_ID: EnTranslations = {
   "entities": {
     "abilities": {
       "sport_kick": {
-        "name": "Tendangan",
+        "name": "Tendang",
         "description": "Tendang bola menyusur tanah ke arah titik bidik."
       },
       "sport_shoot": {
-        "name": "Tembakan",
-        "description": "Tahan untuk mengisi tenaga, lepaskan untuk menembak ke gawang. Tenaga berlebih membuat bola melambung lewat."
+        "name": "Tembak",
+        "description": "Tahan untuk mengumpulkan tenaga, lepaskan untuk menembak ke gawang. Tenaga berlebih membuat bola melambung lewat."
       },
       "sport_pass": {
         "name": "Umpan",
-        "description": "Gulirkan umpan terukur ke rekan setim yang kaubidik, mengarah ke depan larinya."
+        "description": "Gulirkan umpan mantap ke rekan setim yang kau bidik, mendahului arah larinya."
       },
       "sport_boot": {
-        "name": "Tendangan Lambung",
-        "description": "Tendangan lambung yang jauh ke arah titik bidik. Penonton menyukainya."
+        "name": "Tendangan Jauh",
+        "description": "Tendangan lambung jauh ke arah titik bidik. Penonton menyukainya."
       },
       "sport_hoof": {
-        "name": "Sapuan Keras",
+        "name": "Sapu Jauh",
         "description": "Hantam bola rendah dan keras ke depan lapangan."
       },
       "sport_punt": {
-        "name": "Lambungan Kiper",
-        "description": "Lambungan seorang kiper, tinggi dan jauh."
+        "name": "Sepakan Jauh",
+        "description": "Tendangan lambung kiper, tinggi dan jauh."
       },
       "sport_feint": {
-        "name": "Gerak Tipu",
-        "description": "Lesatan gerak tipu ke samping yang cepat menuju titik bidik."
+        "name": "Tipuan",
+        "description": "Gerakan mengelak cepat ke arah titik bidik."
       },
       "sport_dive": {
-        "name": "Terjunan",
-        "description": "Lemparkan dirimu ke arah titik bidik. Bola umpan silang akan lengket padamu."
+        "name": "Terjun",
+        "description": "Lemparkan dirimu ke arah titik bidik. Bola yang melintas akan menempel padamu."
       },
       "sport_shoulder": {
-        "name": "Dorongan Bahu",
-        "description": "Dorongan bahu yang adil ala gencatan senjata panen. Membuat lawan terjungkal menjauh dari bola."
+        "name": "Benturan Bahu",
+        "description": "Benturan bahu yang adil ala gencatan panen. Membuat lawan terjungkal menjauh dari bola."
       },
       "sport_second_wind": {
         "name": "Kaki Segar",
-        "description": "Temukan ritme larimu: bergerak 50% lebih cepat selama 4 detik."
+        "description": "Temukan kembali tenagamu: bergerak 50% lebih cepat selama 4 detik."
       },
       "flamestrike": {
         "name": "Hantaman Api",
@@ -6213,6 +6214,24 @@ export const id_ID: EnTranslations = {
       "sunpetal_sickle": {
         "name": "Sabit Kelopak Matahari"
       },
+      "thorium_ore": {
+        "name": "Bijih Torium"
+      },
+      "arcanite_bar": {
+        "name": "Batangan Arkanit"
+      },
+      "ashwood_log": {
+        "name": "Kayu Gelondongan Abu"
+      },
+      "elderwood_log": {
+        "name": "Kayu Gelondongan Tua Elder"
+      },
+      "goldleaf_herb": {
+        "name": "Herba Daun Emas"
+      },
+      "sunpetal_herb": {
+        "name": "Herba Kelopak Matahari"
+      },
       "bristleback_maul": {
         "name": "Palu Gallowglass"
       },
@@ -7394,8 +7413,8 @@ export const id_ID: EnTranslations = {
       },
       "groundskeeper_bram": {
         "name": "Penjaga Lapangan Bram",
-        "title": "Penjaga Padang Induk Babi",
-        "greeting": "Gencatan senjata tetap berlaku di Padang Induk Babi, {className}: hanya tendangan dan dorongan bahu. Mau bermain memperebutkan Ember Tembaga?"
+        "title": "Penjaga Sowfield",
+        "greeting": "Gencatan tetap berlaku di Sowfield, {className}: hanya tendangan dan benturan bahu. Mau bermain memperebutkan Ember Tembaga?"
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -8306,7 +8325,7 @@ export const id_ID: EnTranslations = {
             "label": "Tanah Lapang Brightwood"
           },
           "10": {
-            "label": "Padang Induk Babi"
+            "label": "Sowfield"
           }
         }
       },
