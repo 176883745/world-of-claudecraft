@@ -5578,7 +5578,7 @@ export const tr_TR: EnTranslations = {
       },
       "faerie_fire": {
         "name": "Cadı Işığı",
-        "description": "Hedefin zırhını 30 saniye boyunca 35 azaltır."
+        "description": "Hedefin zırhını 40 saniye boyunca %{damage} azaltır. Zırh Kesme ile birlikte istiflenmez."
       },
       "hibernate": {
         "name": "Derin Uyku",

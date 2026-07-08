@@ -1616,7 +1616,8 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.expose_armor.description':
     'Afslutningstræk der blotlægger målet og sænker dets rustning med {damage} i 30 sek.',
   'entities.abilities.expose_armor.name': 'Rustningsbrud',
-  'entities.abilities.faerie_fire.description': 'Sænker målets rustning med 35 i 30 sek.',
+  'entities.abilities.faerie_fire.description':
+    'Sænker målets rustning med {damage}% i 40 sek. Stakker ikke med Rustningsskær.',
   'entities.abilities.faerie_fire.name': 'Hekselys',
   'entities.abilities.fear.description':
     'Slår rædsel i fjenden, så den kryber sammen i op til 8 sek. Enhver skade bryder effekten.',

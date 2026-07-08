@@ -3139,7 +3139,7 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.bash.description': 'Aturde al objetivo durante 2 s. Solo en forma de Bruin.',
   'entities.abilities.faerie_fire.name': 'Fuego Fatuo',
   'entities.abilities.faerie_fire.description':
-    'Reduce la armadura del objetivo en 35 durante 30 s.',
+    'Reduce la armadura del objetivo en un {damage}% durante 40 s. No se acumula con Cizalla de Armadura.',
   'entities.abilities.hibernate.name': 'Letargo',
   'entities.abilities.hibernate.description':
     'Sume al objetivo en un sueño profundo de hasta 8 s. Cualquier daño lo despertará.',

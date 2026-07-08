@@ -5074,7 +5074,7 @@ export const en_XA: EnTranslations = {
       },
       "commanding_shout": {
         "name": "[Ɓóļšţéŕíñĝ Çŕý]",
-        "description": "[Íñçŕéášéš ýóúŕ Šţáɱíñá ƀý 6 ƒóŕ 2 ɱíñ.]"
+        "description": "[Íñçŕéášéš ýóúŕ Šţáɱíñá ƀý {buff} ƒóŕ 2 ɱíñ.]"
       },
       "demoralizing_shout": {
         "name": "[Ðíŕéĥóŵļ]",
@@ -5578,7 +5578,7 @@ export const en_XA: EnTranslations = {
       },
       "faerie_fire": {
         "name": "[Ŵíţçĥļíĝĥţ]",
-        "description": "[Ðéçŕéášéš ţĥé ţáŕĝéţ'š áŕɱóŕ ƀý {damage}% ƒóŕ 40 šéç. Ðóéš ñóţ šţáçķ ŵíţĥ Šúñðéŕ Áŕɱóŕ.]"
+        "description": "[Ðéçŕéášéš ţĥé ţáŕĝéţ'š áŕɱóŕ ƀý {damage}% ƒóŕ 40 šéç. Ðóéš ñóţ šţáçķ ŵíţĥ Áŕɱóŕ Šĥéáŕ.]"
       },
       "hibernate": {
         "name": "[Šļúɱƀéŕ]",

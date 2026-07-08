@@ -5578,7 +5578,7 @@ export const de_DE: EnTranslations = {
       },
       "faerie_fire": {
         "name": "Witchlight",
-        "description": "Verringert die Rüstung des Ziels 30 Sek. lang um 35."
+        "description": "Verringert die Rüstung des Ziels 40 Sek. lang um {damage}%. Nicht mit Rüstungsspalter kumulierbar."
       },
       "hibernate": {
         "name": "Schlummer",

@@ -5578,7 +5578,7 @@ export const sv_SE: EnTranslations = {
       },
       "faerie_fire": {
         "name": "Häxljus",
-        "description": "Sänker målets rustning med 35 i 30 sek."
+        "description": "Sänker målets rustning med {damage}% i 40 sek. Stackas inte med Rustningsklipp."
       },
       "hibernate": {
         "name": "Slummer",

@@ -3144,7 +3144,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.bash.description': 'Betäubt das Ziel 2 Sek. lang. Nur in Bruin Form.',
   'entities.abilities.faerie_fire.name': 'Witchlight',
   'entities.abilities.faerie_fire.description':
-    'Verringert die Rüstung des Ziels 30 Sek. lang um 35.',
+    'Verringert die Rüstung des Ziels 40 Sek. lang um {damage}%. Nicht mit Rüstungsspalter kumulierbar.',
   'entities.abilities.hibernate.name': 'Schlummer',
   'entities.abilities.hibernate.description':
     'Versetzt das Ziel bis zu 8 Sek. in tiefen Schlaf. Jeglicher Schaden weckt es auf.',

@@ -631,7 +631,7 @@ const classAbilityNamesEn = {
         'Iron Bellow',
         'A shout that increases the attack power of all party members by {buff}% for 2 min.',
       ],
-      ['commanding_shout', 'Bolstering Cry', 'Increases your Stamina by 6 for 2 min.'],
+      ['commanding_shout', 'Bolstering Cry', 'Increases your Stamina by {buff} for 2 min.'],
       [
         'demoralizing_shout',
         'Direhowl',
@@ -1128,7 +1128,7 @@ const classAbilityNamesEn = {
       [
         'faerie_fire',
         'Witchlight',
-        "Decreases the target's armor by {damage}% for 40 sec. Does not stack with Sunder Armor.",
+        "Decreases the target's armor by {damage}% for 40 sec. Does not stack with Armor Shear.",
       ],
       [
         'hibernate',

@@ -1630,7 +1630,8 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.expose_armor.description':
     'Ruch kończący, który odsłania cel, zmniejszając jego pancerz o {damage} na 30 sek.',
   'entities.abilities.expose_armor.name': 'Wyłom w pancerzu',
-  'entities.abilities.faerie_fire.description': 'Zmniejsza pancerz celu o 35 na 30 sek.',
+  'entities.abilities.faerie_fire.description':
+    'Zmniejsza pancerz celu o {damage}% na 40 sek. Nie kumuluje się z Rozdarciem pancerza.',
   'entities.abilities.faerie_fire.name': 'Wiedźmie światło',
   'entities.abilities.fear.description':
     'Wzbudza w przeciwniku przerażenie, zmuszając go do kulenia się przez nawet 8 sek. Każde obrażenie przerywa efekt.',

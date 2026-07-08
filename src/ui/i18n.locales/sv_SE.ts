@@ -1623,7 +1623,8 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.expose_armor.description':
     'Avslutande manöver som blottar målet och sänker dess rustning med {damage} i 30 sek.',
   'entities.abilities.expose_armor.name': 'Rustningsbräsch',
-  'entities.abilities.faerie_fire.description': 'Sänker målets rustning med 35 i 30 sek.',
+  'entities.abilities.faerie_fire.description':
+    'Sänker målets rustning med {damage}% i 40 sek. Stackas inte med Rustningsklipp.',
   'entities.abilities.faerie_fire.name': 'Häxljus',
   'entities.abilities.fear.description':
     'Slår skräck i fienden och får den att huka sig i upp till 8 sek. All skada bryter effekten.',
