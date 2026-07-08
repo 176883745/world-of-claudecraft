@@ -42,6 +42,8 @@ import {
   ABILITIES,
   CLASSES,
   COMPANION_UPGRADE_COSTS,
+  DEED_ORDER,
+  DEEDS,
   DELVE_AFFIXES,
   DELVE_LIST,
   DELVES,
@@ -62,6 +64,7 @@ import {
   ZONES,
   zoneAt,
 } from '../sim/data';
+import { CHRONICLER_TEMPLATE_IDS } from '../sim/deeds';
 import { specialRoleColor } from '../sim/discord_roles';
 import { armorTypeForItem, canEquipItem, weaponArchetypeForItem } from '../sim/equipment_rules';
 import { isItemLevelEligible, itemLevel, itemScore } from '../sim/item_level';
@@ -190,6 +193,15 @@ import { renderCorpseHarvestPicker } from './corpse_harvest_window';
 import { buildCraftingView } from './crafting_view';
 import { renderCraftingWindow } from './crafting_window';
 import { DailyRewardsWindow } from './daily_rewards_window';
+import { deedName, deedTitleText } from './deed_i18n';
+import { DeedTrackerPainter } from './deed_tracker_painter';
+import {
+  buildDeedTrackerViewInto,
+  buildDeedUnlockPlan,
+  type DeedDisplayCategory,
+  makeDeedTrackerView,
+} from './deeds_view';
+import { DeedsWindow } from './deeds_window';
 import { DelveMapPainter } from './delve_map_painter';
 import { devTierBadgeDataUrl, devTierByIndex, devTierDisplayName } from './dev_tier';
 import { markDialogRoot } from './dialog_root';
@@ -1557,6 +1569,12 @@ export class Hud {
         this.questlogWindow.openWithQuest(row.dataset.quest);
       }
     });
+    // Collapse/expand the deed tracker by clicking its header (the quest
+    // tracker delegation pattern). The tracker is aria-hidden glanceable
+    // decoration, so the header is pointer-only by design (no keydown arm).
+    $('#deed-tracker').addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('.dt-header')) this.toggleDeedTrackerCollapsed();
+    });
     // The delve board, lockpick panel, map window, and the bank + bags cluster are
     // non-modal overlays, so canUseGameKeys() stays true and the global jump (Space)
     // / chat (Enter) binds would otherwise hijack those keys on a focused panel
@@ -2143,6 +2161,10 @@ export class Hud {
       case 'calendar-window':
         // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
         this.calendarWindow.close();
+        break;
+      case 'deeds-window':
+        // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
+        this.deedsWindow.close();
         break;
       case 'arena-window':
         // Route through the painter so focus returns to the opener (WCAG 2.2 AA),
@@ -3529,6 +3551,27 @@ export class Hud {
     // snapshot echo repaints again authoritatively.
     onInventoryChanged: () => this.onInventoryChanged(),
   });
+  // Book of Deeds window painter (deeds_view.ts core + deeds_window.ts
+  // painter): the deed catalog browser and title picker over the IWorldDeeds
+  // facet. A standalone trapping window (windowFocus), not a docked
+  // companion; onWatchChanged repaints the HUD tracker immediately so a
+  // watch toggle never waits for the slow band.
+  private readonly deedsWindow = new DeedsWindow({
+    ...this.presentationBag,
+    root: () => $('#deeds-window'),
+    world: () => this.sim,
+    closeOthers: () => this.closeOtherWindows('#deeds-window'),
+    hideTooltip: () => this.hideTooltip(),
+    ...this.windowFocus('#deeds-window'),
+    onWatchChanged: () => this.updateDeedTracker(),
+  });
+  // Watchlist HUD tracker (#deed-tracker): slow-band painter over the one
+  // reused tracker-view container (allocation-light by contract).
+  private readonly deedTrackerView = makeDeedTrackerView();
+  private readonly deedTrackerPainter = new DeedTrackerPainter({
+    root: () => $('#deed-tracker'),
+    writers: this.writerFacet,
+  });
   // Event calendar window painter (calendar_view.ts month-grid core +
   // calendar_window.ts painter). System events expand from data rules; guild
   // events read the socialInfo mirror and book/remove through IWorld.
@@ -3648,6 +3691,7 @@ export class Hud {
       void this.openPlayerCard();
     },
     openPrestige: () => this.openPrestigeDialog(),
+    openDeeds: () => this.openDeeds(),
   });
   // Options window painter (options_view.ts core + options_window.ts painter). The
   // window renders no item rows, so it composes no PainterHostPresentation bag; it
@@ -4357,6 +4401,10 @@ export class Hud {
       this.renderHeroicVendor();
     if (this.marketWindow.isOpen) this.marketWindow.render();
     if (this.bankWindow.isOpen) this.bankWindow.render();
+    if (this.deedsWindow.isOpen) this.deedsWindow.render();
+    // The deed tracker's texts re-localize on its next elided paint; run one
+    // now so the strip never shows a stale language for up to a slow tick.
+    this.updateDeedTracker();
     this.charWindow.renderIfOpen();
     // The arena window's render-skip signature is text-independent (offline sentinel or a
     // JSON of ids/numbers), so a language switch alone never moves it; relocalize() forces
@@ -6835,6 +6883,10 @@ export class Hud {
     if (slowHud && this.mailboxWindow.isOpen) this.mailboxWindow.refreshIfChanged();
     // The bank closes itself when the bank mirror goes null (left the banker).
     if (slowHud && this.bankWindow.isOpen) this.bankWindow.refreshIfChanged();
+    if (slowHud && this.deedsWindow.isOpen) this.deedsWindow.refreshIfChanged();
+    // The deed tracker is always-on chrome (not gated on a window): watched
+    // progress climbs from normal play, and earned deeds drop off.
+    if (slowHud) this.updateDeedTracker();
     if (slowHud && this.calendarWindow.isOpen) this.calendarWindow.refreshIfChanged();
     if (slowHud) this.updateMailIndicator();
   }
@@ -8270,6 +8322,10 @@ export class Hud {
 
   handleEvents(events: SimEvent[]): void {
     const sim = this.sim;
+    // Book of Deeds unlocks batch across the whole drain (handleDeedUnlocks):
+    // banners coalesce to the last unlock, retro back-credits collapse into
+    // one summary line, and the celebration sound plays once.
+    const deedUnlocks: { deedId: string; retro?: boolean }[] = [];
     // One spawn clock for the whole batch: FCT floaters spawned from this event burst
     // share a bornAt, and the pooled painter's step() evicts each once now - bornAt >= ttl.
     const now = performance.now();
@@ -8490,11 +8546,8 @@ export class Hud {
           audio.levelUp();
           break;
         }
-        case 'milestoneUnlocked': {
-          const name = this.milestoneName(ev.milestoneId);
-          this.showBanner(`${t('game.milestone.unlocked')}: ${name}`);
-          this.log(`${t('game.milestone.unlocked')}: ${name}`, '#ffd100');
-          audio.levelUp();
+        case 'deedUnlocked': {
+          deedUnlocks.push(ev);
           break;
         }
         case 'learnAbility':
@@ -9359,6 +9412,35 @@ export class Hud {
           break;
         }
       }
+    }
+    if (deedUnlocks.length > 0) this.handleDeedUnlocks(deedUnlocks);
+  }
+
+  // The earned moment, planned purely (deeds_view buildDeedUnlockPlan) so the
+  // batching rules stay unit-pinned: each fresh unlock gets a gold log line
+  // (the durable copy) and title rewards a second hint line; the single
+  // banner slot shows the drain's last unlock; one celebration sound per
+  // drain. The on-join retro catch-up draws NO banner and NO audio, just one
+  // localized summary count.
+  private handleDeedUnlocks(events: { deedId: string; retro?: boolean }[]): void {
+    const plan = buildDeedUnlockPlan(events, DEEDS);
+    for (const id of plan.logIds) {
+      this.log(t('hudChrome.deeds.unlockedBanner', { name: deedName(id) }), '#ffd100');
+    }
+    for (const id of plan.titleHintIds) {
+      this.log(t('hudChrome.deeds.unlockedTitleHint', { title: deedTitleText(id) }), '#ffd100');
+    }
+    if (plan.bannerId !== null) {
+      this.showBanner(t('hudChrome.deeds.unlockedBanner', { name: deedName(plan.bannerId) }));
+    }
+    if (plan.playSound) audio.levelUp();
+    if (plan.retroCount > 0) {
+      this.log(
+        t('hudChrome.deeds.retroSummary', {
+          count: formatNumber(plan.retroCount, { maximumFractionDigits: 0 }),
+        }),
+        '#ffd100',
+      );
     }
   }
 
@@ -10320,6 +10402,16 @@ export class Hud {
     if (NPCS[npc.templateId]?.banker) {
       this.sim.targetEntity(npc.id);
       this.sim.interact();
+      return;
+    }
+    // A chronicler never gossips either: route the talk through the sim (the
+    // visited mark + the Saul consecutive-talk counter live there, identically
+    // in both worlds), then open the Book at the Chronicles section
+    // client-side; the authored greeting stays un-rendered like the banker's.
+    if ((CHRONICLER_TEMPLATE_IDS as readonly string[]).includes(npc.templateId)) {
+      this.sim.targetEntity(npc.id);
+      this.sim.interact();
+      this.openDeeds('chronicle');
       return;
     }
     this.questDialogOpenedAtMs = performance.now();
@@ -11377,6 +11469,51 @@ export class Hud {
     if (document.body.classList.contains('mobile-touch') && this.bankWindow.isOpen) {
       document.body.classList.remove('bank-open');
     }
+  }
+
+  // The Book of Deeds trio (keybind toggle, chronicler/char-panel opens, Esc
+  // close). open() takes an optional section so a chronicler lands on the
+  // Chronicles category.
+  openDeeds(category?: DeedDisplayCategory | 'titles'): void {
+    this.deedsWindow.open(category);
+  }
+
+  closeDeeds(): void {
+    this.deedsWindow.close();
+  }
+
+  toggleDeeds(): void {
+    this.deedsWindow.toggle();
+  }
+
+  get deedsWindowOpen(): boolean {
+    return this.deedsWindow.isOpen;
+  }
+
+  // Repaint the deed tracker from the live facet: the slow band, a watch
+  // toggle, the collapse toggle, and language switches all funnel here; the
+  // elided writers make an unchanged repaint free.
+  private updateDeedTracker(): void {
+    const collapsed = (this.optionsHooks?.settings.get('deedTrackerCollapsed') ?? false) === true;
+    this.deedTrackerPainter.update(
+      buildDeedTrackerViewInto(
+        this.deedTrackerView,
+        this.deedsWindow.watched,
+        this.sim.deedsEarned,
+        this.sim.deedStats,
+        DEEDS,
+        collapsed,
+      ),
+    );
+  }
+
+  /** Flip the persisted deed-tracker collapse (header click delegation). */
+  private toggleDeedTrackerCollapsed(): void {
+    const settings = this.optionsHooks?.settings;
+    if (!settings) return;
+    settings.set('deedTrackerCollapsed', !settings.get('deedTrackerCollapsed'));
+    audio.click();
+    this.updateDeedTracker();
   }
 
   toggleCalendar(): void {
@@ -12534,9 +12671,17 @@ export class Hud {
     const sim = this.sim;
     const vlevel = virtualLevel(sim.lifetimeXp);
     const unlocked = new Set(sim.unlockedMilestones);
-    const badges = MILESTONES.filter((m) => unlocked.has(m.id))
-      .map((m) => `<span class="ms-badge ms-${m.kind}">${this.milestoneName(m.id)}</span>`)
+    // Earned Book of Deeds border rewards join the badge row through the same
+    // ms-badge plumbing (nameplate border display is a deliberate v1 cut).
+    const borderBadges = DEED_ORDER.filter(
+      (id) => DEEDS[id].reward?.kind === 'border' && sim.deedsEarned.has(id),
+    )
+      .map((id) => `<span class="ms-badge ms-deed-border">${esc(deedName(id))}</span>`)
       .join('');
+    const badges =
+      MILESTONES.filter((m) => unlocked.has(m.id))
+        .map((m) => `<span class="ms-badge ms-${m.kind}">${this.milestoneName(m.id)}</span>`)
+        .join('') + borderBadges;
     let html = `<div class="cp-title">${t('game.progression.heading')}</div>`;
     html += `<div class="char-stats cp-stats">
       <span>${t('game.progression.totalXp')}: <b>${formatXp(sim.lifetimeXp)}</b></span>
@@ -12545,6 +12690,15 @@ export class Hud {
       html += `<span>${t('game.progression.prestigeRank')}: <b>★ ${sim.prestigeRank}</b></span>`;
     html += `</div>`;
     html += `<div class="cp-milestones"><span class="cp-ms-label">${t('game.progression.milestones')}:</span> ${badges || `<span class="cp-none">${t('game.progression.none')}</span>`}</div>`;
+    // The active Book of Deeds title line; the button opens the Book (its
+    // Titles section is one click away). Title text is deed content localized
+    // through deed_i18n, never a raw id.
+    const activeTitleText = sim.activeTitle ? deedTitleText(sim.activeTitle) : '';
+    html += `<div class="cp-milestones"><span class="cp-ms-label">${t('hudChrome.deeds.charTitleLabel')}:</span> ${
+      activeTitleText !== ''
+        ? `<b class="cp-active-title">${esc(activeTitleText)}</b>`
+        : `<span class="cp-none">${t('hudChrome.deeds.charTitleNone')}</span>`
+    } <button type="button" class="btn cp-deeds-btn" data-act="open-deeds">${t('hudChrome.deeds.charOpenBook')}</button></div>`;
     if (level >= MAX_LEVEL) {
       // The button reflects the server's authoritative prestige gate (post-cap
       // XP earned). It's disabled — and the requirement shown — until eligible;
@@ -13292,6 +13446,11 @@ export class Hud {
       `<div class="inspect-card">` +
       portraitChipHtml({ cls, skin: e.skin ?? 0, name: e.name, variant: 'lg' }) +
       `<div class="inspect-name">${esc(e.name)}</div>` +
+      // The active Book of Deeds title (the entity `title` wire field, a deed
+      // id): a subtitle line under the name, exactly the nameplate surface.
+      (e.title && deedTitleText(e.title) !== ''
+        ? `<div class="inspect-title">${esc(deedTitleText(e.title))}</div>`
+        : '') +
       `<div class="inspect-meta">${esc(t('itemUi.equipment.levelClass', { level: formatNumber(e.level, { maximumFractionDigits: 0 }), className }))}</div>` +
       holderHtml +
       discordHtml +

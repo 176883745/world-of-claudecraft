@@ -209,6 +209,13 @@ export const BIND_ACTIONS: BindAction[] = [
     defaults: ['KeyU'],
   },
   {
+    id: 'deeds',
+    label: 'Book of Deeds',
+    category: 'Interface',
+    kind: 'edge',
+    defaults: ['KeyZ'],
+  },
+  {
     id: 'chat',
     label: 'Open Chat',
     category: 'Interface',

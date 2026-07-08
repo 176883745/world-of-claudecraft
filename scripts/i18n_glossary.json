@@ -41,6 +41,10 @@
         "guide.economy.bankTitle",
         "guide.economy.bankBody"
       ]
+    },
+    "deedsSystem": {
+      "note": "Book of Deeds (achievements) vocabulary, locked by the non-Latin fills shipped with the window chrome. Deed: zh_CN 功绩, zh_TW 功績, ja 功績, ko 업적, ru деяние. Book of Deeds: zh_CN 功绩之书, zh_TW 功績之書, ja 功績の書, ko 업적의 서, ru Книга деяний. Renown (the deed score; distinct from any reputation concept): zh_CN 名望, zh_TW 名望, ja 名声, ko 명성, ru Известность. Title (cosmetic name suffix): zh_CN 头衔, zh_TW 頭銜, ja 称号, ko 칭호, ru звание. Feat (zero-Renown trophy): zh_CN 壮举, zh_TW 壯舉, ja 偉業, ko 위업, ru подвиг. Chronicle (per-zone task set): zh_CN 编年史, zh_TW 編年史, ja 年代記, ko 연대기, ru летопись. Keep each identical wherever the system is referenced.",
+      "keyPatterns": ["hudChrome.deeds.*"]
     }
   }
 }

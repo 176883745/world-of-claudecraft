@@ -1139,6 +1139,9 @@ async function startGame(
           case 'discord':
             toggleDiscordPanel();
             break;
+          case 'deeds':
+            hud.toggleDeeds();
+            break;
           case 'chat':
             openChat();
             break;
@@ -1289,6 +1292,9 @@ async function startGame(
         break;
       case 'discord':
         toggleDiscordPanel();
+        break;
+      case 'deeds':
+        hud.toggleDeeds();
         break;
       case 'chat':
         openChat();

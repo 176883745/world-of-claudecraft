@@ -73,6 +73,12 @@ describe('registry', () => {
     expect(valecup?.category).toBe('Interface');
     expect(valecup?.kind).toBe('edge');
     expect(valecup?.defaults).toEqual(['KeyY']);
+    // The Book of Deeds window is a rebindable Interface toggle (default Z,
+    // the last free letter).
+    const deeds = BIND_ACTIONS.find((a) => a.id === 'deeds');
+    expect(deeds?.category).toBe('Interface');
+    expect(deeds?.kind).toBe('edge');
+    expect(deeds?.defaults).toEqual(['KeyZ']);
   });
 });
 
@@ -102,7 +108,7 @@ describe('Keybinds defaults', () => {
     expect(kb.actionForCode('KeyU')).toBe('discord');
     expect(kb.actionForCode('KeyT')).toBe('crafting');
     expect(kb.actionForCode('KeyY')).toBe('valecup');
-    expect(kb.actionForCode('KeyZ')).toBe(null);
+    expect(kb.actionForCode('KeyZ')).toBe('deeds');
   });
 
   it('exposes primary/secondary codes and labels', () => {
@@ -140,10 +146,12 @@ describe('binding', () => {
 
   it('binds a secondary key without disturbing the primary', () => {
     const kb = new Keybinds();
+    // KeyZ is the deeds default, so this bind also exercises the steal.
     expect(kb.bind('slot1', 1, 'KeyZ')).toBe(true);
     expect(kb.codeAt('slot1', 0)).toBe('Digit2');
     expect(kb.codeAt('slot1', 1)).toBe('KeyZ');
     expect(kb.actionForCode('KeyZ')).toBe('slot1');
+    expect(kb.codeAt('deeds', 0)).toBe(null);
   });
 
   it('rejects the reserved Escape key', () => {
@@ -241,7 +249,7 @@ describe('persistence', () => {
     expect(kb.actionForCode('KeyH')).toBe('targetFriendly');
     expect(kb.actionForCode('Enter')).toBe('chat');
     expect(kb.actionForCode('Equal')).toBe('slot11');
-    expect(kb.actionForCode('KeyZ')).toBe(null);
+    expect(kb.actionForCode('KeyZ')).toBe('deeds');
   });
 
   it('drops a retained default that a stored binding already claimed', () => {
@@ -289,16 +297,16 @@ describe('persistence', () => {
 describe('per-character scope', () => {
   it('keeps two character scopes independent', () => {
     const alice = new Keybinds('char:alice');
-    alice.bind('jump', 0, 'KeyZ'); // KeyZ is unbound by default
+    alice.bind('jump', 0, 'KeyZ'); // steals KeyZ from deeds in Alice's scope only
     const bob = new Keybinds('char:bob');
-    // Bob never inherits Alice's change; he starts from defaults.
-    expect(bob.actionForCode('KeyZ')).toBe(null);
+    // Bob never inherits Alice's change; he starts from defaults (KeyZ = deeds).
+    expect(bob.actionForCode('KeyZ')).toBe('deeds');
     expect(bob.codeAt('jump', 0)).toBe('Space');
-    bob.bind('jump', 0, 'KeyY'); // also unbound by default
+    bob.bind('jump', 0, 'KeyY'); // steals KeyY from valecup in Bob's scope only
     // Reloading each scope reads back only its own profile.
     expect(new Keybinds('char:alice').actionForCode('KeyZ')).toBe('jump');
     expect(new Keybinds('char:bob').actionForCode('KeyY')).toBe('jump');
-    expect(new Keybinds('char:bob').actionForCode('KeyZ')).toBe(null);
+    expect(new Keybinds('char:bob').actionForCode('KeyZ')).toBe('deeds');
   });
 
   it('writes to a namespaced key, not the legacy global key', () => {
@@ -362,8 +370,9 @@ describe('per-character scope', () => {
     aldric.bind('jump', 0, 'KeyZ');
     expect(localStorage.getItem('woc_keybinds:offline:warrior:Aldric')).not.toBeNull();
     expect(localStorage.getItem('woc_keybinds')).toBeNull();
-    // A different offline character starts from defaults, not Aldric's binding.
-    expect(new Keybinds('offline:mage:Brenna').actionForCode('KeyZ')).toBe(null);
+    // A different offline character starts from defaults, not Aldric's binding
+    // (KeyZ resolves to its default owner, deeds).
+    expect(new Keybinds('offline:mage:Brenna').actionForCode('KeyZ')).toBe('deeds');
     expect(new Keybinds('offline:mage:Brenna').codeAt('jump', 0)).toBe('Space');
     // The same scope reads back its own profile.
     expect(new Keybinds('offline:warrior:Aldric').actionForCode('KeyZ')).toBe('jump');
@@ -375,7 +384,7 @@ describe('per-character scope', () => {
     // profile. A different name does not.
     new Keybinds('offline:warrior:Aldric').bind('jump', 0, 'KeyZ');
     expect(new Keybinds('offline:warrior:Aldric').actionForCode('KeyZ')).toBe('jump');
-    expect(new Keybinds('offline:warrior:Borin').actionForCode('KeyZ')).toBe(null);
+    expect(new Keybinds('offline:warrior:Borin').actionForCode('KeyZ')).toBe('deeds');
   });
 
   it('seeds from the legacy blob when the scoped value is corrupt JSON', () => {
@@ -399,11 +408,11 @@ describe('per-character scope', () => {
   it('reset() persists to the scoped key and leaves the legacy blob untouched', () => {
     localStorage.setItem('woc_keybinds', JSON.stringify({ jump: ['KeyJ', null] }));
     const alice = new Keybinds('char:alice');
-    alice.bind('jump', 0, 'KeyZ'); // KeyZ is unbound by default
+    alice.bind('jump', 0, 'KeyZ'); // steals KeyZ from deeds in this scope
     alice.reset();
     // Alice's scoped profile is back to defaults...
     expect(new Keybinds('char:alice').codeAt('jump', 0)).toBe('Space');
-    expect(new Keybinds('char:alice').actionForCode('KeyZ')).toBe(null);
+    expect(new Keybinds('char:alice').actionForCode('KeyZ')).toBe('deeds');
     // ...and reset never wrote the legacy key.
     expect(JSON.parse(localStorage.getItem('woc_keybinds')!).jump).toEqual(['KeyJ', null]);
   });

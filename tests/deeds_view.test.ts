@@ -1,0 +1,676 @@
+// Unit tests for the Book of Deeds pure view-core (src/ui/deeds_view.ts):
+// hidden masking (in and out of search), feat exclusion from completion and
+// nearest, progress clamping, unknown-trigger tolerance, the watch cap, the
+// tracker view, crest resolution, recent ordering, the filter arms, the
+// unlock-drain plan, and Sim-shaped vs ClientWorld-shaped input parity.
+import { describe, expect, it } from 'vitest';
+import { DEED_ORDER, DEEDS } from '../src/sim/data';
+import { freshDeedStats } from '../src/sim/deeds';
+import type { DeedDef, DeedStats, DeedTrigger } from '../src/sim/types';
+import {
+  buildDeedsView,
+  buildDeedTrackerViewInto,
+  buildDeedUnlockPlan,
+  DEED_BESPOKE_CRESTS,
+  DEED_DISPLAY_CATEGORIES,
+  DEED_WATCH_CAP,
+  type DeedsViewInput,
+  deedCrestId,
+  deedDisplayCategory,
+  deedProgress,
+  makeDeedTrackerView,
+  toggleWatch,
+} from '../src/ui/deeds_view';
+
+// ---------------------------------------------------------------------------
+// Synthetic catalog (the bank_view synthetic-table precedent): small, spans
+// the trigger kinds and masking flags the core branches on.
+// ---------------------------------------------------------------------------
+
+const TEST_DEEDS: Record<string, DeedDef> = {
+  prog_a: {
+    id: 'prog_a',
+    name: 'First Steps',
+    desc: 'Reach level 2.',
+    category: 'progression',
+    renown: 5,
+    trigger: { kind: 'level', level: 2 },
+  },
+  cmb_counter: {
+    id: 'cmb_counter',
+    name: 'Slayer',
+    desc: 'Defeat 10 enemies.',
+    category: 'combat',
+    renown: 10,
+    trigger: { kind: 'stat', stat: 'kills', count: 10 },
+  },
+  cmb_title: {
+    id: 'cmb_title',
+    name: 'Peakbreaker Task',
+    desc: 'A mechanical triumph.',
+    category: 'combat',
+    renown: 25,
+    trigger: { kind: 'manual' },
+    reward: { kind: 'title', text: 'Peakbreaker' },
+  },
+  dgn_clears: {
+    id: 'dgn_clears',
+    name: 'Crypt Rounds',
+    desc: 'Clear the crypt three times.',
+    category: 'dungeon',
+    renown: 10,
+    trigger: { kind: 'dungeonClears', dungeonId: 'crypt', count: 3 },
+  },
+  col_items: {
+    id: 'col_items',
+    name: 'Curio Shelf',
+    desc: 'Log three curios.',
+    category: 'collection',
+    renown: 5,
+    trigger: { kind: 'collectItems', itemIds: ['curio_a', 'curio_b', 'curio_c'] },
+  },
+  exp_visits: {
+    id: 'exp_visits',
+    name: 'Two Landmarks',
+    desc: 'Visit both landmarks.',
+    category: 'exploration',
+    renown: 5,
+    trigger: { kind: 'visits', markIds: ['poi:a', 'poi:b'] },
+  },
+  feat_counter: {
+    id: 'feat_counter',
+    name: 'Legacy Grind',
+    desc: 'A feat with a counter.',
+    category: 'feat',
+    renown: 0,
+    trigger: { kind: 'stat', stat: 'kills', count: 10 },
+    feat: true,
+  },
+  hid_x: {
+    id: 'hid_x',
+    name: 'Secret Tumble',
+    desc: 'A hidden delight.',
+    category: 'hidden',
+    renown: 5,
+    trigger: { kind: 'manual' },
+    hidden: true,
+  },
+  hid_title: {
+    id: 'hid_title',
+    name: 'Secret Footnote',
+    desc: 'A hidden title deed.',
+    category: 'hidden',
+    renown: 5,
+    trigger: { kind: 'manual' },
+    reward: { kind: 'title', text: 'the Footnote' },
+    hidden: true,
+  },
+  cmb_future: {
+    id: 'cmb_future',
+    name: 'Future Shape',
+    desc: 'Carries a trigger kind this build does not know.',
+    category: 'combat',
+    renown: 5,
+    trigger: { kind: 'seasonal_gauntlet', tier: 3 } as unknown as DeedTrigger,
+  },
+};
+const TEST_ORDER = Object.keys(TEST_DEEDS);
+
+function stats(mutate?: (s: DeedStats) => void): DeedStats {
+  const s = freshDeedStats();
+  mutate?.(s);
+  return s;
+}
+
+function makeInput(over: Partial<DeedsViewInput> = {}): DeedsViewInput {
+  return {
+    deedsEarned: new Map<string, string>(),
+    deedStats: freshDeedStats(),
+    renown: 0,
+    activeTitle: null,
+    deeds: TEST_DEEDS,
+    order: TEST_ORDER,
+    category: 'combat',
+    filter: 'all',
+    search: '',
+    watched: new Set<string>(),
+    searchText: (id) => `${TEST_DEEDS[id]?.name ?? id} ${TEST_DEEDS[id]?.desc ?? ''}`.toLowerCase(),
+    ...over,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// deedProgress
+// ---------------------------------------------------------------------------
+
+describe('deedProgress', () => {
+  it('reads stat counters and clamps at the target, never over', () => {
+    const s = stats((x) => {
+      x.counters.kills = 7;
+    });
+    expect(deedProgress({ kind: 'stat', stat: 'kills', count: 10 }, s)).toEqual({
+      current: 7,
+      target: 10,
+    });
+    s.counters.kills = 25;
+    expect(deedProgress({ kind: 'stat', stat: 'kills', count: 10 }, s)).toEqual({
+      current: 10,
+      target: 10,
+    });
+  });
+
+  it('sums dungeon clears across difficulties unless one is named', () => {
+    const s = stats((x) => {
+      x.dungeonClears.crypt = 2;
+      x.dungeonClears['crypt:heroic'] = 1;
+    });
+    const base = { kind: 'dungeonClears', dungeonId: 'crypt', count: 5 } as const;
+    expect(deedProgress(base, s)).toEqual({ current: 3, target: 5 });
+    expect(deedProgress({ ...base, difficulty: 'normal' }, s)).toEqual({ current: 2, target: 5 });
+    expect(deedProgress({ ...base, difficulty: 'heroic' }, s)).toEqual({ current: 1, target: 5 });
+  });
+
+  it('counts collected items and visited marks against their lists', () => {
+    const s = stats((x) => {
+      x.itemsDiscovered.add('curio_a');
+      x.itemsDiscovered.add('curio_c');
+      x.visited.add('poi:b');
+    });
+    expect(
+      deedProgress({ kind: 'collectItems', itemIds: ['curio_a', 'curio_b', 'curio_c'] }, s),
+    ).toEqual({ current: 2, target: 3 });
+    expect(
+      deedProgress({ kind: 'collectItems', itemIds: ['curio_a', 'curio_b'], count: 1 }, s),
+    ).toEqual({ current: 1, target: 1 });
+    expect(deedProgress({ kind: 'visits', markIds: ['poi:a', 'poi:b'] }, s)).toEqual({
+      current: 1,
+      target: 2,
+    });
+  });
+
+  it('returns null (binary) for predicate, meta, manual, and UNKNOWN kinds', () => {
+    const s = stats();
+    expect(deedProgress({ kind: 'level', level: 5 }, s)).toBe(null);
+    expect(deedProgress({ kind: 'meta', deedIds: ['prog_a'] }, s)).toBe(null);
+    expect(deedProgress({ kind: 'manual' }, s)).toBe(null);
+    expect(deedProgress({ kind: 'seasonal_gauntlet' } as unknown as DeedTrigger, s)).toBe(null);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Crest and category resolution
+// ---------------------------------------------------------------------------
+
+describe('crest resolution', () => {
+  it('resolves bespoke first, else the display-category base crest', () => {
+    expect(deedCrestId('prog_veteran', 'progression')).toBe('deed_prog_veteran');
+    expect(deedCrestId('cmb_counter', 'combat')).toBe('deed_cat_combat');
+    expect(deedCrestId('hid_x', 'hidden')).toBe('deed_cat_feat');
+    expect(deedCrestId('totally_unknown', 'no_such_category')).toBe('deed_cat_feat');
+  });
+
+  it('maps hidden and unknown categories onto the Feats shelf', () => {
+    expect(deedDisplayCategory('hidden')).toBe('feat');
+    expect(deedDisplayCategory('no_such_category')).toBe('feat');
+    expect(deedDisplayCategory('pvp')).toBe('pvp');
+  });
+
+  it('keeps every bespoke crest id pointing at a real catalog deed', () => {
+    for (const id of DEED_BESPOKE_CRESTS) {
+      expect(DEEDS[id], `bespoke crest for unknown deed id ${id}`).toBeDefined();
+    }
+    expect(DEED_BESPOKE_CRESTS.size).toBe(21);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// buildDeedsView: masking, totals, categories, entries, titles
+// ---------------------------------------------------------------------------
+
+describe('buildDeedsView', () => {
+  it('excludes hidden unearned deeds and all feats from the completion totals', () => {
+    const view = buildDeedsView(makeInput());
+    // 10 test deeds: 1 feat excluded, 2 hidden unearned excluded => 7 visible.
+    expect(view.summary.visibleTotal).toBe(7);
+    expect(view.summary.earned).toBe(0);
+    expect(view.summary.completion).toBe(0);
+  });
+
+  it('counts an earned hidden deed toward completion and the Feats bucket', () => {
+    const view = buildDeedsView(
+      makeInput({ deedsEarned: new Map([['hid_x', '2026-07-08']]), category: 'feat' }),
+    );
+    expect(view.summary.visibleTotal).toBe(8);
+    expect(view.summary.earned).toBe(1);
+    const featBucket = view.categories.find((c) => c.category === 'feat');
+    expect(featBucket).toEqual({ category: 'feat', earned: 1, visible: 2 });
+    const entry = view.entries.find((e) => e.id === 'hid_x');
+    expect(entry).toBeDefined();
+    expect(entry?.hiddenBadge).toBe(true);
+    expect(entry?.feat).toBe(false);
+    expect(entry?.renown).toBe(5);
+  });
+
+  it('masks hidden unearned deeds from entries, counts, and search hits', () => {
+    const masked = buildDeedsView(makeInput({ category: 'feat', filter: 'all', search: 'secret' }));
+    expect(masked.entries).toEqual([]);
+    const featBucket = masked.categories.find((c) => c.category === 'feat');
+    expect(featBucket).toEqual({ category: 'feat', earned: 0, visible: 1 });
+    // Once earned, the same search finds it.
+    const revealed = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map([['hid_x', '2026-07-08']]),
+        category: 'feat',
+        search: 'secret',
+      }),
+    );
+    expect(revealed.entries.map((e) => e.id)).toEqual(['hid_x']);
+  });
+
+  it('renders feats marked, ribboned out of completion, and never in nearest', () => {
+    const s = stats((x) => {
+      x.counters.kills = 9;
+    });
+    const view = buildDeedsView(makeInput({ deedStats: s, category: 'feat' }));
+    const feat = view.entries.find((e) => e.id === 'feat_counter');
+    expect(feat?.feat).toBe(true);
+    // feat_counter is 9/10 kills, the highest fraction anywhere, yet excluded.
+    expect(view.summary.nearest.map((n) => n.id)).toEqual(['cmb_counter']);
+  });
+
+  it('builds entries with progress, clamped, and binary for unknown kinds', () => {
+    const s = stats((x) => {
+      x.counters.kills = 25;
+    });
+    const view = buildDeedsView(makeInput({ deedStats: s }));
+    const counter = view.entries.find((e) => e.id === 'cmb_counter');
+    expect(counter?.progress).toEqual({ current: 10, target: 10 });
+    const future = view.entries.find((e) => e.id === 'cmb_future');
+    expect(future).toBeDefined();
+    expect(future?.progress).toBe(null);
+  });
+
+  it('applies the four filter arms, with nearly meaning fraction >= 0.5', () => {
+    const s = stats((x) => {
+      x.counters.kills = 5; // exactly 0.5 of cmb_counter's 10
+    });
+    const earnedMap = new Map([['cmb_title', '2026-07-01']]);
+    const base = { deedStats: s, deedsEarned: earnedMap } as const;
+    const all = buildDeedsView(makeInput({ ...base, filter: 'all' }));
+    expect(all.entries.map((e) => e.id)).toEqual(['cmb_counter', 'cmb_title', 'cmb_future']);
+    const earned = buildDeedsView(makeInput({ ...base, filter: 'earned' }));
+    expect(earned.entries.map((e) => e.id)).toEqual(['cmb_title']);
+    const unearned = buildDeedsView(makeInput({ ...base, filter: 'unearned' }));
+    expect(unearned.entries.map((e) => e.id)).toEqual(['cmb_counter', 'cmb_future']);
+    const nearly = buildDeedsView(makeInput({ ...base, filter: 'nearly' }));
+    expect(nearly.entries.map((e) => e.id)).toEqual(['cmb_counter']);
+  });
+
+  it('matches search against the injected pre-lowercased text', () => {
+    const view = buildDeedsView(makeInput({ search: 'slayer' }));
+    expect(view.entries.map((e) => e.id)).toEqual(['cmb_counter']);
+    const descHit = buildDeedsView(makeInput({ search: 'trigger kind' }));
+    expect(descHit.entries.map((e) => e.id)).toEqual(['cmb_future']);
+  });
+
+  it('carries the full entry display model, every field decisive', () => {
+    const view = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map([['cmb_title', '2026-07-08']]),
+        watched: new Set(['cmb_counter']),
+      }),
+    );
+    // Earned title deed: not watchable, title ribbon on, hidden badge off.
+    expect(view.entries.find((e) => e.id === 'cmb_title')).toEqual({
+      id: 'cmb_title',
+      earned: true,
+      earnedDay: '2026-07-08',
+      renown: 25,
+      progress: null,
+      watchable: false,
+      watched: false,
+      feat: false,
+      hiddenBadge: false,
+      titleReward: true,
+      crestId: 'deed_cat_combat',
+    });
+    // Unearned watched counter deed: watchable AND watched, no ribbons.
+    expect(view.entries.find((e) => e.id === 'cmb_counter')).toEqual({
+      id: 'cmb_counter',
+      earned: false,
+      earnedDay: null,
+      renown: 10,
+      progress: { current: 0, target: 10 },
+      watchable: true,
+      watched: true,
+      feat: false,
+      hiddenBadge: false,
+      titleReward: false,
+      crestId: 'deed_cat_combat',
+    });
+  });
+
+  it('nulls the earned-day for hosts without a calendar and keeps real days', () => {
+    const view = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map([
+          ['cmb_title', ''],
+          ['cmb_counter', '2026-07-08'],
+        ]),
+      }),
+    );
+    expect(view.entries.find((e) => e.id === 'cmb_title')?.earnedDay).toBe(null);
+    expect(view.entries.find((e) => e.id === 'cmb_counter')?.earnedDay).toBe('2026-07-08');
+  });
+
+  it('orders recent unlocks newest day first, catalog-later first on ties, capped at 5', () => {
+    const view = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map([
+          ['prog_a', '2026-07-01'],
+          ['cmb_counter', '2026-07-03'],
+          ['cmb_title', '2026-07-03'],
+          ['dgn_clears', '2026-07-02'],
+          ['col_items', '2026-06-30'],
+          ['exp_visits', '2026-06-29'],
+        ]),
+      }),
+    );
+    expect(view.summary.recent.map((r) => r.id)).toEqual([
+      'cmb_title',
+      'cmb_counter',
+      'dgn_clears',
+      'prog_a',
+      'col_items',
+    ]);
+    expect(view.summary.recent[0].crestId).toBe('deed_cat_combat');
+  });
+
+  it('ranks nearest by progress fraction, excluding zero progress', () => {
+    const s = stats((x) => {
+      x.counters.kills = 3; // cmb_counter 0.3
+      x.dungeonClears.crypt = 2; // dgn_clears 2/3
+      x.itemsDiscovered.add('curio_a'); // col_items 1/3
+    });
+    const view = buildDeedsView(makeInput({ deedStats: s }));
+    expect(view.summary.nearest.map((n) => n.id)).toEqual([
+      'dgn_clears',
+      'col_items',
+      'cmb_counter',
+    ]);
+    expect(view.summary.nearest[0].progress).toEqual({ current: 2, target: 3 });
+    // exp_visits sits at 0/2 and must not appear even with an open slot.
+    expect(view.summary.nearest.some((n) => n.id === 'exp_visits')).toBe(false);
+  });
+
+  it('lists earned title deeds in the picker with the active one marked', () => {
+    const view = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map([
+          ['cmb_title', '2026-07-08'],
+          ['hid_title', '2026-07-08'],
+        ]),
+        activeTitle: 'cmb_title',
+      }),
+    );
+    expect(view.titles).toEqual([
+      { id: null, active: false },
+      { id: 'cmb_title', active: true },
+      { id: 'hid_title', active: false },
+    ]);
+    // Unearned title deeds never enter the picker.
+    const fresh = buildDeedsView(makeInput());
+    expect(fresh.titles).toEqual([{ id: null, active: true }]);
+  });
+
+  it('skips earned ids the catalog no longer knows (content drift), everywhere', () => {
+    const view = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map([
+          ['removed_deed', '2026-07-01'],
+          ['cmb_counter', '2026-07-02'],
+        ]),
+        activeTitle: 'removed_deed',
+      }),
+    );
+    expect(view.summary.earned).toBe(1);
+    expect(view.summary.recent.map((r) => r.id)).toEqual(['cmb_counter']);
+    // A drifted active title marks nothing active (the sim will not echo it).
+    expect(view.titles).toEqual([{ id: null, active: false }]);
+  });
+
+  it('handles the everything-earned state with a full completion fraction', () => {
+    const all = new Map(TEST_ORDER.map((id) => [id, '2026-07-08'] as const));
+    const view = buildDeedsView(makeInput({ deedsEarned: new Map(all) }));
+    // 9 non-feat deeds earned over 9 visible (hidden now revealed).
+    expect(view.summary.earned).toBe(9);
+    expect(view.summary.visibleTotal).toBe(9);
+    expect(view.summary.completion).toBe(1);
+    expect(view.summary.nearest).toEqual([]);
+  });
+
+  it('yields identical models from a Sim-shaped and a mirror-shaped input', () => {
+    const simStats = stats((x) => {
+      x.counters.kills = 4;
+      x.itemsDiscovered.add('curio_a');
+      x.visited.add('poi:a');
+      x.dungeonClears.crypt = 1;
+    });
+    const simEarned = new Map([
+      ['cmb_title', '2026-07-05'],
+      ['hid_x', ''],
+    ]);
+    // The ClientWorld mirror rebuilds the Map and Sets from wire-shaped plain
+    // JSON (the online.ts decode), so round-trip through that shape.
+    const wire = JSON.parse(
+      JSON.stringify({
+        deeds: Object.fromEntries(simEarned),
+        dstats: {
+          counters: simStats.counters,
+          itemsDiscovered: [...simStats.itemsDiscovered],
+          visited: [...simStats.visited],
+          dungeonClears: simStats.dungeonClears,
+        },
+        renown: 30,
+        atitle: 'cmb_title',
+      }),
+    );
+    const mirrorStats: DeedStats = {
+      counters: { ...freshDeedStats().counters, ...wire.dstats.counters },
+      itemsDiscovered: new Set(wire.dstats.itemsDiscovered),
+      visited: new Set(wire.dstats.visited),
+      dungeonClears: wire.dstats.dungeonClears,
+    };
+    const simView = buildDeedsView(
+      makeInput({
+        deedsEarned: simEarned,
+        deedStats: simStats,
+        renown: 30,
+        activeTitle: 'cmb_title',
+        category: 'feat',
+      }),
+    );
+    const mirrorView = buildDeedsView(
+      makeInput({
+        deedsEarned: new Map(Object.entries(wire.deeds)),
+        deedStats: mirrorStats,
+        renown: wire.renown,
+        activeTitle: wire.atitle,
+        category: 'feat',
+      }),
+    );
+    expect(mirrorView).toEqual(simView);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The real catalog (drift pins)
+// ---------------------------------------------------------------------------
+
+describe('real catalog integration', () => {
+  it('pins the fresh-character completion denominator of the live catalog', () => {
+    const view = buildDeedsView(
+      makeInput({ deeds: DEEDS, order: DEED_ORDER, category: 'progression' }),
+    );
+    // 186 deeds - 3 feats - 9 hidden = 174 visible to a fresh character.
+    expect(view.summary.visibleTotal).toBe(174);
+    expect(view.categories.reduce((n, c) => n + c.visible, 0)).toBe(177);
+  });
+
+  it('maps every live catalog category onto a display bucket', () => {
+    for (const def of Object.values(DEEDS)) {
+      expect(DEED_DISPLAY_CATEGORIES).toContain(deedDisplayCategory(def.category));
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Watchlist
+// ---------------------------------------------------------------------------
+
+describe('toggleWatch', () => {
+  it('adds below the cap and removes an existing watch', () => {
+    const added = toggleWatch(new Set(), 'cmb_counter');
+    expect(added.changed).toBe(true);
+    expect(added.full).toBe(false);
+    expect([...added.watched]).toEqual(['cmb_counter']);
+    const removed = toggleWatch(added.watched, 'cmb_counter');
+    expect(removed.changed).toBe(true);
+    expect(removed.full).toBe(false);
+    expect(removed.watched.size).toBe(0);
+  });
+
+  it('refuses an add at the cap with the full flag and an unchanged set', () => {
+    const atCap = new Set(['a', 'b', 'c', 'd', 'e']);
+    expect(atCap.size).toBe(DEED_WATCH_CAP);
+    const result = toggleWatch(atCap, 'cmb_counter');
+    expect(result.full).toBe(true);
+    expect(result.changed).toBe(false);
+    expect(result.watched).toBe(atCap);
+    // Removal still works at the cap (the other arm of the boundary).
+    const removal = toggleWatch(atCap, 'c');
+    expect(removal.changed).toBe(true);
+    expect(removal.watched.size).toBe(4);
+  });
+});
+
+describe('buildDeedTrackerViewInto', () => {
+  it('reuses the same container and line objects across calls', () => {
+    const out = makeDeedTrackerView();
+    const lines = out.lines;
+    const first = buildDeedTrackerViewInto(
+      out,
+      new Set(['cmb_counter']),
+      new Map(),
+      stats(),
+      TEST_DEEDS,
+      false,
+    );
+    const second = buildDeedTrackerViewInto(
+      out,
+      new Set(['cmb_counter']),
+      new Map(),
+      stats(),
+      TEST_DEEDS,
+      true,
+    );
+    expect(first).toBe(out);
+    expect(second).toBe(out);
+    expect(out.lines).toBe(lines);
+    expect(out.lines[0]).toBe(lines[0]);
+    expect(out.collapsed).toBe(true);
+  });
+
+  it('drops earned and catalog-unknown ids automatically', () => {
+    const out = makeDeedTrackerView();
+    buildDeedTrackerViewInto(
+      out,
+      new Set(['cmb_counter', 'cmb_title', 'removed_deed']),
+      new Map([['cmb_title', '2026-07-08']]),
+      stats((x) => {
+        x.counters.kills = 4;
+      }),
+      TEST_DEEDS,
+      false,
+    );
+    expect(out.count).toBe(1);
+    expect(out.visible).toBe(true);
+    expect(out.lines[0].id).toBe('cmb_counter');
+    expect(out.lines[0].hasProgress).toBe(true);
+    expect(out.lines[0].current).toBe(4);
+    expect(out.lines[0].target).toBe(10);
+  });
+
+  it('marks binary deeds progress-less and hides an emptied tracker', () => {
+    const out = makeDeedTrackerView();
+    buildDeedTrackerViewInto(out, new Set(['cmb_title']), new Map(), stats(), TEST_DEEDS, false);
+    expect(out.count).toBe(1);
+    expect(out.lines[0].hasProgress).toBe(false);
+    buildDeedTrackerViewInto(
+      out,
+      new Set(['cmb_title']),
+      new Map([['cmb_title', '2026-07-08']]),
+      stats(),
+      TEST_DEEDS,
+      false,
+    );
+    expect(out.count).toBe(0);
+    expect(out.visible).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The unlock-drain plan (the handleEvents batching rules)
+// ---------------------------------------------------------------------------
+
+describe('buildDeedUnlockPlan', () => {
+  it('coalesces two same-drain unlocks into one banner, two log lines, one sound', () => {
+    const plan = buildDeedUnlockPlan(
+      [{ deedId: 'cmb_counter' }, { deedId: 'cmb_title' }],
+      TEST_DEEDS,
+    );
+    expect(plan.logIds).toEqual(['cmb_counter', 'cmb_title']);
+    expect(plan.bannerId).toBe('cmb_title');
+    expect(plan.titleHintIds).toEqual(['cmb_title']);
+    expect(plan.playSound).toBe(true);
+    expect(plan.retroCount).toBe(0);
+  });
+
+  it('a lone retro event yields exactly one summary count and ZERO banners or sound', () => {
+    const plan = buildDeedUnlockPlan([{ deedId: 'cmb_counter', retro: true }], TEST_DEEDS);
+    expect(plan.retroCount).toBe(1);
+    expect(plan.bannerId).toBe(null);
+    expect(plan.logIds).toEqual([]);
+    expect(plan.titleHintIds).toEqual([]);
+    expect(plan.playSound).toBe(false);
+  });
+
+  it('batches a retro burst into one count while fresh unlocks still banner', () => {
+    const plan = buildDeedUnlockPlan(
+      [
+        { deedId: 'prog_a', retro: true },
+        { deedId: 'dgn_clears', retro: true },
+        { deedId: 'cmb_counter' },
+      ],
+      TEST_DEEDS,
+    );
+    expect(plan.retroCount).toBe(2);
+    expect(plan.logIds).toEqual(['cmb_counter']);
+    expect(plan.bannerId).toBe('cmb_counter');
+    expect(plan.playSound).toBe(true);
+  });
+
+  it('skips catalog-unknown ids entirely, fresh and retro alike', () => {
+    const plan = buildDeedUnlockPlan(
+      [{ deedId: 'removed_deed' }, { deedId: 'removed_retro', retro: true }],
+      TEST_DEEDS,
+    );
+    expect(plan).toEqual({
+      logIds: [],
+      bannerId: null,
+      titleHintIds: [],
+      playSound: false,
+      retroCount: 0,
+    });
+  });
+});

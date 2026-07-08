@@ -3547,6 +3547,393 @@
     transform: translateX(var(--bank-dock-gap));
   }
 
+  /* ---------- deeds ---------- */
+  /* The Book of Deeds: a cold catalog browser (summary strip, category rail,
+     entry-card list, title picker, filter bar) over the IWorldDeeds facet.
+     Progress bars and crest urls are build-time writes; the unearned-card
+     crest desaturation is a class-driven CSS filter, never inline style. */
+  #deeds-window {
+    width: 560px;
+    max-height: calc(var(--app-vh, 100vh) * 0.78 / var(--window-scale) - 24px);
+    flex-direction: column;
+  }
+  #deeds-window .panel-title {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #deeds-window .panel-title > span {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .deed-search {
+    flex: 0 1 190px;
+    min-width: 100px;
+    font-family: var(--ui-font);
+    font-size: 16px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    border: 1px solid #5a4a2e;
+    background: #14110b;
+    color: inherit;
+  }
+  .deed-search:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 1px;
+  }
+  .deeds-summary {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 2px 0 4px;
+    font-family: var(--title-font);
+    font-size: 12px;
+    color: var(--gold-dim);
+  }
+  .deeds-summary b {
+    color: var(--gold);
+  }
+  .deeds-pct {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .deed-bar {
+    display: inline-block;
+    width: 90px;
+    height: 8px;
+    border: 1px solid #3a3325;
+    border-radius: 4px;
+    background: #14110b;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+  .deed-bar-fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(#e6c76a, #a8842f);
+  }
+  .deeds-recent,
+  .deeds-nearest {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 4px;
+    font-size: 11px;
+    color: var(--gold-dim);
+    flex-wrap: wrap;
+  }
+  .deeds-strip-label {
+    font-family: var(--title-font);
+  }
+  .deeds-nearest-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 6px;
+    border: 1px solid #3a3325;
+    border-radius: 8px;
+    background: #171309;
+  }
+  .deeds-body {
+    flex: 1 1 auto;
+    display: flex;
+    gap: 8px;
+    min-height: 120px;
+  }
+  .deeds-rail {
+    flex: 0 0 128px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow-y: auto;
+  }
+  .deeds-cat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-family: var(--title-font);
+    font-size: 12px;
+    text-align: left;
+    padding: 5px 7px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background: none;
+    color: var(--gold-dim);
+    cursor: var(--cursor-point);
+    min-height: 28px;
+  }
+  .deeds-cat:hover {
+    color: var(--gold);
+    background: #1c1812;
+  }
+  .deeds-cat.active {
+    color: var(--gold);
+    border-color: #6a5320;
+    background: linear-gradient(#2a220f, #1c1812);
+  }
+  .deeds-cat:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 1px;
+  }
+  .deeds-cat-count {
+    font-size: 11px;
+    opacity: 0.85;
+  }
+  .deeds-cat-titles {
+    margin-top: 6px;
+    border-top: 1px solid #3a3325;
+    border-radius: 0 0 4px 4px;
+  }
+  body.mobile-touch .deeds-cat {
+    min-height: 40px;
+  }
+  .deeds-scroll {
+    flex: 1 1 auto;
+    min-height: 100px;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .deeds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 2px;
+  }
+  .deed-card {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 7px;
+    border: 1px solid #4a3d26;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #17130c, #0c0a07);
+  }
+  .deed-card.earned {
+    border-color: #6a5320;
+    background: linear-gradient(160deg, #221b0e, #120e08);
+  }
+  .deed-crest {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    flex: none;
+  }
+  .deed-crest.desat {
+    filter: grayscale(0.8) brightness(0.75);
+  }
+  .deed-crest-mini {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+  }
+  .deed-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .deed-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .deed-name {
+    font-family: var(--title-font);
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--gold);
+  }
+  .deed-card.unearned .deed-name {
+    color: var(--gold-dim);
+  }
+  .deed-chip {
+    font-size: 10.5px;
+    padding: 1px 7px;
+    border-radius: 8px;
+    font-family: var(--title-font);
+    border: 1px solid #56472a;
+    color: #d8c489;
+    background: #1d1810;
+    white-space: nowrap;
+  }
+  .deed-chip.deed-renown {
+    margin-left: auto;
+    border-color: #b8902a;
+    color: #ffe27a;
+    background: #2a210c;
+  }
+  .deed-chip.deed-feat {
+    border-color: #7a7a8a;
+    color: #cfd0e0;
+    background: #1a1a22;
+  }
+  .deed-chip.deed-hidden {
+    border-color: #6a4a8a;
+    color: #d9c2f2;
+    background: #201628;
+  }
+  .deed-desc {
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .deed-progress {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .deed-progress .deed-bar {
+    width: 150px;
+  }
+  .deed-progress-text {
+    font-size: 11px;
+    color: var(--gold-dim);
+  }
+  .deed-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .deed-earned-date {
+    font-size: 11px;
+    color: var(--gold-dim);
+    font-style: italic;
+  }
+  .deed-watch {
+    margin-left: auto;
+    font-family: var(--ui-font);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #6a5320;
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    cursor: var(--cursor-point);
+    white-space: nowrap;
+  }
+  .deed-watch:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .deed-watch:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .deed-watch:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 1px;
+  }
+  .deed-watch.watching {
+    border-color: #8a6a26;
+    background: #241c0c;
+  }
+  body.mobile-touch .deed-watch {
+    min-height: 40px;
+  }
+  .deeds-empty {
+    padding: 12px 5px;
+    font-size: 12px;
+    color: var(--gold-dim);
+    text-align: center;
+  }
+  .deeds-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 2px;
+  }
+  .deed-title-option {
+    font-family: var(--title-font);
+    font-size: 13px;
+    text-align: left;
+    padding: 6px 9px;
+    border-radius: 4px;
+    border: 1px solid #4a3d26;
+    background: linear-gradient(160deg, #17130c, #0c0a07);
+    color: var(--gold-dim);
+    cursor: var(--cursor-point);
+    min-height: 32px;
+  }
+  .deed-title-option:hover {
+    color: var(--gold);
+  }
+  .deed-title-option.active {
+    border-color: #b8902a;
+    color: #ffe27a;
+    background: linear-gradient(160deg, #2a220f, #171208);
+  }
+  .deed-title-option:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 1px;
+  }
+  body.mobile-touch .deed-title-option {
+    min-height: 40px;
+  }
+  .deeds-filterbar {
+    flex: none;
+    display: flex;
+    gap: 6px;
+    padding-top: 6px;
+    flex-wrap: wrap;
+  }
+  .deed-filter-chip {
+    font-family: var(--ui-font);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    border: 1px solid #56472a;
+    background: #1d1810;
+    color: #d8c489;
+    cursor: var(--cursor-point);
+    min-height: 24px;
+  }
+  .deed-filter-chip:hover {
+    color: var(--gold);
+  }
+  .deed-filter-chip.active {
+    border-color: #b8902a;
+    color: #ffe27a;
+    background: #2a210c;
+  }
+  .deed-filter-chip:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 1px;
+  }
+  body.mobile-touch .deed-filter-chip {
+    min-height: 40px;
+  }
+  /* Character-sheet active-title line + earned deed-border badges (the
+     ms-badge family), and the inspect-window title subtitle. */
+  .cp-active-title {
+    color: var(--gold);
+    font-family: var(--title-font);
+  }
+  .cp-deeds-btn {
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-left: 6px;
+  }
+  .ms-badge.ms-deed-border {
+    border-color: #7a5aa0;
+    color: #d9c2f2;
+    background: #201628;
+  }
+  .inspect-title {
+    font-size: 12px;
+    font-style: italic;
+    color: #ffe9a0;
+    font-family: var(--title-font);
+    margin-top: -2px;
+  }
+
   /* ---------- social ---------- */
   /* social: friends / guild / ignore */
   #social-window {

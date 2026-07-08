@@ -2031,9 +2031,9 @@ export type SimEvent = { pid?: number } & (
   | { type: 'xp'; amount: number; rested?: number }
   | { type: 'levelup'; level: number }
   // post-cap cosmetic progression (Max-Level XP Overflow): crossing a virtual
-  // level past the cap, and unlocking a cosmetic lifetime-XP milestone
+  // level past the cap (milestone unlocks ride the deedUnlocked event since
+  // the milestone unification; the legacy milestoneUnlocked emit is gone)
   | { type: 'virtualLevelUp'; level: number }
-  | { type: 'milestoneUnlocked'; milestoneId: string }
   // Book of Deeds unlock (always personal: emitted with pid). Carries the deed
   // ID only, never English text; `retro` marks the on-join back-credit pass so
   // the client can batch those into one summary line instead of banner spam.

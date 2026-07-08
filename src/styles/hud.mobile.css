@@ -2180,7 +2180,8 @@
   body.mobile-touch #delve-board,
   body.mobile-touch #leaderboard-window,
   body.mobile-touch #loot-settings-window,
-  body.mobile-touch #town-focus-window {
+  body.mobile-touch #town-focus-window,
+  body.mobile-touch #deeds-window {
     left: 10px;
     right: 10px;
     top: 10px;
@@ -2226,7 +2227,8 @@
      template) so the inner body keeps a usable, touch-scrollable height under the
      header instead of the sheet's overflow-y:auto fighting the inner flex scroll. */
   body.mobile-touch #mailbox-window,
-  body.mobile-touch #calendar-window {
+  body.mobile-touch #calendar-window,
+  body.mobile-touch #deeds-window {
     height: auto;
     max-height: calc(var(--app-vh) / var(--ui-scale, 1) - 20px);
     overflow: hidden;

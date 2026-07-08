@@ -230,6 +230,9 @@ const HOT_PAINTERS: ReadonlyArray<{
     allow: { '.className': 1, '.setAttribute': 1 },
     reflowAllow: { '.offsetWidth': 1 },
   },
+  // deed_tracker builds its whole static skeleton (header + pooled lines) in
+  // ONE constructor innerHTML write; every refresh write is facet-routed.
+  { file: 'deed_tracker_painter.ts', allow: { '.innerHTML': 1 }, reflowAllow: {} },
 ];
 
 // The OTHER src/ui/*_painter.ts modules, NOT facet-routed, so deliberately not in the

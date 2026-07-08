@@ -602,6 +602,25 @@ describe('Input Discord keybind', () => {
   });
 });
 
+describe('Input Book of Deeds keybind', () => {
+  it("dispatches onUiKey('deeds') for the default Z key", () => {
+    const { cb, windowListeners } = makeInput();
+
+    windowListeners.get('keydown')!({ code: 'KeyZ', repeat: false });
+
+    expect(cb.onUiKey).toHaveBeenCalledWith('deeds');
+  });
+
+  it('is a normal interface key: suppressed while a modal blocks game keys', () => {
+    const { cb, windowListeners } = makeInput();
+    (cb as any).canUseGameKeys = vi.fn(() => false);
+
+    windowListeners.get('keydown')!({ code: 'KeyZ', repeat: false });
+
+    expect(cb.onUiKey).not.toHaveBeenCalled();
+  });
+});
+
 describe('Input Space handling', () => {
   it('prevents native Space button activation while preserving jump input', () => {
     const { input, windowListeners } = makeInput();
