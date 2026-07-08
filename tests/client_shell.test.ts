@@ -1929,7 +1929,7 @@ describe('client HTML shell', () => {
     // freeze (hud.ts stamps an inline inset/transform the first time this
     // panel's .panel-title is pressed, same as any desktop window).
     expect(hudMobileCss).toContain(
-      "top: max(8px, env(safe-area-inset-top)) !important;\n      bottom: auto !important;\n      transform: translateX(-50%) !important;",
+      'top: max(8px, env(safe-area-inset-top)) !important;\n      bottom: auto !important;\n      transform: translateX(-50%) !important;',
     );
   });
 
