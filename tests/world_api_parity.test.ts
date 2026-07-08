@@ -9,7 +9,7 @@
 // IWORLD_MEMBERS below is the hand-maintained member list, the W0c analog of the
 // append-only CALLBACK_KEYS in tests/sim_context.test.ts. It is APPEND-ONLY WITH THE
 // INTERFACE: whenever a future slice adds (or removes/renames) a member on `IWorld`,
-// it lands the matching edit here in the SAME commit. The count pins (203 / 53 / 150)
+// it lands the matching edit here in the SAME commit. The count pins (203 / 54 / 149)
 // plus the sorted-name `toEqual` snapshots (modeled on the anti-loosening exclude-set
 // pin in tests/parity/harness.test.ts:131-162) are what force that: a dropped or
 // renamed member reddens deliberately, never silently.
@@ -76,7 +76,7 @@ interface IWorldMember {
 }
 
 // The 203 members of `interface IWorld`, in interface order (world_api.ts).
-// Partition: 53 `data` + 150 `method` (read-returning + command-void + async).
+// Partition: 54 `data` + 149 `method` (read-returning + command-void + async).
 // biome-ignore lint/suspicious/noExportsInTest: IWORLD_MEMBERS is the W0c pinned structural-parity contract (the authoritative IWorld member list)
 export const IWORLD_MEMBERS = [
   // --- core world / player roster + economy reads (data) ---
@@ -396,8 +396,8 @@ beforeAll(() => {
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
     expect(IWORLD_MEMBERS.length).toBe(203);
-    expect(DATA_MEMBERS.length).toBe(53);
-    expect(METHOD_MEMBERS.length).toBe(150);
+    expect(DATA_MEMBERS.length).toBe(54);
+    expect(METHOD_MEMBERS.length).toBe(149);
   });
   it('has no duplicate member names', () => {
     const names = IWORLD_MEMBERS.map((m) => m.name);
