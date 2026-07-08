@@ -479,12 +479,15 @@ export interface WeaponItemDef extends BaseItemDef {
 }
 
 // A legendary weapon proc: a "chance on action" effect that rolls when the wielder
-// performs the trigger action (lands a melee swing, lands a damaging spell, or lands
+// performs the trigger action (lands a weapon strike, lands a damaging spell, or lands
 // a heal) and, on success, fires its effects. Handled by
 // src/sim/combat/equip_procs.ts. The proc's rng roll is gated on the wielder actually
 // carrying a proc weapon, so ordinary gear draws no extra rng and the deterministic
 // draw order (and every parity golden that equips no legendary) is unchanged.
-export type WeaponProcTrigger = 'meleeHit' | 'spellDamage' | 'heal';
+// `weaponHit` covers ANY weapon strike with the equipped mainhand: a melee swing OR a
+// hunter's Auto Shot (which fires with that same weapon). Caster wand bolts, which do
+// not swing the mainhand, never roll it.
+export type WeaponProcTrigger = 'weaponHit' | 'spellDamage' | 'heal';
 
 export type WeaponProcEffect =
   // Thunderfury-style arc: a bolt that strikes the primary target and then jumps to

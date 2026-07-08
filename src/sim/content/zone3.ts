@@ -2814,7 +2814,9 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
       {
         id: 'thronebane_arc',
         name: 'Chain Arc',
-        trigger: 'meleeHit',
+        // Fires on any weapon strike: a melee swing for its warrior/paladin owners,
+        // or a hunter's Auto Shot (which shoots this same weapon).
+        trigger: 'weaponHit',
         chance: 0.1,
         effects: [
           { kind: 'chainArc', school: 'nature', damage: 42, jumps: 3, falloff: 0.6, radius: 8 },

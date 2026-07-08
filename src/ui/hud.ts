@@ -4058,7 +4058,9 @@ export class Hud {
     for (const line of lines) {
       const effect = line.effects.map((e) => this.procEffectText(e)).join(' ');
       const triggerKey =
-        line.trigger === 'meleeHit'
+        // onMeleeHit is the legacy key id; its English reads the generic "Chance on
+        // hit", correct for a weaponHit proc that fires on melee AND hunter ranged.
+        line.trigger === 'weaponHit'
           ? 'hudChrome.itemProc.onMeleeHit'
           : line.trigger === 'spellDamage'
             ? 'hudChrome.itemProc.onSpellDamage'
