@@ -212,7 +212,12 @@ import {
   requiredAmendsProgress,
   switchArchetype as switchArchetypeImpl,
 } from './professions/archetype';
-import { type CraftResult, craftItem as craftItemImpl } from './professions/crafting';
+import {
+  type AcquireRecipeResult,
+  acquireRecipe as acquireRecipeImpl,
+  type CraftResult,
+  craftItem as craftItemImpl,
+} from './professions/crafting';
 import * as professionsFocus from './professions/focus';
 import {
   drainGatheringGrants,
@@ -223,6 +228,7 @@ import {
   isNodeHarvestableBy,
   normalizeGatheringProficiency,
 } from './professions/gathering';
+import { type SalvageResult, salvageItem as salvageItemImpl } from './professions/salvage';
 import type { ProfessionRecipeRecord as RecipeDef } from './professions/types';
 import {
   craftSkillsFor,
@@ -787,6 +793,13 @@ export interface PlayerMeta {
   // toast/log line off, without deciding the outcome itself. Null until the
   // player's first craft attempt.
   lastCraftResult: CraftResult | null;
+  // Outcome of this player's most recent salvageItem command (#1300), same
+  // session-only shape as lastCraftResult above. Null until the player's
+  // first salvage attempt. Not yet wired onto the IWorld/wire surface (same
+  // documented not-yet-wired status archetype identity carried before its
+  // wire-up): a future issue extends IWorldProfessions + ClientWorld +
+  // server/game.ts the way craft_item/harvest_node already are.
+  lastSalvageResult: SalvageResult | null;
   known: ResolvedAbility[];
   questLog: Map<string, QuestProgress>;
   questsDone: Set<string>;
@@ -869,6 +882,16 @@ export interface PlayerMeta {
   // value per craft on the ten-craft ring (see professions/wheel.ts). Persisted
   // in CharacterState.
   craftSkills: Record<string, number>;
+  // Recipe acquisition (#1299): the set of recipe ids this player has learned
+  // via trainer/drop/quest. A recipe with no `acquisition` list is
+  // grandfathered (see professions/crafting.ts isRecipeKnown) and never needs
+  // to appear here. Persisted in CharacterState as a plain string array.
+  knownRecipes: Set<string>;
+  // Craft output throttle (#1301): a rolling window of successful crafts,
+  // any recipe. Session-only (like nodeHarvestReadyAt above), never
+  // persisted: a fresh login gets a fresh window rather than carrying a
+  // logout-time cooldown across sessions.
+  craftThrottle: { windowStart: number; count: number };
   // Active-archetype state and quest-gated switching (#1129, superseded scope: see
   // professions/archetype.ts). Never touches craftSkills. Persisted in CharacterState.
   archetype: ArchetypeState;
@@ -1020,6 +1043,9 @@ export interface CharacterState {
   // Flat per-craft skill tracking (#1126; JSONB, additive back-compat: absent or
   // partial on older saves loads the missing crafts as 0, see normalizeCraftSkills).
   craftSkills?: Record<string, number>;
+  // Recipe acquisition (#1299; JSONB, additive back-compat: absent on older
+  // saves loads as an empty set, i.e. no learned non-grandfathered recipes).
+  knownRecipes?: string[];
   townFocus?: Record<string, number>;
   // Active-archetype state (#1129, superseded scope; JSONB, back-compat: absent on
   // older saves loads as emptyArchetypeState, see normalizeArchetypeState).
@@ -1581,6 +1607,7 @@ export class Sim {
       pendingGatherGrants: [],
       nodeHarvestReadyAt: {},
       lastCraftResult: null,
+      lastSalvageResult: null,
       known: [],
       questLog: new Map(),
       questsDone: new Set(),
@@ -1615,6 +1642,8 @@ export class Sim {
       away: null,
       marketFilter: '',
       craftSkills: emptyCraftSkills(),
+      knownRecipes: new Set(),
+      craftThrottle: { windowStart: 0, count: 0 },
       marketQuery: defaultMarketQuery(),
       mailWelcomed: false,
       archetype: emptyArchetypeState(),
@@ -1717,6 +1746,7 @@ export class Sim {
         }
       }
       meta.craftSkills = normalizeCraftSkills(s.craftSkills);
+      if (s.knownRecipes) meta.knownRecipes = new Set(s.knownRecipes);
       meta.archetype = normalizeArchetypeState(s.archetype);
       meta.mailWelcomed = s.mailWelcomed === true;
       meta.delveMarks = s.delveMarks ?? 0;
@@ -2002,6 +2032,7 @@ export class Sim {
       pendingSkinCatalog: meta.pendingSkinCatalog,
       pendingSkinItemId: meta.pendingSkinItemId,
       craftSkills: { ...meta.craftSkills },
+      knownRecipes: [...meta.knownRecipes],
       archetype: { ...meta.archetype },
       delveMarks: meta.delveMarks,
       delveClears: { ...meta.delveClears },
@@ -5138,6 +5169,38 @@ export class Sim {
   // recent craft-result, or null before their first craft attempt this session.
   get lastCraftResult(): CraftResult | null {
     return this.players.get(this.primaryId)?.lastCraftResult ?? null;
+  }
+
+  // Recipe acquisition command (#1299): a thin delegate onto
+  // src/sim/professions/crafting.ts acquireRecipe, resolved on the
+  // deterministic tick the command arrives on. Not yet wired onto the
+  // IWorld/wire surface (see the AcquireRecipeResult return: callers today
+  // are tests and future trainer/loot/quest-reward integrations), same
+  // documented not-yet-wired status the active-archetype identity carried
+  // before its own wire-up.
+  acquireRecipe(
+    recipeId: string,
+    source: 'trainer' | 'drop' | 'quest',
+    pid?: number,
+  ): AcquireRecipeResult {
+    return acquireRecipeImpl(this.ctx, pid ?? this.primaryId, recipeId, source);
+  }
+
+  // Salvage/disenchant command (#1300): a thin delegate onto
+  // src/sim/professions/salvage.ts, resolved on the deterministic tick the
+  // command arrives on, same shape as craftItem above. Stashes the outcome
+  // on the resolved player's PlayerMeta so lastSalvageResult reflects it.
+  salvageItem(itemId: string, pid?: number): void {
+    const result = salvageItemImpl(this.ctx, itemId, pid);
+    const meta = this.players.get(pid ?? this.primaryId);
+    if (meta) meta.lastSalvageResult = result;
+  }
+
+  // The local viewer's most recent salvage-result, or null before their
+  // first salvage attempt this session. Same not-yet-wired-onto-IWorld
+  // status as the salvageItem command above.
+  get lastSalvageResult(): SalvageResult | null {
+    return this.players.get(this.primaryId)?.lastSalvageResult ?? null;
   }
 
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {

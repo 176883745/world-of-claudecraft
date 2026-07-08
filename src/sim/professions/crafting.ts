@@ -54,6 +54,11 @@
 // game/net imports, no Math.random/Date.now, host-agnostic so it runs
 // offline, on the server, and in the headless RL env unchanged.
 
+import {
+  CRAFT_GOLD_SINK_COPPER_PER_BUDGET,
+  CRAFT_THROTTLE_MAX_PER_WINDOW,
+  CRAFT_THROTTLE_WINDOW_SECONDS,
+} from '../content/professions';
 import { recipeById } from '../content/recipes';
 import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
@@ -87,7 +92,71 @@ export interface CraftResult {
   selfSignedBonusApplied?: boolean;
   // Present only when !ok: a stable reason code, not player-facing prose (the
   // caller renders/localizes the denial).
-  reason?: 'unknown_recipe' | 'insufficient_materials' | 'combo_requirement_unmet';
+  reason?:
+    | 'unknown_recipe'
+    | 'insufficient_materials'
+    | 'combo_requirement_unmet'
+    | 'recipe_unknown'
+    | 'throttled';
+}
+
+/** Whether `meta` currently knows `recipe` (issue #1299): a recipe with no
+ *  `acquisition` list (or an empty one) is grandfathered, known to everyone
+ *  with no learn step; otherwise `meta` must hold it in `knownRecipes`. This
+ *  is orthogonal to tier/skill: a player can know a recipe they cannot yet
+ *  craft at tier, and vice versa. */
+export function isRecipeKnown(
+  meta: PlayerMeta | undefined,
+  recipe: ProfessionRecipeRecord,
+): boolean {
+  if (!recipe.acquisition || recipe.acquisition.length === 0) return true;
+  return !!meta && meta.knownRecipes.has(recipe.id);
+}
+
+export interface AcquireRecipeResult {
+  ok: boolean;
+  recipeId: string;
+  reason?: 'unknown_recipe' | 'already_known' | 'wrong_source';
+}
+
+/**
+ * Acquire one recipe from one source (issue #1299: trainer purchase, mob
+ * drop, or quest reward). Denies (no side effect) if the recipe id is
+ * unknown, the player already knows it, or `source` is not one of the
+ * recipe's listed `acquisition` sources. On success marks the recipe known;
+ * the caller (PlayerMeta.knownRecipes) is a plain Set field on the character
+ * save row, so this persists across logout the same way craftSkills does.
+ */
+export function acquireRecipe(
+  ctx: SimContext,
+  pid: number,
+  recipeId: string,
+  source: 'trainer' | 'drop' | 'quest',
+): AcquireRecipeResult {
+  const recipe = recipeById(recipeId);
+  if (!recipe) return { ok: false, recipeId, reason: 'unknown_recipe' };
+  const meta = ctx.players.get(pid);
+  if (!meta) return { ok: false, recipeId, reason: 'unknown_recipe' };
+  if (isRecipeKnown(meta, recipe)) return { ok: false, recipeId, reason: 'already_known' };
+  if (!recipe.acquisition?.includes(source)) {
+    return { ok: false, recipeId, reason: 'wrong_source' };
+  }
+  meta.knownRecipes.add(recipeId);
+  return { ok: true, recipeId };
+}
+
+/** Whether `meta`'s rolling craft-output window (issue #1301) still has room
+ *  for one more successful craft, advancing/resetting the window against
+ *  `now` (sim time, deterministic) as a side effect exactly like a real
+ *  rolling window would. A maxed specialist is capped at
+ *  `CRAFT_THROTTLE_MAX_PER_WINDOW` successful crafts per
+ *  `CRAFT_THROTTLE_WINDOW_SECONDS`, regardless of skill or material supply. */
+function withinCraftThrottle(meta: PlayerMeta, now: number): boolean {
+  if (now - meta.craftThrottle.windowStart >= CRAFT_THROTTLE_WINDOW_SECONDS) {
+    meta.craftThrottle.windowStart = now;
+    meta.craftThrottle.count = 0;
+  }
+  return meta.craftThrottle.count < CRAFT_THROTTLE_MAX_PER_WINDOW;
 }
 
 /** Whether `meta` holds an inventory slot for `itemId` carrying a signed
@@ -205,8 +274,28 @@ export function resolveCraftForRecipe(
   ) {
     return { ok: false, recipeId: recipe.id, reason: 'combo_requirement_unmet' };
   }
+  if (!isRecipeKnown(meta, recipe)) {
+    return { ok: false, recipeId: recipe.id, reason: 'recipe_unknown' };
+  }
   if (!hasRecipeMaterials(ctx, recipe, pid)) {
     return { ok: false, recipeId: recipe.id, reason: 'insufficient_materials' };
+  }
+  // #1301 output throttle: a flat cap on successful crafts per rolling
+  // window, checked (never side-effected on denial beyond the window's own
+  // natural rollover) before any reagent is consumed.
+  if (meta && !withinCraftThrottle(meta, ctx.time)) {
+    return { ok: false, recipeId: recipe.id, reason: 'throttled' };
+  }
+  // #1301 gold sink: a fee proportional to the recipe's item-level budget,
+  // charged on every successful craft. Never blocks a craft the player would
+  // otherwise be able to perform (a hard gold gate on common-tier crafting
+  // would violate the existing free-floor rule and every recipe currently in
+  // content/recipes.ts is common tier): floored at 0 copper rather than
+  // denied, so a broke player still crafts, just contributes nothing to the
+  // sink that trip. Content-driven via CRAFT_GOLD_SINK_COPPER_PER_BUDGET.
+  if (meta) {
+    const goldFee = Math.ceil(recipe.itemLevelBudget * CRAFT_GOLD_SINK_COPPER_PER_BUDGET);
+    meta.copper = Math.max(0, meta.copper - goldFee);
   }
   const craftSkills = meta ? meta.craftSkills : {};
   let selfSignedBonusApplied = false;
@@ -235,6 +324,7 @@ export function resolveCraftForRecipe(
     const recipeTier = tierForSkill(recipe.skillReq);
     const multiplier = tierProgressMultiplier(capabilityTier, recipeTier);
     gainCraftSkill(meta.craftSkills, recipe.professionId, CRAFT_SKILL_GAIN * multiplier);
+    meta.craftThrottle.count += 1;
   }
   return {
     ok: true,

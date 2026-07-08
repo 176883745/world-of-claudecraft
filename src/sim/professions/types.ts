@@ -64,6 +64,16 @@ export interface ProfessionRecipeRecord {
     craftB: string;
     minTier: number;
   };
+  // Acquisition source(s) a recipe can be learned from (issue #1299). A recipe
+  // with no `acquisition` field (or an empty list) is GRANDFATHERED: known
+  // automatically to every player with no learn step required, matching the
+  // behavior every recipe in content/recipes.ts had before this issue (no
+  // back-compat regression for existing common-tier/combo/tool recipes). A
+  // recipe that DOES list one or more sources must be acquired (see
+  // professions/crafting.ts acquireRecipe) via one of the listed sources
+  // before it can be crafted, independent of the player's tier/skill: knowing
+  // a recipe and being able to craft it at tier are orthogonal gates.
+  acquisition?: readonly ('trainer' | 'drop' | 'quest')[];
 }
 
 // One performed craft (a runtime instance of a RecipeRecord being worked),

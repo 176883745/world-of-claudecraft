@@ -347,3 +347,20 @@ export const PERK_THRESHOLDS: Record<string, PerkThresholdDef> = Object.fromEntr
 // mechanic itself and why it is currently inert (no town/crafting-station
 // proximity gate exists anywhere in the engine yet for it to bypass).
 export const MOBILE_CRAFTING_STATION_DURATION_TICKS = 20 * 60 * 10; // 10 minutes
+
+// Gold sink + output throttle tuning (#1301): professions is a large new
+// material/item faucet, and the doc names both a proportional gold sink and a
+// throttle on a maxed specialist's output rate as TBD. Content-driven per the
+// issue's scope note ("read from content, not hardcoded"), tuned modest and
+// non-punitive rather than inventing a large balance swing: see
+// ../professions/crafting.ts resolveCraftForRecipe for where these are read.
+// - `CRAFT_GOLD_SINK_COPPER_PER_BUDGET`: copper fee per point of a recipe's
+//   `itemLevelBudget`, charged on every successful craft (proportional to the
+//   value of what is being produced, same axis P4/P8 already scale off).
+// - `CRAFT_THROTTLE_WINDOW_SECONDS` / `CRAFT_THROTTLE_MAX_PER_WINDOW`: a flat
+//   cap on successful crafts (any recipe) per rolling sim-time window, so a
+//   maxed specialist cannot flood the market faster than this rate regardless
+//   of skill or material supply.
+export const CRAFT_GOLD_SINK_COPPER_PER_BUDGET = 2;
+export const CRAFT_THROTTLE_WINDOW_SECONDS = 60;
+export const CRAFT_THROTTLE_MAX_PER_WINDOW = 10;

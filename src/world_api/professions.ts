@@ -27,7 +27,12 @@ export interface CraftResultView {
   itemId?: string;
   count?: number;
   quality?: MaterialRarity;
-  reason?: 'unknown_recipe' | 'insufficient_materials' | 'combo_requirement_unmet';
+  reason?:
+    | 'unknown_recipe'
+    | 'insufficient_materials'
+    | 'combo_requirement_unmet'
+    | 'recipe_unknown'
+    | 'throttled';
 }
 
 // The professions read-surface facet (#1164, extended by #1121/#1127/#1129). `Sim`
