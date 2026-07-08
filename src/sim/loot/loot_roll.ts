@@ -36,6 +36,7 @@ import type {
   ItemLootStrategy,
   LootEntry,
   LootRollChoice,
+  LootRollGroupStatus,
   LootRollPrompt,
   LootSlot,
   LootStrategies,
@@ -401,6 +402,34 @@ export function activeLootRolls(ctx: SimContext, pid: number): LootRollPrompt[] 
   return out;
 }
 
+// Group-visible status of every open need-greed roll the given player's party
+// is voting on: who has answered and how (choice only, never the roll number,
+// which stays hidden until resolveLootRoll broadcasts it). Read from the same
+// authoritative state as activeLootRolls, so the HUD's per-player choice strip
+// survives reconnects and missed events the same way the prompt does. Master
+// rolls in their curate phase are excluded for the same reason they are in
+// activeLootRolls: nobody is voting yet.
+export function lootRollGroupStatus(ctx: SimContext, pid: number): LootRollGroupStatus[] {
+  const out: LootRollGroupStatus[] = [];
+  for (const roll of ctx.pendingLootRolls.values()) {
+    if (roll.masterLooter !== undefined) continue;
+    if (!partyMembersForRoll(roll).includes(pid)) continue;
+    out.push({
+      rollId: roll.id,
+      itemId: roll.itemId,
+      itemName: roll.itemName,
+      quality: roll.quality,
+      expiresAt: roll.expiresAt,
+      entries: roll.candidates.map((candidate) => ({
+        pid: candidate,
+        name: ctx.players.get(candidate)?.name ?? 'Unknown',
+        choice: roll.choices.get(candidate)?.choice ?? null,
+      })),
+    });
+  }
+  return out;
+}
+
 export function submitLootRoll(
   ctx: SimContext,
   rollId: number,
@@ -549,6 +578,22 @@ export function resolveLootRoll(ctx: SimContext, roll: PendingLootRoll): void {
     for (const pid of partyMembersForRoll(roll))
       ctx.emit({ type: 'loot', text: `Everyone passed on [[i:${roll.itemId}]].`, pid });
     return;
+  }
+  // Reveal every roll, classic-style: one loot line per need/greed roller so the
+  // whole group can audit the outcome (passes were already visible live via
+  // lootRollGroupStatus and have no number to reveal).
+  for (const entry of entries) {
+    const rollerName = ctx.players.get(entry.pid)?.name ?? 'Unknown';
+    for (const pid of partyMembersForRoll(roll)) {
+      ctx.emit({
+        type: 'loot',
+        text:
+          entry.result.choice === 'need'
+            ? `Need Roll - ${entry.result.roll ?? 0} for [[i:${roll.itemId}]] by ${rollerName}`
+            : `Greed Roll - ${entry.result.roll ?? 0} for [[i:${roll.itemId}]] by ${rollerName}`,
+        pid,
+      });
+    }
   }
   const highestRoll = Math.max(...contenders.map((contender) => contender.result.roll ?? 0));
   const tiedWinners = contenders.filter((contender) => contender.result.roll === highestRoll);

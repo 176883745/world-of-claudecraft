@@ -1483,7 +1483,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.arcane_explosion.description':
     'Et udbrud af Arkan energi rammer alle nærliggende fjender for {damage} Arkan skade.',
   'entities.abilities.arcane_explosion.name': 'Æterudbrud',
-  'entities.abilities.arcane_intellect.description': 'Øger Intellekt med 2 i 30 min.',
+  'entities.abilities.arcane_intellect.description': 'Øger Intellekt med {buff} i 30 min.',
   'entities.abilities.arcane_intellect.name': 'Æterindsigt',
   'entities.abilities.arcane_missiles.description':
     'Affyrer Æterpile mod fjenden, der forvolder {damage} Arkan skade hvert sekund i 3 sek.',
@@ -1495,7 +1495,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Antag gangerens skikkelse, og øg bevægelseshastigheden med 30% i 30 min.',
   'entities.abilities.aspect_of_the_cheetah.name': 'Gangerens Skikkelse',
   'entities.abilities.aspect_of_the_hawk.description':
-    'Antag kærhøgens skikkelse, og øg angrebskraften med 20 i 30 min.',
+    'Antag kærhøgens skikkelse, og øg angrebskraften med {buff} i 30 min.',
   'entities.abilities.aspect_of_the_hawk.name': 'Kærhøgens Skikkelse',
   'entities.abilities.aspect_of_the_monkey.description':
     'Antag mårens skikkelse, og øg din undvigechance med 8% i 30 min.',
@@ -1508,19 +1508,19 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.barkskin.name': 'Egehud',
   'entities.abilities.bash.description': 'Bedøver målet i 2 sek. Kun i Bruin-form.',
   'entities.abilities.bash.name': 'Chokslag',
-  'entities.abilities.battle_shout.description': 'Øger din angrebskraft med 20 i 2 min.',
+  'entities.abilities.battle_shout.description': 'Øger din angrebskraft med {buff} i 2 min.',
   'entities.abilities.battle_shout.name': 'Jernbrøl',
   'entities.abilities.bear_charge.description':
     'Storm mod en fjende, generér 9 raseri og bedøv den i 1 sek. 8-25 m rækkevidde. Kun i Bruin-form.',
   'entities.abilities.bear_charge.name': 'Bruin-storm',
   'entities.abilities.bear_form.description':
-    'Forvandl dig til en bjørn: rustning +65%, angrebskraft +15, dine angreb opbygger raseri og genererer 30% mere trussel. Kast igen for at vende tilbage til besværgerform.',
+    'Forvandl dig til en bjørn: rustning +90%, stærkt øget angrebskraft, dine angreb opbygger raseri og genererer 30% mere trussel. Kast igen for at vende tilbage til besværgerform.',
   'entities.abilities.bear_form.name': 'Bruin-form',
   'entities.abilities.berserker_rage.description':
     'Gå i et sydende raseri, og generér 20 raseri. (Krigertalent)',
   'entities.abilities.berserker_rage.name': 'Sydende Raseri',
   'entities.abilities.blessing_of_might.description':
-    'Lægger en Velsignelse på et venligt mål, og øger angrebskraften med 15 i 5 min.',
+    'Lægger en Velsignelse på et venligt mål, og øger angrebskraften med {buff} i 5 min.',
   'entities.abilities.blessing_of_might.name': 'Jernets Ed',
   'entities.abilities.blind.description':
     'Forblænder målet, så det vandrer forvirret omkring i 8 sek. Enhver skade bryder effekten.',
@@ -1528,7 +1528,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.bloodrage.description': 'Genererer 10 raseri på bekostning af helbred.',
   'entities.abilities.bloodrage.name': 'Blodtold',
   'entities.abilities.bloodthirst.description':
-    'Angrib øjeblikkeligt i et blodraseri for {damage}. (Furie-signatur)',
+    'Angrib øjeblikkeligt i et blodraseri for 60% våbenskade plus {damage}. (Furie-signatur)',
   'entities.abilities.bloodthirst.name': 'Åreladning',
   'entities.abilities.cat_form.description':
     'Forvandl dig til en ulv: angrebskraften stiger med dit niveau, dine angreb bruger energi og kombopoint, og du genererer 29% mindre trussel. Kast igen for at vende tilbage til besværgerform.',
@@ -1537,7 +1537,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Storm mod en fjende, generér 9 raseri og bedøv den i 1 sek. 8-25 m rækkevidde.',
   'entities.abilities.charge.name': 'Fremstorm',
   'entities.abilities.cheap_shot.description':
-    'Slå målet, og bedøv det i 4 sek. Skal være sneget. Giver 2 kombopoint.',
+    'Slå målet for {damage} skade, og bedøv det i 4 sek. Skal være sneget. Giver 2 kombopoint.',
   'entities.abilities.cheap_shot.name': 'Maveslag',
   'entities.abilities.claw.description':
     'Klo fjenden for våbenskade plus {damage}. Giver 1 kombopoint. Kun i Ulveform.',
@@ -1545,10 +1545,10 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.cleave.description':
     'Et fejende slag, der rammer alle fjender foran dig for {damage} skade.',
   'entities.abilities.cleave.name': 'Mejende Bue',
-  'entities.abilities.commanding_shout.description': 'Øger din Udholdenhed med 6 i 2 min.',
+  'entities.abilities.commanding_shout.description': 'Øger din Udholdenhed med {buff} i 2 min.',
   'entities.abilities.commanding_shout.name': 'Styrkende Råb',
   'entities.abilities.concussive_shot.description':
-    'Lammer målet, og nedsætter bevægelse med 50% i 4 sek.',
+    'Lammer målet for {damage} skade og nedsætter bevægelse med 50% i 4 sek.',
   'entities.abilities.concussive_shot.name': 'Rystende Skud',
   'entities.abilities.conjure_food.description':
     'Frembringer 2 portioner brød, der genopretter helbred, når de spises. Højere rang frembringer mere mættende kost.',
@@ -1557,13 +1557,13 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Frembringer 2 flasker vand, der genopretter mana, når de drikkes. Højere rang frembringer renere vand.',
   'entities.abilities.conjure_water.name': 'Vandbinding',
   'entities.abilities.consecration.description':
-    'Indvier jorden under dig, og svider nærliggende fjender for {damage} Hellig skade.',
+    'Indvier jorden under dig, og svider nærliggende fjender for {damage} Hellig skade hvert 2. sek i 10 sek.',
   'entities.abilities.consecration.name': 'Hellig Jord',
   'entities.abilities.corruption.description':
     'Fordærver målet, og forvolder {damage} Skygge-skade over 18 sek.',
   'entities.abilities.corruption.name': 'Sortråd',
   'entities.abilities.crippling_poison.description':
-    'Rammer målet med en blytung gift, der giver {damage} Natur-skade og nedsætter dets bevægelseshastighed med 50% i 12 sek.',
+    'Slår målet med en blytung gift, der giver {damage} Natur-skade og nedsætter dets bevægelseshastighed med 50% i 12 sek.',
   'entities.abilities.crippling_poison.name': 'Blytung Gift',
   'entities.abilities.curse_of_agony.description':
     'Forbander målet med kval: {damage} skyggeskade over 24 sek.',
@@ -1577,20 +1577,21 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.defensive_stance.description':
     'En defensiv kampstilling: du skaber 30% mere trussel, men volder og modtager 10% mindre skade. Aktivér igen for at forlade stillingen.',
   'entities.abilities.defensive_stance.name': 'Værgende Stilling',
-  'entities.abilities.demon_skin.description': 'Dæmonisk hud øger din rustning med 30 i 30 min.',
+  'entities.abilities.demon_skin.description':
+    'Dæmonisk hud øger din rustning med {buff} i 30 min.',
   'entities.abilities.demon_skin.name': 'Djævlehud',
   'entities.abilities.demoralizing_roar.description':
     'Demoraliserer nærliggende fjender og sænker deres angrebsstyrke med 20 i 20 sek. Kun i Bruin-form.',
   'entities.abilities.demoralizing_roar.name': 'Fejt Brøl',
   'entities.abilities.demoralizing_shout.description':
-    'Udstøder et frygtindgydende råb, der sænker angrebsstyrken hos alle nærliggende fjender med 30 i 30 sek.',
+    'Udstøder et frygtindgydende råb, der sænker angrebsstyrken hos alle nærliggende fjender med {buff} i 30 sek.',
   'entities.abilities.demoralizing_shout.name': 'Rædselshyl',
-  'entities.abilities.devotion_aura.description': 'Øger din rustning med 40 i 30 min.',
+  'entities.abilities.devotion_aura.description': 'Øger din rustning med {buff} i 30 min.',
   'entities.abilities.devotion_aura.name': 'Standhaftig Aura',
   'entities.abilities.dismiss_pet.description': 'Sender dit kæledyr tilbage til vildmarken.',
   'entities.abilities.dismiss_pet.name': 'Slip Følgesvend',
   'entities.abilities.divine_protection.description':
-    'Et beskyttende værn opsuger 50 skade i 10 sek.',
+    'Et helligt værn opsuger {damage} skade i 10 sek.',
   'entities.abilities.divine_protection.name': 'Troens Værn',
   'entities.abilities.drain_life.description':
     'Dræner målets liv og overfører {damage} helbred til dig hvert sekund i 5 sek.',
@@ -1604,7 +1605,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.entangling_roots.name': 'Gribende Rødder',
   'entities.abilities.evasion.description': 'Øger din chance for at undvige med 50% i 15 sek.',
   'entities.abilities.evasion.name': 'Spøgelsesfod',
-  'entities.abilities.eviscerate.description': 'Afslutningstræk der volder skade pr. kombopoint.',
+  'entities.abilities.eviscerate.description': 'Afslutningstræk der volder {damage}.',
   'entities.abilities.eviscerate.name': 'Gravsøvn',
   'entities.abilities.execute.description':
     'Forsøg på at gøre det af med en såret fjende, hvilket volder {damage} skade. Kan kun bruges på fjender under 20% helbred.',
@@ -1613,15 +1614,15 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Forviser de onde med hellig vrede, hvilket volder {damage} hellig skade.',
   'entities.abilities.exorcism.name': 'Uddrivelsesrite',
   'entities.abilities.expose_armor.description':
-    'Afslutningstræk der blotlægger målet og sænker dets rustning. Flere brugte kombopoint giver et dybere snit.',
+    'Afslutningstræk der blotlægger målet og sænker dets rustning med {damage} i 30 sek.',
   'entities.abilities.expose_armor.name': 'Rustningsbrud',
-  'entities.abilities.faerie_fire.description': 'Sænker målets rustning med 35 i 40 sek.',
+  'entities.abilities.faerie_fire.description': 'Sænker målets rustning med 35 i 30 sek.',
   'entities.abilities.faerie_fire.name': 'Hekselys',
   'entities.abilities.fear.description':
     'Slår rædsel i fjenden, så den kryber sammen i op til 8 sek. Enhver skade bryder effekten.',
   'entities.abilities.fear.name': 'Hjemsøg',
   'entities.abilities.ferocious_bite.description':
-    'Afslutningstræk der volder skade pr. kombopoint. Kun i Ulveform.',
+    'Afslutningstræk der volder {damage}. Kun i Ulveform.',
   'entities.abilities.ferocious_bite.name': 'Blodbid',
   'entities.abilities.fire_blast.description':
     'Sprænger fjenden for {damage} ildskade. Øjeblikkelig.',
@@ -1631,24 +1632,24 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.fireball.name': 'Glødlyn',
   'entities.abilities.rain_of_fire.name': 'Ildregn',
   'entities.abilities.rain_of_fire.description':
-    'Nedkalder en ildregn over målområdet og brænder fjender for {damage} Ildskade.',
+    'Nedkalder en ildregn over målområdet i 4 sek og brænder fjender for {damage} Ildskade hvert sekund.',
   'entities.abilities.volley.name': 'Pileregn',
   'entities.abilities.volley.description':
-    'Nedkalder en regn af pile over målområdet og påfører {damage} skade på fjender i det.',
+    'Nedkalder en regn af pile over målområdet i 3 sek og påfører {damage} skade hvert 0,5 sek på fjender fanget i det.',
   'entities.abilities.hurricane.name': 'Orkan',
   'entities.abilities.hurricane.description':
-    'Slipper en orkan løs over målområdet og rammer fjender for {damage} Naturskade.',
+    'Slipper en orkan løs over målområdet i 6 sek og rammer fjender for {damage} Naturskade hvert sekund.',
   'entities.abilities.earthquake.name': 'Jordskælv',
   'entities.abilities.earthquake.description':
-    'Ryster målområdet og rammer fjender for {damage} Naturskade.',
+    'Ryster målområdet i 6 sek og rammer fjender for {damage} Naturskade hvert 1,5 sek.',
   'entities.abilities.flamestrike.name': 'Flammeslag',
   'entities.abilities.flamestrike.description':
     'Nedkalder en flammeeksplosion på målområdet, der giver {damage} Ildskade til fjender fanget i eksplosionen.',
   'entities.abilities.flame_shock.description':
-    'Svider målet med ild for 25 skade plus {damage} over 12 sek.',
+    'Svider målet med ild for {damage} skade plus {overTime} over 12 sek.',
   'entities.abilities.flame_shock.name': 'Glødstød',
   'entities.abilities.flametongue_weapon.description':
-    'Gennemtrænger dit våben med elementær ild: hvert hug volder 8 ekstra ildskade i 5 min.',
+    'Gennemtrænger dit våben med elementær ild: hvert hug volder {damage} ekstra Ildskade i 5 min.',
   'entities.abilities.flametongue_weapon.name': 'Bålbrand-Våben',
   'entities.abilities.flash_heal.description':
     'En hurtig bøn, der helbreder et venligt mål for {damage}.',
@@ -1657,7 +1658,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Et hurtigt, effektivt udbrud af Lys, der helbreder et venligt mål for {damage}.',
   'entities.abilities.flash_of_light.name': 'Lyslægning',
   'entities.abilities.frost_armor.description':
-    'Indhyller dig i frost og øger rustningen med 30 i 30 min.',
+    'Indhyller dig i frost og øger rustningen med {buff} i 30 min.',
   'entities.abilities.frost_armor.name': 'Rimfrost-Kappe',
   'entities.abilities.frost_nova.description':
     'Fryser alle nærliggende fjender fast i op til 8 sek og volder {damage} frostskade.',
@@ -1669,24 +1670,24 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Affyrer et frostlyn, der volder {damage} frostskade og sænker bevægelsen med 40%.',
   'entities.abilities.frostbolt.name': 'Rimlanse',
   'entities.abilities.frostbrand_weapon.description':
-    'Gennemtrænger dit våben med bidende frost: hvert hug volder 8 ekstra skade i 5 min.',
+    'Gennemtrænger dit våben med bidende frost: hvert hug volder {damage} ekstra skade i 5 min.',
   'entities.abilities.frostbrand_weapon.name': 'Rimbundet Våben',
   'entities.abilities.garrote.description':
-    'Garrotterer fjenden, hvilket volder skade nu og får den til at bløde for {damage} over 18 sek. Du skal være sneget. Giver 1 kombopoint.',
+    'Garrotterer fjenden, hvilket volder {damage} skade nu og får den til at bløde for {overTime} over 18 sek. Du skal være sneget. Giver 1 kombopoint.',
   'entities.abilities.garrote.name': 'Strubetråd',
   'entities.abilities.ghost_wolf.description':
     'Forvandler dig til en Shadewolf og øger bevægelseshastigheden med 40% i 10 min.',
   'entities.abilities.ghost_wolf.name': 'Shadewolf',
   'entities.abilities.gouge.description':
-    'Rammer målet og sætter det ud af spillet i 4 sek. Enhver skade bryder effekten. Giver 1 kombopoint.',
+    'Rammer målet for {damage} skade og sætter det ud af spillet i 4 sek. Enhver skade bryder effekten. Giver 1 kombopoint.',
   'entities.abilities.gouge.name': 'Øjenstik',
   'entities.abilities.growl.description':
     'Knurrer ad målet: din trussel stiger til at matche dets mest forhadte fjende, og det tvinges til at angribe dig i 3 sek. Kun i Bruin-form.',
   'entities.abilities.growl.name': 'Trussel',
-  'entities.abilities.hammer_of_justice.description': 'Bedøver målet i 3 sek.',
+  'entities.abilities.hammer_of_justice.description': 'Bedøver målet i {duration} sek.',
   'entities.abilities.hammer_of_justice.name': 'Splintrende Dommerhammer',
   'entities.abilities.hamstring.description':
-    'Lemlæster fjenden for 5 skade og sænker dens bevægelse med 50% i 15 sek.',
+    'Lemlæster fjenden for {damage} skade og sænker dens bevægelse med 50% i 15 sek.',
   'entities.abilities.hamstring.name': 'Lammende Snit',
   'entities.abilities.heal.description':
     'En langsom, men kraftfuld bøn, der helbreder et venligt mål for {damage}.',
@@ -1704,10 +1705,10 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.holy_light.description': 'Helbreder et venligt mål for {damage}.',
   'entities.abilities.holy_light.name': 'Lægende Lys',
   'entities.abilities.ice_barrier.description':
-    'Beskytter dig med is og opsuger 130 skade i 60 sek.',
+    'Beskytter dig med is og opsuger {damage} skade i 60 sek.',
   'entities.abilities.ice_barrier.name': 'Frostslør',
   'entities.abilities.immolate.description':
-    'Brænder fjenden for 11 ildskade og yderligere {damage} over 15 sek.',
+    'Brænder fjenden for {damage} Ildskade og yderligere {overTime} over 15 sek.',
   'entities.abilities.immolate.name': 'Brændende Pagt',
   'entities.abilities.insect_swarm.description':
     'Fjenden sværmes af insekter og tager {damage} naturskade over 12 sek.',
@@ -1722,19 +1723,19 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Afslutningstræk der bedøver målet. Varer 1 sek længere pr. kombopoint.',
   'entities.abilities.kidney_shot.name': 'Lavt Slag',
   'entities.abilities.lay_on_hands.description':
-    'En massiv bølge af helbredelse: genopretter 250 helbred. 10 min afkøling.',
+    'En massiv bølge af helbredelse: genopretter {damage} helbred. 10 min afkøling.',
   'entities.abilities.lay_on_hands.name': 'Sidste Rite',
   'entities.abilities.lesser_heal.description': 'Helbreder et venligt mål for {damage}.',
   'entities.abilities.lesser_heal.name': 'Hvisket Bøn',
-  'entities.abilities.life_tap.description': 'Omdanner 30 helbred til 30 mana.',
+  'entities.abilities.life_tap.description': 'Omdanner {damage} helbred til {damage} mana.',
   'entities.abilities.life_tap.name': 'Hård Handel',
   'entities.abilities.lightning_bolt.description': 'Slynger et lyn for {damage} naturskade.',
   'entities.abilities.lightning_bolt.name': 'Lysbuelyn',
   'entities.abilities.lightning_shield.description':
-    'Omgiver dig med knitrende lyn: nærkampsangribere tager 13 naturskade.',
+    'Omgiver dig med knitrende lyn: nærkampsangribere tager {buff} Naturskade, op til 3 ladninger og højst én gang hvert 5. sekund.',
   'entities.abilities.lightning_shield.name': 'Tordenværn',
   'entities.abilities.mark_of_the_wild.description':
-    'Anbringer Wildward på et venligt mål og øger rustningen med 25 i 30 min.',
+    'Anbringer Wildward på et venligt mål og øger rustningen med {buff} i 30 min.',
   'entities.abilities.mark_of_the_wild.name': 'Wildward',
   'entities.abilities.maul.description':
     'Et lemlæstende angreb, der øger nærkampsskaden med {damage} og skaber en stor mængde trussel. Aktiveres ved dit næste hug. Kun i Bruin-form.',
@@ -1745,7 +1746,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Angriber målets sind med skyggeenergi, hvilket volder {damage} skade hvert sekund i 3 sek.',
   'entities.abilities.mind_flay.name': 'Jammerens Litani',
   'entities.abilities.mongoose_bite.description':
-    'Modangreb efter målet undviger for våbenskade plus 12. Kan ikke undviges.',
+    'Modangreb efter målet undviger for våbenskade plus {damage}. Kan ikke undviges.',
   'entities.abilities.mongoose_bite.name': 'Modbid',
   'entities.abilities.moonfire.description':
     'Brænder fjenden med måneild for {damage} arkan skade plus skade over tid.',
@@ -1754,18 +1755,19 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Et ondskabsfuldt slag, der volder våbenskade plus {damage}. (Arms-signatur)',
   'entities.abilities.mortal_strike.name': 'Lemlæstende Slag',
   'entities.abilities.overpower.description':
-    'Øjeblikkeligt angreb for våbenskade +5. Kan kun bruges efter målet undviger. Kan ikke undviges.',
+    'Øjeblikkeligt angreb for våbenskade plus {damage}. Kan kun bruges efter målet undviger. Kan ikke undviges.',
   'entities.abilities.overpower.name': 'Rødhånd',
   'entities.abilities.polymorph.description':
-    'Forvandler fjenden til en tudse i op til 15 sek. Tudsen vandrer omkring og helbredes hurtigt. Enhver skade bryder effekten. Kun bæster og humanoider.',
+    'Forvandler fjenden til en tudse i op til {duration} sek. Tudsen vandrer omkring og helbredes hurtigt. Enhver skade bryder effekten. Kun bæster og humanoider.',
   'entities.abilities.polymorph.name': 'Forheks',
   'entities.abilities.pounce.description':
     'En snigeåbner der bedøver målet i 2 sek. Giver 1 kombopoint. Kun i Ulveform.',
   'entities.abilities.pounce.name': 'Luskeslag',
-  'entities.abilities.power_word_fortitude.description': 'Øger målets Udholdenhed med 3 i 30 min.',
+  'entities.abilities.power_word_fortitude.description':
+    'Øger målets Udholdenhed med {buff} i 30 min.',
   'entities.abilities.power_word_fortitude.name': 'Beslutsomhedens Litani',
   'entities.abilities.power_word_shield.description':
-    'Beskytter målet og opsuger 48 skade i 30 sek.',
+    'Beskytter målet og opsuger {damage} skade i 30 sek.',
   'entities.abilities.power_word_shield.name': 'Værnets Salme',
   'entities.abilities.prowl.description':
     'Gå i sneg-tilstand mens du er i Ulveform, og bevæg dig 50 % langsommere. Kan ikke bruges i kamp.',
@@ -1779,7 +1781,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.rapid_fire.description': 'Øger din angrebshastighed med 40% i 15 sek.',
   'entities.abilities.rapid_fire.name': 'Febrilsk Optræk',
   'entities.abilities.raptor_strike.description':
-    'Et stærkt nærkampsangreb, der øger skaden med 5. Aktiveres ved dit næste hug.',
+    'Et stærkt nærkampsangreb, der øger skaden med {damage}. Aktiveres ved dit næste hug.',
   'entities.abilities.raptor_strike.name': 'Sprættende Slag',
   'entities.abilities.regrowth.description':
     'Helbreder et venligt mål for {damage} og en yderligere mængde over 21 sek.',
@@ -1787,7 +1789,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.rejuvenation.description': 'Helbreder målet for {damage} over 12 sek.',
   'entities.abilities.rejuvenation.name': 'Vildblomst',
   'entities.abilities.rend.description':
-    'Sårer målet og får det til at bløde for {damage} skade over 9 sek.',
+    'Sårer målet og får det til at bløde for {damage} skade over {duration} sek.',
   'entities.abilities.rend.name': 'Dyb Flænge',
   'entities.abilities.renew.description': 'Helbreder målet for {damage} over 15 sek.',
   'entities.abilities.renew.name': 'Dvælende Nåde',
@@ -1801,10 +1803,10 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Øger truslen genereret af din Hellige skade med 60 % i 30 min. Den tankende paladins hjørnesten.',
   'entities.abilities.righteous_fury.name': 'Brændende Ed',
   'entities.abilities.rip.description':
-    'Afslutningsangreb der forårsager blødningsskade over 12 sek. Forbruger kombopoint. Kun i Ulveform.',
+    'Afslutningsangreb der forårsager {damage} Blødningsskade over 12 sek. Forbruger kombopoint. Kun i Ulveform.',
   'entities.abilities.rip.name': 'Sønderriv',
   'entities.abilities.rockbiter_weapon.description':
-    'Gennemstrømmer dit våben med stenets vrede: hvert hug tilføjer 5 ekstra skade i 5 min.',
+    'Gennemstrømmer dit våben med stenets vrede: hvert hug tilføjer {damage} ekstra skade i 5 min.',
   'entities.abilities.rockbiter_weapon.name': 'Stenbundet Våben',
   'entities.abilities.rupture.description':
     'Afslutningsangreb der sårer målet og får det til at bløde for {damage} over 16 sek.',
@@ -1816,7 +1818,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Svider fjenden for {damage} Ild skade. Hurtig at kaste.',
   'entities.abilities.scorch.name': 'Skoldning',
   'entities.abilities.seal_of_righteousness.description':
-    'Fylder dig med Hellig kraft i 30 sek, så hvert af dine nærkampshug tilføjer 4 ekstra Hellig skade. Udløs med Dom.',
+    'Fylder dig med Hellig kraft i 30 sek, så hvert af dine nærkampshug tilføjer {damage} ekstra Hellig skade. Udløs med Dom.',
   'entities.abilities.seal_of_righteousness.name': 'Edsbrand',
   'entities.abilities.searing_pain.description':
     'Brænder fjenden med pinefuld ild for {damage} Ild skade. Hurtig at kaste.',
@@ -1834,7 +1836,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Sprænger øjeblikkeligt målet med sviende skygge for {damage} Skygge skade.',
   'entities.abilities.shadowburn.name': 'Skumringsild',
   'entities.abilities.shield_slam.description':
-    'Slå målet med dit skjold for {damage} og enorm trussel. (Beskyttelses-kendetegn)',
+    'Slå målet med dit skjold for 50% våbenskade plus {damage} og enorm trussel. (Beskyttelses-kendetegn)',
   'entities.abilities.shield_slam.name': 'Skjoldknæk',
   'entities.abilities.sinister_strike.description':
     'Et øjeblikkeligt slag for våbenskade plus {damage}. Giver 1 kombopoint.',
@@ -1878,8 +1880,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.summon_voidwalker.description':
     'Tilkalder en Gloomshade under Heksemesterens kommando. Gloomshaden er en robust dæmon, der håner dine fjender og opsuger tæsk. At tilkalde en ny dæmon bortsender din nuværende. Du kan have én dæmon ad gangen.',
   'entities.abilities.summon_voidwalker.name': 'Tilkald Gloomshade',
-  'entities.abilities.sunder_armor.description':
-    'Sønderbryder målets rustning og reducerer den med {damage} per anvendelse. Stabler op til 5 gange. Genererer en stor mængde trussel.',
   'entities.abilities.sunder_armor.name': 'Rustningsskær',
   'entities.abilities.swipe.description':
     'Sving mod nærliggende fjender for {damage} skade. Forårsager ekstra trussel. Kun i Bruin-form.',
@@ -1891,7 +1891,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Håner målet: din trussel stiger til at matche dets mest forhadte fjende, og det tvinges til at angribe dig i 3 sek.',
   'entities.abilities.taunt.name': 'Ægge',
   'entities.abilities.thorns.description':
-    'Torne spirer frem fra målet: nærkampsangribere tager 3 Natur skade.',
+    'Torne spirer frem fra målet: nærkampsangribere tager {buff} Natur skade.',
   'entities.abilities.thorns.name': 'Torneværn',
   'entities.abilities.thunder_clap.description':
     'Sprænger nærliggende fjender for {damage} skade og sløver deres angreb med 10 % i 10 sek.',
@@ -1908,7 +1908,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
     'Snur i en dødelig bue og ram alle nærliggende fjender for {damage}. (Raseri-talent)',
   'entities.abilities.whirlwind.name': 'Klingehvirvel',
   'entities.abilities.wing_clip.description':
-    'Påfører et sår der sløver fjenden med 40 % i 10 sek.',
+    'Påfører et sår for {damage} skade, der sløver fjenden med 40% i 10 sek.',
   'entities.abilities.wing_clip.name': 'Lænkende Snit',
   'entities.abilities.wrath.description': 'Slynger et lyn af naturenergi for {damage} Natur skade.',
   'entities.abilities.wrath.name': 'Vildlyn',
@@ -5900,7 +5900,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'worldContent.dungeonInstanceBusy': 'Alle instanser af {name} er optaget. Prøv igen snart.',
   'worldContent.dungeonPartyWarning':
     '{name} er beregnet til en fuld gruppe på {count}. Træd varsomt.',
-  // Aura effect tooltip summaries.
   'hudChrome.auraEffect.dot': 'Giver {value} {school}-skade hvert {interval}. sek',
   'hudChrome.auraEffect.hot': 'Gendanner {value} helbred hvert {interval}. sek',
   'hudChrome.auraEffect.absorb': 'Absorberer {value} skade',
@@ -6212,7 +6211,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Opdater',
   'errors.api.desktopCodeInvalid':
     'Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.',
-  // Ravenpost authored letters
   'entities.letters.ravenpost_welcome.sender': 'Ravneposten',
   'entities.letters.ravenpost_welcome.subject': 'Ravnene flyver nu for dig',
   'entities.letters.ravenpost_welcome.body':
@@ -6300,7 +6298,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'apiError.two_factor.not_enabled': 'To-faktor er ikke aktiveret.',
   'apiError.two_factor.setup_required': 'Start opsætning af to-faktor først.',
   'apiError.validation.failed': 'Nogle felter er ugyldige. Tjek formularen og prøv igen.',
-  // Release v0.22.0 locale fill.
   'download.linuxCta': 'Download til Linux',
   'download.linuxHint':
     'AppImage: gør det eksekverbart, og kør det derefter. Ingen installation nødvendig.',
@@ -6409,7 +6406,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mobile.targetCycleShort': 'Mål',
   'hudChrome.options.mobileCameraJoystick': 'Kamera joystick',
   'hudChrome.options.mobileLeftHanded': 'Venstrehånds layout',
-  // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Et håndværk at kalde dit eget',
   'entities.quests.q_archetype_acceptance.text':
     'Hver eneste håndværker fra Eastbrook sætter sig til sidst over på et håndværk, som de kalder deres eget. Bevis dig selv med en enkelt gerning, {playerName}, og erklær din vej.',
@@ -6421,4 +6417,66 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_prof_make_amends.completion':
     'Foretagne ændringer; en ny vej er åben for dig.',
   'entities.quests.q_prof_make_amends.objectives.0.label': 'Skovulv dræbt',
+  'entities.npcs.bursar_aldous_crane.greeting':
+    'Hver kasse, hvert skrin og hvert smykke er i sikkerhed hos Det Forgyldte Pengeskrin.',
+  'entities.npcs.bursar_aldous_crane.name': 'Skatmester Aldous Crane',
+  'entities.npcs.bursar_aldous_crane.title': 'Det Forgyldte Pengeskrin',
+  'entities.npcs.bursar_fernando.greeting':
+    'Velkommen til Det Forgyldte Pengeskrin. Dine varer hviler trygt bag vores låse.',
+  'entities.npcs.bursar_fernando.name': 'Skatmester Fernando',
+  'entities.npcs.bursar_fernando.title': 'Det Forgyldte Pengeskrin',
+  'entities.npcs.bursar_petra_vell.greeting':
+    'Det Forgyldte Pengeskrin fører rene regnskaber og endnu renere hvælv. Hvad skal vi opbevare for dig?',
+  'entities.npcs.bursar_petra_vell.name': 'Skatmester Petra Vell',
+  'entities.npcs.bursar_petra_vell.title': 'Det Forgyldte Pengeskrin',
+  'guide.economy.bankBody':
+    'Hver hjemmebase har en filial af Det Forgyldte Pengeskrin, rigets bankhus. Tal med skatmesteren der for at åbne din boks, en privat opbevaringsplads ud over dine tasker, som din karakter beholder livet ud. Hvad end du efterlader hos dem, venter i sikkerhed, uanset hvilken filial du besøger næste gang.',
+  'guide.economy.bankHow':
+    'Med boksen åben klikker du på en genstand i dine tasker for at indsætte den, og klikker på den i boksen for at tage den tilbage. Boksen rummer kun varer, aldrig mønter, og opgavegenstande bliver hos dig. Når dine tasker fyldes op undervejs, fejer én knap alle dine håndværksmaterialer ind på én gang.',
+  'guide.economy.bankSlots':
+    'En ny boks starter i det små og vokser med dig. Skatmesteren sælger flere pladser for mønter til stadigt stejlere priser, og at spille online giver bonusplads oveni, for ting som en bekræftet e-mail, forbundne konti og venner, du bringer ind i spillet.',
+  'guide.economy.bankTitle': 'Banken',
+  'hudChrome.bank.bonusAdvertDiscord': 'Forbind din Discord for at optjene 2 pladser.',
+  'hudChrome.bank.bonusAdvertEmail': 'Bekræft din e-mail for at optjene 2 pladser.',
+  'hudChrome.bank.bonusAdvertWallet': 'Forbind en wallet for at optjene 2 pladser.',
+  'hudChrome.bank.bonusEarned': '+{count}',
+  'hudChrome.bank.bonusReferralExplainer':
+    'Invitér en ven: når din ven når niveau 10, optjener I hver især 2 pladser, op til 5 venner.',
+  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
+  'hudChrome.bank.bonusSectionAria': 'Bonuspladser i banken, og hvordan du optjener flere',
+  'hudChrome.bank.bonusSourceDiscord': 'Discord forbundet',
+  'hudChrome.bank.bonusSourceEmail': 'Bekræftet e-mail',
+  'hudChrome.bank.bonusSourceReferral': 'Henviste venner',
+  'hudChrome.bank.bonusSourceWallet': 'Wallet forbundet',
+  'hudChrome.bank.bonusStatusEarned': '+{count}',
+  'hudChrome.bank.bonusTitle': 'Bonuspladser',
+  'hudChrome.bank.buyConfirm': 'Køb {count} ekstra bankpladser for {price}?',
+  'hudChrome.bank.buyConfirmAccept': 'Køb',
+  'hudChrome.bank.buySlots': 'Køb {count} pladser',
+  'hudChrome.bank.buySlotsMaxed': 'Fuldt udvidet',
+  'hudChrome.bank.cannotDeposit': 'Kan ikke lægges i banken',
+  'hudChrome.bank.capacity': '{used}/{total}',
+  'hudChrome.bank.capacityAria': 'Brugte bankpladser: {used} af {total}',
+  'hudChrome.bank.close': 'Luk banken',
+  'hudChrome.bank.depositAll': 'Indsæt alle materialer',
+  'hudChrome.bank.depositAllDone': 'Materialer indsat: {count}.',
+  'hudChrome.bank.depositAllFull': 'Materialer indsat: {count}. Banken er nu fuld.',
+  'hudChrome.bank.depositAllNone': 'Banken er fuld: intet indsat.',
+  'hudChrome.bank.depositHint': 'Klik for at indsætte',
+  'hudChrome.bank.depositPartialHint': 'Shift-klik for at indsætte et mindre antal',
+  'hudChrome.bank.depositQuantityConfirm': 'Indsæt',
+  'hudChrome.bank.depositQuantityInput': 'Antal at indsætte',
+  'hudChrome.bank.depositQuantityTitle': 'Indsæt {item}',
+  'hudChrome.bank.empty': 'Din bank er tom.',
+  'hudChrome.bank.filterGroupAria': 'Filtrér banken efter kategori',
+  'hudChrome.bank.searchAria': 'Søg i bankens genstande efter navn',
+  'hudChrome.bank.sortAria': 'Sortér bankens genstande',
+  'hudChrome.bank.subtitle': 'Det Forgyldte Pengeskrin',
+  'hudChrome.bank.title': 'Bank',
+  'hudChrome.bank.tooFar': 'Du skal stå hos en skatmester for at se din bank.',
+  'hudChrome.bank.withdrawHint': 'Klik for at tage ud',
+  'hudChrome.bank.withdrawPartialHint': 'Shift-klik for at tage et mindre antal ud',
+  'hudChrome.bank.withdrawQuantityConfirm': 'Tag ud',
+  'hudChrome.bank.withdrawQuantityInput': 'Antal at tage ud',
+  'hudChrome.bank.withdrawQuantityTitle': 'Tag {item} ud',
 };

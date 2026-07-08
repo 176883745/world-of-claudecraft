@@ -1016,10 +1016,19 @@ export const de_DE: EnTranslations = {
         "allStats": "Verringert alle Attribute um {value}"
       },
       "allStatsPctReduce": "Verringert alle Attribute um {pct}%",
+      "increasePct": {
+        "ap": "Increases attack power by {pct}%",
+        "armor": "Increases armor by {pct}%",
+        "int": "Increases Intellect by {pct}%",
+        "sta": "Increases Stamina by {pct}%",
+        "allStats": "Increases all attributes by {pct}%"
+      },
       "dodge": "Erhöht Ausweichchance um {pct}%",
       "dodgeReduce": "Verringert Ausweichchance um {pct}%",
       "armorFlat": "Verringert Rüstung um {value}",
       "armorFlatStacks": "Verringert Rüstung um {value} ({stacks} Stapel)",
+      "armorPct": "Reduces armor by {pct}%",
+      "armorPctStacks": "Reduces armor by {pct}% ({stacks} stacks)",
       "mortalWound": "Verringert erhaltene Heilung um {pct}%",
       "vulnerability": "Erhöht erlittenen Schaden um {pct}%",
       "physVuln": "Erhöht erlittenen physischen Schaden um {pct}%",
@@ -1309,6 +1318,50 @@ export const de_DE: EnTranslations = {
         "letterGone": "Dieser Brief ist nicht mehr in deinem Kasten.",
         "takeParcelsFirst": "Entnimm erst die Pakete, bevor du den Brief verwirfst."
       }
+    },
+    "bank": {
+      "title": "Bank",
+      "subtitle": "Die Vergoldete Schatulle",
+      "close": "Bank schließen",
+      "capacity": "{used}/{total}",
+      "capacityAria": "Belegte Bankfächer: {used} von {total}",
+      "empty": "Deine Bank ist leer.",
+      "tooFar": "Du musst bei einem Bankier stehen, um deine Bank einzusehen.",
+      "buySlots": "{count} Fächer kaufen",
+      "buySlotsMaxed": "Vollständig erweitert",
+      "buyConfirm": "{count} zusätzliche Bankfächer für {price} kaufen?",
+      "buyConfirmAccept": "Kaufen",
+      "withdrawHint": "Klicke, um zu entnehmen",
+      "withdrawPartialHint": "Umschalt-Klick, um eine Teilmenge zu entnehmen",
+      "depositHint": "Klicke, um einzulagern",
+      "depositPartialHint": "Umschalt-Klick, um eine Teilmenge einzulagern",
+      "cannotDeposit": "Kann nicht eingelagert werden",
+      "depositQuantityTitle": "{item} einlagern",
+      "depositQuantityInput": "Einzulagernde Menge",
+      "depositQuantityConfirm": "Einlagern",
+      "withdrawQuantityTitle": "{item} entnehmen",
+      "withdrawQuantityInput": "Zu entnehmende Menge",
+      "withdrawQuantityConfirm": "Entnehmen",
+      "filterGroupAria": "Bank nach Kategorie filtern",
+      "sortAria": "Bankgegenstände sortieren",
+      "searchAria": "Bankgegenstände nach Namen durchsuchen",
+      "depositAll": "Alle Materialien einlagern",
+      "depositAllDone": "Eingelagerte Materialien: {count}.",
+      "depositAllFull": "Eingelagerte Materialien: {count}. Die Bank ist jetzt voll.",
+      "depositAllNone": "Bank voll: nichts eingelagert.",
+      "bonusTitle": "Bonusfächer",
+      "bonusEarned": "+{count}",
+      "bonusStatusEarned": "+{count}",
+      "bonusSourceEmail": "E-Mail-Adresse bestätigt",
+      "bonusSourceDiscord": "Discord verknüpft",
+      "bonusSourceWallet": "Wallet verknüpft",
+      "bonusSourceReferral": "Geworbene Freunde",
+      "bonusAdvertEmail": "Bestätige deine E-Mail-Adresse und erhalte 2 Fächer.",
+      "bonusAdvertDiscord": "Verknüpfe dein Discord-Konto und erhalte 2 Fächer.",
+      "bonusAdvertWallet": "Verknüpfe eine Wallet und erhalte 2 Fächer.",
+      "bonusReferralProgress": "{count}/{cap}",
+      "bonusReferralExplainer": "Lade einen Freund ein: Erreicht er Stufe 10, erhaltet ihr beide 2 Fächer, bis zu 5 Freunde.",
+      "bonusSectionAria": "Bonus-Bankfächer und wie du mehr davon verdienst"
     },
     "calendar": {
       "title": "Ereigniskalender",
@@ -2176,6 +2229,8 @@ export const de_DE: EnTranslations = {
       "waveGoldBody": "Die mittlere Welle: zweischneidige Kombinationen, in denen dein Build allmählich Gestalt annimmt und zu glänzen beginnt.",
       "wavePrismaticTitle": "Prismatisch",
       "wavePrismaticBody": "Die letzte Welle: build-prägende, bildschirmschmelzende Ausschläge, die sich auf die beste Art lächerlich anfühlen sollen.",
+      "yumiHeading": "Protect Yumi",
+      "yumiBody": "Protect Yumi is a team objective mode played in a maze: each side guards its own cat familiar while hunting the other. Every so often both cats blink to new corners of the maze, so the fight swings between defending, hunting, and racing to find them again. Queue as three versus three or five versus five; falling in battle only benches you for a moment.",
       "powerupsTitle": "Powerups im Ring",
       "powerupsBody": "Mitten im Kampf fallen außerdem leuchtende Kugeln in die Arena, frei für den, der sie zuerst erreicht. Sie sind absichtlich völlig übertrieben und halten nur kurz an: Geschwindigkeitsdämon für einen Wimpernschlag blendenden Tempos, Koloss, um dich zu einem schwerfälligen Riesen anschwellen zu lassen, Mondstiefel für einen federnden Sprung bei niedriger Schwerkraft und Berserker für einen plötzlichen Schub an Raserei.",
       "ladderHeading": "Die Rangleiter erklimmen",
@@ -2328,6 +2383,10 @@ export const de_DE: EnTranslations = {
       "vendorsBody": "Städte und Außenposten sind mit Händlern gespickt, jeder mit seinem eigenen Gewerbe. Versorger führen Speis und Trank, Waffenschmiede und Rüstungsschmiede haben Ausrüstung, und ein Quartiermeister hält praktisches Reisegerät bereit. Geh auf einen zu, um zu sehen, was er verkauft.",
       "marksTitle": "Eine zweite Währung: Tiefgang-Marken",
       "marksBody": "Geld ist nicht das Einzige, was du anhäufst. Tiefgänge zahlen Tiefgang-Marken aus, eine eigene Währung, die du nur beim Tiefgang-Hüter ausgibst, für Verbesserungen deiner Gefährtin und Ausrüstung, die du nirgendwo sonst findest. Sie vermischen sich nie mit deinem Geld.",
+      "bankTitle": "Die Bank",
+      "bankBody": "Jede größere Stadt beherbergt eine Filiale der Vergoldeten Schatulle, des Bankhauses des Reichs. Sprich dort mit dem Kämmerer, um deinen Tresor zu eröffnen: einen privaten Stauraum jenseits deiner Taschen, der deinem Charakter ein Leben lang erhalten bleibt. Was du dort zurücklässt, wartet sicher auf dich, welche Filiale du auch als Nächstes besuchst.",
+      "bankHow": "Ist der Tresor geöffnet, klicke einen Gegenstand in deinen Taschen an, um ihn einzulagern, und klicke ihn im Tresor an, um ihn zurückzuholen. Der Tresor fasst nur Waren, niemals Münzen, und Questgegenstände bleiben bei dir. Wenn deine Taschen unterwegs überquellen, fegt ein einziger Knopf alle deine Handwerksmaterialien auf einmal hinein.",
+      "bankSlots": "Ein frischer Tresor beginnt klein und wächst mit dir. Der Kämmerer verkauft weitere Fächer für Münzen zu immer steileren Preisen, und Online-Spielen bringt obendrein Bonusfächer ein, etwa für eine bestätigte E-Mail-Adresse, verknüpfte Konten und Freunde, die du ins Spiel holst.",
       "buyingTitle": "Kaufen und Verkaufen",
       "buyingBody": "Stelle dich neben einen Händler, um sein Fenster zu öffnen. Du kannst alles kaufen, was er führt, sofern du es dir leisten kannst, und das meiste aus deinen Taschen gegen Münzen verkaufen. Verkaufst du etwas aus Versehen, hebt ein Händler deine jüngsten Verkäufe auf, sodass du sie zurückkaufen kannst.",
       "junkTitle": "Plunder loswerden",
@@ -3599,6 +3658,45 @@ export const de_DE: EnTranslations = {
     },
     "chest": {
       "flavor": "Die Toten haben hergegeben, was sie entbehren können."
+    }
+  },
+  "yumi": {
+    "bracket3": "Yumi 3v3",
+    "bracket5": "Yumi 5v5",
+    "enterQueue": "Join Protect Yumi!",
+    "queue": {
+      "join": "You join the Protect Yumi queue. Guard your familiar…",
+      "leave": "You leave the Protect Yumi queue.",
+      "teamLeave": "Your team leaves the Protect Yumi queue."
+    },
+    "error": {
+      "partyTooBig3": "Protect Yumi 3v3 allows a party of up to three.",
+      "partyTooBig5": "Protect Yumi 5v5 allows a party of up to five."
+    },
+    "log": {
+      "start": "Protect Yumi! Defend your familiar and hunt theirs."
+    },
+    "hud": {
+      "title": "PROTECT YUMI",
+      "getReady": "Get ready…",
+      "teleportIn": "Yumis move in {s}",
+      "suddenDeath": "SUDDEN DEATH",
+      "yourYumi": "Your Yumi",
+      "enemyYumi": "Enemy Yumi",
+      "aria": "Your Yumi at {mine} of {max} health, enemy Yumi at {theirs}.",
+      "collapse": "Collapse the Protect Yumi bars",
+      "expand": "Expand the Protect Yumi bars"
+    },
+    "respawn": {
+      "title": "DOWNED!"
+    },
+    "banner": {
+      "sudden": "SUDDEN DEATH! The Yumis hold their ground!",
+      "teleport": "The Yumis teleport!"
+    },
+    "end": {
+      "win": "VICTORY! Yumi is safe!",
+      "loss": "DEFEAT! Your Yumi has fallen."
     }
   },
   "fiesta": {
@@ -4903,7 +5001,8 @@ export const de_DE: EnTranslations = {
       "needAria": "Bedarf für {item}",
       "greedAria": "Gier für {item}",
       "passAria": "Bei {item} passen",
-      "everyonePassed": "Alle passen bei {item}."
+      "everyonePassed": "Alle passen bei {item}.",
+      "rolled": "{answered}/{total} rolled"
     }
   },
   "entities": {
@@ -4954,19 +5053,19 @@ export const de_DE: EnTranslations = {
       },
       "rain_of_fire": {
         "name": "Feuerregen",
-        "description": "Lässt einen Feuerregen auf den Zielbereich niedergehen, der Gegner verbrennt und {damage} Feuerschaden verursacht."
+        "description": "Lässt 4 Sek. lang einen Feuerregen auf den Zielbereich niedergehen, der Gegner jede Sekunde für {damage} Feuerschaden verbrennt."
       },
       "volley": {
         "name": "Pfeilhagel",
-        "description": "Lässt einen Pfeilhagel auf den Zielbereich niedergehen und verursacht {damage} Schaden an den Gegnern darin."
+        "description": "Lässt 3 Sek. lang Pfeile auf den Zielbereich niedergehen und verursacht alle 0.5 Sek. {damage} Schaden an Gegnern darin."
       },
       "hurricane": {
         "name": "Wirbelsturm",
-        "description": "Entfesselt einen Wirbelsturm über dem Zielbereich, der Gegner trifft und {damage} Naturschaden verursacht."
+        "description": "Entfesselt 6 Sek. lang einen Wirbelsturm über dem Zielbereich, der Gegner jede Sekunde für {damage} Naturschaden trifft."
       },
       "earthquake": {
         "name": "Erdbeben",
-        "description": "Lässt den Zielbereich erbeben, trifft Gegner und verursacht {damage} Naturschaden."
+        "description": "Lässt den Zielbereich 6 Sek. lang erbeben und trifft Gegner alle 1.5 Sek. für {damage} Naturschaden."
       },
       "heroic_strike": {
         "name": "Reaver-Hieb",
@@ -4974,15 +5073,15 @@ export const de_DE: EnTranslations = {
       },
       "battle_shout": {
         "name": "Eisernes Gebrüll",
-        "description": "Erhöht eure Angriffskraft 2 Min. lang um 20."
+        "description": "Erhöht eure Angriffskraft 2 Min. lang um {buff}."
       },
       "commanding_shout": {
         "name": "Stärkender Ruf",
-        "description": "Erhöht eure Ausdauer 2 Min. lang um 6."
+        "description": "Erhöht eure Ausdauer 2 Min. lang um {buff}."
       },
       "demoralizing_shout": {
         "name": "Direhowl",
-        "description": "Stößt einen furchterregenden Ruf aus und verringert die Angriffskraft aller nahen Gegner 30 Sek. lang um 30."
+        "description": "Stößt einen furchterregenden Ruf aus und verringert die Angriffskraft aller nahen Gegner 30 Sek. lang um {buff}."
       },
       "charge": {
         "name": "Vorpreschen",
@@ -4990,7 +5089,7 @@ export const de_DE: EnTranslations = {
       },
       "rend": {
         "name": "Tiefe Wunde",
-        "description": "Verwundet das Ziel und lässt es über 9 Sek. für {damage} Schaden bluten."
+        "description": "Verwundet das Ziel und lässt es über {duration} Sek. für {damage} Schaden bluten."
       },
       "thunder_clap": {
         "name": "Bebender Schlag",
@@ -4998,7 +5097,7 @@ export const de_DE: EnTranslations = {
       },
       "hamstring": {
         "name": "Lähmender Schnitt",
-        "description": "Verkrüppelt den Gegner für 5 Schaden und verringert sein Bewegungstempo 15 Sek. lang um 50%."
+        "description": "Verkrüppelt den Gegner für {damage} Schaden und verringert sein Bewegungstempo 15 Sek. lang um 50%."
       },
       "bloodrage": {
         "name": "Blutzoll",
@@ -5006,7 +5105,7 @@ export const de_DE: EnTranslations = {
       },
       "overpower": {
         "name": "Redhand",
-        "description": "Sofortiger Angriff mit Waffenschaden +5. Nur einsetzbar, nachdem das Ziel ausgewichen ist. Kann nicht ausgewichen werden."
+        "description": "Sofortiger Angriff mit Waffenschaden plus {damage}. Nur einsetzbar, nachdem das Ziel ausgewichen ist. Kann nicht ausgewichen werden."
       },
       "execute": {
         "name": "Frühes Grab",
@@ -5026,7 +5125,7 @@ export const de_DE: EnTranslations = {
       },
       "sunder_armor": {
         "name": "Rüstungsspalter",
-        "description": "Zerreißt die Rüstung des Ziels und verringert sie pro Anwendung um {damage}. Bis zu 5-mal stapelbar. Erzeugt viel Bedrohung."
+        "description": "Sunders the target's armor, reducing it by {damage}% per application. Stacks up to 5 times. Generates a high amount of threat."
       },
       "taunt": {
         "name": "Anstacheln",
@@ -5038,11 +5137,11 @@ export const de_DE: EnTranslations = {
       },
       "frost_armor": {
         "name": "Raureifmantel",
-        "description": "Hüllt euch in Frost und erhöht die Rüstung 30 Min. lang um 30."
+        "description": "Hüllt euch in Frost und erhöht die Rüstung 30 Min. lang um {buff}."
       },
       "arcane_intellect": {
         "name": "Aether-Einsicht",
-        "description": "Erhöht die Intelligenz 30 Min. lang um 2."
+        "description": "Erhöht die Intelligenz 30 Min. lang um {buff}."
       },
       "frostbolt": {
         "name": "Rimelance",
@@ -5066,7 +5165,7 @@ export const de_DE: EnTranslations = {
       },
       "polymorph": {
         "name": "Behexen",
-        "description": "Verwandelt den Gegner bis zu 15 Sek. lang in eine Kröte. Die Kröte wandert umher und heilt sich schnell. Jeder Schaden bricht den Effekt. Nur Wildtiere und Humanoide."
+        "description": "Verwandelt den Gegner bis zu {duration} Sek. lang in eine Kröte. Die Kröte wandert umher und heilt sich schnell. Jeder Schaden bricht den Effekt. Nur Wildtiere und Humanoide."
       },
       "frost_nova": {
         "name": "Icebind",
@@ -5086,7 +5185,7 @@ export const de_DE: EnTranslations = {
       },
       "ice_barrier": {
         "name": "Frostschleier",
-        "description": "Schützt euch mit Eis und absorbiert 60 Sek. lang 130 Schaden."
+        "description": "Schützt euch mit Eis und absorbiert 60 Sek. lang {damage} Schaden."
       },
       "sinister_strike": {
         "name": "Boshafter Hieb",
@@ -5094,7 +5193,7 @@ export const de_DE: EnTranslations = {
       },
       "eviscerate": {
         "name": "Grabesschlaf",
-        "description": "Finishing-Move, der Schaden pro Combopunkt verursacht."
+        "description": "Finishing-Move, der {damage} verursacht."
       },
       "backstab": {
         "name": "Feiger Stoß",
@@ -5102,7 +5201,7 @@ export const de_DE: EnTranslations = {
       },
       "gouge": {
         "name": "Augenstich",
-        "description": "Trifft das Ziel und macht es 4 Sek. lang handlungsunfähig. Jeder Schaden bricht den Effekt. Gewährt 1 Combopunkt."
+        "description": "Trifft das Ziel für {damage} Schaden und macht es 4 Sek. lang handlungsunfähig. Jeder Schaden bricht den Effekt. Gewährt 1 Combopunkt."
       },
       "evasion": {
         "name": "Ghostfoot",
@@ -5134,11 +5233,11 @@ export const de_DE: EnTranslations = {
       },
       "garrote": {
         "name": "Kehldraht",
-        "description": "Erwürgt den Gegner, verursacht sofort Schaden und lässt ihn 18 Sek. lang um {damage} bluten. Erfordert Verstohlenheit. Gewährt 1 Combopunkt."
+        "description": "Erwürgt den Gegner, verursacht sofort {damage} Schaden und lässt ihn über 18 Sek. für {overTime} bluten. Erfordert Verstohlenheit. Gewährt 1 Combopunkt."
       },
       "cheap_shot": {
         "name": "Magenhieb",
-        "description": "Trifft das Ziel und betäubt es 4 Sek. lang. Erfordert Verstohlenheit. Gewährt 2 Combopunkte."
+        "description": "Trifft das Ziel für {damage} Schaden und betäubt es 4 Sek. lang. Erfordert Verstohlenheit. Gewährt 2 Combopunkte."
       },
       "sap": {
         "name": "Kopfnuss",
@@ -5146,11 +5245,11 @@ export const de_DE: EnTranslations = {
       },
       "crippling_poison": {
         "name": "Bleiernes Gift",
-        "description": "Trifft das Ziel mit einem bleiernen Gift, verursacht {damage} Naturschaden und verringert sein Bewegungstempo 12 Sek. lang um 50%."
+        "description": "Trifft das Ziel mit einem bleiernen Gift, verursacht {damage} Naturschaden und verlangsamt sein Bewegungstempo 12 Sek. lang um 50%."
       },
       "expose_armor": {
         "name": "Rüstungsbruch",
-        "description": "Finishing-Move, der das Ziel entblößt und seine Rüstung verringert. Mehr eingesetzte Combopunkte führen zu einem tieferen Schnitt."
+        "description": "Finishing-Move, der das Ziel entblößt und seine Rüstung 30 Sek. lang um {damage} verringert."
       },
       "rupture": {
         "name": "Ausbluten",
@@ -5174,7 +5273,7 @@ export const de_DE: EnTranslations = {
       },
       "seal_of_righteousness": {
         "name": "Oathbrand",
-        "description": "Erfüllt euch 30 Sek. lang mit Heiliger Macht, sodass jeder Nahkampfschwung 4 zusätzlichen Heiligschaden verursacht. Mit Verdict entfesseln."
+        "description": "Erfüllt euch 30 Sek. lang mit Heiliger Macht, sodass jeder Nahkampfschwung {damage} zusätzlichen Heiligschaden verursacht. Mit Verdict entfesseln."
       },
       "holy_light": {
         "name": "Mending Light",
@@ -5182,7 +5281,7 @@ export const de_DE: EnTranslations = {
       },
       "devotion_aura": {
         "name": "Standhafte Aura",
-        "description": "Erhöht eure Rüstung 30 Min. lang um 40."
+        "description": "Erhöht eure Rüstung 30 Min. lang um {buff}."
       },
       "judgement": {
         "name": "Verdict",
@@ -5190,19 +5289,19 @@ export const de_DE: EnTranslations = {
       },
       "blessing_of_might": {
         "name": "Eid des Eisens",
-        "description": "Belegt ein freundliches Ziel mit einem Segen und erhöht seine Angriffskraft 5 Min. lang um 15."
+        "description": "Belegt ein freundliches Ziel mit einem Segen und erhöht seine Angriffskraft 5 Min. lang um {buff}."
       },
       "divine_protection": {
         "name": "Bannschild des Glaubens",
-        "description": "Ein schützender Bannschild absorbiert 10 Sek. lang 50 Schaden."
+        "description": "Ein schützender Bannschild absorbiert 10 Sek. lang {damage} Schaden."
       },
       "hammer_of_justice": {
         "name": "Spaltender Richthammer",
-        "description": "Betäubt das Ziel 3 Sek. lang."
+        "description": "Betäubt das Ziel {duration} Sek. lang."
       },
       "lay_on_hands": {
         "name": "Letzte Ölung",
-        "description": "Ein gewaltiger Heilungsstoß: Stellt 250 Gesundheit wieder her. 10 Min. Abklingzeit."
+        "description": "Ein gewaltiger Heilungsstoß: Stellt {damage} Gesundheit wieder her. 10 Min. Abklingzeit."
       },
       "flash_of_light": {
         "name": "Lightmend",
@@ -5214,7 +5313,7 @@ export const de_DE: EnTranslations = {
       },
       "consecration": {
         "name": "Heiliger Boden",
-        "description": "Weiht den Boden unter euch und versengt nahe Gegner für {damage} Heiligschaden."
+        "description": "Weiht den Boden unter euch und versengt nahe Gegner 10 Sek. lang alle 2 Sek. für {damage} Heiligschaden."
       },
       "righteous_fury": {
         "name": "Brennender Eid",
@@ -5234,11 +5333,11 @@ export const de_DE: EnTranslations = {
       },
       "raptor_strike": {
         "name": "Ausweidender Hieb",
-        "description": "Starker Nahkampfangriff, der den Schaden um 5 erhöht. Wird bei eurem nächsten Schwung ausgelöst."
+        "description": "Starker Nahkampfangriff, der den Schaden um {damage} erhöht. Wird bei eurem nächsten Schwung ausgelöst."
       },
       "aspect_of_the_hawk": {
         "name": "Gestalt der Weihe",
-        "description": "Nehmt die Gestalt der Weihe an und erhöht die Angriffskraft 30 Min. lang um 20."
+        "description": "Nehmt die Gestalt der Weihe an und erhöht die Angriffskraft 30 Min. lang um {buff}."
       },
       "serpent_sting": {
         "name": "Giftstachel",
@@ -5250,15 +5349,15 @@ export const de_DE: EnTranslations = {
       },
       "concussive_shot": {
         "name": "Rasselnder Schuss",
-        "description": "Macht das Ziel benommen und verringert sein Bewegungstempo 4 Sek. lang um 50%."
+        "description": "Macht das Ziel für {damage} Schaden benommen und verringert sein Bewegungstempo 4 Sek. lang um 50%."
       },
       "mongoose_bite": {
         "name": "Counterfang",
-        "description": "Kontert, nachdem das Ziel ausgewichen ist, für Waffenschaden plus 12. Kann nicht ausgewichen werden."
+        "description": "Kontert, nachdem das Ziel ausgewichen ist, für Waffenschaden plus {damage}. Kann nicht ausgewichen werden."
       },
       "wing_clip": {
         "name": "Fesselnder Hieb",
-        "description": "Verursacht eine Wunde, die den Gegner 10 Sek. lang um 40% verlangsamt."
+        "description": "Verursacht eine Wunde für {damage} Schaden, die den Gegner 10 Sek. lang um 40% verlangsamt."
       },
       "aspect_of_the_monkey": {
         "name": "Gestalt des Marders",
@@ -5286,7 +5385,7 @@ export const de_DE: EnTranslations = {
       },
       "power_word_fortitude": {
         "name": "Litanei der Entschlossenheit",
-        "description": "Erhöht die Ausdauer des Ziels 30 Min. lang um 3."
+        "description": "Erhöht die Ausdauer des Ziels 30 Min. lang um {buff}."
       },
       "shadow_word_pain": {
         "name": "Klagelied des Verfalls",
@@ -5294,7 +5393,7 @@ export const de_DE: EnTranslations = {
       },
       "power_word_shield": {
         "name": "Psalm der Abschirmung",
-        "description": "Schützt das Ziel und absorbiert 30 Sek. lang 48 Schaden."
+        "description": "Schützt das Ziel und absorbiert 30 Sek. lang {damage} Schaden."
       },
       "renew": {
         "name": "Anhaltende Gnade",
@@ -5322,7 +5421,7 @@ export const de_DE: EnTranslations = {
       },
       "rockbiter_weapon": {
         "name": "Stonebound-Waffe",
-        "description": "Erfüllt eure Waffe mit der Wut des Steins: Jeder Schlag verursacht 5 zusätzlichen Schaden für 5 Min."
+        "description": "Erfüllt eure Waffe mit der Wut des Steins: Jeder Schlag verursacht 5 Min. lang {damage} zusätzlichen Schaden."
       },
       "healing_wave": {
         "name": "Heilende Wasser",
@@ -5334,15 +5433,15 @@ export const de_DE: EnTranslations = {
       },
       "lightning_shield": {
         "name": "Donnerschild",
-        "description": "Umhüllt euch mit knisternden Blitzen: Nahkampfangreifer erleiden 13 Naturschaden."
+        "description": "Umhüllt euch mit knisternden Blitzen: Nahkampfangreifer erleiden {buff} Naturschaden, bis zu 3 Aufladungen und höchstens einmal alle 5 Sekunden."
       },
       "flame_shock": {
         "name": "Cinder-Stoß",
-        "description": "Versengt das Ziel mit Feuer für 25 Schaden plus {damage} über 12 Sek."
+        "description": "Versengt das Ziel mit Feuer für {damage} Schaden plus {overTime} über 12 Sek."
       },
       "flametongue_weapon": {
         "name": "Pyrebrand-Waffe",
-        "description": "Erfüllt eure Waffe mit elementarem Feuer: Jeder Schlag verursacht 8 zusätzlichen Feuerschaden für 5 Min."
+        "description": "Erfüllt eure Waffe mit elementarem Feuer: Jeder Schlag verursacht 5 Min. lang {damage} zusätzlichen Feuerschaden."
       },
       "frost_shock": {
         "name": "Rime-Stoß",
@@ -5350,7 +5449,7 @@ export const de_DE: EnTranslations = {
       },
       "frostbrand_weapon": {
         "name": "Rimebound-Waffe",
-        "description": "Verzaubert Eure Waffe mit beißendem Frost: Jeder Schlag verursacht 8 zusätzlichen Schaden für 5 Min."
+        "description": "Verzaubert Eure Waffe mit beißendem Frost: Jeder Schlag verursacht 5 Min. lang {damage} zusätzlichen Schaden."
       },
       "ghost_wolf": {
         "name": "Shadewolf",
@@ -5366,11 +5465,11 @@ export const de_DE: EnTranslations = {
       },
       "demon_skin": {
         "name": "Fiendhide",
-        "description": "Dämonische Haut erhöht eure Rüstung 30 Min. lang um 30."
+        "description": "Dämonische Haut erhöht eure Rüstung 30 Min. lang um {buff}."
       },
       "immolate": {
         "name": "Brennender Pakt",
-        "description": "Verbrennt den Gegner für 11 Feuerschaden und zusätzlich {damage} über 15 Sek."
+        "description": "Verbrennt den Gegner für {damage} Feuerschaden und zusätzlich {overTime} über 15 Sek."
       },
       "corruption": {
         "name": "Blackrot",
@@ -5378,7 +5477,7 @@ export const de_DE: EnTranslations = {
       },
       "life_tap": {
         "name": "Harter Handel",
-        "description": "Wandelt 30 Gesundheit in 30 Mana um."
+        "description": "Wandelt {damage} Gesundheit in {damage} Mana um."
       },
       "curse_of_agony": {
         "name": "Fluch der Qual",
@@ -5410,7 +5509,7 @@ export const de_DE: EnTranslations = {
       },
       "mark_of_the_wild": {
         "name": "Wildward",
-        "description": "Belegt ein freundliches Ziel mit Wildward und erhöht seine Rüstung 30 Min. lang um 25."
+        "description": "Belegt ein freundliches Ziel mit Wildward und erhöht seine Rüstung 30 Min. lang um {buff}."
       },
       "moonfire": {
         "name": "Mondsturm",
@@ -5422,7 +5521,7 @@ export const de_DE: EnTranslations = {
       },
       "thorns": {
         "name": "Briarguard",
-        "description": "Dornen sprießen aus dem Ziel: Nahkampfangreifer erleiden 3 Naturschaden."
+        "description": "Dornen sprießen aus dem Ziel: Nahkampfangreifer erleiden {buff} Naturschaden."
       },
       "entangling_roots": {
         "name": "Greifende Wurzeln",
@@ -5430,7 +5529,7 @@ export const de_DE: EnTranslations = {
       },
       "bear_form": {
         "name": "Bruin Form",
-        "description": "Verwandelt euch in einen Bären: Rüstung +65%, Angriffskraft +15, eure Angriffe erzeugen Wut und 30% mehr Bedrohung. Erneut wirken, um zur Zauberergestalt zurückzukehren."
+        "description": "Verwandelt euch in einen Bären: Rüstung +90%, stark erhöhte Angriffskraft, eure Angriffe erzeugen Wut und 30% mehr Bedrohung. Erneut wirken, um zur Zauberergestalt zurückzukehren."
       },
       "maul": {
         "name": "Bonecrush",
@@ -5450,7 +5549,7 @@ export const de_DE: EnTranslations = {
       },
       "ferocious_bite": {
         "name": "Gorebite",
-        "description": "Finishing-Move, der Schaden pro Combopunkt verursacht. Nur in Wolfsgestalt."
+        "description": "Finishing-Move, der {damage} verursacht. Nur in Wolfsgestalt."
       },
       "swipe": {
         "name": "Fegende Klauen",
@@ -5482,7 +5581,7 @@ export const de_DE: EnTranslations = {
       },
       "faerie_fire": {
         "name": "Witchlight",
-        "description": "Verringert die Rüstung des Ziels 40 Sek. lang um 35."
+        "description": "Verringert die Rüstung des Ziels 30 Sek. lang um 35."
       },
       "hibernate": {
         "name": "Schlummer",
@@ -5506,7 +5605,7 @@ export const de_DE: EnTranslations = {
       },
       "rip": {
         "name": "Zerfetzen",
-        "description": "Finishing-Move, der über 12 Sek. Blutungsschaden verursacht. Verbraucht Combopunkte. Nur in Wolfsgestalt."
+        "description": "Finishing-Move, der über 12 Sek. {damage} Blutungsschaden verursacht. Verbraucht Combopunkte. Nur in Wolfsgestalt."
       },
       "mortal_strike": {
         "name": "Verstümmelnder Hieb",
@@ -5514,11 +5613,11 @@ export const de_DE: EnTranslations = {
       },
       "bloodthirst": {
         "name": "Aderlass",
-        "description": "Greift sofort in blutiger Raserei an und verursacht {damage}. (Furor-Signatur)"
+        "description": "Greift sofort in blutiger Raserei an und verursacht 60% Waffenschaden plus {damage}. (Furor-Signatur)"
       },
       "shield_slam": {
         "name": "Shieldcrack",
-        "description": "Schlägt das Ziel mit eurem Schild für {damage} und erzeugt enorme Bedrohung. (Schutz-Signatur)"
+        "description": "Schlägt das Ziel mit eurem Schild für 50% Waffenschaden plus {damage} und erzeugt enorme Bedrohung. (Schutz-Signatur)"
       },
       "whirlwind": {
         "name": "Klingenwirbel",
@@ -6885,6 +6984,9 @@ export const de_DE: EnTranslations = {
       }
     },
     "mobs": {
+      "yumi_cat": {
+        "name": "Yumi"
+      },
       "forest_wolf": {
         "name": "Waldwolf"
       },
@@ -6944,6 +7046,9 @@ export const de_DE: EnTranslations = {
       },
       "deacon_voss": {
         "name": "Diakon Voss"
+      },
+      "training_dummy": {
+        "name": "Training Dummy"
       },
       "ridge_stalker": {
         "name": "Gratpirscher"
@@ -7330,6 +7435,21 @@ export const de_DE: EnTranslations = {
         "name": "Auktionator Voss",
         "title": "Hüter des Weltmarkts",
         "greeting": "Der Weltmarkt ist auch hier geöffnet, {className}. Kauf bei jedem Abenteurer im Reich ein oder biete deine eigenen Waren feil."
+      },
+      "bursar_fernando": {
+        "name": "Kämmerer Fernando",
+        "title": "Die Vergoldete Schatulle",
+        "greeting": "Willkommen bei der Vergoldeten Schatulle. Deine Waren ruhen sicher hinter unseren Schlössern."
+      },
+      "bursar_petra_vell": {
+        "name": "Kämmerin Petra Vell",
+        "title": "Die Vergoldete Schatulle",
+        "greeting": "Die Vergoldete Schatulle führt saubere Bücher und noch sauberere Tresore. Was dürfen wir für dich verwahren?"
+      },
+      "bursar_aldous_crane": {
+        "name": "Kämmerer Aldous Crane",
+        "title": "Die Vergoldete Schatulle",
+        "greeting": "Jede Kiste, jede Truhe und jedes Kleinod ist bei der Vergoldeten Schatulle sicher."
       },
       "brother_aldric_raid": {
         "name": "Bruder Aldric",

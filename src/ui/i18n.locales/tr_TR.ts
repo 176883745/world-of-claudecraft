@@ -1512,7 +1512,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.arcane_explosion.description':
     'Bir Gizemli enerji patlaması yakındaki tüm düşmanlara {damage} Gizemli hasar verir.',
   'entities.abilities.arcane_explosion.name': 'Aether Patlaması',
-  'entities.abilities.arcane_intellect.description': 'Zekayı 30 dakika boyunca 2 artırır.',
+  'entities.abilities.arcane_intellect.description': 'Zekayı 30 dakika boyunca {buff} artırır.',
   'entities.abilities.arcane_intellect.name': 'Aether Sezgisi',
   'entities.abilities.arcane_missiles.description':
     'Düşmana Aether Okları fırlatır, 3 saniye boyunca her saniye {damage} Gizemli hasar verir.',
@@ -1523,7 +1523,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Küheylan suretine bürünerek hareket hızını 30 dakika boyunca %30 artırırsın.',
   'entities.abilities.aspect_of_the_cheetah.name': 'Küheylan Sureti',
   'entities.abilities.aspect_of_the_hawk.description':
-    'Delice suretine bürünerek saldırı gücünü 30 dakika boyunca 20 artırırsın.',
+    'Delice suretine bürünerek saldırı gücünü 30 dakika boyunca {buff} artırırsın.',
   'entities.abilities.aspect_of_the_hawk.name': 'Delice Sureti',
   'entities.abilities.aspect_of_the_monkey.description':
     'Sansar suretine bürünerek kaçınma şansını 30 dakika boyunca %8 artırırsın.',
@@ -1536,19 +1536,19 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.barkskin.name': 'Meşe Derisi',
   'entities.abilities.bash.description': 'Hedefi 2 saniye sersemletir. Yalnızca Bruin Formu.',
   'entities.abilities.bash.name': 'Sarsma',
-  'entities.abilities.battle_shout.description': 'Saldırı gücünü 2 dakika boyunca 20 artırır.',
+  'entities.abilities.battle_shout.description': 'Saldırı gücünü 2 dakika boyunca {buff} artırır.',
   'entities.abilities.battle_shout.name': 'Demir Nara',
   'entities.abilities.bear_charge.description':
     'Bir düşmana hücum ederek 9 öfke üretir ve onu 1 saniye sersemletir. 8-25 yarda menzil. Yalnızca Bruin Formu.',
   'entities.abilities.bear_charge.name': 'Bruin Hücumu',
   'entities.abilities.bear_form.description':
-    'Bir ayıya dönüş: zırh +%65, saldırı gücü +15, saldırıların öfke biriktirir ve %30 daha fazla tehdit üretir. Büyücü formuna dönmek için tekrar kullan.',
+    'Bir ayıya dönüş: zırh +%90, saldırı gücü büyük ölçüde artar, saldırıların öfke biriktirir ve %30 daha fazla tehdit üretir. Büyücü formuna dönmek için tekrar kullan.',
   'entities.abilities.bear_form.name': 'Bruin Formu',
   'entities.abilities.berserker_rage.description':
     'Kaynayan bir gazaba kapılarak 20 öfke üretir. (Savaşçı yeteneği)',
   'entities.abilities.berserker_rage.name': 'Kaynayan Gazap',
   'entities.abilities.blessing_of_might.description':
-    'Dost bir hedefe bir Kutsama yerleştirir, saldırı gücünü 5 dakika boyunca 15 artırır.',
+    'Dost bir hedefe bir Kutsama yerleştirir, saldırı gücünü 5 dakika boyunca {buff} artırır.',
   'entities.abilities.blessing_of_might.name': 'Demir Yemini',
   'entities.abilities.blind.description':
     'Hedefi kör eder, 8 saniye boyunca şaşkın şaşkın dolaşmasına neden olur. Herhangi bir hasar etkiyi bozar.',
@@ -1556,7 +1556,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.bloodrage.description': 'Can pahasına 10 öfke üretir.',
   'entities.abilities.bloodrage.name': 'Kan Bedeli',
   'entities.abilities.bloodthirst.description':
-    'Bir kan çılgınlığıyla anında {damage} hasar veren bir saldırı yap. (Hiddet imzası)',
+    'Bir kan çılgınlığıyla anında %60 silah hasarı artı {damage} veren bir saldırı yap. (Hiddet imzası)',
   'entities.abilities.bloodthirst.name': 'Kan Akıtma',
   'entities.abilities.cat_form.description':
     'Bir kurda dönüş: saldırı gücü seviyenle yükselir, saldırıların enerji ve kombo puanı kullanır ve %29 daha az tehdit üretirsin. Büyücü formuna dönmek için tekrar kullan.',
@@ -1565,7 +1565,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Bir düşmana hücum ederek 9 öfke üretir ve onu 1 saniye sersemletir. 8-25 yarda menzil.',
   'entities.abilities.charge.name': 'Atılım',
   'entities.abilities.cheap_shot.description':
-    'Hedefe vurarak onu 4 saniye sersemletir. Gizlenmiş olmalısın. 2 kombo puanı kazandırır.',
+    'Hedefe {damage} hasar vererek onu 4 saniye sersemletir. Gizlenmiş olmalısın. 2 kombo puanı kazandırır.',
   'entities.abilities.cheap_shot.name': 'Mide Yumruğu',
   'entities.abilities.claw.description':
     'Düşmanı silah hasarı artı {damage} ile pençele. 1 kombo puanı kazandırır. Yalnızca Kurt Formu.',
@@ -1573,10 +1573,11 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.cleave.description':
     'Önündeki tüm düşmanlara {damage} hasar veren süpüren bir darbe.',
   'entities.abilities.cleave.name': 'Biçen Yay',
-  'entities.abilities.commanding_shout.description': 'Dayanıklılığını 2 dakika boyunca 6 artırır.',
+  'entities.abilities.commanding_shout.description':
+    'Dayanıklılığını 2 dakika boyunca {buff} artırır.',
   'entities.abilities.commanding_shout.name': 'Güçlendiren Nara',
   'entities.abilities.concussive_shot.description':
-    'Hedefi sersemletir, hareketini 4 saniye boyunca %50 yavaşlatır.',
+    'Hedefi {damage} hasarla sersemletir, hareketini 4 saniye boyunca %50 yavaşlatır.',
   'entities.abilities.concussive_shot.name': 'Sarsıcı Atış',
   'entities.abilities.conjure_food.description':
     'Yendiğinde can geri kazandıran 2 porsiyon ekmek çağırır. Daha yüksek rütbeler daha doyurucu yiyecekler çağırır.',
@@ -1585,7 +1586,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'İçildiğinde mana geri kazandıran 2 şişe su çağırır. Daha yüksek rütbeler daha saf su çağırır.',
   'entities.abilities.conjure_water.name': 'Su Bağlama',
   'entities.abilities.consecration.description':
-    'Altındaki zemini kutsar, yakındaki düşmanları {damage} Kutsal hasarla dağlar.',
+    'Altındaki zemini kutsar, yakındaki düşmanları 10 saniye boyunca her 2 saniyede bir {damage} Kutsal hasarla dağlar.',
   'entities.abilities.consecration.name': 'Kutsal Toprak',
   'entities.abilities.corruption.description':
     'Hedefi yozlaştırır, 18 saniye boyunca {damage} Gölge hasarı verir.',
@@ -1605,20 +1606,21 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.defensive_stance.description':
     'Savunma amaçlı bir dövüş duruşu: %30 daha fazla tehdit üretirsin ama %10 daha az hasar verir ve alırsın. Duruştan çıkmak için tekrar kullan.',
   'entities.abilities.defensive_stance.name': 'Korumali Durus',
-  'entities.abilities.demon_skin.description': 'Şeytani deri zırhını 30 dakika boyunca 30 artırır.',
+  'entities.abilities.demon_skin.description':
+    'Şeytani deri zırhını 30 dakika boyunca {buff} artırır.',
   'entities.abilities.demon_skin.name': 'İblis Derisi',
   'entities.abilities.demoralizing_roar.description':
     'Yakındaki düşmanların moralini bozarak saldırı güçlerini 20 saniye boyunca 20 azaltır. Yalnızca Bruin Formu.',
   'entities.abilities.demoralizing_roar.name': 'Sindiren Kükreme',
   'entities.abilities.demoralizing_shout.description':
-    'Korkunç bir nara atarak yakındaki tüm düşmanların saldırı gücünü 30 saniye boyunca 30 azaltır.',
+    'Korkunç bir nara atarak yakındaki tüm düşmanların saldırı gücünü 30 saniye boyunca {buff} azaltır.',
   'entities.abilities.demoralizing_shout.name': 'Vahim Uluma',
-  'entities.abilities.devotion_aura.description': 'Zırhını 30 dakika boyunca 40 artırır.',
+  'entities.abilities.devotion_aura.description': 'Zırhını 30 dakika boyunca {buff} artırır.',
   'entities.abilities.devotion_aura.name': 'Sarsılmaz Aura',
   'entities.abilities.dismiss_pet.description': 'Evcilini tekrar vahşi doğaya salar.',
   'entities.abilities.dismiss_pet.name': 'Yoldaşı Serbest Bırakma',
   'entities.abilities.divine_protection.description':
-    'Koruyucu bir siper 10 saniye boyunca 50 hasarı emer.',
+    'Koruyucu bir siper 10 saniye boyunca {damage} hasarı emer.',
   'entities.abilities.divine_protection.name': 'İnanç Siperi',
   'entities.abilities.drain_life.description':
     'Hedefin canını emer; 5 saniye boyunca her saniye sana {damage} can aktarır.',
@@ -1632,7 +1634,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.entangling_roots.name': 'Kavrayan Kökler',
   'entities.abilities.evasion.description': 'Sıyırma şansını 15 saniye boyunca %50 artırır.',
   'entities.abilities.evasion.name': 'Hayalet Ayak',
-  'entities.abilities.eviscerate.description': 'Her kombo puanı başına hasar veren bitirici hamle.',
+  'entities.abilities.eviscerate.description': '{damage} veren bitirici hamle.',
   'entities.abilities.eviscerate.name': 'Toprak Uykusu',
   'entities.abilities.execute.description':
     "Yaralı bir düşmanı bitirmeye çalışır ve {damage} hasar verir. Yalnızca canı %20'nin altındaki düşmanlarda kullanılabilir.",
@@ -1641,15 +1643,15 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Günahkârı Kutsal gazapla kovar ve {damage} Kutsal hasar verir.',
   'entities.abilities.exorcism.name': 'Kovma Ayini',
   'entities.abilities.expose_armor.description':
-    'Hedefi açığa düşüren ve zırhını azaltan bitirici hamle. Harcanan daha fazla kombo puanı daha derin bir kesik oluşturur.',
+    'Hedefi açığa düşüren, zırhını 30 saniye boyunca {damage} azaltan bitirici hamle.',
   'entities.abilities.expose_armor.name': 'Zırh Gediği',
-  'entities.abilities.faerie_fire.description': 'Hedefin zırhını 40 saniye boyunca 35 azaltır.',
+  'entities.abilities.faerie_fire.description': 'Hedefin zırhını 30 saniye boyunca 35 azaltır.',
   'entities.abilities.faerie_fire.name': 'Cadı Işığı',
   'entities.abilities.fear.description':
     'Düşmanın yüreğine korku salar ve onu 8 saniyeye kadar sinmiş bırakır. Herhangi bir hasar etkiyi bozar.',
   'entities.abilities.fear.name': 'Dehşet',
   'entities.abilities.ferocious_bite.description':
-    'Her kombo puanı başına hasar veren bitirici hamle. Yalnızca Kurt Formu.',
+    '{damage} veren bitirici hamle. Yalnızca Kurt Formu.',
   'entities.abilities.ferocious_bite.name': 'Kanlı Isırık',
   'entities.abilities.fire_blast.description': 'Düşmanı {damage} Ateş hasarıyla patlatır. Anında.',
   'entities.abilities.fire_blast.name': 'Köz Yağmuru',
@@ -1658,24 +1660,24 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.fireball.name': 'Köz Oku',
   'entities.abilities.rain_of_fire.name': 'Ateş Yağmuru',
   'entities.abilities.rain_of_fire.description':
-    'Hedef alana ateş yağdırır ve düşmanları yakarak {damage} Ateş hasarı verir.',
+    'Hedef alana 4 saniye boyunca ateş yağdırır ve düşmanları her saniye {damage} Ateş hasarıyla yakar.',
   'entities.abilities.volley.name': 'Ok Yağmuru',
   'entities.abilities.volley.description':
-    'Hedef alana ok yağdırır ve içindeki düşmanlara {damage} hasar verir.',
+    'Hedef alana 3 saniye boyunca ok yağdırır ve içindeki düşmanlara her 0.5 saniyede bir {damage} hasar verir.',
   'entities.abilities.hurricane.name': 'Kasırga',
   'entities.abilities.hurricane.description':
-    'Hedef alana bir kasırga indirir ve düşmanlara {damage} Doğa hasarı verir.',
+    'Hedef alana 6 saniye boyunca bir kasırga indirir ve düşmanlara her saniye {damage} Doğa hasarı verir.',
   'entities.abilities.earthquake.name': 'Deprem',
   'entities.abilities.earthquake.description':
-    'Hedef alanı sarsar ve düşmanlara {damage} Doğa hasarı verir.',
+    'Hedef alanı 6 saniye boyunca sarsar ve düşmanları her 1.5 saniyede bir {damage} Doğa hasarıyla hırpalar.',
   'entities.abilities.flamestrike.name': 'Alev Vuruşu',
   'entities.abilities.flamestrike.description':
     'Hedef alanda bir alev patlaması yaratır ve patlamaya yakalanan düşmanlara {damage} Ateş hasarı verir.',
   'entities.abilities.flame_shock.description':
-    'Hedefi ateşle dağlar: 25 hasar artı 12 saniye boyunca {damage}.',
+    'Hedefi ateşle dağlar: {damage} hasar artı 12 saniye boyunca {overTime}.',
   'entities.abilities.flame_shock.name': 'Köz Sarsıntısı',
   'entities.abilities.flametongue_weapon.description':
-    'Silahını element ateşiyle güçlendirir: her vuruş 5 dakika boyunca 8 ek Ateş hasarı verir.',
+    'Silahını element ateşiyle güçlendirir: her vuruş 5 dakika boyunca {damage} ek Ateş hasarı verir.',
   'entities.abilities.flametongue_weapon.name': 'Pyrebrand Silahı',
   'entities.abilities.flash_heal.description':
     'Dost bir hedefi {damage} iyileştiren hızlı bir dua.',
@@ -1684,7 +1686,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Dost bir hedefi {damage} iyileştiren hızlı ve verimli bir Işık patlaması.',
   'entities.abilities.flash_of_light.name': 'Işık Şifası',
   'entities.abilities.frost_armor.description':
-    'Seni buzla sarar ve zırhını 30 dakika boyunca 30 artırır.',
+    'Seni buzla sarar ve zırhını 30 dakika boyunca {buff} artırır.',
   'entities.abilities.frost_armor.name': 'Kırağı Pelerini',
   'entities.abilities.frost_nova.description':
     'Yakındaki tüm düşmanları 8 saniyeye kadar yerinde dondurur ve {damage} Ayaz hasarı verir.',
@@ -1696,24 +1698,25 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Bir ayaz oku fırlatarak {damage} Ayaz hasarı verir ve hareketi %40 yavaşlatır.',
   'entities.abilities.frostbolt.name': 'Ayaz Mızrağı',
   'entities.abilities.frostbrand_weapon.description':
-    'Silahını kavrayan ayazla güçlendirir: her vuruş 5 dakika boyunca 8 ek hasar verir.',
+    'Silahını kavrayan ayazla güçlendirir: her vuruş 5 dakika boyunca {damage} ek hasar verir.',
   'entities.abilities.frostbrand_weapon.name': 'Rimebound Silahı',
   'entities.abilities.garrote.description':
-    'Düşmanı boğarak hem anında hasar verir hem de 18 saniye boyunca {damage} kanama yaratır. Gizlenmiş olmalısın. 1 kombo puanı kazandırır.',
+    'Düşmanı boğarak anında {damage} hasar verir ve 18 saniye boyunca {overTime} kanama yaratır. Gizlenmiş olmalısın. 1 kombo puanı kazandırır.',
   'entities.abilities.garrote.name': 'Boğaz Teli',
   'entities.abilities.ghost_wolf.description':
     "Seni bir Shadewolf'a dönüştürür ve hareket hızını 10 dakika boyunca %40 artırır.",
   'entities.abilities.ghost_wolf.name': 'Shadewolf',
   'entities.abilities.gouge.description':
-    'Hedefe vurarak onu 4 saniye boyunca etkisiz bırakır. Herhangi bir hasar etkiyi bozar. 1 kombo puanı kazandırır.',
+    'Hedefe {damage} hasar vererek onu 4 saniye boyunca etkisiz bırakır. Herhangi bir hasar etkiyi bozar. 1 kombo puanı kazandırır.',
   'entities.abilities.gouge.name': 'Göz Dürtme',
   'entities.abilities.growl.description':
     'Hedefe hırlar: tehdidin onun en nefret ettiği düşmanla eşitlenir ve 3 saniye boyunca sana saldırmaya zorlanır. Yalnızca Bruin Formu.',
   'entities.abilities.growl.name': 'Gözdağı',
-  'entities.abilities.hammer_of_justice.description': 'Hedefi 3 saniye boyunca sersemletir.',
+  'entities.abilities.hammer_of_justice.description':
+    'Hedefi {duration} saniye boyunca sersemletir.',
   'entities.abilities.hammer_of_justice.name': 'Parçalayan Tokmak',
   'entities.abilities.hamstring.description':
-    'Düşmanı 5 hasarla sakatlayarak hareketini 15 saniye boyunca %50 yavaşlatır.',
+    'Düşmanı {damage} hasarla sakatlayarak hareketini 15 saniye boyunca %50 yavaşlatır.',
   'entities.abilities.hamstring.name': 'Topallatan Kesik',
   'entities.abilities.heal.description':
     'Dost bir hedefi {damage} iyileştiren yavaş ama güçlü bir dua.',
@@ -1731,10 +1734,10 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.holy_light.description': 'Dost bir hedefi {damage} iyileştirir.',
   'entities.abilities.holy_light.name': 'Onaran Işık',
   'entities.abilities.ice_barrier.description':
-    'Seni buzla kalkanlar ve 60 saniye boyunca 130 hasarı emer.',
+    'Seni buzla kalkanlar ve 60 saniye boyunca {damage} hasarı emer.',
   'entities.abilities.ice_barrier.name': 'Buz Örtüsü',
   'entities.abilities.immolate.description':
-    'Düşmanı 11 Ateş hasarıyla ve ek olarak 15 saniye boyunca {damage} ile yakar.',
+    'Düşmanı {damage} Ateş hasarıyla ve ek olarak 15 saniye boyunca {overTime} ile yakar.',
   'entities.abilities.immolate.name': 'Yanan Ahit',
   'entities.abilities.insect_swarm.description':
     'Düşman böceklerce sarılır ve 12 saniye boyunca {damage} Doğa hasarı alır.',
@@ -1749,20 +1752,20 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Hedefi sersemleten bitirici hamle. Her kombo puanı başına 1 saniye daha uzun sürer.',
   'entities.abilities.kidney_shot.name': 'Aşağılık Darbe',
   'entities.abilities.lay_on_hands.description':
-    'Devasa bir iyileştirme dalgası: 250 can geri kazandırır. 10 dakika bekleme süresi.',
+    'Devasa bir iyileştirme dalgası: {damage} can geri kazandırır. 10 dakika bekleme süresi.',
   'entities.abilities.lay_on_hands.name': 'Son Ayin',
   'entities.abilities.lesser_heal.description': 'Dost bir hedefi {damage} iyileştirir.',
   'entities.abilities.lesser_heal.name': 'Fısıldanan Dua',
-  'entities.abilities.life_tap.description': '30 canı 30 manaya dönüştürür.',
+  'entities.abilities.life_tap.description': '{damage} canı {damage} manaya dönüştürür.',
   'entities.abilities.life_tap.name': 'Ağır Pazarlık',
   'entities.abilities.lightning_bolt.description':
     'Bir yıldırım oku fırlatarak {damage} Doğa hasarı verir.',
   'entities.abilities.lightning_bolt.name': 'Ark Oku',
   'entities.abilities.lightning_shield.description':
-    'Seni çatırdayan yıldırımla sarar: yakın dövüş saldırganları 13 Doğa hasarı alır.',
+    'Seni çatırdayan yıldırımla sarar: yakın dövüş saldırganları {buff} Doğa hasarı alır, en fazla 3 yük ve en fazla 5 saniyede bir kez.',
   'entities.abilities.lightning_shield.name': 'Gök Gürültüsü Siperi',
   'entities.abilities.mark_of_the_wild.description':
-    "Dost bir hedefe Wildward'ı yerleştirir ve zırhını 30 dakika boyunca 25 artırır.",
+    "Dost bir hedefe Wildward'ı yerleştirir ve zırhını 30 dakika boyunca {buff} artırır.",
   'entities.abilities.mark_of_the_wild.name': 'Wildward',
   'entities.abilities.maul.description':
     'Yakın dövüş hasarını {damage} artıran ve yüksek miktarda tehdit yaratan hırpalayıcı bir saldırı. Bir sonraki vuruşunda etkinleşir. Yalnızca Bruin Formu.',
@@ -1773,7 +1776,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Hedefin zihnini Gölge enerjisiyle sarsar ve 3 saniye boyunca her saniye {damage} hasar verir.',
   'entities.abilities.mind_flay.name': 'Keder Yakarışı',
   'entities.abilities.mongoose_bite.description':
-    'Hedef sıyırma yaptıktan sonra silah hasarı artı 12 ile karşı saldırı. Sıyrılamaz.',
+    'Hedef sıyırma yaptıktan sonra silah hasarı artı {damage} ile karşı saldırı. Sıyrılamaz.',
   'entities.abilities.mongoose_bite.name': 'Karşı Diş',
   'entities.abilities.moonfire.description':
     'Düşmanı ay ateşiyle {damage} Gizemli hasar ve zamana yayılı hasar ile yakar.',
@@ -1782,19 +1785,19 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Silah hasarı artı {damage} veren acımasız bir darbe. (Silahşor imzası)',
   'entities.abilities.mortal_strike.name': 'Sakatlayan Darbe',
   'entities.abilities.overpower.description':
-    'Silah hasarı +5 veren anında saldırı. Yalnızca hedef sıyırma yaptıktan sonra kullanılabilir. Sıyrılamaz.',
+    'Silah hasarı artı {damage} veren anında saldırı. Yalnızca hedef sıyırma yaptıktan sonra kullanılabilir. Sıyrılamaz.',
   'entities.abilities.overpower.name': 'Kızıl El',
   'entities.abilities.polymorph.description':
-    'Düşmanı 15 saniyeye kadar bir kurbağaya dönüştürür. Kurbağa başıboş dolaşır ve hızla iyileşir. Herhangi bir hasar etkiyi bozar. Yalnızca canavarlar ve insansılar.',
+    'Düşmanı {duration} saniyeye kadar bir kurbağaya dönüştürür. Kurbağa başıboş dolaşır ve hızla iyileşir. Herhangi bir hasar etkiyi bozar. Yalnızca canavarlar ve insansılar.',
   'entities.abilities.polymorph.name': 'Büyüleme',
   'entities.abilities.pounce.description':
     'Hedefi 2 saniye boyunca sersemleten gizlilik açılışı. 1 kombo puanı kazandırır. Yalnızca Kurt Formu.',
   'entities.abilities.pounce.name': 'Sinsi Darbe',
   'entities.abilities.power_word_fortitude.description':
-    'Hedefin Dayanıklılığını 30 dakika boyunca 3 artırır.',
+    'Hedefin Dayanıklılığını 30 dakika boyunca {buff} artırır.',
   'entities.abilities.power_word_fortitude.name': 'Azim Yakarışı',
   'entities.abilities.power_word_shield.description':
-    'Hedefi kalkanlar ve 30 saniye boyunca 48 hasarı emer.',
+    'Hedefi kalkanlar ve 30 saniye boyunca {damage} hasarı emer.',
   'entities.abilities.power_word_shield.name': 'Koruma Mezmuru',
   'entities.abilities.prowl.description':
     'Kurt Formundayken gizliliğe geçer ve 50% daha yavaş hareket edersin. Dövüş sırasında kullanılamaz.',
@@ -1808,7 +1811,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.rapid_fire.description': 'Saldırı hızını 15 saniye boyunca %40 artırır.',
   'entities.abilities.rapid_fire.name': 'Hummalı Çekiş',
   'entities.abilities.raptor_strike.description':
-    'Hasarı 5 artıran güçlü bir yakın dövüş saldırısı. Bir sonraki vuruşunda etkinleşir.',
+    'Hasarı {damage} artıran güçlü bir yakın dövüş saldırısı. Bir sonraki vuruşunda etkinleşir.',
   'entities.abilities.raptor_strike.name': 'Deşen Darbe',
   'entities.abilities.regrowth.description':
     'Dost bir hedefi {damage} ve 21 saniye boyunca ek bir miktar iyileştirir.',
@@ -1816,7 +1819,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.rejuvenation.description': 'Hedefi 12 saniye boyunca {damage} iyileştirir.',
   'entities.abilities.rejuvenation.name': 'Yaban Çiçeği',
   'entities.abilities.rend.description':
-    'Hedefi yaralar, 9 saniye boyunca {damage} kanama hasarı vermesine yol açar.',
+    'Hedefi yaralar, {duration} saniye boyunca {damage} kanama hasarı vermesine yol açar.',
   'entities.abilities.rend.name': 'Derin Yarık',
   'entities.abilities.renew.description': 'Hedefi 15 saniye boyunca {damage} iyileştirir.',
   'entities.abilities.renew.name': 'Kalıcı Lütuf',
@@ -1829,10 +1832,10 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Kutsal hasarının ürettiği tehdidi 30 dakika boyunca %60 artırır. Tank paladinin temel taşı.',
   'entities.abilities.righteous_fury.name': 'Yanan Yemin',
   'entities.abilities.rip.description':
-    '12 saniye boyunca kanama hasarı veren bitirici hamle. Kombo puanlarını tüketir. Yalnızca Kurt Formu.',
+    '12 saniye boyunca {damage} Kanama hasarı veren bitirici hamle. Kombo puanlarını tüketir. Yalnızca Kurt Formu.',
   'entities.abilities.rip.name': 'Parçalama',
   'entities.abilities.rockbiter_weapon.description':
-    'Silahına taşın gazabını işler: her vuruş 5 dakika boyunca 5 ek hasar verir.',
+    'Silahına taşın gazabını işler: her vuruş 5 dakika boyunca {damage} ek hasar verir.',
   'entities.abilities.rockbiter_weapon.name': 'Stonebound Silahı',
   'entities.abilities.rupture.description':
     'Hedefi yaralayan bitirici hamle; 16 saniye boyunca {damage} kanama hasarı vermesine yol açar.',
@@ -1844,7 +1847,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Düşmanı {damage} Ateş hasarıyla kavurur. Hızlı büyülenir.',
   'entities.abilities.scorch.name': 'Haşlama',
   'entities.abilities.seal_of_righteousness.description':
-    'Seni 30 saniye boyunca Kutsal güçle doldurur; her yakın dövüş vuruşunun 4 ek Kutsal hasar vermesini sağlar. Verdict ile açığa çıkar.',
+    'Seni 30 saniye boyunca Kutsal güçle doldurur; her yakın dövüş vuruşunun {damage} ek Kutsal hasar vermesini sağlar. Verdict ile açığa çıkar.',
   'entities.abilities.seal_of_righteousness.name': 'Yemin Damgası',
   'entities.abilities.searing_pain.description':
     'Düşmanı ıstırap veren ateşle {damage} Ateş hasarı için dağlar. Hızlı büyülenir.',
@@ -1862,7 +1865,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Hedefi anında dağlayan gölge ile vurarak {damage} Gölge hasarı verir.',
   'entities.abilities.shadowburn.name': 'Alaca Ateşi',
   'entities.abilities.shield_slam.description':
-    'Hedefe kalkanınla {damage} hasar ve devasa tehdit için vurursun. (Koruma imzası)',
+    'Hedefe kalkanınla %50 silah hasarı artı {damage} hasar verir ve devasa tehdit üretirsin. (Koruma imzası)',
   'entities.abilities.shield_slam.name': 'Kalkan Kırma',
   'entities.abilities.sinister_strike.description':
     'Silah hasarı artı {damage} için anlık bir vuruş. 1 kombo puanı kazandırır.',
@@ -1906,8 +1909,6 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.summon_voidwalker.description':
     'Karabüyücünün komutası altında bir Gloomshade çağırır. Gloomshade, düşmanlarını kışkırtan ve cezayı üstüne çeken sağlam bir iblistir. Yeni bir iblis çağırmak mevcut olanı gönderir. Bir seferde yalnızca bir iblisin olabilir.',
   'entities.abilities.summon_voidwalker.name': 'Gloomshade Çağırma',
-  'entities.abilities.sunder_armor.description':
-    'Hedefin zırhını parçalar, her uygulamada {damage} azaltır. 5 kata kadar üst üste binebilir. Yüksek miktarda tehdit üretir.',
   'entities.abilities.sunder_armor.name': 'Zırh Kesme',
   'entities.abilities.swipe.description':
     'Yakındaki düşmanları {damage} hasar için savurur. Ekstra tehdit üretir. Yalnızca Bruin Formu.',
@@ -1919,7 +1920,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Hedefi kışkırtır: tehdidin onun en nefret ettiği düşmana eşit hale gelir ve 3 saniye boyunca sana saldırmaya zorlanır.',
   'entities.abilities.taunt.name': 'Tahrik',
   'entities.abilities.thorns.description':
-    'Hedeften dikenler filizlenir: yakın dövüş saldırganları 3 Doğa hasarı alır.',
+    'Hedeften dikenler filizlenir: yakın dövüş saldırganları {buff} Doğa hasarı alır.',
   'entities.abilities.thorns.name': 'Diken Muhafızı',
   'entities.abilities.thunder_clap.description':
     'Yakındaki düşmanları {damage} hasar için patlatır ve saldırılarını 10 saniye boyunca %10 yavaşlatır.',
@@ -1937,7 +1938,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     'Ölümcül bir yayda dönerek yakındaki tüm düşmanları {damage} için vurursun. (Cinnet yeteneği)',
   'entities.abilities.whirlwind.name': 'Bıçaklı Girdap',
   'entities.abilities.wing_clip.description':
-    'Düşmanı 10 saniye boyunca %40 yavaşlatan bir yara açar.',
+    'Düşmanı {damage} hasarla yaralar, 10 saniye boyunca %40 yavaşlatır.',
   'entities.abilities.wing_clip.name': 'Prangalayan Kesik',
   'entities.abilities.wrath.description':
     '{damage} Doğa hasarı için bir doğa enerjisi oku fırlatır.',
@@ -5911,7 +5912,6 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
     '{name} zindanının tüm kopyaları dolu. Birazdan tekrar deneyin.',
   'worldContent.dungeonPartyWarning':
     '{name}, {count} kişilik tam bir grup içindir. Dikkatli ilerleyin.',
-  // Aura effect tooltip summaries.
   'hudChrome.auraEffect.dot': 'Her {interval} sn {value} {school} hasarı verir',
   'hudChrome.auraEffect.hot': 'Her {interval} sn {value} sağlık yeniler',
   'hudChrome.auraEffect.absorb': '{value} hasar emer',
@@ -6224,7 +6224,6 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Şimdi Değil',
   'hudChrome.nativeUpdate.title': 'Güncelleme Mevcut',
   'hudChrome.nativeUpdate.update': 'Güncelle',
-  // Ravenpost authored letters
   'entities.letters.ravenpost_welcome.sender': 'Kuzgun Postası',
   'entities.letters.ravenpost_welcome.subject': 'Kuzgunlar artık senin için uçuyor',
   'entities.letters.ravenpost_welcome.body':
@@ -6316,7 +6315,6 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'apiError.two_factor.not_enabled': 'İki adımlı doğrulama etkin değil.',
   'apiError.two_factor.setup_required': 'Önce iki adımlı doğrulama kurulumunu başlatın.',
   'apiError.validation.failed': 'Bazı alanlar geçersiz. Formu kontrol edip tekrar deneyin.',
-  // Release v0.22.0 locale fill.
   'download.linuxCta': 'Linux için indirin',
   'download.linuxHint':
     'AppImage: yürütülebilir hale getirin ve ardından çalıştırın. Kurulum gerekmez.',
@@ -6425,7 +6423,6 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mobile.targetCycleShort': 'Hedef',
   'hudChrome.options.mobileCameraJoystick': "Kamera joystick'i",
   'hudChrome.options.mobileLeftHanded': 'Solak düzen',
-  // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Kendinize Ait Bir Zanaat',
   'entities.quests.q_archetype_acceptance.text':
     "Eastbrook'un her zanaatkarı eninde sonunda kendilerine ait bir zanaatta karar kılıyor. Tek bir hareketle kendinizi kanıtlayın, {playerName}, ve yolunuzu ilan edin.",
@@ -6437,4 +6434,66 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_prof_make_amends.completion':
     'Değişiklikler yapıldı; önünüze yeni bir yol açılıyor.',
   'entities.quests.q_prof_make_amends.objectives.0.label': 'Orman kurdu öldürüldü',
+  'entities.npcs.bursar_aldous_crane.greeting':
+    "Her sandık, her çekmece, her biblo Yaldızlı Kasa'da güvendedir.",
+  'entities.npcs.bursar_aldous_crane.name': 'Veznedar Aldous Crane',
+  'entities.npcs.bursar_aldous_crane.title': 'Yaldızlı Kasa',
+  'entities.npcs.bursar_fernando.greeting':
+    "Yaldızlı Kasa'ya hoş geldin. Malların kilitlerimizin ardında güvenle durur.",
+  'entities.npcs.bursar_fernando.name': 'Veznedar Fernando',
+  'entities.npcs.bursar_fernando.title': 'Yaldızlı Kasa',
+  'entities.npcs.bursar_petra_vell.greeting':
+    "Yaldızlı Kasa'nın defterleri temiz, kasaları daha da temizdir. Senin için ne saklayalım?",
+  'entities.npcs.bursar_petra_vell.name': 'Veznedar Petra Vell',
+  'entities.npcs.bursar_petra_vell.title': 'Yaldızlı Kasa',
+  'guide.economy.bankTitle': 'Banka',
+  'guide.economy.bankBody':
+    "Her merkez kasabada diyarın bankacılık müessesesi olan Yaldızlı Kasa'nın bir şubesi bulunur. Oradaki veznedarla konuşarak kasanı aç: çantalarının ötesinde, karakterinin ömür boyu elinde tuttuğu özel bir depo. Oraya bıraktığın her şey, bir sonraki sefer hangi şubeye uğrarsan uğra, güvenle bekler.",
+  'guide.economy.bankHow':
+    'Kasan açıkken, çantandaki bir eşyaya tıklayarak onu yatır; kasadaki eşyaya tıklayarak geri al. Kasa yalnızca eşya tutar, asla para tutmaz; görev eşyaları da sende kalır. Yol ortasında çantaların dolduğunda, tek bir düğme bütün zanaat malzemelerini bir seferde içeri süpürür.',
+  'guide.economy.bankSlots':
+    'Yeni açılmış bir kasa küçük başlar ve seninle birlikte büyür. Veznedar, giderek artan fiyatlarla para karşılığında ek yuvalar satar; çevrimiçi oynamak ise bunun üzerine bonus yer kazandırır: doğrulanmış bir e-posta, bağlanmış hesaplar ve oyuna getirdiğin arkadaşlar gibi şeyler için.',
+  'hudChrome.bank.title': 'Banka',
+  'hudChrome.bank.subtitle': 'Yaldızlı Kasa',
+  'hudChrome.bank.close': 'Bankayı kapat',
+  'hudChrome.bank.capacity': '{used}/{total}',
+  'hudChrome.bank.capacityAria': 'Kullanılan banka yuvaları: {used} / {total}',
+  'hudChrome.bank.empty': 'Bankan boş.',
+  'hudChrome.bank.tooFar': 'Bankanı görmek için bir bankacının yanında olmalısın.',
+  'hudChrome.bank.buySlots': '{count} yuva satın al',
+  'hudChrome.bank.buySlotsMaxed': 'Tamamen genişletildi',
+  'hudChrome.bank.buyConfirm': '{price} karşılığında {count} ek banka yuvası satın alınsın mı?',
+  'hudChrome.bank.buyConfirmAccept': 'Satın Al',
+  'hudChrome.bank.withdrawHint': 'Çekmek için tıkla',
+  'hudChrome.bank.withdrawPartialHint': 'Bir kısmını çekmek için Shift ile tıkla',
+  'hudChrome.bank.depositHint': 'Yatırmak için tıkla',
+  'hudChrome.bank.depositPartialHint': 'Bir kısmını yatırmak için Shift ile tıkla',
+  'hudChrome.bank.cannotDeposit': 'Bankaya konulamaz',
+  'hudChrome.bank.depositQuantityTitle': '{item} yatır',
+  'hudChrome.bank.depositQuantityInput': 'Yatırılacak miktar',
+  'hudChrome.bank.depositQuantityConfirm': 'Yatır',
+  'hudChrome.bank.withdrawQuantityTitle': '{item} çek',
+  'hudChrome.bank.withdrawQuantityInput': 'Çekilecek miktar',
+  'hudChrome.bank.withdrawQuantityConfirm': 'Çek',
+  'hudChrome.bank.filterGroupAria': 'Bankayı kategoriye göre filtrele',
+  'hudChrome.bank.sortAria': 'Banka eşyalarını sırala',
+  'hudChrome.bank.searchAria': 'Banka eşyalarını ada göre ara',
+  'hudChrome.bank.depositAll': 'Tüm malzemeleri yatır',
+  'hudChrome.bank.depositAllDone': 'Yatırılan malzeme: {count}.',
+  'hudChrome.bank.depositAllFull': 'Yatırılan malzeme: {count}. Banka artık dolu.',
+  'hudChrome.bank.depositAllNone': 'Banka dolu: hiçbir şey yatırılmadı.',
+  'hudChrome.bank.bonusTitle': 'Bonus yuvalar',
+  'hudChrome.bank.bonusEarned': '+{count}',
+  'hudChrome.bank.bonusStatusEarned': '+{count}',
+  'hudChrome.bank.bonusSourceEmail': 'Doğrulanmış e-posta',
+  'hudChrome.bank.bonusSourceDiscord': 'Discord bağlandı',
+  'hudChrome.bank.bonusSourceWallet': 'Cüzdan bağlandı',
+  'hudChrome.bank.bonusSourceReferral': 'Davet edilen arkadaşlar',
+  'hudChrome.bank.bonusAdvertEmail': '2 yuva kazanmak için e-postanı doğrula.',
+  'hudChrome.bank.bonusAdvertDiscord': '2 yuva kazanmak için Discord hesabını bağla.',
+  'hudChrome.bank.bonusAdvertWallet': '2 yuva kazanmak için bir cüzdan bağla.',
+  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
+  'hudChrome.bank.bonusReferralExplainer':
+    'Bir arkadaşını davet et: arkadaşın 10. seviyeye ulaştığında ikiniz de 2 yuva kazanırsınız (en fazla 5 arkadaş).',
+  'hudChrome.bank.bonusSectionAria': 'Bonus banka yuvaları ve daha fazlasını kazanmanın yolları',
 };

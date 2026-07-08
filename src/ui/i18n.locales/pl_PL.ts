@@ -1496,7 +1496,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.arcane_explosion.description':
     'Wybuch arkanicznej energii uderza wszystkich pobliskich wrogów, zadając {damage} obrażeń arkanicznych.',
   'entities.abilities.arcane_explosion.name': 'Wybuch eteru',
-  'entities.abilities.arcane_intellect.description': 'Zwiększa intelekt o 2 na 30 min.',
+  'entities.abilities.arcane_intellect.description': 'Zwiększa intelekt o {buff} na 30 min.',
   'entities.abilities.arcane_intellect.name': 'Wgląd eteru',
   'entities.abilities.arcane_missiles.description':
     'Wystrzeliwuje eteryczne strzały we wroga, zadając {damage} obrażeń arkanicznych co sekundę przez 3 sek.',
@@ -1508,7 +1508,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Przyjmij postać rumaka, zwiększając prędkość ruchu o 30% na 30 min.',
   'entities.abilities.aspect_of_the_cheetah.name': 'Postać rumaka',
   'entities.abilities.aspect_of_the_hawk.description':
-    'Przyjmij postać błotniaka, zwiększając moc ataku o 20 na 30 min.',
+    'Przyjmij postać błotniaka, zwiększając moc ataku o {buff} na 30 min.',
   'entities.abilities.aspect_of_the_hawk.name': 'Postać błotniaka',
   'entities.abilities.aspect_of_the_monkey.description':
     'Przyjmij postać kuny, zwiększając szansę na unik o 8% na 30 min.',
@@ -1521,19 +1521,19 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.barkskin.name': 'Dębowa skóra',
   'entities.abilities.bash.description': 'Ogłusza cel na 2 sek. Tylko w postaci Bruina.',
   'entities.abilities.bash.name': 'Wstrząśnienie',
-  'entities.abilities.battle_shout.description': 'Zwiększa twoją moc ataku o 20 na 2 min.',
+  'entities.abilities.battle_shout.description': 'Zwiększa twoją moc ataku o {buff} na 2 min.',
   'entities.abilities.battle_shout.name': 'Żelazny ryk',
   'entities.abilities.bear_charge.description':
     'Szarżuj na wroga, generując 9 wściekłości i ogłuszając go na 1 sek. Zasięg 8-25 jardów. Tylko w postaci Bruina.',
   'entities.abilities.bear_charge.name': 'Szarża Bruina',
   'entities.abilities.bear_form.description':
-    'Zmień postać w niedźwiedzia: pancerz +65%, moc ataku +15, twoje ataki budują wściekłość i generują 30% więcej zagrożenia. Rzuć ponownie, aby wrócić do postaci rzucającego.',
+    'Zmień postać w niedźwiedzia: pancerz +90%, znacznie zwiększona moc ataku, twoje ataki budują wściekłość i generują 30% więcej zagrożenia. Rzuć ponownie, aby wrócić do postaci rzucającego.',
   'entities.abilities.bear_form.name': 'Postać Bruina',
   'entities.abilities.berserker_rage.description':
     'Wpadnij w kipiącą furię, generując 20 wściekłości. (Talent wojownika)',
   'entities.abilities.berserker_rage.name': 'Kipiąca furia',
   'entities.abilities.blessing_of_might.description':
-    'Nakłada błogosławieństwo na przyjazny cel, zwiększając moc ataku o 15 na 5 min.',
+    'Nakłada błogosławieństwo na przyjazny cel, zwiększając moc ataku o {buff} na 5 min.',
   'entities.abilities.blessing_of_might.name': 'Przysięga żelaza',
   'entities.abilities.blind.description':
     'Oślepia cel, sprawiając, że błądzi zdezorientowany przez 8 sek. Jakiekolwiek obrażenia przerywają efekt.',
@@ -1541,7 +1541,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.bloodrage.description': 'Generuje 10 wściekłości kosztem zdrowia.',
   'entities.abilities.bloodrage.name': 'Krwawa danina',
   'entities.abilities.bloodthirst.description':
-    'Natychmiast atakuj w krwawym szale, zadając {damage}. (Sygnatura furii)',
+    'Natychmiast atakuj w krwawym szale, zadając 60% obrażeń broni plus {damage}. (Sygnatura furii)',
   'entities.abilities.bloodthirst.name': 'Upust krwi',
   'entities.abilities.cat_form.description':
     'Zmień postać w wilka: moc ataku rośnie z twoim poziomem, twoje ataki zużywają energię i punkty kombinacji, a generujesz 29% mniej zagrożenia. Rzuć ponownie, aby wrócić do postaci rzucającego.',
@@ -1550,7 +1550,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Szarżuj na wroga, generując 9 wściekłości i ogłuszając go na 1 sek. Zasięg 8-25 jardów.',
   'entities.abilities.charge.name': 'Natarcie',
   'entities.abilities.cheap_shot.description':
-    'Uderz cel, ogłuszając go na 4 sek. Wymaga skradania się. Przyznaje 2 punkty kombinacji.',
+    'Uderz cel, zadając {damage} obrażeń i ogłuszając go na 4 sek. Wymaga skradania się. Przyznaje 2 punkty kombinacji.',
   'entities.abilities.cheap_shot.name': 'Cios w brzuch',
   'entities.abilities.claw.description':
     'Rozdrap wroga, zadając obrażenia broni plus {damage}. Przyznaje 1 punkt kombinacji. Tylko w postaci wilka.',
@@ -1558,10 +1558,10 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.cleave.description':
     'Zamaszyste uderzenie, które trafia wszystkich wrogów przed tobą, zadając {damage} obrażeń.',
   'entities.abilities.cleave.name': 'Kosiący łuk',
-  'entities.abilities.commanding_shout.description': 'Zwiększa twoją kondycję o 6 na 2 min.',
+  'entities.abilities.commanding_shout.description': 'Zwiększa twoją kondycję o {buff} na 2 min.',
   'entities.abilities.commanding_shout.name': 'Krzepiący okrzyk',
   'entities.abilities.concussive_shot.description':
-    'Oszałamia cel, spowalniając ruch o 50% na 4 sek.',
+    'Oszałamia cel, zadając {damage} obrażeń i spowalniając ruch o 50% na 4 sek.',
   'entities.abilities.concussive_shot.name': 'Wstrząsający strzał',
   'entities.abilities.conjure_food.description':
     'Przywołuje 2 porcje chleba, które po zjedzeniu przywracają zdrowie. Wyższe rangi przywołują pożywniejsze jadło.',
@@ -1570,13 +1570,13 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Przywołuje 2 butelki wody, które po wypiciu przywracają manę. Wyższe rangi przywołują czystszą wodę.',
   'entities.abilities.conjure_water.name': 'Przywołanie wody',
   'entities.abilities.consecration.description':
-    'Poświęca ziemię pod tobą, parząc pobliskich wrogów, zadając {damage} obrażeń świętych.',
+    'Poświęca ziemię pod tobą, parząc pobliskich wrogów i zadając {damage} obrażeń od Świętości co 2 sek. przez 10 sek.',
   'entities.abilities.consecration.name': 'Święta ziemia',
   'entities.abilities.corruption.description':
     'Skaża cel, zadając {damage} obrażeń cienia przez 18 sek.',
   'entities.abilities.corruption.name': 'Czarna zgnilizna',
   'entities.abilities.crippling_poison.description':
-    'Uderza cel ołowianym jadem, zadając {damage} obrażeń natury i spowalniając jego prędkość ruchu o 50% na 12 sek.',
+    'Uderza cel ołowianym jadem, zadając {damage} obrażeń od Natury i spowalniając jego prędkość ruchu o 50% na 12 sek.',
   'entities.abilities.crippling_poison.name': 'Ołowiany jad',
   'entities.abilities.curse_of_agony.description':
     'Przeklina cel agonią: {damage} obrażeń od cienia w ciągu 24 sek.',
@@ -1591,20 +1591,20 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Defensywna postawa bojowa: generujesz o 30% więcej zagrożenia, lecz zadajesz i otrzymujesz o 10% mniej obrażeń. Rzuć ponownie, aby opuścić postawę.',
   'entities.abilities.defensive_stance.name': 'Czujna postawa',
   'entities.abilities.demon_skin.description':
-    'Demoniczna skóra zwiększa twój pancerz o 30 na 30 min.',
+    'Demoniczna skóra zwiększa twój pancerz o {buff} na 30 min.',
   'entities.abilities.demon_skin.name': 'Skóra plugawca',
   'entities.abilities.demoralizing_roar.description':
     'Demoralizuje pobliskich wrogów, zmniejszając ich moc ataku o 20 na 20 sek. Tylko w postaci Bruina.',
   'entities.abilities.demoralizing_roar.name': 'Tchórzliwy ryk',
   'entities.abilities.demoralizing_shout.description':
-    'Wydaje przerażający okrzyk, zmniejszając moc ataku wszystkich pobliskich wrogów o 30 na 30 sek.',
+    'Wydaje przerażający okrzyk, zmniejszając moc ataku wszystkich pobliskich wrogów o {buff} na 30 sek.',
   'entities.abilities.demoralizing_shout.name': 'Złowieszcze wycie',
-  'entities.abilities.devotion_aura.description': 'Zwiększa twój pancerz o 40 na 30 min.',
+  'entities.abilities.devotion_aura.description': 'Zwiększa twój pancerz o {buff} na 30 min.',
   'entities.abilities.devotion_aura.name': 'Aura niezłomności',
   'entities.abilities.dismiss_pet.description': 'Odsyła twoje zwierzę z powrotem na łono dziczy.',
   'entities.abilities.dismiss_pet.name': 'Uwolnij towarzysza',
   'entities.abilities.divine_protection.description':
-    'Ochronna osłona pochłania 50 obrażeń przez 10 sek.',
+    'Ochronna osłona pochłania {damage} obrażeń przez 10 sek.',
   'entities.abilities.divine_protection.name': 'Osłona wiary',
   'entities.abilities.drain_life.description':
     'Wysysa życie celu, przekazując ci {damage} zdrowia co sekundę przez 5 sek.',
@@ -1619,8 +1619,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.entangling_roots.name': 'Chwytające korzenie',
   'entities.abilities.evasion.description': 'Zwiększa twoją szansę na unik o 50% na 15 sek.',
   'entities.abilities.evasion.name': 'Upiorny krok',
-  'entities.abilities.eviscerate.description':
-    'Ruch kończący, który zadaje obrażenia za każdy punkt kombinacji.',
+  'entities.abilities.eviscerate.description': 'Ruch kończący, który zadaje {damage}.',
   'entities.abilities.eviscerate.name': 'Wieczny sen',
   'entities.abilities.execute.description':
     'Próba dobicia rannego przeciwnika, zadająca {damage} obrażeń. Użyteczne tylko na wrogach poniżej 20% zdrowia.',
@@ -1629,15 +1628,15 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Wygania niegodziwca świętym gniewem, zadając {damage} obrażeń od światłości.',
   'entities.abilities.exorcism.name': 'Rytuał wygnania',
   'entities.abilities.expose_armor.description':
-    'Ruch kończący, który odsłania cel, zmniejszając jego pancerz. Więcej wydanych punktów kombinacji pogłębia cięcie.',
+    'Ruch kończący, który odsłania cel, zmniejszając jego pancerz o {damage} na 30 sek.',
   'entities.abilities.expose_armor.name': 'Wyłom w pancerzu',
-  'entities.abilities.faerie_fire.description': 'Zmniejsza pancerz celu o 35 na 40 sek.',
+  'entities.abilities.faerie_fire.description': 'Zmniejsza pancerz celu o 35 na 30 sek.',
   'entities.abilities.faerie_fire.name': 'Wiedźmie światło',
   'entities.abilities.fear.description':
     'Wzbudza w przeciwniku przerażenie, zmuszając go do kulenia się przez nawet 8 sek. Każde obrażenie przerywa efekt.',
   'entities.abilities.fear.name': 'Trwoga',
   'entities.abilities.ferocious_bite.description':
-    'Ruch kończący, który zadaje obrażenia za każdy punkt kombinacji. Tylko w postaci wilka.',
+    'Ruch kończący, który zadaje {damage}. Tylko w postaci wilka.',
   'entities.abilities.ferocious_bite.name': 'Krwawe ukąszenie',
   'entities.abilities.fire_blast.description':
     'Razi wroga, zadając {damage} obrażeń od ognia. Natychmiastowe.',
@@ -1647,24 +1646,24 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.fireball.name': 'Żarowy pocisk',
   'entities.abilities.rain_of_fire.name': 'Deszcz ognia',
   'entities.abilities.rain_of_fire.description':
-    'Sprowadza deszcz ognia na wybrany obszar, paląc wrogów i zadając {damage} obrażeń od ognia.',
+    'Sprowadza deszcz ognia na wybrany obszar przez 4 sek., paląc wrogów i zadając {damage} obrażeń od ognia co sekundę.',
   'entities.abilities.volley.name': 'Salwa',
   'entities.abilities.volley.description':
-    'Zasypuje wybrany obszar strzałami, zadając {damage} obrażeń wrogom w jego obrębie.',
+    'Zasypuje wybrany obszar strzałami przez 3 sek., zadając {damage} obrażeń co 0.5 sek. wrogom w jego obrębie.',
   'entities.abilities.hurricane.name': 'Huragan',
   'entities.abilities.hurricane.description':
-    'Sprowadza huragan na wybrany obszar, smagając wrogów i zadając {damage} obrażeń od sił natury.',
+    'Sprowadza huragan na wybrany obszar przez 6 sek., smagając wrogów i zadając {damage} obrażeń od sił natury co sekundę.',
   'entities.abilities.earthquake.name': 'Trzęsienie ziemi',
   'entities.abilities.earthquake.description':
-    'Wstrząsa wybranym obszarem, smagając wrogów i zadając {damage} obrażeń od sił natury.',
+    'Wstrząsa wybranym obszarem przez 6 sek., smagając wrogów i zadając {damage} obrażeń od sił natury co 1.5 sek.',
   'entities.abilities.flamestrike.name': 'Ognista nawała',
   'entities.abilities.flamestrike.description':
     'Sprowadza wybuch płomieni na wybrany obszar, zadając {damage} obrażeń od ognia wrogom w zasięgu eksplozji.',
   'entities.abilities.flame_shock.description':
-    'Spala cel ogniem, zadając 25 obrażeń oraz {damage} w ciągu 12 sek.',
+    'Spala cel ogniem, zadając {damage} obrażeń oraz {overTime} w ciągu 12 sek.',
   'entities.abilities.flame_shock.name': 'Żarowy wstrząs',
   'entities.abilities.flametongue_weapon.description':
-    'Przepaja twój oręż żywiołem ognia: każde uderzenie zadaje 8 dodatkowych obrażeń od ognia przez 5 min.',
+    'Przepaja twój oręż żywiołem ognia: każde uderzenie zadaje {damage} dodatkowych obrażeń od ognia przez 5 min.',
   'entities.abilities.flametongue_weapon.name': 'Oręż żarowego piętna',
   'entities.abilities.flash_heal.description':
     'Szybka modlitwa, która leczy sprzymierzony cel o {damage}.',
@@ -1673,7 +1672,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Szybki, oszczędny rozbłysk światła, który leczy sprzymierzony cel o {damage}.',
   'entities.abilities.flash_of_light.name': 'Świetliste ukojenie',
   'entities.abilities.frost_armor.description':
-    'Otacza cię szronem, zwiększając pancerz o 30 na 30 min.',
+    'Otacza cię szronem, zwiększając pancerz o {buff} na 30 min.',
   'entities.abilities.frost_armor.name': 'Płaszcz szronu',
   'entities.abilities.frost_nova.description':
     'Zamraża wszystkich pobliskich wrogów w miejscu na nawet 8 sek, zadając {damage} obrażeń od mrozu.',
@@ -1685,24 +1684,24 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Wystrzeliwuje pocisk mrozu, zadając {damage} obrażeń od mrozu i spowalniając ruch o 40%.',
   'entities.abilities.frostbolt.name': 'Szronowa lanca',
   'entities.abilities.frostbrand_weapon.description':
-    'Przepaja twój oręż kąsającym mrozem: każde uderzenie zadaje 8 dodatkowych obrażeń przez 5 min.',
+    'Przepaja twój oręż kąsającym mrozem: każde uderzenie zadaje {damage} dodatkowych obrażeń przez 5 min.',
   'entities.abilities.frostbrand_weapon.name': 'Oręż szronowych okowów',
   'entities.abilities.garrote.description':
-    'Dusi wroga garotą, zadając obrażenia natychmiast oraz powodując krwawienie za {damage} w ciągu 18 sek. Wymaga skradania. Przyznaje 1 punkt kombinacji.',
+    'Dusi wroga garotą, zadając {damage} obrażeń natychmiast oraz powodując krwawienie za {overTime} w ciągu 18 sek. Wymaga skradania. Przyznaje 1 punkt kombinacji.',
   'entities.abilities.garrote.name': 'Drut na gardło',
   'entities.abilities.ghost_wolf.description':
     'Przemienia cię w Shadewolfa, zwiększając prędkość ruchu o 40% na 10 min.',
   'entities.abilities.ghost_wolf.name': 'Shadewolf',
   'entities.abilities.gouge.description':
-    'Uderza w cel, obezwładniając go na 4 sek. Każde obrażenie przerywa efekt. Przyznaje 1 punkt kombinacji.',
+    'Uderza w cel, zadając {damage} obrażeń i obezwładniając go na 4 sek. Każde obrażenie przerywa efekt. Przyznaje 1 punkt kombinacji.',
   'entities.abilities.gouge.name': 'Cios w oko',
   'entities.abilities.growl.description':
     'Warczy na cel: twoje zagrożenie wzrasta do poziomu jego najbardziej znienawidzonego wroga, a cel zostaje zmuszony do atakowania cię przez 3 sek. Tylko w postaci Bruina.',
   'entities.abilities.growl.name': 'Groźba',
-  'entities.abilities.hammer_of_justice.description': 'Ogłusza cel na 3 sek.',
+  'entities.abilities.hammer_of_justice.description': 'Ogłusza cel na {duration} sek.',
   'entities.abilities.hammer_of_justice.name': 'Druzgocący młot',
   'entities.abilities.hamstring.description':
-    'Okalecza wroga, zadając 5 obrażeń i spowalniając jego ruch o 50% na 15 sek.',
+    'Okalecza wroga, zadając {damage} obrażeń i spowalniając jego ruch o 50% na 15 sek.',
   'entities.abilities.hamstring.name': 'Kulawiące cięcie',
   'entities.abilities.heal.description':
     'Powolna, lecz potężna modlitwa, która leczy sprzymierzony cel o {damage}.',
@@ -1720,10 +1719,10 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.holy_light.description': 'Leczy sprzymierzony cel o {damage}.',
   'entities.abilities.holy_light.name': 'Kojące Światło',
   'entities.abilities.ice_barrier.description':
-    'Osłania cię lodem, pochłaniając 130 obrażeń przez 60 sek.',
+    'Osłania cię lodem, pochłaniając {damage} obrażeń przez 60 sek.',
   'entities.abilities.ice_barrier.name': 'Lodowa zasłona',
   'entities.abilities.immolate.description':
-    'Pali wroga, zadając 11 obrażeń od ognia oraz dodatkowe {damage} w ciągu 15 sek.',
+    'Pali wroga, zadając {damage} obrażeń od ognia oraz dodatkowe {overTime} w ciągu 15 sek.',
   'entities.abilities.immolate.name': 'Płonący pakt',
   'entities.abilities.insect_swarm.description':
     'Wroga oblepia rój owadów, zadając {damage} obrażeń od natury w ciągu 12 sek.',
@@ -1738,20 +1737,20 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Ruch kończący, który ogłusza cel. Trwa o 1 sek dłużej za każdy punkt kombinacji.',
   'entities.abilities.kidney_shot.name': 'Cios poniżej pasa',
   'entities.abilities.lay_on_hands.description':
-    'Potężny przypływ uzdrowienia: przywraca 250 zdrowia. 10 min czasu odnowienia.',
+    'Potężny przypływ uzdrowienia: przywraca {damage} zdrowia. 10 min czasu odnowienia.',
   'entities.abilities.lay_on_hands.name': 'Ostatnie namaszczenie',
   'entities.abilities.lesser_heal.description': 'Leczy sprzymierzony cel o {damage}.',
   'entities.abilities.lesser_heal.name': 'Szeptana modlitwa',
-  'entities.abilities.life_tap.description': 'Zamienia 30 zdrowia na 30 many.',
+  'entities.abilities.life_tap.description': 'Zamienia {damage} zdrowia na {damage} many.',
   'entities.abilities.life_tap.name': 'Trudny targ',
   'entities.abilities.lightning_bolt.description':
     'Ciska piorunem, zadając {damage} obrażeń od natury.',
   'entities.abilities.lightning_bolt.name': 'Łukowy pocisk',
   'entities.abilities.lightning_shield.description':
-    'Otacza cię trzaskająca błyskawica: napastnicy w zwarciu otrzymują 13 obrażeń od natury.',
+    'Otacza cię trzaskająca błyskawica: napastnicy w zwarciu otrzymują {buff} obrażeń od natury, do 3 ładunków i najwyżej raz na 5 sek.',
   'entities.abilities.lightning_shield.name': 'Osłona gromu',
   'entities.abilities.mark_of_the_wild.description':
-    'Nakłada Dziką osłonę na sprzymierzony cel, zwiększając pancerz o 25 na 30 min.',
+    'Nakłada Dziką osłonę na sprzymierzony cel, zwiększając pancerz o {buff} na 30 min.',
   'entities.abilities.mark_of_the_wild.name': 'Dzika osłona',
   'entities.abilities.maul.description':
     'Miażdżący atak, który zwiększa obrażenia w zwarciu o {damage} i powoduje wysokie zagrożenie. Aktywuje się przy następnym uderzeniu. Tylko w postaci Bruina.',
@@ -1763,7 +1762,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Naciera na umysł celu energią cienia, zadając {damage} obrażeń co sekundę przez 3 sek.',
   'entities.abilities.mind_flay.name': 'Litania niedoli',
   'entities.abilities.mongoose_bite.description':
-    'Kontratak po uniku celu, zadający obrażenia broni plus 12. Nie można uniknąć.',
+    'Kontratak po uniku celu, zadający obrażenia broni plus {damage}. Nie można uniknąć.',
   'entities.abilities.mongoose_bite.name': 'Odwetowy kieł',
   'entities.abilities.moonfire.description':
     'Spala wroga księżycowym ogniem, zadając {damage} obrażeń arkanicznych oraz obrażenia w czasie.',
@@ -1772,19 +1771,19 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Bezlitosne uderzenie zadające obrażenia broni plus {damage}. (Sygnatura Oręża)',
   'entities.abilities.mortal_strike.name': 'Okaleczające uderzenie',
   'entities.abilities.overpower.description':
-    'Natychmiastowy atak za obrażenia broni +5. Użyteczne tylko po uniku celu. Nie można uniknąć.',
+    'Natychmiastowy atak za obrażenia broni plus {damage}. Użyteczne tylko po uniku celu. Nie można uniknąć.',
   'entities.abilities.overpower.name': 'Krwawa ręka',
   'entities.abilities.polymorph.description':
-    'Przemienia wroga w ropuchę na nawet 15 sek. Ropucha błąka się i szybko się leczy. Każde obrażenie przerywa efekt. Tylko bestie i humanoidy.',
+    'Przemienia wroga w ropuchę na nawet {duration} sek. Ropucha błąka się i szybko się leczy. Każde obrażenie przerywa efekt. Tylko bestie i humanoidy.',
   'entities.abilities.polymorph.name': 'Zauroczenie',
   'entities.abilities.pounce.description':
     'Otwarcie ze skradania, które ogłusza cel na 2 sek. Przyznaje 1 punkt kombinacji. Tylko w postaci wilka.',
   'entities.abilities.pounce.name': 'Skradający cios',
   'entities.abilities.power_word_fortitude.description':
-    'Zwiększa wytrzymałość celu o 3 na 30 min.',
+    'Zwiększa wytrzymałość celu o {buff} na 30 min.',
   'entities.abilities.power_word_fortitude.name': 'Litania hartu',
   'entities.abilities.power_word_shield.description':
-    'Osłania cel, pochłaniając 48 obrażeń przez 30 sek.',
+    'Osłania cel, pochłaniając {damage} obrażeń przez 30 sek.',
   'entities.abilities.power_word_shield.name': 'Psalm ochrony',
   'entities.abilities.prowl.description':
     'Wchodzi w skradanie w postaci wilka, poruszając się o 50% wolniej. Nie można użyć w walce.',
@@ -1798,7 +1797,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.rapid_fire.description': 'Zwiększa twoją prędkość ataku o 40% na 15 sek.',
   'entities.abilities.rapid_fire.name': 'Gorączkowy ostrzał',
   'entities.abilities.raptor_strike.description':
-    'Potężny atak w zwarciu, który zwiększa obrażenia o 5. Aktywuje się przy następnym uderzeniu.',
+    'Potężny atak w zwarciu, który zwiększa obrażenia o {damage}. Aktywuje się przy następnym uderzeniu.',
   'entities.abilities.raptor_strike.name': 'Patroszące uderzenie',
   'entities.abilities.regrowth.description':
     'Leczy sprzymierzony cel o {damage} oraz dodatkową ilość w ciągu 21 sek.',
@@ -1806,7 +1805,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.rejuvenation.description': 'Leczy cel o {damage} w ciągu 12 sek.',
   'entities.abilities.rejuvenation.name': 'Dziki rozkwit',
   'entities.abilities.rend.description':
-    'Rani cel, powodując krwawienie zadające {damage} obrażeń w ciągu 9 sek.',
+    'Rani cel, powodując krwawienie zadające {damage} obrażeń w ciągu {duration} sek.',
   'entities.abilities.rend.name': 'Głęboka rana',
   'entities.abilities.renew.description': 'Leczy cel o {damage} w ciągu 15 sek.',
   'entities.abilities.renew.name': 'Trwająca łaska',
@@ -1820,10 +1819,10 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Zwiększa zagrożenie generowane przez twoje obrażenia od Świętości o 60% na 30 min. Filar paladyna-obrońcy.',
   'entities.abilities.righteous_fury.name': 'Płonąca przysięga',
   'entities.abilities.rip.description':
-    'Cios kończący zadający obrażenia od Krwawienia w ciągu 12 sek. Zużywa punkty kombinacji. Tylko w Postaci wilka.',
+    'Cios kończący zadający {damage} obrażeń od Krwawienia w ciągu 12 sek. Zużywa punkty kombinacji. Tylko w Postaci wilka.',
   'entities.abilities.rip.name': 'Rozszarpanie',
   'entities.abilities.rockbiter_weapon.description':
-    'Nasyca twoją broń furią kamienia: każde uderzenie zadaje 5 dodatkowych obrażeń przez 5 min.',
+    'Nasyca twoją broń furią kamienia: każde uderzenie zadaje {damage} dodatkowych obrażeń przez 5 min.',
   'entities.abilities.rockbiter_weapon.name': 'Oręż kamiennych okowów',
   'entities.abilities.rupture.description':
     'Cios kończący, który rani cel, powodując krwawienie zadające {damage} w ciągu 16 sek.',
@@ -1835,7 +1834,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Osmala wroga, zadając {damage} obrażeń od Ognia. Szybkie do rzucenia.',
   'entities.abilities.scorch.name': 'Poparzenie',
   'entities.abilities.seal_of_righteousness.description':
-    'Napełnia cię mocą Świętości na 30 sek., sprawiając, że każde twoje uderzenie wręcz zadaje 4 dodatkowe obrażenia od Świętości. Uwolnij ją Verdictem.',
+    'Napełnia cię mocą Świętości na 30 sek., sprawiając, że każde twoje uderzenie wręcz zadaje {damage} dodatkowych obrażeń od Świętości. Uwolnij ją Verdictem.',
   'entities.abilities.seal_of_righteousness.name': 'Piętno przysięgi',
   'entities.abilities.searing_pain.description':
     'Przypieka wroga dręczącym ogniem, zadając {damage} obrażeń od Ognia. Szybkie do rzucenia.',
@@ -1853,7 +1852,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Natychmiast razi cel palącym cieniem, zadając {damage} obrażeń od Cienia.',
   'entities.abilities.shadowburn.name': 'Ogień zmierzchu',
   'entities.abilities.shield_slam.description':
-    'Uderza cel tarczą, zadając {damage} i wzbudzając ogromne zagrożenie. (Znak rozpoznawczy Ochrony)',
+    'Uderza cel tarczą, zadając 50% obrażeń broni plus {damage} i wzbudzając ogromne zagrożenie. (Znak rozpoznawczy Ochrony)',
   'entities.abilities.shield_slam.name': 'Trzask tarczy',
   'entities.abilities.sinister_strike.description':
     'Natychmiastowe uderzenie zadające obrażenia broni plus {damage}. Przyznaje 1 punkt kombinacji.',
@@ -1898,8 +1897,6 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.summon_voidwalker.description':
     "Przywołuje Gloomshade'a pod komendę Czarnoksiężnika. Gloomshade to wytrzymały demon, który prowokuje twoich wrogów i pochłania razy. Przywołanie nowego demona odprawia obecnego. Możesz mieć jednego demona naraz.",
   'entities.abilities.summon_voidwalker.name': "Przywołanie Gloomshade'a",
-  'entities.abilities.sunder_armor.description':
-    'Strzaskuje pancerz celu, zmniejszając go o {damage} za każde nałożenie. Kumuluje się do 5 razy. Generuje wysokie zagrożenie.',
   'entities.abilities.sunder_armor.name': 'Rozdarcie pancerza',
   'entities.abilities.swipe.description':
     'Zamach uderzający pobliskich wrogów za {damage} obrażeń. Wzbudza dodatkowe zagrożenie. Tylko w postaci Bruina.',
@@ -1911,7 +1908,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Prowokuje cel: twoje zagrożenie wzrasta do poziomu jego najbardziej znienawidzonego wroga, a cel jest zmuszony atakować cię przez 3 sek.',
   'entities.abilities.taunt.name': 'Podjudzenie',
   'entities.abilities.thorns.description':
-    'Z celu wyrastają ciernie: atakujący wręcz otrzymują 3 obrażeń od Natury.',
+    'Z celu wyrastają ciernie: atakujący wręcz otrzymują {buff} obrażeń od Natury.',
   'entities.abilities.thorns.name': 'Cierniowa straż',
   'entities.abilities.thunder_clap.description':
     'Razi pobliskich wrogów za {damage} obrażeń i spowalnia ich ataki o 10% na 10 sek.',
@@ -1928,7 +1925,8 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.whirlwind.description':
     'Wirujesz w śmiercionośnym łuku, uderzając wszystkich pobliskich wrogów za {damage}. (Talent Furii)',
   'entities.abilities.whirlwind.name': 'Wir ostrzy',
-  'entities.abilities.wing_clip.description': 'Zadaje ranę, która spowalnia wroga o 40% na 10 sek.',
+  'entities.abilities.wing_clip.description':
+    'Zadaje ranę, zadając {damage} obrażeń i spowalniając wroga o 40% na 10 sek.',
   'entities.abilities.wing_clip.name': 'Pętające cięcie',
   'entities.abilities.wrath.description':
     'Ciska pocisk energii natury, zadając {damage} obrażeń od Natury.',
@@ -5947,7 +5945,6 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Wszystkie instancje lokacji {name} są zajęte. Spróbuj ponownie za chwilę.',
   'worldContent.dungeonPartyWarning':
     'Lokacja {name} jest przeznaczona dla pełnej drużyny liczącej {count}. Zachowaj ostrożność.',
-  // Aura effect tooltip summaries.
   'hudChrome.auraEffect.dot': 'Zadaje {value} obrażeń od {school} co {interval} s',
   'hudChrome.auraEffect.hot': 'Przywraca {value} zdrowia co {interval} s',
   'hudChrome.auraEffect.absorb': 'Pochłania {value} obrażeń',
@@ -6264,7 +6261,6 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Nie teraz',
   'hudChrome.nativeUpdate.title': 'Dostępna aktualizacja',
   'hudChrome.nativeUpdate.update': 'Aktualizuj',
-  // Ravenpost authored letters
   'entities.letters.ravenpost_welcome.sender': 'Krucza Poczta',
   'entities.letters.ravenpost_welcome.subject': 'Kruki latają teraz dla ciebie',
   'entities.letters.ravenpost_welcome.body':
@@ -6354,7 +6350,6 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
     'Najpierw rozpocznij konfigurację uwierzytelniania dwuskładnikowego.',
   'apiError.validation.failed':
     'Niektóre pola są nieprawidłowe. Sprawdź formularz i spróbuj ponownie.',
-  // Release v0.22.0 locale fill.
   'download.linuxCta': 'Pobierz dla Linuksa',
   'download.linuxHint':
     'AppImage: uczyń go wykonywalnym, a następnie uruchom. Nie wymaga instalacji.',
@@ -6465,7 +6460,6 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mobile.targetCycleShort': 'Cel',
   'hudChrome.options.mobileCameraJoystick': 'Joystick aparatu',
   'hudChrome.options.mobileLeftHanded': 'Układ leworęczny',
-  // Release v0.22.0 professions quest locale fill.
   'entities.quests.q_archetype_acceptance.title': 'Rzemiosło, które możesz nazwać własnym',
   'entities.quests.q_archetype_acceptance.text':
     'Każdy rzemieślnik z Eastbrook ostatecznie decyduje się na jedno rzemiosło, które nazywa swoim własnym. Wykaż się jednym czynem, {playerName}, i zadeklaruj swoją ścieżkę.',
@@ -6478,4 +6472,66 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_prof_make_amends.completion':
     'Poprawki dokonane; otwiera się przed tobą nowa droga.',
   'entities.quests.q_prof_make_amends.objectives.0.label': 'Leśny Wilk zabity',
+  'entities.npcs.bursar_aldous_crane.greeting':
+    'Każda skrzynia, kufer i błyskotka są bezpieczne w Złoconej Szkatule.',
+  'entities.npcs.bursar_aldous_crane.name': 'Skarbnik Aldous Crane',
+  'entities.npcs.bursar_aldous_crane.title': 'Złocona Szkatuła',
+  'entities.npcs.bursar_fernando.greeting':
+    'Witaj w Złoconej Szkatule. Twoje dobra spoczywają bezpiecznie za naszymi zamkami.',
+  'entities.npcs.bursar_fernando.name': 'Skarbnik Fernando',
+  'entities.npcs.bursar_fernando.title': 'Złocona Szkatuła',
+  'entities.npcs.bursar_petra_vell.greeting':
+    'Złocona Szkatuła prowadzi czyste księgi i jeszcze czystsze skarbce. Co mamy dla ciebie przechować?',
+  'entities.npcs.bursar_petra_vell.name': 'Skarbniczka Petra Vell',
+  'entities.npcs.bursar_petra_vell.title': 'Złocona Szkatuła',
+  'guide.economy.bankBody':
+    'W każdym głównym mieście działa oddział Złoconej Szkatuły, domu bankowego królestwa. Porozmawiaj z tamtejszym skarbnikiem, aby otworzyć swój skarbiec, prywatny schowek poza torbami, który twoja postać zachowuje na całe życie. Cokolwiek tam zostawisz, czeka bezpiecznie, niezależnie od tego, który oddział odwiedzisz następnym razem.',
+  'guide.economy.bankHow':
+    'Przy otwartym skarbcu kliknij przedmiot w torbach, aby go zdeponować, i kliknij go w skarbcu, aby zabrać z powrotem. Skarbiec przechowuje wyłącznie dobra, nigdy monety, a przedmioty zadań zostają przy tobie. Gdy torby zapełnią ci się w połowie drogi, jeden przycisk zgarnia do środka wszystkie materiały rzemieślnicze naraz.',
+  'guide.economy.bankSlots':
+    'Świeży skarbiec zaczyna skromnie i rośnie razem z tobą. Skarbnik sprzedaje kolejne miejsca za monety po coraz wyższych cenach, a granie online przynosi na dodatek premiowe miejsca, na przykład za zweryfikowany e-mail, połączone konta i przyjaciół, których przyprowadzisz do gry.',
+  'guide.economy.bankTitle': 'Bank',
+  'hudChrome.bank.bonusAdvertDiscord': 'Połącz swój Discord, aby zdobyć 2 miejsca.',
+  'hudChrome.bank.bonusAdvertEmail': 'Zweryfikuj swój e-mail, aby zdobyć 2 miejsca.',
+  'hudChrome.bank.bonusAdvertWallet': 'Połącz portfel, aby zdobyć 2 miejsca.',
+  'hudChrome.bank.bonusEarned': '+{count}',
+  'hudChrome.bank.bonusReferralExplainer':
+    'Zaproś przyjaciela: gdy osiągnie 10. poziom, oboje zdobywacie po 2 miejsca, maksymalnie za 5 przyjaciół.',
+  'hudChrome.bank.bonusReferralProgress': '{count}/{cap}',
+  'hudChrome.bank.bonusSectionAria': 'Premiowe miejsca w banku i jak zdobyć ich więcej',
+  'hudChrome.bank.bonusSourceDiscord': 'Połączony Discord',
+  'hudChrome.bank.bonusSourceEmail': 'Zweryfikowany e-mail',
+  'hudChrome.bank.bonusSourceReferral': 'Zaproszeni przyjaciele',
+  'hudChrome.bank.bonusSourceWallet': 'Połączony portfel',
+  'hudChrome.bank.bonusStatusEarned': '+{count}',
+  'hudChrome.bank.bonusTitle': 'Miejsca premiowe',
+  'hudChrome.bank.buyConfirm': 'Kupić {count} dodatkowych miejsc w banku za {price}?',
+  'hudChrome.bank.buyConfirmAccept': 'Kup',
+  'hudChrome.bank.buySlots': 'Kup {count} miejsc',
+  'hudChrome.bank.buySlotsMaxed': 'W pełni rozszerzony',
+  'hudChrome.bank.cannotDeposit': 'Nie można zdeponować',
+  'hudChrome.bank.capacity': '{used}/{total}',
+  'hudChrome.bank.capacityAria': 'Zajęte miejsca w banku: {used} z {total}',
+  'hudChrome.bank.close': 'Zamknij bank',
+  'hudChrome.bank.depositAll': 'Zdeponuj wszystkie materiały',
+  'hudChrome.bank.depositAllDone': 'Zdeponowane materiały: {count}.',
+  'hudChrome.bank.depositAllFull': 'Zdeponowane materiały: {count}. Bank jest teraz pełny.',
+  'hudChrome.bank.depositAllNone': 'Bank pełny: niczego nie zdeponowano.',
+  'hudChrome.bank.depositHint': 'Kliknij, aby zdeponować',
+  'hudChrome.bank.depositPartialHint': 'Kliknij z Shiftem, aby zdeponować część',
+  'hudChrome.bank.depositQuantityConfirm': 'Zdeponuj',
+  'hudChrome.bank.depositQuantityInput': 'Liczba do zdeponowania',
+  'hudChrome.bank.depositQuantityTitle': 'Zdeponuj: {item}',
+  'hudChrome.bank.empty': 'Twój bank jest pusty.',
+  'hudChrome.bank.filterGroupAria': 'Filtruj bank według kategorii',
+  'hudChrome.bank.searchAria': 'Szukaj przedmiotów w banku po nazwie',
+  'hudChrome.bank.sortAria': 'Sortuj przedmioty w banku',
+  'hudChrome.bank.subtitle': 'Złocona Szkatuła',
+  'hudChrome.bank.title': 'Bank',
+  'hudChrome.bank.tooFar': 'Musisz być przy bankierze, aby zajrzeć do swojego banku.',
+  'hudChrome.bank.withdrawHint': 'Kliknij, aby wyjąć',
+  'hudChrome.bank.withdrawPartialHint': 'Kliknij z Shiftem, aby wyjąć część',
+  'hudChrome.bank.withdrawQuantityConfirm': 'Wyjmij',
+  'hudChrome.bank.withdrawQuantityInput': 'Liczba do wyjęcia',
+  'hudChrome.bank.withdrawQuantityTitle': 'Wyjmij: {item}',
 };

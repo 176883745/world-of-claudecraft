@@ -183,7 +183,13 @@ function interpolateSource(source: string, values?: InterpolationValues): string
   const legacy = source
     .replace(/\$N/g, String(values.playerName ?? values.name ?? '$N'))
     .replace(/\$C/g, String(className))
-    .replace(/\$d/g, String(values.damage ?? values.d ?? '$d'));
+    .replace(/\$d/g, String(values.damage ?? values.d ?? '$d'))
+    // Ability-description placeholders beyond the damage number: a hybrid's
+    // over-time total ($o), the first buff's resolved value ($b), the first
+    // timed effect's resolved duration ($t); hud.ts supplies all three.
+    .replace(/\$o/g, String(values.overTime ?? '$o'))
+    .replace(/\$b/g, String(values.buff ?? '$b'))
+    .replace(/\$t/g, String(values.duration ?? '$t'));
   return legacy.replace(/\{([A-Za-z0-9_]+)\}/g, (match, name: string) => {
     const value = values[name];
     return value === undefined ? match : String(value);

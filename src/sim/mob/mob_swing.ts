@@ -973,7 +973,10 @@ function applyCorrosion(
   target: Entity,
   corrode: NonNullable<MobTemplate['corrode']>,
 ): void {
-  const existing = target.auras.find((a) => a.kind === 'sunder');
+  // Mob corrosion is a FLAT, stacking armor shred on its own `corrode` kind, kept
+  // separate from the warrior/rogue percent `sunder` so effectiveArmor subtracts it
+  // flat (before the percent debuffs) and the two mechanics never collide.
+  const existing = target.auras.find((a) => a.kind === 'corrode');
   if (existing) {
     existing.stacks = Math.min(corrode.maxStacks, (existing.stacks ?? 1) + 1);
     existing.value = corrode.armor;
@@ -983,7 +986,7 @@ function applyCorrosion(
     ctx.applyAura(target, {
       id: `corrode_${mob.templateId}`,
       name: corrode.name,
-      kind: 'sunder',
+      kind: 'corrode',
       remaining: corrode.duration,
       duration: corrode.duration,
       value: corrode.armor,

@@ -1485,11 +1485,7 @@
        just inside that, aligned with the composer's keyboard-open bottom (docked just
        above the keyboard's top edge, matching #chat-input below). It reads as the
        composer's own dismiss affordance rather than a disconnected button. */
-    left: calc(
-      50% +
-      min(calc(360px * var(--mobile-chrome-scale, 1)), 100vw - 40px) / 2 -
-      40px
-    );
+    left: calc(50% + min(calc(360px * var(--mobile-chrome-scale, 1)), 100vw - 40px) / 2 - 40px);
     top: auto;
     bottom: calc(100vh - var(--mobile-keyboard-visible-vh, 100vh) + 8px);
     width: 40px;
@@ -2299,6 +2295,11 @@
     width: auto;
     transform: none;
     max-height: none;
+    /* The base .window max-width clamp divides by --window-scale, not --ui-scale,
+       so it under-fills this inset-driven full-screen state below uiScale 1
+       (~83% width at 0.85). Full-screen is the insets' job; drop the clamp, as
+       the paired group rules already do. */
+    max-width: none;
     box-sizing: border-box;
     overflow: hidden;
     z-index: 95;
@@ -2492,9 +2493,13 @@
     box-sizing: border-box;
     z-index: 95;
   }
+  /* The 50/50 split point: #ui's zoom multiplies every author length, so a raw
+     50vw only lands on the real viewport centre at uiScale 1 (the halves gap
+     above 1, overlap below 1). Divide the shared --app-vw box by the live scale
+     so both halves tile at any uiScale (the window-shell coordinate model). */
   body.mobile-touch.vendor-open #vendor-window {
     left: max(10px, env(safe-area-inset-left));
-    right: 50vw;
+    right: calc(var(--app-vw) / var(--ui-scale, 1) / 2);
     display: block;
     overflow-y: auto;
     border-top-right-radius: 0;
@@ -2502,7 +2507,7 @@
     border-right-width: 1px;
   }
   body.mobile-touch.vendor-open #bags {
-    left: 50vw;
+    left: calc(var(--app-vw) / var(--ui-scale, 1) / 2);
     right: max(10px, env(safe-area-inset-right));
     overflow: hidden;
     border-top-left-radius: 0;
@@ -2519,6 +2524,113 @@
   }
   body.mobile-touch.vendor-open #vendor-window .panel-title .x-btn {
     display: none;
+  }
+  /* The bank docks its bags companion side by side on touch exactly like the
+     vendor cluster: a divided full-height panel split 50/50 at the viewport
+     centre. This standalone block is also the neutralizer for the desktop
+     body.bank-open transforms (components.css) on mobile; the hud-mobile layer
+     outranks components, so transform:none wins over the desktop dock. */
+  body.mobile-touch #bank-window {
+    position: fixed;
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
+    top: max(10px, env(safe-area-inset-top));
+    /* Full-height like standalone #bags (issue 1577 round 2 (9)): the player frame
+       is fine to cover while a modal, world-input-blocking window is open. The
+       bank-open 50/50 pairing below keeps its 72px reservation, mirroring the
+       vendor-split rule that change deliberately kept. */
+    bottom: max(10px, env(safe-area-inset-bottom));
+    width: auto;
+    transform: none;
+    max-height: none;
+    /* Drop the base .window max-width clamp (it divides by --window-scale, not
+       --ui-scale, and under-fills this full-screen state below uiScale 1). */
+    max-width: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 95;
+  }
+  body.mobile-touch.bank-open #bank-window,
+  body.mobile-touch.bank-open #bags {
+    position: fixed;
+    top: max(10px, env(safe-area-inset-top));
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    width: auto;
+    max-width: none;
+    max-height: none;
+    transform: none;
+    box-sizing: border-box;
+    z-index: 95;
+  }
+  /* Bank LEFT: unlike the vendor (a display:block window that scrolls as a whole),
+     #bank-window is a flex column whose .bank-scroll region (grid + bonus tail) is
+     the internal scroll container, so the panel itself stays overflow:hidden and
+     the region scrolls, mirroring #bags. */
+  body.mobile-touch.bank-open #bank-window {
+    left: max(10px, env(safe-area-inset-left));
+    right: calc(var(--app-vw) / var(--ui-scale, 1) / 2);
+    overflow: hidden;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right-width: 1px;
+  }
+  body.mobile-touch.bank-open #bags {
+    left: calc(var(--app-vw) / var(--ui-scale, 1) / 2);
+    right: max(10px, env(safe-area-inset-right));
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+  }
+  body.mobile-touch.bank-open #bank-window .panel-title,
+  body.mobile-touch.bank-open #bags .panel-title {
+    height: 47px;
+    min-height: 47px;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+  }
+  /* The bank's own x-btn hides under the pairing (mirrors the vendor's hidden LEFT
+     x-btn); the visible bags x-btn closes the whole cluster (bags_window.ts), and
+     the bank still auto-closes on walk-away and peels on Esc for keyboard users. */
+  body.mobile-touch.bank-open #bank-window .panel-title .x-btn {
+    display: none;
+  }
+  /* Short landscape phones: the six category chips wrap to two rows at half-viewport
+     width and eat the grid (a sub-row sliver at 360px tall). Keep them one
+     horizontally scrollable row INSIDE the bank cluster only (both panels, so the
+     pair stays visually consistent; the vendor cluster and standalone bags keep the
+     family wrap). Nothing is hidden: every chip stays reachable by scroll and keeps
+     its full tap height. */
+  body.mobile-touch #bank-window .bag-chips,
+  body.mobile-touch.bank-open #bags .bag-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  body.mobile-touch #bank-window .bag-chip,
+  body.mobile-touch.bank-open #bags .bag-chip {
+    flex: 0 0 auto;
+  }
+  /* Short landscape phones: the 50/50 pairing box (viewport minus the 10px top
+     inset and the 72px tray reservation) cannot hold the full-toolbar chrome, the
+     two-row grid floor (components.css .bank-scroll), AND the buy row, so the buy
+     row clipped below the window edge once the vault had items (empty vaults drop
+     the search/chips toolbar, which is how the Phase 7 checks missed it). The grid
+     floor yields to one cell row, and to a sliver while the transient deposit-all
+     status line borrows its height, so the transactional buy row keeps its
+     always-visible contract; the grid itself scrolls. */
+  @media (max-height: 480px) {
+    body.mobile-touch #bank-window .bank-scroll {
+      min-height: 44px;
+    }
+    body.mobile-touch #bank-window:has(.bank-status) .bank-scroll {
+      min-height: 13px;
+    }
+    body.mobile-touch #bank-window .bank-buy-row {
+      margin-top: 4px;
+    }
   }
   /* On touch, stack the categories back into a single column so the large
      touch targets keep their full width. */
@@ -3422,11 +3534,7 @@
        while the keyboard is up). Same three-class selector as that rule so this
        later landscape override wins the left seat. */
     body.mobile-touch.mobile-chat-open.mobile-keyboard-open #chat-dismiss {
-      left: calc(
-        50% +
-        min(calc(330px * var(--mobile-chrome-scale, 1)), 44vw) / 2 -
-        40px
-      );
+      left: calc(50% + min(calc(330px * var(--mobile-chrome-scale, 1)), 44vw) / 2 - 40px);
     }
     body.mobile-touch #player-frame {
       left: 50%;

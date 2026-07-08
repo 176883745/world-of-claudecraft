@@ -333,6 +333,7 @@ describe('i18n Localization Key Coverage', () => {
     ability: 'Fireball',
     action: 'Open Chat',
     amount: 42,
+    answered: 6,
     base: 14,
     rested: 18,
     buyer: 'Mira',
@@ -476,7 +477,7 @@ describe('i18n Localization Key Coverage', () => {
         kind: 'ability',
         id: entry.id,
         field: entry.field as 'name' | 'description',
-        values: { damage: '11-14' },
+        values: { damage: '11-14', overTime: '57', buff: '35', duration: '12' },
       };
     }
     throw new Error(`Unexpected entity kind: ${entry.kind}`);
@@ -827,6 +828,10 @@ describe('i18n Localization Key Coverage', () => {
         expect(rendered, `${lang}.${entry.key}`).not.toBe(entry.key);
         expect(rendered, `${lang}.${entry.key}`).not.toContain('$d');
         expect(rendered, `${lang}.${entry.key}`).not.toMatch(/\{damage\}/);
+        // The other tooltip placeholders ($o over-time, $b buff value, $t
+        // duration) must interpolate in every locale exactly like $d.
+        expect(rendered, `${lang}.${entry.key}`).not.toMatch(/\$[obt]\b/);
+        expect(rendered, `${lang}.${entry.key}`).not.toMatch(/\{(overTime|buff|duration)\}/);
         if (
           lang !== 'en' &&
           lang !== 'en_CA' &&
@@ -844,6 +849,20 @@ describe('i18n Localization Key Coverage', () => {
           entry.source.includes('$d')
         ) {
           expect(rendered, `${lang}.${entry.key}`).toContain('11-14');
+        }
+        if (
+          entry.kind === 'ability' &&
+          entry.field === 'description' &&
+          entry.source.includes('$o')
+        ) {
+          expect(rendered, `${lang}.${entry.key}`).toContain('57');
+        }
+        if (
+          entry.kind === 'ability' &&
+          entry.field === 'description' &&
+          entry.source.includes('$b')
+        ) {
+          expect(rendered, `${lang}.${entry.key}`).toContain('35');
         }
       }
       expect(entityTranslationFallbackLog(), `${lang} fallback log`).toHaveLength(0);

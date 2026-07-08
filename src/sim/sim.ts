@@ -1,5 +1,6 @@
 import type {
   AccountCosmetics,
+  BankBonusSource,
   DailyRewardHistory,
   DailyRewardLeaderboardPage,
   DailyRewardSpinResult,
@@ -11,6 +12,8 @@ import type {
 } from '../world_api';
 import * as bagsMod from './bags';
 import { addStacked, BAG_SOCKETS, bagCapacity, canAddItem, migrationBagsFor } from './bags';
+import * as bankMod from './bank';
+import { type BankState, clampBonusSlots, sanitizeBankState } from './bank';
 import { lineOfSightClear, resolveMovement, resolvePosition } from './colliders';
 import { auraAffectsStats, removeCancelableAura } from './combat/aura_cancel';
 import {
@@ -160,6 +163,7 @@ import type { Ante, PickAction } from './lockpick';
 import {
   activeLootRolls as activeLootRollsImpl,
   assignMasterLoot as assignMasterLootImpl,
+  lootRollGroupStatus as lootRollGroupStatusImpl,
   type PendingLootRoll,
   partyLootCandidatesForMob as partyLootCandidatesForMobImpl,
   resolveLootRoll as resolveLootRollImpl,
@@ -303,6 +307,9 @@ export { computeQuestState } from './quests/quest_commands';
 import { completeCurrentQuestsForDev, completeQuestForDev } from './quests/dev_quest_commands';
 import * as arenaMod from './social/arena';
 import * as duelMod from './social/duel';
+// A4: Protect Yumi (formats yumi3/yumi5); match logic in social/yumi.ts, reached
+// via ctx callbacks + the two hostility arms in isHostileTo/isFriendlyTo.
+import * as yumiMod from './social/yumi';
 
 // A2: eloDelta (with ARENA_K_FACTOR) moved to social/arena.ts. Re-exported so the
 // public path `import { Sim, eloDelta } from './sim'` (tests/arena.test.ts) holds.
@@ -356,6 +363,7 @@ import {
   type EquipSlot,
   type ErrorReason,
   emptyMoveInput,
+  FAERIE_FIRE_ARMOR_PCT,
   FISHING_CAST_ID,
   FISHING_CAST_TIME,
   GCD,
@@ -367,6 +375,7 @@ import {
   isQuestTurnInNpc,
   LEASH_DISTANCE,
   type LootRollChoice,
+  type LootRollGroupStatus,
   type LootRollPrompt,
   type LootStrategies,
   MAX_LEVEL,
@@ -389,6 +398,7 @@ import {
   type SkinRank,
   type SportRole,
   steadyAngleTo,
+  SUNDER_ARMOR_PCT_PER_STACK,
   swingMissChance,
   type VcBracket,
   type VcNationId,
@@ -621,6 +631,7 @@ export interface ArenaMatch {
   ratingB: number;
   defeated: Set<number>;
   fiesta?: FiestaState; // present only for format === 'fiesta'
+  yumi?: YumiMatchState; // present only for format 'yumi3' | 'yumi5'
 }
 
 // Everything that makes a Fiesta bout a fiesta. Lives on the ArenaMatch so it is
@@ -661,6 +672,25 @@ export interface FiestaPowerup {
   z: number;
   state: 'spawning' | 'ready';
   timer: number; // spawning: countdown to ready; ready: countdown to despawn
+}
+
+// Everything that makes a Protect Yumi bout (formats 'yumi3'/'yumi5'; the
+// system lives in social/yumi.ts). Lives on the ArenaMatch so it is torn down
+// with the match. Teleport picks + the last-resort tiebreak draw from the
+// per-match `rng` (fiesta's two-stream rule), never the shared sim stream.
+export interface YumiMatchState {
+  teamSize: 3 | 5;
+  yumiA: number; // entity id of team A's cat
+  yumiB: number;
+  nextTeleportAt: number; // active-timer (s) of the next simultaneous teleport
+  suddenDeath: boolean; // latched at YUMI_SUDDEN_AT: teleports freeze, the bleed ramps
+  respawn: Map<number, number>; // pid -> seconds until revive (absent = alive)
+  deaths: Map<number, number>; // pid -> times downed (scoreboard)
+  kills: Map<number, number>; // pid -> takedowns (scoreboard)
+  dmgToYumiA: number; // cumulative player damage dealt TO cat A (tiebreak)
+  dmgToYumiB: number;
+  lastStatusSecond: number; // last whole active-second a yumiStatus heartbeat went out
+  rng: Rng;
 }
 
 // A2: eloDelta (with ARENA_K_FACTOR) moved to social/arena.ts; re-exported from the
@@ -754,6 +784,15 @@ export interface PlayerMeta {
   // The 4 equippable bag sockets (itemId of a kind:'bag' item, or null). The
   // 16-slot backpack is implicit; capacity math lives in bags.ts. Persisted.
   bags: (string | null)[];
+  // The per-character bank: a second pooled item store with its own copper-bought
+  // slot budget. Capacity/move math lives in bank.ts. Persisted (inside the
+  // character save, exactly like inventory/bags).
+  bank: BankState;
+  // The per-source breakdown behind bank.bonusSlots, stamped by the host at join
+  // alongside the total (addPlayer's bankBonus opt). Display-only session state:
+  // never persisted, never sim-mutated, always [] offline; capacity itself rides
+  // bank.bonusSlots. Excluded from the parity meta sample (tests/parity/trace.ts).
+  bankBonusSources: BankBonusSource[];
   vendorBuyback: InvSlot[];
   copper: number;
   equipment: PlayerEquipment;
@@ -901,8 +940,8 @@ export interface AwayStatus {
 }
 
 // ---------------------------------------------------------------------------
-// The World Market — a single shared, server-authoritative auction house run by
-// the Merchant NPC — moved to market.ts (L2). Its types (MarketListing,
+// The World Market (a single shared, server-authoritative auction house run by
+// the Merchant NPC) moved to market.ts (L2). Its types (MarketListing,
 // MarketCollection, MarketSave) and the MARKET_* consts live there now; MarketSave
 // is re-exported from this module (above) for server/db.ts.
 // ---------------------------------------------------------------------------
@@ -941,6 +980,10 @@ export interface CharacterState {
   // Equipped bag sockets. Optional so pre-bag saves load cleanly (defaults to
   // 4 empty sockets; an over-capacity legacy inventory is tolerated).
   bags?: (string | null)[];
+  // Per-character bank (JSONB; optional so pre-bank saves load cleanly, defaulting
+  // to an empty bank with no purchased/bonus slots). sanitizeBankState is the one
+  // load path (never destroys items; tolerates an over-capacity inventory).
+  bank?: BankState;
   vendorBuyback?: InvSlot[];
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
@@ -1130,8 +1173,15 @@ export class Sim {
   arenaQueue1v1: number[] = [];
   arenaQueue2v2: ArenaQueueUnit[] = [];
   arenaQueueFiesta: ArenaQueueUnit[] = []; // 2v2 Fiesta (party mode) queue
+  arenaQueueYumi3: ArenaQueueUnit[] = []; // Protect Yumi 3v3 queue
+  arenaQueueYumi5: ArenaQueueUnit[] = []; // Protect Yumi 5v5 queue
   arenaMatches = new Map<number, ArenaMatch>(); // pid -> shared match (both pids)
   private arenaBusySlots = new Set<number>();
+  // Protect Yumi maze slots are their own pool (the maze band, not the pit);
+  // yumiCatMatches indexes cat entity id -> live match for the damage hub +
+  // hostility reads (both O(1) per attack).
+  private yumiBusySlots = new Set<number>();
+  private yumiCatMatches = new Map<number, ArenaMatch>();
   private nextArenaMatchId = 1;
   // The Vale Cup boarball state (social/vale_cup.ts): ONE holder object (the
   // per-bracket queues, the single Sowfield match slot, the Groundskeeper's
@@ -1162,6 +1212,12 @@ export class Sim {
   // book, the id counter, and the mailbox entity ids; Sim keeps thin delegates
   // (the market shape). Constructed in the ctor after the SimContext.
   postOffice!: PostOffice;
+  // Entity ids of every NPC with `banker: true`, assigned by the ctor NPC loop.
+  // The bank is per-character self-storage (state on PlayerMeta.bank), so unlike
+  // the shared World Market there is no bank instance: this anchor list is all the
+  // sim needs, and any banker is a valid place to stand and use the bank. Exposed
+  // as a live SimContext view so bank.ts gates deposit/withdraw/buy on proximity.
+  bankerIds: number[] = [];
   /** When true, /dev level|tp|give chat commands are accepted (local dev only). */
   readonly devCommands: boolean;
   private pendingMobRespawns: PendingMobRespawn[] = [];
@@ -1247,6 +1303,7 @@ export class Sim {
       const npc = createNpc(this.nextId++, npcDef, this.groundPos(safe.x, safe.z));
       this.addEntity(npc);
       if (npcDef.market) this.market.merchantIds.push(npc.id); // every auctioneer anchors the shared World Market
+      if (npcDef.banker) this.bankerIds.push(npc.id); // every bursar is a place to use the bank
     }
     this.market.seed();
 
@@ -1257,6 +1314,22 @@ export class Sim {
       // still spawns on dry land even though combat movement can enter water.
       const minHeight = this.mobCanSpawnInWater(template) ? waterLevel() - 0.5 : waterLevel() + 0.4;
       for (let i = 0; i < camp.count; i++) {
+        if (template.dummy) {
+          // A practice dummy is a fixed, deterministic prop (no scatter, fixed level,
+          // never wanders): spawn it WITHOUT drawing any RNG so adding one never
+          // perturbs the world's seed-stable spawns and rolls.
+          const safe = this.findSafePos(camp.center.x, camp.center.z, minHeight);
+          const mob = createMob(
+            this.nextId++,
+            template,
+            template.maxLevel,
+            this.groundPos(safe.x, safe.z),
+          );
+          mob.facing = 0;
+          mob.prevFacing = 0;
+          this.addEntity(mob);
+          continue;
+        }
         const ang = this.rng.range(0, Math.PI * 2);
         const r = Math.sqrt(this.rng.next()) * camp.radius;
         const safe = this.findSafePos(
@@ -1519,7 +1592,18 @@ export class Sim {
   addPlayer(
     cls: PlayerClass,
     name: string,
-    opts?: { autoEquip?: boolean; state?: CharacterState; characterId?: number },
+    opts?: {
+      autoEquip?: boolean;
+      state?: CharacterState;
+      characterId?: number;
+      // Server-stamped bank bonus slots, recomputed from account facts at every
+      // join (email/Discord/wallet/referrals). Overrides the persisted value so
+      // unlinking lowers capacity at the next login; a shrink below the used slot
+      // count leaves the bank over-capacity in the tolerated bags.ts sense (new
+      // deposits refuse, nothing is destroyed). Never passed offline (bonusSlots
+      // stays the sanitized save value, [] breakdown).
+      bankBonus?: { bonusSlots: number; sources: BankBonusSource[] };
+    },
   ): number {
     const savedState = opts?.state ? sanitizeRemovedZone1Content(opts.state).state : undefined;
     // Characters saved inside a dungeon instance rejoin at its entrance —
@@ -1568,6 +1652,8 @@ export class Sim {
       wireRev: 0,
       inventory: [],
       bags: Array<string | null>(BAG_SOCKETS).fill(null),
+      bank: { inventory: [], purchasedSlots: 0, bonusSlots: 0 },
+      bankBonusSources: [],
       vendorBuyback: [],
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
@@ -1678,6 +1764,9 @@ export class Sim {
         }
       }
       meta.vendorBuyback = (s.vendorBuyback ?? []).map(cloneInvSlot);
+      // Bank sanitizes on load (never destroys items; a pre-bank save has no `bank`
+      // field and sanitizes to an empty bank). See bank.ts sanitizeBankState.
+      meta.bank = sanitizeBankState(s.bank);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1733,6 +1822,15 @@ export class Sim {
       if (s.heroicDaily) {
         meta.heroicDaily = { date: s.heroicDaily.date, marked: new Set(s.heroicDaily.marked) };
       }
+    }
+
+    // Host-stamped bank bonus slots (see the opt doc above). Applied on BOTH the
+    // saved-state and brand-new-character arms: a first-ever join can already have
+    // earned account bonuses. Values are host-trusted but clamped to the registry
+    // ceiling anyway; the breakdown rows are cloned at this write boundary.
+    if (opts?.bankBonus) {
+      meta.bank.bonusSlots = clampBonusSlots(opts.bankBonus.bonusSlots);
+      meta.bankBonusSources = opts.bankBonus.sources.map((s) => ({ ...s }));
     }
 
     // Resolve the flat talent struct once, before the stat pass + ability
@@ -1951,6 +2049,11 @@ export class Sim {
       equipment: { ...meta.equipment },
       inventory: meta.inventory.map(cloneInvSlot),
       bags: [...meta.bags],
+      bank: {
+        inventory: meta.bank.inventory.map(cloneInvSlot),
+        purchasedSlots: meta.bank.purchasedSlots,
+        bonusSlots: meta.bank.bonusSlots,
+      },
       vendorBuyback: meta.vendorBuyback.map(cloneInvSlot),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
@@ -2485,6 +2588,26 @@ export class Sim {
       get arenaBusySlots() {
         return sim.arenaBusySlots;
       },
+      // A4 Protect Yumi live views: the two format queues (reassigned by the
+      // matchmaker's prune filter), the maze slot pool, and the cat -> match index.
+      get arenaQueueYumi3() {
+        return sim.arenaQueueYumi3;
+      },
+      set arenaQueueYumi3(v) {
+        sim.arenaQueueYumi3 = v;
+      },
+      get arenaQueueYumi5() {
+        return sim.arenaQueueYumi5;
+      },
+      set arenaQueueYumi5(v) {
+        sim.arenaQueueYumi5 = v;
+      },
+      get yumiBusySlots() {
+        return sim.yumiBusySlots;
+      },
+      get yumiCatMatches() {
+        return sim.yumiCatMatches;
+      },
       get nextArenaMatchId() {
         return sim.nextArenaMatchId;
       },
@@ -2535,6 +2658,11 @@ export class Sim {
       get marketListings() {
         return sim.marketListings;
       },
+      // Banker anchor list (bank system): the live array of every banker
+      // NPC id, read by bank.ts's proximity gate. Sim-owned, never reassigned.
+      get bankerIds() {
+        return sim.bankerIds;
+      },
       // The Vale Cup holder (queues/deserters/botPids mutated in place; the
       // match slot reassigned inside the holder, so no setter is needed).
       get vcup() {
@@ -2563,6 +2691,17 @@ export class Sim {
       endDuel: sim.endDuel.bind(sim),
       fiestaTakedown: sim.fiestaTakedown.bind(sim),
       fiestaDown: sim.fiestaDown.bind(sim),
+      // A4 Protect Yumi hooks: late-bound arrows into social/yumi.ts (the
+      // nythraxis style; no Sim facade methods needed, no foreign name resolves
+      // on Sim). updateArena drives matchmake/update/cleanup; the damage hub
+      // drives the cat + player-down arms.
+      matchmakeYumi: () => yumiMod.matchmakeYumi(sim.ctx),
+      updateYumiActive: (match) => yumiMod.updateYumiActive(sim.ctx, match),
+      yumiPlayerDown: (match, victim, killerPid) =>
+        yumiMod.yumiPlayerDown(sim.ctx, match, victim, killerPid),
+      yumiCatDamaged: (match, source, cat, amount, crit, school, ability, kind) =>
+        yumiMod.yumiCatDamaged(sim.ctx, match, source, cat, amount, crit, school, ability, kind),
+      cleanupYumiMatch: (match) => yumiMod.cleanupYumiMatch(sim.ctx, match),
       // A2: isArenaCrossTeam/arenaTeamOf/endArenaMatch/endDuel (above) now forward to
       // social/arena.ts + social/duel.ts via Sim's thin delegates. The block below is
       // what the moved code CONSUMES that stays on Sim (clearAurasFromSource has
@@ -3217,19 +3356,39 @@ export class Sim {
   // Sunder Armor stacks shave flat armor off the defender for physical hits.
   private effectiveArmor(e: Entity): number {
     let armor = e.stats.armor;
+    // Player/rogue armor debuffs are PERCENTAGES that do NOT stack with each other:
+    // Sunder Armor (2% per stack, up to 10% at 5 stacks) and Faerie Fire (a flat 10%)
+    // max-combine, so a fully-stacked Sunder and a Faerie Fire are redundant rather
+    // than additive. Mob corrosion (kind 'corrode') is a separate FLAT shred that
+    // subtracts value*stacks before the percent debuffs apply.
+    let reductionPct = 0;
+    const baseArmor = e.stats.armor;
     for (const a of e.auras) {
       if (e.kind !== 'player' && a.kind === 'buff_armor') armor += a.value;
-      if (a.kind === 'sunder') armor -= a.value * (a.stacks ?? 1);
+      // Percent armor raid buff (Devotion Aura) on a controlled pet; players fold it
+      // in recalcPlayerStats.
+      else if (e.kind !== 'player' && a.kind === 'buff_armor_pct')
+        armor += (baseArmor * a.value) / 100;
+      // Mob corrosion: flat, stacking armor shred (value per stack).
+      if (a.kind === 'corrode') armor -= a.value * (a.stacks ?? 1);
+      else if (a.kind === 'sunder')
+        reductionPct = Math.max(reductionPct, SUNDER_ARMOR_PCT_PER_STACK * (a.stacks ?? 1));
+      else if (a.kind === 'faerie_fire')
+        reductionPct = Math.max(reductionPct, FAERIE_FIRE_ARMOR_PCT);
     }
-    return Math.max(0, armor);
+    return Math.max(0, armor * (1 - reductionPct));
   }
 
   private effectiveAttackPower(e: Entity): number {
     let attackPower = e.attackPower;
     if (e.kind !== 'player') {
+      const base = e.attackPower;
       for (const a of e.auras) {
         if (a.kind === 'buff_ap') attackPower += a.value;
         else if (a.kind === 'debuff_ap') attackPower -= a.value;
+        // Percent attack-power raid buffs (Blessing of Might / Battle Shout) on a
+        // controlled pet: percent of the pet's base AP. Players fold this in recalc.
+        else if (a.kind === 'buff_ap_pct') attackPower += (base * a.value) / 100;
       }
     }
     return Math.max(0, attackPower);
@@ -3435,9 +3594,10 @@ export class Sim {
     if (this.updateFearMovement(p)) return;
     // The rest of the step (turn integration, wish vector, slope gates, swept
     // static collision, the vertical pass with fall damage) moved VERBATIM to
-    // player_motion.ts (MV1); playerMotionDeps binds the live Sim callbacks
-    // (fiesta-aware moveSpeedMult, delve-aware resolveMove, cancelCast/standUp/
-    // dealDamage) so behavior and the rng draw order are unchanged.
+    // player_motion.ts (MV1), which also eases the body off terrain walls at the
+    // end (the standoff); playerMotionDeps binds the live Sim callbacks (fiesta-
+    // aware moveSpeedMult, delve-aware resolveMove, cancelCast/standUp/dealDamage)
+    // so behavior and the rng draw order are unchanged.
     stepPlayerMotion(this.playerMotionDeps, p, meta.moveInput);
   }
 
@@ -4023,7 +4183,14 @@ export class Sim {
     b.inCombat = true;
     // players and their pets pull wild mobs; pets never run wild-mob AI
     const aAttacker = a.kind === 'player' || (a.kind === 'mob' && a.ownerId !== null);
-    if (b.kind === 'mob' && b.ownerId === null && !b.dead && aAttacker && b.aiState !== 'evade') {
+    if (
+      b.kind === 'mob' &&
+      b.ownerId === null &&
+      !b.dead &&
+      aAttacker &&
+      b.aiState !== 'evade' &&
+      !MOBS[b.templateId]?.dummy // a training dummy never retaliates
+    ) {
       if (b.aiState === 'idle') this.aggroMob(b, a, true);
       else if (b.aggroTargetId === null) b.aggroTargetId = a.id;
     }
@@ -4032,7 +4199,8 @@ export class Sim {
       a.ownerId === null &&
       !a.dead &&
       b.kind === 'player' &&
-      a.aiState === 'idle'
+      a.aiState === 'idle' &&
+      !MOBS[a.templateId]?.dummy // a training dummy never aggros
     ) {
       this.aggroMob(a, b, false);
     }
@@ -4078,6 +4246,10 @@ export class Sim {
 
   activeLootRolls(pid = this.playerId): LootRollPrompt[] {
     return activeLootRollsImpl(this.ctx, pid);
+  }
+
+  lootRollGroupStatus(pid = this.playerId): LootRollGroupStatus[] {
+    return lootRollGroupStatusImpl(this.ctx, pid);
   }
 
   submitLootRoll(rollId: number, choice: LootRollChoice, pid?: number): void {
@@ -4388,9 +4560,11 @@ export class Sim {
   }
 
   // Step `e` one tick toward `dest`. With `ignoreObstacles`, the mover phases
-  // straight through props — used to free a stuck evader, never for normal
-  // locomotion. Returns true on arrival.
+  // straight through props — used to free a stuck evader, and forced on for
+  // templates flagged `phasesThroughObstacles` (mountain-sized world bosses
+  // that must never wedge on a collider mid-chase). Returns true on arrival.
   private moveToward(e: Entity, dest: Vec3, speed: number, ignoreObstacles = false): boolean {
+    if (!ignoreObstacles && MOBS[e.templateId]?.phasesThroughObstacles) ignoreObstacles = true;
     const d = dist2d(e.pos, dest);
     if (d < 0.3) return true;
     const desired = angleTo(e.pos, dest);
@@ -4888,19 +5062,27 @@ export class Sim {
     this.ctx.onInventoryChangedForQuests(meta);
   }
 
-  removeItem(itemId: string, count: number, pid?: number): void {
+  // Returns the `instance` payload of every instanced slot actually consumed
+  // (highest-index/most-recently-added slot first, matching the removal
+  // order below), so a caller that needs to attribute an effect to the
+  // SPECIFIC copy removed (e.g. #1149 Battlefield Experience) never guesses
+  // at a different slot than the one this call actually took from.
+  removeItem(itemId: string, count: number, pid?: number): ItemInstancePayload[] {
+    const consumedInstances: ItemInstancePayload[] = [];
     const r = this.resolve(pid);
-    if (!r) return;
+    if (!r) return consumedInstances;
     const { meta } = r;
     for (let i = meta.inventory.length - 1; i >= 0 && count > 0; i--) {
       const s = meta.inventory[i];
       if (s.itemId !== itemId) continue;
+      if (s.instance) consumedInstances.push(s.instance);
       const take = Math.min(s.count, count);
       s.count -= take;
       count -= take;
       if (s.count <= 0) meta.inventory.splice(i, 1);
     }
     this.ctx.onInventoryChangedForQuests(meta);
+    return consumedInstances;
   }
 
   // Fungible-only removal (#1165): skips instanced slots entirely, so a market
@@ -5392,6 +5574,9 @@ export class Sim {
   isHostileTo(attacker: Entity, target: Entity): boolean {
     if (target.kind === 'mob') {
       if (target.templateId.startsWith('vision_')) return false;
+      // A Protect Yumi cat is attackable only by the opposing team of its
+      // live match (social/yumi.ts owns the rule).
+      if (yumiMod.isYumiCat(target)) return yumiMod.yumiCatHostileTo(this.ctx, attacker, target);
       if (target.ownerId !== null) {
         const owner = this.entities.get(target.ownerId);
         return !!owner && owner.kind === 'player' && this.isHostileTo(attacker, owner);
@@ -5436,6 +5621,9 @@ export class Sim {
 
   private isFriendlyTo(caster: Entity, target: Entity): boolean {
     if (target.kind === 'player') return !this.isHostileTo(caster, target);
+    // A Protect Yumi cat is heal/shield-targetable only by its own team.
+    if (target.kind === 'mob' && yumiMod.isYumiCat(target))
+      return yumiMod.yumiCatFriendlyTo(this.ctx, caster, target);
     if (target.kind === 'mob' && target.ownerId !== null) {
       const owner = this.entities.get(target.ownerId);
       return !!owner && owner.kind === 'player' && !this.isHostileTo(caster, owner);
@@ -5950,6 +6138,7 @@ export class Sim {
             enemies,
             returnIn: match.state === 'over' ? Math.max(0, Math.ceil(match.timer)) : undefined,
             fiesta: match.fiesta ? this.fiestaMatchInfo(match, pid, myTeam) : undefined,
+            yumi: match.yumi ? yumiMod.yumiMatchInfo(this.ctx, match, pid, myTeam) : undefined,
           };
         }
       }
@@ -5960,11 +6149,16 @@ export class Sim {
       // Fiesta is unranked party play — it keeps no standing of its own; mirror
       // 2v2 just to satisfy the bracket record (the Fiesta UI never reads it).
       fiesta: this.arenaStanding(meta, '2v2'),
+      // Protect Yumi is unranked too (same mirror-the-record trick).
+      yumi3: this.arenaStanding(meta, '2v2'),
+      yumi5: this.arenaStanding(meta, '2v2'),
     };
     const ladders: Record<ArenaFormat, import('../world_api').ArenaLadderEntry[]> = {
       '1v1': this.arenaLadder('1v1'),
       '2v2': this.arenaLadder('2v2'),
       fiesta: [],
+      yumi3: [],
+      yumi5: [],
     };
     const format = match?.format ?? queuedFmt;
     const readoutFormat = format ?? '1v1';
@@ -5973,11 +6167,15 @@ export class Sim {
     const queueSize =
       format === 'fiesta'
         ? playerCount(this.arenaQueueFiesta)
-        : format === '2v2'
-          ? playerCount(this.arenaQueue2v2)
-          : format === '1v1'
-            ? this.arenaQueue1v1.length
-            : 0;
+        : format === 'yumi3'
+          ? playerCount(this.arenaQueueYumi3)
+          : format === 'yumi5'
+            ? playerCount(this.arenaQueueYumi5)
+            : format === '2v2'
+              ? playerCount(this.arenaQueue2v2)
+              : format === '1v1'
+                ? this.arenaQueue1v1.length
+                : 0;
     return {
       rating: standing.rating,
       wins: standing.wins,
@@ -6032,6 +6230,31 @@ export class Sim {
   // verbatim to social/trade.ts; partyInvites/duelInvites route through ctx.
   private updateTradesAndInvites(): void {
     tradeMod.updateTradesAndInvites(this.ctx);
+  }
+
+  // -------------------------------------------------------------------------
+  // The Bank: the per-character deposit box
+  // -------------------------------------------------------------------------
+
+  // Thin delegates to the bank free functions (bank.ts). The bank state lives on
+  // PlayerMeta.bank and serializes inside the character save; server/game.ts and
+  // the IWorld surface call these unchanged, reaching the inventory hub through
+  // the SimContext. Each op has one entry point, gated on banker proximity (nearBanker).
+
+  bankDeposit(slotIndex: number, count?: number, pid?: number): void {
+    bankMod.bankDeposit(this.ctx, slotIndex, count, pid);
+  }
+
+  bankWithdraw(slotIndex: number, count?: number, pid?: number): void {
+    bankMod.bankWithdraw(this.ctx, slotIndex, count, pid);
+  }
+
+  bankBuySlots(pid?: number): void {
+    bankMod.bankBuySlots(this.ctx, pid);
+  }
+
+  bankInfoFor(pid: number): import('../world_api').BankInfo | null {
+    return bankMod.bankInfoFor(this.ctx, pid);
   }
 
   // -------------------------------------------------------------------------
@@ -6319,6 +6542,10 @@ export class Sim {
 
   get mailUnread(): number {
     return this.primaryId === -1 ? 0 : this.mailUnreadFor(this.primaryId);
+  }
+
+  get bankInfo(): import('../world_api').BankInfo | null {
+    return this.primaryId === -1 ? null : this.bankInfoFor(this.primaryId);
   }
 
   instanceSlotAt(pos: Vec3): number | null {

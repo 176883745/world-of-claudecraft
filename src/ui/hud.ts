@@ -91,6 +91,7 @@ import {
   canPrestige,
   dist2d,
   type Entity,
+  FAERIE_FIRE_ARMOR_PCT,
   FISHING_CAST_ID,
   type ItemDef,
   isQuestTurnInNpc,
@@ -99,6 +100,7 @@ import {
   MILESTONES,
   type RiteIntensity,
   type SimEvent,
+  SUNDER_ARMOR_PCT_PER_STACK,
   virtualLevel,
   xpUntilNextPrestige,
 } from '../sim/types';
@@ -113,7 +115,15 @@ import {
   type OverheadEmoteId,
   type PartyInfo,
 } from '../world_api';
-import { type AbilityScaling, abilityDamageBonus } from './ability_damage';
+import {
+  type AbilityScaling,
+  abilityBuffValue,
+  abilityDamageBonus,
+  abilityDurationValue,
+  abilityOverTimeEffect,
+  abilityPrimaryEffect,
+  abilitySecondaryEffect,
+} from './ability_damage';
 import { ActionBarPainter, type ActionBarSlotElements } from './action_bar_painter';
 import {
   ABILITY_ICON_PREFIX,
@@ -134,7 +144,8 @@ import { AurasPainter, type AurasPainterDeps } from './auras_painter';
 import { type AurasDeps, createAurasView } from './auras_view';
 import { attachAvatarFallback } from './avatar_fallback';
 import { bagsWindowShown } from './bags_view';
-import { BagsWindow } from './bags_window';
+import { BagsWindow, dismissBagPrompts } from './bags_window';
+import { BankWindow } from './bank_window';
 import { CalendarWindow } from './calendar_window';
 import { CastBarPainter } from './cast_bar_painter';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
@@ -251,6 +262,11 @@ import { ReannounceMarker } from './live_region_reannounce';
 import { PICK_ACTION_HOTKEYS } from './lockpick_panel';
 import { LockpickWindow } from './lockpick_window';
 import { reconcileLootRolls as computeLootRollReconcile } from './loot_roll_reconcile';
+import {
+  computeLootRollStatusRows,
+  type LootRollStatusRow,
+  lootRollStatusFingerprint,
+} from './loot_roll_status_view';
 import { lootSettingsView } from './loot_settings_view';
 import { renderLootSettingsWindow } from './loot_settings_window';
 import { lowHealthVignette } from './low_health';
@@ -385,6 +401,7 @@ import { makeWindowFocus } from './window_focus';
 import { installWindowResize, markResizableWindow } from './window_resize';
 import { formatXp, xpBarView } from './xp_bar';
 import { XpBarPainter } from './xp_bar_painter';
+import { YumiMatchPainter } from './yumi_match_painter';
 
 // hooks main wires after Input exists (the options menu drives input, audio,
 // graphics, and logout, all of which live outside the HUD). PerfOverlayHooks
@@ -1097,6 +1114,16 @@ export class Hud {
   // later absence from the mirror means the server resolved them (retire), not
   // that the mirror simply has not caught up to a just-shown event yet.
   private confirmedLootRolls = new Set<number>();
+  // Group vote strip (the XLoot-style monitor): the authoritative per-candidate
+  // choices on every open roll, polled from IWorld.lootRollGroupStatus and
+  // re-rendered only when the fingerprint changes. A status row with no local
+  // prompt renders as a watch-only row, which is what keeps the roll frame up
+  // after the player answers until the server resolves the roll.
+  private lootRollStatusRows: LootRollStatusRow[] = [];
+  private lootRollStatusFp = '';
+  // rollId -> receivedAt for the watch-only rows' countdown bar (a prompt row
+  // keeps its own receivedAt; a watch row starts timing at first sight).
+  private lootRollWatchTimers = new Map<number, number>();
   // Master-loot assignment prompts, shown only to the master looter alongside
   // the loot-roll rail. Same lifetime/expiry as a need/greed roll.
   private activeMasterRolls = new Map<
@@ -1529,13 +1556,21 @@ export class Hud {
         this.questlogWindow.openWithQuest(row.dataset.quest);
       }
     });
-    // The delve board, lockpick panel, and map window are non-modal overlays, so
-    // canUseGameKeys() stays true and the global jump (Space) / chat (Enter) binds
-    // would otherwise hijack those keys on a focused panel button (the map's
-    // Quests toggle, per-quest track buttons, zoom, and close included). Stop
-    // propagation (but NOT the default, so the button's native activation still
-    // fires) when a panel button has focus, mirroring the quest-tracker guard above.
-    for (const panelId of ['#delve-board', '#lockpick-panel', '#delve-rite-panel', '#map-window']) {
+    // The delve board, lockpick panel, map window, and the bank + bags cluster are
+    // non-modal overlays, so canUseGameKeys() stays true and the global jump (Space)
+    // / chat (Enter) binds would otherwise hijack those keys on a focused panel
+    // button (the map's Quests toggle, a bank grid cell, and each close button
+    // included). Stop propagation (but NOT the default, so the button's native
+    // activation still fires) when a panel button has focus, mirroring the
+    // quest-tracker guard above.
+    for (const panelId of [
+      '#delve-board',
+      '#lockpick-panel',
+      '#delve-rite-panel',
+      '#map-window',
+      '#bank-window',
+      '#bags',
+    ]) {
       $(panelId).addEventListener('keydown', (e) => {
         if ((e.target as HTMLElement).tagName !== 'BUTTON') return;
         if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') e.stopPropagation();
@@ -1932,6 +1967,15 @@ export class Hud {
       (el.id === 'vendor-window' || el.id === 'bags')
     )
       return;
+    // The bank docks its bags companion the same way the vendor does (a fixed
+    // side-by-side cluster driven by body.bank-open, mobile-paired 50/50); baking a
+    // cascade-offset inline position onto either half would defeat that layout (the
+    // inline inset beats the docking CSS), so skip the cascade for the bank cluster.
+    if (
+      document.body.classList.contains('bank-open') &&
+      (el.id === 'bank-window' || el.id === 'bags')
+    )
+      return;
     const openCount = [...document.querySelectorAll<HTMLElement>('.window.panel')].filter(
       (win) => win !== el && this.isWindowVisible(win),
     ).length;
@@ -2091,6 +2135,10 @@ export class Hud {
         // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
         this.mailboxWindow.close();
         break;
+      case 'bank-window':
+        // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
+        this.closeBank();
+        break;
       case 'calendar-window':
         // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
         this.calendarWindow.close();
@@ -2128,6 +2176,11 @@ export class Hud {
         break;
       case 'bags':
         if (this.vendorOpen && document.body.classList.contains('mobile-touch')) this.closeVendor();
+        // The bank cluster is one unit on touch exactly like the vendor cluster
+        // (the bank hides its own x-btn under the pairing), so the managed close
+        // of bags closes the bank companion too, never leaving a half-width orphan.
+        else if (this.bankWindow.isOpen && document.body.classList.contains('mobile-touch'))
+          this.closeBank();
         // Route through the painter so focus returns to the opener (WCAG 2.4.3),
         // consistent with the toggle / X close path. NON-MODAL: no trap is released.
         else this.bagsWindow.close();
@@ -3045,6 +3098,13 @@ export class Hud {
     },
   );
   private readonly delvePainter = new DelveMapPainter(this.writerFacet, classCss);
+  // The Protect Yumi match strip + bench overlay (yumi_match_painter.ts):
+  // facet-routed; structure from arenaInfo.match.yumi, dynamics from the
+  // yumiStatus/yumiDown events fed in handleEvents. Runs on the mediumHud
+  // band next to the fiesta HUD (values change at 1Hz).
+  private readonly yumiPainter = new YumiMatchPainter(this.writerFacet, () =>
+    document.getElementById('ui'),
+  );
   // Per-frame XP + swing painters. Each caches its element refs once and
   // routes every write through the same six-writer facet, so their --xp-fill /
   // .rested / swing writes share the one skip-rate.
@@ -3366,6 +3426,7 @@ export class Hud {
     world: () => this.sim,
     wocBalanceHtml: () => this.wocBalanceHtml(),
     hideTooltip: () => this.hideTooltip(),
+    consumePeek: () => this.peekGuard.consume(),
     cancelPetFeed: () => this.cancelPetFeed(),
     // Non-trapping focus capture/return (bags is a non-modal companion of vendor /
     // trade / market): NOT windowFocus('#bags'), which would install a Tab trap and
@@ -3377,8 +3438,11 @@ export class Hud {
     tradeOpen: () => this.tradeOpen,
     isMarketSell: () => this.marketWindow.isSellTab,
     isMailAttach: () => this.mailboxWindow.isSendTab,
+    isBankOpen: () => this.bankWindow.isOpen,
     pendingPetFeed: () => this.pendingPetFeed,
     closeVendor: () => this.closeVendor(),
+    closeBank: () => this.closeBank(),
+    onClosed: () => this.onBagsClosed(),
     addItemToTrade: (itemId) => this.addItemToTrade(itemId),
     stageMarketSell: (itemId) => this.marketWindow.stageSell(itemId),
     stageMailParcel: (itemId) => this.mailboxWindow.stageParcel(itemId),
@@ -3439,6 +3503,30 @@ export class Hud {
         this.renderBags();
       }
     },
+  });
+  // Bank window painter (bank_view.ts core + bank_window.ts painter). A non-modal
+  // companion of the bags cluster (the vendor-open docking pattern): it composes the
+  // shared presentation bag (icon/money/tooltip) and reads/commands the pooled bank
+  // through IWorld. Non-trapping focus capture/return (NOT windowFocus, which would
+  // install a Tab trap and break the bank + bags cluster); onClosed drops the docking
+  // body class and resyncs bags.
+  private readonly bankWindow = new BankWindow({
+    ...this.presentationBag,
+    root: () => $('#bank-window'),
+    world: () => this.sim,
+    closeOthers: () => this.closeOtherWindows(['#bank-window', '#bags']),
+    hideTooltip: () => this.hideTooltip(),
+    consumePeek: () => this.peekGuard.consume(),
+    // Non-trapping focus capture/return (bank is a non-modal companion of bags):
+    // NOT windowFocus('#bank-window'), which would install a Tab trap.
+    captureFocus: () => this.focusManager.activeFocusable(),
+    restoreFocus: (target) => this.focusManager.restore(target),
+    onClosed: () => this.onBankClosed(),
+    // A bank op (withdraw / deposit-all / buy-slots) moved inventory or coin: repaint
+    // the bags companion (and vendor/char if open) through the same coordinator the
+    // online inventory-delta path calls. Offline this is the ONLY repaint; online the
+    // snapshot echo repaints again authoritatively.
+    onInventoryChanged: () => this.onInventoryChanged(),
   });
   // Event calendar window painter (calendar_view.ts month-grid core +
   // calendar_window.ts painter). System events expand from data rules; guild
@@ -3746,7 +3834,7 @@ export class Hud {
   // One-line aura effect summary HTML for the buff/debuff tooltip: the pure descriptor
   // (aura_effect.ts) resolved to localized, esc'd text. Empty when the aura has no
   // descriptor. Injected into the auras view so the i18n-free core never calls t().
-  private auraEffectTooltipHtml(a: AuraEffectInput): string {
+  private auraEffectTooltipHtml(a: AuraEffectInput & { id?: string }): string {
     const effect = auraEffectDescriptor(a);
     if (!effect) return '';
     const values: Record<string, string> = {};
@@ -3755,8 +3843,15 @@ export class Hud {
         values[k] = formatNumber(n, { maximumFractionDigits: 0 });
       }
     }
-    if (effect.school) {
-      values.school = t(`hudChrome.auraEffect.school.${effect.school}` as TranslationKey);
+    // Resolve the {school} placeholder in the dot/absorb/thorns summaries. Prefer
+    // the SOURCE ability's school: it is authoritative and always present
+    // client-side, unlike the aura's own school, which the ability-tooltip call
+    // site omits (only kind+value) and the online wire mirror drops. Without this
+    // a magic reflect like Lightning Shield read a raw "{school}" (ability tooltip)
+    // or the wrong "Physical" (online buff frame) instead of its real school.
+    const school = (a.id ? ABILITIES[a.id]?.school : undefined) ?? effect.school;
+    if (school) {
+      values.school = t(`hudChrome.auraEffect.school.${school}` as TranslationKey);
     }
     return `<div class="tt-effect">${esc(t(effect.key as TranslationKey, values))}</div>`;
   }
@@ -4057,7 +4152,9 @@ export class Hud {
     for (const line of lines) {
       const effect = line.effects.map((e) => this.procEffectText(e)).join(' ');
       const triggerKey =
-        line.trigger === 'meleeHit'
+        // onMeleeHit is the legacy key id; its English reads the generic "Chance on
+        // hit", correct for a weaponHit proc that fires on melee AND hunter ranged.
+        line.trigger === 'weaponHit'
           ? 'hudChrome.itemProc.onMeleeHit'
           : line.trigger === 'spellDamage'
             ? 'hudChrome.itemProc.onSpellDamage'
@@ -4258,6 +4355,7 @@ export class Hud {
     if (this.openHeroicVendorNpcId !== null && $('#vendor-window').style.display === 'block')
       this.renderHeroicVendor();
     if (this.marketWindow.isOpen) this.marketWindow.render();
+    if (this.bankWindow.isOpen) this.bankWindow.render();
     this.charWindow.renderIfOpen();
     // The arena window's render-skip signature is text-independent (offline sentinel or a
     // JSON of ids/numbers), so a language switch alone never moves it; relocalize() forces
@@ -4288,11 +4386,12 @@ export class Hud {
   private abilityTooltip(res: ResolvedAbility): string {
     const a = res.def;
     const p = this.sim.player;
-    const damageText = abilityEffectText(res, {
+    const scaling: AbilityScaling = {
       spellPower: p.spellPower,
       rangedPower: p.rangedPower,
       attackPower: p.attackPower,
-    });
+    };
+    const damageText = abilityEffectText(res, scaling);
     let html = `<div class="tt-title">${esc(abilityDisplayName(a))}</div>`;
     html += `<div class="tt-sub">${esc(t('abilityUi.tooltip.rank', { rank: formatAbilityNumber(res.rank) }))}</div>`;
     const costLine: string[] = [];
@@ -4316,13 +4415,15 @@ export class Hud {
         t('abilityUi.tooltip.cooldownSeconds', { seconds: formatAbilityNumber(res.cooldown) }),
       );
     html += `<div class="tt-stat">${castLine.map(esc).join(' &nbsp; ')}</div>`;
-    html += `<div class="tt-desc">${esc(abilityDisplayDescription(a, damageText))}</div>`;
+    html += `<div class="tt-desc">${esc(abilityDisplayDescription(res, damageText, scaling))}</div>`;
     // Resolved buff/aura effect line(s). Reads the RESOLVED effect value, so a buff's
     // tooltip reflects rank AND talents that strengthen it (Improved Devotion Aura /
     // Aspect of the Hawk / Fortitude via buffPct) - which the static description can't.
     for (const eff of res.effects) {
       if (eff.type === 'selfBuff' || eff.type === 'buffTarget') {
-        html += this.auraEffectTooltipHtml({ kind: eff.kind, value: eff.value });
+        // Pass the ability id so the effect line can resolve its damage school
+        // (the {school} placeholder in the thorns/dot/absorb summaries).
+        html += this.auraEffectTooltipHtml({ kind: eff.kind, value: eff.value, id: a.id });
       }
     }
     const requirements = abilityRequirementLines(a);
@@ -6193,6 +6294,7 @@ export class Hud {
     this.lockpickWindow.repaintIfChanged();
     this.tutorial.update(sim, this.renderer, this.keybinds);
     this.reconcileLootRolls();
+    this.reconcileLootRollStatus(now);
     this.updateLootRollTimers(now);
     if (slowHud) this.updateRaidLockoutBadge();
     if (slowHud) this.refreshDailyRewardsLauncher();
@@ -6434,7 +6536,7 @@ export class Hud {
     // routes through the elided writer facet; the aria-label keeps its per-frame t()
     // call IN the core while the painter elides the DOM setAttribute (Top risk 4).
     this.renderPetBar();
-    if (this.spellbookWindow.isOpen) this.spellbookWindow.refreshHotbarControls();
+    if (this.spellbookWindow.isOpen) this.spellbookWindow.tickOpen();
     this.actionBarPainter.paint(
       this.actionBarView.tick({ player: p, target: target ?? null, inventory: sim.inventory }),
     );
@@ -6659,6 +6761,7 @@ export class Hud {
       this.updateTradeWindow();
       this.updateArenaStatus();
       this.updateFiestaHud();
+      this.yumiPainter.update(this.sim.arenaInfo);
       // Vale Cup surfaces (mediumHud like the arena/fiesta ones): the indicator
       // button, the in-match strip, and the open window redraw.
       this.vcupIndicator.update(buildVcupIndicatorView(this.sim.cupInfo, atSowfield));
@@ -6730,6 +6833,8 @@ export class Hud {
     }
     // The mailbox closes itself when the mail mirror goes null (walked away).
     if (slowHud && this.mailboxWindow.isOpen) this.mailboxWindow.refreshIfChanged();
+    // The bank closes itself when the bank mirror goes null (left the banker).
+    if (slowHud && this.bankWindow.isOpen) this.bankWindow.refreshIfChanged();
     if (slowHud && this.calendarWindow.isOpen) this.calendarWindow.refreshIfChanged();
     if (slowHud) this.updateMailIndicator();
   }
@@ -7672,10 +7777,23 @@ export class Hud {
     // minimapMode (the minimap_markers core) is the single source of truth for the
     // delve-vs-overworld branch (the same isDelvePos + delveRun guard, lifted into the
     // core so hud and the painters never duplicate it).
-    if (minimapMode(this.sim) === 'delve') {
+    const mode = minimapMode(this.sim);
+    if (mode === 'delve') {
       // The delve painter owns the '#zone-label' text (written through the
       // write-elision facet) and the full minimap schematic render.
       this.delvePainter.paintMinimapDelve(ctx, this.sim, $('#zone-label'), MINIMAP_SIZE);
+      return;
+    }
+    if (mode === 'yumiMaze') {
+      // Protect Yumi: the overworld marker set over the cached maze-wall
+      // raster; the strip title stands in for the zone label.
+      this.minimapPainter.paintYumiMaze(
+        ctx,
+        this.sim,
+        $('#zone-label'),
+        this.minimapZoom,
+        t('yumi.hud.title'),
+      );
       return;
     }
     // The overworld minimap: a pure marker core (minimap_markers) + the thin canvas
@@ -7720,7 +7838,10 @@ export class Hud {
     const el = $('#arena-status');
     const a = this.sim.arenaInfo;
     const m = a?.match ?? null;
-    if (!m) {
+    // Protect Yumi carries its own strip (yumi_match_painter) at the same
+    // top-center anchor, so the generic VS banner would just overlap it;
+    // keep the banner only for the post-bout returning countdown.
+    if (!m || (m.yumi && m.state !== 'over')) {
       if (el.style.display !== 'none') el.style.display = 'none';
       this.lastArenaStatusSig = '';
       return;
@@ -8446,6 +8567,10 @@ export class Hud {
           // Keyboard/sim interact at a mailbox object: open the mail window.
           this.openMailbox();
           break;
+        case 'bank':
+          // Keyboard/sim interact at a banker NPC: open the bank window.
+          this.openBank();
+          break;
         case 'mailArrived': {
           // Player names splice verbatim; authored letters carry their
           // letterId, so the sender localizes through the entity dictionary
@@ -8823,6 +8948,23 @@ export class Hud {
             }
             break;
           }
+          if (ev.format === 'yumi3' || ev.format === 'yumi5') {
+            // Unranked objective mode; sudden death guarantees no draws.
+            // Personal per participant: keep only the local player's copy
+            // (offline the sim hands every fighter's copy to the one HUD).
+            if (ev.pid !== undefined && ev.pid !== sim.playerId) break;
+            this.yumiPainter.reset();
+            if (ev.won) {
+              this.showBanner(t('yumi.end.win'));
+              this.combatLog(t('yumi.end.win'), '#7fdc4f');
+              audio.fiestaWave();
+            } else {
+              this.showBanner(t('yumi.end.loss'));
+              this.combatLog(t('yumi.end.loss'), '#ff7a6a');
+              audio.death();
+            }
+            break;
+          }
           const delta = ev.ratingAfter - ev.ratingBefore;
           const sign = delta >= 0 ? '+' : '';
           const ratingDelta = `${sign}${formatNumber(delta, { maximumFractionDigits: 0 })}`;
@@ -8873,6 +9015,36 @@ export class Hud {
               '#ff7a6a',
             );
             audio.death();
+          }
+          break;
+        }
+        // The yumi events are personal per participant; offline the sim hands
+        // EVERY player's copy to the one local HUD, so each arm keeps only the
+        // local player's (the same reason the renderer arm filters).
+        case 'yumiStatus':
+          if (ev.pid === sim.playerId) this.yumiPainter.onStatus(ev);
+          break;
+        case 'yumiDown':
+          if (ev.pid === sim.playerId) {
+            this.yumiPainter.onDown(ev.seconds);
+            audio.fiestaDown();
+          }
+          break;
+        case 'yumiSuddenDeath':
+          if (ev.pid === sim.playerId) {
+            this.showBanner(t('yumi.banner.sudden'));
+            this.combatLog(t('yumi.banner.sudden'), '#ff7a6a');
+            audio.fiestaWave();
+          }
+          break;
+        case 'yumiTeleport': {
+          if (ev.pid !== sim.playerId) break;
+          // Two events per relocation (one per cat); cue once, on my team's cat.
+          const y = this.sim.arenaInfo?.match?.yumi;
+          const myCat = y ? (y.team === 'A' ? y.yumiA.entityId : y.yumiB.entityId) : -1;
+          if (ev.catId === myCat) {
+            this.showBanner(t('yumi.banner.teleport'));
+            this.log(t('yumi.banner.teleport'), '#7fd7ff');
           }
           break;
         }
@@ -10135,6 +10307,15 @@ export class Hud {
   openQuestDialog(npcId: number): void {
     const npc = this.sim.entities.get(npcId);
     if (npc?.kind !== 'npc') return;
+    // A banker never gossips: divert to the sim interact, whose banker intercept
+    // emits the bank event this HUD opens on (case 'bank'), identically in both
+    // worlds. Routing through the sim keeps proximity server-authoritative; the
+    // authored greeting stays un-rendered by design (a deliberate QA adjudication).
+    if (NPCS[npc.templateId]?.banker) {
+      this.sim.targetEntity(npc.id);
+      this.sim.interact();
+      return;
+    }
     this.questDialogOpenedAtMs = performance.now();
     if ($('#quest-dialog').style.display !== 'block')
       this.questDialogTrap = this.focusManager.open({ root: () => $('#quest-dialog') });
@@ -10557,8 +10738,37 @@ export class Hud {
     this.renderLootRolls();
   }
 
+  // Poll the authoritative group vote state and re-render the roll rail only
+  // when it actually changes (the view core's fingerprint). Also owns the watch
+  // timers: a watch-only row starts its countdown at first sight and is dropped
+  // the moment the server stops listing the roll (resolution/expiry).
+  private reconcileLootRollStatus(now: number): void {
+    const statuses = this.sim.lootRollGroupStatus();
+    if (statuses.length === 0 && this.lootRollStatusRows.length === 0) return;
+    const rows = computeLootRollStatusRows(
+      statuses,
+      [...this.activeLootRolls.keys()],
+      this.sim.playerId,
+    );
+    const fp = lootRollStatusFingerprint(rows);
+    if (fp === this.lootRollStatusFp) return;
+    this.lootRollStatusFp = fp;
+    this.lootRollStatusRows = rows;
+    const live = new Set(rows.map((row) => row.rollId));
+    for (const rollId of this.lootRollWatchTimers.keys())
+      if (!live.has(rollId)) this.lootRollWatchTimers.delete(rollId);
+    for (const row of rows)
+      if (!this.lootRollWatchTimers.has(row.rollId)) this.lootRollWatchTimers.set(row.rollId, now);
+    this.renderLootRolls();
+  }
+
   private updateLootRollTimers(now: number): void {
-    if (this.activeLootRolls.size === 0 && this.activeMasterRolls.size === 0) return;
+    if (
+      this.activeLootRolls.size === 0 &&
+      this.activeMasterRolls.size === 0 &&
+      this.lootRollStatusRows.length === 0
+    )
+      return;
     let changed = false;
     for (const [rollId, roll] of this.activeLootRolls) {
       if (now - roll.receivedAt >= roll.durationMs) {
@@ -10578,6 +10788,15 @@ export class Hud {
     if (!root) return;
     for (const row of root.querySelectorAll<HTMLElement>('.loot-roll')) {
       const rollId = Number(row.dataset.rollId);
+      if (row.dataset.watch) {
+        // Watch-only rows time against first sight; the row itself lives and
+        // dies with the server's group status, the bar is purely cosmetic.
+        const receivedAt = this.lootRollWatchTimers.get(rollId);
+        if (receivedAt === undefined) continue;
+        const remaining = Math.max(0, 1 - (now - receivedAt) / 60_000);
+        row.style.setProperty('--loot-roll-frac', remaining.toFixed(3));
+        continue;
+      }
       const roll = row.dataset.master
         ? this.activeMasterRolls.get(rollId)
         : this.activeLootRolls.get(rollId);
@@ -10606,15 +10825,49 @@ export class Hud {
     this.renderLootRolls();
   }
 
+  // The per-candidate vote strip (the XLoot-style monitor): one chip per
+  // candidate showing their live need/greed/pass choice, or an empty chip while
+  // they are still deciding, headed by an "N/M rolled" count so a full raid
+  // (RAID_MAX = 10) reads at a glance without scanning every chip. Roll numbers
+  // are never shown here; the sim broadcasts them as loot chat lines at
+  // resolution. The strip is aria-hidden: it re-renders on every vote, so
+  // leaving it in the #loot-rolls live region would spam a screen reader up to
+  // ten times per roll. The accessible surface is the prompt (announced once on
+  // show) plus the full per-roller reveal in the chat log at resolution.
+  private lootRollVotesHtml(status: LootRollStatusRow): string {
+    const votes = status.entries
+      .map(
+        (entry) => `
+        <span class="loot-roll-vote${entry.self ? ' self' : ''}">
+          <span class="loot-roll-vote-name">${esc(entry.name)}</span>
+          <span class="loot-roll-vote-chip ${entry.choice ?? 'undecided'}">${entry.choice ? esc(t(`itemUi.lootRoll.${entry.choice}`)) : ''}</span>
+        </span>`,
+      )
+      .join('');
+    const count = t('itemUi.lootRoll.rolled', {
+      answered: formatNumber(status.answered, { maximumFractionDigits: 0 }),
+      total: formatNumber(status.total, { maximumFractionDigits: 0 }),
+    });
+    return `<div class="loot-roll-votes" aria-hidden="true">
+      <div class="loot-roll-votes-count">${esc(count)}</div>
+      <div class="loot-roll-votes-list">${votes}</div>
+    </div>`;
+  }
+
   private renderLootRolls(): void {
     const root = this.lootRollRoot();
-    if (this.activeLootRolls.size === 0 && this.activeMasterRolls.size === 0) {
+    if (
+      this.activeLootRolls.size === 0 &&
+      this.activeMasterRolls.size === 0 &&
+      this.lootRollStatusRows.length === 0
+    ) {
       root.style.display = 'none';
       root.innerHTML = '';
       return;
     }
     root.style.display = 'flex';
     root.innerHTML = '';
+    const statusByRoll = new Map(this.lootRollStatusRows.map((row) => [row.rollId, row]));
     for (const [rollId, roll] of this.activeMasterRolls)
       this.renderMasterLootRow(root, rollId, roll.event);
     for (const [rollId, roll] of this.activeLootRolls) {
@@ -10622,6 +10875,7 @@ export class Hud {
       const item = ITEMS[ev.itemId];
       const itemName = item ? itemDisplayName(item) : ev.itemName;
       const quality = item?.quality ?? ev.quality ?? 'common';
+      const status = statusByRoll.get(rollId);
       const row = document.createElement('div');
       row.className = 'loot-roll panel';
       row.dataset.rollId = String(rollId);
@@ -10635,6 +10889,7 @@ export class Hud {
           </div>
         </div>
         <div class="loot-roll-timer" aria-hidden="true"><span></span></div>
+        ${status ? this.lootRollVotesHtml(status) : ''}
         <div class="loot-roll-actions">
           <button type="button" class="loot-roll-btn need" data-choice="need">${esc(t('itemUi.lootRoll.need'))}</button>
           <button type="button" class="loot-roll-btn greed" data-choice="greed">${esc(t('itemUi.lootRoll.greed'))}</button>
@@ -10649,6 +10904,36 @@ export class Hud {
         btn.setAttribute('aria-label', t(`itemUi.lootRoll.${choice}Aria`, { item: itemName }));
         btn.addEventListener('click', () => this.submitLootRoll(rollId, choice));
       });
+      root.appendChild(row);
+    }
+    // Watch-only rows: open rolls this player is not (or no longer) answering,
+    // kept up so the whole group can follow the votes until the server resolves
+    // the roll and drops it from the group status.
+    for (const status of this.lootRollStatusRows) {
+      if (this.activeLootRolls.has(status.rollId) || this.activeMasterRolls.has(status.rollId))
+        continue;
+      const item = ITEMS[status.itemId];
+      const itemName = item ? itemDisplayName(item) : status.itemName;
+      const quality = item?.quality ?? status.quality ?? 'common';
+      const row = document.createElement('div');
+      row.className = 'loot-roll panel watch';
+      row.dataset.rollId = String(status.rollId);
+      row.dataset.watch = '1';
+      row.style.setProperty('--loot-roll-frac', '1');
+      row.innerHTML = `
+        <div class="loot-roll-item">
+          ${item ? this.itemIcon(item) : `<img class="item-icon q-${quality}" src="${iconDataUrl('item', status.itemId)}" alt="" draggable="false">`}
+          <div class="loot-roll-copy">
+            <div class="loot-roll-title">${esc(t('itemUi.lootRoll.title'))}</div>
+            <div class="loot-roll-name" style="color:${QUALITY_COLOR[quality] ?? '#fff'}">${esc(itemName)}</div>
+          </div>
+        </div>
+        <div class="loot-roll-timer" aria-hidden="true"><span></span></div>
+        ${this.lootRollVotesHtml(status)}`;
+      if (item)
+        this.attachTooltip(row.querySelector('.loot-roll-item') as HTMLElement, () =>
+          this.itemTooltip(item),
+        );
       root.appendChild(row);
     }
   }
@@ -10777,6 +11062,10 @@ export class Hud {
 
   openVendor(npcId: number): void {
     this.closeOtherWindows(['#vendor-window', '#bags']);
+    // The bags companion is exclusive (see openBank): close the bank cluster
+    // through the painter so onBankClosed clears body.bank-open before the
+    // vendor pairing takes over.
+    if (this.bankWindowOpen) this.closeBank();
     this.openHeroicVendorNpcId = null; // the marks shop shares the container
     this.openVendorNpcId = npcId;
     document.body.classList.add('vendor-open');
@@ -10829,6 +11118,10 @@ export class Hud {
 
   openHeroicVendor(npcId: number): void {
     this.closeOtherWindows('#vendor-window');
+    // The bags companion is exclusive (see openBank): close the bank cluster
+    // through the painter so onBankClosed clears body.bank-open before the
+    // marks shop takes the container.
+    if (this.bankWindowOpen) this.closeBank();
     this.openVendorNpcId = null; // shares the container with the copper vendor
     this.openHeroicVendorNpcId = npcId;
     this.renderHeroicVendor();
@@ -10871,8 +11164,11 @@ export class Hud {
     if (closeMobileBags) {
       // Mirror BagsWindow.close()'s teardown backstop: a discard/sell prompt may hold
       // #bags inert (installPromptDialog) and this mobile path hides the grid without
-      // running the prompt's dismiss(), so clear inert here too or the next open shows a
-      // dead grid (invariant: a hidden #bags is never inert).
+      // running the prompt's dismiss(), so clear inert AND remove the prompt node or
+      // it survives as a visible orphaned aria-modal in #prompt-stack that
+      // promptModalOpen() keeps gating game keys on (invariant: a hidden #bags is
+      // never inert and never owns a live prompt).
+      dismissBagPrompts();
       const bags = $('#bags');
       bags.style.display = 'none';
       bags.inert = false;
@@ -11017,6 +11313,66 @@ export class Hud {
     return this.mailboxWindow.isOpen;
   }
 
+  // The bank docks its bags companion alongside (the vendor-open pattern): a body
+  // class drives the side-by-side desktop layout, and the bags window is force-opened
+  // so items can be withdrawn into it. closeBank routes through the painter (which
+  // fires onClosed) so focus returns to the opener (WCAG 2.4.3).
+  openBank(): void {
+    // The bags companion is exclusive: every hub has a vendor within simultaneous
+    // interact range of its banker, and vendor-open + bank-open together overlap
+    // the two windows on the same side of #bags (and on mobile the cluster-close
+    // precedence would strand the bank at half-width with its x-btn hidden).
+    if (this.vendorOpen) this.closeVendor();
+    // The heroic marks shop is a second tenant of #vendor-window that nulls
+    // openVendorNpcId, so the vendorOpen guard above never sees it.
+    if (this.openHeroicVendorNpcId !== null) this.closeHeroicVendor();
+    document.body.classList.add('bank-open');
+    this.bankWindow.open();
+    this.renderBags();
+    $('#bags').style.display = 'flex';
+  }
+
+  closeBank(): void {
+    this.bankWindow.close();
+  }
+
+  private onBankClosed(): void {
+    const closeMobileBags =
+      document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
+    document.body.classList.remove('bank-open'); // bags (if still open) re-centres
+    if (closeMobileBags) {
+      // Mirror closeVendor's teardown backstop: a discard/sell/deposit prompt may hold
+      // #bags inert (installPromptDialog) and this mobile path hides the grid without
+      // running the prompt's dismiss(), so clear inert AND remove the prompt node too
+      // (a hidden #bags is never inert and never owns a live prompt; an orphan would
+      // keep promptModalOpen() gating game keys).
+      dismissBagPrompts();
+      const bags = $('#bags');
+      bags.style.display = 'none';
+      bags.inert = false;
+      this.cancelPetFeed();
+    } else if ($('#bags').style.display !== 'none') {
+      this.renderBags();
+    }
+  }
+
+  get bankWindowOpen(): boolean {
+    return this.bankWindow.isOpen;
+  }
+
+  // Fired by the bags painter after its close() teardown. On touch, a bags close
+  // that leaves the bank open (the tray/minimap bags toggle; Esc and the bags x-btn
+  // close the whole cluster instead) undocks the pairing so the standalone mobile
+  // full-screen rule takes over: the bank widens to the full viewport and its own
+  // x-btn reappears (the pairing hid it), so a touch close affordance survives.
+  // Desktop deliberately keeps the docked offset until the bank closes (the
+  // recorded vendor-family behavior); toggleBags re-adds the class on re-open.
+  private onBagsClosed(): void {
+    if (document.body.classList.contains('mobile-touch') && this.bankWindow.isOpen) {
+      document.body.classList.remove('bank-open');
+    }
+  }
+
   toggleCalendar(): void {
     this.calendarWindow.toggle();
   }
@@ -11076,6 +11432,10 @@ export class Hud {
     this.bagsWindow.noteOpener();
     this.renderBags();
     el.style.display = 'flex';
+    // Re-dock the bank pairing when its companion re-opens (the mobile undock in
+    // onBagsClosed drops the class while the bank stays up; idempotent on desktop,
+    // which never undocks).
+    if (this.bankWindow.isOpen) document.body.classList.add('bank-open');
     audio.bagOpen();
     // Pull a fresh on-chain $WOC balance for the footer; the async result
     // re-renders the bag via the onWalletUiChange listener wired in the ctor.
@@ -13560,6 +13920,18 @@ export class Hud {
     );
   }
 
+  // True while an aria-modal quantity/confirm prompt (the bank/bags
+  // installPromptDialog family) owns the keyboard. Game keybinds must not fire
+  // then: the Enter that confirms a prompt re-focuses a button synchronously, so
+  // the same keydown would bubble to the window handler and open chat, stealing
+  // the WCAG 2.4.3 focus return. Deliberately NOT part of isModalOpen(): these
+  // prompts do not pause movement (the confirm-dialog family precedent), and the
+  // party/trade/duel prompts (no aria-modal) stay non-blocking. Called from
+  // keydown paths only, never per frame.
+  promptModalOpen(): boolean {
+    return $('#prompt-stack').querySelector('.prompt[aria-modal="true"]') !== null;
+  }
+
   // True when any interactive HUD surface is open: a modal OR a managed window
   // (bags, vendor, character, etc.). Drives the gamepad's virtual-cursor mode so a
   // controller can point at bag slots / vendor items, not just modal dialogs.
@@ -13654,12 +14026,27 @@ function abilityDisplayName(def: AbilityDef): string {
   return tEntity({ kind: 'ability', id: def.id, field: 'name' });
 }
 
-function abilityDisplayDescription(def: AbilityDef, damageText: string): string {
+// Fills every description placeholder from the RESOLVED ability: {damage} ($d)
+// the primary hit, {overTime} ($o) a hybrid's dot/hot total, {buff} ($b) the
+// first buff's value, {duration} ($t) the first timed effect's duration. All are
+// rank- and talent-resolved, so the prose can never drift from what a cast does.
+function abilityDisplayDescription(
+  res: ResolvedAbility,
+  damageText: string,
+  scaling?: AbilityScaling,
+): string {
+  const buff = abilityBuffValue(res);
+  const duration = abilityDurationValue(res);
   return tEntity({
     kind: 'ability',
-    id: def.id,
+    id: res.def.id,
     field: 'description',
-    values: { damage: damageText },
+    values: {
+      damage: damageText,
+      overTime: abilityOverTimeText(res, scaling),
+      buff: buff === null ? '' : formatAbilityNumber(buff),
+      duration: duration === null ? '' : formatAbilityNumber(duration),
+    },
   });
 }
 
@@ -13865,7 +14252,6 @@ function abilityRequirementLines(def: AbilityDef): string[] {
 // "66 to 74 (+29)", so a caster sees both the base and exactly what their Spell
 // Power adds, and watches it climb as gear changes.
 function abilityEffectText(res: ResolvedAbility, scaling?: AbilityScaling): string {
-  const effects = res.effects;
   // " (+N)" callout for the scaling contribution (Spell Power / Attack Power),
   // omitted when there is none. Punctuation + formatted number only (no words).
   const suffix = (eff: AbilityEffect) => {
@@ -13874,28 +14260,29 @@ function abilityEffectText(res: ResolvedAbility, scaling?: AbilityScaling): stri
       ? ` ${t('hudChrome.abilityScaling.bonus', { value: formatAbilityNumber(b) })}`
       : '';
   };
-  const primary = effects.find(
-    (eff) =>
-      eff.type === 'directDamage' ||
-      eff.type === 'heal' ||
-      eff.type === 'weaponDamage' ||
-      eff.type === 'weaponStrike' ||
-      eff.type === 'aoeDamage' ||
-      eff.type === 'aoeRoot' ||
-      eff.type === 'finisherDamage' ||
-      eff.type === 'drainTick',
-  );
+  // The pickers live in ability_damage.ts so the consistency guard test shares
+  // them; this function only formats the picked effect.
+  const primary = abilityPrimaryEffect(res);
   if (primary) {
     switch (primary.type) {
       case 'directDamage':
       case 'heal':
       case 'aoeDamage':
       case 'aoeRoot':
+      case 'groundAoE':
       case 'drainTick':
         return abilityAmountRange(primary.min, primary.max) + suffix(primary);
       case 'weaponDamage':
       case 'weaponStrike':
         return formatAbilityNumber(primary.bonus);
+      case 'sunder':
+        return formatAbilityNumber(
+          SUNDER_ARMOR_PCT_PER_STACK * (primary.full ? primary.maxStacks : 1) * 100,
+        );
+      case 'faerieFire':
+        return formatAbilityNumber(FAERIE_FIRE_ARMOR_PCT * 100);
+      case 'lifeTap':
+        return formatAbilityNumber(primary.hp);
       case 'finisherDamage':
         return (
           t('abilityUi.tooltip.finisherDamage', {
@@ -13906,16 +14293,13 @@ function abilityEffectText(res: ResolvedAbility, scaling?: AbilityScaling): stri
     }
   }
 
-  const secondary = effects.find(
-    (eff) =>
-      eff.type === 'dot' || eff.type === 'hot' || eff.type === 'absorb' || eff.type === 'imbue',
-  );
+  const secondary = abilitySecondaryEffect(res);
   if (!secondary) return '';
   switch (secondary.type) {
     case 'dot':
       return formatAbilityNumber(secondary.total) + suffix(secondary);
     case 'hot':
-      return formatAbilityNumber(secondary.total);
+      return formatAbilityNumber(secondary.total) + suffix(secondary);
     case 'absorb':
       return formatAbilityNumber(secondary.amount);
     case 'imbue':
@@ -13923,6 +14307,18 @@ function abilityEffectText(res: ResolvedAbility, scaling?: AbilityScaling): stri
     default:
       return '';
   }
+}
+
+// Builds the `$o` over-time string (a hybrid's dot/hot TOTAL) the same way
+// abilityEffectText builds `$d`, including the "(+N)" scaling callout (which the
+// bonus helper zeroes for hybrid riders, matching combat's no-double-dip rule).
+function abilityOverTimeText(res: ResolvedAbility, scaling?: AbilityScaling): string {
+  const eff = abilityOverTimeEffect(res);
+  if (!eff) return '';
+  const b = scaling ? abilityDamageBonus(res, eff, scaling) : 0;
+  const bonus =
+    b > 0 ? ` ${t('hudChrome.abilityScaling.bonus', { value: formatAbilityNumber(b) })}` : '';
+  return formatAbilityNumber(eff.total) + bonus;
 }
 
 function abilityAmountRange(min: number, max: number): string {

@@ -26,7 +26,12 @@
 // against a real lagging Sim.
 
 import { resolveMovement } from '../sim/colliders';
-import { moveSpeedMult, type PlayerMotionDeps, stepPlayerMotion } from '../sim/player_motion';
+import {
+  BACKPEDAL_MULT,
+  moveSpeedMult,
+  type PlayerMotionDeps,
+  stepPlayerMotion,
+} from '../sim/player_motion';
 import { DT, type Entity, type MoveInput, RUN_SPEED } from '../sim/types';
 
 // Latency cap on the extrapolation window: at least one snapshot-ish interval
@@ -66,6 +71,8 @@ export const SELF_MOTION_DEADBAND_YD = 0.05;
 export const SELF_MOTION_SNAP_DIST_SQ = 6 * 6;
 const MAX_FRAME_DT = 0.25; // matches the main-loop frame clamp
 const LEASH_SLACK_YD = 0.05;
+const BLOCKED_INTENT_PROGRESS_FRACTION = 0.45;
+const BLOCKED_INTENT_MOVE_FRACTION = 0.75;
 // Pose-history ring: enough to look SELF_MOTION_CAP_MAX_MS into the past with
 // headroom even on high-refresh displays (128 entries covers 267 ms at 480 fps
 // and over 2 s at 60 fps).
@@ -92,6 +99,29 @@ interface Vec3Like {
 }
 
 const clamp = (n: number, min: number, max: number): number => Math.max(min, Math.min(max, n));
+
+function horizontalIntent(
+  facing: number,
+  input: MoveInput,
+): { x: number; z: number; step: number } | null {
+  let mx = 0;
+  let mz = 0;
+  if (input.forward) mz += 1;
+  if (input.back) mz -= 1;
+  if (input.strafeLeft) mx -= 1;
+  if (input.strafeRight) mx += 1;
+  const len = Math.hypot(mx, mz);
+  if (len === 0) return null;
+  mx /= len;
+  mz /= len;
+  const sin = Math.sin(facing);
+  const cos = Math.cos(facing);
+  return {
+    x: mz * sin - mx * cos,
+    z: mz * cos + mx * sin,
+    step: RUN_SPEED * (mz < 0 ? BACKPEDAL_MULT : 1) * DT,
+  };
+}
 
 export class SelfMotionPredictor {
   /**
@@ -273,13 +303,30 @@ export class SelfMotionPredictor {
     inp.strafeLeft = frame.moveInput.strafeLeft;
     inp.strafeRight = frame.moveInput.strafeRight;
     inp.jump = frame.moveInput.jump;
+    const intent = horizontalIntent(frame.displayFacing, inp);
+    let blockedHorizontalIntent = false;
     this.acc = Math.min(this.acc + dt, MAX_FRAME_DT);
     while (this.acc >= DT) {
+      const beforeX = actor.pos.x;
+      const beforeZ = actor.pos.z;
       actor.prevPos.x = actor.pos.x;
       actor.prevPos.y = actor.pos.y;
       actor.prevPos.z = actor.pos.z;
       actor.facing = frame.displayFacing;
       stepPlayerMotion(this.deps, actor, inp);
+      if (intent) {
+        const stepX = actor.pos.x - beforeX;
+        const stepZ = actor.pos.z - beforeZ;
+        const progress = stepX * intent.x + stepZ * intent.z;
+        const moved = Math.hypot(stepX, stepZ);
+        const expectedStep = intent.step * moveSpeedMult(actor, 0);
+        if (
+          progress < expectedStep * BLOCKED_INTENT_PROGRESS_FRACTION &&
+          moved < expectedStep * BLOCKED_INTENT_MOVE_FRACTION
+        ) {
+          blockedHorizontalIntent = true;
+        }
+      }
       this.acc -= DT;
     }
     const frac = this.acc / DT;
@@ -339,6 +386,16 @@ export class SelfMotionPredictor {
       // turned each 20Hz kernel step into a visible forward/back sawtooth.
       actor.pos.x = ax + (ex * budget) / elen;
       actor.pos.z = az + (ez * budget) / elen;
+    }
+
+    if (blockedHorizontalIntent && intent) {
+      const lead = (actor.pos.x - ax) * intent.x + (actor.pos.z - az) * intent.z;
+      if (lead > 0) {
+        actor.pos.x -= intent.x * lead;
+        actor.pos.z -= intent.z * lead;
+        actor.prevPos.x -= intent.x * lead;
+        actor.prevPos.z -= intent.z * lead;
+      }
     }
 
     this.out.x = actor.prevPos.x + (actor.pos.x - actor.prevPos.x) * frac;

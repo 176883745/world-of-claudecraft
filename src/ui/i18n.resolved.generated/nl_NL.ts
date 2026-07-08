@@ -1016,10 +1016,19 @@ export const nl_NL: EnTranslations = {
         "allStats": "Verringert alle Attribute um {value}"
       },
       "allStatsPctReduce": "Vermindert alle statistieken met {pct}%",
+      "increasePct": {
+        "ap": "Increases attack power by {pct}%",
+        "armor": "Increases armor by {pct}%",
+        "int": "Increases Intellect by {pct}%",
+        "sta": "Increases Stamina by {pct}%",
+        "allStats": "Increases all attributes by {pct}%"
+      },
       "dodge": "Erhöht Ausweichchance um {pct}%",
       "dodgeReduce": "Verringert Ausweichchance um {pct}%",
       "armorFlat": "Verringert Rüstung um {value}",
       "armorFlatStacks": "Verringert Rüstung um {value} ({stacks} Stapel)",
+      "armorPct": "Reduces armor by {pct}%",
+      "armorPctStacks": "Reduces armor by {pct}% ({stacks} stacks)",
       "mortalWound": "Verringert erhaltene Heilung um {pct}%",
       "vulnerability": "Erhöht erlittenen Schaden um {pct}%",
       "physVuln": "Erhöht erlittenen physischen Schaden um {pct}%",
@@ -1309,6 +1318,50 @@ export const nl_NL: EnTranslations = {
         "letterGone": "Die brief zit niet meer in je brievenbus.",
         "takeParcelsFirst": "Haal de pakketten eruit voordat je de brief weggooit."
       }
+    },
+    "bank": {
+      "title": "Bank",
+      "subtitle": "De Vergulde Geldkist",
+      "close": "Bank sluiten",
+      "capacity": "{used}/{total}",
+      "capacityAria": "Bankvakken gebruikt: {used} van {total}",
+      "empty": "Je bank is leeg.",
+      "tooFar": "Je moet bij een bankier zijn om je bank te bekijken.",
+      "buySlots": "Koop {count} vakken",
+      "buySlotsMaxed": "Volledig uitgebreid",
+      "buyConfirm": "{count} extra bankvakken kopen voor {price}?",
+      "buyConfirmAccept": "Kopen",
+      "withdrawHint": "Klik om op te nemen",
+      "withdrawPartialHint": "Shift-klik om een deel op te nemen",
+      "depositHint": "Klik om te storten",
+      "depositPartialHint": "Shift-klik om een deel te storten",
+      "cannotDeposit": "Kan niet in de bank",
+      "depositQuantityTitle": "{item} storten",
+      "depositQuantityInput": "Aantal om te storten",
+      "depositQuantityConfirm": "Storten",
+      "withdrawQuantityTitle": "{item} opnemen",
+      "withdrawQuantityInput": "Aantal om op te nemen",
+      "withdrawQuantityConfirm": "Opnemen",
+      "filterGroupAria": "Bank filteren op categorie",
+      "sortAria": "Bankvoorwerpen sorteren",
+      "searchAria": "Bankvoorwerpen zoeken op naam",
+      "depositAll": "Alle materialen storten",
+      "depositAllDone": "Materialen gestort: {count}.",
+      "depositAllFull": "Materialen gestort: {count}. De bank is nu vol.",
+      "depositAllNone": "Bank vol: niets gestort.",
+      "bonusTitle": "Bonusvakken",
+      "bonusEarned": "+{count}",
+      "bonusStatusEarned": "+{count}",
+      "bonusSourceEmail": "E-mailadres geverifieerd",
+      "bonusSourceDiscord": "Discord gekoppeld",
+      "bonusSourceWallet": "Portemonnee gekoppeld",
+      "bonusSourceReferral": "Aangebrachte vrienden",
+      "bonusAdvertEmail": "Verifieer je e-mailadres om 2 vakken te verdienen.",
+      "bonusAdvertDiscord": "Koppel je Discord om 2 vakken te verdienen.",
+      "bonusAdvertWallet": "Koppel een portemonnee om 2 vakken te verdienen.",
+      "bonusReferralProgress": "{count}/{cap}",
+      "bonusReferralExplainer": "Nodig een vriend uit: wanneer die niveau 10 bereikt, verdienen jullie allebei 2 vakken, tot 5 vrienden.",
+      "bonusSectionAria": "Bonusbankvakken en hoe je er meer verdient"
     },
     "calendar": {
       "title": "Evenementenkalender",
@@ -2176,6 +2229,8 @@ export const nl_NL: EnTranslations = {
       "waveGoldBody": "De middelste golf: tweesnijdende combo's waar je build vorm begint te krijgen en gaat zingen.",
       "wavePrismaticTitle": "Prismatisch",
       "wavePrismaticBody": "De laatste golf: build-bepalende, schermversmeltende pieken bedoeld om belachelijk aan te voelen op de beste manier.",
+      "yumiHeading": "Protect Yumi",
+      "yumiBody": "Protect Yumi is a team objective mode played in a maze: each side guards its own cat familiar while hunting the other. Every so often both cats blink to new corners of the maze, so the fight swings between defending, hunting, and racing to find them again. Queue as three versus three or five versus five; falling in battle only benches you for a moment.",
       "powerupsTitle": "Power-ups in de ring",
       "powerupsBody": "Gloeiende bollen vallen ook middenin het gevecht in de arena, gratis voor wie ze als eerste bereikt. Ze zijn opzettelijk over de top en duren maar even: Speed Demon voor een flits van verblindend tempo, Colossus om uit te dijen tot een logge reus, Moon Boots voor een stuiterende sprong met lage zwaartekracht, en Berserker voor een plotselinge golf van razernij.",
       "ladderHeading": "De ladder beklimmen",
@@ -2328,6 +2383,10 @@ export const nl_NL: EnTranslations = {
       "vendorsBody": "Steden en buitenposten zijn bezaaid met handelaren, elk met hun eigen vak. Proviandeurs hebben eten en drinken, wapensmeden en pantsersmeden voeren uitrusting, en een kwartiermeester houdt praktische reisuitrusting bij. Loop er een tegemoet om te zien wat ze verkopen.",
       "marksTitle": "Een tweede valuta: Delve-Tekens",
       "marksBody": "Munten zijn niet het enige dat je opspaart. Delves keren Delve-Tekens uit, een aparte valuta die je alleen bij de delvebewaarder uitgeeft, aan metgezelupgrades en uitrusting die je nergens anders vindt. Ze vermengen zich nooit met je munten.",
+      "bankTitle": "De bank",
+      "bankBody": "Elke hoofdplaats heeft een filiaal van De Vergulde Geldkist, het bankhuis van het rijk. Spreek daar met de thesaurier om je kluis te openen: een eigen bergruimte naast je tassen die je personage levenslang behoudt. Wat je bij hen achterlaat, wacht veilig op je, welk filiaal je daarna ook bezoekt.",
+      "bankHow": "Met de kluis open klik je op een voorwerp in je tassen om het te storten, en klik je erop in de kluis om het terug te nemen. De kluis bewaart alleen waren, nooit geld, en questvoorwerpen blijven bij je. Raken je tassen onderweg vol, dan veegt één knop al je ambachtsmaterialen in één keer naar binnen.",
+      "bankSlots": "Een nieuwe kluis begint klein en groeit met je mee. De thesaurier verkoopt extra vakken voor geld tegen steeds hogere prijzen, en online spelen levert daarbovenop bonusruimte op, voor zaken als een geverifieerd e-mailadres, gekoppelde accounts en vrienden die je naar het spel brengt.",
       "buyingTitle": "Kopen en verkopen",
       "buyingBody": "Ga bij een handelaar staan om hun venster te openen. Je kunt alles kopen wat ze op voorraad hebben als je het kunt betalen, en het meeste uit je tassen verkopen voor munten. Als je per ongeluk iets verkoopt, houdt een verkoper je recente verkopen vast zodat je ze kunt terugkopen.",
       "junkTitle": "Rommel opruimen",
@@ -3599,6 +3658,45 @@ export const nl_NL: EnTranslations = {
     },
     "chest": {
       "flavor": "De doden hebben afgestaan wat ze kunnen missen."
+    }
+  },
+  "yumi": {
+    "bracket3": "Yumi 3v3",
+    "bracket5": "Yumi 5v5",
+    "enterQueue": "Join Protect Yumi!",
+    "queue": {
+      "join": "You join the Protect Yumi queue. Guard your familiar…",
+      "leave": "You leave the Protect Yumi queue.",
+      "teamLeave": "Your team leaves the Protect Yumi queue."
+    },
+    "error": {
+      "partyTooBig3": "Protect Yumi 3v3 allows a party of up to three.",
+      "partyTooBig5": "Protect Yumi 5v5 allows a party of up to five."
+    },
+    "log": {
+      "start": "Protect Yumi! Defend your familiar and hunt theirs."
+    },
+    "hud": {
+      "title": "PROTECT YUMI",
+      "getReady": "Get ready…",
+      "teleportIn": "Yumis move in {s}",
+      "suddenDeath": "SUDDEN DEATH",
+      "yourYumi": "Your Yumi",
+      "enemyYumi": "Enemy Yumi",
+      "aria": "Your Yumi at {mine} of {max} health, enemy Yumi at {theirs}.",
+      "collapse": "Collapse the Protect Yumi bars",
+      "expand": "Expand the Protect Yumi bars"
+    },
+    "respawn": {
+      "title": "DOWNED!"
+    },
+    "banner": {
+      "sudden": "SUDDEN DEATH! The Yumis hold their ground!",
+      "teleport": "The Yumis teleport!"
+    },
+    "end": {
+      "win": "VICTORY! Yumi is safe!",
+      "loss": "DEFEAT! Your Yumi has fallen."
     }
   },
   "fiesta": {
@@ -4903,7 +5001,8 @@ export const nl_NL: EnTranslations = {
       "needAria": "Nodig voor {item}",
       "greedAria": "Hebzucht voor {item}",
       "passAria": "{item} passeren",
-      "everyonePassed": "Iedereen passeerde {item}."
+      "everyonePassed": "Iedereen passeerde {item}.",
+      "rolled": "{answered}/{total} rolled"
     }
   },
   "entities": {
@@ -4954,19 +5053,19 @@ export const nl_NL: EnTranslations = {
       },
       "rain_of_fire": {
         "name": "Vuurregen",
-        "description": "Laat een vuurregen neerdalen op het doelgebied en verbrandt vijanden voor {damage} Vuurschade."
+        "description": "Laat gedurende 4 sec een vuurregen neerdalen op het doelgebied en verbrandt vijanden elke seconde voor {damage} Vuurschade."
       },
       "volley": {
         "name": "Pijlenregen",
-        "description": "Laat een pijlenregen neerdalen op het doelgebied en richt {damage} schade aan bij vijanden erin."
+        "description": "Laat gedurende 3 sec een pijlenregen neerdalen op het doelgebied en richt elke 0.5 sec {damage} schade aan bij vijanden erin."
       },
       "hurricane": {
         "name": "Orkaan",
-        "description": "Ontketent een orkaan boven het doelgebied en treft vijanden voor {damage} Natuurschade."
+        "description": "Ontketent gedurende 6 sec een orkaan boven het doelgebied en treft vijanden elke seconde voor {damage} Natuurschade."
       },
       "earthquake": {
         "name": "Aardbeving",
-        "description": "Laat het doelgebied beven, treft vijanden voor {damage} Natuurschade."
+        "description": "Laat het doelgebied 6 sec beven en treft vijanden elke 1.5 sec voor {damage} Natuurschade."
       },
       "heroic_strike": {
         "name": "Plunderaarsslag",
@@ -4974,15 +5073,15 @@ export const nl_NL: EnTranslations = {
       },
       "battle_shout": {
         "name": "IJzeren Gebrul",
-        "description": "Verhoogt je aanvalskracht met 20 gedurende 2 min."
+        "description": "Verhoogt je aanvalskracht met {buff} gedurende 2 min."
       },
       "commanding_shout": {
         "name": "Versterkende Kreet",
-        "description": "Verhoogt je Uithoudingsvermogen met 6 gedurende 2 min."
+        "description": "Verhoogt je Uithoudingsvermogen met {buff} gedurende 2 min."
       },
       "demoralizing_shout": {
         "name": "Grimmig Gehuil",
-        "description": "Slaakt een angstaanjagende kreet die de aanvalskracht van alle nabije vijanden met 30 verlaagt gedurende 30 sec."
+        "description": "Slaakt een angstaanjagende kreet die de aanvalskracht van alle nabije vijanden met {buff} verlaagt gedurende 30 sec."
       },
       "charge": {
         "name": "Bestorming",
@@ -4990,7 +5089,7 @@ export const nl_NL: EnTranslations = {
       },
       "rend": {
         "name": "Diepe Snee",
-        "description": "Verwondt het doelwit, waardoor het {damage} schade bloedt gedurende 9 sec."
+        "description": "Verwondt het doelwit, waardoor het {damage} schade bloedt gedurende {duration} sec."
       },
       "thunder_clap": {
         "name": "Schuddende Klap",
@@ -4998,7 +5097,7 @@ export const nl_NL: EnTranslations = {
       },
       "hamstring": {
         "name": "Kreupelsnede",
-        "description": "Verminkt de vijand voor 5 schade en vertraagt zijn beweging met 50% gedurende 15 sec."
+        "description": "Verminkt de vijand voor {damage} schade en vertraagt zijn beweging met 50% gedurende 15 sec."
       },
       "bloodrage": {
         "name": "Bloedtol",
@@ -5006,7 +5105,7 @@ export const nl_NL: EnTranslations = {
       },
       "overpower": {
         "name": "Roodhand",
-        "description": "Ogenblikkelijke aanval voor wapenschade +5. Alleen bruikbaar nadat het doelwit ontwijkt. Kan niet worden ontweken."
+        "description": "Ogenblikkelijke aanval voor wapenschade plus {damage}. Alleen bruikbaar nadat het doelwit ontwijkt. Kan niet worden ontweken."
       },
       "execute": {
         "name": "Vroeg Graf",
@@ -5026,7 +5125,7 @@ export const nl_NL: EnTranslations = {
       },
       "sunder_armor": {
         "name": "Pantserscheur",
-        "description": "Splijt het pantser van het doelwit en verlaagt het met {damage} per toepassing. Stapelt tot 5 keer. Wekt een grote hoeveelheid dreiging op."
+        "description": "Sunders the target's armor, reducing it by {damage}% per application. Stacks up to 5 times. Generates a high amount of threat."
       },
       "taunt": {
         "name": "Provoceren",
@@ -5038,11 +5137,11 @@ export const nl_NL: EnTranslations = {
       },
       "frost_armor": {
         "name": "Rijpmantel",
-        "description": "Omhult je in vorst en verhoogt het pantser met 30 gedurende 30 min."
+        "description": "Omhult je in vorst en verhoogt het pantser met {buff} gedurende 30 min."
       },
       "arcane_intellect": {
         "name": "Aether-inzicht",
-        "description": "Verhoogt Intellect met 2 gedurende 30 min."
+        "description": "Verhoogt Intellect met {buff} gedurende 30 min."
       },
       "frostbolt": {
         "name": "Rijplans",
@@ -5066,7 +5165,7 @@ export const nl_NL: EnTranslations = {
       },
       "polymorph": {
         "name": "Beheksen",
-        "description": "Verandert de vijand in een pad gedurende maximaal 15 sec. De pad dwaalt rond en geneest snel. Elke schade verbreekt het effect. Alleen beesten en humanoïden."
+        "description": "Verandert de vijand in een pad gedurende maximaal {duration} sec. De pad dwaalt rond en geneest snel. Elke schade verbreekt het effect. Alleen beesten en humanoïden."
       },
       "frost_nova": {
         "name": "IJsboei",
@@ -5086,7 +5185,7 @@ export const nl_NL: EnTranslations = {
       },
       "ice_barrier": {
         "name": "Vorstsluier",
-        "description": "Schermt je af met ijs en absorbeert 130 schade gedurende 60 sec."
+        "description": "Schermt je af met ijs en absorbeert {damage} schade gedurende 60 sec."
       },
       "sinister_strike": {
         "name": "Kwaadaardige Houw",
@@ -5094,7 +5193,7 @@ export const nl_NL: EnTranslations = {
       },
       "eviscerate": {
         "name": "Zandslaap",
-        "description": "Afmaakzet die schade toebrengt per combopunt."
+        "description": "Afmaakzet die {damage} veroorzaakt."
       },
       "backstab": {
         "name": "Laffe Steek",
@@ -5102,7 +5201,7 @@ export const nl_NL: EnTranslations = {
       },
       "gouge": {
         "name": "Oogstoot",
-        "description": "Treft het doelwit en maakt het 4 sec strijdongeschikt. Elke schade verbreekt het effect. Levert 1 combopunt op."
+        "description": "Treft het doelwit voor {damage} schade en maakt het 4 sec strijdongeschikt. Elke schade verbreekt het effect. Levert 1 combopunt op."
       },
       "evasion": {
         "name": "Spookvoet",
@@ -5134,11 +5233,11 @@ export const nl_NL: EnTranslations = {
       },
       "garrote": {
         "name": "Keeldraad",
-        "description": "Wurgt de vijand, brengt nu schade toe en laat het bloeden voor {damage} gedurende 18 sec. Vereist sluiptocht. Levert 1 combopunt op."
+        "description": "Wurgt de vijand, brengt nu {damage} schade toe en laat het bloeden voor {overTime} gedurende 18 sec. Vereist sluiptocht. Levert 1 combopunt op."
       },
       "cheap_shot": {
         "name": "Buikstoot",
-        "description": "Sla het doelwit en verdoof het gedurende 4 sec. Je moet onzichtbaar zijn. Levert 2 combopunten op."
+        "description": "Sla het doelwit voor {damage} schade en verdoof het gedurende 4 sec. Je moet onzichtbaar zijn. Levert 2 combopunten op."
       },
       "sap": {
         "name": "Verdoven",
@@ -5146,11 +5245,11 @@ export const nl_NL: EnTranslations = {
       },
       "crippling_poison": {
         "name": "Loodzwaar Gif",
-        "description": "Treft het doelwit met een loodzwaar gif, brengt {damage} Natuurschade toe en vertraagt zijn bewegingssnelheid met 50% gedurende 12 sec."
+        "description": "Treft het doelwit met een loodzwaar gif, brengt {damage} Natuurschade toe en vertraagt de bewegingssnelheid met 50% gedurende 12 sec."
       },
       "expose_armor": {
         "name": "Pantserbres",
-        "description": "Afmaakzet die het doelwit blootlegt en zijn pantser verlaagt. Meer bestede combopunten leiden tot een diepere snede."
+        "description": "Afmaakzet die het doelwit blootlegt en zijn pantser met {damage} verlaagt gedurende 30 sec."
       },
       "rupture": {
         "name": "Doodbloeden",
@@ -5174,7 +5273,7 @@ export const nl_NL: EnTranslations = {
       },
       "seal_of_righteousness": {
         "name": "Eedmerk",
-        "description": "Vult je 30 sec lang met Heilige kracht, waardoor elk van je melee-zwaaien 4 extra Heilige schade toebrengt. Ontketen met Verdict."
+        "description": "Vult je 30 sec lang met Heilige kracht, waardoor elk van je melee-zwaaien {damage} extra Heilige schade toebrengt. Ontketen met Verdict."
       },
       "holy_light": {
         "name": "Helend Licht",
@@ -5182,7 +5281,7 @@ export const nl_NL: EnTranslations = {
       },
       "devotion_aura": {
         "name": "Standvastige Aura",
-        "description": "Verhoogt je pantser met 40 gedurende 30 min."
+        "description": "Verhoogt je pantser met {buff} gedurende 30 min."
       },
       "judgement": {
         "name": "Verdict",
@@ -5190,19 +5289,19 @@ export const nl_NL: EnTranslations = {
       },
       "blessing_of_might": {
         "name": "Eed van IJzer",
-        "description": "Plaatst een Zegen op een bevriend doelwit, waardoor de aanvalskracht met 15 toeneemt gedurende 5 min."
+        "description": "Plaatst een Zegen op een bevriend doelwit, waardoor de aanvalskracht met {buff} toeneemt gedurende 5 min."
       },
       "divine_protection": {
         "name": "Wering van Geloof",
-        "description": "Een beschermende wering absorbeert 50 schade gedurende 10 sec."
+        "description": "Een beschermende wering absorbeert {damage} schade gedurende 10 sec."
       },
       "hammer_of_justice": {
         "name": "Splijtende Rechtershamer",
-        "description": "Verdooft het doelwit gedurende 3 sec."
+        "description": "Verdooft het doelwit gedurende {duration} sec."
       },
       "lay_on_hands": {
         "name": "Laatste Rite",
-        "description": "Een enorme golf van genezing: herstelt 250 levenskracht. 10 min hersteltijd."
+        "description": "Een enorme golf van genezing: herstelt {damage} levenskracht. 10 min hersteltijd."
       },
       "flash_of_light": {
         "name": "Lichtheling",
@@ -5214,7 +5313,7 @@ export const nl_NL: EnTranslations = {
       },
       "consecration": {
         "name": "Heilige Grond",
-        "description": "Wijdt de grond onder je en schroeit nabije vijanden voor {damage} Heilige schade."
+        "description": "Wijdt de grond onder je en schroeit nabije vijanden elke 2 sec voor {damage} Heilige schade gedurende 10 sec."
       },
       "righteous_fury": {
         "name": "Brandende Eed",
@@ -5234,11 +5333,11 @@ export const nl_NL: EnTranslations = {
       },
       "raptor_strike": {
         "name": "Ontweiende Slag",
-        "description": "Een sterke slagaanval die de schade met 5 verhoogt. Activeert bij je volgende slag."
+        "description": "Een sterke slagaanval die de schade met {damage} verhoogt. Activeert bij je volgende slag."
       },
       "aspect_of_the_hawk": {
         "name": "Gedaante van de Kiekendief",
-        "description": "Neem de gedaante van de kiekendief aan, waardoor je aanvalskracht met 20 toeneemt gedurende 30 min."
+        "description": "Neem de gedaante van de kiekendief aan, waardoor je aanvalskracht met {buff} toeneemt gedurende 30 min."
       },
       "serpent_sting": {
         "name": "Gifweerhaak",
@@ -5250,15 +5349,15 @@ export const nl_NL: EnTranslations = {
       },
       "concussive_shot": {
         "name": "Ratelend Schot",
-        "description": "Versuft het doelwit, waardoor de beweging met 50% wordt vertraagd gedurende 4 sec."
+        "description": "Versuft het doelwit voor {damage} schade, waardoor de beweging met 50% wordt vertraagd gedurende 4 sec."
       },
       "mongoose_bite": {
         "name": "Tegenbeet",
-        "description": "Tegenaanval nadat het doelwit ontwijkt voor wapenschade plus 12. Kan niet worden ontweken."
+        "description": "Tegenaanval nadat het doelwit ontwijkt voor wapenschade plus {damage}. Kan niet worden ontweken."
       },
       "wing_clip": {
         "name": "Kluisterende Houw",
-        "description": "Brengt een wond toe die de vijand 40% vertraagt gedurende 10 sec."
+        "description": "Brengt een wond toe voor {damage} schade die de vijand 40% vertraagt gedurende 10 sec."
       },
       "aspect_of_the_monkey": {
         "name": "Gedaante van de Marter",
@@ -5286,7 +5385,7 @@ export const nl_NL: EnTranslations = {
       },
       "power_word_fortitude": {
         "name": "Litanie van Vastberadenheid",
-        "description": "Verhoogt de Weerbaarheid van het doelwit met 3 gedurende 30 min."
+        "description": "Verhoogt de Weerbaarheid van het doelwit met {buff} gedurende 30 min."
       },
       "shadow_word_pain": {
         "name": "Klaaglied van Verval",
@@ -5294,7 +5393,7 @@ export const nl_NL: EnTranslations = {
       },
       "power_word_shield": {
         "name": "Psalm van Bescherming",
-        "description": "Schermt het doelwit af en absorbeert 48 schade gedurende 30 sec."
+        "description": "Schermt het doelwit af en absorbeert {damage} schade gedurende 30 sec."
       },
       "renew": {
         "name": "Aanhoudende Genade",
@@ -5322,7 +5421,7 @@ export const nl_NL: EnTranslations = {
       },
       "rockbiter_weapon": {
         "name": "Steengebonden Wapen",
-        "description": "Doordrenkt je wapen met de woede van steen: elke zwaai brengt 5 extra schade toe gedurende 5 min."
+        "description": "Doordrenkt je wapen met de woede van steen: elke zwaai brengt {damage} extra schade toe gedurende 5 min."
       },
       "healing_wave": {
         "name": "Helende Wateren",
@@ -5334,15 +5433,15 @@ export const nl_NL: EnTranslations = {
       },
       "lightning_shield": {
         "name": "Donderwering",
-        "description": "Omringt je met knetterende bliksem: aanvallers van dichtbij lijden 13 Natuurschade."
+        "description": "Omringt je met knetterende bliksem: aanvallers van dichtbij lijden {buff} Natuurschade, tot 3 ladingen en maximaal eens per 5 seconden."
       },
       "flame_shock": {
         "name": "Sintelschok",
-        "description": "Schroeit het doelwit met vuur voor 25 schade plus {damage} gedurende 12 sec."
+        "description": "Schroeit het doelwit met vuur voor {damage} schade plus {overTime} gedurende 12 sec."
       },
       "flametongue_weapon": {
         "name": "Vuurbrand-Wapen",
-        "description": "Doordringt je wapen met elementair vuur: elke slag brengt 8 extra Vuurschade toe gedurende 5 min."
+        "description": "Doordringt je wapen met elementair vuur: elke slag brengt {damage} extra Vuurschade toe gedurende 5 min."
       },
       "frost_shock": {
         "name": "Rijpschok",
@@ -5350,7 +5449,7 @@ export const nl_NL: EnTranslations = {
       },
       "frostbrand_weapon": {
         "name": "Rijpgebonden Wapen",
-        "description": "Doordringt je wapen met bijtende vorst: elke slag brengt 8 extra schade toe gedurende 5 min."
+        "description": "Doordringt je wapen met bijtende vorst: elke slag brengt {damage} extra schade toe gedurende 5 min."
       },
       "ghost_wolf": {
         "name": "Shadewolf",
@@ -5366,11 +5465,11 @@ export const nl_NL: EnTranslations = {
       },
       "demon_skin": {
         "name": "Duivelshuid",
-        "description": "Demonenhuid verhoogt je pantser met 30 gedurende 30 min."
+        "description": "Demonenhuid verhoogt je pantser met {buff} gedurende 30 min."
       },
       "immolate": {
         "name": "Brandpact",
-        "description": "Verbrandt de vijand voor 11 Vuurschade en nog eens {damage} gedurende 15 sec."
+        "description": "Verbrandt de vijand voor {damage} Vuurschade en nog eens {overTime} gedurende 15 sec."
       },
       "corruption": {
         "name": "Zwartrot",
@@ -5378,7 +5477,7 @@ export const nl_NL: EnTranslations = {
       },
       "life_tap": {
         "name": "Zware Koop",
-        "description": "Zet 30 levenskracht om in 30 mana."
+        "description": "Zet {damage} levenskracht om in {damage} mana."
       },
       "curse_of_agony": {
         "name": "Ban van Kwelling",
@@ -5410,7 +5509,7 @@ export const nl_NL: EnTranslations = {
       },
       "mark_of_the_wild": {
         "name": "Wildwering",
-        "description": "Plaatst de Wildward op een bevriend doelwit en verhoogt het pantser met 25 gedurende 30 min."
+        "description": "Plaatst de Wildward op een bevriend doelwit en verhoogt het pantser met {buff} gedurende 30 min."
       },
       "moonfire": {
         "name": "Maanstorm",
@@ -5422,7 +5521,7 @@ export const nl_NL: EnTranslations = {
       },
       "thorns": {
         "name": "Doornwacht",
-        "description": "Doornen schieten op uit het doelwit: melee-aanvallers lopen 3 Natuurschade op."
+        "description": "Doornen schieten op uit het doelwit: melee-aanvallers lopen {buff} Natuurschade op."
       },
       "entangling_roots": {
         "name": "Grijpende Wortels",
@@ -5430,7 +5529,7 @@ export const nl_NL: EnTranslations = {
       },
       "bear_form": {
         "name": "Bruingedaante",
-        "description": "Verander in een beer: pantser +65%, aanvalskracht +15, je aanvallen bouwen woede op en genereren 30% meer dreiging. Spreek opnieuw om terug te keren naar je oorspronkelijke gedaante."
+        "description": "Verander in een beer: pantser +90%, sterk verhoogde aanvalskracht, je aanvallen bouwen woede op en genereren 30% meer dreiging. Spreek opnieuw om terug te keren naar je oorspronkelijke gedaante."
       },
       "maul": {
         "name": "Botverbrijzelen",
@@ -5450,7 +5549,7 @@ export const nl_NL: EnTranslations = {
       },
       "ferocious_bite": {
         "name": "Bloedbeet",
-        "description": "Afmaakzet die schade toebrengt per combopunt. Alleen in Wolfsgedaante."
+        "description": "Afmaakzet die {damage} veroorzaakt. Alleen in Wolfsgedaante."
       },
       "swipe": {
         "name": "Vegende Klauwen",
@@ -5482,7 +5581,7 @@ export const nl_NL: EnTranslations = {
       },
       "faerie_fire": {
         "name": "Heksenlicht",
-        "description": "Verlaagt het pantser van het doelwit met 35 gedurende 40 sec."
+        "description": "Verlaagt het pantser van het doelwit met 35 gedurende 30 sec."
       },
       "hibernate": {
         "name": "Sluimer",
@@ -5506,7 +5605,7 @@ export const nl_NL: EnTranslations = {
       },
       "rip": {
         "name": "Verscheuren",
-        "description": "Afmaakzet die bloedschade toebrengt gedurende 12 sec. Verbruikt combopunten. Alleen in Wolfsgedaante."
+        "description": "Afmaakzet die {damage} Bloedschade toebrengt gedurende 12 sec. Verbruikt combopunten. Alleen in Wolfsgedaante."
       },
       "mortal_strike": {
         "name": "Verminkende Slag",
@@ -5514,11 +5613,11 @@ export const nl_NL: EnTranslations = {
       },
       "bloodthirst": {
         "name": "Aderlating",
-        "description": "Val onmiddellijk aan in een bloedrazernij voor {damage}. (Razernij-kenmerk)"
+        "description": "Val onmiddellijk aan in een bloedrazernij voor 60% wapenschade plus {damage}. (Razernij-kenmerk)"
       },
       "shield_slam": {
         "name": "Schildbreuk",
-        "description": "Sla het doelwit met je schild voor {damage} en enorme dreiging. (Protectie-kenmerk)"
+        "description": "Sla het doelwit met je schild voor 50% wapenschade plus {damage} en enorme dreiging. (Protectie-kenmerk)"
       },
       "whirlwind": {
         "name": "Snijdende Wenteling",
@@ -6885,6 +6984,9 @@ export const nl_NL: EnTranslations = {
       }
     },
     "mobs": {
+      "yumi_cat": {
+        "name": "Yumi"
+      },
       "forest_wolf": {
         "name": "Boswolf"
       },
@@ -6944,6 +7046,9 @@ export const nl_NL: EnTranslations = {
       },
       "deacon_voss": {
         "name": "Diaken Voss"
+      },
+      "training_dummy": {
+        "name": "Training Dummy"
       },
       "ridge_stalker": {
         "name": "Bergkam-Sluiper"
@@ -7330,6 +7435,21 @@ export const nl_NL: EnTranslations = {
         "name": "Veilingmeester Voss",
         "title": "Hoeder van de Wereldmarkt",
         "greeting": "De Wereldmarkt is hier ook geopend, {className}. Koop van elke avonturier in het rijk, of stal je eigen waren uit."
+      },
+      "bursar_fernando": {
+        "name": "Thesaurier Fernando",
+        "title": "De Vergulde Geldkist",
+        "greeting": "Welkom bij de Vergulde Geldkist. Je goederen rusten veilig achter onze sloten."
+      },
+      "bursar_petra_vell": {
+        "name": "Thesaurier Petra Vell",
+        "title": "De Vergulde Geldkist",
+        "greeting": "De Vergulde Geldkist houdt schone grootboeken en nog schonere kluizen. Wat zullen we voor je opbergen?"
+      },
+      "bursar_aldous_crane": {
+        "name": "Thesaurier Aldous Crane",
+        "title": "De Vergulde Geldkist",
+        "greeting": "Elke kist, koffer en snuisterij is veilig bij de Vergulde Geldkist."
       },
       "brother_aldric_raid": {
         "name": "Broeder Aldric",

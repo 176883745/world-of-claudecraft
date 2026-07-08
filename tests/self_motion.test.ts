@@ -62,15 +62,20 @@ class Lab {
   constructor(
     readonly lagMs: number,
     readonly frameMs = FRAME_MS,
+    opts: { start?: { x: number; z: number }; facing?: number } = {},
   ) {
     this.srv = new Sim({ seed: SEED, playerClass: 'warrior', autoEquip: true });
     this.srv.setPlayerLevel(60);
-    teleport(this.srv, 0, -40);
-    this.srv.player.facing = 0; // run straight north (+z)
+    const start = opts.start ?? { x: 0, z: -40 };
+    teleport(this.srv, start.x, start.z);
+    this.facing = opts.facing ?? 0;
+    this.srv.player.facing = this.facing; // run straight north (+z) by default
     const p = this.srv.player;
     this.self = { ...p, pos: { ...p.pos }, prevPos: { ...p.prevPos } };
     this.inputLog.push({ atMs: 0, input: mi() });
   }
+
+  readonly facing: number;
 
   setInput(input: MoveInput): void {
     this.localInput = input;
@@ -106,7 +111,7 @@ class Lab {
     const frame: SelfMotionFrame = {
       enabled: this.enabled,
       moveInput: this.localInput,
-      displayFacing: 0,
+      displayFacing: this.facing,
       echoMs: this.lagMs,
       jitterMs: 0,
       alpha,
@@ -141,6 +146,23 @@ describe('SelfMotionPredictor', () => {
     expect(moved).toBeGreaterThan(0.2); // ~4 frames of RUN_SPEED
     // the server has not even received the input yet (120ms lag > 4 frames)
     expect(lab.srv.player.pos.z).toBeCloseTo(-40, 3);
+  });
+
+  it('does not lead into a blocker and then reconcile back while forward is held', () => {
+    const lab = new Lab(120, FRAME_MS, { start: { x: 0, z: -0.15 }, facing: 0 });
+    lab.frame();
+    const before = lab.frame();
+    if (!before.pose) throw new Error('no initial pose');
+
+    lab.setInput(mi({ forward: true }));
+    let farthestLead = 0;
+    for (let i = 0; i < 6; i++) {
+      const r = lab.frame();
+      if (!r.pose) throw new Error('predictor disabled unexpectedly');
+      farthestLead = Math.max(farthestLead, r.pose.z - before.pose.z);
+    }
+
+    expect(farthestLead).toBeLessThan(0.03);
   });
 
   it('keeps the horizontal error inside the latency leash for the whole run', () => {

@@ -63,6 +63,7 @@ import {
 } from './content/temple';
 import { VALE_CUP_BALL_MOB, VALE_CUP_BALL_TEMPLATE_ID } from './content/vale_cup';
 import { WARLOCK_PET_MOBS } from './content/warlock_pets';
+import { YUMI_MOBS } from './content/yumi';
 import {
   GRAVEYARD_POS,
   LAKE,
@@ -176,6 +177,7 @@ export const MOBS: Record<string, MobTemplate> = {
   ...TEMPLE_MOBS,
   ...TEMPLE_DUNGEON_MOBS,
   ...DELVE_MOBS,
+  ...YUMI_MOBS,
   // The Vale Cup boarball: an inert, non-hostile ball entity (never camp-spawned;
   // the match driver in social/vale_cup.ts spawns and despawns it).
   [VALE_CUP_BALL_TEMPLATE_ID]: VALE_CUP_BALL_MOB,
@@ -481,13 +483,58 @@ export function delveOrigin(delveIndex: number, slot: number): { x: number; z: n
 }
 
 export function isDelvePos(x: number): boolean {
-  return x >= DELVE_BAND_X_MIN;
+  // Capped east by the Protect Yumi maze band, the same move the delve band
+  // made to isArenaPos when it was added.
+  return x >= DELVE_BAND_X_MIN && x < YUMI_BAND_X_MIN;
 }
 
 export function delveAt(x: number): DelveDef | null {
   if (!isDelvePos(x)) return null;
   const index = Math.round((x - DELVE_X_MIN) / 600);
   return DELVE_LIST.find((d) => d.index === index) ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// Protect Yumi! maze instances, the easternmost band. Delve rooms are centred
+// at DELVE_X_MIN + index*600 with a ~26u wall face, so an 8000 band edge
+// leaves headroom for delve indexes 0..5 (4800 + 5*600 + 26 = 7826 < 8000).
+// Like every far-east band: flat ground (world.groundHeight) and one shared
+// instance-local collider set (sim/yumi_maze_layout.ts via sim/colliders.ts).
+// ---------------------------------------------------------------------------
+
+export const YUMI_BAND_X_MIN = 8000; // x at/after this = a yumi maze instance
+// Two-sided cap: the Vale Cup practice pitches sit further east (x = 30000,
+// src/sim/vale_cup_layout.ts vcPracticeOrigin), so the maze band must not
+// claim everything past 8000 the way the delve band once claimed everything
+// past 4773. 12000 leaves generous maze headroom.
+export const YUMI_BAND_X_MAX = 12000;
+export const YUMI_MAZE_X = 8400; // maze instances share this x; slots stack along z
+export const YUMI_MAZE_SLOT_COUNT = 4; // concurrent Protect Yumi matches
+const YUMI_MAZE_Z0 = -1250;
+const YUMI_MAZE_SLOT_SPACING = 200; // > the ~90u maze footprint so slots never overlap
+
+export function yumiMazeOrigin(slot: number): { x: number; z: number } {
+  return { x: YUMI_MAZE_X, z: YUMI_MAZE_Z0 + slot * YUMI_MAZE_SLOT_SPACING };
+}
+
+export function isYumiMazePos(x: number): boolean {
+  return x >= YUMI_BAND_X_MIN && x < YUMI_BAND_X_MAX;
+}
+
+// Nearest maze instance origin to a far-off position, matched by z-band (the
+// x is shared across slots). Mirrors arenaOriginAt.
+export function yumiMazeOriginAt(z: number): { x: number; z: number; slot: number } {
+  let best = 0,
+    bestD = Infinity;
+  for (let i = 0; i < YUMI_MAZE_SLOT_COUNT; i++) {
+    const d = Math.abs(z - yumiMazeOrigin(i).z);
+    if (d < bestD) {
+      bestD = d;
+      best = i;
+    }
+  }
+  const o = yumiMazeOrigin(best);
+  return { x: o.x, z: o.z, slot: best };
 }
 
 export const DELVES: Record<string, DelveDef> = {

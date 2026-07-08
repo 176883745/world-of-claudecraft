@@ -259,6 +259,11 @@ export function harvestCorpse(
     return;
   }
   mob.harvestClaimedBy = claim.claimedBy;
+  // #1145: a rare-or-better monster material is stamped with the harvester's
+  // name (a non-fungible instance slot); anything below that rarity stays a
+  // plain fungible grant, same as before this issue. One rarity roll per
+  // yielded component, same one-draw-per-yield convention as
+  // resolveCorpseFocusHarvest's own tier roll.
   const yields = resolveCorpseFocusHarvest(componentTags ?? [], components ?? [], ctx.rng);
   for (const y of yields) {
     const itemId = HARVEST_COMPONENT_ITEMS[y.component];
@@ -399,6 +404,10 @@ export function interact(ctx: SimContext, pid?: number): void {
         pickUpObject(ctx, target.id, p.id);
         return;
       }
+      if (target.kind === 'npc' && ctx.bankerIds.includes(target.id)) {
+        ctx.emit({ type: 'bank', pid: p.id });
+        return;
+      }
       if (ctx.isQuestInteractionEntity(target)) {
         ctx.talkToNpc(target.id, p.id);
         return;
@@ -448,6 +457,10 @@ export function interact(ctx: SimContext, pid?: number): void {
     }
     if (tryStartNythraxisWardChannel(ctx, obj, p)) return;
     pickUpObject(ctx, obj.id, p.id);
+    return;
+  }
+  if (questEntity && ctx.bankerIds.includes(questEntity.id)) {
+    ctx.emit({ type: 'bank', pid: p.id });
     return;
   }
   if (questEntity) ctx.talkToNpc(questEntity.id, p.id);

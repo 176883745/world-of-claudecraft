@@ -38,9 +38,10 @@ import {
   type VcNationId,
 } from '../src/sim/types';
 import { isAtSowfield } from '../src/sim/vale_cup_layout';
-import { type CommandName, isOverheadEmoteId } from '../src/world_api';
+import { type BankBonusSource, type CommandName, isOverheadEmoteId } from '../src/world_api';
 import { recordOnlineSample } from './admin_db';
 import { offensiveName } from './auth';
+import { recordBankOp } from './bank_ledger';
 import type {
   BotDetector,
   BotTrackingContext,
@@ -61,12 +62,14 @@ import type { AccountChatMuteStatus, AccountCosmetics, RequestMetadata } from '.
 import {
   closePlaySession,
   grantAccountMechChroma,
+  heartbeatCharacterLeases,
   insertChatLogs,
   loadMailState,
   loadMarketState,
   markAccountQuestComplete,
   openPlaySession,
   pool,
+  releaseCharacterLease,
   revokeAccountMechChroma,
   saveCharacterAndMarketState,
   saveCharacterState,
@@ -384,6 +387,9 @@ const HEAVY_SELF_CMDS = new Set<string>([
   'mail_take',
   'mail_delete',
   'mail_read',
+  'bank_deposit',
+  'bank_withdraw',
+  'bank_buy_slots',
   'pet_feed',
   'dev_give',
   'dev_level',
@@ -509,6 +515,12 @@ export interface ClientSession {
   adminPermissions: ReadonlySet<string>;
   // Seed the client sends at auth; signs its challenge answers.
   clientSeed: string;
+  // Per-join fence for this session's DB load lease (server/db.ts
+  // character_leases). leave() releases with it so a stale release from an
+  // earlier join cannot delete a lease a reconnect has since re-acquired.
+  // undefined for sessions created without the lease path (direct game.join in
+  // tests); a resume keeps the original session's nonce.
+  leaseNonce: string | undefined;
   // Behavioral bot-detection state. Ephemeral — reset on every join.
   botTrackingContext: BotTrackingContext;
   spectating: {
@@ -996,6 +1008,14 @@ export class GameServer {
     return this.ipSessionCounts.get(ip) ?? 0;
   }
 
+  // True when this process already holds a live session for the character. Read
+  // by the WS auth handshake (server/ws_auth.ts): when game.join refuses after
+  // the per-character load lease was taken, this decides whether a live session
+  // owns that lease (keep it) or the lease is an orphan to release.
+  hasSessionForCharacter(characterId: number): boolean {
+    return this.sessionsByCharacterId.has(characterId);
+  }
+
   // -------------------------------------------------------------------------
   // Social presence/transport: bridges the persistent SocialService to the
   // live client map + sim. Keyed by character id (stable across sessions),
@@ -1283,13 +1303,7 @@ export class GameServer {
             this.tickMsAvg === 0
               ? tickMs
               : this.tickMsAvg + TICK_EMA_ALPHA * (tickMs - this.tickMsAvg);
-          this.saveTimer += dt;
-          if (this.saveTimer >= AUTOSAVE_SECONDS) {
-            this.saveTimer = 0;
-            void this.saveAll('autosave');
-            void this.saveMarket();
-            void this.saveMail();
-          }
+          this.flushPeriodicSaves(dt);
         },
         (err) => console.error('[tick] guarded tick body threw, skipping this tick:', err),
       );
@@ -1310,6 +1324,23 @@ export class GameServer {
     this.keepaliveInterval = setInterval(() => {
       this.pingLiveSessions();
     }, WS_KEEPALIVE_PING_MS);
+  }
+
+  // The periodic persistence flush, advanced by the loop each tick. Every
+  // AUTOSAVE_SECONDS it kicks off the character/market/mail saves and, riding the
+  // same cadence, heartbeats this process's character load leases so an online
+  // character's lease never lapses under a peer. Extracted from the interval body
+  // so it can be unit-tested directly (the loop calls it one line). Every write is
+  // fire-and-forget: a slow or failed save must not stall the 20 Hz loop.
+  private flushPeriodicSaves(dt: number): void {
+    this.saveTimer += dt;
+    if (this.saveTimer >= AUTOSAVE_SECONDS) {
+      this.saveTimer = 0;
+      void this.saveAll('autosave');
+      void this.saveMarket();
+      void this.saveMail();
+      void heartbeatCharacterLeases().catch((err) => console.error('lease heartbeat failed:', err));
+    }
   }
 
   // Protocol-level WS liveness sweep, every WS_KEEPALIVE_PING_MS. Two jobs:
@@ -1729,6 +1760,11 @@ export class GameServer {
         fbp?: string | null;
         fbc?: string | null;
         sourceUrl?: string | null;
+        leaseNonce?: string;
+        // Server-recomputed bank bonus slots (ws_auth.ts, fresh-join arm) stamped into
+        // the character state via addPlayer. Absent on a resume and for callers that
+        // pass no meta (tests, the bot-detector overlay), which keep the saved value.
+        bankBonus?: { bonusSlots: number; sources: BankBonusSource[] };
       } = {},
   ): ClientSession | { error: string } {
     // Anti-bot: cap simultaneous online characters per account. Accounts can
@@ -1762,7 +1798,11 @@ export class GameServer {
     for (const s of linkdeadOthers) {
       void this.leave(s, 'replaced by a new character login');
     }
-    const pid = this.sim.addPlayer(cls, name, { state: state ?? undefined, characterId });
+    const pid = this.sim.addPlayer(cls, name, {
+      state: state ?? undefined,
+      characterId,
+      bankBonus: meta.bankBonus,
+    });
     if (isGm) {
       // GM characters: invulnerable, and always at the level cap (the row is
       // created without state, so the first join levels them up)
@@ -1828,6 +1868,7 @@ export class GameServer {
       // no in-game moderation commands.
       adminPermissions: new Set(meta.adminPermissions ?? []),
       clientSeed: meta.clientSeed ?? '',
+      leaseNonce: meta.leaseNonce,
       botTrackingContext,
       spectating: null,
     };
@@ -2053,6 +2094,24 @@ export class GameServer {
     this.sim.vcupResolveDesertion(session.pid);
     await this.saveCharacterOnLeave(session);
     this.sessionsByCharacterId.delete(session.characterId);
+    // Release the per-character load lease so a fresh login (here or on another
+    // process) can reload the character without waiting out the TTL. Order
+    // matters: only after saveCharacterOnLeave has awaited above, so the lease
+    // outlives the atomic leave-flush. Awaiting it (unlike the fire-and-forget
+    // closePlaySession) makes the sequential takeover path prompt: takeOverCharacter
+    // awaits leave(), so this DELETE lands before the client's rejoin re-acquires.
+    // The grace-expiry sweep instead calls leave() fire-and-forget, so a reconnect
+    // CAN interleave; the NONCE fence covers that, the reconnect's acquire re-stamps
+    // the row with a new nonce and this DELETE, carrying the session's own (now
+    // stale) nonce, matches nothing, so it never eats the live session's re-acquired
+    // lease. The fence only sees fresh acquires, so planJoin refuses to RESUME a
+    // session whose left flag is already set (the resume arm never re-acquires);
+    // the refused client retries into the fresh-acquire arm once this teardown
+    // finishes. The holder guard keeps a cross-process reclaim untouched; an
+    // unreleased lease self-expires after a crash.
+    await releaseCharacterLease(session.characterId, session.leaseNonce).catch((err) =>
+      console.error('lease release failed:', err),
+    );
     this.sim.removePlayer(session.pid);
     // Departures are no longer broadcast to the realm — the leaving player has
     // already disconnected, so there is no one to show their own notice to.
@@ -3255,7 +3314,16 @@ export class GameServer {
         break;
       // arena (Ashen Coliseum queue)
       case 'arena_queue': {
-        const fmt = msg.format === '2v2' ? '2v2' : msg.format === 'fiesta' ? 'fiesta' : '1v1';
+        const fmt =
+          msg.format === '2v2'
+            ? '2v2'
+            : msg.format === 'fiesta'
+              ? 'fiesta'
+              : msg.format === 'yumi3'
+                ? 'yumi3'
+                : msg.format === 'yumi5'
+                  ? 'yumi5'
+                  : '1v1';
         sim.arenaQueueJoin(pid, fmt);
         break;
       }
@@ -3472,6 +3540,36 @@ export class GameServer {
       case 'mail_read':
         if (typeof msg.id === 'number') sim.mailMarkRead(msg.id, pid);
         break;
+      // Bank: the per-character deposit box. `slot` is a container index (the
+      // castAbilityBySlot wire idiom); `count` is optional (omit = whole stack).
+      // The Sim owns every gameplay rule (banker proximity, capacity, quest-bind,
+      // alive-state, exact-copper cost + purchase cap); `bonusSlots` is never
+      // client-supplied. bank_buy_slots is an economy action bounded by the
+      // blanket per-frame message limiter plus the Sim's escalating-price cap.
+      // The bank_ledger write is OBSERVATIONAL and fire-and-forget: the sim methods
+      // return void and emit no success event, so recordBankOp derives success by
+      // diffing the bankInfoFor snapshot before and after each call. It is never
+      // awaited and never a gameplay dependency; a refused/no-op call diffs empty.
+      case 'bank_deposit':
+        if (typeof msg.slot === 'number') {
+          const before = sim.bankInfoFor(pid);
+          sim.bankDeposit(msg.slot, typeof msg.count === 'number' ? msg.count : undefined, pid);
+          recordBankOp('deposit', session, before, sim.bankInfoFor(pid));
+        }
+        break;
+      case 'bank_withdraw':
+        if (typeof msg.slot === 'number') {
+          const before = sim.bankInfoFor(pid);
+          sim.bankWithdraw(msg.slot, typeof msg.count === 'number' ? msg.count : undefined, pid);
+          recordBankOp('withdraw', session, before, sim.bankInfoFor(pid));
+        }
+        break;
+      case 'bank_buy_slots': {
+        const before = sim.bankInfoFor(pid);
+        sim.bankBuySlots(pid);
+        recordBankOp('buy_slots', session, before, sim.bankInfoFor(pid));
+        break;
+      }
       // dev/ops commands, only when ALLOW_DEV_COMMANDS=1 (never in production)
       case 'dev_level': {
         if (process.env.ALLOW_DEV_COMMANDS === '1' && typeof msg.level === 'number') {
@@ -3940,19 +4038,25 @@ export class GameServer {
     maybe('market', this.sim.marketInfoFor(anchorSession.pid));
     maybe('mail', this.sim.mailInfoFor(anchorSession.pid));
     maybe('mailU', this.sim.mailUnreadFor(anchorSession.pid));
+    // bank info is null unless the player is standing at a banker, so it only
+    // rides the wire for players actually browsing their deposit box (the mail
+    // pattern). Not heavy-gated: it appears from proximity, not this session's
+    // own dirty-marking commands.
+    maybe('bank', this.sim.bankInfoFor(anchorSession.pid));
     // open need-greed rolls this player can still answer, so a client that
     // missed the transient lootRoll event re-shows the prompt from state. Stays
     // per-tick (it's interactive state that appears from others' actions).
     maybe('lroll', this.sim.activeLootRolls(anchorSession.pid));
+    // group-visible choices on those rolls (who has answered need/greed/pass),
+    // so every party member's roll frame shows the live vote strip and stays up
+    // after they answer. Per-tick for the same reason as lroll.
+    maybe('lrollg', this.sim.lootRollGroupStatus(anchorSession.pid));
     maybe('drun', this.sim.delveRunWire(anchorSession.pid));
     maybe('dcompanion', this.sim.delveCompanionWire(anchorSession.pid));
     maybe('dmarks', this.sim.delveMarksFor(anchorSession.pid));
     maybe('dcomp', this.sim.companionUpgradesFor(anchorSession.pid));
     maybe('dclears', this.sim.delveClearsFor(anchorSession.pid));
     maybe('delveDaily', this.sim.delveDailyWire(anchorSession.pid));
-    // Gathering profession proficiency (Mining/Logging/Herbalism), a small
-    // per-player map, so kept per-tick like the other small maps above.
-    maybe('gprof', this.sim.gatheringProficiencyFor(anchorSession.pid));
     // per-player read, so kept per-tick like the other small maps above. Wire
     // key `prof` and IWorld member `professionsState` are the settled names
     // for the professions facet (#1164, src/sim/professions/CLAUDE.md). `gprof`
@@ -3965,13 +4069,6 @@ export class GameServer {
     // shape used by the `/dev gather` chat cheat and existing consumers. Wire
     // key `gprof`; see TERSE_TO_IWORLD/ALL_DELTA_KEYS in tests/snapshots.test.ts.
     maybe('gprof', this.sim.gatheringProficiencyFor(anchorSession.pid));
-    // stats + weapon stay per-tick: recalcPlayerStats re-derives them on every
-    // stat-affecting aura gain/loss (Bear/Cat Form, shouts, debuffs, elixir
-    // wear-off, a buff cast on you by someone else), none of which mark this
-    // session dirty, gating them would lag the character sheet mid-fight. Both
-    // are tiny (a handful of numbers), so the per-tick diff is negligible.
-    maybe('stats', p.stats);
-    maybe('weapon', p.weapon);
     // Heavy, rarely-changing fields: building + stringifying these every tick for
     // every player is the dominant avoidable broadcast cost. Skip them unless a
     // heavy command/event marked this session dirty, or its staggered safety
@@ -4235,9 +4332,10 @@ export class GameServer {
         if (!s) continue;
         const match = this.sim.vcupMatchOf(ev.pid);
         if (!match || !match.rated) continue;
+        if (!ev.won) continue;
         void dailyRewardService
           .recordValeCupResult(s.accountId, {
-            won: ev.won,
+            won: true,
             bracket: match.bracket,
             matchId: match.id,
           })
@@ -4245,7 +4343,6 @@ export class GameServer {
             if (points > 0) this.sendDailyRewardPointsGained(s, points);
           })
           .catch((err) => console.error('daily reward vale cup task failed:', err));
-        if (!ev.won) continue;
         // One card per decided match: every winner's vcupResult lands on the
         // same tick and the match-id dedupe key collapses them, so the first
         // one enumerates the whole winning side (linked teammates get tagged

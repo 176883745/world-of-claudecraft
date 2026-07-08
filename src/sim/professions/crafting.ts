@@ -12,6 +12,14 @@
 // Higher-tier gating, the wheel, and archetype-exclusive combos are later
 // issues; this module resolves exactly the common-tier path end to end.
 //
+// #1149 (Battlefield Experience) attribution: a crafted output that rolls
+// rare-or-better is stamped with its crafter's name via ctx.addItemInstance,
+// same signable-rarity threshold and same {signer} shape gathering.ts's
+// harvestCorpse already uses for monster materials (#1145). Below that
+// threshold the output stays a plain fungible grant, unchanged from before
+// this issue. This is what gives professions/battlefield_xp.ts a `signer` to
+// resolve later, when that specific copy is drunk/worn/lands a killing blow.
+//
 // Specialization material discount (#1134): once a player is specialized in a
 // recipe's craft (wheel.ts `isSpecialized`, gated on `PERK_THRESHOLDS`
 // content), every reagent's required quantity is discounted via
@@ -49,7 +57,7 @@
 import { recipeById } from '../content/recipes';
 import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
-import { type MaterialRarity, rollMaterialRarity } from './gathering';
+import { isSignableMaterialRarity, type MaterialRarity, rollMaterialRarity } from './gathering';
 import type { ProfessionReagent, ProfessionRecipeRecord } from './types';
 import {
   type CraftSkillState,
@@ -167,13 +175,14 @@ export function meetsComboRequirement(
  *  consumption never happens. On success, consumes every reagent (each
  *  discounted per the crafter's #1145 self-signed reduction composed with
  *  their #1134 specialization discount), rolls the output's quality off the
- *  player's current skill in the recipe's craft, grants the output item, and
- *  grants craft skill scaled by tier mastery: full at or above the player's
- *  tier capability (including always-full for the common tier, regardless of
- *  capability), reduced one tier below, zero two or more tiers below.
- *  Exported separately from `resolveCraft` so tests can exercise the tier
- *  curve against a synthetic recipe without needing higher-tier content in
- *  `content/recipes.ts`. */
+ *  player's current skill in the recipe's craft, grants the output item
+ *  (signing a rare-or-better single-copy output for #1149 Battlefield
+ *  Experience attribution), and grants craft skill scaled by tier mastery:
+ *  full at or above the player's tier capability (including always-full for
+ *  the common tier, regardless of capability), reduced one tier below, zero
+ *  two or more tiers below. Exported separately from `resolveCraft` so tests
+ *  can exercise the tier curve against a synthetic recipe without needing
+ *  higher-tier content in `content/recipes.ts`. */
 export function resolveCraftForRecipe(
   ctx: SimContext,
   pid: number,
@@ -195,7 +204,15 @@ export function resolveCraftForRecipe(
   }
   const skill = meta ? (meta.craftSkills[recipe.professionId] ?? 0) : 0;
   const quality = rollMaterialRarity(skill, ctx.rng);
-  ctx.addItem(recipe.resultItemId, recipe.resultCount, pid);
+  // #1149: sign a single rare-or-better copy so it carries an attribution
+  // target for Battlefield Experience; anything below that stays fungible,
+  // and a resultCount > 1 output is never itself signable (only single-copy
+  // grants are, matching every recipe in content/recipes.ts today).
+  if (meta && recipe.resultCount === 1 && isSignableMaterialRarity(quality)) {
+    ctx.addItemInstance(recipe.resultItemId, { signer: meta.name, rolled: { quality } }, pid);
+  } else {
+    ctx.addItem(recipe.resultItemId, recipe.resultCount, pid);
+  }
   if (meta) {
     const capabilityTier = tierCapability(meta.craftSkills, recipe.professionId);
     const recipeTier = tierForSkill(recipe.skillReq);
