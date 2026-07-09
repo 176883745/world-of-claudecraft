@@ -2984,6 +2984,84 @@
     padding-top: 6px;
   }
 
+  /* Redesigned vendor: adopts the shared .window-frame chrome plus the
+     .list-rows / .item-cell grammar (spec 6.1 to 6.3). The legacy vendor rules
+     above are now unmatched (the painter emits the grammar classes below) and
+     stay only as a later removal chore. The .window layout overrides are scoped
+     to body.vendor-open so the Heroic Quartermaster, which shares #vendor-window
+     but never sets vendor-open, keeps its legacy shell untouched. Tokens only. */
+  body.vendor-open #vendor-window {
+    padding: 0;
+  }
+  body.vendor-open #vendor-window .window-titlebar {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    background: var(--panel-l1-bg);
+  }
+  .window-frame .vendor-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: inherit;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    text-align: left;
+    cursor: var(--cursor-point);
+    transition: background-color var(--dur-fast) var(--transition-ease);
+  }
+  .window-frame .vendor-row:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-text-light) 6%, transparent);
+  }
+  .window-frame .vendor-row:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .window-frame .vendor-row .item-cell {
+    flex: none;
+  }
+  .window-frame .vendor-row .item-cell .item-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .window-frame .vendor-row .vendor-row-name {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .window-frame .vendor-row .vendor-row-price {
+    flex: none;
+    color: var(--color-text-muted);
+  }
+  .window-frame .vendor-section {
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--panel-edge);
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+  }
+  .window-frame .vendor-note {
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--panel-edge);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+  }
+  .window-frame .window-footer .vendor-sell {
+    width: 100%;
+    justify-content: space-between;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .window-frame .vendor-row {
+      transition: none;
+    }
+  }
+
   /* ---------- bags ---------- */
   /* bags, centred in the bottom gap between the action cluster and micro-menu */
   #bags {
