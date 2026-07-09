@@ -451,6 +451,10 @@ describe('casting_lifecycle: force-stop clears drop the queued slot', () => {
 
     p.hp = 0;
     handleDeath(sim.ctx, p, null); // release requires the player to already be dead
+    // handleDeath already clears the queue; re-arm it here so this test actually
+    // exercises releasePlayerSpirit's own clear instead of passing on death's.
+    p.queuedCastAbility = 'fireball';
+    p.queuedCastAim = null;
     releasePlayerSpirit(sim.ctx, p.id);
     expect(p.queuedCastAbility).toBeNull();
     expect(p.queuedCastAim).toBeNull();
@@ -466,6 +470,10 @@ describe('casting_lifecycle: force-stop clears drop the queued slot', () => {
 
     handleDeath(sim.ctx, p, null);
     releasePlayerSpirit(sim.ctx, p.id);
+    // both handleDeath and releasePlayerSpirit already clear the queue; re-arm it
+    // here so this test actually exercises resurrectAtSpiritHealer's own clear.
+    p.queuedCastAbility = 'fireball';
+    p.queuedCastAim = null;
     resurrectAtSpiritHealer(sim.ctx, p.id);
     expect(p.queuedCastAbility).toBeNull();
     expect(p.queuedCastAim).toBeNull();
