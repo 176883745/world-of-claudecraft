@@ -5353,6 +5353,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Ловкость повышается на 15, вероятность критического удара на 2%.',
   'entities.itemSets.wyrmshadow.bonus4':
     'Критические удары оружием с вероятностью 50% даруют «Клыкастый порыв», увеличивая скорость атаки на 25% на 8 сек.',
+  'hudChrome.itemHeroicName': 'Героический {name}',
   'hudChrome.itemSet.header': '{name} ({have}/{total})',
   'hudChrome.itemProc.onMeleeHit': 'Шанс при попадании ({chance}%): {effect}',
   'hudChrome.itemProc.onSpellDamage': 'Шанс от уронных заклинаний ({chance}%): {effect}',

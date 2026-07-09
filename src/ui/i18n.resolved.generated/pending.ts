@@ -9,25 +9,55 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "hudChrome.itemHeroicName"
+  ],
+  "es_ES": [
+    "hudChrome.itemHeroicName"
+  ],
+  "fr_FR": [
+    "hudChrome.itemHeroicName"
+  ],
+  "fr_CA": [
+    "hudChrome.itemHeroicName"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
+  "it_IT": [
+    "hudChrome.itemHeroicName"
+  ],
+  "de_DE": [
+    "hudChrome.itemHeroicName"
+  ],
   "zh_CN": [],
   "zh_TW": [],
   "ko_KR": [],
   "ja_JP": [],
-  "pt_BR": [],
+  "pt_BR": [
+    "hudChrome.itemHeroicName"
+  ],
   "ru_RU": [],
-  "cs_CZ": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "cs_CZ": [
+    "hudChrome.itemHeroicName"
+  ],
+  "nl_NL": [
+    "hudChrome.itemHeroicName"
+  ],
+  "pl_PL": [
+    "hudChrome.itemHeroicName"
+  ],
+  "id_ID": [
+    "hudChrome.itemHeroicName"
+  ],
+  "tr_TR": [
+    "hudChrome.itemHeroicName"
+  ],
+  "sv_SE": [
+    "hudChrome.itemHeroicName"
+  ],
+  "vi_VN": [
+    "hudChrome.itemHeroicName"
+  ],
+  "da_DK": [
+    "hudChrome.itemHeroicName"
+  ]
 };

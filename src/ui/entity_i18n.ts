@@ -19,6 +19,7 @@ import {
   type InterpolationValues,
   type SupportedLanguage,
   supportedLanguages,
+  t,
   tOptional,
 } from './i18n';
 
@@ -348,6 +349,13 @@ export function tEntity(request: EntityTranslationRequest): string {
 }
 
 export function itemDisplayName(item: ItemDef): string {
+  // Heroic upgraded variants have no name key of their own: compose "Heroic {base}"
+  // from the localized base name so only the one prefix key needs translating.
+  if (item.heroicOf) {
+    const base = ITEMS[item.heroicOf];
+    const baseName = base ? itemDisplayName(base) : item.heroicOf;
+    return t('hudChrome.itemHeroicName', { name: baseName });
+  }
   return tEntity({ kind: 'item', id: item.id, field: 'name' });
 }
 
@@ -418,6 +426,9 @@ export function entityTranslationManifest(): EntityTranslationManifestEntry[] {
     );
   }
   for (const item of Object.values(ITEMS).sort(compareById)) {
+    // Heroic upgraded variants carry no name key: their display name is composed as
+    // "Heroic {base}" (see itemDisplayName), so they never enter the manifest.
+    if (item.heroicOf) continue;
     entries.push(
       entry(
         'item',

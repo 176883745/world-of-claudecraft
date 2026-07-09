@@ -843,6 +843,9 @@ export const hudChromeStrings = {
   // Item-set (tier set) tooltip block. The set name and per-tier bonus text come
   // from content/item_sets.ts via entity_i18n; these two are the surrounding
   // chrome, with `name`/`bonus` spliced in already-localized.
+  // Composed display name for a Heroic upgraded drop variant (content/heroic_variants.ts):
+  // the base item's localized name with the Heroic prefix. {name} is already localized.
+  itemHeroicName: 'Heroic {name}',
   itemSet: {
     header: '{name} ({have}/{total})',
     bonusLine: '({pieces}) {bonus}',

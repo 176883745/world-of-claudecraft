@@ -312,7 +312,7 @@ export class PostOffice {
       const def = ITEMS[s.itemId];
       const count = Math.floor(s.count);
       if (!def || !Number.isFinite(count) || count < 1) return;
-      if (def.kind === 'quest' || def.noMarketList) {
+      if (def.kind === 'quest' || def.noMarketList || def.soulbound) {
         this.result(meta.entityId, 'noMailQuestItems');
         return;
       }

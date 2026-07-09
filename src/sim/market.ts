@@ -234,7 +234,7 @@ export class Market {
       this.ctx.error(meta.entityId, 'The Merchant will not broker quest items.');
       return;
     }
-    if (def.noMarketList) {
+    if (def.noMarketList || def.soulbound) {
       this.ctx.error(meta.entityId, 'That item cannot be listed on the World Market.');
       return;
     }
