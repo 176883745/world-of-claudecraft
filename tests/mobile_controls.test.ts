@@ -6,9 +6,13 @@ import {
   HAPTICS_STORE_KEY,
   interfaceModeFromSetting,
   isChatLongPress,
+  isMoveAutorunNear,
+  isMoveAutorunPush,
   isPhoneTouchDevice,
   isRecenterDoubleTap,
   loadHapticsEnabled,
+  MOVE_AUTORUN_REVEAL_THRESHOLD,
+  MOVE_AUTORUN_THRESHOLD,
   MobileControls,
   mapJoystickVector,
   mapLookVector,
@@ -88,6 +92,20 @@ describe('mapJoystickVector', () => {
     // a tiny push that's neutral by default registers with a narrow deadzone
     const narrow = mapJoystickVector(0, -0.15, 0.1);
     expect(narrow.forward).toBe(true);
+  });
+});
+
+describe('isMoveAutorunPush', () => {
+  it('requires a strong upward push into the top joystick band', () => {
+    expect(isMoveAutorunPush(-MOVE_AUTORUN_THRESHOLD)).toBe(true);
+    expect(isMoveAutorunPush(-MOVE_AUTORUN_THRESHOLD + 0.01)).toBe(false);
+    expect(isMoveAutorunPush(0)).toBe(false);
+  });
+
+  it('reveals the round target before the lock threshold', () => {
+    expect(isMoveAutorunNear(-MOVE_AUTORUN_REVEAL_THRESHOLD)).toBe(true);
+    expect(isMoveAutorunNear(-MOVE_AUTORUN_REVEAL_THRESHOLD + 0.01)).toBe(false);
+    expect(isMoveAutorunPush(-MOVE_AUTORUN_REVEAL_THRESHOLD)).toBe(false);
   });
 });
 
@@ -408,6 +426,7 @@ function installMobileControlDom(): {
   canvas: FakeElement;
   moveZone: FakeElement;
   moveJoystick: FakeElement;
+  autorunTarget: FakeElement;
   cameraJoystick: FakeElement;
   jumpButton: FakeElement;
   emoteButton: FakeElement;
@@ -415,6 +434,7 @@ function installMobileControlDom(): {
   donateButton: FakeElement;
   windowTarget: EventTarget;
 } {
+  const autorunTarget = new FakeElement();
   const elements = new Map<string, FakeElement>([
     [
       'game-canvas',
@@ -427,6 +447,7 @@ function installMobileControlDom(): {
     ],
     ['mobile-move-joystick', new FakeElement()],
     ['mobile-move-stick', new FakeElement()],
+    ['mobile-autorun-target', autorunTarget],
     ['mobile-camera-joystick', new FakeElement()],
     ['mobile-camera-stick', new FakeElement()],
     ['mobile-jump', new FakeElement()],
@@ -460,6 +481,7 @@ function installMobileControlDom(): {
     canvas: elements.get('game-canvas')!,
     moveZone: elements.get('mobile-move-zone')!,
     moveJoystick: elements.get('mobile-move-joystick')!,
+    autorunTarget,
     cameraJoystick: elements.get('mobile-camera-joystick')!,
     jumpButton: elements.get('mobile-jump')!,
     emoteButton: elements.get('mobile-emote')!,
@@ -489,7 +511,6 @@ function mobileCallbacks() {
     onCycleTarget: noop,
     onJump: noop,
     onInteract: noop,
-    onAutorun: () => false,
     onChat: noop,
     onChatOpen: noop,
     onChatClose: noop,
@@ -557,6 +578,128 @@ describe('MobileControls setActive draft survival', () => {
 });
 
 describe('MobileControls pointer lifecycle', () => {
+  it('engages autorun when the move joystick is pushed into the high round target', () => {
+    const { autorunTarget, moveZone, windowTarget } = installMobileControlDom();
+    let autorunOn = false;
+    let clearCount = 0;
+    const input = {
+      get autorun() {
+        return autorunOn;
+      },
+      setTouchMove: (move: TouchMoveInput) => {
+        if (move.forward || move.back || move.strafeLeft || move.strafeRight) autorunOn = false;
+      },
+      clearTouchMove: () => {
+        clearCount += 1;
+      },
+      setAutorun: (on: boolean) => {
+        autorunOn = on;
+        return autorunOn;
+      },
+      setTouchLook: () => {},
+      setTouchLookVector: () => {},
+    } as unknown as Input;
+
+    new MobileControls(input, mobileCallbacks()).start();
+
+    moveZone.dispatchEvent(
+      pointerEvent('pointerdown', { pointerId: 14, clientX: 100, clientY: 100 }),
+    );
+    moveZone.dispatchEvent(
+      pointerEvent('pointermove', { pointerId: 14, clientX: 100, clientY: 25 }),
+    );
+
+    expect(autorunOn).toBe(false);
+    expect(autorunTarget.classList.contains('near')).toBe(true);
+    expect(autorunTarget.classList.contains('locked')).toBe(false);
+
+    moveZone.dispatchEvent(
+      pointerEvent('pointermove', { pointerId: 14, clientX: 100, clientY: -5 }),
+    );
+
+    expect(autorunOn).toBe(true);
+    expect(autorunTarget.classList.contains('locked')).toBe(true);
+    expect(clearCount).toBeGreaterThan(0);
+
+    windowTarget.dispatchEvent(pointerEvent('pointerup', { pointerId: 14 }));
+
+    expect(autorunOn).toBe(true);
+    expect(autorunTarget.classList.contains('near')).toBe(true);
+    expect(autorunTarget.classList.contains('locked')).toBe(true);
+
+    moveZone.dispatchEvent(
+      pointerEvent('pointerdown', { pointerId: 15, clientX: 100, clientY: 100 }),
+    );
+
+    expect(autorunOn).toBe(false);
+    expect(autorunTarget.classList.contains('near')).toBe(false);
+    expect(autorunTarget.classList.contains('locked')).toBe(false);
+  });
+
+  it('cancels a locked autorun when the same joystick drag leaves the target', () => {
+    const { autorunTarget, moveZone } = installMobileControlDom();
+    let autorunOn = false;
+    const input = {
+      get autorun() {
+        return autorunOn;
+      },
+      setTouchMove: (move: TouchMoveInput) => {
+        if (move.forward || move.back || move.strafeLeft || move.strafeRight) autorunOn = false;
+      },
+      clearTouchMove: () => {},
+      setAutorun: (on: boolean) => {
+        autorunOn = on;
+        return autorunOn;
+      },
+      setTouchLook: () => {},
+      setTouchLookVector: () => {},
+    } as unknown as Input;
+
+    new MobileControls(input, mobileCallbacks()).start();
+
+    moveZone.dispatchEvent(
+      pointerEvent('pointerdown', { pointerId: 16, clientX: 100, clientY: 100 }),
+    );
+    moveZone.dispatchEvent(
+      pointerEvent('pointermove', { pointerId: 16, clientX: 100, clientY: -5 }),
+    );
+    expect(autorunOn).toBe(true);
+    expect(autorunTarget.classList.contains('locked')).toBe(true);
+
+    moveZone.dispatchEvent(
+      pointerEvent('pointermove', { pointerId: 16, clientX: 102, clientY: 84 }),
+    );
+
+    expect(autorunOn).toBe(false);
+    expect(autorunTarget.classList.contains('near')).toBe(false);
+    expect(autorunTarget.classList.contains('locked')).toBe(false);
+  });
+
+  it('syncs an external autorun reset into the round target UI', () => {
+    const { autorunTarget } = installMobileControlDom();
+    const input = {
+      setTouchMove: () => {},
+      clearTouchMove: () => {},
+      setTouchLook: () => {},
+      setTouchLookVector: () => {},
+    } as unknown as Input;
+
+    const controls = new MobileControls(input, mobileCallbacks());
+    controls.start();
+
+    controls.syncAutorun(true);
+
+    expect(autorunTarget.classList.contains('near')).toBe(true);
+    expect(autorunTarget.classList.contains('locked')).toBe(true);
+
+    autorunTarget.classList.add('near', 'locked');
+
+    controls.syncAutorun(false);
+
+    expect(autorunTarget.classList.contains('near')).toBe(false);
+    expect(autorunTarget.classList.contains('locked')).toBe(false);
+  });
+
   it('clears movement when the active pointer ends outside the joystick element', () => {
     const { moveZone, windowTarget } = installMobileControlDom();
     let lastMove: TouchMoveInput | null = null;
