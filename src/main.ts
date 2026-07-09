@@ -5805,6 +5805,106 @@ function wireGithubLink(): void {
   void refreshGithubLinkStatus();
 }
 
+// Steam account link (the deeds achievement mirror), a stacked card beside the
+// GitHub one. Entirely capability-driven: the group renders ONLY when the
+// server's /api/status advert says the Steam surface is lit, so a dark server
+// shows nothing anywhere. Linking needs a Steam session ticket, which only the
+// desktop shell can mint (wocDesktop.steamLinkTicket); the web build shows
+// link status and Unlink only.
+
+// Flash a message into the Steam status line for 4s, then restore whatever it
+// was showing (the flashGithubError shape, targeting #steam-status).
+function flashSteamStatus(message: string): void {
+  const statusEl = document.getElementById('steam-status');
+  if (!statusEl) return;
+  const previousText = statusEl.textContent;
+  const previousHidden = statusEl.hidden;
+  statusEl.textContent = message;
+  statusEl.hidden = false;
+  window.setTimeout(() => {
+    if (statusEl.textContent !== message) return; // a real status refresh already overwrote it
+    statusEl.textContent = previousText;
+    statusEl.hidden = previousHidden;
+  }, 4000);
+}
+
+async function refreshSteamLinkStatus(): Promise<void> {
+  const group = document.getElementById('cs-steam-group');
+  if (!group) return;
+  if (!api.token) {
+    group.hidden = true;
+    return;
+  }
+  // The public capability advert gates everything below; without it no
+  // authed steam call is even attempted.
+  if (!(await api.steamAdvert())) {
+    group.hidden = true;
+    return;
+  }
+  let status: Record<string, unknown> | null = null;
+  try {
+    status = await api.steamStatus();
+  } catch (err) {
+    console.error('[steam] could not load status', err);
+  }
+  if (!status || status.enabled !== true) {
+    group.hidden = true;
+    return;
+  }
+  group.hidden = false;
+  const linked = status.linked === true;
+  const steamId = typeof status.steamId === 'string' ? status.steamId : '';
+  const statusEl = document.getElementById('steam-status');
+  if (statusEl) {
+    if (linked) {
+      statusEl.textContent = t('hudChrome.steam.linked', { id: steamId });
+      statusEl.hidden = false;
+    } else {
+      statusEl.hidden = true;
+    }
+  }
+  const bridge = DESKTOP_APP ? desktopBridge() : null;
+  const canMintTicket = typeof bridge?.steamLinkTicket === 'function';
+  const linkBtn = document.getElementById('btn-steam-link');
+  if (linkBtn) linkBtn.hidden = linked || !canMintTicket;
+  const unlinkBtn = document.getElementById('btn-steam-unlink');
+  if (unlinkBtn) unlinkBtn.hidden = !linked;
+}
+
+async function startSteamLink(): Promise<void> {
+  const bridge = DESKTOP_APP ? desktopBridge() : null;
+  if (typeof bridge?.steamLinkTicket !== 'function') return;
+  let ticket: string | null = null;
+  try {
+    ticket = await bridge.steamLinkTicket();
+  } catch {
+    ticket = null;
+  }
+  if (!ticket) {
+    flashSteamStatus(t('hudChrome.steam.noTicket'));
+    return;
+  }
+  try {
+    await api.steamLink(ticket);
+  } catch (err) {
+    flashSteamStatus(userFacingApiError(err));
+  }
+  void refreshSteamLinkStatus();
+}
+
+function wireSteamLink(): void {
+  document.getElementById('btn-steam-link')?.addEventListener('click', () => {
+    void startSteamLink();
+  });
+  document.getElementById('btn-steam-unlink')?.addEventListener('click', () => {
+    void api
+      .unlinkSteam()
+      .then(refreshSteamLinkStatus)
+      .catch((err) => console.error('[steam] unlink failed', err));
+  });
+  void refreshSteamLinkStatus();
+}
+
 function coerceDiscordStatus(d: Record<string, unknown>): DiscordAccountStatus {
   return {
     linked: d.linked === true,
@@ -6536,6 +6636,7 @@ function wireStartScreens(): void {
   wireHomepageMusicToggle();
   wireWallet();
   wireGithubLink();
+  wireSteamLink();
 
   // mode select
   const onlineBtn = $('#btn-online');
@@ -6572,6 +6673,7 @@ function wireStartScreens(): void {
     if (await completeDesktopBrowserLogin()) return;
     void refreshWalletLinkStatus();
     void refreshGithubLinkStatus();
+    void refreshSteamLinkStatus();
     // Mandatory recovery-email capture: block realm entry until a pre-email account
     // sets one (a fresh signup already has it, so this is a no-op there).
     await maybePromptRecoveryEmail();
@@ -7479,6 +7581,7 @@ function wireStartScreens(): void {
     enterLoggedInChrome();
     void refreshWalletLinkStatus();
     void refreshGithubLinkStatus();
+    void refreshSteamLinkStatus();
     // A Discord login usually captured the email already, but confirm and prompt
     // if it did not (e.g. the address was missing on the Discord account).
     void maybePromptRecoveryEmail().then(() => goToLoggedInPlay());
@@ -7625,6 +7728,7 @@ function wireStartScreens(): void {
     // unverified and disconnected (the bug that forced a re-sign on every reload).
     void refreshWalletLinkStatus();
     void refreshGithubLinkStatus();
+    void refreshSteamLinkStatus();
     // (Discord status is refreshed by enterLoggedInChrome above.)
     // A just-completed Discord login lands straight in play; capture a recovery
     // email first if the Discord grant did not provide one.

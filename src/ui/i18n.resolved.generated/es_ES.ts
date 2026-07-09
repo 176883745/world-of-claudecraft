@@ -1271,6 +1271,14 @@ export const es_ES: EnTranslations = {
       "linkedAs": "Vinculado como {login}",
       "unlink": "Desvincular GitHub"
     },
+    "steam": {
+      "title": "Steam",
+      "link": "Link Steam",
+      "unlink": "Unlink Steam",
+      "linked": "Linked to Steam account {id}",
+      "benefits": "Link your Steam account from the desktop app to mirror the deeds you earn into Steam achievements.",
+      "noTicket": "Steam did not provide a link ticket. Start Steam, then try again."
+    },
     "mailbox": {
       "title": "Buzón",
       "subtitle": "El Correo del Cuervo",
@@ -1614,6 +1622,14 @@ export const es_ES: EnTranslations = {
     },
     "deeds": {
       "invalid_input": "Invalid input."
+    },
+    "steam": {
+      "disabled": "Steam linking is not available right now.",
+      "invalid_ticket": "Steam could not verify this link request. Try again from the desktop app.",
+      "banned": "That Steam account cannot be linked.",
+      "already_linked": "Your account already has a linked Steam account.",
+      "account_taken": "That Steam account is already linked to another account.",
+      "upstream": "Steam did not respond. Try again in a moment."
     }
   },
   "guide": {

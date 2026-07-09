@@ -45,6 +45,10 @@
     "deedsSystem": {
       "note": "Book of Deeds (achievements) vocabulary, locked by the non-Latin fills shipped with the window chrome. Deed: zh_CN 功绩, zh_TW 功績, ja 功績, ko 업적, ru деяние. Book of Deeds: zh_CN 功绩之书, zh_TW 功績之書, ja 功績の書, ko 업적의 서, ru Книга деяний. Renown (the deed score; distinct from any reputation concept): zh_CN 名望, zh_TW 名望, ja 名声, ko 명성, ru Известность. Title (cosmetic name suffix): zh_CN 头衔, zh_TW 頭銜, ja 称号, ko 칭호, ru звание. Feat (zero-Renown trophy): zh_CN 壮举, zh_TW 壯舉, ja 偉業, ko 위업, ru подвиг. Chronicle (per-zone task set): zh_CN 编年史, zh_TW 編年史, ja 年代記, ko 연대기, ru летопись. Keep each identical wherever the system is referenced.",
       "keyPatterns": ["hudChrome.deeds.*"]
+    },
+    "steamLink": {
+      "note": "Steam account-link vocabulary (the character-select card + apiError.steam.*), locked by the non-Latin fills shipped with the link surface. Steam stays Latin everywhere (brand). Link (the account-link verb): zh_CN 关联, zh_TW 連結, ja 連携, ko 연동, ru привязать (linked state: привязан). Steam achievements (the platform term the deeds mirror writes to): zh_CN Steam 成就, zh_TW Steam 成就, ja Steam実績, ko Steam 도전 과제, ru достижения Steam. Keep each identical wherever the link surface is referenced.",
+      "keyPatterns": ["hudChrome.steam.*", "apiError.steam.*"]
     }
   }
 }

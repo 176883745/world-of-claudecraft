@@ -853,6 +853,40 @@ export const SURFACE_INVENTORY: readonly SurfaceRoute[] = [
     limiter: null,
     requireOwnedExpected: null,
   },
+  // Steam link family (server/steam/routes.ts): registry-only RouteDefs, same
+  // new-route rule as the deeds pair. The whole trio is env-gated dark
+  // (steam.disabled 503 until STEAM_ENABLED=1); the auth scopes below describe
+  // the lit behavior, and linking is NEVER an identity or session source.
+  {
+    dispatcher: DISPATCH.mainApi,
+    method: 'POST',
+    path: '/api/steam/link',
+    handler: 'server/steam/routes.ts linkHandler (registry-only RouteDef)',
+    contentType: PROBLEM_JSON,
+    authScope: AUTH_SCOPE.full,
+    limiter: 'steamLinkRateLimited',
+    requireOwnedExpected: null,
+  },
+  {
+    dispatcher: DISPATCH.mainApi,
+    method: 'DELETE',
+    path: '/api/steam/link',
+    handler: 'server/steam/routes.ts unlinkHandler (registry-only RouteDef)',
+    contentType: PROBLEM_JSON,
+    authScope: AUTH_SCOPE.full,
+    limiter: null,
+    requireOwnedExpected: null,
+  },
+  {
+    dispatcher: DISPATCH.mainApi,
+    method: 'GET',
+    path: '/api/steam/status',
+    handler: 'server/steam/routes.ts statusHandler (registry-only RouteDef)',
+    contentType: PROBLEM_JSON,
+    authScope: AUTH_SCOPE.bearer,
+    limiter: null,
+    requireOwnedExpected: null,
+  },
   {
     dispatcher: DISPATCH.mainApi,
     method: 'POST',

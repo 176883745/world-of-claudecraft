@@ -67,6 +67,7 @@ export function desktopBuilderConfig({
   crashSubmitUrl = '',
   azureSign = null,
   updateChannel = null,
+  steamAppId = '',
 }) {
   if (distribution !== 'website' && distribution !== 'steam') {
     throw new Error(`unknown desktop distribution: ${distribution}`);
@@ -79,6 +80,10 @@ export function desktopBuilderConfig({
       ...(apiOrigin ? { apiOrigin } : {}),
       ...(loginOrigin ? { loginOrigin } : {}),
       ...(crashSubmitUrl ? { crashSubmitUrl } : {}),
+      // The Steamworks app id electron/steam.cjs initializes with; stamped
+      // for the steam channel only (website builds never touch Steam, and an
+      // absent stamp falls back to the Spacewar dev id there anyway).
+      ...(distribution === 'steam' && /^\d+$/.test(steamAppId) ? { steamAppId } : {}),
     },
   };
   if (distribution === 'website' && config.publish) {
@@ -125,6 +130,18 @@ export function desktopBuilderConfig({
     config.mac = { ...(config.mac ?? {}), target: [{ target: 'dir', arch: ['universal'] }] };
     config.win = { ...(config.win ?? {}), target: [{ target: 'dir', arch: ['x64'] }] };
     config.linux = { ...(config.linux ?? {}), target: [{ target: 'dir', arch: ['x64'] }] };
+    // steamworks.js rides the Steam depot ONLY: the base files whitelist
+    // excludes node_modules entirely (main-process deps are esbuild-vendored),
+    // but a napi native module cannot be bundled, so the steam channel
+    // re-includes exactly this package and asar-unpacks its dist/** (the
+    // .node binaries plus the steam_api dynamic libraries must load from real
+    // disk; electron-builder redirects the in-asar require automatically).
+    // Website artifacts stay byte-identical to a pre-Steam build.
+    config.files = [...(config.files ?? []), 'node_modules/steamworks.js/**'];
+    config.asarUnpack = [
+      ...(Array.isArray(config.asarUnpack) ? config.asarUnpack : []),
+      'node_modules/steamworks.js/dist/**',
+    ];
   }
   if (mode === 'pack') {
     for (const os of ['mac', 'win', 'linux']) {

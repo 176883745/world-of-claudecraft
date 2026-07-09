@@ -94,6 +94,12 @@ const KNOWN_CODES = [
   'two_factor.setup_required',
   'validation.failed',
   'deeds.invalid_input',
+  'steam.disabled',
+  'steam.invalid_ticket',
+  'steam.banned',
+  'steam.already_linked',
+  'steam.account_taken',
+  'steam.upstream',
 ];
 
 // The parametric contract pins: the matcher

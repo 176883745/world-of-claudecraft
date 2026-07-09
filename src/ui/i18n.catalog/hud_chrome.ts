@@ -1511,6 +1511,20 @@ export const hudChromeStrings = {
     linkedAs: 'Linked as {login}',
     unlink: 'Unlink GitHub',
   },
+  // Steam account link (the deeds achievement mirror), the stacked card beside
+  // the GitHub one on character select. Renders only when the server's
+  // /api/status advert says the Steam surface is lit; linking itself is
+  // desktop-app only (the shell mints the session ticket), web shows status +
+  // Unlink. Linking is never a sign-in method.
+  steam: {
+    title: 'Steam',
+    link: 'Link Steam',
+    unlink: 'Unlink Steam',
+    linked: 'Linked to Steam account {id}',
+    benefits:
+      'Link your Steam account from the desktop app to mirror the deeds you earn into Steam achievements.',
+    noTicket: 'Steam did not provide a link ticket. Start Steam, then try again.',
+  },
   // The Ravenpost mailbox window + envelope indicator. Authored letter
   // sender/subject/body localize via entities.letters.* (world_entity_i18n),
   // not here; these are the window chrome and the structured mailResult lines.

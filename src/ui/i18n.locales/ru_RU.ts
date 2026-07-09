@@ -6139,6 +6139,13 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'apiError.body.too_large': 'Запрос слишком большой. Повторите попытку с меньшим объёмом данных.',
   'apiError.body.unsupported_media_type': 'Неподдерживаемый формат запроса.',
   'apiError.deeds.invalid_input': 'Недопустимые данные.',
+  'apiError.steam.disabled': 'Привязка Steam сейчас недоступна.',
+  'apiError.steam.invalid_ticket':
+    'Steam не смог подтвердить этот запрос на привязку. Повторите попытку из настольного приложения.',
+  'apiError.steam.banned': 'Этот аккаунт Steam нельзя привязать.',
+  'apiError.steam.already_linked': 'К вашему аккаунту уже привязан аккаунт Steam.',
+  'apiError.steam.account_taken': 'Этот аккаунт Steam уже привязан к другому аккаунту.',
+  'apiError.steam.upstream': 'Steam не отвечает. Повторите попытку чуть позже.',
   'apiError.db.conflict': 'Изменение конфликтует с другим обновлением. Повторите попытку.',
   'apiError.rate_limit.exceeded': 'Слишком много запросов. Повторите попытку через {seconds}.',
   'apiError.internal.error': 'На нашей стороне произошла ошибка. Повторите попытку.',
@@ -6629,6 +6636,13 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Пригласите друга: когда он достигнет 10 уровня, вы оба получите по 2 ячейки, до 5 друзей.',
   'hudChrome.bank.bonusSectionAria': 'Бонусные ячейки банка и способы их получить',
   'entities.mobs.yumi_cat.name': 'Юми',
+  'hudChrome.steam.link': 'Привязать Steam',
+  'hudChrome.steam.unlink': 'Отвязать Steam',
+  'hudChrome.steam.linked': 'Привязан аккаунт Steam {id}',
+  'hudChrome.steam.benefits':
+    'Привяжите аккаунт Steam в настольном приложении, чтобы ваши деяния отражались в достижениях Steam.',
+  'hudChrome.steam.noTicket':
+    'Steam не выдал билет для привязки. Запустите Steam и повторите попытку.',
   'hudChrome.deeds.title': 'Книга деяний',
   'hudChrome.deeds.close': 'Закрыть Книгу деяний',
   'hudChrome.deeds.searchPlaceholder': 'Поиск деяний',

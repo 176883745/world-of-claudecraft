@@ -62,6 +62,10 @@ import type { LiveReportTarget } from './moderation_db';
 import { recordUsageMetric } from './provider_usage';
 import { publicReadRateLimited } from './ratelimit';
 import { REALM, REALM_DIRECTORY } from './realm';
+// From the config module directly (not the ./steam barrel): the barrel drags
+// routes.ts and its load-time middleware construction into this module's
+// graph, which partial db mocks in tests cannot serve.
+import { steamEnabled } from './steam/config';
 
 // ---------------------------------------------------------------------------
 // Named constants (single source of truth for the query decoders + fixed args).
@@ -546,10 +550,17 @@ async function projectStatsHandler(ctx: Ctx): Promise<void> {
  * GET /api/status: the public realm + online snapshot. LABELED knownDeviation
  * (status-name-list-trim): the online player name-list the legacy arm returned is
  * dropped here, so the public endpoint exposes counts only, not who is online.
+ * steam.enabled is the capability advert clients read before rendering any
+ * Steam link UI (dual-arm edit: the legacy main.ts twin carries the same field).
  */
 async function statusHandler(ctx: Ctx): Promise<void> {
   const rt = useRuntime();
-  json(ctx.res, 200, { ok: true, realm: REALM, players_online: rt.playersOnline() });
+  json(ctx.res, 200, {
+    ok: true,
+    realm: REALM,
+    players_online: rt.playersOnline(),
+    steam: { enabled: steamEnabled() },
+  });
 }
 
 /**

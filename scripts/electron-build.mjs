@@ -108,6 +108,9 @@ const config = desktopBuilderConfig({
   // makes desktopBuilderConfig throw before anything is built. Set-but-empty
   // means "unset" (derive from the origin), hence || rather than ??.
   updateChannel: process.env.WOC_UPDATE_CHANNEL || null,
+  // The real Steamworks app id for a depot build (stamped into wocDesktop for
+  // electron/steam.cjs); unset falls back to the Spacewar dev id at runtime.
+  steamAppId: process.env.WOC_STEAM_APP_ID || '',
 });
 const configDir = mkdtempSync(path.join(tmpdir(), 'woc-eb-'));
 const configPath = path.join(configDir, 'electron-builder.json');

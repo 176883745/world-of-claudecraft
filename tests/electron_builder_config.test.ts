@@ -144,6 +144,38 @@ describe('desktopBuilderConfig', () => {
     expect(config.mac.hardenedRuntime).toBe(true);
   });
 
+  it('steam: ships steamworks.js (files re-include + native dist asarUnpack); website does not', () => {
+    const steam = desktopBuilderConfig({ base, distribution: 'steam' });
+    const steamFiles = steam.files ?? [];
+    expect(steamFiles).toContain('node_modules/steamworks.js/**');
+    expect(steam.asarUnpack).toContain('node_modules/steamworks.js/dist/**');
+    // The re-include must come AFTER the base '!node_modules/**' exclusion so
+    // electron-builder's later-pattern-wins ordering re-admits the package.
+    expect(steamFiles.indexOf('node_modules/steamworks.js/**')).toBeGreaterThan(
+      steamFiles.indexOf('!node_modules/**'),
+    );
+    // Website artifacts stay byte-identical to a pre-Steam build: no
+    // steamworks entries anywhere.
+    const website = desktopBuilderConfig({ base, distribution: 'website' });
+    expect(website.files ?? []).not.toContain('node_modules/steamworks.js/**');
+    expect(website.asarUnpack ?? []).not.toContain('node_modules/steamworks.js/dist/**');
+  });
+
+  it('stamps steamAppId for the steam channel only, digits only, when provided', () => {
+    const stamped = desktopBuilderConfig({ base, distribution: 'steam', steamAppId: '3140820' });
+    expect(stamped.extraMetadata.wocDesktop.steamAppId).toBe('3140820');
+    const bare = desktopBuilderConfig({ base, distribution: 'steam' });
+    expect('steamAppId' in bare.extraMetadata.wocDesktop).toBe(false);
+    const garbage = desktopBuilderConfig({ base, distribution: 'steam', steamAppId: 'abc' });
+    expect('steamAppId' in garbage.extraMetadata.wocDesktop).toBe(false);
+    const website = desktopBuilderConfig({
+      base,
+      distribution: 'website',
+      steamAppId: '3140820',
+    });
+    expect('steamAppId' in website.extraMetadata.wocDesktop).toBe(false);
+  });
+
   it('stamps the resolved web origins so a packaged build never reads them from runtime env', () => {
     const config = desktopBuilderConfig({
       base,

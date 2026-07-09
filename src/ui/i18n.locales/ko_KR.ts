@@ -6013,6 +6013,13 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'apiError.body.too_large': '요청이 너무 큽니다. 데이터를 줄여 다시 시도하세요.',
   'apiError.body.unsupported_media_type': '지원되지 않는 요청 형식입니다.',
   'apiError.deeds.invalid_input': '입력이 올바르지 않습니다.',
+  'apiError.steam.disabled': '현재 Steam 연동을 사용할 수 없습니다.',
+  'apiError.steam.invalid_ticket':
+    'Steam이 이 연동 요청을 확인하지 못했습니다. 데스크톱 앱에서 다시 시도해 주세요.',
+  'apiError.steam.banned': '해당 Steam 계정은 연동할 수 없습니다.',
+  'apiError.steam.already_linked': '계정에 이미 연동된 Steam 계정이 있습니다.',
+  'apiError.steam.account_taken': '해당 Steam 계정은 이미 다른 계정에 연결되어 있습니다.',
+  'apiError.steam.upstream': 'Steam이 응답하지 않습니다. 잠시 후 다시 시도해 주세요.',
   'apiError.db.conflict': '변경 사항이 다른 업데이트와 충돌했습니다. 다시 시도해 주세요.',
   'apiError.rate_limit.exceeded': '요청이 너무 많습니다. {seconds} 후에 다시 시도하세요.',
   'apiError.internal.error': '서버 측에서 문제가 발생했습니다. 다시 시도해 주세요.',
@@ -6491,6 +6498,13 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '친구를 초대하세요: 친구가 10레벨에 도달하면 서로 2칸씩 얻으며, 최대 5명까지 가능합니다.',
   'hudChrome.bank.bonusSectionAria': '보너스 은행 칸과 획득 방법',
   'entities.mobs.yumi_cat.name': '유미',
+  'hudChrome.steam.link': 'Steam 연동',
+  'hudChrome.steam.unlink': 'Steam 연동 해제',
+  'hudChrome.steam.linked': 'Steam 계정 {id}에 연동됨',
+  'hudChrome.steam.benefits':
+    '데스크톱 앱에서 Steam 계정을 연동하면 획득한 업적이 Steam 도전 과제로 반영됩니다.',
+  'hudChrome.steam.noTicket':
+    'Steam에서 연동 티켓을 받지 못했습니다. Steam을 실행한 뒤 다시 시도해 주세요.',
   'hudChrome.deeds.title': '업적의 서',
   'hudChrome.deeds.close': '업적의 서 닫기',
   'hudChrome.deeds.searchPlaceholder': '업적 검색',

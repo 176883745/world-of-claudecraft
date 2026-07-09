@@ -1271,6 +1271,14 @@ export const ja_JP: EnTranslations = {
       "linkedAs": "{login} として連携済み",
       "unlink": "GitHub の連携を解除"
     },
+    "steam": {
+      "title": "Steam",
+      "link": "Steamと連携",
+      "unlink": "Steam連携を解除",
+      "linked": "Steamアカウント {id} と連携済み",
+      "benefits": "デスクトップアプリからSteamアカウントを連携すると、獲得した功績がSteam実績に反映されます。",
+      "noTicket": "Steamから連携チケットを取得できませんでした。Steamを起動してからもう一度お試しください。"
+    },
     "mailbox": {
       "title": "メールボックス",
       "subtitle": "レイヴンポスト",
@@ -1614,6 +1622,14 @@ export const ja_JP: EnTranslations = {
     },
     "deeds": {
       "invalid_input": "入力が無効です。"
+    },
+    "steam": {
+      "disabled": "Steam連携は現在利用できません。",
+      "invalid_ticket": "Steamがこの連携リクエストを確認できませんでした。デスクトップアプリからもう一度お試しください。",
+      "banned": "そのSteamアカウントは連携できません。",
+      "already_linked": "このアカウントには既にSteamアカウントが連携されています。",
+      "account_taken": "そのSteamアカウントは既に別のアカウントに連携されています。",
+      "upstream": "Steamから応答がありません。しばらくしてからもう一度お試しください。"
     }
   },
   "guide": {

@@ -1271,6 +1271,14 @@ export const zh_TW: EnTranslations = {
       "linkedAs": "已連結為 {login}",
       "unlink": "取消連結 GitHub"
     },
+    "steam": {
+      "title": "Steam",
+      "link": "連結 Steam",
+      "unlink": "取消連結 Steam",
+      "linked": "已連結 Steam 帳號 {id}",
+      "benefits": "在桌面應用程式中連結你的 Steam 帳號，將你獲得的功績同步為 Steam 成就。",
+      "noTicket": "Steam 未提供連結憑證。請先啟動 Steam，然後重試。"
+    },
     "mailbox": {
       "title": "郵箱",
       "subtitle": "渡鴉郵驛",
@@ -1614,6 +1622,14 @@ export const zh_TW: EnTranslations = {
     },
     "deeds": {
       "invalid_input": "輸入無效。"
+    },
+    "steam": {
+      "disabled": "Steam 連結目前無法使用。",
+      "invalid_ticket": "Steam 無法驗證此連結請求。請在桌面應用程式中重試。",
+      "banned": "該 Steam 帳號無法連結。",
+      "already_linked": "你的帳號已連結一個 Steam 帳號。",
+      "account_taken": "該 Steam 帳號已連結到另一個帳號。",
+      "upstream": "Steam 未回應。請稍後重試。"
     }
   },
   "guide": {

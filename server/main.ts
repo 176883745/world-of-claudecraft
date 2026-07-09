@@ -226,6 +226,7 @@ import { BUG_REPORT_MAX_BODY_BYTES, configureReportsRuntime } from './reports';
 import { handleSitePresenceHeartbeat } from './site_presence';
 import { adminRolesForAccount } from './staff_db';
 import { cacheControlFor, etagFor, isNotModified } from './static_cache';
+import { steamEnabled } from './steam/config';
 import { passesTurnstile } from './turnstile';
 import { MAX_ASSET_BYTES } from './user_assets';
 import {
@@ -1488,11 +1489,15 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       });
     }
     if (req.method === 'GET' && url === '/api/status') {
+      // steam.enabled is the capability advert clients read before rendering
+      // any Steam link UI (dual-arm edit: the migrated statusHandler in
+      // server/leaderboard.ts carries the same field).
       return json(res, 200, {
         ok: true,
         realm: REALM,
         players_online: liveGame().clients.size,
         names: [...liveGame().clients.values()].map((s) => s.name),
+        steam: { enabled: steamEnabled() },
       });
     }
     // Dev-only world-loop perf profile (per-phase tick p95/max), for the load

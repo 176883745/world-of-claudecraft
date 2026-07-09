@@ -15,6 +15,11 @@ import type { DeedDef } from '../src/sim/types';
 import type { DeedsRarity } from '../src/world_api';
 import { insertCharacterDeed } from './deeds_db';
 import { REALM } from './realm';
+// Imported from the mirror module DIRECTLY (not the ./steam barrel): this
+// module rides in game.ts's graph, and the barrel would drag routes.ts (and
+// its load-time requireAccount over the db module) into every test that
+// partial-mocks the db, the known overlay-mock breakage class.
+import { onDeedRecorded } from './steam/mirror';
 
 // Per-process FIFO tail. A character lives on one realm process, so chaining
 // preserves that character's unlock order; a rejection is caught (logged) and
@@ -63,6 +68,13 @@ export function recordDeedUnlock(
           deedId,
         }),
       )
+      .then(() => {
+        // The Steam mirror observes THIS observer: it hooks in only after the
+        // character_deeds upsert resolves, is synchronous + swallow-all
+        // (server/steam/mirror.ts), and stays a per-process no-op unless
+        // STEAM_ENABLED=1, the deed is mapped, and the account is linked.
+        onDeedRecorded(who.accountId, deedId);
+      })
       .catch((err) => {
         console.error('character_deeds write failed:', err);
       });

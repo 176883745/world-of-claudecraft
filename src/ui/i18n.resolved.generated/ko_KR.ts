@@ -1271,6 +1271,14 @@ export const ko_KR: EnTranslations = {
       "linkedAs": "{login}(으)로 연결됨",
       "unlink": "GitHub 연결 해제"
     },
+    "steam": {
+      "title": "Steam",
+      "link": "Steam 연동",
+      "unlink": "Steam 연동 해제",
+      "linked": "Steam 계정 {id}에 연동됨",
+      "benefits": "데스크톱 앱에서 Steam 계정을 연동하면 획득한 업적이 Steam 도전 과제로 반영됩니다.",
+      "noTicket": "Steam에서 연동 티켓을 받지 못했습니다. Steam을 실행한 뒤 다시 시도해 주세요."
+    },
     "mailbox": {
       "title": "우편함",
       "subtitle": "레이븐포스트",
@@ -1614,6 +1622,14 @@ export const ko_KR: EnTranslations = {
     },
     "deeds": {
       "invalid_input": "입력이 올바르지 않습니다."
+    },
+    "steam": {
+      "disabled": "현재 Steam 연동을 사용할 수 없습니다.",
+      "invalid_ticket": "Steam이 이 연동 요청을 확인하지 못했습니다. 데스크톱 앱에서 다시 시도해 주세요.",
+      "banned": "해당 Steam 계정은 연동할 수 없습니다.",
+      "already_linked": "계정에 이미 연동된 Steam 계정이 있습니다.",
+      "account_taken": "해당 Steam 계정은 이미 다른 계정에 연결되어 있습니다.",
+      "upstream": "Steam이 응답하지 않습니다. 잠시 후 다시 시도해 주세요."
     }
   },
   "guide": {

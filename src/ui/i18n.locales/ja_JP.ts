@@ -6025,6 +6025,13 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'apiError.body.too_large': 'リクエストが大きすぎます。データを減らしてもう一度お試しください。',
   'apiError.body.unsupported_media_type': 'サポートされていないリクエスト形式です。',
   'apiError.deeds.invalid_input': '入力が無効です。',
+  'apiError.steam.disabled': 'Steam連携は現在利用できません。',
+  'apiError.steam.invalid_ticket':
+    'Steamがこの連携リクエストを確認できませんでした。デスクトップアプリからもう一度お試しください。',
+  'apiError.steam.banned': 'そのSteamアカウントは連携できません。',
+  'apiError.steam.already_linked': 'このアカウントには既にSteamアカウントが連携されています。',
+  'apiError.steam.account_taken': 'そのSteamアカウントは既に別のアカウントに連携されています。',
+  'apiError.steam.upstream': 'Steamから応答がありません。しばらくしてからもう一度お試しください。',
   'apiError.db.conflict': 'その変更が別の更新と競合しました。もう一度お試しください。',
   'apiError.rate_limit.exceeded': 'リクエストが多すぎます。{seconds} 後に再度お試しください。',
   'apiError.internal.error': 'サーバー側で問題が発生しました。もう一度お試しください。',
@@ -6502,6 +6509,13 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '友達を招待しましょう：友達がレベル10に達すると、お互いに2スロット獲得できます。友達は最大5人までです。',
   'hudChrome.bank.bonusSectionAria': 'ボーナス銀行スロットと獲得方法',
   'entities.mobs.yumi_cat.name': 'ユミ',
+  'hudChrome.steam.link': 'Steamと連携',
+  'hudChrome.steam.unlink': 'Steam連携を解除',
+  'hudChrome.steam.linked': 'Steamアカウント {id} と連携済み',
+  'hudChrome.steam.benefits':
+    'デスクトップアプリからSteamアカウントを連携すると、獲得した功績がSteam実績に反映されます。',
+  'hudChrome.steam.noTicket':
+    'Steamから連携チケットを取得できませんでした。Steamを起動してからもう一度お試しください。',
   'hudChrome.deeds.title': '功績の書',
   'hudChrome.deeds.close': '功績の書を閉じる',
   'hudChrome.deeds.searchPlaceholder': '功績を検索',

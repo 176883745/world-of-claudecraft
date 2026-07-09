@@ -488,14 +488,35 @@ describe('readPublicSheet (FakeCharactersDb, resolved by name)', () => {
 // ---------------------------------------------------------------------------
 
 describe('status handler (name-list trim deviation)', () => {
-  it('returns counts only: { ok, realm, players_online } with NO names list', async () => {
+  it('returns counts only: { ok, realm, players_online, steam } with NO names list', async () => {
     configureLeaderboardRuntime(fakeRuntime({ playersOnline: () => 4 }));
     const ctx = fakeCtx({ method: 'GET', url: '/api/status' });
     await handlerFor('/api/status')(ctx);
     const { status, body } = captured(ctx.res);
     expect(status).toBe(200);
-    expect(body).toEqual({ ok: true, realm: REALM_NAME, players_online: 4 });
+    expect(body).toEqual({
+      ok: true,
+      realm: REALM_NAME,
+      players_online: 4,
+      steam: { enabled: false },
+    });
     expect('names' in (body as object)).toBe(false);
+  });
+
+  it('adverts steam.enabled true when STEAM_ENABLED=1 (the capability advert)', async () => {
+    const saved = process.env.STEAM_ENABLED;
+    process.env.STEAM_ENABLED = '1';
+    try {
+      configureLeaderboardRuntime(fakeRuntime({ playersOnline: () => 4 }));
+      const ctx = fakeCtx({ method: 'GET', url: '/api/status' });
+      await handlerFor('/api/status')(ctx);
+      const { status, body } = captured(ctx.res);
+      expect(status).toBe(200);
+      expect((body as { steam: { enabled: boolean } }).steam).toEqual({ enabled: true });
+    } finally {
+      if (saved === undefined) delete process.env.STEAM_ENABLED;
+      else process.env.STEAM_ENABLED = saved;
+    }
   });
 });
 

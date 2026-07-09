@@ -11,6 +11,12 @@
 export const pending: Record<string, readonly string[]> = {
   "es": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -109,10 +115,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "es_ES": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -211,10 +229,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "fr_FR": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -313,10 +343,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "fr_CA": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -415,11 +457,23 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "en_CA": [],
   "it_IT": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -518,10 +572,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "de_DE": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -620,7 +686,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "zh_CN": [
     "guide.deedsPage.catHeading",
@@ -628,7 +700,8 @@ export const pending: Record<string, readonly string[]> = {
     "guide.deedsPage.featTag",
     "hudChrome.deeds.featRibbon",
     "hudChrome.deeds.filterAll",
-    "hudChrome.deeds.progressText"
+    "hudChrome.deeds.progressText",
+    "hudChrome.steam.title"
   ],
   "zh_TW": [
     "guide.deedsPage.catHeading",
@@ -636,7 +709,8 @@ export const pending: Record<string, readonly string[]> = {
     "guide.deedsPage.featTag",
     "hudChrome.deeds.featRibbon",
     "hudChrome.deeds.filterAll",
-    "hudChrome.deeds.progressText"
+    "hudChrome.deeds.progressText",
+    "hudChrome.steam.title"
   ],
   "ko_KR": [
     "guide.deedsPage.catHeading",
@@ -644,7 +718,8 @@ export const pending: Record<string, readonly string[]> = {
     "guide.deedsPage.featTag",
     "hudChrome.deeds.featRibbon",
     "hudChrome.deeds.filterAll",
-    "hudChrome.deeds.progressText"
+    "hudChrome.deeds.progressText",
+    "hudChrome.steam.title"
   ],
   "ja_JP": [
     "guide.deedsPage.catHeading",
@@ -652,10 +727,17 @@ export const pending: Record<string, readonly string[]> = {
     "guide.deedsPage.featTag",
     "hudChrome.deeds.featRibbon",
     "hudChrome.deeds.filterAll",
-    "hudChrome.deeds.progressText"
+    "hudChrome.deeds.progressText",
+    "hudChrome.steam.title"
   ],
   "pt_BR": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -754,7 +836,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "ru_RU": [
     "guide.deedsPage.catHeading",
@@ -762,10 +850,17 @@ export const pending: Record<string, readonly string[]> = {
     "guide.deedsPage.featTag",
     "hudChrome.deeds.featRibbon",
     "hudChrome.deeds.filterAll",
-    "hudChrome.deeds.progressText"
+    "hudChrome.deeds.progressText",
+    "hudChrome.steam.title"
   ],
   "cs_CZ": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -864,10 +959,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "nl_NL": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -966,10 +1073,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "pl_PL": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -1068,10 +1187,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "id_ID": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -1170,10 +1301,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "tr_TR": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -1272,10 +1415,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "sv_SE": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -1374,10 +1529,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "vi_VN": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -1476,10 +1643,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ],
   "da_DK": [
     "apiError.deeds.invalid_input",
+    "apiError.steam.account_taken",
+    "apiError.steam.already_linked",
+    "apiError.steam.banned",
+    "apiError.steam.disabled",
+    "apiError.steam.invalid_ticket",
+    "apiError.steam.upstream",
     "entities.npcs.chronicler_edda_hartwell.greeting",
     "entities.npcs.chronicler_edda_hartwell.name",
     "entities.npcs.chronicler_edda_hartwell.title",
@@ -1578,6 +1757,12 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.deeds.unwatchAria",
     "hudChrome.deeds.watch",
     "hudChrome.deeds.watchAria",
-    "hudChrome.deeds.watchFull"
+    "hudChrome.deeds.watchFull",
+    "hudChrome.steam.benefits",
+    "hudChrome.steam.link",
+    "hudChrome.steam.linked",
+    "hudChrome.steam.noTicket",
+    "hudChrome.steam.title",
+    "hudChrome.steam.unlink"
   ]
 };

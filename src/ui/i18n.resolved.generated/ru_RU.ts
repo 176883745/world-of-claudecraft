@@ -1271,6 +1271,14 @@ export const ru_RU: EnTranslations = {
       "linkedAs": "Привязан как {login}",
       "unlink": "Отвязать GitHub"
     },
+    "steam": {
+      "title": "Steam",
+      "link": "Привязать Steam",
+      "unlink": "Отвязать Steam",
+      "linked": "Привязан аккаунт Steam {id}",
+      "benefits": "Привяжите аккаунт Steam в настольном приложении, чтобы ваши деяния отражались в достижениях Steam.",
+      "noTicket": "Steam не выдал билет для привязки. Запустите Steam и повторите попытку."
+    },
     "mailbox": {
       "title": "Почтовый ящик",
       "subtitle": "Вороновая почта",
@@ -1614,6 +1622,14 @@ export const ru_RU: EnTranslations = {
     },
     "deeds": {
       "invalid_input": "Недопустимые данные."
+    },
+    "steam": {
+      "disabled": "Привязка Steam сейчас недоступна.",
+      "invalid_ticket": "Steam не смог подтвердить этот запрос на привязку. Повторите попытку из настольного приложения.",
+      "banned": "Этот аккаунт Steam нельзя привязать.",
+      "already_linked": "К вашему аккаунту уже привязан аккаунт Steam.",
+      "account_taken": "Этот аккаунт Steam уже привязан к другому аккаунту.",
+      "upstream": "Steam не отвечает. Повторите попытку чуть позже."
     }
   },
   "guide": {

@@ -1271,6 +1271,14 @@ export const zh_CN: EnTranslations = {
       "linkedAs": "已关联为 {login}",
       "unlink": "取消关联 GitHub"
     },
+    "steam": {
+      "title": "Steam",
+      "link": "关联 Steam",
+      "unlink": "取消关联 Steam",
+      "linked": "已关联 Steam 账号 {id}",
+      "benefits": "在桌面客户端中关联你的 Steam 账号，将你获得的功绩同步为 Steam 成就。",
+      "noTicket": "Steam 未提供关联凭据。请先启动 Steam，然后重试。"
+    },
     "mailbox": {
       "title": "邮箱",
       "subtitle": "渡鸦邮驿",
@@ -1614,6 +1622,14 @@ export const zh_CN: EnTranslations = {
     },
     "deeds": {
       "invalid_input": "输入无效。"
+    },
+    "steam": {
+      "disabled": "Steam 关联当前不可用。",
+      "invalid_ticket": "Steam 无法验证此关联请求。请在桌面客户端中重试。",
+      "banned": "该 Steam 账号无法关联。",
+      "already_linked": "你的账号已关联一个 Steam 账号。",
+      "account_taken": "该 Steam 账号已关联到另一个账号。",
+      "upstream": "Steam 未响应。请稍后重试。"
     }
   },
   "guide": {

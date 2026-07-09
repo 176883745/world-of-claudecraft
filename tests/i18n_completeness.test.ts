@@ -162,6 +162,7 @@ describe('i18n whole-catalog completeness', () => {
       'guide.footer.rights', // "World of ClaudeCraft" - brand (Guide footer)
       'hudChrome.discord.title', // "Discord" - brand
       'hudChrome.discord.open', // "Discord" - brand
+      'hudChrome.steam.title', // "Steam" - brand
       'hudChrome.discord.panelTitle', // "World of ClaudeCraft" - brand
       'hudChrome.discord.linkedTitle', // "Discord: {name}" - brand + player name
       'hudChrome.keybinds.discord', // "Discord" - brand (Key Bindings action label)

@@ -108,6 +108,14 @@ export const API_ERROR_KEYS = {
   'discord.swag_tier': 'apiError.discord.swag_tier',
   'discord.swag_points': 'apiError.discord.swag_points',
   'deeds.invalid_input': 'apiError.deeds.invalid_input',
+
+  // steam: the env-gated Steam link family (server/steam/).
+  'steam.disabled': 'apiError.steam.disabled',
+  'steam.invalid_ticket': 'apiError.steam.invalid_ticket',
+  'steam.banned': 'apiError.steam.banned',
+  'steam.already_linked': 'apiError.steam.already_linked',
+  'steam.account_taken': 'apiError.steam.account_taken',
+  'steam.upstream': 'apiError.steam.upstream',
 } satisfies Record<string, TranslationKey>;
 
 /** The message of an Error, or the string form of any other thrown value. */

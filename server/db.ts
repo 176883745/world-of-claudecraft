@@ -520,6 +520,19 @@ CREATE TABLE IF NOT EXISTS wallet_link_challenges (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS wallet_link_challenges_account ON wallet_link_challenges(account_id);
+-- Steam account links (the deeds achievement mirror). Copies the wallet_links
+-- shape: one Steam account per WoCC account (account_id is the PK) and one
+-- WoCC account per Steam id (steam_id is UNIQUE). A row is a cosmetic-mirror
+-- pointer only, proven by a server-verified session ticket at link time
+-- (server/steam/): it is NEVER an identity or session source, and login stays
+-- email + Discord only. Accessors live in server/steam/steam_db.ts. Purely
+-- additive leaf: a pre-Steam rollback binary never references it, and the
+-- CASCADE keeps account deletion consistent even under old code.
+CREATE TABLE IF NOT EXISTS steam_links (
+  account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
+  steam_id TEXT NOT NULL UNIQUE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 CREATE TABLE IF NOT EXISTS daily_reward_days (
   day TEXT NOT NULL,
   realm TEXT NOT NULL DEFAULT '${REALM_SQL_DEFAULT}',

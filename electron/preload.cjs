@@ -99,6 +99,10 @@ contextBridge.exposeInMainWorld('wocDesktop', {
   reportRendererError: (payload) => {
     forwardRendererError(sanitizeErrorReport(payload));
   },
+  // A Steam link ticket (hex) for the account-link handshake, or null when
+  // Steam is unavailable (website build, Steam not running, ticket failure).
+  // The main-process handler never rejects; steam.cjs owns every failure arm.
+  steamLinkTicket: () => ipcRenderer.invoke('desktop-steam-link-ticket'),
   // Auto-update events (website distribution only; the channel is simply
   // silent on Steam/dev builds). Payloads are the whitelisted shapes built in
   // electron/update_events.cjs.

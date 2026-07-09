@@ -676,6 +676,34 @@ export class Api {
     await this.delete('/api/github', {});
   }
 
+  // ── Steam link (deed achievement mirror) ───────────────────────────────────
+  // The public capability advert: whether this server has the Steam surface
+  // lit. Read BEFORE any authed steam call so a dark server renders no link UI.
+  async steamAdvert(): Promise<boolean> {
+    try {
+      const data = await this.get('/api/status');
+      return (data.steam as { enabled?: boolean } | undefined)?.enabled === true;
+    } catch {
+      return false;
+    }
+  }
+
+  // Current account's Steam link status ({ enabled, linked, steamId? }).
+  async steamStatus(): Promise<Record<string, unknown>> {
+    return this.get('/api/steam/status');
+  }
+
+  // Link via a desktop-shell session ticket; the server verifies it upstream
+  // and answers the verified id (never client-named).
+  async steamLink(ticket: string): Promise<{ linked: boolean; steamId: string }> {
+    return this.post('/api/steam/link', { ticket });
+  }
+
+  // Unlink Steam from the current account. Idempotent.
+  async unlinkSteam(): Promise<void> {
+    await this.delete('/api/steam/link', {});
+  }
+
   // ── Shareable player card + referrals ──────────────────────────────────────
   // Publish (or replace) this character's card PNG. The server may return a
   // realm-relative public page path; main.ts normalizes it to an absolute URL

@@ -25,6 +25,7 @@ const {
   ALLOWED_PERMISSIONS,
 } = require('./shell_guards.cjs');
 const { resolveDesktopConfig } = require('./desktop_config.cjs');
+const { createSteamShell } = require('./steam.cjs');
 const { PRODUCTION_API_ORIGIN } = require('./update_guard.cjs');
 const {
   MAX_FORWARDED_ERRORS,
@@ -66,8 +67,9 @@ function readPackagedMetadata() {
     return null;
   }
 }
+const packagedMetadata = readPackagedMetadata();
 const desktopConfig = resolveDesktopConfig({
-  packagedMetadata: readPackagedMetadata(),
+  packagedMetadata,
   env: process.env,
   isPackaged: app.isPackaged,
 });
@@ -361,6 +363,23 @@ function handleDeepLink(url) {
 // is read synchronously at the very top of each handler, before any other work; a null
 // or foreign-origin sender is rejected with null.
 const trustedSender = (event) => isTrustedSender(event.senderFrame, appOrigins);
+
+// Steam link tickets (electron/steam.cjs). Inert on website builds: the shell
+// only lazy-requires steamworks.js when the distribution stamp says 'steam'
+// (or the unpackaged WOC_STEAM_DEV=1 dev loop), and getLinkTicket() answers
+// null on every failure path instead of throwing across IPC.
+const steamShell = createSteamShell({
+  distribution: desktopConfig.distribution,
+  packagedMetadata,
+  env: process.env,
+  isPackaged: app.isPackaged,
+  log,
+});
+
+ipcMain.handle('desktop-steam-link-ticket', async (event) => {
+  if (!trustedSender(event)) return null;
+  return await steamShell.getLinkTicket();
+});
 
 ipcMain.handle('desktop-login-open-browser', (event) => {
   if (!trustedSender(event)) return null;

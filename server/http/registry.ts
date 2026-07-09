@@ -35,6 +35,7 @@ import { routes as leaderboardRoutes } from '../leaderboard';
 import { routes as mapsRoutes } from '../maps_routes';
 import { routes as oauthRoutes } from '../oauth';
 import { routes as reportsRoutes } from '../reports';
+import { routes as steamRoutes } from '../steam';
 import { routes as userAssetsRoutes } from '../user_assets_routes';
 import { routes as walletRoutes } from '../wallet';
 // new:endpoint imports appear above this line (npm run new:endpoint)
@@ -126,6 +127,7 @@ export const apiRoutes: readonly RouteDef[] = [
   ...oauthRoutes,
   ...internalRoutes,
   ...deedsRoutes,
+  ...steamRoutes,
   // new:endpoint spreads appear above this line (npm run new:endpoint)
 ];
 

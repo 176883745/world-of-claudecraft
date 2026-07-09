@@ -107,7 +107,12 @@ const EXCLUDED_PATHS = new Set<string>(ORPHAN_DEVIATION?.routes ?? []);
 // arm). They are router-owned with NO legacy rollback arm by design, so the
 // stays-delegate-served requirement does not apply; the loop below asserts the
 // router-owned-only shape instead (the same assertion pair as the orphan).
-const REGISTRY_ONLY_PATHS = new Set<string>(['/api/deeds/rarity', '/api/deeds/broadcasts']);
+const REGISTRY_ONLY_PATHS = new Set<string>([
+  '/api/deeds/rarity',
+  '/api/deeds/broadcasts',
+  '/api/steam/link',
+  '/api/steam/status',
+]);
 
 // Every legacy /api ladder row (dispatcher === main handleApi), minus the
 // documented unreachable orphan and the registry-only routes (they are
@@ -291,6 +296,11 @@ describe('registry completeness: migrated baseline (public reads + auth + charac
     // REGISTRY_ONLY_PATHS branch below asserts the router-owned-only shape.
     { method: 'GET', path: '/api/deeds/rarity' },
     { method: 'POST', path: '/api/deeds/broadcasts' },
+    // The Steam link trio (server/steam/routes.ts): registry-only like the
+    // deeds pair, env-gated dark until STEAM_ENABLED=1.
+    { method: 'POST', path: '/api/steam/link' },
+    { method: 'DELETE', path: '/api/steam/link' },
+    { method: 'GET', path: '/api/steam/status' },
     // v0.20.0: the paginated daily leaderboard read (the ops-side sibling is
     // asserted with the internal family below).
     { method: 'GET', path: '/api/daily-rewards/leaderboard' },

@@ -91,6 +91,17 @@ export async function recentDeedsForCharacter(
   }));
 }
 
+/** Every deed id the account has earned on any character, deduped. Feeds the
+ *  Steam reconcile-on-link push (server/steam/mirror.ts): the server store is
+ *  canonical and Steam mirrors a subset, so this read is the whole sync. */
+export async function earnedDeedIdsForAccount(accountId: number): Promise<string[]> {
+  const res = await pool.query(
+    'SELECT DISTINCT deed_id FROM character_deeds WHERE account_id = $1',
+    [accountId],
+  );
+  return res.rows.map((row) => String(row.deed_id));
+}
+
 /** The broadcast opt-out flag. Missing account reads as TRUE (the column
  *  default): the caller's audience resolution degrades to a no-op anyway. */
 export async function getDeedBroadcasts(accountId: number): Promise<boolean> {
