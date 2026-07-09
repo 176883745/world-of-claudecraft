@@ -74,6 +74,52 @@ export const TARGETS = [
       return open ? { clip: '#map-window' } : {};
     },
   },
+  {
+    key: 'crafting',
+    label: 'Crafting window',
+    when: ['ui/crafting_view', 'ui/crafting_window', 'sim/content/recipes', 'sim/professions'],
+    // Grant a spread of reagents across a few professions so several recipes read
+    // craftable, force-hide then toggle so the open is deterministic, and clip to
+    // the window.
+    async capture(page) {
+      await page.evaluate(() => {
+        const sim = window.__game?.sim;
+        const ids = ['bone_fragments', 'linen_scrap', 'spider_leg'];
+        for (const id of ids) {
+          try {
+            sim?.addItem(id, 10);
+          } catch {}
+        }
+        const el = document.querySelector('#crafting-window');
+        if (el) el.style.display = 'none';
+        window.__game?.hud?.toggleCrafting?.();
+      });
+      await wait(700);
+      const open = await page.evaluate(() => {
+        const w = document.querySelector('#crafting-window');
+        return !!w && getComputedStyle(w).display !== 'none';
+      });
+      return open ? { clip: '#crafting-window' } : {};
+    },
+  },
+  {
+    key: 'char-window',
+    label: 'Character window',
+    when: ['ui/char_window', 'ui/char_view'],
+    async capture(page) {
+      await page.evaluate(() => {
+        const el = document.querySelector('#char-window');
+        if (el) el.style.display = 'none';
+        window.__game?.hud?.toggleChar?.();
+      });
+      await wait(700);
+      const open = await page.evaluate(() => {
+        const w = document.querySelector('#char-window');
+        return !!w && getComputedStyle(w).display !== 'none';
+      });
+      return open ? { clip: '#char-window' } : {};
+    },
+  },
 ];
 
 // Map a list of changed file paths to the targets they imply (deduped, registry order).
