@@ -5818,6 +5818,9 @@ export const pl_PL: EnTranslations = {
       "greyjaw_fang": {
         "name": "Kieł Starego Szaroszczękiego"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Zniszczona strona księgi"
       },

@@ -5818,6 +5818,9 @@ export const de_DE: EnTranslations = {
       "greyjaw_fang": {
         "name": "Zahn des alten Greyjaw"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Verwitterte Buchseite"
       },

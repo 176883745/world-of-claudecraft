@@ -5818,6 +5818,9 @@ export const en_XA: EnTranslations = {
       "greyjaw_fang": {
         "name": "[Óļð Ĝŕéýĵáŵ'š Ƒáñĝ]"
       },
+      "chunk_of_ore": {
+        "name": "[Çĥúñķ óƒ Óŕé]"
+      },
       "weathered_ledger_page": {
         "name": "[Ŵéáţĥéŕéð Ļéðĝéŕ Þáĝé]"
       },

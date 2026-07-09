@@ -5818,6 +5818,9 @@ export const da_DK: EnTranslations = {
       "greyjaw_fang": {
         "name": "Gamle Gråkæbes Hugtand"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Forvitret Regnskabsside"
       },

@@ -5818,6 +5818,9 @@ export const pt_BR: EnTranslations = {
       "greyjaw_fang": {
         "name": "Presa do velho Greyjaw"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Página de livro-caixa gasta"
       },

@@ -686,11 +686,17 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   // points a new player at them (see the professions.ts GATHERING_PROFESSIONS
   // comment: no level/quest/tool gate exists at the mechanic level either, so
   // there was no natural "unlock" moment to hang a quest off before this).
-  // A `collect` objective on bone_fragments (the mining node's placeholder
-  // yield item, NODE_HARVEST_TABLE in professions/gathering.ts) is satisfied
-  // by actually harvesting an ore node, not just any kill; foreman_odell is
-  // the existing mine-themed NPC (already gives q_mine) so this reuses him
-  // rather than inventing a new trainer NPC.
+  // A `collect` objective on the dedicated chunk_of_ore quest item (kind
+  // 'quest', src/sim/content/items.ts), not the mining node's shared
+  // bone_fragments yield: that material also drops from mobs, salvage, and
+  // the market (see #1708 review), so a collect objective targeting it could
+  // be completed without ever mining. chunk_of_ore is only ever granted by an
+  // ore-node harvest while this quest is active (the NODE_QUEST_GRANT gate in
+  // professions/gathering.ts, mirroring the mob-loot questId gate other
+  // collect quests use), and being kind 'quest' it can't be sold or lost to
+  // the vendor's Sell Junk button either. foreman_odell is the existing
+  // mine-themed NPC (already gives q_mine) so this reuses him rather than
+  // inventing a new trainer NPC.
   q_prof_intro: {
     id: 'q_prof_intro',
     name: 'A Trade for Every Hand',
@@ -699,7 +705,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     text: "Every soul in Eastbrook works a trade besides the sword, $N. There's ore veins scattered round town, so go swing a pick and bring me 5 chunks. Mine them yourself, mind; I'll know the difference.",
     completionText:
       "See? Ore in your pack and callus on your hands. Keep at the mining, logging, and herb-picking as you travel the roads, and when you're back in town, mind the Town Focus board by the market and the crafting bench nearby. There's a fair trade waiting in all of it, if you want it.",
-    objectives: [{ type: 'collect', itemId: 'bone_fragments', count: 5, label: 'Chunk of Ore' }],
+    objectives: [{ type: 'collect', itemId: 'chunk_of_ore', count: 5, label: 'Chunk of Ore' }],
     xpReward: 150,
     copperReward: 50,
     itemRewards: {},

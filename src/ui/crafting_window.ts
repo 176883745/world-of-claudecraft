@@ -38,12 +38,16 @@ export function renderCraftingWindow(
 
   // Group rows by profession (#1701): a flat list of 13+ recipes is unscannable,
   // so each craft gets its own section, in the order its first recipe appears.
-  // recipes.ts is NOT strictly contiguous per craft (hub-tier recipes for an
-  // already-seen craft interleave with other crafts later in the array), so
-  // this groups by professionId rather than by run-length, or a
-  // non-contiguous craft would render as two separate sections. Reuses
-  // archetypeTitleText (char_window.ts) for the header text: same id-to-name
-  // table the character window's title uses, so the two surfaces never drift.
+  // recipes.ts is NOT strictly contiguous per craft (COMBO_RECIPES revisit a
+  // craft that already appeared earlier in the array, interleaving with other
+  // crafts in between), so this groups by professionId rather than by
+  // run-length, or a non-contiguous craft would render as two separate
+  // sections. Note the section headers render the practitioner title (e.g.
+  // "Tinkerer"), not the craft name, so the engineering-only hub-tier
+  // TOOL_RECIPES group under "Tinkerer" alongside the rest of that craft.
+  // Reuses archetypeTitleText (char_window.ts) for the header text: same
+  // id-to-name table the character window's title uses, so the two surfaces
+  // never drift.
   const sections = new Map<string, (typeof view.recipes)[number][]>();
   for (const row of view.recipes) {
     const rows = sections.get(row.professionId);

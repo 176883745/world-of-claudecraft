@@ -10,24 +10,28 @@
 
 export const pending: Record<string, readonly string[]> = {
   "es": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "es_ES": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "fr_FR": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "fr_CA": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
@@ -35,71 +39,92 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "en_CA": [],
   "it_IT": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "de_DE": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
-  "zh_CN": [],
-  "zh_TW": [],
-  "ko_KR": [],
-  "ja_JP": [],
+  "zh_CN": [
+    "entities.items.chunk_of_ore.name"
+  ],
+  "zh_TW": [
+    "entities.items.chunk_of_ore.name"
+  ],
+  "ko_KR": [
+    "entities.items.chunk_of_ore.name"
+  ],
+  "ja_JP": [
+    "entities.items.chunk_of_ore.name"
+  ],
   "pt_BR": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
-  "ru_RU": [],
+  "ru_RU": [
+    "entities.items.chunk_of_ore.name"
+  ],
   "cs_CZ": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "nl_NL": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "pl_PL": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "id_ID": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "tr_TR": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "sv_SE": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "vi_VN": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
   "da_DK": [
+    "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
     "entities.quests.q_prof_intro.objectives.0.label",
     "entities.quests.q_prof_intro.text",

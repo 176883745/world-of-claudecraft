@@ -5818,6 +5818,9 @@ export const vi_VN: EnTranslations = {
       "greyjaw_fang": {
         "name": "Nanh Của Greyjaw Già"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Trang Sổ Cái Phong Sương"
       },

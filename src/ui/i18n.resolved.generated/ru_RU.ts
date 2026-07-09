@@ -5818,6 +5818,9 @@ export const ru_RU: EnTranslations = {
       "greyjaw_fang": {
         "name": "Клык старого Серочелюста"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Выветренная страница книги учета"
       },

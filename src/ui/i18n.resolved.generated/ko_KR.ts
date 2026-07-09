@@ -5818,6 +5818,9 @@ export const ko_KR: EnTranslations = {
       "greyjaw_fang": {
         "name": "늙은 그레이죠의 송곳니"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "풍화된 장부 페이지"
       },

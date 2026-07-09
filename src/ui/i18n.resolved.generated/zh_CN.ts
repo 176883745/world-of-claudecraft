@@ -5818,6 +5818,9 @@ export const zh_CN: EnTranslations = {
       "greyjaw_fang": {
         "name": "老灰颚的尖牙"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "风化账页"
       },

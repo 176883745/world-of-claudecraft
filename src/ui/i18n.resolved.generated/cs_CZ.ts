@@ -5818,6 +5818,9 @@ export const cs_CZ: EnTranslations = {
       "greyjaw_fang": {
         "name": "Tesák starého Šedočelista"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Ošlehaná stránka účetní knihy"
       },

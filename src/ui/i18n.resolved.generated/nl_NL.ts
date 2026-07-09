@@ -5818,6 +5818,9 @@ export const nl_NL: EnTranslations = {
       "greyjaw_fang": {
         "name": "Tand van Oude Grijskaak"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Verweerd Grootboekblad"
       },

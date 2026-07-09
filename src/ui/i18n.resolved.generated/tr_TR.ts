@@ -5818,6 +5818,9 @@ export const tr_TR: EnTranslations = {
       "greyjaw_fang": {
         "name": "Yaşlı Greyjaw'un Dişi"
       },
+      "chunk_of_ore": {
+        "name": "Chunk of Ore"
+      },
       "weathered_ledger_page": {
         "name": "Yıpranmış Defter Sayfası"
       },

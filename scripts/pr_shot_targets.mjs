@@ -8,6 +8,24 @@
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Poll up to ~10s for `selector` to report a non-zero layout size, checking every
+// 500ms. Some windows (crafting: several icon-bearing rows) settle their layout
+// noticeably slower than others in headless swiftshader; a fixed wait is either
+// too short (flaky) or wastefully long, so this returns as soon as it is ready.
+async function pollForSize(page, selector, attempts = 20, intervalMs = 500) {
+  for (let i = 0; i < attempts; i++) {
+    await wait(intervalMs);
+    const ready = await page.evaluate((sel) => {
+      const el = document.querySelector(sel);
+      if (!el || getComputedStyle(el).display === 'none') return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0;
+    }, selector);
+    if (ready) return true;
+  }
+  return false;
+}
+
 export const TARGETS = [
   {
     key: 'inventory',
@@ -94,11 +112,11 @@ export const TARGETS = [
         if (el) el.style.display = 'none';
         window.__game?.hud?.toggleCrafting?.();
       });
-      await wait(700);
-      const open = await page.evaluate(() => {
-        const w = document.querySelector('#crafting-window');
-        return !!w && getComputedStyle(w).display !== 'none';
-      });
+      // A first-open crafting window with several icon-bearing recipe rows takes
+      // noticeably longer to lay out in headless swiftshader than the plain-list
+      // bags/map windows do (getBoundingClientRect can report 0x0 for 2-4s), so
+      // poll for a real size instead of guessing a fixed wait.
+      const open = await pollForSize(page, '#crafting-window');
       return open ? { clip: '#crafting-window' } : {};
     },
   },
