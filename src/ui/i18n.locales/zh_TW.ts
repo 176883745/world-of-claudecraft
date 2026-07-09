@@ -2190,6 +2190,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.webwood_silk.name': '玄網絲腺',
   'entities.items.supply_crate.name': '被盜補給箱',
   'entities.items.greyjaw_fang.name': '老灰顎的尖牙',
+  'entities.items.chunk_of_ore.name': '礦石塊',
   'entities.items.weathered_ledger_page.name': '風化帳頁',
   'entities.items.morthen_grimoire.name': '莫森的魔典',
   'entities.items.wolf_fang.name': '裂開的狼牙',

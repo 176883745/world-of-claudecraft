@@ -5819,7 +5819,7 @@ export const zh_TW: EnTranslations = {
         "name": "老灰顎的尖牙"
       },
       "chunk_of_ore": {
-        "name": "Chunk of Ore"
+        "name": "礦石塊"
       },
       "weathered_ledger_page": {
         "name": "風化帳頁"

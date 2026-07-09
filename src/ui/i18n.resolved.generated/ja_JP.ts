@@ -5819,7 +5819,7 @@ export const ja_JP: EnTranslations = {
         "name": "老グレイジョーの牙"
       },
       "chunk_of_ore": {
-        "name": "Chunk of Ore"
+        "name": "鉱石のかけら"
       },
       "weathered_ledger_page": {
         "name": "風化した帳簿のページ"

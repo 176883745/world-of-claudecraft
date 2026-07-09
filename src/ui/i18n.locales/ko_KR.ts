@@ -2279,6 +2279,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.webwood_silk.name': '흑거미줄 비단샘',
   'entities.items.supply_crate.name': '도난당한 보급 상자',
   'entities.items.greyjaw_fang.name': '늙은 그레이죠의 송곳니',
+  'entities.items.chunk_of_ore.name': '광석 조각',
   'entities.items.weathered_ledger_page.name': '풍화된 장부 페이지',
   'entities.items.morthen_grimoire.name': '모르덴의 마법서',
   'entities.items.wolf_fang.name': '갈라진 늑대 송곳니',

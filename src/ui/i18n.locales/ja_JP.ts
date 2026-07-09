@@ -2293,6 +2293,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.webwood_silk.name': 'セイブルウェブの絹腺',
   'entities.items.supply_crate.name': '盗まれた補給箱',
   'entities.items.greyjaw_fang.name': '老グレイジョーの牙',
+  'entities.items.chunk_of_ore.name': '鉱石のかけら',
   'entities.items.weathered_ledger_page.name': '風化した帳簿のページ',
   'entities.items.morthen_grimoire.name': 'モーセンの魔導書',
   'entities.items.wolf_fang.name': '割れた狼の牙',

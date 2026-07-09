@@ -5819,7 +5819,7 @@ export const zh_CN: EnTranslations = {
         "name": "老灰颚的尖牙"
       },
       "chunk_of_ore": {
-        "name": "Chunk of Ore"
+        "name": "矿石块"
       },
       "weathered_ledger_page": {
         "name": "风化账页"

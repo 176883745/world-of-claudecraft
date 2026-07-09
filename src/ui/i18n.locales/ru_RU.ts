@@ -2319,6 +2319,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.webwood_silk.name': 'Шёлковая железа Сейблвеба',
   'entities.items.supply_crate.name': 'Украденный ящик припасов',
   'entities.items.greyjaw_fang.name': 'Клык старого Серочелюста',
+  'entities.items.chunk_of_ore.name': 'Кусок руды',
   'entities.items.weathered_ledger_page.name': 'Выветренная страница книги учета',
   'entities.items.morthen_grimoire.name': 'Гримуар Мортена',
   'entities.items.wolf_fang.name': 'Треснувший волчий клык',

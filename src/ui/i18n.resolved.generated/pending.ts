@@ -52,18 +52,10 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
-  "zh_CN": [
-    "entities.items.chunk_of_ore.name"
-  ],
-  "zh_TW": [
-    "entities.items.chunk_of_ore.name"
-  ],
-  "ko_KR": [
-    "entities.items.chunk_of_ore.name"
-  ],
-  "ja_JP": [
-    "entities.items.chunk_of_ore.name"
-  ],
+  "zh_CN": [],
+  "zh_TW": [],
+  "ko_KR": [],
+  "ja_JP": [],
   "pt_BR": [
     "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",
@@ -71,9 +63,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_prof_intro.text",
     "entities.quests.q_prof_intro.title"
   ],
-  "ru_RU": [
-    "entities.items.chunk_of_ore.name"
-  ],
+  "ru_RU": [],
   "cs_CZ": [
     "entities.items.chunk_of_ore.name",
     "entities.quests.q_prof_intro.completion",

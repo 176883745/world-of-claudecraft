@@ -5819,7 +5819,7 @@ export const ru_RU: EnTranslations = {
         "name": "Клык старого Серочелюста"
       },
       "chunk_of_ore": {
-        "name": "Chunk of Ore"
+        "name": "Кусок руды"
       },
       "weathered_ledger_page": {
         "name": "Выветренная страница книги учета"

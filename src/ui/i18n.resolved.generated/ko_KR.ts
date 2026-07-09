@@ -5819,7 +5819,7 @@ export const ko_KR: EnTranslations = {
         "name": "늙은 그레이죠의 송곳니"
       },
       "chunk_of_ore": {
-        "name": "Chunk of Ore"
+        "name": "광석 조각"
       },
       "weathered_ledger_page": {
         "name": "풍화된 장부 페이지"
