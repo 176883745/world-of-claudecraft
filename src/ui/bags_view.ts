@@ -25,6 +25,8 @@ export interface BagItemInfo {
   use?: unknown;
   /** Protected from destruction (the sim's discardItem also no-ops these). */
   noDiscard?: boolean;
+  /** Bound to its owner: cannot be destroyed, traded, mailed, listed, or sold. */
+  soulbound?: boolean;
 }
 
 /** The open-window modes that change what a bag click does. At most one is the
@@ -181,7 +183,7 @@ export function bagDestroyAction(item: BagItemInfo, mode: BagMode): BagDestroyAc
     mode.bankDeposit
   )
     return 'none';
-  if (item.noDiscard) return 'discardBlocked';
+  if (item.noDiscard || item.soulbound) return 'discardBlocked';
   return 'discard';
 }
 

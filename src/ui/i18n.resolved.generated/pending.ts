@@ -10,54 +10,69 @@
 
 export const pending: Record<string, readonly string[]> = {
   "es": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "es_ES": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "fr_FR": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "fr_CA": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "en_CA": [],
   "it_IT": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "de_DE": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "zh_CN": [],
   "zh_TW": [],
   "ko_KR": [],
   "ja_JP": [],
   "pt_BR": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "ru_RU": [],
   "cs_CZ": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "nl_NL": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "pl_PL": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "id_ID": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "tr_TR": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "sv_SE": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "vi_VN": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ],
   "da_DK": [
-    "hudChrome.itemHeroicName"
+    "hudChrome.itemHeroicName",
+    "hudChrome.itemSoulbound"
   ]
 };

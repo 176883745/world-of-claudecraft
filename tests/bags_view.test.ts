@@ -38,6 +38,7 @@ const ITEMS: Record<string, ItemDef> = {
   bound: { kind: 'armor', name: 'Bound Plate', quality: 'uncommon', noMarketList: true } as ItemDef,
   rod: { kind: 'tool', name: 'Fishing Rod', use: { type: 'fishing' } } as ItemDef,
   soulbound: { kind: 'quest', name: 'Soulbound Key', quality: 'epic', noDiscard: true } as ItemDef,
+  mark: { kind: 'tool', name: 'Heroic Mark', quality: 'rare', soulbound: true } as ItemDef,
 };
 const lookup: ItemLookup = (id) => ITEMS[id];
 
@@ -81,6 +82,10 @@ describe('bagDestroyAction', () => {
 
   it('protects a noDiscard item with feedback, never destroying it', () => {
     expect(bagDestroyAction(ITEMS.soulbound, NO_MODE)).toBe('discardBlocked');
+  });
+
+  it('protects a soulbound item (Heroic Mark) from destruction too', () => {
+    expect(bagDestroyAction(ITEMS.mark, NO_MODE)).toBe('discardBlocked');
   });
 
   it('is inert in every transactional mode (their own click/contextmenu owns the slot)', () => {

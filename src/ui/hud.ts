@@ -4258,6 +4258,11 @@ export class Hud {
         )}</div>`;
       }
     }
+    // Bound-to-owner marker (marks and other soulbound tokens): shown like the
+    // classic "Soulbound" line so a player can see it cannot be traded or destroyed.
+    if (item.soulbound) {
+      html += `<div class="tt-sub" style="color:#ffd100">${esc(t('hudChrome.itemSoulbound'))}</div>`;
+    }
     if (item.weapon) {
       const dps = (item.weapon.min + item.weapon.max) / 2 / item.weapon.speed;
       html += `<div class="tt-stat">${esc(

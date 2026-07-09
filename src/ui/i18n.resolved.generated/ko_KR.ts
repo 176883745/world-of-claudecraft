@@ -723,6 +723,7 @@ export const ko_KR: EnTranslations = {
       "joinChannels": "팁: /join world 또는 /join lfg를 입력하면 월드 전역의 플레이어와 대화할 수 있습니다."
     },
     "itemHeroicName": "영웅 {name}",
+    "itemSoulbound": "귀속",
     "itemSet": {
       "header": "{name} ({have}/{total})",
       "bonusLine": "({pieces}) {bonus}"

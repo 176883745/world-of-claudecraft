@@ -846,6 +846,9 @@ export const hudChromeStrings = {
   // Composed display name for a Heroic upgraded drop variant (content/heroic_variants.ts):
   // the base item's localized name with the Heroic prefix. {name} is already localized.
   itemHeroicName: 'Heroic {name}',
+  // Tooltip marker for a soulbound item (bound to its owner: cannot be traded, mailed,
+  // listed, sold, or destroyed). Currency-like reward tokens (Heroic Marks) carry this.
+  itemSoulbound: 'Soulbound',
   itemSet: {
     header: '{name} ({have}/{total})',
     bonusLine: '({pieces}) {bonus}',
