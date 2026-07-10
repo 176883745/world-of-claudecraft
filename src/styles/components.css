@@ -5886,6 +5886,24 @@
     overflow: hidden;
   }
 
+  /* Heroic Quartermaster: the co-tenant frame nests inside .heroic-shop, so the
+     neutralize + sticky-titlebar rules key on that wrapper. The root scrolls
+     (display stays block), so the titlebar is pinned sticky like the copper
+     vendor's docked titlebar. */
+  #vendor-window:has(> .heroic-shop) {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    outline: 0;
+  }
+  #vendor-window > .heroic-shop > .window-frame .window-titlebar {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    background: var(--panel-l1-bg);
+  }
+
   #map-canvas {
     /* Authored display size matching the 560x560 backing store (index.html /
        play.html). Without a CSS length the canvas box is a replaced intrinsic size,
