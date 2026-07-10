@@ -243,6 +243,29 @@ describe('GamepadManager menu mode', () => {
     expect(onMenuIntent.mock.calls.map((c) => c[0])).toEqual(['adjustInc']);
   });
 
+  it('resets the stick tracking on disconnect so a reconnect behaves like a fresh start', () => {
+    const { manager, onMenuIntent, setPad } = menuSetup();
+    const padAxes = (x: number) =>
+      ({ ...gamepadWithPressed(), axes: [x, 0, 0, 0] }) as unknown as Gamepad;
+    const mgr = manager as unknown as {
+      onConnect(e: { gamepad: Gamepad }): void;
+      onDisconnect(e: { gamepad: Gamepad }): void;
+    };
+    setPad(padAxes(0));
+    manager.poll(1 / 60);
+    setPad(padAxes(0.9)); // cross +threshold -> one step
+    manager.poll(1 / 60);
+    expect(onMenuIntent.mock.calls.map((c) => c[0])).toEqual(['adjustInc']);
+    // Disconnect while deflected: the tracking must reset (mirror stop()), so the
+    // reconnect never resolves its first frame against the pre-disconnect
+    // deflection. With the stale 0.9 kept, a pad re-acquired while held right
+    // would silently swallow the crossing a fresh start() would deliver.
+    mgr.onDisconnect({ gamepad: padAxes(0.9) });
+    mgr.onConnect({ gamepad: padAxes(0.9) });
+    manager.poll(1 / 60);
+    expect(onMenuIntent.mock.calls.map((c) => c[0])).toEqual(['adjustInc', 'adjustInc']);
+  });
+
   it('consumes edges ONLY while trapped: outside the trap they flow to world input', () => {
     const { manager, onAction, onMenuIntent, setPad, setMenu } = menuSetup(false);
     // GP.B default-binds to 'interact', so out of a trap it fires the world action.

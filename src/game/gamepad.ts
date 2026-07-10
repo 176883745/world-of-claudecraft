@@ -146,6 +146,10 @@ export class GamepadManager {
       this.index = null;
       this.kind = 'generic';
       this.prevPressed.fill(false);
+      // Mirror stop(): a reconnect must behave like a fresh acquisition, never
+      // read the pre-disconnect deflection, or the menu mode's single-fire
+      // value adjust can mis-resolve one stale crossing across the reconnect.
+      this.prevStickX = 0;
       this.input.clearGamepadMove();
       this.hideCursor();
       this.cb.onConnectionChange?.();
