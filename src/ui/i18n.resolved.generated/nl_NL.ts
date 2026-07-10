@@ -306,7 +306,6 @@ export const nl_NL: EnTranslations = {
       "chat": "Ga naar chat"
     },
     "mobile": {
-      "autorun": "Autoloop",
       "jump": "Springen",
       "leaderboard": "Ranglijst",
       "dailyRewards": "Beloningen",

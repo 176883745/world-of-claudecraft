@@ -306,7 +306,6 @@ export const da_DK: EnTranslations = {
       "chat": "Spring til chat"
     },
     "mobile": {
-      "autorun": "Autoløb",
       "jump": "Hop",
       "leaderboard": "Rangliste",
       "dailyRewards": "Belønninger",

@@ -3471,7 +3471,6 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.seconds': '{s}秒',
   'hudChrome.mobile.actionPageToggle': '切換動作頁',
   'hudChrome.mobile.actionRing': '戰鬥動作',
-  'hudChrome.mobile.autorun': '自動奔跑',
   'hudChrome.mobile.haptics': '觸覺回饋',
   'hudChrome.mobile.hapticsOff': '觸覺回饋已關閉',
   'hudChrome.mobile.hotbarPage': '技能',

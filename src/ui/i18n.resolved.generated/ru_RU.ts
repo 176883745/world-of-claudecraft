@@ -306,7 +306,6 @@ export const ru_RU: EnTranslations = {
       "chat": "Перейти к чату"
     },
     "mobile": {
-      "autorun": "Автобег",
       "jump": "Прыжок",
       "leaderboard": "Рейтинг",
       "dailyRewards": "Награды",

@@ -5000,7 +5000,6 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.perSecond': '{value}/s',
   'hudChrome.meters.perSecondRow': '{total} ({rate})',
   'hudChrome.meters.seconds': '{s}s',
-  'hudChrome.mobile.autorun': 'Autoløb',
   'hudChrome.mobile.haptics': 'Haptik',
   'hudChrome.mobile.hapticsOff': 'Haptik fra',
   'hudChrome.mobile.hotbarPage': 'Evner',

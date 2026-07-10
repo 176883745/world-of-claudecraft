@@ -3470,7 +3470,6 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.seconds': '{s}秒',
   'hudChrome.mobile.actionPageToggle': '切换动作页',
   'hudChrome.mobile.actionRing': '战斗动作',
-  'hudChrome.mobile.autorun': '自动奔跑',
   'hudChrome.mobile.haptics': '震动反馈',
   'hudChrome.mobile.hapticsOff': '震动反馈：关',
   'hudChrome.mobile.hotbarPage': '技能',

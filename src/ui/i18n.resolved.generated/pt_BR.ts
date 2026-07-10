@@ -306,7 +306,6 @@ export const pt_BR: EnTranslations = {
       "chat": "Pular para o chat"
     },
     "mobile": {
-      "autorun": "Corrida automática",
       "jump": "Pular",
       "leaderboard": "Classificação",
       "dailyRewards": "Recompensas",

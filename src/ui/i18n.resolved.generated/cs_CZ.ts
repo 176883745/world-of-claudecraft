@@ -306,7 +306,6 @@ export const cs_CZ: EnTranslations = {
       "chat": "Přeskočit na chat"
     },
     "mobile": {
-      "autorun": "Automatický běh",
       "jump": "Skok",
       "leaderboard": "Žebříčky",
       "dailyRewards": "Odměny",

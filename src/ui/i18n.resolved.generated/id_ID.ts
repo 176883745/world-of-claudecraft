@@ -306,7 +306,6 @@ export const id_ID: EnTranslations = {
       "chat": "Lewati ke Obrolan"
     },
     "mobile": {
-      "autorun": "Lari Otomatis",
       "jump": "Lompat",
       "leaderboard": "Peringkat",
       "dailyRewards": "Hadiah",

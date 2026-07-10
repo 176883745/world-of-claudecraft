@@ -306,7 +306,6 @@ export const zh_CN: EnTranslations = {
       "chat": "跳转到聊天"
     },
     "mobile": {
-      "autorun": "自动奔跑",
       "jump": "跳跃",
       "leaderboard": "排行榜",
       "dailyRewards": "奖励",

@@ -306,7 +306,6 @@ export const tr_TR: EnTranslations = {
       "chat": "Sohbete Atla"
     },
     "mobile": {
-      "autorun": "Otomatik Koşu",
       "jump": "Zıpla",
       "leaderboard": "Sıralama",
       "dailyRewards": "Ödüller",

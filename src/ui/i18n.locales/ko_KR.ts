@@ -3605,7 +3605,6 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.seconds': '{s}초',
   'hudChrome.mobile.actionPageToggle': '행동 페이지 전환',
   'hudChrome.mobile.actionRing': '전투 행동',
-  'hudChrome.mobile.autorun': '자동 달리기',
   'hudChrome.mobile.haptics': '진동',
   'hudChrome.mobile.hapticsOff': '진동 꺼짐',
   'hudChrome.mobile.hotbarPage': '스킬',

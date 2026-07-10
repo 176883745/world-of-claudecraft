@@ -306,7 +306,6 @@ export const it_IT: EnTranslations = {
       "chat": "Vai alla chat"
     },
     "mobile": {
-      "autorun": "Corsa automatica",
       "jump": "Salta",
       "leaderboard": "Classifica",
       "dailyRewards": "Ricompense",

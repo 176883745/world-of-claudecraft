@@ -98,6 +98,14 @@ describe('Input autorun', () => {
     expect(input.readMoveInput().forward).toBe(false);
   });
 
+  it('setAutorun idempotently syncs external analog latches', () => {
+    const { input } = makeInput();
+    expect(input.setAutorun(true)).toBe(true);
+    expect(input.readMoveInput().forward).toBe(true);
+    expect(input.setAutorun(false)).toBe(false);
+    expect(input.readMoveInput().forward).toBe(false);
+  });
+
   it('a forward touch-move cancels autorun (classic tap-to-stop)', () => {
     const { input } = makeInput();
     input.toggleAutorun();

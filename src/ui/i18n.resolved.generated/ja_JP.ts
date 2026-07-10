@@ -306,7 +306,6 @@ export const ja_JP: EnTranslations = {
       "chat": "チャットへスキップ"
     },
     "mobile": {
-      "autorun": "オートラン",
       "jump": "ジャンプ",
       "leaderboard": "ランキング",
       "dailyRewards": "報酬",

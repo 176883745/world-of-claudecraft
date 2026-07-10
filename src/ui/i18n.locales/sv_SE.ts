@@ -4999,7 +4999,6 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.perSecond': '{value}/s',
   'hudChrome.meters.perSecondRow': '{total} ({rate})',
   'hudChrome.meters.seconds': '{s} s',
-  'hudChrome.mobile.autorun': 'Autospring',
   'hudChrome.mobile.haptics': 'Haptik',
   'hudChrome.mobile.hapticsOff': 'Haptik av',
   'hudChrome.mobile.jump': 'Hoppa',

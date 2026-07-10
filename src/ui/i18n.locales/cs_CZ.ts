@@ -3151,7 +3151,6 @@ export const cs_CZ: Partial<Record<TranslationKey, string>> = {
   'hudChrome.compass.SE': 'JV',
   'hudChrome.compass.SW': 'JZ',
   'hudChrome.compass.W': 'Z',
-  'hudChrome.mobile.autorun': 'Automatický běh',
   'hudChrome.mobile.haptics': 'Haptika',
   'hudChrome.mobile.hapticsOff': 'Haptika vypnuta',
   'hudChrome.mobile.jump': 'Skok',

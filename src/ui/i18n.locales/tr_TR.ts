@@ -5009,7 +5009,6 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.perSecond': '{value}/sn',
   'hudChrome.meters.perSecondRow': '{total} ({rate})',
   'hudChrome.meters.seconds': '{s}sn',
-  'hudChrome.mobile.autorun': 'Otomatik Koşu',
   'hudChrome.mobile.haptics': 'Dokunsal Geri Bildirim',
   'hudChrome.mobile.hapticsOff': 'Dokunsal Kapalı',
   'hudChrome.mobile.hotbarPage': 'Yetenekler',

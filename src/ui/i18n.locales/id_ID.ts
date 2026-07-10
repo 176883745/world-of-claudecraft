@@ -5078,7 +5078,6 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.perSecond': '{value}/d',
   'hudChrome.meters.perSecondRow': '{total} ({rate})',
   'hudChrome.meters.seconds': '{s}d',
-  'hudChrome.mobile.autorun': 'Lari Otomatis',
   'hudChrome.mobile.haptics': 'Haptik',
   'hudChrome.mobile.hapticsOff': 'Haptik Nonaktif',
   'hudChrome.mobile.hotbarPage': 'Kemampuan',

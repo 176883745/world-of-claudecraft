@@ -306,7 +306,6 @@ export const vi_VN: EnTranslations = {
       "chat": "Chuyển tới Trò Chuyện"
     },
     "mobile": {
-      "autorun": "Tự Chạy",
       "jump": "Nhảy",
       "leaderboard": "Xếp Hạng",
       "dailyRewards": "Thưởng",

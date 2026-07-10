@@ -5066,7 +5066,6 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.meters.perSecond': '{value}/s',
   'hudChrome.meters.perSecondRow': '{total} ({rate})',
   'hudChrome.meters.seconds': '{s}s',
-  'hudChrome.mobile.autorun': 'Autoloop',
   'hudChrome.mobile.haptics': 'Haptiek',
   'hudChrome.mobile.hapticsOff': 'Haptiek uit',
   'hudChrome.mobile.hotbarPage': 'Vaardigheden',

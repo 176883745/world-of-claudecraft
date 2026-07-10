@@ -306,7 +306,6 @@ export const ko_KR: EnTranslations = {
       "chat": "채팅으로 건너뛰기"
     },
     "mobile": {
-      "autorun": "자동 달리기",
       "jump": "점프",
       "leaderboard": "순위",
       "dailyRewards": "보상",

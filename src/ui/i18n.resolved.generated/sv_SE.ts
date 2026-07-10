@@ -306,7 +306,6 @@ export const sv_SE: EnTranslations = {
       "chat": "Hoppa till chatt"
     },
     "mobile": {
-      "autorun": "Autospring",
       "jump": "Hoppa",
       "leaderboard": "Ranking",
       "dailyRewards": "Belöningar",
