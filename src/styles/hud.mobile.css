@@ -126,6 +126,47 @@
     height: 0;
     display: none;
   }
+  /* Nameplates on touch devices: a PLATFORM adaptation, like --mobile-chrome-scale
+     above (never keyed off data-fx-level or the FPS governor; every player on the
+     same platform gets the same plates). The desktop plate type/bars read oversized
+     on a phone held close, so a camp of enemies dominates a 900x430 landscape
+     screen: shrink them to roughly 0.8x while names stay readable. The per-entity
+     distance scale/fade (src/render/nameplate_view.ts) composes on top of this via
+     the plate transform, so far plates on mobile end up smaller still. */
+  body.mobile-touch .np-name {
+    font-size: 10px;
+  }
+  body.mobile-touch .np-guild {
+    font-size: 9px;
+  }
+  body.mobile-touch .np-hpbar {
+    width: 62px;
+    height: 5px;
+  }
+  body.mobile-touch .np-castbar {
+    width: 62px;
+    height: 7px;
+  }
+  body.mobile-touch .np-castlabel {
+    font-size: 8px;
+    line-height: 8px;
+  }
+  body.mobile-touch .np-tier,
+  body.mobile-touch .np-dev-tier {
+    width: 12px;
+    height: 12px;
+  }
+  body.mobile-touch .np-marker {
+    font-size: 19px;
+    height: 21px;
+  }
+  body.mobile-touch .np-marker.loot {
+    font-size: 11px;
+  }
+  body.mobile-touch .np-raidmark {
+    width: 24px;
+    height: 24px;
+  }
   body.mobile-touch.game-active::-webkit-scrollbar {
     height: 0;
   }
