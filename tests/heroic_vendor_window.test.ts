@@ -16,7 +16,6 @@ import {
   type HeroicVendorWindowDeps,
   renderHeroicVendorWindow,
 } from '../src/ui/heroic_vendor_window';
-import type { VendorView } from '../src/ui/vendor_view';
 import { renderVendorWindow, type VendorWindowDeps } from '../src/ui/vendor_window';
 import { isWindowDragHandle } from '../src/ui/window_drag_handle';
 
@@ -70,11 +69,19 @@ function fakeVendorDeps(overrides: Partial<VendorWindowDeps> = {}): VendorWindow
     hideTooltip: () => {},
     onBuy: () => {},
     onBuyBack: () => {},
+    onSellItem: () => {},
     onSellJunk: () => {},
+    onTabChange: () => {},
     onClose: () => {},
     sellJunk: { enabled: false, proceeds: 0 },
     ...overrides,
   };
+}
+
+// The copper vendor is a tabbed window; the heroic tenant is tab-less. Painting
+// the copper vendor needs its full signature (view + sellRows + activeTab + deps).
+function renderCopper(el: HTMLElement, name: string, deps: VendorWindowDeps): void {
+  renderVendorWindow(el, name, { goods: [], buyback: [] }, [], 'browse', deps);
 }
 
 function vendorEl(): HTMLElement {
@@ -183,7 +190,7 @@ describe('renderHeroicVendorWindow: move / drag parity', () => {
 });
 
 describe('two-tenant handoff: heroic and copper never share a frame', () => {
-  it('a copper reopen after a heroic paint cold-rebuilds copper own frame (with the sell footer)', () => {
+  it('a copper reopen after a heroic paint cold-rebuilds copper own frame (with its tab rail)', () => {
     const el = vendorEl();
     const heroicClose = vi.fn();
     const copperClose = vi.fn();
@@ -191,20 +198,14 @@ describe('two-tenant handoff: heroic and copper never share a frame', () => {
     renderHeroicVendorWindow(el, 'Q', heroicView(), fakeHeroicDeps({ onClose: heroicClose }));
     // Direct copper-to-heroic-reverse handoff: openVendor renders the copper vendor
     // into the same root without any teardown of the heroic content.
-    renderVendorWindow(
-      el,
-      'Gorznak',
-      { goods: [], buyback: [] },
-      fakeVendorDeps({
-        onClose: copperClose,
-      }),
-    );
+    renderCopper(el, 'Gorznak', fakeVendorDeps({ onClose: copperClose }));
     // The heroic wrapper is gone; copper owns a fresh DIRECT-CHILD frame with the
-    // sell-junk footer (which a reused footer-less heroic frame would have lacked).
+    // Browse/Sell/Buyback tab rail (which a reused tab-less heroic frame would have
+    // lacked).
     expect(el.querySelector(':scope > .heroic-shop')).toBeNull();
     const frame = el.querySelector<HTMLElement>(':scope > .window-frame');
     expect(frame).not.toBeNull();
-    expect(frame?.querySelector('.window-footer')).not.toBeNull();
+    expect(frame?.querySelector('.tab-rail')).not.toBeNull();
     expect(el.children.length).toBe(1);
     // The close routes to copper (never the stale heroic handler a shared frame
     // would have kept wired).
@@ -216,7 +217,7 @@ describe('two-tenant handoff: heroic and copper never share a frame', () => {
   it('a heroic reopen after a copper paint cold-rebuilds the heroic wrapper', () => {
     const el = vendorEl();
     document.body.classList.add('vendor-open');
-    renderVendorWindow(el, 'Gorznak', { goods: [], buyback: [] }, fakeVendorDeps());
+    renderCopper(el, 'Gorznak', fakeVendorDeps());
     expect(el.querySelector(':scope > .window-frame')).not.toBeNull();
     renderHeroicVendorWindow(el, 'Q', heroicView(), fakeHeroicDeps());
     // Copper's direct-child frame is gone; heroic owns the wrapper mount again.

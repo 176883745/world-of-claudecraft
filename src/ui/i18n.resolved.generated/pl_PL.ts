@@ -4972,6 +4972,7 @@ export const pl_PL: EnTranslations = {
       "buybackTitle": "Odkup",
       "buybackEmpty": "Brak przedmiotów",
       "buybackAria": "Odkup {item} za {price}",
+      "sellItemAria": "Sell {item} for {price}",
       "sellQuantityTitle": "Sprzedaj {item}",
       "sellQuantityInput": "Ilość do sprzedania",
       "sellQuantityConfirm": "Sprzedaj",

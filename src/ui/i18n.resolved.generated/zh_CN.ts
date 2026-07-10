@@ -4972,6 +4972,7 @@ export const zh_CN: EnTranslations = {
       "buybackTitle": "回购",
       "buybackEmpty": "没有物品",
       "buybackAria": "以 {price} 回购 {item}",
+      "sellItemAria": "Sell {item} for {price}",
       "sellQuantityTitle": "出售 {item}",
       "sellQuantityInput": "要出售的数量",
       "sellQuantityConfirm": "出售",

@@ -4972,6 +4972,7 @@ export const cs_CZ: EnTranslations = {
       "buybackTitle": "Zpětný odkup",
       "buybackEmpty": "Žádné předměty",
       "buybackAria": "Odkoupit zpět {item} za {price}",
+      "sellItemAria": "Sell {item} for {price}",
       "sellQuantityTitle": "Prodat {item}",
       "sellQuantityInput": "Množství k prodeji",
       "sellQuantityConfirm": "Prodat",

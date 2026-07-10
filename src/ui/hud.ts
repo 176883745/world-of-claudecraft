@@ -382,8 +382,8 @@ import { buildVcupHudView } from './vale_cup_hud_view';
 import { ValeCupIndicator } from './vale_cup_indicator';
 import { buildVcupIndicatorView } from './vale_cup_indicator_view';
 import { ValeCupWindow, vcupNationName } from './vale_cup_window';
-import { buildVendorView } from './vendor_view';
-import { renderVendorWindow } from './vendor_window';
+import { buildVendorSellRows, buildVendorView } from './vendor_view';
+import { renderVendorWindow, type VendorTab } from './vendor_window';
 import { nextVoicedYell, type VoicedYellState, voicedYellGain } from './voice_events';
 import {
   onWalletUiChange,
@@ -1145,6 +1145,9 @@ export class Hud {
     { event: Extract<SimEvent, { type: 'masterLoot' }>; receivedAt: number; durationMs: number }
   >();
   private openVendorNpcId: number | null = null;
+  // The copper vendor's active tab (Browse / Sell / Buyback). Hud-held so a
+  // snapshot repaint keeps it and each fresh open resets it to Browse.
+  private vendorTab: VendorTab = 'browse';
   private openHeroicVendorNpcId: number | null = null;
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
@@ -11199,23 +11202,23 @@ export class Hud {
 
   openVendor(npcId: number): void {
     this.closeOtherWindows(['#vendor-window', '#bags']);
-    // The bags companion is exclusive (see openBank): close the bank cluster
-    // through the painter so onBankClosed clears body.bank-open before the
-    // vendor pairing takes over.
+    // The bank cluster is exclusive: close it through the painter so onBankClosed
+    // clears body.bank-open before the standalone vendor takes the container.
     if (this.bankWindowOpen) this.closeBank();
     this.openHeroicVendorNpcId = null; // the marks shop shares the container
     this.openVendorNpcId = npcId;
-    document.body.classList.add('vendor-open');
+    this.vendorTab = 'browse'; // every fresh open starts on Browse
+    // Market parity: the vendor is a standalone tabbed window, so it no longer
+    // force-docks Bags (Sell moved from the docked-bags flow into its own tab).
+    // Bags stays reachable on its own keybind.
     this.renderVendor();
-    // The painter no longer writes an inline display on open (the stylesheet owns
-    // it, keyed on body.vendor-open, so the value tracks body.mobile-touch flips
-    // live). A FIRST open therefore produces no style mutation for the window
-    // observer to see (a REopen still does: the painter clears close's inline
-    // 'none'), so run the open-state sync (cascade, z-order, mobile-window-open)
-    // directly; it is idempotent when the observer also fires.
+    // The painter never writes an inline display on open (the stylesheet owns it,
+    // #vendor-window:has(> .window-frame) shows the flex column). A FIRST open
+    // therefore produces no style mutation for the window observer to see (a
+    // REopen still does: the painter clears close's inline 'none'), so run the
+    // open-state sync (cascade, z-order, mobile-window-open) directly; it is
+    // idempotent when the observer also fires.
     this.syncWindowOpenState($('#vendor-window'));
-    this.renderBags();
-    $('#bags').style.display = 'flex';
   }
 
   private renderVendor(): void {
@@ -11245,12 +11248,21 @@ export class Hud {
       $('#vendor-window'),
       entityDisplayName(npc),
       buildVendorView(npc.vendorItems, this.sim.vendorBuyback, ITEMS),
+      buildVendorSellRows(this.sim.inventory, ITEMS),
+      this.vendorTab,
       {
         ...this.presentationBag,
         hideTooltip: () => this.hideTooltip(),
         onBuy: (itemId) => buyAndRefresh(() => this.sim.buyItem(npc.id, itemId)),
         onBuyBack: (itemId) => buyAndRefresh(() => this.sim.buyBackItem(itemId)),
+        // The Sell tab dispatches the whole stack through the SAME sim sellItem
+        // command the bags Ctrl-click flow uses (byte-identical: itemId + count).
+        onSellItem: (itemId, count) => buyAndRefresh(() => this.sim.sellItem(itemId, count)),
         onSellJunk: () => buyAndRefresh(() => this.sim.sellAllJunk()),
+        onTabChange: (tab) => {
+          this.vendorTab = tab;
+          this.renderVendor();
+        },
         onClose: () => this.closeVendor(),
         sellJunk: {
           enabled: junk.length > 0,

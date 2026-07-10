@@ -4972,6 +4972,7 @@ export const nl_NL: EnTranslations = {
       "buybackTitle": "Terugkopen",
       "buybackEmpty": "Geen voorwerpen",
       "buybackAria": "Koop {item} terug voor {price}",
+      "sellItemAria": "Sell {item} for {price}",
       "sellQuantityTitle": "{item} verkopen",
       "sellQuantityInput": "Aantal te verkopen",
       "sellQuantityConfirm": "Verkopen",
