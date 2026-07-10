@@ -32,20 +32,20 @@ the deeds window. All three are new NpcDefs to add to the zone content files
 page of the deeds window).
 
 - Saul the Chronicler (template id `chronicler_saul`, Eastbrook Vale). Home:
-  the Eastbrook town square, near
-  the well at the heart of the hub (maintainer's naming; sanctioned by the
+  the Eastbrook town square, its quiet southeast corner, looking back across
+  the square toward the well (maintainer's naming; sanctioned by the
   catalog voice rules). Personality: a patient old record-keeper who writes
   every deed down twice, "once for the ledger and once for the fireside."
 - Chronicler Osric Fenn (template id `chronicler_osric_fenn`, Mirefen Marsh).
-  Home: Fenbridge, just inside the
-  gate by Warden Fenwick's post. Personality: a damp, cheerful scribe who
+  Home: Fenbridge, the west side of the square on open ground, looking east
+  toward the gate. Personality: a damp, cheerful scribe who
   binds his books in oiled prowler hide and swears the fen eats more pages
   than readers.
 - Chronicler Zenzie (template id `chronicler_edda_hartwell`, Thornpeak
   Heights; the display name was renamed from "Chronicler Edda Hartwell" by
   maintainer call, and the template id is retained for save compatibility).
-  Home: Highwatch, on the wall
-  walk above the gate. Personality: a retired soldier of the watch who
+  Home: Highwatch, the south road shoulder below the square, overlooking the
+  climb up from Fenbridge. Personality: a retired soldier of the watch who
   records names so the mountain cannot forget them, hers least of all.
 
 ---

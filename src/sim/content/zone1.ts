@@ -676,10 +676,12 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'chronicler_saul',
     name: 'Saul the Chronicler',
     title: 'The Vale Chronicle',
-    // Southwest of the town well, looking northeast across it toward the
-    // Merchant's stall (clear of the well prop and the player start).
-    pos: { x: -4, z: -2 },
-    facing: 0.8,
+    // Southeast corner of the square, on the quiet side away from the well
+    // cluster and the player start, looking back northwest across the square
+    // (nearest authored neighbor ~13 units; he had been shoulder to shoulder
+    // with the well crowd).
+    pos: { x: 15, z: -16 },
+    facing: 2.4,
     color: 0xd08a2e, // warm amber: the chronicler tint is his identity (shared mage visual)
     questIds: [],
     greeting:

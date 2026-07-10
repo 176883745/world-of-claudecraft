@@ -698,10 +698,11 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
     id: 'chronicler_osric_fenn',
     name: 'Chronicler Osric Fenn',
     title: 'The Marsh Chronicle',
-    // Just inside the south gate beside Warden Fenwick's post, looking back
-    // down the causeway (west of x=9: the inn's collider margin, see above).
-    pos: { x: 6, z: 305 },
-    facing: -2.4,
+    // West side of the square on open ground, looking east toward the gate
+    // (stays west of x=9, the inn's collider margin, see above; nearest
+    // authored neighbor ~10 units, he had been pressed against Fenwick's post).
+    pos: { x: -14, z: 303 },
+    facing: -1.4,
     color: 0x3fa66b, // fen teal: the chronicler tint is his identity (shared mage visual)
     questIds: [],
     greeting: 'Mind the damp on the pages, $N. The fen eats more books than readers ever will.',
