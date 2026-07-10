@@ -4162,13 +4162,26 @@
   body.mobile-touch #options-menu > .window-frame {
     background-color: var(--color-panel-l2-base);
   }
-  body.mobile-touch #options-menu > .window-frame > .window-titlebar,
-  body.mobile-touch #options-menu > .window-frame > .window-footer {
+  /* The NARROW back-stack shell paints its own header + Done bar, so the frame's
+     own titlebar + footer hide. The WIDE rail two-pane (.opt-mrail) reuses the
+     desktop chrome, so it KEEPS them (the close X + the Done/Log out/Reset row). */
+  body.mobile-touch #options-menu:not(.opt-mrail) > .window-frame > .window-titlebar,
+  body.mobile-touch #options-menu:not(.opt-mrail) > .window-frame > .window-footer {
     display: none;
   }
   body.mobile-touch #options-menu .window-body {
     padding: 0;
     overflow: hidden;
+  }
+  /* Wide rail mode keeps the desktop footer as a compact horizontal action row
+     (not the narrow shell's full-width vertical stack from the AAA touch block),
+     so Done / Log out / Reset stay tidy in landscape. */
+  body.mobile-touch #options-menu.opt-mrail > .window-frame > .window-footer {
+    flex-direction: row;
+    align-items: center;
+  }
+  body.mobile-touch #options-menu.opt-mrail > .window-frame > .window-footer .btn {
+    width: auto;
   }
   .opt-mshell {
     display: flex;

@@ -102,9 +102,12 @@ describe('options_window: mobile shell integration', () => {
     );
   });
 
-  it('hides the frame chrome on touch (the shell paints its own header + Done bar)', () => {
+  it('hides the frame chrome on the NARROW shell (it paints its own header + Done bar)', () => {
     const css = readFileSync(new URL('../src/styles/hud.mobile.css', import.meta.url), 'utf8');
-    expect(css).toContain('body.mobile-touch #options-menu > .window-frame > .window-titlebar');
+    // Scoped :not(.opt-mrail): the wide rail two-pane KEEPS the frame chrome.
+    expect(css).toContain(
+      'body.mobile-touch #options-menu:not(.opt-mrail) > .window-frame > .window-titlebar',
+    );
     expect(css).toContain('.opt-mshell-done');
     // the reused .opt-* controls get touch floors + a 16px search input floor
     expect(css).toContain('body.mobile-touch #options-menu .opt-row');
