@@ -2523,6 +2523,14 @@
     font-size: var(--text-xs);
     margin: 0 2px var(--spacing-xs);
   }
+  /* Crafting: the recipe rows adopt the shared .vendor-row / .item-cell grammar
+     (styled in the vendor AAA section above); the reagent requirement line rides
+     inside the row name as a muted sub-line (was the legacy .vi-sub). */
+  #crafting-window .window-body .vendor-row .craft-reagents {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
 
   /* ---------- modals and dropdown ---------- */
   /* in-app input modal field (Save / Import / Export, replaces window.prompt) */
