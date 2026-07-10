@@ -179,7 +179,7 @@ const localeTextByBase = {
       prot: 'El guardián que lidera la primera línea del combate con un escudo en alto y una voluntad inquebrantable. Resiste el asalto de innumerables enemigos, protege a sus aliados y controla el campo de batalla con autoridad. Convierte cada golpe bloqueado en una oportunidad para responder con contundencia.',
     },
     masteryDescriptions: {
-      arms: 'Mientras empuñas un arma a dos manos, todo el daño que infliges aumenta un 10%.',
+      arms: 'Mientras empuñas un arma a dos manos, infliges un 10% más de daño.',
     },
     grant: (abilityName) => `Otorga ${abilityName}.`,
     increase: (target, amount, perRank) => `Aumenta ${target} en ${amount}${perRank}.`,

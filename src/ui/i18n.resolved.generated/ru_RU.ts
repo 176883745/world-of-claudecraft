@@ -7036,6 +7036,18 @@ export const ru_RU: EnTranslations = {
       "heroic_mark": {
         "name": "Героический знак"
       },
+      "eastbrook_buckler": {
+        "name": "Истврукский баклер"
+      },
+      "highwatch_wallshield": {
+        "name": "Стенной щит Хайвотча"
+      },
+      "eastbrook_greatsword": {
+        "name": "Истврукский двуручный меч"
+      },
+      "highwatch_greatsword": {
+        "name": "Двуручный меч Хайвотча"
+      },
       "morthens_cryptforged_hauberk": {
         "name": "Кольчуга Мортена из гробничной стали"
       },

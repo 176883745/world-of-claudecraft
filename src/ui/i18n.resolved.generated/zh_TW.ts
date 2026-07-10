@@ -7036,6 +7036,18 @@ export const zh_TW: EnTranslations = {
       "heroic_mark": {
         "name": "英雄徽記"
       },
+      "eastbrook_buckler": {
+        "name": "東溪小圓盾"
+      },
+      "highwatch_wallshield": {
+        "name": "高望壁盾"
+      },
+      "eastbrook_greatsword": {
+        "name": "東溪巨劍"
+      },
+      "highwatch_greatsword": {
+        "name": "高望巨劍"
+      },
       "morthens_cryptforged_hauberk": {
         "name": "莫爾森的墓鑄鎖甲"
       },

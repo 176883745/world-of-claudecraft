@@ -7036,6 +7036,18 @@ export const ja_JP: EnTranslations = {
       "heroic_mark": {
         "name": "英雄の証"
       },
+      "eastbrook_buckler": {
+        "name": "イーストブルックのバックラー"
+      },
+      "highwatch_wallshield": {
+        "name": "ハイウォッチの壁盾"
+      },
+      "eastbrook_greatsword": {
+        "name": "イーストブルックの大剣"
+      },
+      "highwatch_greatsword": {
+        "name": "ハイウォッチの大剣"
+      },
       "morthens_cryptforged_hauberk": {
         "name": "モルセンの墓鋳ホーバーク"
       },

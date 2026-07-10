@@ -7036,6 +7036,18 @@ export const en_XA: EnTranslations = {
       "heroic_mark": {
         "name": "[Ĥéŕóíç Ɱáŕķ]"
       },
+      "eastbrook_buckler": {
+        "name": "[Éášţƀŕóóķ Ɓúçķļéŕ]"
+      },
+      "highwatch_wallshield": {
+        "name": "[Ĥíĝĥŵáţçĥ Ŵáļļšĥíéļð]"
+      },
+      "eastbrook_greatsword": {
+        "name": "[Éášţƀŕóóķ Ĝŕéáţšŵóŕð]"
+      },
+      "highwatch_greatsword": {
+        "name": "[Ĥíĝĥŵáţçĥ Ĝŕéáţšŵóŕð]"
+      },
       "morthens_cryptforged_hauberk": {
         "name": "[Ɱóŕţĥéñ'š Çŕýþţƒóŕĝéð Ĥáúƀéŕķ]"
       },

@@ -7036,6 +7036,18 @@ export const ko_KR: EnTranslations = {
       "heroic_mark": {
         "name": "영웅의 징표"
       },
+      "eastbrook_buckler": {
+        "name": "이스트브룩 버클러"
+      },
+      "highwatch_wallshield": {
+        "name": "하이워치 벽방패"
+      },
+      "eastbrook_greatsword": {
+        "name": "이스트브룩 대검"
+      },
+      "highwatch_greatsword": {
+        "name": "하이워치 대검"
+      },
       "morthens_cryptforged_hauberk": {
         "name": "모르텐의 묘지주조 사슬갑옷"
       },
