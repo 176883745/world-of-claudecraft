@@ -988,9 +988,10 @@ export interface CharacterState {
   unlockedMilestones?: string[];
   // Rested XP pool. Optional so pre-rested-XP saves load cleanly (defaults to 0).
   restedXp?: number;
-  // Lifetime played time in whole seconds, accumulated across every prior session
-  // (this session's elapsed time is folded in at save; see PlayerMeta.totalPlayedSeconds
-  // and /playtime in social/chat.ts). Optional so pre-/playtime saves load cleanly
+  // Lifetime played time in seconds (unfloored, for drift-free accumulation; only
+  // the display floors), accumulated across every prior session (this session's
+  // elapsed time is folded in at save; see PlayerMeta.totalPlayedSeconds and
+  // /playtime in social/chat.ts). Optional so pre-/playtime saves load cleanly
   // (defaults to 0).
   totalPlayedSeconds?: number;
   // Gathering profession proficiency (JSONB; optional so pre-professions saves
