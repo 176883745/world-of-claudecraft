@@ -311,6 +311,7 @@ export function fiestaDownEntity(ctx: SimContext, e: Entity, killer: Entity | nu
   e.sitting = false;
   e.chargeTargetId = null;
   e.chargePath = [];
+  e.leap = null;
   e.followTargetId = null;
   e.targetId = null;
   const meta = ctx.players.get(e.id);

@@ -705,6 +705,7 @@ export function handleDeath(ctx: SimContext, e: Entity, killer: Entity | null): 
     e.sitting = false;
     e.chargeTargetId = null;
     e.chargePath = [];
+    e.leap = null;
     e.followTargetId = null;
     ctx.emit({ type: 'playerDeath', pid: e.id });
     for (const m of ctx.entities.values()) {

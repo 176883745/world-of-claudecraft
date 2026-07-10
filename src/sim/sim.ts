@@ -3573,6 +3573,12 @@ export class Sim {
   // ground and fire the landing AoE. Returns true while it owns movement this tick.
   private updateLeapMovement(p: Entity): boolean {
     if (!p.leap) return false;
+    if (p.dead) {
+      // Death cancels the flight outright: a corpse (or released ghost) must never
+      // resume the arc, or the stored landing point would skip the corpse run.
+      p.leap = null;
+      return false;
+    }
     const leap = p.leap;
     leap.elapsed += DT;
     const t = Math.min(1, leap.elapsed / leap.dur);
