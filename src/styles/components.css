@@ -3669,6 +3669,51 @@
     transform: translateX(var(--bank-dock-gap));
   }
 
+  /* ---------- AAA window-frame adoption: master-detail windows (batch 2) ---------- */
+  /* The quest log, mailbox, social panel, and spellbook adopt the shared
+     window-frame grammar (src/ui/window_frame.ts; spec 6.1 + 8). Each mounts the
+     frame on an INNER container, so the shared .window.panel root keeps its
+     drag/resize/position machinery and the frame draws its own chrome; these
+     overrides neutralize the legacy .panel shell while a frame is mounted and let
+     the frame bound the window as a height-clamped flex column (titlebar/footer
+     pinned, .window-body scrolls). Tokens only, no literal colours; batch 1
+     anchors its own section after the vendor AAA block to keep merges clean. */
+
+  /* Neutralize the legacy .panel chrome while a frame is mounted (the inner
+     .window-frame draws its own border, edge line, and background). The
+     :has(> .window-frame) selector tracks the mounted frame exactly. The painter
+     opens the window with an inline display:flex, so the global
+     .window:has(> .window-frame) rule (flex-direction:column; overflow:hidden)
+     bounds the frame as a height-clamped flex column; closed windows keep
+     display:none. */
+  #quest-log-window:has(> .window-frame) {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+  }
+
+  /* Quest log: the two panes (list + measure-capped detail) fill the scrolling
+     body. The frame body owns the outer scroll; the list scrolls with it and the
+     detail caps its own reading measure. */
+  #quest-log-window {
+    width: 520px;
+  }
+  #quest-log-window .window-body .ql-cols {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    min-height: 0;
+  }
+  #quest-log-window .window-body .ql-detail {
+    max-height: none;
+    max-width: 46ch;
+  }
+  #quest-log-window .window-footer .btn {
+    min-width: 0;
+  }
+
   /* ---------- social ---------- */
   /* social: friends / guild / ignore */
   #social-window {
