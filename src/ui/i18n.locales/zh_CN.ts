@@ -1535,7 +1535,6 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'itemUi.money.silver': '银币',
   'itemUi.money.copper': '铜币',
   'itemUi.slots.mainhand': '主手',
-  'itemUi.slots.twoHand': '双手',
   'itemUi.slots.chest': '胸部',
   'itemUi.slots.legs': '腿部',
   'itemUi.slots.feet': '脚部',
@@ -2188,8 +2187,6 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.items.conjured_water2.name': '魔法井水',
   'entities.items.conjured_water3.name': '魔法清水',
   'entities.items.eastbrook_arming_sword.name': '东溪武装剑',
-  'entities.items.eastbrook_buckler.name': '东溪小圆盾',
-  'entities.items.eastbrook_greatsword.name': '东溪巨剑',
   'entities.items.bronzework_mace.name': '青铜工艺钉锤',
   'entities.items.vale_carving_knife.name': '溪谷雕肉刀',
   'entities.items.hickory_shortstaff.name': '山胡桃短杖',
@@ -2326,8 +2323,6 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.items.roast_mountain_goat.name': '烤山羊',
   'entities.items.glacier_melt.name': '冰川融水',
   'entities.items.highwatch_warblade.name': '高望战刃',
-  'entities.items.highwatch_wallshield.name': '高望壁盾',
-  'entities.items.highwatch_greatsword.name': '高望巨剑',
   'entities.items.craghorn_staff.name': '岩角法杖',
   'entities.items.icevein_dirk.name': '冰脉短匕',
   'entities.items.highwatch_breastplate.name': '高望胸甲',
@@ -6156,211 +6151,4 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '邀请好友：当好友升到 10 级，你们各获得 2 个格子，最多 5 位好友。',
   'hudChrome.bank.bonusSectionAria': '奖励银行格子及获取方式',
   'entities.mobs.yumi_cat.name': '由美',
-  'hudChrome.options.mouseoverCast': '队伍头像上鼠标悬停施法',
-  'hudChrome.options.showTargetOfTarget': '显示目标的目标',
-  'hudChrome.talentRows.tab': '抉择',
-  'hudChrome.talentRows.defaultLoadout': '默认配置',
-  'hudChrome.talentRows.comingSoon': '敬请期待',
-  'hudChrome.specPanel.primaryAttr': '主属性',
-  'hudChrome.specPanel.complexity': '复杂度',
-  'hudChrome.specPanel.complexityMedium': '中等',
-  'hudChrome.specPanel.exampleAbilities': '示例技能',
-  'hudChrome.specPanel.viewTalents': '查看天赋',
-  'hudChrome.specPanel.specUnlockBanner': '专精已解锁！',
-  'hudChrome.specPanel.specUnlockHint': '按 N 键选择你的专精。',
-  'hudChrome.statInfo.names.haste': '急速',
-  'hudChrome.statInfo.names.parry': '招架',
-  'hudChrome.statInfo.desc.haste': '加快你的武器挥击和法术施放。它不会缩短全局冷却时间。',
-  'hudChrome.statInfo.desc.parry':
-    '你完全招架来自正面近战攻击、不受任何伤害的几率。来自背后的攻击无法被招架。',
-  'hudChrome.paperdoll.offhand': '副手',
-  'hudChrome.auraEffect.battleStance': '战斗姿态：怒气产生提高 10%',
-  'hudChrome.auraEffect.berserkerStance': '狂暴姿态：暴击几率提高 3%，暴击伤害提高 3%',
-  'hudChrome.auraEffect.dmgDone': '造成的伤害提高 {pct}%',
-  'hudChrome.auraEffect.dmgDoneReduce': '造成的伤害降低 {pct}%',
-  'hudChrome.auraEffect.crit': '暴击几率提高 {pct}%',
-  'hudChrome.auraEffect.rageGen': '怒气产生提高 {pct}%',
-  'hudChrome.auraEffect.reckless': '暴击几率提高 {pct}%，怒气产生提高 {ragePct}%',
-  'hudChrome.auraEffect.avatar': '巨像：造成的伤害提高 {pct}%',
-  'hudChrome.auraEffect.bloodbath': '暴击几率和造成的伤害提高 {pct}%',
-  'hudChrome.auraEffect.dieBySword': '受到的伤害降低 {pct}%（生命值低于 {hpPct}% 时为 {lowPct}%）',
-  'hudChrome.auraEffect.sanguine': '攻击速度提高 {hastePct}%，造成的伤害提高 {dmgPct}%',
-  'hudChrome.auraEffect.battleTrance': '你的下一次劫掠打击或蛮力挥击不消耗怒气',
-  'hudChrome.auraEffect.revengeFree': '你的下一次复仇不消耗怒气',
-  'hudChrome.auraEffect.victoryRush': '乘胜追击已就绪',
-  'hudChrome.auraEffect.maxHpPct': '最大生命值提高 {pct}%',
-  'guide.abilityHook.revenge':
-    '一次横扫反击，命中你前方的所有目标；在你架开一击后紧接着施放会更省怒气。',
-  'guide.abilityHook.hamstring': '划伤目标的双腿使其减速，让它无法追上你。',
-  'hud.combat.floatingParry': '招架',
-  'hud.combat.parried': '{target}招架了你的{ability}。',
-  'hud.errors.nothingToConsume': '没有可消耗的效果。',
-  'hud.errors.needShield': '你必须装备盾牌。',
-  'entities.abilities.chain_heal.name': '治疗链',
-  'entities.abilities.chain_heal.description':
-    '治疗目标 {damage} 点生命，随后弹射至至多 2 名附近的盟友，每次弹射的治疗量为前一次的一半。',
-  'entities.abilities.revenge.name': '复仇',
-  'entities.abilities.revenge.description':
-    '以宽阔的弧线攻击，对你前方所有敌人造成物理伤害。目标超过 5 个时伤害降低。当你躲闪或招架时，你的下一次复仇可能不消耗怒气。',
-  'entities.abilities.battle_stance.name': '战斗姿态',
-  'entities.abilities.battle_stance.description':
-    '一种具有侵略性的战斗姿态：你产生的怒气提高 10%。武器和防护专精的默认姿态。',
-  'entities.abilities.berserker_stance.name': '狂暴姿态',
-  'entities.abilities.berserker_stance.description':
-    '一种鲁莽的战斗姿态：你的暴击几率提高 3%，暴击伤害提高 3%。狂怒战士始终以此姿态作战。',
-  'entities.abilities.sweeping_strikes.name': '扩弧斩',
-  'entities.abilities.sweeping_strikes.description':
-    '持续 12 秒，你的单体攻击还会以 75% 的伤害额外打击 1 个附近的敌人。（武器）',
-  'entities.abilities.deep_wounds.name': '裂创',
-  'entities.abilities.deep_wounds.description':
-    '被动：你的致残打击会使目标流血，在 6 秒内造成物理伤害。（武器）',
-  'entities.abilities.enrage_passive.name': '暴乱',
-  'entities.abilities.enrage_passive.description':
-    '被动：处于激怒状态时，你造成的伤害提高 11%，攻击速度提高 25%，移动速度提高 10%，持续 4 秒。放血有 30% 几率使你激怒；血色收割则必定触发。（狂怒）',
-  'entities.abilities.raging_gale.name': '双重打击',
-  'entities.abilities.raging_gale.description':
-    '立即用武器攻击两次，每次命中造成 60% 武器伤害加 {damage}，并产生 {rage} 点怒气。最多储存 2 次充能。（狂怒）',
-  'entities.abilities.red_harvest.name': '血色收割',
-  'entities.abilities.red_harvest.description':
-    '倾尽所有：在狂乱中攻击三次，每次造成武器伤害加 {damage}。（狂怒）',
-  'entities.abilities.furious_mending.name': '狂怒愈合',
-  'entities.abilities.furious_mending.description':
-    '持续 10 秒，你受到的伤害降低 20%，并且在此期间你的放血会为你治疗相当于最大生命值 20% 的生命。（狂怒）',
-  'entities.abilities.emboldening_roar.name': '鼓舞怒吼',
-  'entities.abilities.emboldening_roar.description':
-    '发出一声鼓舞的怒吼：你和 40 码内的友方玩家获得鼓舞，你接下来的 3 个技能必定暴击。（狂怒）',
-  'entities.abilities.raised_guard.name': '举盾格挡',
-  'entities.abilities.raised_guard.description':
-    '举盾防身：你受到的物理伤害降低 50%，持续 6 秒。最多储存 2 次充能。（防护）',
-  'entities.abilities.iron_resolve.name': '钢铁意志',
-  'entities.abilities.iron_resolve.description':
-    '咬紧牙关无视疼痛：消耗你的全部怒气（至少 20 点），每消耗 1 点怒气吸收 4 点伤害，最多持续 10 秒。（防护）',
-  'entities.abilities.faultline.name': '地裂',
-  'entities.abilities.faultline.description':
-    '沿地面发出一道冲击波：你前方 8 码内的敌人受到 {damage} 点伤害，并昏迷 3 秒。（防护）',
-  'entities.abilities.defiant_bellow.name': '挑衅怒吼',
-  'entities.abilities.defiant_bellow.description':
-    '一声挑衅的怒吼：10 码内的每个敌人都被嘲讽，被迫攻击你 3 秒。（防护）',
-  'entities.abilities.breachmaker.name': '破防者',
-  'entities.abilities.breachmaker.description':
-    '重击目标，造成武器伤害加 {damage}，并破开其防御：你对它的攻击造成的伤害提高 20%，持续 8 秒。（武器）',
-  'entities.abilities.measured_fury.name': '蓄怒',
-  'entities.abilities.measured_fury.description':
-    '你收放自如的怒火让消耗更精打细算：你的技能怒气消耗降低 10%。（武器）',
-  'entities.abilities.seasoned_soldier.name': '沙场老兵',
-  'entities.abilities.seasoned_soldier.description':
-    '你的自动攻击暴击时产生的怒气提高 10%。（武器）',
-  'entities.abilities.diabolical_twinstrike.name': '邪恶双重打击',
-  'entities.abilities.diabolical_twinstrike.description':
-    '处于激怒状态时，你的双重打击造成的伤害提高 15%。（狂怒）',
-  'entities.abilities.cleaving_blows.name': '顺劈打击',
-  'entities.abilities.cleaving_blows.description': '血色收割必定返还一次双重打击的充能。（狂怒）',
-  'entities.abilities.sudden_death.name': '骤死',
-  'entities.abilities.sudden_death.description':
-    '你的自动攻击有几率让你对任意生命值的目标施放早赴黄泉，且不消耗怒气。（武器）',
-  'entities.abilities.holy_shock.name': '神圣震击',
-  'entities.abilities.holy_shock.description':
-    '以神圣能量震击一个友方目标，为其治疗 {damage} 点生命。（神圣专精标志技能）',
-  'entities.abilities.holy_shield.name': '圣墙',
-  'entities.abilities.holy_shield.description':
-    '以神圣之力为你护盾 10 秒，使护甲提高 90，并对近战攻击者造成 12 点神圣伤害。（防护专精标志技能）',
-  'entities.abilities.repentance.name': '忏悔',
-  'entities.abilities.repentance.description':
-    '使敌人陷入冥想状态，最多持续 6 秒。任何伤害都会打破效果。（惩戒专精标志技能）',
-  'entities.abilities.bestial_wrath.name': '咆哮之怒',
-  'entities.abilities.bestial_wrath.description':
-    '使你进入野兽般的狂怒，攻击强度提高 55，持续 15 秒。（野兽控制专精标志技能）',
-  'entities.abilities.trueshot_aura.name': '疾飞光环',
-  'entities.abilities.trueshot_aura.description':
-    '鼓舞附近的盟友，使攻击强度提高 35，持续 5 分钟。（射击专精标志技能）',
-  'entities.abilities.wyvern_sting.name': '翼龙钉刺',
-  'entities.abilities.wyvern_sting.description':
-    '从远处钉刺敌人，使其瘫痪最多 4 秒。任何伤害都会打破效果。（生存专精标志技能）',
-  'entities.abilities.arcane_power.name': '以太涌动',
-  'entities.abilities.arcane_power.description':
-    '以太之力涌入你的体内，使法术强度提高 28，持续 12 秒。（奥术专精标志技能）',
-  'entities.abilities.combustion.name': '骤火',
-  'entities.abilities.combustion.description':
-    '凝聚你的火焰魔法，使你的下一次攻击必定暴击。（火焰专精标志技能）',
-  'entities.abilities.cone_of_cold.description':
-    '以寒霜冲击附近的敌人，造成 {damage} 点冰霜伤害。（冰霜专精标志技能）',
-  'entities.abilities.cold_blood.name': '杀手之静',
-  'entities.abilities.cold_blood.description':
-    '凝聚你的杀意，使你的下一次攻击必定暴击。（刺杀专精标志技能）',
-  'entities.abilities.blade_flurry.name': '镜影刀刃',
-  'entities.abilities.blade_flurry.description':
-    '施展一阵急速的连刃，使攻击速度提高 20%，持续 12 秒。（战斗专精标志技能）',
-  'entities.abilities.hemorrhage.name': '血色丝带',
-  'entities.abilities.hemorrhage.description':
-    '攻击敌人，造成武器伤害加 {damage}，并在 12 秒内造成流血伤害。奖励 1 个连击点。（敏锐专精标志技能）',
-  'entities.abilities.power_infusion.name': '涂油',
-  'entities.abilities.power_infusion.description':
-    '为一个友方目标灌注力量，使法术强度提高 28，持续 15 秒。（戒律专精标志技能）',
-  'entities.abilities.holy_nova.description':
-    '引发一次愈疗之光的爆发，为附近的盟友治疗 {damage} 点生命，并对附近的敌人造成伤害。（神圣专精标志技能）',
-  'entities.abilities.shadowform.name': '幽暝纱',
-  'entities.abilities.shadowform.description':
-    '化身为幽暝纱，强化暗影魔法，直到你变回原形。再次施放可恢复正常形态。（暗影专精标志技能）',
-  'entities.abilities.elemental_mastery.name': '原初掌控',
-  'entities.abilities.elemental_mastery.description':
-    '唤起原初的掌控之力，使你的下一个法术瞬发。（元素专精标志技能）',
-  'entities.abilities.shamanistic_rage.name': '萨满之怒',
-  'entities.abilities.shamanistic_rage.description':
-    '释放萨满之怒，恢复 160 点法力。（增强专精标志技能）',
-  'entities.abilities.natures_swiftness.name': '自然迅捷',
-  'entities.abilities.natures_swiftness.description':
-    '呼唤自然之力，使你的下一个法术瞬发。（恢复专精标志技能）',
-  'entities.abilities.siphon_life.name': '血脉汲取',
-  'entities.abilities.siphon_life.description':
-    '从敌人身上汲取生命，在 30 秒内造成 {damage} 点暗影伤害，并将造成的伤害转化为对你的治疗。（痛苦专精标志技能）',
-  'entities.abilities.fel_domination.name': '邪能支配',
-  'entities.abilities.fel_domination.description':
-    '支配邪能，使你的下一个法术瞬发。（恶魔学识专精标志技能）',
-  'entities.abilities.conflagrate.name': '焚烧',
-  'entities.abilities.conflagrate.description':
-    '消耗敌人身上的燃烧契约将其点燃，造成 {damage} 点火焰伤害。（毁灭专精标志技能）',
-  'entities.abilities.moonkin_form.name': '月翼形态',
-  'entities.abilities.moonkin_form.description':
-    '化身为月翼形态，强化你的施法，直到你变回原形。再次施放可恢复正常形态。（平衡专精标志技能）',
-  'entities.abilities.feral_charge.name': '野性冲锋',
-  'entities.abilities.feral_charge.description':
-    '冲向敌人并将其定身 1 秒。射程 8 到 25 码。（野性专精标志技能）',
-  'entities.abilities.swiftmend.name': '迅捷治愈',
-  'entities.abilities.swiftmend.description':
-    '消耗一个友方目标身上的持续治疗效果，为其治疗 {damage} 点生命。（恢复专精标志技能）',
-  'entities.abilities.storm_bolt.name': '风暴之锤',
-  'entities.abilities.storm_bolt.description':
-    '将你的武器掷向目标，造成 {damage} 点伤害，并使其昏迷 3 秒。',
-  'entities.abilities.piercing_howl.name': '穿刺怒吼',
-  'entities.abilities.piercing_howl.description':
-    '一声穿刺的呼喝，使 15 码内的所有敌人减速 50%，持续 8 秒。',
-  'entities.abilities.die_by_sword.name': '剑在人在',
-  'entities.abilities.die_by_sword.description':
-    '防御性冷却技能：持续 8 秒，你受到的伤害降低 30%，并大幅提高躲闪攻击的几率。',
-  'entities.abilities.recklessness.name': '鲁莽',
-  'entities.abilities.recklessness.description':
-    '激怒：你的怒气产生提高 50%，暴击几率提高 20%，持续 12 秒。',
-  'entities.abilities.avatar.name': '战争化身',
-  'entities.abilities.avatar.description':
-    '化身为巨像，持续 20 秒，解除你身上的所有控制效果，并使你造成的伤害提高 20%。',
-  'entities.abilities.sanguine_aura.name': '血色光环',
-  'entities.abilities.sanguine_aura.description':
-    '以敌人之血浸染你的武器：你和你的近战盟友获得 10% 攻击速度和 10% 伤害加成，持续 20 秒。',
-  'entities.abilities.victory_rush.name': '乘胜追击',
-  'entities.abilities.victory_rush.description':
-    '攻击造成武器伤害加 {damage}，并治疗相当于最大生命值 20% 的生命。仅可在击杀敌人后 20 秒内使用。',
-  'entities.abilities.bladestorm.name': '剑刃风暴',
-  'entities.abilities.bladestorm.description':
-    '化身为一道旋转的钢铁风暴，在 4 秒内每秒对 8 码内的所有敌人造成 {damage} 点伤害。',
-  'entities.abilities.intimidating_shout.name': '破胆怒吼',
-  'entities.abilities.intimidating_shout.description':
-    '一声骇人的怒吼，使 8 码内至多 5 个敌人恐惧逃散 8 秒。伤害可能打破效果。',
-  'entities.abilities.pummel.name': '拳击',
-  'entities.abilities.pummel.description':
-    '打断施法，使该学派的任何法术在 4 秒内无法施放。成功打断一次施法时产生 10 点怒气。',
-  'entities.abilities.heroic_leap.name': '英勇飞跃',
-  'entities.abilities.heroic_leap.description': '跃向目标区域，对附近的敌人造成 {damage} 点伤害。',
-  'entities.abilities.rallying_cry.name': '集结呐喊',
-  'entities.abilities.rallying_cry.description':
-    '发出一声集结呐喊，使你和 40 码内的队伍成员获得 20% 的额外最大生命值，持续 10 秒。',
 };

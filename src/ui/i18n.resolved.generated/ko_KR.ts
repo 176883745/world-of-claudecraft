@@ -290,7 +290,6 @@ export const ko_KR: EnTranslations = {
       "playerLabel": "내 캐릭터",
       "targetLabel": "내 대상",
       "targetAnnounce": "대상: {name}",
-      "targetOfTargetLabel": "Mark's Mark",
       "partyLabel": "내 파티",
       "partyChip": "파티",
       "partyGroup": "{n}번 그룹",
@@ -566,31 +565,13 @@ export const ko_KR: EnTranslations = {
       "startAttackOnAbility": "스킬 사용 시 자동 공격",
       "walkByAutoloot": "지나가며 자동 획득",
       "groundReticle": "지면 조준 표시기",
-      "mouseoverCast": "파티 창에서 마우스오버 시전",
       "showItemLevel": "아이템 레벨 표시",
       "itemLevelLine": "아이템 레벨 {level}",
       "itemScoreLine": "점수 {score}",
       "showSecondaryActionBar": "보조 액션 바 표시",
-      "showTargetOfTarget": "대상의 대상 표시",
       "showDailyRewardsChest": "일일 보상 보물상자 표시",
       "mobileCameraJoystick": "카메라 조이스틱",
       "mobileLeftHanded": "왼손잡이 레이아웃"
-    },
-    "talentRows": {
-      "tab": "선택",
-      "defaultLoadout": "기본 구성",
-      "comingSoon": "준비 중"
-    },
-    "specPanel": {
-      "primaryAttr": "주요 능력치",
-      "complexity": "복잡도",
-      "complexityLow": "Low",
-      "complexityMedium": "중간",
-      "complexityHigh": "High",
-      "exampleAbilities": "대표 능력",
-      "viewTalents": "특성 보기",
-      "specUnlockBanner": "전문화 해제!",
-      "specUnlockHint": "N을 눌러 전문화를 선택하세요."
     },
     "controller": {
       "title": "컨트롤러",
@@ -688,9 +669,7 @@ export const ko_KR: EnTranslations = {
       "names": {
         "spellPower": "주문력",
         "critRating": "치명타 등급",
-        "hasteRating": "가속 등급",
-        "haste": "가속",
-        "parry": "무기 막기"
+        "hasteRating": "가속 등급"
       },
       "desc": {
         "str": "전투력을 증가시켜 무기 공격이 더 강하게 적중하도록 합니다.",
@@ -705,9 +684,7 @@ export const ko_KR: EnTranslations = {
         "critChance": "공격이 치명적으로 적중하여 두 배의 피해를 입힐 확률입니다.",
         "dodge": "들어오는 근접 공격을 완전히 피해 피해를 전혀 입지 않을 확률입니다.",
         "critRating": "장비와 세트 보너스에서 얻는 치명타 등급으로 치명타 확률이 증가합니다. 약 10등급당 1% 치명타.",
-        "hasteRating": "장비와 세트 보너스에서 얻는 가속 등급으로 공격과 시전 속도가 빨라집니다. 약 10등급당 1% 가속.",
-        "haste": "무기 공격과 주문 시전 속도를 높입니다. 공용 재사용 대기시간은 줄이지 않습니다.",
-        "parry": "전방 근접 공격을 완전히 무기로 막아 피해를 입지 않을 확률입니다. 뒤에서 오는 공격은 막을 수 없습니다."
+        "hasteRating": "장비와 세트 보너스에서 얻는 가속 등급으로 공격과 시전 속도가 빨라집니다. 약 10등급당 1% 가속."
       },
       "effects": {
         "attackPower": "+{value} 전투력",
@@ -825,7 +802,6 @@ export const ko_KR: EnTranslations = {
       "failed": "버그 신고를 보낼 수 없습니다. 다시 시도해 주세요."
     },
     "paperdoll": {
-      "offhand": "보조장비",
       "unequipAria": "{item} 장착 해제",
       "unequipHint": "× 클릭, 우클릭 또는 가방으로 드래그하여 장착 해제"
     },
@@ -1076,24 +1052,9 @@ export const ko_KR: EnTranslations = {
       "formCat": "표범 변신: 근접 피해와 기력",
       "formTravel": "쾌속 형태: 이동 속도가 {pct}% 증가합니다",
       "defensiveStance": "방어 태세: 받는 피해 감소, 위협 수준 증가",
-      "battleStance": "전투 태세: 분노 생성 10% 증가",
-      "berserkerStance": "광전사 태세: 치명타 확률 3% 증가, 피해 3% 증가",
       "righteousFury": "불타는 맹세: 신성 피해로 인한 위협 수준이 크게 증가합니다",
       "scale": "크기가 {pct}% 증가합니다",
       "jump": "도약 높이가 {pct}% 증가합니다",
-      "dmgDone": "입히는 피해가 {pct}% 증가합니다",
-      "dmgDoneReduce": "입히는 피해가 {pct}% 감소합니다",
-      "crit": "치명타 확률이 {pct}% 증가합니다",
-      "rageGen": "분노 생성이 {pct}% 증가합니다",
-      "reckless": "치명타 확률이 {pct}%, 분노 생성이 {ragePct}% 증가합니다",
-      "avatar": "거상: 입히는 피해가 {pct}% 증가합니다",
-      "bloodbath": "치명타 확률과 입히는 피해가 {pct}% 증가합니다",
-      "dieBySword": "받는 피해가 {pct}% 감소합니다 (생명력 {hpPct}% 미만일 때 {lowPct}%)",
-      "sanguine": "공격 속도가 {hastePct}%, 입히는 피해가 {dmgPct}% 증가합니다",
-      "battleTrance": "다음 약탈자의 일격 또는 우악스러운 휘두르기가 분노를 소모하지 않습니다",
-      "revengeFree": "다음 복수가 분노를 소모하지 않습니다",
-      "victoryRush": "연전연승을 사용할 수 있습니다",
-      "maxHpPct": "최대 생명력이 {pct}% 증가합니다",
       "school": {
         "physical": "물리",
         "fire": "화염",
@@ -2018,13 +1979,11 @@ export const ko_KR: EnTranslations = {
     },
     "abilityHook": {
       "heroic_strike": "다음 타격에 분노를 소모해 더 강하게 휘두르도록 예약합니다.",
-      "revenge": "전방의 모든 적을 휩쓰는 반격으로, 공격을 받아넘긴 직후에는 더 저렴하게 사용할 수 있습니다.",
       "battle_shout": "파티 전체의 공격력을 높여 주는 사기를 북돋우는 외침입니다.",
       "commanding_shout": "체력을 높여 모두가 전투에서 더 오래 버틸 수 있게 합니다.",
       "charge": "멀리 있는 적에게 돌진해 잠시 기절시키며 전투를 시작합니다.",
       "rend": "시간이 지나며 대상을 약화시키는 출혈을 입힙니다.",
       "thunder_clap": "주위의 모든 적을 타격하고 그들의 공격 속도를 늦춥니다.",
-      "hamstring": "대상의 다리를 베어 이동 속도를 늦춰 당신을 쫓아오지 못하게 합니다.",
       "seal_of_righteousness": "공격에 신성 피해를 부여하고, 선고로 그 기운을 소모합니다.",
       "holy_light": "아군이나 자신의 체력을 채워 주는 안정적이고 큰 치유입니다.",
       "devotion_aura": "방어도를 높여 받는 타격을 줄여 주는 지속형 자기 강화입니다.",
@@ -4422,7 +4381,6 @@ export const ko_KR: EnTranslations = {
     "combat": {
       "floatingMiss": "빗나감",
       "floatingDodge": "회피",
-      "floatingParry": "무기 막기",
       "floatingResist": "저항",
       "cannotMove": "이동 불가!",
       "attack": "공격",
@@ -4432,7 +4390,6 @@ export const ko_KR: EnTranslations = {
       "damageTakenCrit": "{source}에게 치명타로 {amount}의 피해를 받았습니다.",
       "miss": "{ability}이 {target}에게 빗나갔습니다.",
       "dodged": "{target}이 {ability}을 회피했습니다.",
-      "parried": "{target}이 당신의 {ability}을 무기로 막았습니다.",
       "resisted": "{target}이 {ability}을 저항했습니다.",
       "healSelf": "{ability}이 자신을 {amount}만큼 치유했습니다.",
       "healSelfCrit": "{ability}이 자신을 치명타 치유로 {amount}만큼 회복했습니다.",
@@ -4475,7 +4432,6 @@ export const ko_KR: EnTranslations = {
       "notEnoughMana": "마나가 부족합니다!",
       "notEnoughResource": "{resource}이 부족합니다!",
       "notEnoughHealth": "생명력이 부족합니다.",
-      "nothingToConsume": "소모할 대상이 없습니다.",
       "targetMustDodge": "대상이 먼저 회피해야 합니다.",
       "requiresCombo": "그 능력은 연계 점수가 필요합니다.",
       "requiresForm": "{form} 변신 상태여야 합니다.",
@@ -4492,7 +4448,6 @@ export const ko_KR: EnTranslations = {
       "facing": "대상을 바라봐야 합니다.",
       "targetHealthBelow": "그 능력은 대상 생명력이 {percent}% 미만이어야 합니다.",
       "dagger": "단검을 착용해야 합니다.",
-      "needShield": "방패를 착용해야 합니다.",
       "behindTarget": "대상 뒤에 있어야 합니다.",
       "polymorph": "이 생물은 변이시킬 수 없습니다.",
       "noSeal": "활성화된 문장이 없습니다.",
@@ -4868,7 +4823,6 @@ export const ko_KR: EnTranslations = {
     },
     "slots": {
       "mainhand": "주장비",
-      "twoHand": "양손",
       "helmet": "머리",
       "neck": "목",
       "shoulder": "어깨",
@@ -5142,17 +5096,9 @@ export const ko_KR: EnTranslations = {
         "name": "지진",
         "description": "지정한 지역을 6초 동안 뒤흔들어 1.5초마다 적에게 {damage}의 자연 피해를 입힙니다."
       },
-      "chain_heal": {
-        "name": "사슬 치유",
-        "description": "대상의 생명력을 {damage}만큼 회복시킨 뒤 주위 아군 최대 2명에게 튕겨가며, 튕길 때마다 이전 치유량의 절반을 회복시킵니다."
-      },
       "heroic_strike": {
         "name": "약탈자의 일격",
         "description": "강력한 공격으로 근접 피해가 {damage}만큼 증가합니다. 다음 무기 공격 시 발동됩니다."
-      },
-      "revenge": {
-        "name": "복수",
-        "description": "넓은 호를 그리며 공격하여 전방의 모든 적에게 물리 피해를 입힙니다. 대상이 5명을 넘으면 피해가 감소합니다. 회피하거나 무기로 막으면 다음 복수가 분노를 소모하지 않을 수 있습니다."
       },
       "battle_shout": {
         "name": "강철의 외침",
@@ -5205,14 +5151,6 @@ export const ko_KR: EnTranslations = {
       "defensive_stance": {
         "name": "방어 태세",
         "description": "방어 전투 태세입니다. 위협 수준을 30% 더 생성하지만, 주고받는 피해가 10% 감소합니다. 다시 시전하면 태세를 해제합니다."
-      },
-      "battle_stance": {
-        "name": "전투 태세",
-        "description": "공격적인 전투 태세입니다. 분노를 10% 더 생성합니다. 무기와 방어 전문화의 기본 태세입니다."
-      },
-      "berserker_stance": {
-        "name": "광전사 태세",
-        "description": "무모한 전투 태세입니다. 치명타 확률이 3% 증가하고 치명타 피해가 3% 증가합니다. 분노 전사는 항상 이 태세로 싸웁니다."
       },
       "sunder_armor": {
         "name": "방어구 절단",
@@ -5702,77 +5640,9 @@ export const ko_KR: EnTranslations = {
         "name": "불구의 일격",
         "description": "잔혹한 일격으로 무기 피해에 {damage}의 피해를 더합니다. (무기 특화 대표 기술)"
       },
-      "sweeping_strikes": {
-        "name": "넓어지는 호",
-        "description": "12초 동안 단일 대상 공격이 주위 적 1명에게도 75% 피해로 적중합니다. (무기 특성)"
-      },
-      "deep_wounds": {
-        "name": "벌어진 상처",
-        "description": "지속 효과: 불구의 일격이 대상에게 6초에 걸쳐 물리 피해를 입히는 출혈을 남깁니다. (무기 특성)"
-      },
-      "enrage_passive": {
-        "name": "아수라장",
-        "description": "지속 효과: 격노 상태일 때 4초 동안 입히는 피해가 11% 증가하고 공격 속도가 25%, 이동 속도가 10% 빨라집니다. 사혈은 30% 확률로 격노시키며, 붉은 수확은 항상 격노시킵니다. (분노 특성)"
-      },
       "bloodthirst": {
         "name": "사혈",
         "description": "피의 광란으로 즉시 공격하여 무기 피해의 60%에 {damage}를 더한 피해를 줍니다. (분노 특화 대표 기술)"
-      },
-      "raging_gale": {
-        "name": "쌍격",
-        "description": "무기로 즉시 두 번 공격하여 각 타격마다 무기 피해의 60%에 {damage}를 더한 피해를 입히고 분노 {rage}를 생성합니다. 최대 2회까지 충전됩니다. (분노 특성)"
-      },
-      "red_harvest": {
-        "name": "붉은 수확",
-        "description": "모든 것을 쏟아부어 광란에 휩싸여 세 번 공격하며, 각 타격마다 무기 피해에 {damage}를 더한 피해를 입힙니다. (분노 특성)"
-      },
-      "furious_mending": {
-        "name": "분노의 회복",
-        "description": "10초 동안 받는 피해가 20% 감소하며, 지속되는 동안 사혈이 최대 생명력의 20%만큼 자신을 치유합니다. (분노 특성)"
-      },
-      "emboldening_roar": {
-        "name": "대담한 포효",
-        "description": "대담한 포효를 내질러 자신과 40yd 이내의 아군 플레이어에게 대담함을 부여하며, 다음 3개의 기술이 반드시 치명타로 적중합니다. (분노 특성)"
-      },
-      "raised_guard": {
-        "name": "방패 세우기",
-        "description": "방패 뒤로 몸을 웅크려 6초 동안 받는 물리 피해가 50% 감소합니다. 최대 2회까지 충전됩니다. (방어 특성)"
-      },
-      "iron_resolve": {
-        "name": "강철 의지",
-        "description": "이를 악물고 고통을 견뎌내며 모든 분노(최소 20)를 소모하여 소모한 분노 1당 피해 4를 흡수하고, 최대 10초 동안 지속됩니다. (방어 특성)"
-      },
-      "faultline": {
-        "name": "단층선",
-        "description": "땅에 충격파를 보내 전방 8yd 이내의 적에게 {damage}의 피해를 입히고 3초 동안 기절시킵니다. (방어 특성)"
-      },
-      "defiant_bellow": {
-        "name": "반항의 고함",
-        "description": "반항의 고함을 내질러 10yd 이내의 모든 적을 도발하여 3초 동안 자신을 공격하게 만듭니다. (방어 특성)"
-      },
-      "breachmaker": {
-        "name": "돌파자",
-        "description": "대상을 강타하여 무기 피해에 {damage}를 더한 피해를 입히고 방어를 무너뜨려, 8초 동안 대상에게 가하는 자신의 공격이 20% 더 큰 피해를 입힙니다. (무기 특성)"
-      },
-      "measured_fury": {
-        "name": "절제된 분노",
-        "description": "절제된 분노가 자원 운용을 다듬어 기술의 분노 소모가 10% 감소합니다. (무기 특성)"
-      },
-      "seasoned_soldier": {
-        "name": "노련한 전사",
-        "description": "자동 공격이 치명타로 적중하면 분노를 10% 더 생성합니다. (무기 특성)"
-      },
-      "diabolical_twinstrike": {
-        "name": "사악한 쌍격",
-        "description": "격노 상태일 때 쌍격이 15% 더 큰 피해를 입힙니다. (분노 특성)"
-      },
-      "cleaving_blows": {
-        "name": "가르는 일격",
-        "description": "붉은 수확이 항상 쌍격의 충전을 하나 되돌려줍니다. (분노 특성)"
-      },
-      "sudden_death": {
-        "name": "급살",
-        "description": "자동 공격 시 일정 확률로 생명력에 관계없이 대상에게 이른 무덤을 분노 소모 없이 시전할 수 있습니다. (무기 특성)"
       },
       "shield_slam": {
         "name": "방패 강타",
@@ -5785,150 +5655,6 @@ export const ko_KR: EnTranslations = {
       "berserker_rage": {
         "name": "들끓는 격노",
         "description": "들끓는 격노에 들어가 분노 20을 생성합니다. (전사 특성)"
-      },
-      "holy_shock": {
-        "name": "신성 충격",
-        "description": "아군 대상에게 신성한 기운으로 충격을 주어 생명력을 {damage}만큼 회복시킵니다. (신성 대표 기술)"
-      },
-      "holy_shield": {
-        "name": "신성한 벽",
-        "description": "신성한 힘으로 10초 동안 자신을 보호하여 방어도를 90 증가시키고 근접 공격자에게 12의 신성 피해를 입힙니다. (보호 대표 기술)"
-      },
-      "repentance": {
-        "name": "회개",
-        "description": "적을 최대 6초 동안 명상 상태에 빠뜨립니다. 어떤 피해든 효과를 해제합니다. (징벌 대표 기술)"
-      },
-      "bestial_wrath": {
-        "name": "울부짖는 격노",
-        "description": "야수의 격노에 빠져들어 15초 동안 전투력이 55 증가합니다. (야수 대표 기술)"
-      },
-      "trueshot_aura": {
-        "name": "확실한 화살의 오라",
-        "description": "주위 아군을 고무시켜 5분 동안 전투력을 35 증가시킵니다. (사격 대표 기술)"
-      },
-      "wyvern_sting": {
-        "name": "비룡의 쐐기",
-        "description": "원거리에서 적을 찔러 최대 4초 동안 무력화합니다. 어떤 피해든 효과를 해제합니다. (생존 대표 기술)"
-      },
-      "arcane_power": {
-        "name": "에테르 쇄도",
-        "description": "에테르의 쇄도로 몸을 가득 채워 12초 동안 주문력이 28 증가합니다. (비전 대표 기술)"
-      },
-      "combustion": {
-        "name": "섬광 화염",
-        "description": "화염 마법을 집중하여 다음 공격이 반드시 치명타가 됩니다. (화염 대표 기술)"
-      },
-      "cone_of_cold": {
-        "name": "Cone of Cold",
-        "description": "주위 적에게 냉기를 내뿜어 {damage}의 냉기 피해를 입힙니다. (냉기 대표 기술)"
-      },
-      "cold_blood": {
-        "name": "살수의 평정",
-        "description": "살의를 집중하여 다음 공격이 반드시 치명타가 됩니다. (암살 대표 기술)"
-      },
-      "blade_flurry": {
-        "name": "거울 칼날",
-        "description": "칼날의 폭풍을 몰아쳐 12초 동안 공격 속도가 20% 증가합니다. (전투 대표 기술)"
-      },
-      "hemorrhage": {
-        "name": "붉은 리본",
-        "description": "적에게 무기 피해에 {damage}를 더한 피해를 입히고 12초에 걸쳐 출혈 피해를 입힙니다. 연계 점수 1점을 얻습니다. (잠행 대표 기술)"
-      },
-      "power_infusion": {
-        "name": "도유",
-        "description": "아군 대상에게 힘을 주입하여 15초 동안 주문력을 28 증가시킵니다. (수양 대표 기술)"
-      },
-      "holy_nova": {
-        "name": "Holy Nova",
-        "description": "치유의 빛을 폭발시켜 주위 아군의 생명력을 {damage}만큼 회복시키고 주위 적에게 피해를 입힙니다. (신성 대표 기술)"
-      },
-      "shadowform": {
-        "name": "어스름 장막",
-        "description": "어스름 장막을 두르고 원래 모습으로 돌아올 때까지 암흑 마법을 강화합니다. 다시 시전하면 원래 형태로 돌아옵니다. (암흑 대표 기술)"
-      },
-      "elemental_mastery": {
-        "name": "원시의 숙련",
-        "description": "원시의 숙련을 끌어내어 다음 주문을 즉시 시전합니다. (정기 대표 기술)"
-      },
-      "shamanistic_rage": {
-        "name": "주술사의 격노",
-        "description": "주술사의 격노를 발산하여 마나 160을 회복합니다. (고양 대표 기술)"
-      },
-      "natures_swiftness": {
-        "name": "자연의 신속함",
-        "description": "자연의 힘을 빌려 다음 주문을 즉시 시전합니다. (복원 대표 기술)"
-      },
-      "siphon_life": {
-        "name": "혈맥 착취",
-        "description": "적에게서 생명력을 흡수하여 30초에 걸쳐 {damage}의 암흑 피해를 입히고 입힌 피해만큼 자신을 치유합니다. (고통 대표 기술)"
-      },
-      "fel_domination": {
-        "name": "지옥 지배",
-        "description": "지옥의 기운을 지배하여 다음 주문을 즉시 시전합니다. (악마 대표 기술)"
-      },
-      "conflagrate": {
-        "name": "점화",
-        "description": "적에게 걸린 불타는 계약을 소모하여 불태워 {damage}의 화염 피해를 입힙니다. (파괴 대표 기술)"
-      },
-      "moonkin_form": {
-        "name": "달날개 형상",
-        "description": "달날개 형상을 취하고 원래 모습으로 돌아올 때까지 주문 시전을 강화합니다. 다시 시전하면 원래 형태로 돌아옵니다. (조화 대표 기술)"
-      },
-      "feral_charge": {
-        "name": "야성의 돌진",
-        "description": "적에게 돌진하여 1초 동안 속박합니다. 사거리 8-25yd. (야성 대표 기술)"
-      },
-      "swiftmend": {
-        "name": "신속한 치유",
-        "description": "아군 대상에게 걸린 지속 치유 효과를 소모하여 생명력을 {damage}만큼 회복시킵니다. (복원 대표 기술)"
-      },
-      "storm_bolt": {
-        "name": "폭풍 망치",
-        "description": "대상에게 무기를 던져 {damage}의 피해를 입히고 3초 동안 기절시킵니다."
-      },
-      "piercing_howl": {
-        "name": "꿰뚫는 절규",
-        "description": "날카로운 외침으로 15yd 이내의 모든 적의 이동 속도를 8초 동안 50% 감소시킵니다."
-      },
-      "die_by_sword": {
-        "name": "검의 승부",
-        "description": "방어 재사용 기술입니다. 8초 동안 받는 피해가 30% 감소하고 훨씬 많은 공격을 회피합니다."
-      },
-      "recklessness": {
-        "name": "무모함",
-        "description": "격노: 12초 동안 분노 생성이 50%, 치명타 확률이 20% 증가합니다."
-      },
-      "avatar": {
-        "name": "화신",
-        "description": "20초 동안 거상으로 변신하여 자신에게 걸린 모든 군중 제어 효과를 해제하고 입히는 피해가 20% 증가합니다."
-      },
-      "sanguine_aura": {
-        "name": "선혈의 오라",
-        "description": "적의 피로 무기를 물들여 20초 동안 자신과 근접 아군의 공격 속도와 피해가 10% 증가합니다."
-      },
-      "victory_rush": {
-        "name": "연전연승",
-        "description": "무기 피해에 {damage}를 더한 피해로 공격하고 최대 생명력의 20%를 회복합니다. 적을 처치한 후 20초 이내에만 사용할 수 있습니다."
-      },
-      "bladestorm": {
-        "name": "칼날폭풍",
-        "description": "소용돌이치는 강철의 폭풍이 되어 4초 동안 매초 8yd 이내의 모든 적에게 {damage}의 피해를 입힙니다."
-      },
-      "intimidating_shout": {
-        "name": "위협의 외침",
-        "description": "무시무시한 외침으로 8yd 이내의 적 최대 5명을 8초 동안 공포에 질려 달아나게 합니다. 피해를 입으면 효과가 해제될 수 있습니다."
-      },
-      "pummel": {
-        "name": "마구 치기",
-        "description": "주문 시전을 방해하여 4초 동안 해당 계열의 주문을 시전하지 못하게 합니다. 시전을 저지하면 분노 10을 생성합니다."
-      },
-      "heroic_leap": {
-        "name": "영웅의 도약",
-        "description": "지정한 지역으로 도약하여 주위 적에게 {damage}의 피해를 입힙니다."
-      },
-      "rallying_cry": {
-        "name": "재집결의 함성",
-        "description": "재집결의 함성을 내질러 자신과 40yd 이내의 파티원에게 10초 동안 최대 생명력을 20% 추가로 부여합니다."
       },
       "summon_imp": {
         "name": "불씨족 소환",
@@ -7068,18 +6794,6 @@ export const ko_KR: EnTranslations = {
       },
       "heroic_mark": {
         "name": "영웅의 징표"
-      },
-      "eastbrook_buckler": {
-        "name": "이스트브룩 버클러"
-      },
-      "highwatch_wallshield": {
-        "name": "하이워치 벽방패"
-      },
-      "eastbrook_greatsword": {
-        "name": "이스트브룩 대검"
-      },
-      "highwatch_greatsword": {
-        "name": "하이워치 대검"
       },
       "morthens_cryptforged_hauberk": {
         "name": "모르텐의 묘지주조 사슬갑옷"

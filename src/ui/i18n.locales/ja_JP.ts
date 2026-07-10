@@ -1609,7 +1609,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'itemUi.money.silver': '銀貨',
   'itemUi.money.copper': '銅貨',
   'itemUi.slots.mainhand': 'メインハンド',
-  'itemUi.slots.twoHand': '両手',
   'itemUi.slots.chest': '胸',
   'itemUi.slots.legs': '脚',
   'itemUi.slots.feet': '足',
@@ -2297,8 +2296,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.conjured_water2.name': '召喚された井戸水',
   'entities.items.conjured_water3.name': '召喚された清水',
   'entities.items.eastbrook_arming_sword.name': 'イーストブルックの武装剣',
-  'entities.items.eastbrook_buckler.name': 'イーストブルックのバックラー',
-  'entities.items.eastbrook_greatsword.name': 'イーストブルックの大剣',
   'entities.items.bronzework_mace.name': '青銅細工のメイス',
   'entities.items.vale_carving_knife.name': '谷の彫りナイフ',
   'entities.items.hickory_shortstaff.name': 'ヒッコリーの短杖',
@@ -2435,8 +2432,6 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.roast_mountain_goat.name': '焼き山羊肉',
   'entities.items.glacier_melt.name': '氷河の融け水',
   'entities.items.highwatch_warblade.name': 'ハイウォッチの戦刃',
-  'entities.items.highwatch_wallshield.name': 'ハイウォッチの壁盾',
-  'entities.items.highwatch_greatsword.name': 'ハイウォッチの大剣',
   'entities.items.craghorn_staff.name': '岩角の杖',
   'entities.items.icevein_dirk.name': '氷脈のダーク',
   'entities.items.highwatch_breastplate.name': 'ハイウォッチの胸当て',
@@ -6494,217 +6489,4 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '友達を招待しましょう：友達がレベル10に達すると、お互いに2スロット獲得できます。友達は最大5人までです。',
   'hudChrome.bank.bonusSectionAria': 'ボーナス銀行スロットと獲得方法',
   'entities.mobs.yumi_cat.name': 'ユミ',
-  'hudChrome.options.mouseoverCast': 'パーティフレームでマウスオーバーキャスト',
-  'hudChrome.options.showTargetOfTarget': 'ターゲットのターゲットを表示',
-  'hudChrome.talentRows.tab': '選択',
-  'hudChrome.talentRows.defaultLoadout': 'デフォルト構成',
-  'hudChrome.talentRows.comingSoon': '近日公開',
-  'hudChrome.specPanel.primaryAttr': '主要能力値',
-  'hudChrome.specPanel.complexity': '複雑さ',
-  'hudChrome.specPanel.complexityMedium': '中',
-  'hudChrome.specPanel.exampleAbilities': '代表的なアビリティ',
-  'hudChrome.specPanel.viewTalents': 'タレントを見る',
-  'hudChrome.specPanel.specUnlockBanner': 'スペシャライゼーション解放！',
-  'hudChrome.specPanel.specUnlockHint': 'Nキーを押してスペシャライゼーションを選択してください。',
-  'hudChrome.statInfo.names.haste': 'ヘイスト',
-  'hudChrome.statInfo.names.parry': '受け流し',
-  'hudChrome.statInfo.desc.haste':
-    'あなたの武器攻撃と呪文詠唱の速度を上げます。グローバルクールダウンは短縮しません。',
-  'hudChrome.statInfo.desc.parry':
-    '前方からの近接攻撃を完全に受け流し、ダメージを受けない確率です。背後からの一撃は受け流せません。',
-  'hudChrome.paperdoll.offhand': 'オフハンド',
-  'hudChrome.auraEffect.battleStance': 'バトルスタンス: 怒りの生成量が10%増加',
-  'hudChrome.auraEffect.berserkerStance':
-    'バーサーカースタンス: クリティカル率が3%上昇し、与えるダメージが3%増加',
-  'hudChrome.auraEffect.dmgDone': '与えるダメージを{pct}%上昇させる',
-  'hudChrome.auraEffect.dmgDoneReduce': '与えるダメージを{pct}%低下させる',
-  'hudChrome.auraEffect.crit': 'クリティカル率を{pct}%上昇させる',
-  'hudChrome.auraEffect.rageGen': '怒りの生成量を{pct}%上昇させる',
-  'hudChrome.auraEffect.reckless': 'クリティカル率を{pct}%、怒りの生成量を{ragePct}%上昇させる',
-  'hudChrome.auraEffect.avatar': 'コロッサス: 与えるダメージが{pct}%増加',
-  'hudChrome.auraEffect.bloodbath': 'クリティカル率と与えるダメージを{pct}%上昇させる',
-  'hudChrome.auraEffect.dieBySword':
-    '受けるダメージを{pct}%軽減する（体力{hpPct}%未満では{lowPct}%）',
-  'hudChrome.auraEffect.sanguine': '攻撃速度を{hastePct}%、与えるダメージを{dmgPct}%上昇させる',
-  'hudChrome.auraEffect.battleTrance':
-    '次のレイヴァーストライクまたはブルートスイングの怒りコストが0になる',
-  'hudChrome.auraEffect.revengeFree': '次の意趣返しの怒りコストが0になる',
-  'hudChrome.auraEffect.victoryRush': '勝利の追撃が使用可能',
-  'hudChrome.auraEffect.maxHpPct': '最大体力を{pct}%上昇させる',
-  'guide.abilityHook.revenge':
-    '前方のすべてを薙ぎ払う反撃で、一撃を受け流した直後はより安く使えます。',
-  'guide.abilityHook.hamstring': '対象の脚を斬りつけて減速させ、追いつかれないようにします。',
-  'hud.combat.floatingParry': '受け流し',
-  'hud.combat.parried': '{target}は{ability}を受け流しました。',
-  'hud.errors.nothingToConsume': '消費できるものがありません。',
-  'hud.errors.needShield': '盾を装備している必要があります。',
-  'entities.abilities.chain_heal.name': 'チェインヒール',
-  'entities.abilities.chain_heal.description':
-    '対象の体力を{damage}回復し、さらに近くの味方最大2人へ跳ね返ります。跳ねるたびに回復量は半分になります。',
-  'entities.abilities.revenge.name': '意趣返し',
-  'entities.abilities.revenge.description':
-    '大きく弧を描いて攻撃し、前方のすべての敵に物理ダメージを与えます。対象が5体を超えるとダメージが減少します。回避または受け流しに成功すると、次の意趣返しの怒りコストが0になることがあります。',
-  'entities.abilities.battle_stance.name': 'バトルスタンス',
-  'entities.abilities.battle_stance.description':
-    '攻撃的な戦闘スタンスです。怒りの生成量が10%増加します。武器と防御の基本スタンスです。',
-  'entities.abilities.berserker_stance.name': 'バーサーカースタンス',
-  'entities.abilities.berserker_stance.description':
-    '無謀な戦闘スタンスです。クリティカルの発生率が3%上昇し、ダメージが3%増加します。狂怒ウォリアーは常にこのスタンスで戦います。',
-  'entities.abilities.sweeping_strikes.name': '広がる弧',
-  'entities.abilities.sweeping_strikes.description':
-    '12秒間、単体攻撃が近くの敵1体にも75%のダメージで命中します。（武器）',
-  'entities.abilities.deep_wounds.name': '抉れた傷',
-  'entities.abilities.deep_wounds.description':
-    'パッシブ: あなたの重傷の一撃が対象に出血を残し、6秒かけて物理ダメージを与えます。（武器）',
-  'entities.abilities.enrage_passive.name': '狂乱',
-  'entities.abilities.enrage_passive.description':
-    'パッシブ: 激昂している間、与えるダメージが11%増加し、攻撃速度が25%、移動速度が10%上昇します（4秒間）。瀉血には30%の確率で激昂させる効果があり、赤い収穫は必ず激昂させます。（狂怒）',
-  'entities.abilities.raging_gale.name': '双撃',
-  'entities.abilities.raging_gale.description':
-    '武器で即座に2回攻撃し、それぞれ武器ダメージの60%に{damage}を加えたダメージを与え、怒りを{rage}生成します。最大2チャージまで蓄積します。（狂怒）',
-  'entities.abilities.red_harvest.name': '赤い収穫',
-  'entities.abilities.red_harvest.description':
-    'すべてを注ぎ込み、狂乱のうちに3回攻撃し、それぞれ武器ダメージに{damage}を加えたダメージを与えます。（狂怒）',
-  'entities.abilities.furious_mending.name': '憤怒の癒し',
-  'entities.abilities.furious_mending.description':
-    '10秒間、受けるダメージが20%減少し、効果中は瀉血が最大体力の20%を回復します。（狂怒）',
-  'entities.abilities.emboldening_roar.name': '奮起の咆哮',
-  'entities.abilities.emboldening_roar.description':
-    '奮い立たせる咆哮を上げ、40yd以内の自分と味方プレイヤーを鼓舞します。次の3回のアビリティが必ずクリティカルになります。（狂怒）',
-  'entities.abilities.raised_guard.name': '守りの構え',
-  'entities.abilities.raised_guard.description':
-    '盾の陰に身を構え、6秒間、受ける物理ダメージが50%減少します。最大2チャージまで蓄積します。（防御）',
-  'entities.abilities.iron_resolve.name': '鉄の決意',
-  'entities.abilities.iron_resolve.description':
-    '歯を食いしばって痛みを堪え、怒りをすべて消費し（最低20）、消費した怒り1につき4のダメージを吸収します。最大10秒間持続します。（防御）',
-  'entities.abilities.faultline.name': '断層',
-  'entities.abilities.faultline.description':
-    '地面に衝撃波を走らせ、前方8yd以内の敵に{damage}のダメージを与え、3秒間スタンさせます。（防御）',
-  'entities.abilities.defiant_bellow.name': '不屈の雄叫び',
-  'entities.abilities.defiant_bellow.description':
-    '不屈の雄叫びを上げ、10yd以内のすべての敵を挑発し、3秒間あなたを攻撃するよう強制します。（防御）',
-  'entities.abilities.breachmaker.name': '崩し手',
-  'entities.abilities.breachmaker.description':
-    '対象を打ち据えて武器ダメージに{damage}を加えたダメージを与え、その守りを崩します。8秒間、あなたがその対象に与えるダメージが20%増加します。（武器）',
-  'entities.abilities.measured_fury.name': '制御された怒り',
-  'entities.abilities.measured_fury.description':
-    '制御された怒りが効率を高め、アビリティの怒りコストが10%減少します。（武器）',
-  'entities.abilities.seasoned_soldier.name': '歴戦の兵',
-  'entities.abilities.seasoned_soldier.description':
-    'クリティカルの通常攻撃が生成する怒りが10%増加します。（武器）',
-  'entities.abilities.diabolical_twinstrike.name': '極悪の双撃',
-  'entities.abilities.diabolical_twinstrike.description':
-    '激昂している間、双撃のダメージが15%増加します。（狂怒）',
-  'entities.abilities.cleaving_blows.name': '切り裂く連撃',
-  'entities.abilities.cleaving_blows.description':
-    '赤い収穫は必ず双撃のチャージを1つ回復します。（狂怒）',
-  'entities.abilities.sudden_death.name': '突然死',
-  'entities.abilities.sudden_death.description':
-    '通常攻撃に、体力に関係なく早すぎる墓を怒りコストなしで使用できるようになる確率があります。（武器）',
-  'entities.abilities.holy_shock.name': 'ホーリーショック',
-  'entities.abilities.holy_shock.description':
-    '味方対象に神聖なエネルギーの衝撃を与え、体力を{damage}回復します。（神聖シグネチャー）',
-  'entities.abilities.holy_shield.name': '聖なる壁',
-  'entities.abilities.holy_shield.description':
-    '10秒間、神聖な力で身を守り、アーマーが90増加し、近接攻撃者に12の神聖ダメージを与えます。（防御シグネチャー）',
-  'entities.abilities.repentance.name': '悔悛',
-  'entities.abilities.repentance.description':
-    '敵を最大6秒間、瞑想状態にします。ダメージを受けると効果が解除されます。（報復シグネチャー）',
-  'entities.abilities.bestial_wrath.name': '咆哮する怒り',
-  'entities.abilities.bestial_wrath.description':
-    '獣のような怒りに身を任せ、15秒間、攻撃力が55増加します。（獣使いシグネチャー）',
-  'entities.abilities.trueshot_aura.name': '必中のオーラ',
-  'entities.abilities.trueshot_aura.description':
-    '周囲の味方を鼓舞し、5分間、攻撃力を35増加させます。（射撃シグネチャー）',
-  'entities.abilities.wyvern_sting.name': 'ワイバーンスティング',
-  'entities.abilities.wyvern_sting.description':
-    '遠距離から敵を刺し、最大4秒間、無力化します。ダメージを受けると効果が解除されます。（サバイバルシグネチャー）',
-  'entities.abilities.arcane_power.name': 'エーテルの奔流',
-  'entities.abilities.arcane_power.description':
-    'エーテルの奔流に満たされ、12秒間、呪文威力が28増加します。（秘術シグネチャー）',
-  'entities.abilities.combustion.name': '閃火',
-  'entities.abilities.combustion.description':
-    '火の魔法を集中させ、次の攻撃を必ずクリティカルにします。（火シグネチャー）',
-  'entities.abilities.cone_of_cold.description':
-    '周囲の敵を冷気で撃ち、{damage}の氷ダメージを与えます。（氷シグネチャー）',
-  'entities.abilities.cold_blood.name': '殺意の静けさ',
-  'entities.abilities.cold_blood.description':
-    '殺意を研ぎ澄まし、次の攻撃を必ずクリティカルにします。（暗殺シグネチャー）',
-  'entities.abilities.blade_flurry.name': '鏡写しの刃',
-  'entities.abilities.blade_flurry.description':
-    '刃の乱舞を解き放ち、12秒間、攻撃速度が20%増加します。（戦闘シグネチャー）',
-  'entities.abilities.hemorrhage.name': '紅の帯',
-  'entities.abilities.hemorrhage.description':
-    '敵を攻撃して武器ダメージに{damage}を加えたダメージを与え、12秒かけて出血ダメージを与えます。コンボポイントを1獲得します。（隠密シグネチャー）',
-  'entities.abilities.power_infusion.name': '塗油',
-  'entities.abilities.power_infusion.description':
-    '味方対象に力を注ぎ込み、15秒間、呪文威力が28増加します。（統制シグネチャー）',
-  'entities.abilities.holy_nova.description':
-    '癒しの光を爆発させ、周囲の味方の体力を{damage}回復し、周囲の敵にダメージを与えます。（神聖シグネチャー）',
-  'entities.abilities.shadowform.name': '宵闇の帳',
-  'entities.abilities.shadowform.description':
-    '宵闇の帳をまとい、解除するまで影の魔法を強化します。再度使用すると術者形態に戻ります。（影シグネチャー）',
-  'entities.abilities.elemental_mastery.name': '原初の熟達',
-  'entities.abilities.elemental_mastery.description':
-    '原初の熟達を呼び起こし、次の呪文を即時発動にします。（エレメンタルシグネチャー）',
-  'entities.abilities.shamanistic_rage.name': '呪術師の怒り',
-  'entities.abilities.shamanistic_rage.description':
-    '呪術師の怒りを解き放ち、マナを160回復します。（エンハンスメントシグネチャー）',
-  'entities.abilities.natures_swiftness.name': '自然の敏捷',
-  'entities.abilities.natures_swiftness.description':
-    '自然の力を借りて、次の呪文を即時発動にします。（回復シグネチャー）',
-  'entities.abilities.siphon_life.name': '血脈吸い',
-  'entities.abilities.siphon_life.description':
-    '敵から生命力を吸い取り、30秒かけて{damage}の影ダメージを与え、与えたダメージ分だけ自分の体力を回復します。（苦痛シグネチャー）',
-  'entities.abilities.fel_domination.name': 'フェルの支配',
-  'entities.abilities.fel_domination.description':
-    'フェルのエネルギーを支配し、次の呪文を即時発動にします。（悪魔学シグネチャー）',
-  'entities.abilities.conflagrate.name': '焦熱',
-  'entities.abilities.conflagrate.description':
-    '敵にかけた灼熱の契約を消費して燃え上がらせ、{damage}の火ダメージを与えます。（破壊シグネチャー）',
-  'entities.abilities.moonkin_form.name': 'ムーンウィングフォーム',
-  'entities.abilities.moonkin_form.description':
-    'ムーンウィングフォームになり、解除するまで呪文詠唱を強化します。再度使用すると術者形態に戻ります。（バランスシグネチャー）',
-  'entities.abilities.feral_charge.name': 'ワイルドチャージ',
-  'entities.abilities.feral_charge.description':
-    '敵に突進し、1秒間足止めします。射程8-25yd。（ワイルドシグネチャー）',
-  'entities.abilities.swiftmend.name': '迅速な癒し',
-  'entities.abilities.swiftmend.description':
-    '味方対象の継続回復効果を消費して、体力を{damage}回復します。（回復シグネチャー）',
-  'entities.abilities.storm_bolt.name': '嵐の一投',
-  'entities.abilities.storm_bolt.description':
-    '武器を対象に投げつけて{damage}のダメージを与え、3秒間スタンさせます。',
-  'entities.abilities.piercing_howl.name': '貫く咆哮',
-  'entities.abilities.piercing_howl.description':
-    '劈くような叫びを上げ、15yd以内のすべての敵の移動速度を8秒間、50%低下させます。',
-  'entities.abilities.die_by_sword.name': '剣に死す',
-  'entities.abilities.die_by_sword.description':
-    '防御的クールダウン。8秒間、受けるダメージが30%減少し、攻撃を回避する確率が大幅に上昇します。',
-  'entities.abilities.recklessness.name': '無謀',
-  'entities.abilities.recklessness.description':
-    '激昂。12秒間、怒りの生成量が50%、クリティカル率が20%増加します。',
-  'entities.abilities.avatar.name': '化身',
-  'entities.abilities.avatar.description':
-    '20秒間コロッサスに変身し、あらゆる行動妨害を解除し、与えるダメージが20%増加します。',
-  'entities.abilities.sanguine_aura.name': '血のオーラ',
-  'entities.abilities.sanguine_aura.description':
-    '武器に敵の血を宿し、20秒間、自分と近接の味方の攻撃速度が10%、ダメージが10%増加します。',
-  'entities.abilities.victory_rush.name': '勝利の追撃',
-  'entities.abilities.victory_rush.description':
-    '武器ダメージに{damage}を加えたダメージを与え、最大体力の20%を回復します。敵を倒してから20秒以内にのみ使用できます。',
-  'entities.abilities.bladestorm.name': '剣の嵐',
-  'entities.abilities.bladestorm.description':
-    '鋼の嵐と化し、4秒間、8yd以内のすべての敵に毎秒{damage}のダメージを与えます。',
-  'entities.abilities.intimidating_shout.name': '威圧の雄叫び',
-  'entities.abilities.intimidating_shout.description':
-    '恐ろしい叫びを上げ、8yd以内の最大5体の敵を8秒間、恐怖で逃げ惑わせます。ダメージを受けると効果が解除されることがあります。',
-  'entities.abilities.pummel.name': '殴打',
-  'entities.abilities.pummel.description':
-    '呪文の詠唱を中断し、4秒間、その系統の呪文を詠唱できなくします。詠唱を止めたときに怒りを10生成します。',
-  'entities.abilities.heroic_leap.name': '英雄的跳躍',
-  'entities.abilities.heroic_leap.description':
-    '対象地点へ跳躍し、周囲の敵に{damage}のダメージを与えます。',
-  'entities.abilities.rallying_cry.name': '結束の雄叫び',
-  'entities.abilities.rallying_cry.description':
-    '結束の雄叫びを上げ、40yd以内の自分とパーティメンバーの最大体力を10秒間、20%増加させます。',
 };

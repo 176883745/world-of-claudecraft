@@ -49,7 +49,6 @@ function partyMember(
     level: 10,
     hp: 100,
     mhp: 100,
-    absorb: 0,
     res: 0,
     mres: 0,
     rtype: null,

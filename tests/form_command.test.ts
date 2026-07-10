@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Sim } from '../src/sim/sim';
-import type { AuraKind, SimEvent } from '../src/sim/types';
+import { AuraKind, SimEvent } from '../src/sim/types';
 
 function makeWorld() {
   return new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
@@ -36,26 +36,16 @@ function lastReply(sim: Sim, cmd: string, pid: number): string {
 
 describe('/form command', () => {
   it('reports no form or stance by default', () => {
-    // A mage never carries a form or a stance (warriors now auto-enter a stance).
-    const sim = makeWorld();
-    const a = sim.addPlayer('mage', 'Aleph');
-    sim.tick();
-    expect(lastReply(sim, '/form', a)).toBe('You are not in any form or stance.');
-  });
-
-  it('reports the auto-applied Battle Stance for a default warrior', () => {
     const sim = makeWorld();
     const a = sim.addPlayer('warrior', 'Aleph');
     sim.tick();
-    expect(lastReply(sim, '/form', a)).toBe('You are in Battle Stance.');
+    expect(lastReply(sim, '/form', a)).toBe('You are not in any form or stance.');
   });
 
   it('names a warrior defensive stance', () => {
     const sim = makeWorld();
     const a = sim.addPlayer('warrior', 'Aleph');
-    // A warrior spawns seeded in Battle Stance; drop it so Guarded is the only
-    // stance (formReadout returns the first stance aura in the list).
-    sim.entities.get(a)!.auras.length = 0;
+    sim.tick();
     giveForm(sim, a, 'defensive_stance', 'Defensive Stance');
     expect(lastReply(sim, '/form', a)).toBe('You are in Defensive Stance.');
   });

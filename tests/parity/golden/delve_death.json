@@ -15,7 +15,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 406,
-      "state": "3cf6ed35",
+      "state": "7301c7f4",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -46,8 +46,7 @@
           "entityId": 405,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger",
-            "offhand": "rusty_dagger"
+            "mainhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -60,14 +59,6 @@
           ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -84,7 +75,6 @@
           "critChance": 0.0625,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0625,
-          "dualWielding": true,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 62,
@@ -95,15 +85,8 @@
           "maxHp": 62,
           "maxResource": 100,
           "moveSpeed": 7,
-          "offhandWeapon": {
-            "dagger": true,
-            "max": 4,
-            "min": 2,
-            "speed": 1.8
-          },
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.0585,
           "petMode": "defensive",
           "pos": {
             "x": 2,
@@ -141,7 +124,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 416,
-      "state": "373aff9c",
+      "state": "f9e81955",
       "events": "652092ee",
       "rng": {
         "draws": 1,
@@ -172,8 +155,7 @@
           "entityId": 405,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger",
-            "offhand": "rusty_dagger"
+            "mainhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -187,14 +169,6 @@
           "lifetimeXp": 11200,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -211,7 +185,6 @@
           "critChance": 0.0715,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0715,
-          "dualWielding": true,
           "fallStartY": 2.077747,
           "fiveSecondRule": 99,
           "hp": 93,
@@ -222,15 +195,8 @@
           "maxHp": 185,
           "maxResource": 100,
           "moveSpeed": 7,
-          "offhandWeapon": {
-            "dagger": true,
-            "max": 4,
-            "min": 2,
-            "speed": 1.8
-          },
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.0615,
           "petMode": "defensive",
           "pos": {
             "x": 4800,
@@ -267,7 +233,7 @@
       "tick": 2,
       "time": 0.1,
       "nextId": 416,
-      "state": "aebd3337",
+      "state": "e2ed21c6",
       "events": "84c4e002",
       "rng": {
         "draws": 1,
@@ -298,8 +264,7 @@
           "entityId": 405,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger",
-            "offhand": "rusty_dagger"
+            "mainhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -313,14 +278,6 @@
           "lifetimeXp": 11200,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -337,7 +294,6 @@
           "critChance": 0.0715,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0715,
-          "dualWielding": true,
           "fallStartY": 2.353205,
           "fiveSecondRule": 99.1,
           "hp": 185,
@@ -348,15 +304,8 @@
           "maxHp": 185,
           "maxResource": 100,
           "moveSpeed": 7,
-          "offhandWeapon": {
-            "dagger": true,
-            "max": 4,
-            "min": 2,
-            "speed": 1.8
-          },
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.0615,
           "petMode": "defensive",
           "pos": {
             "x": -5,
@@ -394,7 +343,7 @@
       "tick": 2,
       "time": 0.1,
       "nextId": 416,
-      "state": "aebd3337",
+      "state": "e2ed21c6",
       "events": "741638a5",
       "rng": {
         "draws": 1,
@@ -425,8 +374,7 @@
           "entityId": 405,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger",
-            "offhand": "rusty_dagger"
+            "mainhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -440,14 +388,6 @@
           "lifetimeXp": 11200,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -464,7 +404,6 @@
           "critChance": 0.0715,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0715,
-          "dualWielding": true,
           "fallStartY": 2.353205,
           "fiveSecondRule": 99.1,
           "hp": 185,
@@ -475,15 +414,8 @@
           "maxHp": 185,
           "maxResource": 100,
           "moveSpeed": 7,
-          "offhandWeapon": {
-            "dagger": true,
-            "max": 4,
-            "min": 2,
-            "speed": 1.8
-          },
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.0615,
           "petMode": "defensive",
           "pos": {
             "x": -5,

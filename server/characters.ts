@@ -255,9 +255,6 @@ function buildCharacterList(
       forceRename: c.force_rename,
       lastPlayed: c.last_played ? new Date(c.last_played).toISOString() : null,
       playtimeSeconds: Number(c.playtime_seconds ?? 0),
-      skinCatalog: c.state?.skinCatalog === 'mech' ? 'mech' : 'class',
-      mainhandItemId: c.state?.equipment?.mainhand ?? null,
-      offhandItemId: c.state?.equipment?.offhand ?? null,
     })),
   };
 }

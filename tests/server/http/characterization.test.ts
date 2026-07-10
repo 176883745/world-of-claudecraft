@@ -66,7 +66,6 @@ async function loadDispatch(): Promise<Dispatch> {
 let dispatch: Dispatch;
 let main: typeof import('../../../server/main');
 let savedDiscordEnv: Partial<Record<(typeof DISCORD_ENV_KEYS)[number], string | undefined>>;
-let savedRealmName: string | undefined;
 
 beforeAll(async () => {
   savedDiscordEnv = {};
@@ -74,12 +73,6 @@ beforeAll(async () => {
     savedDiscordEnv[key] = process.env[key];
   }
   clearDiscordConfigEnv();
-  // Pin the realm BEFORE importing main: server/env.ts (main's first import)
-  // loads the developer's .env, and realm.ts freezes REALM into a const at
-  // import time, so a machine-local REALM_NAME would otherwise leak into the
-  // goldens below (which pin the default realm's literal name).
-  savedRealmName = process.env.REALM_NAME;
-  process.env.REALM_NAME = 'Claudemoon';
   main = await import('../../../server/main');
   // server/db.ts loads .env during the main import, so clear again after import.
   clearDiscordConfigEnv();
@@ -99,8 +92,6 @@ afterAll(() => {
     if (value === undefined) delete process.env[key];
     else process.env[key] = value;
   }
-  if (savedRealmName === undefined) delete process.env.REALM_NAME;
-  else process.env.REALM_NAME = savedRealmName;
 });
 
 // One golden per case: 'written' on the first ever run (fixture absent -> written),

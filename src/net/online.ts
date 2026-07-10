@@ -9,9 +9,9 @@ import {
 import { bagCapacity } from '../sim/bags';
 import { signChallenge } from '../sim/client_challenge';
 import { mechChromaItemId, mechChromaSkinIndex } from '../sim/content/skins';
-import { computeModifiersWithRows, emptyRowPicks, type RowPicks } from '../sim/content/talent_rows';
 import {
   cloneAllocation,
+  computeTalentModifiers,
   emptyAllocation,
   pointsSpent,
   type Role,
@@ -105,10 +105,9 @@ export interface CharacterSummary {
   playtimeSeconds?: number;
   // Real, in-world appearance so the char-select preview matches the game. Both
   // optional for back-compat with an older server that omits them: absent
-  // skinCatalog defaults to the class rig, absent held items show no weapon.
+  // skinCatalog defaults to the class rig, absent mainhand shows no weapon.
   skinCatalog?: 'class' | 'mech';
   mainhandItemId?: string | null;
-  offhandItemId?: string | null;
 }
 
 function stringList(value: unknown): string[] {
@@ -890,7 +889,6 @@ function blankEntity(id: number): Entity {
     overheadEmoteSeq: 0,
     stats: { str: 0, agi: 0, sta: 0, int: 0, spi: 0, armor: 0 },
     weapon: { min: 1, max: 2, speed: 2 },
-    offhandWeapon: null,
     attackPower: 0,
     rangedPower: 0,
     spellPower: 0,
@@ -903,25 +901,20 @@ function blankEntity(id: number): Entity {
     critRating: 0,
     hasteRating: 0,
     dodgeChance: 0.05,
-    parryChance: 0,
-    blockChance: 0,
-    blockValue: 0,
     moveSpeed: 7,
     hostile: false,
     targetId: null,
     autoAttack: false,
     swingTimer: 0,
-    offhandSwingTimer: 0,
-    dualWielding: false,
     inCombat: false,
     combatTimer: 99,
     auras: [],
     stealthed: false,
     ccDr: new Map(),
     castingAbility: null,
-    castTargetId: null, // server-side combat state; never on the wire
     castRemaining: 0,
     castTotal: 0,
+    castTargetId: null,
     castAim: null,
     channeling: false,
     channelTickTimer: 0,
@@ -941,7 +934,6 @@ function blankEntity(id: number): Entity {
     chargeTargetId: null,
     chargeTimeLeft: 0,
     chargePath: [],
-    leap: null,
     followTargetId: null,
     sitting: false,
     eating: null,
@@ -999,7 +991,6 @@ function blankEntity(id: number): Entity {
     skinCatalog: 'class',
     skin: 0,
     mainhandItemId: null,
-    offhandItemId: null,
     equippedItems: {},
     equippedInstances: {},
     guild: '',
@@ -1046,9 +1037,6 @@ export class ClientWorld implements IWorld {
   talentRole: Role | null = null;
   loadouts: SavedLoadout[] = [];
   activeLoadout = -1;
-  // Choice-row picks, mirrored from the snapshot self (`tal.rowPicks`). Display
-  // only; picks are server-validated (pickRowTalent just sends the command).
-  rowPicks: RowPicks = emptyRowPicks();
   questLog = new Map<string, QuestProgress>();
   questsDone = new Set<string>();
   // --- IWorldParty: party/raid roster, mirrored from the snapshot self (`party`).
@@ -1634,7 +1622,6 @@ export class ClientWorld implements IWorld {
         e.level = w.lv;
         e.skin = w.sk ?? 0;
         e.mainhandItemId = w.mh ?? null; // equipped mainhand → held weapon model (render-only)
-        e.offhandItemId = w.oh ?? null; // equipped offhand → held item model (render-only)
         e.equippedItems = w.eq ?? {}; // full worn set (render-only), for the inspect window
         e.skinCatalog = w.cat === 'mech' ? 'mech' : 'class';
         e.holderTier = w.ht ?? 0; // $WOC holder-tier flair (cosmetic, server-set)
@@ -1745,10 +1732,6 @@ export class ClientWorld implements IWorld {
       e.channeling = !!w.chan;
       e.sitting = !!w.sit;
       e.aggroTargetId = w.aggro ?? null;
-      // Another entity's selected target (players/bots; mobs use aggro above). Powers
-      // the target-of-target frame for a player target. For the SELF record this is
-      // re-set authoritatively from `s.target` in the self-decode below (same value).
-      e.targetId = w.tgt ?? null;
       e.tappedById = w.tap ?? null;
       e.ownerId = w.own ?? null;
       e.petMode = w.pm ?? 'defensive';
@@ -1871,13 +1854,6 @@ export class ClientWorld implements IWorld {
         e.cooldowns.clear();
         for (const k in s.cds) e.cooldowns.set(k, Number(s.cds[k]));
       }
-      if (s.chg !== undefined) {
-        // Charge-limited stored-use counts (Double Charge). cdMax is a
-        // server-side recharge detail; the mirror only displays spent counts.
-        if (!e.charges) e.charges = new Map();
-        e.charges.clear();
-        for (const k in s.chg) e.charges.set(k, { spent: Number(s.chg[k]), cdMax: 0 });
-      }
       e.gcdRemaining = s.gcd ?? 0;
       e.potionCdRemaining = s.pcd ?? 0;
       e.comboPoints = s.combo ?? 0;
@@ -1899,7 +1875,6 @@ export class ClientWorld implements IWorld {
       // character sheet shows them instead of the blankEntity 0. Server-recomputed.
       e.critRating = s.crat ?? 0;
       e.hasteRating = s.hrat ?? 0;
-      e.parryChance = s.parry ?? 0;
       e.weapon = s.weapon ?? e.weapon;
       e.eating = s.eat
         ? { itemId: '', kind: 'food', hpPer2s: 0, manaPer2s: 0, remaining: s.eat.remaining }
@@ -1957,25 +1932,22 @@ export class ClientWorld implements IWorld {
         this.talentRole = s.tal.role ?? null;
         this.loadouts = s.tal.loadouts ?? [];
         this.activeLoadout = typeof s.tal.activeLoadout === 'number' ? s.tal.activeLoadout : -1;
-        this.rowPicks = Array.isArray(s.tal.rowPicks) ? s.tal.rowPicks : emptyRowPicks();
       }
       if (!this.talents) this.talents = emptyAllocation();
-      if (!this.rowPicks) this.rowPicks = emptyRowPicks();
       const talents = this.talents;
       // IWorldValeCup sport-kit swap (the wire trap, docs/prd/vale-cup.md): a
       // server-side meta.known swap is invisible to this derived rebuild, so
       // the server flags the live role via the wireRev-gated heavy `sport`
       // field. While the mirrored role is set, known is the role kit from the
       // shared resolver (identical to the Sim's swap); otherwise the normal
-      // point tree + choice-row pick derivation applies (the same bake the
-      // server runs, so row-granted abilities and tweaks display identically).
+      // class/level/talent derivation below applies.
       if (s.sport !== undefined) this.sportRole = s.sport ? (s.sport.role ?? null) : null;
       this.known = this.sportRole
         ? resolveSportKit(this.sportRole)
         : abilitiesKnownAt(
             this.cfg.playerClass,
             e.level,
-            computeModifiersWithRows(this.cfg.playerClass, talents, this.rowPicks),
+            computeTalentModifiers(this.cfg.playerClass, talents),
           );
       // --- IWorldParty: party roster + raid markers, delta-omitted self-decode
       // (keep the prior value when absent; `marks: null` clears on disband). ---
@@ -2116,13 +2088,6 @@ export class ClientWorld implements IWorld {
   castAbilityAt(abilityId: string, aim: { x: number; z: number }): void {
     // Ground-targeted: no entity target involved, so no dead-target guard.
     this.cmd({ cmd: 'castAt', ability: abilityId, x: aim.x, z: aim.z });
-  }
-  // Mouseover cast: the friendly-target override rides the existing 'cast'
-  // token as an extra field; the server routes it to sim.castAbilityOn. No
-  // dead-target pre-reject here: friendly casts never take that path, and a
-  // stale override falls back to current-target-else-self server-side.
-  castAbilityOn(abilityId: string, targetId: number): void {
-    this.cmd({ cmd: 'cast', ability: abilityId, target: targetId });
   }
   cancelAura(auraId: string): void {
     // Authoritative on the server; the dropped aura disappears on the next self
@@ -2869,11 +2834,6 @@ export class ClientWorld implements IWorld {
   setSpec(specId: string | null): void {
     this.cmd({ cmd: 'setSpec', spec: specId });
   }
-  pickRowTalent(rowIndex: number, optionId: string | null): void {
-    // Pure send: the server validates and the next snapshot's `tal.rowPicks`
-    // mirrors the authoritative result (no optimistic local mutation).
-    this.cmd({ cmd: 'pickRowTalent', row: rowIndex, option: optionId });
-  }
   saveLoadout(name: string, bar: (string | null)[], alloc?: TalentAllocation): void {
     this.cmd({ cmd: 'saveLoadout', name, bar, alloc });
     if (alloc) {
@@ -2894,11 +2854,7 @@ export class ClientWorld implements IWorld {
       this.known = abilitiesKnownAt(
         this.cfg.playerClass,
         this.player.level,
-        computeModifiersWithRows(
-          this.cfg.playerClass,
-          this.talents,
-          this.rowPicks ?? emptyRowPicks(),
-        ),
+        computeTalentModifiers(this.cfg.playerClass, this.talents),
       );
     }
   }
@@ -2919,11 +2875,7 @@ export class ClientWorld implements IWorld {
         this.known = abilitiesKnownAt(
           this.cfg.playerClass,
           this.player.level,
-          computeModifiersWithRows(
-            this.cfg.playerClass,
-            this.talents,
-            this.rowPicks ?? emptyRowPicks(),
-          ),
+          computeTalentModifiers(this.cfg.playerClass, this.talents),
         );
       }
     } else if (this.activeLoadout > index) this.activeLoadout -= 1;

@@ -17,7 +17,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 406,
-      "state": "3dd35853",
+      "state": "d5a08679",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -65,14 +65,6 @@
           ],
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -101,7 +93,6 @@
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.057,
           "petMode": "defensive",
           "pos": {
             "x": 2,
@@ -139,7 +130,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 410,
-      "state": "9ddfa2eb",
+      "state": "98539300",
       "events": "036cadcd",
       "rng": {
         "draws": 14,
@@ -150,7 +141,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 410,
-      "state": "992d99d5",
+      "state": "d189ad82",
       "events": "741638a5",
       "rng": {
         "draws": 14,
@@ -161,7 +152,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 410,
-      "state": "c2ac8cca",
+      "state": "ced46b47",
       "events": "ac0e0d97",
       "rng": {
         "draws": 109,
@@ -172,7 +163,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 410,
-      "state": "7719e88e",
+      "state": "a27a550f",
       "events": "741638a5",
       "rng": {
         "draws": 187,
@@ -183,7 +174,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 410,
-      "state": "5987768d",
+      "state": "834a9b10",
       "events": "cac4bb75",
       "rng": {
         "draws": 306,
@@ -194,7 +185,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 410,
-      "state": "41cc6b3a",
+      "state": "3fd8be81",
       "events": "741638a5",
       "rng": {
         "draws": 427,
@@ -205,7 +196,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 410,
-      "state": "bc2fa5d7",
+      "state": "134f2dc8",
       "events": "741638a5",
       "rng": {
         "draws": 427,
@@ -256,14 +247,6 @@
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -294,7 +277,6 @@
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.0625,
           "petMode": "defensive",
           "pos": {
             "x": 27,
@@ -548,7 +530,7 @@
       "tick": 140,
       "time": 7,
       "nextId": 410,
-      "state": "f6815558",
+      "state": "4aa9d2bf",
       "events": "741638a5",
       "rng": {
         "draws": 520,
@@ -559,7 +541,7 @@
       "tick": 160,
       "time": 8,
       "nextId": 410,
-      "state": "2455cb0b",
+      "state": "a836ab22",
       "events": "741638a5",
       "rng": {
         "draws": 641,
@@ -570,7 +552,7 @@
       "tick": 180,
       "time": 9,
       "nextId": 410,
-      "state": "82c811c3",
+      "state": "3a160066",
       "events": "741638a5",
       "rng": {
         "draws": 773,
@@ -581,7 +563,7 @@
       "tick": 180,
       "time": 9,
       "nextId": 410,
-      "state": "82c811c3",
+      "state": "3a160066",
       "events": "741638a5",
       "rng": {
         "draws": 773,
@@ -632,14 +614,6 @@
           "lifetimeXp": 44000,
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
-          "rowPicks": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -669,7 +643,6 @@
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
-          "parryChance": 0.0625,
           "petMode": "defensive",
           "pos": {
             "x": 27,
