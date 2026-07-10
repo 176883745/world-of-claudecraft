@@ -6590,22 +6590,22 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.colReward': 'Belønning',
   'guide.deedsPage.featTag': 'Bragd',
   'guide.deedsPage.featsBody':
-    'Bragder står på en hylde for sig: optegnelser over eftermæle og over det, der blev gjort først i hele verden, de bedrifter, der er bundet til en svunden tid eller et øjeblik, som kun indtræffer én gang. De giver ingen Hæder og tæller ikke med i fuldførelsestallet, men bevares for altid som et minde om det, der blev gjort.',
+    'Bragder står på en hylde for sig: optegnelser over eftermæle og over det, der blev gjort først i hele verden, de bedrifter, der er bundet til en svunden tid eller et øjeblik, som kun indtræffer én gang. De giver ingen hæder og tæller ikke med i fuldførelsestallet, men bevares for altid som et minde om det, der blev gjort.',
   'guide.deedsPage.featsHeading': 'Bragder',
   'guide.deedsPage.howBody':
     'Bedrifter opnås af én karakter ad gangen og vises for hele din konto, så hver helt, du spiller, føjer til den samme samling. Hver bedrift fortæller ligeud, hvad den kræver af dig, lige der i Bedrifternes Bog inde i spillet, så du altid ved, hvad du skal jage, og du kan sætte sporing på dem, du går efter, så du har dem for øje, mens du spiller. Nogle ganske få holder sig skjult og giver sig først til kende, når du har opnået dem.',
   'guide.deedsPage.howHeading': 'Sådan fungerer bedrifter',
   'guide.deedsPage.intro':
-    'Bedrifternes Bog er stedet, hvor verden holder regnskab med alt, hvad du har udrettet, fra dine første skridt ud af startdalen til de hårdeste kampe, riget kan byde på. Opnå bedrifter, mens du spiller, bær de titler, de skænker, og se din Hæder stige.',
+    'Bedrifternes Bog er stedet, hvor verden holder regnskab med alt, hvad du har udrettet, fra dine første skridt ud af startdalen til de hårdeste kampe, riget kan byde på. Opnå bedrifter, mens du spiller, bær de titler, de skænker, og se din hæder stige.',
   'guide.deedsPage.renownBody':
-    'Hæder er tallet bag Bogen. Hver bedrift, du opnår, er en fast mængde Hæder værd, og din samlede sum kan kun stige, så en stille uge koster dig aldrig terræn. En håndfuld bedrifter afgøres af held snarere end kunnen, og Bragder er en ære helt for sig, så begge dele giver slet ingen Hæder.',
+    'Hæder er tallet bag Bogen. Hver bedrift, du opnår, er en fast mængde hæder værd, og din samlede sum kan kun stige, så en stille uge koster dig aldrig terræn. En håndfuld bedrifter afgøres af held snarere end kunnen, og Bragder er en ære helt for sig, så begge dele giver slet ingen hæder.',
   'guide.deedsPage.renownHeading': 'Hæder',
   'guide.deedsPage.rewardBorder': 'Ramme',
   'guide.deedsPage.rewardsBody':
     'Belønningerne er ren pynt, og det er hele pointen. Nogle bedrifter skænker en titel, du kan bære, eller en ramme om dit navn, men aldrig noget, der gør din helt stærkere. Vælg den titel, du ønsker, i Bedrifternes Bog, så følger den med på dit navneskilt, i chatten og på ranglisterne, hvor alle kan se den.',
   'guide.deedsPage.rewardsHeading': 'Titler og rammer',
   'guide.deedsPage.standingsNote':
-    'Rigerne fører et løbende regnskab over Hæder på tværs af alle konti. Vil du se, hvem der står hvor, så åbn Bedrifternes Bog inde i spillet og slå op på Hæder-ranglisten; den bor der, ikke på wikien.',
+    'Rigerne fører et løbende regnskab over hæder på tværs af alle konti. Vil du se, hvem der står hvor, så åbn Bedrifternes Bog inde i spillet og slå op på Hæder-ranglisten; den bor der, ikke på wikien.',
   'guide.nav.deeds': 'Bedrifternes Bog',
   'hudChrome.deeds.broadcastLine': '{name} har fuldbragt en bedrift: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Del nye bedrifter med laug og venner',

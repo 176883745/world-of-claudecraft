@@ -7,7 +7,7 @@
 // authored English (clean English is preferable to a broken guess).
 
 import { DEEDS } from '../sim/data';
-import { DEED_LOCALE_TABLES } from './deed_i18n.newlocales';
+import { DEED_LOCALE_DIALECT_OVERRIDES, DEED_LOCALE_TABLES } from './deed_i18n.newlocales';
 import { getLanguage, type SupportedLanguage, t } from './i18n';
 
 export type DeedTranslationField = 'name' | 'desc' | 'title';
@@ -23,14 +23,15 @@ export interface DeedLocaleEntry {
 export type DeedLocaleTable = Record<string, DeedLocaleEntry>;
 
 // The release-fill table (the TALENT_NEW newlocales shape): one
-// DeedLocaleTable per base locale, assembled here with es_ES and fr_CA as
-// pure dialect aliases of their base locale (the talent_i18n localeText
-// dialect model); en and en_CA resolve to the authored English in
-// localeEntry before this map is consulted.
+// DeedLocaleTable per base locale, assembled here with es_ES and fr_CA
+// inheriting their base locale (the talent_i18n localeText dialect model)
+// under the few entries whose delve vocabulary genuinely diverges; en and
+// en_CA resolve to the authored English in localeEntry before this map is
+// consulted.
 const DEED_LOCALES: Partial<Record<SupportedLanguage, DeedLocaleTable>> = {
   ...DEED_LOCALE_TABLES,
-  es_ES: DEED_LOCALE_TABLES.es,
-  fr_CA: DEED_LOCALE_TABLES.fr_FR,
+  es_ES: { ...DEED_LOCALE_TABLES.es, ...DEED_LOCALE_DIALECT_OVERRIDES.es_ES },
+  fr_CA: { ...DEED_LOCALE_TABLES.fr_FR, ...DEED_LOCALE_DIALECT_OVERRIDES.fr_CA },
 };
 
 function localeEntry(id: string): DeedLocaleEntry | undefined {

@@ -295,4 +295,6 @@ export const es_ES: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.collapseHint': 'Contraer el seguimiento de gestas',
   'hudChrome.deeds.expandHint': 'Expandir el seguimiento de gestas',
   'hudChrome.deeds.watchAria': 'Seguir {name} en el seguimiento en pantalla',
+  'guide.deedsPage.cat.delve': 'Profundidades',
+  'hudChrome.deeds.catDelve': 'Profundidades',
 };

@@ -14,7 +14,7 @@ import {
   titledDisplayName,
   titledNameDecoration,
 } from '../src/ui/deed_i18n';
-import { DEED_LOCALE_TABLES } from '../src/ui/deed_i18n.newlocales';
+import { DEED_LOCALE_DIALECT_OVERRIDES, DEED_LOCALE_TABLES } from '../src/ui/deed_i18n.newlocales';
 import { setLanguage } from '../src/ui/i18n';
 
 describe('deed_i18n English resolution', () => {
@@ -179,25 +179,57 @@ describe('DEED_LOCALE_TABLES (the release fill)', () => {
     }
   });
 
-  it('resolves per language, with es_ES and fr_CA as pure aliases of their base locale', () => {
+  it('resolves per language, with es_ES and fr_CA inheriting their base under the delve-term overrides', () => {
     try {
       setLanguage('de_DE');
       expect(deedName('prog_first_steps')).toBe('Erste Schritte');
       expect(deedTitleText('prog_veteran')).toBe('Veteran');
-      // Dialect aliasing: es_ES resolves byte-identically to es (the
-      // talent_i18n localeText dialect model, one shared table object).
+      // Dialect inheritance: a non-overridden entry resolves byte-identically
+      // to the base locale (the talent_i18n localeText dialect model).
       setLanguage('es_ES');
       const dialectName = deedName('prog_first_steps');
       const dialectDesc = deedDesc('col_discovery_250');
+      // The delve deeds diverge with the dialect's own delve noun (the
+      // shipped delveUi vocabulary: es_ES Profundidad, fr_CA excavation).
+      expect(deedDesc('dlv_clears_50')).toContain('Profundidades');
       setLanguage('es');
       expect(deedName('prog_first_steps')).toBe(dialectName);
       expect(deedDesc('col_discovery_250')).toBe(dialectDesc);
+      expect(deedDesc('dlv_clears_50')).not.toContain('Profundidades');
+      setLanguage('fr_CA');
+      expect(deedDesc('dlv_clears_50')).toContain('excavations');
+      setLanguage('fr_FR');
+      expect(deedDesc('dlv_clears_50')).toContain('plongées');
       // en_CA resolves to the authored English before the table is consulted.
       setLanguage('en_CA');
       expect(deedName('prog_first_steps')).toBe('First Steps');
       expect(deedTitleText('prog_veteran')).toBe('Veteran');
     } finally {
       setLanguage('en');
+    }
+  });
+
+  it('dialect overrides carry only real catalog ids and obey the same copy rules', () => {
+    const forbidden =
+      /[–—―]|[\u{1F000}-\u{1FAFF}]|[\u{1F1E6}-\u{1F1FF}]|[\u{2600}-\u{27BF}]|\u{FE0F}/u;
+    for (const [dialect, table] of Object.entries(DEED_LOCALE_DIALECT_OVERRIDES)) {
+      const base = dialect === 'es_ES' ? DEED_LOCALE_TABLES.es : DEED_LOCALE_TABLES.fr_FR;
+      for (const [id, entry] of Object.entries(table)) {
+        expect(DEEDS[id], `${dialect}.${id} is not a catalog deed`).toBeDefined();
+        for (const field of ['name', 'desc', 'title'] as const) {
+          const value = entry[field];
+          if (value !== undefined) {
+            expect(value.trim().length, `${dialect}.${id}.${field} empty`).toBeGreaterThan(0);
+            expect(forbidden.test(value), `${dialect}.${id}.${field}: "${value}"`).toBe(false);
+          }
+        }
+        // An override that is byte-identical to the base entry is dead weight
+        // (the dialect gate philosophy: divergence-only).
+        expect(
+          JSON.stringify(entry) !== JSON.stringify(base[id]),
+          `${dialect}.${id} is byte-identical to its base entry`,
+        ).toBe(true);
+      }
     }
   });
 });

@@ -1270,7 +1270,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'En Fodnote i Historien',
-      desc: 'Plagede Saul the Chronicler ni gange uden ophold.',
+      desc: 'Plagede krønikeskriveren Saul ni gange uden ophold.',
       title: 'Fodnoten',
     },
     hid_gilded_tour: {
@@ -1962,7 +1962,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Eine Fußnote der Geschichte',
-      desc: 'Saul the Chronicler neunmal ohne Pause belästigt.',
+      desc: 'Saul den Chronisten neunmal ohne Pause belästigt.',
       title: 'die Fußnote',
     },
     hid_gilded_tour: {
@@ -2667,7 +2667,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Una nota al pie de la historia',
-      desc: 'Importunaste a Saul the Chronicler nueve veces sin pausa.',
+      desc: 'Importunaste a Saul el Cronista nueve veces sin pausa.',
       title: 'Nota al pie',
     },
     hid_gilded_tour: {
@@ -4083,7 +4083,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Catatan Kaki Sejarah',
-      desc: 'Mengusik Saul the Chronicler sembilan kali tanpa jeda.',
+      desc: 'Mengusik Saul sang Juru Kronik sembilan kali tanpa jeda.',
       title: 'Sang Catatan Kaki',
     },
     hid_gilded_tour: {
@@ -4812,7 +4812,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Una Postilla nella Storia',
-      desc: 'Hai importunato Saul the Chronicler nove volte senza sosta.',
+      desc: 'Hai importunato Saul il Cronista nove volte senza sosta.',
       title: 'la Postilla',
     },
     hid_gilded_tour: {
@@ -5099,7 +5099,7 @@ export const DEED_LOCALE_TABLES: Record<
     chr_vale_packbreaker: { name: '群れ崩し', desc: '10秒以内に森の狼を3体倒す。' },
     chr_vale_cup_debut: {
       name: '銅の手桶の挑戦者',
-      desc: 'ソウフィールドでの渓谷杯の試合に出場し、ボールに触れる。',
+      desc: 'ソウフィールドでのヴェイルカップの試合に出場し、ボールに触れる。',
     },
     chr_vale_rares: {
       name: '渓谷の恐怖',
@@ -5185,8 +5185,8 @@ export const DEED_LOCALE_TABLES: Record<
       desc: '初めてレジェンダリー品質のアイテムを手に入れる。',
     },
     col_set_vale_arcanist: {
-      name: '谷の秘術師の礼装',
-      desc: '谷の秘術師の礼装の全部位を発見する。',
+      name: '渓谷の秘術師の礼装',
+      desc: '渓谷の秘術師の礼装の全部位を発見する。',
     },
     col_set_boundstone_vanguard: { name: '束縛石の先鋒', desc: '束縛石の先鋒の全部位を発見する。' },
     col_set_greyjaw_stalker: {
@@ -5780,8 +5780,8 @@ export const DEED_LOCALE_TABLES: Record<
       desc: '전설 등급 아이템을 처음으로 손에 넣으십시오.',
     },
     col_set_vale_arcanist: {
-      name: '계곡 비전술사 예복',
-      desc: '계곡 비전술사 예복의 모든 부위를 발견하십시오.',
+      name: '골짜기 비전술사 예복',
+      desc: '골짜기 비전술사 예복의 모든 부위를 발견하십시오.',
     },
     col_set_boundstone_vanguard: {
       name: '속박석 선봉대',
@@ -6704,7 +6704,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Een Voetnoot in de Geschiedenis',
-      desc: 'Viel Saul the Chronicler negen keer zonder ophouden lastig.',
+      desc: 'Viel Saul de Kroniekschrijver negen keer zonder ophouden lastig.',
       title: 'de Voetnoot',
     },
     hid_gilded_tour: {
@@ -7394,7 +7394,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Przypis do historii',
-      desc: 'Saul the Chronicler zniósł od ciebie dziewięć zaczepek bez chwili przerwy.',
+      desc: 'Saul Kronikarz zniósł od ciebie dziewięć zaczepek bez chwili przerwy.',
       title: 'Przypis',
     },
     hid_gilded_tour: {
@@ -8087,7 +8087,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Uma Nota de Rodapé na História',
-      desc: 'Importunou Saul the Chronicler nove vezes, sem parar.',
+      desc: 'Importunou Saul, o Cronista, nove vezes, sem parar.',
       title: 'a Nota de Rodapé',
     },
     hid_gilded_tour: {
@@ -8361,12 +8361,12 @@ export const DEED_LOCALE_TABLES: Record<
     },
     dlv_reliquary: { name: 'Ходок в Реликварий', desc: 'Пройдите Обрушившийся Реликварий.' },
     dlv_reliquary_heroic: {
-      name: 'Героический режим: Обрушившийся Реликварий',
+      name: 'Героизм: Обрушившийся Реликварий',
       desc: 'Пройдите Обрушившийся Реликварий на героическом уровне.',
     },
     dlv_litany: { name: 'Утишить Литанию', desc: 'Пройдите Утонувшую Литанию.' },
     dlv_litany_heroic: {
-      name: 'Героический режим: Утонувшая Литания',
+      name: 'Героизм: Утонувшая Литания',
       desc: 'Пройдите Утонувшую Литанию на героическом уровне.',
     },
     dlv_lore_journal: {
@@ -8392,15 +8392,15 @@ export const DEED_LOCALE_TABLES: Record<
     },
     dlv_rite_flawless: {
       name: 'Слово в слово',
-      desc: 'Завершите Обряд Утопшего Реликвария, не допустив ни единой ошибки.',
+      desc: 'Завершите Обряд Утонувшего Реликвария, не допустив ни единой ошибки.',
     },
     dlv_varric_ringers: {
       name: 'Колокола умолкают',
-      desc: 'Победите Дьякона Варрика, когда все поднятые им Погребальные звонари уже перебиты.',
+      desc: 'Одолейте Дьякона Варрика, когда все поднятые им Погребальные звонари уже перебиты.',
     },
     dlv_nhalia_bells: {
       name: 'Усмиритель колоколов',
-      desc: 'Победите Сестру Нхалию, Утонувшую Песнь, так, чтобы ни один член отряда не попал под удар Звонящего Колокола.',
+      desc: 'Одолейте Сестру Нхалию, Утонувшую Песнь, так, чтобы ни один член отряда не попал под удар Звонящего Колокола.',
       title: 'Усмиритель колоколов',
     },
     chr_vale_chapter_i: {
@@ -8489,7 +8489,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     chr_peaks_waking_witness: {
       name: 'Гора, которая ходит',
-      desc: 'Узрите Тунзарра, Пробуждающийся пик, пока он шагает по горе.',
+      desc: 'Узрите Тунзарра, Пробуждающегося пика, пока он шагает по горе.',
     },
     chr_peaks_rares: {
       name: 'Имена, высеченные в скале',
@@ -8688,7 +8688,7 @@ export const DEED_LOCALE_TABLES: Record<
     soc_first_party: { name: 'Вместе веселее', desc: 'Вступите в группу с другим игроком.' },
     soc_full_house: { name: 'Аншлаг', desc: 'Пройдите подземелье полной группой из пяти человек.' },
     soc_guild_joined: { name: 'Под одним знаменем', desc: 'Станьте членом гильдии.' },
-    soc_guild_founded: { name: 'Перо основателя', desc: 'Основайте собственную гильдию.' },
+    soc_guild_founded: { name: 'Перо основателя', desc: 'Создайте собственную гильдию.' },
     soc_first_trade: { name: 'Честный обмен', desc: 'Завершите обмен с другим игроком.' },
     soc_first_sale: {
       name: 'Лавка открыта',
@@ -9442,7 +9442,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'En fotnot i historien',
-      desc: 'Tjatade på Saul the Chronicler nio gånger utan uppehåll.',
+      desc: 'Tjatade på krönikören Saul nio gånger utan uppehåll.',
       title: 'Fotnoten',
     },
     hid_gilded_tour: {
@@ -10096,7 +10096,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Tarihe Düşülen Dipnot',
-      desc: "Saul the Chronicler'ı ara vermeden dokuz kez rahatsız ettin.",
+      desc: "Vakanüvis Saul'u ara vermeden dokuz kez rahatsız ettin.",
       title: 'Dipnot',
     },
     hid_gilded_tour: {
@@ -10795,7 +10795,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     hid_saul_footnote: {
       name: 'Cước Chú Trong Sử Sách',
-      desc: 'Đã quấy rầy Saul the Chronicler chín lần liền không ngơi nghỉ.',
+      desc: 'Đã quấy rầy Sử Quan Saul chín lần liền không ngơi nghỉ.',
       title: 'Cước Chú',
     },
     hid_gilded_tour: {
@@ -11056,11 +11056,11 @@ export const DEED_LOCALE_TABLES: Record<
     },
     chr_peaks_chapter_i: {
       name: '荆峰编年史·第一章',
-      desc: '完成泽恩茜编年史的第一章：肃清山脊道路，扫空地洞，认熟高望镇守的每一条山径。',
+      desc: '完成赞茜编年史的第一章：肃清山脊道路，扫空地洞，认熟高望镇守的每一条山径。',
     },
     chr_peaks_chapter_ii: {
       name: '荆峰编年史·第二章',
-      desc: '完成泽恩茜编年史的第二章：捣毁德罗格玛战争营地，参透正在苏醒的风暴，站上微光湖泛光之处。',
+      desc: '完成赞茜编年史的第二章：捣毁德罗格玛战争营地，参透正在苏醒的风暴，站上微光湖泛光之处。',
     },
     chr_peaks_chapter_iii: {
       name: '荆峰编年史·全卷',
@@ -11271,7 +11271,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     dgn_hollow_crypt: { name: '破墓者', desc: '在空洞墓穴擊敗喚墓者莫森。' },
     dgn_sunken_bastion: { name: '霧散縛解', desc: '在沉沒堡壘擊敗縛霧者維爾。' },
-    dgn_drowned_temple: { name: '溺月終溺', desc: '在溺亡神殿擊敗溺月化身伊索蕾。' },
+    dgn_drowned_temple: { name: '溺月終溺', desc: '在溺亡神殿擊敗「伊索蕾，溺月化身」。' },
     dgn_gravewyrm_sanctum: { name: '地底之龍', desc: '在墓龍聖所擊敗墓龍科祖爾。' },
     dgn_hollow_crypt_heroic: {
       name: '英雄：空洞墓穴',
@@ -11283,16 +11283,19 @@ export const DEED_LOCALE_TABLES: Record<
     },
     dgn_drowned_temple_heroic: {
       name: '英雄：溺亡神殿',
-      desc: '以英雄難度在溺亡神殿擊敗溺月化身伊索蕾。',
+      desc: '以英雄難度在溺亡神殿擊敗「伊索蕾，溺月化身」。',
     },
     dgn_gravewyrm_sanctum_heroic: {
       name: '英雄：墓龍聖所',
       desc: '以英雄難度在墓龍聖所擊敗墓龍科祖爾。',
     },
-    dgn_nythraxis: { name: '災禍止息', desc: '在封印的王室之門後，擊敗「荊峰之災」尼思拉克西斯。' },
+    dgn_nythraxis: {
+      name: '災禍止息',
+      desc: '在封印的王室之門後，擊敗「尼思拉克西斯，荊峰之災」。',
+    },
     dgn_nythraxis_heroic: {
       name: '英雄：災禍止息',
-      desc: '以英雄難度擊敗「荊峰之災」尼思拉克西斯。',
+      desc: '以英雄難度擊敗「尼思拉克西斯，荊峰之災」。',
     },
     dgn_thornpeak_rounds: {
       name: '逐一登門',
@@ -11320,7 +11323,7 @@ export const DEED_LOCALE_TABLES: Record<
     },
     dgn_ysolei_flawless: {
       name: '無淚可流',
-      desc: '以英雄難度擊敗溺月化身伊索蕾，且沒有任何隊伍成員死亡。',
+      desc: '以英雄難度擊敗「伊索蕾，溺月化身」，且沒有任何隊伍成員死亡。',
     },
     dgn_velkhar_bonewalkers: {
       name: '乖乖入土',
@@ -11345,16 +11348,16 @@ export const DEED_LOCALE_TABLES: Record<
     },
     dgn_nythraxis_deathless: {
       name: '不死莫過於此',
-      desc: '以英雄難度擊敗「荊峰之災」尼思拉克西斯，且沒有任何團隊成員死亡。',
+      desc: '以英雄難度擊敗「尼思拉克西斯，荊峰之災」，且沒有任何團隊成員死亡。',
       title: '不死者',
     },
-    cmb_thunzharr: { name: '山嶽傾頹', desc: '在風暴岩擊倒「覺醒之峰」桑扎爾。' },
+    cmb_thunzharr: { name: '山嶽傾頹', desc: '在風暴岩擊倒「桑扎爾，覺醒之峰」。' },
     cmb_thunzharr_unbroken: {
       name: '碎峰者',
-      desc: '擊倒「覺醒之峰」桑扎爾，且從你出手的第一擊到他的最後一口氣，你不曾死亡。',
+      desc: '擊倒「桑扎爾，覺醒之峰」，且從你出手的第一擊到他的最後一口氣，你不曾死亡。',
       title: '碎峰者',
     },
-    cmb_thunzharr_ten: { name: '屠山成癖', desc: '擊倒「覺醒之峰」桑扎爾十次。' },
+    cmb_thunzharr_ten: { name: '屠山成癖', desc: '擊倒「桑扎爾，覺醒之峰」十次。' },
     dlv_reliquary: { name: '聖物庫行者', desc: '清剿崩塌的聖物庫。' },
     dlv_reliquary_heroic: { name: '英雄：崩塌的聖物庫', desc: '以英雄層級清剿崩塌的聖物庫。' },
     dlv_litany: { name: '止息連禱', desc: '清剿溺亡連禱。' },
@@ -11385,24 +11388,24 @@ export const DEED_LOCALE_TABLES: Record<
       title: '止鐘者',
     },
     chr_vale_chapter_i: {
-      name: '谷地編年史，第一章',
-      desc: '完成紹爾編年史的第一章：辦妥東溪最初的差事、認識谷地的地勢，並初嘗當地的百工。',
+      name: '溪谷編年史，第一章',
+      desc: '完成紹爾編年史的第一章：辦妥東溪最初的差事、認識溪谷的地勢，並初嘗當地的百工。',
     },
     chr_vale_chapter_ii: {
-      name: '谷地編年史，第二章',
+      name: '溪谷編年史，第二章',
       desc: '完成紹爾編年史的第二章：剿平強盜、魚人與礦坑害獸，在母豬場出賽，並闖過聖物庫。',
     },
     chr_vale_chapter_iii: {
-      name: '谷地編年史全卷',
-      desc: '見證谷地故事的始末：揭穿喚墓者的真面目、滌淨空洞墓穴，並剷除谷地每一個有名有姓的惡煞。',
-      title: '谷地之譽',
+      name: '溪谷編年史全卷',
+      desc: '見證溪谷故事的始末：揭穿喚墓者的真面目、滌淨空洞墓穴，並剷除溪谷每一個有名有姓的惡煞。',
+      title: '溪谷之譽',
     },
     chr_vale_gatherer: { name: '靠山吃山', desc: '在東溪谷採集一處礦脈、一處林木與一叢草藥。' },
     chr_vale_first_cast: { name: '鏡湖有物', desc: '在東溪谷的水域釣起一條魚。' },
     chr_vale_packbreaker: { name: '狼群剋星', desc: '在 10 秒內斬殺 3 隻森林狼。' },
-    chr_vale_cup_debut: { name: '銅桶新秀', desc: '在母豬場的谷地盃比賽中上場並觸球。' },
+    chr_vale_cup_debut: { name: '銅桶新秀', desc: '在母豬場的溪谷盃比賽中上場並觸球。' },
     chr_vale_rares: {
-      name: '谷地惡煞',
+      name: '溪谷惡煞',
       desc: '斬殺東溪谷五個有名有姓的惡煞：老灰顎、莫格、隧道之王葛瑞克斯、維爾蘭隊長與縛魂者瑪爾德雷克。',
     },
     chr_marsh_chapter_i: {
@@ -11433,11 +11436,11 @@ export const DEED_LOCALE_TABLES: Record<
     },
     chr_peaks_chapter_i: {
       name: '荊峰編年史，第一章',
-      desc: '完成贊琪編年史的第一章：肅清山脊道路、掃空地穴，並認熟高望所守望的每一條路徑。',
+      desc: '完成贊西編年史的第一章：肅清山脊道路、掃空地穴，並認熟高望所守望的每一條路徑。',
     },
     chr_peaks_chapter_ii: {
       name: '荊峰編年史，第二章',
-      desc: '完成贊琪編年史的第二章：攻破德羅格瑪的戰爭營地、看懂正在甦醒的風暴，並站上微光湖生輝之地。',
+      desc: '完成贊西編年史的第二章：攻破德羅格瑪的戰爭營地、看懂正在甦醒的風暴，並站上微光湖生輝之地。',
     },
     chr_peaks_chapter_iii: {
       name: '荊峰編年史全卷',
@@ -11465,7 +11468,7 @@ export const DEED_LOCALE_TABLES: Record<
     col_first_rare: { name: '一抹湛藍', desc: '獲得你的第一件稀有品質物品。' },
     col_first_epic: { name: '紫氣東來', desc: '獲得你的第一件史詩品質物品。' },
     col_first_legendary: { name: '橙心如意', desc: '獲得你的第一件傳說品質物品。' },
-    col_set_vale_arcanist: { name: '谷地秘法師華服', desc: '發現谷地秘法師華服的每一個部件。' },
+    col_set_vale_arcanist: { name: '溪谷秘法師華服', desc: '發現溪谷秘法師華服的每一個部件。' },
     col_set_boundstone_vanguard: { name: '縛石先鋒', desc: '發現縛石先鋒的每一個部件。' },
     col_set_greyjaw_stalker: { name: '灰顎潛獵者裝束', desc: '發現灰顎潛獵者裝束的每一個部件。' },
     col_set_deathlord: { name: '塚陵領主戰裝', desc: '發現塚陵領主戰裝的每一個部件。' },
@@ -11484,7 +11487,7 @@ export const DEED_LOCALE_TABLES: Record<
     col_all_slots: { name: '十一分體面', desc: '同時在全部十一個裝備欄位裝上物品。' },
     col_quartermaster_buyout: { name: '老主顧', desc: '發現軍需官維克斯所販售的全部十件貨品。' },
     col_glimmerfin: { name: '一線微光', desc: '釣起一條微光鰭錦鯉。' },
-    col_full_creel: { name: '滿簍而歸', desc: '發現谷地、沼澤與高地水域的全部六種常見漁獲。' },
+    col_full_creel: { name: '滿簍而歸', desc: '發現溪谷、沼澤與高地水域的全部六種常見漁獲。' },
     col_junk_drawer: { name: '雜物抽屜', desc: '發現 10 種不同的粗糙品質物品。' },
     pvp_arena_first_match: { name: '靴中之沙', desc: '在灰燼競技場打一場積分賽，任一組別皆可。' },
     pvp_arena_first_win: { name: '歡聲雷動', desc: '在任一組別贏得一場競技場積分賽。' },
@@ -11611,5 +11614,55 @@ export const DEED_LOCALE_TABLES: Record<
       desc: '勇闖廢棄墓穴，從其守衛手中奪回墓穴鑰石的上下兩半與古老日記。',
     },
     chr_marsh_first_cast: { name: '蘆葦間有鰻', desc: '在泥沼濕地的水域釣起一條魚。' },
+  },
+};
+
+// Dialect desc overrides layered over the aliased base table in deed_i18n.ts:
+// the two dialects render the delve feature with their own established noun
+// (fr_CA excavation, es_ES Profundidad, both locked by their shipped delveUi
+// strings), so the deed descs naming that feature diverge with them. Only the
+// diverging entries appear here; everything else inherits the base table.
+export const DEED_LOCALE_DIALECT_OVERRIDES: Record<'es_ES' | 'fr_CA', DeedLocaleTable> = {
+  es_ES: {
+    dgn_deepward: {
+      name: 'Guarda de las Profundidades',
+      desc: 'Conquista cada mazmorra, la banda y las dos Profundidades en dificultad heroica.',
+    },
+    dlv_lore_journal: {
+      name: 'Notas al margen',
+      desc: 'Desbloquea las cinco entradas del diario de Profundidad.',
+    },
+    dlv_companion_max: {
+      name: 'Una amiga en las profundidades',
+      desc: 'Lleva a una compañera de Profundidad a su rango más alto.',
+    },
+    dlv_companions_both: {
+      name: 'Ambas linternas encendidas',
+      desc: 'Lleva a las dos compañeras de Profundidad, la Acólita Tessa y Edda Reedhand, a su rango más alto.',
+    },
+    dlv_clears_50: { name: 'Cincuenta brazas', desc: 'Completa 50 Profundidades.' },
+    dlv_solo_heroic: {
+      name: 'Dos son multitud',
+      desc: 'Limpia una Profundidad de nivel Heroico sin ningún otro jugador: solo tú y tu compañera.',
+    },
+    hid_companion_save: {
+      name: 'No mientras ella vigile',
+      desc: 'Tu compañera de Profundidad puso de nuevo en pie a un aliado caído.',
+    },
+  },
+  fr_CA: {
+    dgn_deepward: {
+      name: 'Gardien des profondeurs',
+      desc: 'Triomphez de chaque donjon, du raid et des deux excavations en difficulté héroïque.',
+    },
+    dlv_lore_journal: {
+      name: 'Marginalia',
+      desc: "Débloquer les cinq entrées du journal d'excavation.",
+    },
+    dlv_companion_max: {
+      name: 'Une amie des profondeurs',
+      desc: "Hisser une compagne d'excavation à son rang le plus élevé.",
+    },
+    dlv_clears_50: { name: 'Cinquante brasses', desc: 'Terminer 50 excavations.' },
   },
 };
