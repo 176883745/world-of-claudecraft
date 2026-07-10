@@ -4081,6 +4081,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.controls.talents': '특성',
   'guide.controls.arena': '투기장',
   'guide.controls.leaderboard': '순위표',
+  'guide.controls.deeds': '업적의 서',
   'guide.controls.abilities':
     '행동 단축바 능력 사용 (숫자 키 줄, 두 번째 단축바는 숫자 키패드에 있음)',
   'guide.controls.mobileHeading': '모바일에서',

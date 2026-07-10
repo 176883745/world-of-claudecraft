@@ -1846,6 +1846,7 @@ export const ru_RU: EnTranslations = {
       "talents": "Таланты",
       "arena": "Арена",
       "leaderboard": "Таблица лидеров",
+      "deeds": "Книга деяний",
       "abilities": "Использовать способности панели команд (цифровой ряд; вторая панель — на цифровом блоке)",
       "targetFriendly": "Ближайший союзник",
       "cycleFriendly": "Следующий союзник",

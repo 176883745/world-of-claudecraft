@@ -1846,6 +1846,7 @@ export const ja_JP: EnTranslations = {
       "talents": "タレント",
       "arena": "アリーナ",
       "leaderboard": "リーダーボード",
+      "deeds": "功績の書",
       "abilities": "アクションバーのアビリティを使用（数字キーの列。二つ目のバーはテンキーにあります）",
       "targetFriendly": "最も近い友好的な対象をターゲット",
       "cycleFriendly": "友好的なターゲットを順に切り替え",

@@ -46,6 +46,7 @@ const GROUPS: Group[] = [
       { keys: ['M'], label: 'controls.worldMap' },
       { keys: ['B'], label: 'controls.bags' },
       { keys: ['N'], label: 'guide.controls.talents' },
+      { keys: ['Z'], label: 'guide.controls.deeds' },
       { keys: ['O'], label: 'controls.friends' },
       { keys: ['G'], label: 'guide.controls.arena' },
       { keys: ['K'], label: 'guide.controls.leaderboard' },

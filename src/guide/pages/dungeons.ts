@@ -59,6 +59,7 @@ export const dungeons: GuidePage = {
           { href: hrefFor('world'), key: 'guide.nav.world' },
           { href: hrefFor('arena'), key: 'guide.nav.arena' },
           { href: hrefFor('classes'), key: 'guide.nav.classes' },
+          { href: hrefFor('deeds'), key: 'guide.nav.deeds' },
         ])}
       </article>`;
   },

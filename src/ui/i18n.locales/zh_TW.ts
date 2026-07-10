@@ -3912,6 +3912,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'guide.controls.talents': '天賦',
   'guide.controls.arena': '競技場',
   'guide.controls.leaderboard': '排行榜',
+  'guide.controls.deeds': '功績之書',
   'guide.controls.abilities': '使用動作列技能（數字鍵列；第二條動作列位於數字鍵盤上）',
   'guide.controls.mobileHeading': '行動裝置上',
   'guide.controls.mobileBody':

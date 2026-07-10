@@ -4091,6 +4091,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.controls.talents': 'タレント',
   'guide.controls.arena': 'アリーナ',
   'guide.controls.leaderboard': 'リーダーボード',
+  'guide.controls.deeds': '功績の書',
   'guide.controls.abilities':
     'アクションバーのアビリティを使用（数字キーの列。二つ目のバーはテンキーにあります）',
   'guide.controls.mobileHeading': 'モバイルでは',

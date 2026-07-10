@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { BIND_ACTIONS } from '../src/game/keybinds';
 import {
   GUIDE_CLASSES,
   GUIDE_DEEDS,
@@ -12,7 +13,9 @@ import {
   GUIDE_WARLOCK_PETS,
 } from '../src/guide/content.generated';
 import { pageFor } from '../src/guide/pages';
+import { controls as controlsPage } from '../src/guide/pages/controls';
 import { catalogSections, deeds as deedsPage } from '../src/guide/pages/deeds';
+import { dungeons as dungeonsPage } from '../src/guide/pages/dungeons';
 import {
   GUIDE_BASE,
   GUIDE_ROUTES,
@@ -592,6 +595,36 @@ describe('Guide deeds spoiler safety', () => {
     const one = catalogSections(first ? [first] : []);
     expect(one).toContain(`${t('guide.deedsPage.cat.progression')} (1)`);
     expect(one).not.toContain(t('guide.deedsPage.cat.combat'));
+  });
+});
+
+// The Book of Deeds sits on two shared guide surfaces beyond its own page: the controls
+// reference (the window bind) and the dungeons page's related links. The controls row mirrors
+// the game's real default bind (src/game/keybinds.ts), so a changed shipped default reds this
+// test instead of silently drifting the public reference.
+describe('Guide deeds cross-page surfaces', () => {
+  it('lists the Book of Deeds bind on the controls page, matching the in-game default', () => {
+    setLanguage('en');
+    const deedsBind = BIND_ACTIONS.find((a) => a.id === 'deeds');
+    expect(deedsBind?.defaults).toEqual(['KeyZ']);
+    expect(t('guide.controls.deeds' as never)).toBe('Book of Deeds');
+    const html = controlsPage.render({
+      params: [],
+      sub: 'reference/controls',
+      titleKey: 'guide.nav.controls',
+    });
+    // the key glyph and the label render inside one table row
+    expect(html).toContain('<kbd>Z</kbd></td><td>Book of Deeds</td>');
+  });
+
+  it('cross-links the deeds catalog from the dungeons page', () => {
+    setLanguage('en');
+    const html = dungeonsPage.render({
+      params: [],
+      sub: 'dungeons',
+      titleKey: 'guide.nav.dungeons',
+    });
+    expect(html).toContain(`href="${hrefFor('deeds')}"`);
   });
 });
 

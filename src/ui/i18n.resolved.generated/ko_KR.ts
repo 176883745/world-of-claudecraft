@@ -1846,6 +1846,7 @@ export const ko_KR: EnTranslations = {
       "talents": "특성",
       "arena": "투기장",
       "leaderboard": "순위표",
+      "deeds": "업적의 서",
       "abilities": "행동 단축바 능력 사용 (숫자 키 줄, 두 번째 단축바는 숫자 키패드에 있음)",
       "targetFriendly": "가장 가까운 아군 대상 지정",
       "cycleFriendly": "아군 대상 순환",

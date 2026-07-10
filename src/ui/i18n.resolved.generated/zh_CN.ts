@@ -1846,6 +1846,7 @@ export const zh_CN: EnTranslations = {
       "talents": "天赋",
       "arena": "竞技场",
       "leaderboard": "排行榜",
+      "deeds": "功绩之书",
       "abilities": "使用动作条技能（数字键行；第二条动作条位于小键盘）",
       "targetFriendly": "选中最近的友方",
       "cycleFriendly": "循环选择友方目标",

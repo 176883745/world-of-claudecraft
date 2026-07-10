@@ -4133,6 +4133,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.controls.talents': 'Таланты',
   'guide.controls.arena': 'Арена',
   'guide.controls.leaderboard': 'Таблица лидеров',
+  'guide.controls.deeds': 'Книга деяний',
   'guide.controls.abilities':
     'Использовать способности панели команд (цифровой ряд; вторая панель — на цифровом блоке)',
   'guide.controls.mobileHeading': 'На мобильных устройствах',

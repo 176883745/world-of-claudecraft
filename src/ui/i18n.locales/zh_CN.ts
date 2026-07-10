@@ -3911,6 +3911,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'guide.controls.talents': '天赋',
   'guide.controls.arena': '竞技场',
   'guide.controls.leaderboard': '排行榜',
+  'guide.controls.deeds': '功绩之书',
   'guide.controls.abilities': '使用动作条技能（数字键行；第二条动作条位于小键盘）',
   'guide.controls.mobileHeading': '移动端操作',
   'guide.controls.mobileBody':
