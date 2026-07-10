@@ -6469,12 +6469,16 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '친구를 초대하세요: 친구가 10레벨에 도달하면 서로 2칸씩 얻으며, 최대 5명까지 가능합니다.',
   'hudChrome.bank.bonusSectionAria': '보너스 은행 칸과 획득 방법',
   'entities.mobs.yumi_cat.name': '유미',
-  'loading.tips.classes': '팁: 9개 클래스는 저마다 플레이 방식이 다릅니다. 정하기 전에 몇 가지를 직접 해보세요.',
-  'loading.tips.talents': '팁: 특성 포인트는 언제든 훈련관에게서 초기화할 수 있으니, 새로운 조합을 마음껏 시도해 보세요.',
-  'loading.tips.dungeons': '팁: 던전은 파티 인원수에 맞춰 난이도가 조정됩니다. 친구와 함께 도전하면 더 빠르고 안전합니다.',
+  'loading.tips.classes':
+    '팁: 9개 클래스는 저마다 플레이 방식이 다릅니다. 정하기 전에 몇 가지를 직접 해보세요.',
+  'loading.tips.talents':
+    '팁: 특성 포인트는 언제든 훈련관에게서 초기화할 수 있으니, 새로운 조합을 마음껏 시도해 보세요.',
+  'loading.tips.dungeons':
+    '팁: 던전은 파티 인원수에 맞춰 난이도가 조정됩니다. 친구와 함께 도전하면 더 빠르고 안전합니다.',
   'loading.tips.market': '팁: 월드 마켓에서 서버 전체 플레이어와 거래할 수 있습니다.',
   'loading.tips.guilds': '팁: 길드에 가입하면 그룹 콘텐츠와 전용 채팅 채널이 열립니다.',
-  'loading.tips.professions': '팁: 채집이나 제작 같은 생활 전문 기술은 전투 클래스와 함께 키울 수 있습니다.',
+  'loading.tips.professions':
+    '팁: 채집이나 제작 같은 생활 전문 기술은 전투 클래스와 함께 키울 수 있습니다.',
   'loading.tips.mounts': '팁: 탈것은 높은 레벨에서 해금되며, 지역 간 이동 속도를 크게 높여줍니다.',
   'loading.tips.pvp': '팁: 다른 플레이어와 빌드를 겨뤄보고 싶다면 표시된 PvP 지역을 찾아보세요.',
 };
