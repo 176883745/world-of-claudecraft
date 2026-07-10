@@ -1659,6 +1659,13 @@ describe('client HTML shell', () => {
       expect(quest, name).toBeGreaterThan(social);
       expect(settings, name).toBeGreaterThan(quest);
       expect(more, name).toBeGreaterThan(settings);
+      // The five buttons are wrapped in #mobile-combat-buttons behind an always-
+      // visible collapse handle that ships DEFAULT COLLAPSED (aria-expanded="false"),
+      // so the round icons no longer crowd the play field (live PR #1736 feedback).
+      expect(combatControls, name).toContain('id="mobile-combat-buttons"');
+      expect(combatControls, name).toContain('id="mobile-menu-collapse-toggle"');
+      expect(combatControls, name).toContain('aria-expanded="false"');
+      expect(combatControls, name).toContain('aria-controls="mobile-combat-buttons"');
       // Social (Friends & Guild), Quests and Settings live in the bar, promoted
       // OUT of the More tray; none may reappear in the tray grid.
       const tray = entry.slice(
@@ -1674,26 +1681,35 @@ describe('client HTML shell', () => {
       expect(entry, name).not.toContain('id="mobile-target"');
       expect(entry, name).not.toContain('data-i18n="hud.core.mobileTarget"');
     }
-    expect(hudMobileCss).toContain('grid-template-columns: repeat(5, 58px);');
-    expect(hudMobileCss).toContain('grid-template-columns: repeat(5, 54px);');
-    expect(hudMobileCss).toContain('grid-template-columns: repeat(5, 42px);');
-    // The #mobile-consumables chip docks just PAST the bar, so its left offset must
-    // track the bar's 5-column scaled width in each orientation (base 5x58+4x12=338,
-    // portrait 5x42+4x6=234, landscape 5x54+4x10=310). Pinned so a future bar-width
-    // change updates both and the chip never slides back under the buttons.
+    // The five buttons live in a fitted #mobile-combat-buttons grid the collapse
+    // toggle reveals; it keeps the band's established width (40px handle + 8px gap +
+    // the fitted five-button row) in each orientation, so the consumables dock offsets
+    // below are unchanged whether the cluster is collapsed or open.
+    expect(hudMobileCss).toContain('grid-template-columns: repeat(5, 1fr);');
+    expect(hudMobileCss).toContain('--mobile-menu-row-w: calc(338px - 40px - 8px);'); // base row
+    expect(hudMobileCss).toContain('--mobile-menu-row-w: calc(310px - 40px - 8px);'); // landscape row
+    expect(hudMobileCss).toContain('--mobile-menu-row-w: calc(234px - 40px - 8px);'); // portrait row
+    // The #mobile-consumables chip docks just PAST the band, so its left offset must
+    // track the band's scaled width in each orientation (base 338, portrait 234,
+    // landscape 310). Pinned so a future band-width change updates both and the chip
+    // never slides back under the buttons.
     expect(hudMobileCss).toContain('338px *'); // base consumables dock offset
     expect(hudMobileCss).toContain('+ 234px * var(--btn-scale, 1) + 8px)'); // portrait dock
     expect(hudMobileCss).toContain('310px *'); // landscape consumables dock offset
-    // Top-LEFT anchor: the bar's single 54px row clears the target-frame seat
-    // below it (top + 72px) and leaves the top-centre band to the pet bar.
+    // Top-LEFT anchor: the band clears the target-frame seat below it (top + 72px)
+    // and leaves the top-centre band to the pet bar.
     expect(hudMobileCss).toContain(
       'position: absolute;\n    left: max(12px, env(safe-area-inset-left));\n    top: max(8px, env(safe-area-inset-top));',
     );
-    expect(hudMobileCss).toContain(
-      'top: max(6px, env(safe-area-inset-top));\n      grid-template-columns: repeat(5, 54px);',
-    );
+    expect(hudMobileCss).toContain('top: max(6px, env(safe-area-inset-top));'); // landscape band top
     expect(hudMobileCss).toContain(
       'pointer-events: auto;\n    align-items: start;\n    z-index: 30;',
+    );
+    // Default COLLAPSED: the reveal keys off .mobile-menu-open, and the collapsed band
+    // drops its pointer-events so it leaves no dead tap zone over the world.
+    expect(hudMobileCss).toContain('body.mobile-touch.mobile-menu-open #mobile-combat-buttons {');
+    expect(hudMobileCss).toContain(
+      'body.mobile-touch:not(.mobile-menu-open) #mobile-combat-controls {\n    pointer-events: none;',
     );
     expect(hudMobileCss).toContain(
       'body.mobile-touch #petbar {\n    position: fixed;\n    left: 50%;\n    top: max(8px, env(safe-area-inset-top));',

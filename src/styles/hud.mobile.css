@@ -307,17 +307,101 @@
     top: max(8px, env(safe-area-inset-top));
     transform: scale(calc(var(--btn-scale, 1) * var(--mobile-chrome-scale, 1)));
     transform-origin: left top;
-    display: grid;
-    /* Chat, Social, Quests, Settings, More: the low-priority row sits alone at
-       TOP-LEFT, far from both thumb clusters (movement cluster bottom-left,
-       combat ring bottom-right) and off the top-centre band (pet bar, banners).
-       Its single 54px row clears the target frame seat below it (top + 72px),
-       so a live target never renders under the buttons. */
-    grid-template-columns: repeat(5, 58px);
-    gap: 12px;
+    /* A flex band: the always-visible collapse handle (#mobile-menu-collapse-toggle),
+       then the five-button grid (#mobile-combat-buttons). Chat, Social, Quests,
+       Settings, More sit alone at TOP-LEFT, far from both thumb clusters (movement
+       cluster bottom-left, combat ring bottom-right) and off the top-centre band (pet
+       bar, banners). The single 54px row clears the target frame seat below it (top +
+       72px). The handle + grid keep the band's established width in every orientation
+       (base 338, landscape 310, portrait 234, minus the handle + gap), so
+       #mobile-consumables docks past a constant width whether the cluster is collapsed
+       or open. */
+    display: flex;
+    gap: 8px;
     pointer-events: auto;
     align-items: start;
     z-index: 30;
+  }
+  /* Collapsed (default: no .mobile-menu-open): the hidden button grid still
+     reserves its width, so the band is a transparent, NON-interactive strip. Drop
+     its pointer-events so the freed area is camera-draggable, leaving no dead tap
+     zone over the world; the handle re-enables its own below. */
+  body.mobile-touch:not(.mobile-menu-open) #mobile-combat-controls {
+    pointer-events: none;
+  }
+  /* The always-visible collapse handle: a 40px chip (the touch floor, never
+     scaled below it) that shows or hides the five menu buttons. It stays lit while
+     collapsed so a player can reopen them. */
+  body.mobile-touch #mobile-menu-collapse-toggle {
+    width: 40px;
+    height: 54px;
+    flex: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    border: 1px solid var(--mobile-glass-border, #cba43d8c);
+    border-radius: 12px;
+    background: var(--mobile-glass-bg, linear-gradient(160deg, #23212de3, #0e0d10eb));
+    -webkit-backdrop-filter: blur(var(--mobile-glass-blur, 8px));
+    backdrop-filter: blur(var(--mobile-glass-blur, 8px));
+    color: #d8b98a;
+    cursor: var(--cursor-point);
+    opacity: 0.85;
+    box-shadow:
+      inset 0 1px 0 #ffffff14,
+      0 2px 8px #0009;
+  }
+  body.mobile-touch #mobile-menu-collapse-toggle .ui-icon {
+    width: 14px;
+    height: 14px;
+  }
+  body.mobile-touch.mobile-menu-open #mobile-menu-collapse-toggle {
+    opacity: 1;
+    border-color: var(--gold-dim);
+    color: #ffdf9c;
+  }
+  /* Arrow points right (open me) collapsed; flips to point left (close me) open. */
+  body.mobile-touch.mobile-menu-open #mobile-menu-collapse-toggle .ui-icon {
+    transform: rotate(180deg);
+  }
+  /* The five menu buttons: a fixed-width grid sized so handle + row equals the
+     band width the consumables dock assumes. --mobile-menu-row-w is that width
+     minus the 40px handle and the 8px flex gap; the per-orientation overrides
+     below re-point it (and the internal gap). The reveal is transform/opacity/
+     visibility only (compositor, no layout thrash); width stays reserved so the
+     band never reflows and the consumables chip never shifts. */
+  body.mobile-touch #mobile-combat-buttons {
+    --mobile-menu-row-w: calc(338px - 40px - 8px);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    width: var(--mobile-menu-row-w);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-6px);
+    visibility: hidden;
+  }
+  body.mobile-touch #mobile-combat-buttons .mobile-btn {
+    width: 100%;
+  }
+  body.mobile-touch.mobile-menu-open #mobile-combat-buttons {
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    body.mobile-touch #mobile-combat-buttons {
+      transition:
+        opacity 0.16s ease,
+        transform 0.16s ease,
+        visibility 0.16s;
+    }
+    body.mobile-touch #mobile-menu-collapse-toggle .ui-icon {
+      transition: transform 0.16s ease;
+    }
   }
   body.mobile-touch .mobile-btn {
     width: 58px;
@@ -1318,6 +1402,7 @@
      never the actionable info the graphics fairness rule protects (HP/target/
      cast bars aren't in this selector list). */
   body.mobile-touch.mobile-chrome-idle #mobile-combat-controls .mobile-btn,
+  body.mobile-touch.mobile-chrome-idle #mobile-menu-collapse-toggle,
   body.mobile-touch.mobile-chrome-idle #mobile-utility-cluster .mobile-btn,
   body.mobile-touch.mobile-chrome-idle #mobile-consumables-toggle {
     opacity: 0.5;
@@ -3368,14 +3453,19 @@
 
   @media (orientation: portrait) {
     body.mobile-touch #mobile-combat-controls {
-      /* Portrait resets JUST this trio back to btn-scale only (no chrome-scale): its
-         42x44 buttons already sit on the 40px floor, so the 0.85 shrink would drop
-         them under it. The rest of the chrome still scales via the token in portrait;
-         web in-game is landscape-locked regardless, so the trio never actually renders
-         portrait in play. */
+      /* Portrait resets JUST this band back to btn-scale only (no chrome-scale), as
+         the rest of the chrome still scales via the token. Web in-game is landscape-
+         locked (the rotate-device prompt covers portrait), so the band never actually
+         renders portrait in play; the fitted 234px width keeps the consumables dock
+         correct there regardless. */
       transform: scale(var(--btn-scale, 1));
-      grid-template-columns: repeat(5, 42px);
+    }
+    body.mobile-touch #mobile-combat-buttons {
+      --mobile-menu-row-w: calc(234px - 40px - 8px);
       gap: 6px;
+    }
+    body.mobile-touch #mobile-menu-collapse-toggle {
+      height: 44px;
     }
     body.mobile-touch .mobile-btn {
       width: 42px;
@@ -3532,8 +3622,13 @@
     }
     body.mobile-touch #mobile-combat-controls {
       top: max(6px, env(safe-area-inset-top));
-      grid-template-columns: repeat(5, 54px);
+    }
+    body.mobile-touch #mobile-combat-buttons {
+      --mobile-menu-row-w: calc(310px - 40px - 8px);
       gap: 10px;
+    }
+    body.mobile-touch #mobile-menu-collapse-toggle {
+      height: 48px;
     }
     /* Landscape bar is 5x54px + 4x10px gaps = 310px wide; keep the chip docked
        just past it on the same compressed top line. */
