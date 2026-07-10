@@ -5002,6 +5002,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.itemSets.wyrmshadow.bonus3': '敏捷提高 15 點，致命一擊機率提高 2%。',
   'entities.itemSets.wyrmshadow.bonus4':
     '你的武器致命一擊有 50% 的機率觸發「獠牙疾襲」，使攻擊速度提高 25%，持續 8 秒。',
+  'hudChrome.itemSoulbound': '靈魂綁定',
   'hudChrome.itemSet.header': '{name} ({have}/{total})',
   'hudChrome.itemProc.onMeleeHit': '命中時機率（{chance}%）：{effect}',
   'hudChrome.itemProc.onSpellDamage': '造成傷害的法術機率（{chance}%）：{effect}',
@@ -5760,6 +5761,8 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.parcelsLabel': '包裹',
   'hudChrome.mailbox.parcelsHint': '點擊背包中的物品即可附上。',
   'hudChrome.mailbox.removeParcelAria': '從信件中移除 {item}',
+  'hudChrome.mailbox.parcelQtyDecreaseAria': '少寄一個{item}',
+  'hudChrome.mailbox.parcelQtyIncreaseAria': '多寄一個{item}',
   'hudChrome.mailbox.sendButton': '寄出信件',
   'hudChrome.mailbox.postageNote': '郵資：{amount}。渡鴉飛行約 {seconds} 秒。',
   'hudChrome.mailbox.arrivedBanner': '渡鴉已降落：來自 {name} 的郵件。',

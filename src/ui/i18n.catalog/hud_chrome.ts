@@ -843,6 +843,13 @@ export const hudChromeStrings = {
   // Item-set (tier set) tooltip block. The set name and per-tier bonus text come
   // from content/item_sets.ts via entity_i18n; these two are the surrounding
   // chrome, with `name`/`bonus` spliced in already-localized.
+  // Tooltip tag appended to the quality/kind line of a Heroic upgraded drop variant
+  // (content/heroic_variants.ts), e.g. "Epic Armor [HEROIC]". The variant shares the
+  // base item's name; this tag is the only heroic marker, shown in gold.
+  itemHeroicTag: '[HEROIC]',
+  // Tooltip marker for a soulbound item (bound to its owner: cannot be traded, mailed,
+  // listed, sold, or destroyed). Currency-like reward tokens (Heroic Marks) carry this.
+  itemSoulbound: 'Soulbound',
   itemSet: {
     header: '{name} ({have}/{total})',
     bonusLine: '({pieces}) {bonus}',
@@ -1539,6 +1546,8 @@ export const hudChromeStrings = {
     parcelsLabel: 'Parcels',
     parcelsHint: 'Click an item in your bags to attach it.',
     removeParcelAria: 'Remove {item} from the letter',
+    parcelQtyDecreaseAria: 'Send one fewer {item}',
+    parcelQtyIncreaseAria: 'Send one more {item}',
     sendButton: 'Send letter',
     postageNote: 'Postage: {amount}. The raven flies for about {seconds}s.',
     arrivedBanner: 'The raven has landed: mail from {name}.',

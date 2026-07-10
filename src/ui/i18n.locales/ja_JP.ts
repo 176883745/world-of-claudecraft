@@ -5255,6 +5255,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.itemSets.wyrmshadow.bonus3': '敏捷性が15、クリティカル率が2%上昇します。',
   'entities.itemSets.wyrmshadow.bonus4':
     '武器のクリティカルヒット時に50%の確率で「ファングラッシュ」が発動し、攻撃速度が8秒間25%上昇します。',
+  'hudChrome.itemSoulbound': '魂縛',
   'hudChrome.itemSet.header': '{name} ({have}/{total})',
   'hudChrome.itemProc.onMeleeHit': '命中時に確率（{chance}%）：{effect}',
   'hudChrome.itemProc.onSpellDamage': 'ダメージ呪文で確率（{chance}%）：{effect}',
@@ -6079,6 +6080,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mailbox.parcelsLabel': '小包',
   'hudChrome.mailbox.parcelsHint': 'バッグ内のアイテムをクリックして添付します。',
   'hudChrome.mailbox.removeParcelAria': '手紙から{item}を取り除く',
+  'hudChrome.mailbox.parcelQtyDecreaseAria': '{item}を1つ減らして送る',
+  'hudChrome.mailbox.parcelQtyIncreaseAria': '{item}を1つ増やして送る',
   'hudChrome.mailbox.sendButton': '手紙を送る',
   'hudChrome.mailbox.postageNote': '郵送料：{amount}。ワタリガラスの飛行時間は約{seconds}秒です。',
   'hudChrome.mailbox.arrivedBanner': 'ワタリガラスが到着：{name}からの手紙。',

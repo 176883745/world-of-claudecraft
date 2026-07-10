@@ -1957,6 +1957,7 @@ export class GameServer {
     }
     session.userAgent = meta.userAgent ?? '';
     session.clientSeed = meta.clientSeed ?? '';
+    this.botDetector.setTrackingConnection(session.botTrackingContext, true, meta);
     // per-login account state, freshly loaded by the auth path like any join
     session.chatMutedUntil = meta.mutedUntil ? new Date(meta.mutedUntil).getTime() : null;
     session.chatMuteReason = meta.reason ?? '';
@@ -2002,6 +2003,7 @@ export class GameServer {
     if (session.spectating) this.exitSpectate(session, false);
     session.linkdead = true;
     session.graceUntil = Date.now() + LINKDEAD_GRACE_MS;
+    this.botDetector.setTrackingConnection(session.botTrackingContext, false);
     // Stop any held movement now; the sim keeps ticking this entity (it can
     // still be attacked, healed, or die while linkdead, like any player).
     const meta = this.sim.meta(session.pid);
