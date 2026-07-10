@@ -34,6 +34,12 @@ module and spreads it into the flat tables the engine reads (`ITEMS`, `MOBS`,
   per-class skin counts); host-agnostic gating shared by Sim + HUD.
 - `ground_pickup_lines.ts`: `GROUND_PICKUP_LINES` (deny/enough flavor text per
   collectible item id) + `groundPickupDeny`/`groundPickupEnough`.
+- `deeds.ts`: the Book of Deeds catalog: `DEEDS` (`DeedDef` records) + the
+  append-only `DEED_ORDER` (like `QUEST_ORDER`; never reorder or retro-edit an
+  existing trigger) + `DEEDS_ERA`. Cosmetic-only rewards, closed trigger
+  vocabulary; the add-a-deed recipe and the every-new-conquerable-content rule
+  live in `docs/design/deeds.md`, and `tests/deeds_content.test.ts` pins the
+  catalog against the real content tables.
 
 ## Classic-era fidelity (YOU MUST)
 Abilities gain ranks at **classic-era learn levels** with era-accurate values. The

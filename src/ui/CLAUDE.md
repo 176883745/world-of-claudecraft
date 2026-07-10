@@ -319,8 +319,15 @@ directly, with a thin DOM/canvas consumer. Follow this shape for reusable/testab
   mobile-paired 50/50) with non-trapping focus capture/return. `bank_filter.ts` is the
   locale-aware search/category/sort that preserves live `slotIndex` values verbatim, so a
   filtered row still names the exact wire argument for deposit/withdraw.
-- **player_context_menu.ts**: pure `chatPlayerContextActions()` (whisper/invite/friend/ignore/
-  report) for the right-click-player menu.
+- **deeds_view.ts** / **deeds_window.ts** (+ **deed_tracker_painter.ts**,
+  **deeds_leaderboard_view.ts**, **deed_i18n.ts**, **deed_image_ids.ts**): the Book of
+  Deeds achievements window. The DOM-free core builds the category/entry model, search,
+  progress fractions, crest-id resolution (art WebP via `deed_image_ids.ts`, else the
+  procedural category crest), and the drain-batched unlock moment (banners coalesce,
+  retro grants fold to one summary line); the painter is a cold window plus the
+  write-elided HUD watch tracker. `deed_i18n.ts` is the entity-style English table
+  (like `talent_i18n.ts`) that re-localizes deed names, titles, and broadcast lines
+  from ids; `deeds_leaderboard_view.ts` is the Renown-board tab's pure core.
 - **auth_utils.ts**: login/char-select form helpers (password toggle, ARIA validity sync,
   `validateCharacterName` mirroring the server regex).
 - **stat_tooltip.ts** / **stat_tooltip_view.ts**: the character-screen stat hover tooltips. The

@@ -29,6 +29,9 @@ Postgres and serves the built client from `dist/`.
 | `player_card.ts` | shareable player-card PNGs, Open Graph unfurl, referral capture |
 | `bank_ledger.ts` | append-only `bank_ledger` observer: diffs `Sim.bankInfoFor` around each bank dispatch and writes the moved delta via a fire-and-forget FIFO (audited offline by `scripts/bank_audit.mjs`) |
 | `bank_entitlements.ts` | pure bonus-slot source registry + `computeBankBonus` (email verified / Discord / wallet / qualified referrals); stamped at the fresh-join handshake via the injected `WsAuthDeps.bankBonusForAccount`, never client-supplied |
+| `deeds_db.ts` / `deeds_records.ts` | deeds SQL boundary (`character_deeds` upserts, rarity counts, recent earns, broadcast opt-out; the board read is `deedsBoardRows` in `db.ts`) / the `deedUnlocked` observer: fire-and-forget FIFO upserts + marquee guild/friend broadcasts + the env-gated Steam mirror hook; the sim decides unlocks, this only records them |
+| `deeds_board.ts` / `deeds.ts` | the Renown leaderboard's pure scoring core (account-level dedupe, entry floor, score-then-earliest tie-break; Renown values come from the content table, never SQL) / the `RouteDef` API surface (public rarity read, broadcast toggle), TTL-cached in `main.ts` |
+| `steam/` | the env-gated (`STEAM_ENABLED`, off by default) Steam achievements mirror: link-not-login ticket handshake, `achievement_map.ts` (deed id to `ACH_*`, hard cap 100), publisher Web API push + reconcile-on-link |
 | `perf_report.ts` / `provider_usage.ts` | rate-limited client perf-report ingestion / process-local provider and usage telemetry for the admin dashboard |
 
 ## Invariants, YOU MUST keep these
@@ -48,8 +51,9 @@ Postgres and serves the built client from `dist/`.
 - **`ALLOW_DEV_COMMANDS=1` gates `dev_level`/`dev_teleport`/`dev_give`** (dev/E2E only, **never prod**).
 
 ## Persistence model
-- Character level + full state (gear/bags/bank/quests/position/money/talents/arena/lifetimeXp)
-  stored as **JSONB** in `characters.state`; `serializeCharacter` converts to and from the `Sim`.
+- Character level + full state (gear/bags/bank/quests/position/money/talents/arena/lifetimeXp/
+  deeds/deedStats/activeTitle/renown) stored as **JSONB** in `characters.state`;
+  `serializeCharacter` converts to and from the `Sim`.
   Same-blob atomicity is the bank's anti-dupe cornerstone: the personal bank NEVER gets its own
   `world_state` row. Treat the bank rollout as forward-only (a pre-bank binary's save drops the field).
 - **Per-character load lease** (`character_leases`): acquired at the WS handshake between

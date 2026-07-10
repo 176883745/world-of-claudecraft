@@ -26,7 +26,9 @@ the doc's intent, not its line numbers.
 `ls` the dirs for the current set; most filenames say what they are. The non-obvious
 ones worth knowing: `design/master-spec.md` is the big design doc (levels 6 to 20
 expansion: story arc, zones, dungeons, XP math, ids); `design/spell-ranks.md` is the
-classic-era ability-rank reference for sim ability content. **TRAP:**
+classic-era ability-rank reference for sim ability content; `design/deeds.md` is the
+Book of Deeds achievements system plus the authoring contract every new deed (and
+every new piece of conquerable content) follows. **TRAP:**
 `design/icon-system.md` proposes a multi-file `src/ui/icons/` module, but the shipped
 code is the flat `src/ui/icons.ts`, so re-verify against code.
 `prd/frontier-pvp-honor.md` (Frostreach Frontier PvP zone, honor, $WOC stakes layer)

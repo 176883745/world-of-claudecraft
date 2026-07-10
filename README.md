@@ -45,6 +45,7 @@ Same seed, same world, everywhere. And almost nothing is a shipped asset: the to
 - **Five instanced dungeons**, four of them five-player elite raids and one solo crypt, with elite scaling, AoE boss mechanics, and class-archetype loot.
 - **Scalable delves**, a small-group mode for one or two players plus an AI companion, rebuilt from randomized chambers each run across Normal and Heroic tiers.
 - **The Ashen Coliseum**, a ranked PvP arena with 1v1 and 2v2 ladders plus a 2v2 Fiesta mode (augment pickups, a shrinking ring, first to fifteen takedowns).
+- **A Book of Deeds**: an achievement journal of cosmetic titles, badge borders, and Renown, with per-zone Chronicles kept by in-world Chronicler NPCs and a lifetime leaderboard.
 - **Real multiplayer**: parties, trading, duels, tap rights, party-split XP, whispers, away status, and a server that owns every combat roll.
 - **Procedural everything**: timber-framed towns, rigged creature families, painted spell icons drawn on canvas, WebAudio sound, biome weather, and real-time shadows. No 3D model files for the world.
 - **Localized into 22 locales** through a deterministic, sim-emits-keys pipeline.
@@ -230,6 +231,7 @@ Press `G` or the arena button to queue. Matchmaking teleports fighters into a pr
 - **Eating and drinking**: sit to restore over 18 seconds, broken by damage or standing, and yes, you can eat and drink at once.
 - **Vendors** that buy food and water and sell honest white gear, with coin shown in gold, silver, and copper.
 - **A personal bank** (the Gilded Strongbox): bursars in each hub town keep a vault per character, from 24 slots up to 96 with coin-bought expansions, plus bonus slots earned online for a verified email, linked accounts, and referrals.
+- **The Book of Deeds**: an achievement journal (default `Z`) of quests, kills, clears, and delights, paying out cosmetic titles you can wear on your nameplate, in chat, and on the boards, plus a HUD tracker for the deeds you are chasing, per-zone Chronicles kept by Chronicler NPCs, and a lifetime Renown leaderboard; the public list lives at `/wiki/deeds`.
 - **Mob AI**: wander, proximity aggro by level difference, social pulls, chase, leash and reset, corpse loot, and respawns, with a rare spawn (Old Greyjaw) on a long timer.
 - **Fishing** spots with their own loot tables and rare catches.
 - **Cosmetic skins** rolled at uncommon, rare, and epic rarity, purely for looks.
@@ -265,7 +267,7 @@ The sim is a fixed 20 Hz tick (`DT = 1/20`), all randomness flows through one se
 | Path | What it is |
 |---|---|
 | `src/sim/` | Deterministic game core, the source of truth. No DOM or Three dependencies. |
-| `src/sim/content/` | Data as code: the nine classes, abilities, zones, dungeons, items, talents. |
+| `src/sim/content/` | Data as code: the nine classes, abilities, zones, dungeons, items, talents, deeds. |
 | `src/render/` | Three.js renderer (procedural geometry, textures, VFX). Reads the world, never mutates it. |
 | `src/game/` | Local input, camera, keybinds, mobile controls, procedural WebAudio. |
 | `src/ui/` | Classic HUD (frames, windows, tooltips, map, floating combat text), procedural icons, i18n. |
@@ -291,7 +293,7 @@ And almost none of it is a shipped asset. The world is drawn from code:
 - Procedural towns, creatures, terrain, water, weather, and real-time shadows, with no 3D model files for the world.
 - Twelve rigged creature families with full walk, attack, cast, sit, and death animations.
 - Spell, item, and buff icons painted on canvas at runtime.
-- A complete classic HUD (unit frames, action bars, tooltips, quest log, world map, minimap, floating combat text) and procedural WebAudio for every sound.
+- A complete classic HUD (unit frames, action bars, tooltips, quest log, world map, minimap, floating combat text, the Book of Deeds) and procedural WebAudio for every sound.
 
 ## Development
 

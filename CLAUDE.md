@@ -17,7 +17,7 @@ dependency set. The one sanctioned exception is the standalone admin dashboard
 | Path | What it is |
 |---|---|
 | `src/sim/` | **Deterministic game core, the source of truth.** No DOM/Three deps; runs in browser, server, and headless. |
-| `src/sim/content/` | Data-as-code: the 9 classes, abilities, zones, dungeons, items, talents. |
+| `src/sim/content/` | Data-as-code: the 9 classes, abilities, zones, dungeons, items, talents, deeds. |
 | `src/render/` | Three.js renderer (procedural geometry/textures/VFX). Reads the world; never mutates it. |
 | `src/game/` | Local input, camera, keybinds, mobile controls, procedural WebAudio. |
 | `src/ui/` | Classic HUD (frames, windows, tooltips, map, FCT), procedural icons, i18n. |
@@ -191,7 +191,11 @@ Use the seams this repo already has, do not invent new ones:
   `src/sim/content/`, merged by `data.ts`, never a content table inline in `sim.ts`.
   Player-facing content also feeds the `/wiki` guide: run `npm run wiki:content` (auto in
   `pretest`/`build`, freshness-gated by `tests/guide.test.ts`) and add any new `guide.*`
-  prose keys (see `src/guide/CLAUDE.md`).
+  prose keys (see `src/guide/CLAUDE.md`). Every new piece of conquerable content (a
+  dungeon, delve, raid, world boss, zone, or rare) also authors its Book of Deeds
+  records in `src/sim/content/deeds.ts` in the SAME change, following the authoring
+  rules in `docs/design/deeds.md`; deeds are cosmetic-only (titles, Renown), never
+  power, and `tests/deeds_content.test.ts` pins the catalog.
 - New server REST endpoint: a `RouteDef` module (`server/<domain>.ts` `export const routes`)
   registered in `server/http/registry.ts`, never an inline handler in `main.ts`. Scaffold with
   `npm run new:endpoint` (see `server/http/CLAUDE.md`).

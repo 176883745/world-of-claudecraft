@@ -86,6 +86,7 @@ Each module owns the FUNCTIONS for one system; the backing STATE stays on `Sim` 
 | `market.ts` | the World Market (`Market` class) |
 | `mail/post_office.ts` | player mail (send/take/read/delete, the mailbox anchor gate) |
 | `bank.ts` | the personal pooled bank (The Gilded Strongbox): capacity math + the container-agnostic `moveBetweenContainers`, `bankDeposit`/`bankWithdraw`/`bankBuySlots`, `bankInfoFor` (boundary-clones), `sanitizeBankState` (the one load path), `nearBanker`; state on `PlayerMeta.bank`, the `bankerIds` anchor list on `Sim`; draws NO rng |
+| `deeds.ts` | the Book of Deeds evaluator (`updateDeeds`): runs at the very end of the tick tail over dirty players only (`markDeedsDirty`), draws NO rng, grants into `PlayerMeta.deedsEarned` + maintains `deedStats`/`renown`, emits id-based `deedUnlocked` (retro on join); plus the bespoke `manual`-deed grant sites and the session-only `DeedRuntime` encounter tracking. Authoring contract: `docs/design/deeds.md` |
 | `loot/loot_roll.ts` | loot rolls, corpse loot, party-loot strategy, `rollLoot` |
 
 ## The SimContext seam (final shape)
@@ -195,6 +196,7 @@ its own sibling module behind `SimContext`, not as another method cluster on `Si
 3. New randomness through `this.rng`/`ctx.rng`; new output via `emit` (add a `SimEvent` variant if needed). Keep new `tick()` work in the right phase; don't reorder existing phases.
 4. If render/UI must see it or trigger it: **extend `IWorld` (`src/world_api.ts`) and implement in BOTH `Sim` and `ClientWorld` (`src/net/online.ts`)**: presentation never reaches into `Sim` directly.
 5. Add/adjust a Vitest (`tests/`), ideally a determinism/replay assertion; a new mechanic with rng draws wants a `tests/parity` scenario.
+6. If the mechanic is conquerable content (a dungeon, delve, raid, world boss, zone, or rare), author its Book of Deeds records in the SAME change (the root `CLAUDE.md` content rule; recipe in `docs/design/deeds.md`).
 
 ## Never here
 - **Never derive player stats outside `recalcPlayerStats`**, and don't walk the talent tree per-tick: talents are precomputed into the flat `TalentModifiers` at allocation/respec time.

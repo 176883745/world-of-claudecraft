@@ -34,7 +34,10 @@ by hand; change the sim content or the generator, then regenerate.
 
 **Spoiler policy (the generator enforces it):** only high-level, spoiler-safe facts
 (names, roles, level bands, signature kits, point-of-interest labels). NEVER balance
-numbers, mechanic names, loot, the raid boss name, or per-encounter scripts. Rich
+numbers, mechanic names, loot, the raid boss name, or per-encounter scripts. Hidden
+deeds are filtered structurally (the def's hidden flag) and never reach
+`content.generated.ts`: no id, name, or desc; public deeds emit no trigger or desc
+either (criteria stay in the in-game Book). Rich
 localized spec/mastery prose resolves live through `src/ui/talent_i18n.ts`, not baked
 here.
 
@@ -48,7 +51,7 @@ spec NAMES stay English on purpose (proper nouns from the sim).
 The guide is the game's public reference, so new player-facing content should reach it
 in the SAME change that adds it:
 - **Content the generator already covers** (a class, ability, talent, zone, dungeon,
-  mob, warlock pet, or model): run `npm run wiki:content` and commit the regenerated
+  mob, warlock pet, deed, or model): run `npm run wiki:content` and commit the regenerated
   `content.generated.ts`. Add a new descriptive `guide.*` prose key for any copy the
   generator does not derive. **A new (or retinted) model also needs its still rendered**:
   run `npm run wiki:stills` and commit the new `public/guide-stills/*.webp` (it needs a
