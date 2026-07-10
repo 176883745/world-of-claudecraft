@@ -178,6 +178,17 @@ describe('table shape', () => {
       expect(banned.test(def.desc), `${def.id} desc`).toBe(false);
     }
   });
+
+  it('the Peaks chapter descs carry the renamed Thornpeak chronicler', () => {
+    // The display name was renamed to Zenzie (template id retained for save
+    // compatibility); the catalog must never regress to the old name.
+    expect(DEEDS.chr_peaks_chapter_i.desc).toContain("Zenzie's chronicle");
+    expect(DEEDS.chr_peaks_chapter_ii.desc).toContain("Zenzie's chronicle");
+    for (const def of ALL) {
+      expect(def.name.includes('Edda Hartwell'), `${def.id} name`).toBe(false);
+      expect(def.desc.includes('Edda Hartwell'), `${def.id} desc`).toBe(false);
+    }
+  });
 });
 
 describe('trigger references resolve against the real content tables', () => {

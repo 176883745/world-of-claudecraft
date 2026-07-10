@@ -95,6 +95,10 @@ describe('character visual manifest', () => {
     ] as const) {
       expect(reserved).not.toContain(NPCS[id].color);
     }
+    // The Thornpeak chronicler's display name is renamed to Zenzie while the
+    // template id stays (save compatibility); pin the English so a revert
+    // cannot land silently.
+    expect(NPCS.chronicler_edda_hartwell.name).toBe('Chronicler Zenzie');
   });
 
   it('uses the custom boar death clip without relying on a speed override', () => {
