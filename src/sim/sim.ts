@@ -1397,12 +1397,19 @@ export class Sim {
         const r = Math.sqrt(this.rng.next()) * camp.radius;
         // Keep camp mobs out of every dungeon door's clear ring so approaching or
         // zoning out of a dungeon never lands the player in a pack's aggro radius.
-        // Pure geometry on the already-rolled point: no rng, draw order unchanged.
+        // Pure geometry on the already-rolled point: it draws no rng, so the spawn
+        // loop's own draw order is untouched (mob positions do shift, which moves
+        // their later idle-wander draws, but that is downstream in the drive phase).
         const cleared = projectOutsideDungeonDoors(
           camp.center.x + Math.sin(ang) * r,
           camp.center.z + Math.cos(ang) * r,
         );
-        const safe = this.findSafePos(cleared.x, cleared.z, minHeight);
+        // findSafePos's inward spiral can walk a shore-side ring-edge point back
+        // toward land, i.e. back INTO the ring; re-project the safe point so the
+        // "never inside a door ring" guarantee holds for every seed, not just the
+        // shipped one. Still pure and rng-free.
+        const grounded = this.findSafePos(cleared.x, cleared.z, minHeight);
+        const safe = projectOutsideDungeonDoors(grounded.x, grounded.z);
         const pos = this.groundPos(safe.x, safe.z);
         const level = this.rng.int(template.minLevel, template.maxLevel);
         const mob = createMob(this.nextId++, template, level, pos);

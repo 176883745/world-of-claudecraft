@@ -9,11 +9,13 @@
 // draw order is untouched and only the resulting position changes.
 
 import { DUNGEONS } from './data';
+import { MAX_AGGRO_RADIUS } from './mob/locomotion';
 
-// The clear radius around a door, matched to the interior clamp (mob/locomotion.ts
-// clamps aggro radius to at most 20yd), so a mob spawned strictly outside this ring
-// can never aggro a player standing on the door.
-export const DOOR_CLEAR_RADIUS = 20;
+// The clear radius around a door is exactly the aggro-radius clamp (imported, not a
+// re-typed literal), so a mob spawned strictly outside this ring can never aggro a
+// player standing on the door. Retuning the clamp in locomotion.ts moves this in
+// lockstep, and the guard test pins the same imported constant.
+export const DOOR_CLEAR_RADIUS = MAX_AGGRO_RADIUS;
 
 // Every dungeon's overworld door, deduped (some share one entrance, e.g. the
 // Nythraxis crypt + raid arena). Computed once at module load from the merged table.
