@@ -174,6 +174,7 @@ import {
   WHISPER_TAB,
   WHISPER_TAB_LABEL_KEY,
 } from './chat_channels';
+import { ChatMobileOverlay } from './chat_mobile_overlay';
 import { type ChatClock, clampChatClock, formatChatTimestamp } from './chat_timestamp';
 import { type ChatBoxGeometry, clampChatBox, parseChatBox, serializeChatBox } from './chat_window';
 import { formatClockTime } from './clock';
@@ -696,10 +697,8 @@ const CHAT_ACTIVE_TAB_KEY = 'woc_chat_active_tab';
 // Persisted chat-window geometry (drag position + resize size). Desktop only —
 // the mobile layout owns its own placement and ignores this.
 const CHAT_GEOMETRY_KEY = 'woc_chat_geometry';
-// Persisted MOBILE chat panel size: the panel's bottom inset in px, dragged via the
-// bottom resize handle. CSS clamps it to a valid range for the live viewport, so a value
-// saved in one orientation stays safe in another (never an off-screen / tiny panel).
-const MOBILE_CHAT_BOTTOM_KEY = 'woc_mobile_chat_bottom';
+// (The MOBILE chat panel geometry key lives with its controller in
+// chat_mobile_overlay.ts: one JSON blob for the movable/resizable open panel.)
 // Persisted top-left for each movable unit frame (MovableFrame in movable_frame.ts).
 const TARGET_FRAME_POS_KEY = 'woc_target_frame_pos';
 const PLAYER_FRAME_POS_KEY = 'woc_player_frame_pos';
@@ -1265,9 +1264,9 @@ export class Hud {
         startH: number;
       }
     | null = null;
-  // Mobile chat resize gesture (drag the bottom handle to set the panel's bottom inset).
-  private mobileChatResize: { pointerId: number; startY: number; startBottom: number } | null =
-    null;
+  // Mobile chat overlay controller (chat_mobile_overlay.ts): the move chip +
+  // bottom resize bar on the open touch panel, with persisted geometry.
+  private chatMobileOverlay: ChatMobileOverlay | null = null;
   // Movable unit frames (the shared MovableFrame controller, movable_frame.ts):
   // the target frame and the player frame each get a corner move/lock button, a
   // pointer drag, and a persisted top-left. Constructed once in initFrameMovers.
@@ -2301,35 +2300,11 @@ export class Hud {
     grip.setAttribute('aria-hidden', 'true');
     frame.appendChild(grip);
 
-    // Mobile-only resize handle: a BODY-LEVEL bar pinned by CSS to the open panel's bottom
-    // edge (it shares the panel's --mobile-chat-bottom var, so they move together) with a
-    // very high z-index so nothing can overlay it, and touch-action:none so a drag on it is
-    // a RESIZE, not a page scroll. Dragging it sets --mobile-chat-bottom (clamped by CSS).
-    // It is a direct child of body (not #ui / the wrap) so its z-index is not capped by an
-    // ancestor stacking context. Hidden on desktop via CSS.
-    const resizeHandle = document.createElement('div');
-    resizeHandle.className = 'chat-mobile-resize';
-    resizeHandle.title = t('hudChrome.chatWindow.resize');
-    resizeHandle.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(resizeHandle);
-    resizeHandle.addEventListener('pointerdown', (ev) =>
-      this.onMobileChatResizeStart(ev, resizeHandle),
-    );
-    resizeHandle.addEventListener('pointermove', (ev) => this.onMobileChatResizeMove(ev));
-    const endMobileResize = (ev: PointerEvent) => this.onMobileChatResizeEnd(ev);
-    resizeHandle.addEventListener('pointerup', endMobileResize);
-    resizeHandle.addEventListener('pointercancel', endMobileResize);
-    try {
-      const savedBottom = localStorage.getItem(MOBILE_CHAT_BOTTOM_KEY);
-      if (savedBottom) {
-        // Clamp on restore so a value saved from a larger viewport (or an earlier build)
-        // cannot land out of range and make the first drag feel dead.
-        const clamped = this.clampMobileChatBottom(Number.parseInt(savedBottom, 10) || 52);
-        document.documentElement.style.setProperty('--mobile-chat-bottom', `${clamped}px`);
-      }
-    } catch {
-      /* storage unavailable */
-    }
+    // Mobile-only overlay controller: builds the bottom resize bar and the
+    // top-corner move chip, restores the persisted panel geometry, and drives
+    // the --mobile-chat-left/top/h vars the open-state CSS consumes. Both
+    // affordances are display:none on desktop.
+    this.chatMobileOverlay = new ChatMobileOverlay(wrap);
 
     // touch-action lives in CSS now: `none` on desktop so a touch-drag on the empty
     // strip moves the chat box (the move gesture is desktop-only, see
@@ -2442,57 +2417,6 @@ export class Hud {
     this.persistChatBoxGeometry();
   }
 
-  // Clamp the panel's bottom inset to the same range the CSS clamp uses (12px .. viewport
-  // minus a reserved top band), so the stored value never drifts out of range. If it did,
-  // the CSS clamps it for display but a drag starting from the out-of-range raw value would
-  // not move the (already-clamped) panel until the raw crossed back in, which reads as a
-  // dead drag. Clamping in JS too keeps the drag responsive from the first pixel.
-  private clampMobileChatBottom(v: number): number {
-    const hi = Math.max(12, window.innerHeight - 320);
-    return Math.min(hi, Math.max(12, v));
-  }
-
-  // Mobile chat resize: drag the bottom handle to set --mobile-chat-bottom (the panel's
-  // bottom inset). Dragging DOWN lowers the inset (taller panel); UP raises it (shorter).
-  // The handle has touch-action:none and captures the pointer, so the drag is a resize (not
-  // a scroll) and follows the finger.
-  private onMobileChatResizeStart(ev: PointerEvent, handle: HTMLElement): void {
-    if (!this.isMobileLayout()) return;
-    ev.preventDefault();
-    ev.stopPropagation();
-    const raw = document.documentElement.style.getPropertyValue('--mobile-chat-bottom');
-    const startBottom = this.clampMobileChatBottom(raw ? Number.parseInt(raw, 10) || 52 : 52);
-    this.mobileChatResize = { pointerId: ev.pointerId, startY: ev.clientY, startBottom };
-    document.body.classList.add('chat-box-dragging');
-    try {
-      handle.setPointerCapture?.(ev.pointerId);
-    } catch {
-      /* synthetic pointer */
-    }
-  }
-
-  private onMobileChatResizeMove(ev: PointerEvent): void {
-    const g = this.mobileChatResize;
-    if (!g || g.pointerId !== ev.pointerId) return;
-    ev.preventDefault();
-    // Finger moving down (clientY grows) shrinks the bottom inset so the panel grows down.
-    const bottom = this.clampMobileChatBottom(g.startBottom - (ev.clientY - g.startY));
-    document.documentElement.style.setProperty('--mobile-chat-bottom', `${Math.round(bottom)}px`);
-  }
-
-  private onMobileChatResizeEnd(ev: PointerEvent): void {
-    const g = this.mobileChatResize;
-    if (!g || g.pointerId !== ev.pointerId) return;
-    this.mobileChatResize = null;
-    document.body.classList.remove('chat-box-dragging');
-    const bottom = document.documentElement.style.getPropertyValue('--mobile-chat-bottom');
-    try {
-      if (bottom) localStorage.setItem(MOBILE_CHAT_BOTTOM_KEY, bottom.trim());
-    } catch {
-      /* storage unavailable */
-    }
-  }
-
   private applyChatBoxGeometry(): void {
     if (!this.chatBox || this.isMobileLayout()) return;
     const wrap = document.getElementById('chatlog-wrap');
@@ -2531,9 +2455,11 @@ export class Hud {
   }
 
   // Public: snap the chat window back to its stock CSS position/size and forget
-  // the saved geometry. Wired to the "Reset Chat Window" interface option.
+  // the saved geometry (both the desktop box and the mobile overlay panel).
+  // Wired to the "Reset Chat Window" interface option.
   resetChatWindow(): void {
     this.chatBox = null;
+    this.chatMobileOverlay?.reset();
     try {
       localStorage.removeItem(CHAT_GEOMETRY_KEY);
     } catch {

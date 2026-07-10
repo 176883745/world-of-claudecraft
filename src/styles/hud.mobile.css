@@ -1540,35 +1540,43 @@
     display: none;
     z-index: 24;
   }
-  /* New model: tapping the Chat icon opens a centered READ panel; the composer is a
-     desktop-style bar at the TOP of that panel (main.ts moves #chat-input into
-     #chatlog-wrap as its first child on mobile), sitting above the tabs + log. Tapping
-     the composer bar raises the keyboard to type; hiding the keyboard returns to this read
-     view. Only the Chat icon closes the panel. One --mobile-chat-w var sizes the panel +
-     composer. Desktop is untouched; the long-press peek keeps its small bottom-left glance
-     (it clears mobile-chat-open, so none of this applies to it). */
+  /* Tapping the Chat icon opens a READ panel; the composer is a desktop-style bar at the
+     TOP of that panel (main.ts moves #chat-input into #chatlog-wrap as its first child on
+     mobile), sitting above the tabs + log. Tapping the composer bar raises the keyboard to
+     type; hiding the keyboard returns to this read view. Only the Chat icon closes the
+     panel. Desktop is untouched; the long-press peek keeps its small bottom-left glance
+     (it clears mobile-chat-open, so none of this applies to it).
+     GEOMETRY MODEL: the panel is MOVABLE (a 40x40 grab chip at its top-right corner) and
+     RESIZABLE (the bottom bar), both wired by chat_mobile_overlay.ts, which stamps
+     --mobile-chat-left/top/h on the root and persists them. The *-r vars below resolve
+     those overrides against the stock defaults: a side-anchored panel about 56-62% of the
+     viewport wide and about half of it tall (not the old near-fullscreen centered sheet).
+     The default top clears the top-left Chat/Social/More trio (a ~54px row scaled ~1.1x)
+     so the Chat button stays tappable ABOVE the panel to close it; the JS clamp
+     (chat_mobile_panel.ts, minTop) reserves the same band for a moved panel. The
+     defaults here and the JS constants are pinned together by
+     tests/mobile_chat_centered.test.ts. */
   body.mobile-touch.mobile-chat-open {
-    --mobile-chat-w: min(560px, calc(100vw - 24px));
+    --mobile-chat-w: min(500px, max(320px, 58vw), calc(100vw - 16px));
+    --mobile-chat-left-r: var(--mobile-chat-left, max(12px, env(safe-area-inset-left)));
+    --mobile-chat-top-r: var(--mobile-chat-top, calc(max(8px, env(safe-area-inset-top)) + 64px));
+    /* The outer min() is a viewport backstop for a persisted height applied before the
+       JS re-clamp runs (e.g. mid-rotation): the panel never runs past the bottom edge. */
+    --mobile-chat-h-r: min(
+      var(--mobile-chat-h, clamp(200px, 48vh, 340px)),
+      calc(100vh - var(--mobile-chat-top-r) - env(safe-area-inset-bottom) - 8px)
+    );
   }
   body.mobile-touch.mobile-chat-open #chatlog-wrap {
     display: flex;
     flex-direction: column;
-    left: 50%;
+    left: var(--mobile-chat-left-r);
     right: auto;
-    /* Read view (keyboard down): a LARGE centered panel. Top clears the top-left
-       Chat/Social/More trio (a ~54px row scaled up to ~1.1x) so the Chat button stays
-       tappable ABOVE the panel to close it. The bottom is player-resizable: dragging the
-       bottom handle sets --mobile-chat-bottom (the bottom inset), clamped so the panel
-       keeps a usable minimum height and never runs off-screen. top + bottom + height:auto
-       stretches the panel between them. Default bottom is small so the panel is big. */
-    top: calc(max(8px, env(safe-area-inset-top)) + 64px);
-    bottom: calc(
-      env(safe-area-inset-bottom) +
-      clamp(12px, var(--mobile-chat-bottom, 52px), calc(100vh - 320px))
-    );
-    transform: translateX(-50%);
+    top: var(--mobile-chat-top-r);
+    bottom: auto;
+    transform: none;
     width: var(--mobile-chat-w);
-    height: auto;
+    height: var(--mobile-chat-h-r);
     /* In front of the sibling in-HUD frames (the ~19-45 z band) inside #ui; #ui itself
        (z 80 on the touch HUD) already sits above #mobile-controls (z 60). */
     z-index: 50;
@@ -1577,7 +1585,9 @@
      panel width. It FLOWS in the flex column (not absolutely positioned / docked); order
      -1 keeps it first even if it were inserted elsewhere. Reset the base composer's
      absolute seat + chevron padding, and force off iOS Safari's native light textarea
-     appearance so it stays a dark panel bar (not a white box). */
+     appearance so it stays a dark panel bar (not a white box). The 50px right padding
+     reserves the 40px move chip overlaid at the panel's top-right corner, so typed text
+     never runs under it and a caret tap in that band cannot land on the chip. */
   body.mobile-touch.mobile-chat-open #chat-input {
     position: static;
     order: -1;
@@ -1589,7 +1599,7 @@
     transform: none;
     width: 100%;
     margin: 0 0 6px 0;
-    padding: 9px 12px;
+    padding: 9px 50px 9px 12px;
     min-height: 40px;
     box-sizing: border-box;
     -webkit-appearance: none;
@@ -1599,25 +1609,50 @@
     border: 1px solid var(--gold-dim, #6f5a2a);
     border-radius: 8px;
   }
-  /* Mobile chat resize handle (hud.ts creates it as a BODY-LEVEL element): a visible grab
-     bar pinned to the open panel's bottom edge via the SAME --mobile-chat-bottom var, so it
-     tracks the panel with no JS. A very high z-index keeps it above any overlay (the mystery
-     white bar included), and touch-action:none makes a drag a resize, not a scroll. Shown
-     only while the read panel is open. */
+  /* Mobile chat MOVE chip (chat_mobile_overlay.ts creates it inside #chatlog-wrap, so
+     touch_router.ts owns its touches and the camera never fights the drag): a 40x40
+     grab target at the panel's top-right corner that drags the whole overlay. Hidden
+     everywhere except the open touch panel. */
+  .chat-mobile-move {
+    display: none;
+  }
+  body.mobile-touch.mobile-chat-open #chatlog-wrap .chat-mobile-move {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* The 40px mobile touch floor (src/ui/CLAUDE.md). */
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--gold-dim, #6f5a2a);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--panel-base, #14121c) 88%, transparent);
+    color: var(--gold, #c9a84d);
+    z-index: 2;
+    touch-action: none;
+    cursor: grab;
+    pointer-events: auto;
+  }
+  /* Mobile chat resize handle (chat_mobile_overlay.ts creates it as a BODY-LEVEL
+     element): a visible grab bar pinned to the open panel's bottom edge via the SAME
+     resolved top/height vars, so it tracks the panel with no JS. A very high z-index
+     keeps it above any overlay (the mystery white bar included), and touch-action:none
+     makes a drag a resize, not a scroll. Shown only while the read panel is open. */
   .chat-mobile-resize {
     display: none;
   }
   body.mobile-touch.mobile-chat-open .chat-mobile-resize {
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
+    left: var(--mobile-chat-left-r);
+    transform: none;
     width: var(--mobile-chat-w);
-    /* Straddle the panel's bottom edge: the 30px bar is centred on the edge (edge - 15px). */
-    bottom: calc(
-      env(safe-area-inset-bottom) +
-      clamp(12px, var(--mobile-chat-bottom, 52px), calc(100vh - 320px)) -
-      15px
-    );
+    /* Straddle the panel's bottom edge: the 30px bar is centred on the edge (edge - 15px).
+       The scroller's padding-bottom below reserves the overlapping top half, so the
+       newest chat line always clears the bar. */
+    top: calc(var(--mobile-chat-top-r) + var(--mobile-chat-h-r) - 15px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1650,6 +1685,14 @@
     min-height: 0;
     height: auto;
     max-height: none;
+  }
+  /* OCCLUSION FIX: the body-level resize bar above straddles the panel's bottom edge by
+     15px (half its 30px height), which used to hide the newest chat line behind it.
+     Reserving that overlap INSIDE the scroller (padding-bottom > the 15px straddle) keeps
+     the last line fully readable at every resized height: scrolled to the bottom, the
+     newest message parks above the reserved band instead of under the bar. */
+  body.mobile-touch.mobile-chat-open #chatlog-frame .chat-pane {
+    padding-bottom: 22px;
   }
   /* Bottom-anchor the log so recent lines sit at the BOTTOM of the pane (nearest the
      input bar), not clustered at the top of a mostly-empty frame. margin-top:auto pushes
@@ -1752,6 +1795,14 @@
       max(6px, env(safe-area-inset-top)) -
       8px
     );
+  }
+  /* While the keyboard is up the panel is re-laid to fill the band above it (its top and
+     height above no longer follow the moved/resized vars), so the two grab affordances
+     would sit stale mid-screen; a player mid-reply is not moving the window anyway. Both
+     return the instant the keyboard drops. */
+  body.mobile-touch.mobile-keyboard-open.mobile-chat-open .chat-mobile-resize,
+  body.mobile-touch.mobile-keyboard-open.mobile-chat-open #chatlog-wrap .chat-mobile-move {
+    display: none;
   }
   /* The low-priority Chat/Social/More trio yields while the keyboard is up: the panel top
      rises to the safe-area top and would otherwise sit over it (and the panel, in #ui z 80,
@@ -4086,16 +4137,15 @@
     bottom: calc(276px + env(safe-area-inset-bottom));
   }
   /* Compact (phones: width <= 700 or height <= 480, i.e. the primary case) uses the same
-     centered, in-front, PLAYER-RESIZABLE panel as the other tiers; the closed-seat
-     width/bottom rules above would otherwise pin the open chat to a narrow fixed strip. The
-     bottom MUST use the same --mobile-chat-bottom clamp as the base open rule, or the resize
-     handle moves but the panel does not (the bug that hid the resize on real phones). */
+     in-front, MOVABLE + RESIZABLE panel as the other tiers; the closed-seat width/bottom
+     rules above (equal specificity, later in the file) would otherwise pin the open chat
+     back to the narrow fixed strip. Width re-asserts the shared panel var and bottom is
+     neutralized so the base open rule's top+height model wins on compact too (the old
+     model's bug class: an override here that stops tracking the shared vars makes the
+     handles move while the panel stays put). */
   body.mobile-touch.hud-mobile-compact.mobile-chat-open #chatlog-wrap {
     width: var(--mobile-chat-w);
-    bottom: calc(
-      env(safe-area-inset-bottom) +
-      clamp(12px, var(--mobile-chat-bottom, 52px), calc(100vh - 320px))
-    );
+    bottom: auto;
   }
   body.mobile-touch.hud-mobile-compact.mobile-chat-open #chatlog-frame {
     flex: 1 1 auto;
