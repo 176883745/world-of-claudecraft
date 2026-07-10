@@ -99,10 +99,26 @@ describe('prepare_ai_review: event and prompt validation', () => {
         'origin',
         `https://github.com/${repository}.git`,
       ]);
-      const head = execFileSync('git', ['-C', prDir, 'rev-parse', 'HEAD'], {
+      const base = execFileSync('git', ['-C', prDir, 'rev-parse', 'HEAD'], {
         encoding: 'utf8',
       }).trim();
-      const base = execFileSync('git', ['-C', prDir, 'rev-parse', 'HEAD~1'], {
+      fs.writeFileSync(path.join(prDir, 'codex-review-fixture.txt'), 'fixture head\n');
+      execFileSync('git', ['-C', prDir, 'add', '--', 'codex-review-fixture.txt']);
+      execFileSync('git', [
+        '-C',
+        prDir,
+        '-c',
+        'user.name=Codex Fixture',
+        '-c',
+        'user.email=codex-fixture@example.invalid',
+        'commit',
+        '--quiet',
+        '--no-verify',
+        '--no-gpg-sign',
+        '-m',
+        'fixture head',
+      ]);
+      const head = execFileSync('git', ['-C', prDir, 'rev-parse', 'HEAD'], {
         encoding: 'utf8',
       }).trim();
       fs.writeFileSync(
