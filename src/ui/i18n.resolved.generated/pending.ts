@@ -35,7 +35,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "es_ES": [
     "entities.items.arcane_dust.name",
@@ -63,7 +71,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "fr_FR": [
     "entities.items.arcane_dust.name",
@@ -91,7 +107,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "fr_CA": [
     "entities.items.arcane_dust.name",
@@ -119,7 +143,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "en_CA": [],
   "it_IT": [
@@ -148,7 +180,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "de_DE": [
     "entities.items.arcane_dust.name",
@@ -176,7 +216,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "zh_CN": [
     "hudChrome.itemHeroicTag"
@@ -216,7 +264,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "ru_RU": [
     "hudChrome.itemHeroicTag"
@@ -244,7 +300,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "nl_NL": [
     "entities.items.chunk_of_ore.name",
@@ -269,7 +333,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "pl_PL": [
     "entities.items.chunk_of_ore.name",
@@ -294,7 +366,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "id_ID": [
     "entities.items.chunk_of_ore.name",
@@ -319,7 +399,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "tr_TR": [
     "entities.items.chunk_of_ore.name",
@@ -344,7 +432,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "sv_SE": [
     "entities.items.chunk_of_ore.name",
@@ -369,7 +465,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "vi_VN": [
     "entities.items.chunk_of_ore.name",
@@ -394,7 +498,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ],
   "da_DK": [
     "entities.items.chunk_of_ore.name",
@@ -419,6 +531,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.readyCheck.notReady",
     "hudChrome.readyCheck.prompt",
     "hudChrome.readyCheck.ready",
-    "hudChrome.readyCheck.result"
+    "hudChrome.readyCheck.result",
+    "loading.tips.classes",
+    "loading.tips.dungeons",
+    "loading.tips.guilds",
+    "loading.tips.loadouts",
+    "loading.tips.market",
+    "loading.tips.professions",
+    "loading.tips.pvp",
+    "loading.tips.talents"
   ]
 };
