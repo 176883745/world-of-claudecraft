@@ -1042,7 +1042,12 @@ export class MobileControls {
     // Idempotent: the canvas handler and the window-level forwarder both call
     // this for a canvas pointerup, so only the first delete does any work.
     if (!this.pinchPointers.delete(e.pointerId)) return;
+    // Re-baseline from the SURVIVING pair on a 3->2 transition: the old baseline
+    // was measured between the original first two pointers (currentPinchDist
+    // reads insertion order), so keeping it across a different surviving pair
+    // applied one discontinuous zoom step on the next move.
     if (this.pinchPointers.size < 2) this.pinchPrevDist = null;
+    else this.pinchPrevDist = this.currentPinchDist();
     // A pinch degrading to exactly one remaining finger hands that finger back
     // to camera drag (swipe-look), so the player can keep rotating without a
     // re-touch. Pinch pointers only ever come from canvas pointerdowns, so the

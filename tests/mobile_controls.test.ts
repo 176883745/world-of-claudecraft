@@ -1888,6 +1888,32 @@ describe('MobileControls pinch lifecycle: camera drag ownership after zoom', () 
     expect(deltas.length).toBeGreaterThan(0);
     expect(zooms.length).toBe(zoomsDuringPinch);
   });
+
+  it('re-baselines from the surviving pair on a 3->2 transition (no zoom jump)', () => {
+    const { canvas } = installMobileControlDom();
+    const { input, zooms } = gestureRecorder();
+    new MobileControls(input, mobileCallbacks()).start();
+
+    // Two fingers pinch (baseline dist 100), then an accidental THIRD finger
+    // lands far away: zoom stops at size 3.
+    touch(canvas, 'pointerdown', 71, 100, 300);
+    touch(canvas, 'pointerdown', 72, 200, 300);
+    touch(canvas, 'pointerdown', 73, 500, 300);
+    const zoomsBeforeLift = zooms.length;
+
+    // The FIRST finger lifts: the surviving pair (72, 73) is 300px apart, but
+    // the stale baseline was measured between 71 and 72 (100px). Without the
+    // re-baseline the next 1px move applied one ~200px discontinuous zoom step.
+    touch(canvas, 'pointerup', 71, 100, 300);
+    touch(canvas, 'pointermove', 72, 201, 300);
+    expect(zooms.length).toBe(zoomsBeforeLift);
+
+    // The surviving pair keeps pinching from ITS OWN baseline: fingers moving
+    // 100px together is a deliberate gesture and must zoom out (positive).
+    touch(canvas, 'pointermove', 72, 300, 300);
+    expect(zooms.length).toBe(zoomsBeforeLift + 1);
+    expect(zooms[zooms.length - 1]).toBeGreaterThan(0);
+  });
 });
 
 describe('MobileControls chrome idle-fade lifecycle', () => {
