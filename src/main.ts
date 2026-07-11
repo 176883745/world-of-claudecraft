@@ -8139,36 +8139,43 @@ function wireStartScreens(): void {
   });
 
   // Initialize 3D character preview once assets are ready
-  assetsReady().then(() => {
-    // ALL THREE play panels are init candidates, #charcreate-panel included: on
-    // a slow connection (a phone with a cold cache) assets finish AFTER the
-    // player has already registered and landed on the create panel, and the old
-    // two-panel list resolved to the hidden charselect container, so the canvas
-    // never reached #charcreate-preview-container and the create preview
-    // rendered nothing. show()'s own updatePreviewContainer call cannot repair
-    // it either: it no-ops until this constructor has run.
-    const activePanelId = ['#charselect-panel', '#charcreate-panel', '#offline-select'].find(
-      (id) => !$(id).hasAttribute('hidden'),
-    );
-    const container = $('#online-preview-container');
-    const canvas = $('#char-preview-canvas') as HTMLCanvasElement | null;
-    if (container && canvas) {
-      characterPreview = new CharacterPreview(container, canvas);
-      if (activePanelId) {
-        // The full panel wiring: re-homes the canvas into the active panel's
-        // container, applies the roster appearance or the selected class chip
-        // (+ skins), and runs the deferred size sync.
-        updatePreviewContainer(activePanelId);
-      } else if (charselectSelected) {
-        // Token auto-login selected a roster character before assets finished
-        // but no play panel is up yet: seed its real appearance for the reveal.
-        characterPreview.setAppearance(charselectAppearance(charselectSelected));
-      } else {
-        characterPreview.setClass('warrior');
+  assetsReady()
+    .then(() => {
+      // ALL THREE play panels are init candidates, #charcreate-panel included: on
+      // a slow connection (a phone with a cold cache) assets finish AFTER the
+      // player has already registered and landed on the create panel, and the old
+      // two-panel list resolved to the hidden charselect container, so the canvas
+      // never reached #charcreate-preview-container and the create preview
+      // rendered nothing. show()'s own updatePreviewContainer call cannot repair
+      // it either: it no-ops until this constructor has run.
+      const activePanelId = ['#charselect-panel', '#charcreate-panel', '#offline-select'].find(
+        (id) => !$(id).hasAttribute('hidden'),
+      );
+      const container = $('#online-preview-container');
+      const canvas = $('#char-preview-canvas') as HTMLCanvasElement | null;
+      if (container && canvas) {
+        characterPreview = new CharacterPreview(container, canvas);
+        if (activePanelId) {
+          // The full panel wiring: re-homes the canvas into the active panel's
+          // container, applies the roster appearance or the selected class chip
+          // (+ skins), and runs the deferred size sync.
+          updatePreviewContainer(activePanelId);
+        } else if (charselectSelected) {
+          // Token auto-login selected a roster character before assets finished
+          // but no play panel is up yet: seed its real appearance for the reveal.
+          characterPreview.setAppearance(charselectAppearance(charselectSelected));
+        } else {
+          characterPreview.setClass('warrior');
+        }
       }
-    }
-    decorateClassChips();
-  });
+      decorateClassChips();
+    })
+    .catch((err) => {
+      // assetsReady rejects when ANY preload failed (a flaky connection on a
+      // phone's cold first load): degrade to a missing preview instead of an
+      // unhandled rejection. Dev-channel only; the panels stay fully usable.
+      console.warn('character preview init skipped: asset preload failed', err);
+    });
 }
 
 // Looping home-page theme. Browsers block audio autoplay until a user gesture,
