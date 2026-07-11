@@ -278,11 +278,17 @@
     --control-h: 36px;
     --control-h-touch: 44px;
     --touch-min: 40px;
-    /* Comfortable slot-cell floor for the touch item grids (bags/bank cells and the
-       bag-bar sockets): --touch-min is the bare tap-target minimum, but a grid of
-       icon squares at that density reads too small on a phone (live user feedback
-       on the bank 50/50 dock). Touch re-tracks the slot grids to this floor and
-       lets them reflow to fewer columns; desktop keeps the 42px density. */
+    /* Comfortable slot-cell floor for the item grids (bags/bank cells and the
+       bag-bar sockets) on EVERY pointer kind: the old 42px desktop density read
+       too small in the large resizable AAA-framed windows (auto-fill minted new
+       columns instead of growing the cells), so desktop now shares the floor the
+       touch fix established. */
+    --slot-cell: 56px;
+    /* Touch twin of --slot-cell: --touch-min is the bare tap-target minimum, but
+       a grid of icon squares at that density reads too small on a phone (live
+       user feedback on the bank 50/50 dock). Touch re-tracks the slot grids to
+       this floor and lets them reflow to fewer columns; kept as its OWN token so
+       the touch tap-size guarantee stands even if the desktop floor diverges. */
     --touch-cell: 56px;
     /* Esc menu redesign (The Warden's Codex): the recessed category rail width.
        A structural length (never themed), collapsed to an icon strip under 900px

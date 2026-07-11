@@ -2183,13 +2183,21 @@ describe('client HTML shell', () => {
       'body.mobile-touch .bag-socket {\n    width: var(--touch-cell);\n    height: var(--touch-cell);',
     );
     expect(componentsCss).toContain('body.mobile-touch .bag-bar {\n    flex-wrap: wrap;');
-    // The desktop grids keep the dense 42px tracks (no touch value leaking into the
-    // unscoped base rules).
+    // The desktop grids share the 56px comfort floor via --slot-cell (the old
+    // dense 42px tracks kept the icons ~42px however large the resizable window
+    // grew: auto-fill minted new columns instead of growing the cells), while the
+    // touch re-tracks above stay pinned to --touch-cell as their own guarantee.
+    expect(tokensCss).toContain('--slot-cell: 56px;');
     expect(componentsCss).toContain(
-      '.bag-grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));',
+      '.bag-grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(var(--slot-cell), 1fr));',
     );
     expect(componentsCss).toContain(
-      '.bank-grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));',
+      '.bank-grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(var(--slot-cell), 1fr));',
+    );
+    // The desktop bag-bar sockets grow with the grid cells (one icon size per
+    // window); the touch rule re-states the same box via --touch-cell.
+    expect(componentsCss).toContain(
+      'width: var(--slot-cell);\n    height: var(--slot-cell);\n    flex: none;',
     );
   });
 

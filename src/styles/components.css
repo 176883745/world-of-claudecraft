@@ -3282,7 +3282,7 @@
     width: auto;
     height: auto;
     aspect-ratio: 1;
-    /* SC 2.5.8: the 42px column floor keeps every cell >= 40x40 on touch too. */
+    /* SC 2.5.8: the --slot-cell column floor keeps every cell >= 40x40 on touch too. */
     min-height: var(--touch-min);
     padding: 0;
     overflow: hidden;
@@ -3348,12 +3348,14 @@
   body.mobile-touch .window-frame .chip {
     min-height: var(--touch-min);
   }
-  /* Touch: the slot grids re-track from the 42px desktop density to the larger
-     --touch-cell floor and REFLOW to fewer columns (live user feedback: the item
-     icons read too small to tap inside the 50/50 bank / market docks). The cells
-     are fluid aspect-ratio squares, so the wider track is what grows them, and
-     the icon inside already fills the cell. Cell size stays fixed at the floor;
-     the COLUMN COUNT is what yields. Desktop keeps its density and the dock
+  /* Touch: the slot grids re-track to the --touch-cell floor and REFLOW to fewer
+     columns (live user feedback: the item icons read too small to tap inside the
+     50/50 bank / market docks). The cells are fluid aspect-ratio squares, so the
+     wider track is what grows them, and the icon inside already fills the cell.
+     Cell size stays fixed at the floor; the COLUMN COUNT is what yields. The
+     desktop base rules now share the same 56px value via --slot-cell, so these
+     re-tracks are value-no-ops, but they stay as the INDEPENDENT touch tap-size
+     guarantee (they keep holding if the desktop floor diverges) and the dock
      geometry (the 50/50 split rules in hud.mobile.css) is untouched. :is(), not a
      two-selector list: the bank_window.test.ts scroll-contract slices anchor on
      this file's first bank-grid rule OPENER, which must stay the base rule in the
@@ -3474,7 +3476,7 @@
      badge in the bottom-right corner, and free capacity paints as empty sockets. */
   .bag-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--slot-cell), 1fr));
     gap: 4px;
     padding: 2px;
     align-content: start;
@@ -3549,8 +3551,10 @@
   }
   .bag-socket {
     position: relative;
-    width: 40px;
-    height: 40px;
+    /* Matches the item grid's --slot-cell floor so the bag bar and the cells
+       below it read one size (the touch rule re-states this via --touch-cell). */
+    width: var(--slot-cell);
+    height: var(--slot-cell);
     flex: none;
     padding: 0;
     border: 1px solid #4a3d26;
@@ -3793,7 +3797,7 @@
   }
   .bank-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--slot-cell), 1fr));
     gap: 4px;
     padding: 2px;
     align-content: start;
