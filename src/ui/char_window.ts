@@ -211,7 +211,7 @@ export class CharWindow {
     el.querySelector('[data-act="prestige"]')?.addEventListener('click', () =>
       this.deps.openPrestige(),
     );
-    el.querySelector('[data-act=\"open-deeds\"]')?.addEventListener('click', () => {
+    el.querySelector('[data-act="open-deeds"]')?.addEventListener('click', () => {
       audio.click();
       this.deps.openDeeds();
     });
