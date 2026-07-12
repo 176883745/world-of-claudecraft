@@ -711,11 +711,13 @@ describe('Guide deeds spoiler safety', () => {
 });
 
 // The gates above prove hidden deeds stay out of content.generated.ts, but the built wiki
-// also modulepreloads every chunk its static module graph colors: if the guide entry can
-// reach src/sim/content/deeds.ts through value imports, Rollup bakes the whole catalog
-// (hidden names, descs, criteria) into a chunk the public wiki serves. This walk pins the
-// seam at the source level (the architecture.test.ts convention: scan sources, never run a
-// build inside the suite).
+// also serves every chunk its module graph produces: eager chunks are modulepreloaded from
+// the guide entry, and a dynamic import() starts a lazy chunk that is still built, served,
+// and one click away for a wiki reader. If the guide entry can reach
+// src/sim/content/deeds.ts through value imports on EITHER kind of edge, Rollup bakes the
+// whole catalog (hidden names, descs, criteria) into a chunk the public wiki serves. This
+// walk pins the seam at the source level (the architecture.test.ts convention: scan
+// sources, never run a build inside the suite).
 describe('Guide module-graph spoiler containment', () => {
   const ASSET_SPEC_RE = /\.(css|json|webp|png|jpg|jpeg|svg|glsl|wasm|mjs)$/;
 
@@ -730,11 +732,14 @@ describe('Guide module-graph spoiler containment', () => {
     throw new Error(`guide graph walk cannot resolve "${spec}" from ${fromFile}`);
   };
 
-  // Static VALUE imports only: import ... from, bare side-effect imports, and
-  // export ... from. Type-only statements (import type / export type) are
-  // erased at build time and a dynamic import() starts its own lazy chunk, so
-  // neither colors the entry's eager graph.
-  const valueImportSpecs = (source: string): string[] => {
+  // Value imports, eager AND lazy: import ... from, bare side-effect imports,
+  // export ... from, and dynamic import() with a literal spec. Type-only
+  // statements (import type / export type) are erased at build time. A dynamic
+  // import() does not color the entry's eager (modulepreloaded) graph, but its
+  // lazy chunk is still built and served to wiki readers, so containment walks
+  // it exactly like an eager edge; a computed spec would hide a chunk from the
+  // walk, so it fails loudly instead of silently shrinking the graph.
+  const valueImportSpecs = (source: string, fromFile: string): string[] => {
     // One alternation pass: a line comment consumes any "/*" inside it (a
     // path glob in prose) and a block comment consumes any "//", so neither
     // strip can eat real code between mismatched markers.
@@ -749,8 +754,27 @@ describe('Guide module-graph spoiler containment', () => {
         specs.push(m[2]);
       }
     }
+    for (const m of code.matchAll(/\bimport\s*\(\s*(['"]([^'"]+)['"]\s*\))?/g)) {
+      if (m[1] === undefined) {
+        throw new Error(
+          `guide graph walk found a non-literal dynamic import() in ${fromFile}; ` +
+            'use a string-literal spec so the containment walk can follow the lazy chunk',
+        );
+      }
+      specs.push(m[2]);
+    }
     return specs;
   };
+
+  it('collects dynamic import() literals and refuses computed specs (lazy chunks are served too)', () => {
+    expect(valueImportSpecs("const { X } = await import('./scene');", 'inline.ts')).toEqual([
+      './scene',
+    ]);
+    expect(valueImportSpecs("import type { X } from './types_only';", 'inline.ts')).toEqual([]);
+    expect(() => valueImportSpecs('const m = await import(specVar);', 'inline.ts')).toThrow(
+      /non-literal dynamic import/,
+    );
+  });
 
   it('never reaches the deeds catalog from the guide entry (chunk-color containment)', () => {
     const entry = resolve(repoRoot, 'src/guide/main.ts');
@@ -760,7 +784,7 @@ describe('Guide module-graph spoiler containment', () => {
     const queue = [entry];
     while (queue.length > 0) {
       const file = queue.shift() as string;
-      for (const spec of valueImportSpecs(readFileSync(file, 'utf8'))) {
+      for (const spec of valueImportSpecs(readFileSync(file, 'utf8'), file)) {
         const target = resolveRelative(file, spec);
         if (target === null || reached.has(target)) continue;
         reached.add(target);
@@ -768,11 +792,14 @@ describe('Guide module-graph spoiler containment', () => {
         queue.push(target);
       }
     }
-    // Walker sanity: the graph is real, and it still reaches the sim/data.ts
-    // aggregate (via icons.ts and the entity localizers); only the deeds
-    // slice is severed from it.
+    // Walker sanity: the graph is real, it still reaches the sim/data.ts
+    // aggregate (via icons.ts and the entity localizers), and the lazy arm
+    // actually walks: viewer/scene.ts is reachable ONLY through the dynamic
+    // import in viewer/mount.ts (every static import of it is type-only), so
+    // dropping the import() collection must red this line.
     expect(reached.size).toBeGreaterThan(50);
     expect(reached.has(resolve(repoRoot, 'src/sim/data.ts'))).toBe(true);
+    expect(reached.has(resolve(repoRoot, 'src/guide/viewer/scene.ts'))).toBe(true);
 
     let chain = '';
     if (reached.has(forbidden)) {
