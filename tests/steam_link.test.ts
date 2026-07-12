@@ -299,3 +299,92 @@ describe('link/unlink failure surfacing', () => {
     consoleError.mockRestore();
   });
 });
+
+// After a link attempt settles (server verify resolved OR rejected), the client
+// signals the shell so it can cancel the Steam auth ticket (Valve's
+// CancelAuthTicket contract, steam.cjs cancelLinkTicket). The signal must fire
+// exactly once per attempt on both paths, and an older shell that predates the
+// bridge method must not throw (the optional-chained, swallowed call).
+describe('link settle signal (Valve CancelAuthTicket)', () => {
+  // Fresh module per test so the module-level linkInFlight latch starts clean
+  // (the double-click test above deliberately strands a mint in flight).
+  let steam: typeof import('../src/ui/steam_link');
+  beforeEach(async () => {
+    vi.resetModules();
+    steam = await import('../src/ui/steam_link');
+  });
+
+  it('signals the shell exactly once after the link POST resolves', async () => {
+    const elements = installDom();
+    const settled = vi.fn(async () => null);
+    installBridge({
+      steamLinkTicket: async () => 'deadbeef',
+      steamLinkSupported: async () => true,
+      steamLinkSettled: settled,
+    });
+    const steamLink = vi.fn(async () => ({}));
+    const api = {
+      token: 'session-token',
+      steamAdvert: async () => true,
+      steamStatus: async () => ({ enabled: true, linked: false }),
+      steamLink,
+    } as unknown as Api;
+
+    steam.wireSteamLink(api);
+    await settleMicrotasks();
+    elements['btn-steam-link'].listeners.click();
+    await settleMicrotasks();
+    expect(steamLink).toHaveBeenCalledWith('deadbeef');
+    expect(settled).toHaveBeenCalledTimes(1);
+  });
+
+  it('signals the shell once even when the link POST rejects', async () => {
+    vi.useFakeTimers(); // the reject path flashes via window.setTimeout
+    (globalThis as { window?: unknown }).window = globalThis;
+    const elements = installDom();
+    const settled = vi.fn(async () => null);
+    installBridge({
+      steamLinkTicket: async () => 'deadbeef',
+      steamLinkSupported: async () => true,
+      steamLinkSettled: settled,
+    });
+    const steamLink = vi.fn(async () => {
+      throw { code: 'steam.invalid_ticket' };
+    });
+    const api = {
+      token: 'session-token',
+      steamAdvert: async () => true,
+      steamStatus: async () => ({ enabled: true, linked: false }),
+      steamLink,
+    } as unknown as Api;
+
+    steam.wireSteamLink(api);
+    await settleMicrotasks();
+    elements['btn-steam-link'].listeners.click();
+    await settleMicrotasks();
+    // The settle signal fires in the finally, on the rejection path too.
+    expect(settled).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not throw on an older shell without steamLinkSettled', async () => {
+    const elements = installDom();
+    installBridge({
+      steamLinkTicket: async () => 'deadbeef',
+      steamLinkSupported: async () => true,
+    });
+    const steamLink = vi.fn(async () => ({}));
+    const api = {
+      token: 'session-token',
+      steamAdvert: async () => true,
+      steamStatus: async () => ({ enabled: true, linked: false }),
+      steamLink,
+    } as unknown as Api;
+
+    steam.wireSteamLink(api);
+    await settleMicrotasks();
+    elements['btn-steam-link'].listeners.click();
+    await settleMicrotasks();
+    // The optional-chained call is a no-op; the link still posts, no throw.
+    expect(steamLink).toHaveBeenCalledWith('deadbeef');
+  });
+});

@@ -256,3 +256,62 @@ describe('createSteamShell', () => {
     await expect(bare.getLinkTicket()).resolves.toBe('01');
   });
 });
+
+describe('cancelLinkTicket (Valve CancelAuthTicket on link settle)', () => {
+  const steamShell = () => {
+    const fake = fakeSteamworks();
+    const shell = createSteamShell({
+      distribution: 'steam',
+      env: {},
+      isPackaged: true,
+      requireSteamworks: () => fake.module,
+    });
+    return { fake, shell };
+  };
+
+  it('cancels the live handle, nulls the slot, and leaves no stale supersede', async () => {
+    const { fake, shell } = steamShell();
+    await expect(shell.getLinkTicket()).resolves.toBe('abcd');
+    // The renderer reports the attempt settled: the live handle is cancelled now,
+    // not deferred to the next mint or process exit.
+    shell.cancelLinkTicket();
+    expect(fake.tickets[0].cancel).toHaveBeenCalledTimes(1);
+    // The slot is nulled, so the NEXT mint has nothing stale to supersede-cancel
+    // (a double-cancel of the just-settled handle would otherwise be possible).
+    await expect(shell.getLinkTicket()).resolves.toBe('abcd');
+    expect(fake.tickets[0].cancel).toHaveBeenCalledTimes(1);
+    expect(fake.tickets[1].cancel).not.toHaveBeenCalled();
+  });
+
+  it('is idempotent and a no-op with no live handle', async () => {
+    const { fake, shell } = steamShell();
+    // No handle minted yet: a settle signal is harmless.
+    expect(() => shell.cancelLinkTicket()).not.toThrow();
+    await expect(shell.getLinkTicket()).resolves.toBe('abcd');
+    shell.cancelLinkTicket();
+    shell.cancelLinkTicket(); // a repeat signal cancels nothing extra
+    expect(fake.tickets[0].cancel).toHaveBeenCalledTimes(1);
+  });
+
+  it('never throws when cancel throws or the handle lacks cancel', async () => {
+    const { fake, shell } = steamShell();
+    await expect(shell.getLinkTicket()).resolves.toBe('abcd');
+    fake.tickets[0].cancel.mockImplementation(() => {
+      throw new Error('cancel refused');
+    });
+    expect(() => shell.cancelLinkTicket()).not.toThrow();
+    // A ticket shape without cancel (an older binding) is tolerated too.
+    const bare = createSteamShell({
+      distribution: 'steam',
+      env: {},
+      isPackaged: true,
+      requireSteamworks: () => ({
+        init: () => ({
+          auth: { getAuthTicketForWebApi: async () => ({ getBytes: () => Buffer.from([0x01]) }) },
+        }),
+      }),
+    });
+    await expect(bare.getLinkTicket()).resolves.toBe('01');
+    expect(() => bare.cancelLinkTicket()).not.toThrow();
+  });
+});

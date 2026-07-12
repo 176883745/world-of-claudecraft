@@ -26,6 +26,7 @@ export interface SteamShell {
   enabled: boolean;
   appId: number;
   getLinkTicket(): Promise<string | null>;
+  cancelLinkTicket(): void;
 }
 
 export function steamIntegrationEnabled(input?: {

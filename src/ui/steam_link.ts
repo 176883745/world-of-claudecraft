@@ -131,6 +131,18 @@ async function startSteamLink(api: Api): Promise<void> {
     void refreshSteamLinkStatus(api);
   } finally {
     linkInFlight = false;
+    // Tell the shell the attempt has settled (success or failure) so it can
+    // cancel the Steam auth ticket promptly (Valve's CancelAuthTicket contract)
+    // instead of the handle lingering to the next mint or process exit.
+    // Optional-chained and swallowed: an older shell without the bridge method,
+    // or a web build (bridge null), is a no-op, and the shell's cancel is
+    // idempotent.
+    const bridge = DESKTOP_APP ? desktopBridge() : null;
+    try {
+      await bridge?.steamLinkSettled?.();
+    } catch {
+      // A settle-signal failure must never surface to the player.
+    }
   }
 }
 

@@ -85,6 +85,10 @@ export interface DesktopBridge {
   // shells that predate the capability probe: fall back to steamLinkTicket
   // presence there. Feature-check before use like the other post-trio methods.
   steamLinkSupported?(): Promise<boolean>;
+  // Signals that the link POST settled (success or failure) so the shell can
+  // cancel the outstanding Steam auth ticket promptly (Valve's CancelAuthTicket
+  // contract). Absent on older shells: feature-check before use.
+  steamLinkSettled?(): Promise<unknown>;
 }
 
 export function desktopBridge(): DesktopBridge | null {

@@ -1633,6 +1633,7 @@ export class Hud {
       '#map-window',
       '#bank-window',
       '#bags',
+      '#deeds-window',
     ]) {
       $(panelId).addEventListener('keydown', (e) => {
         if ((e.target as HTMLElement).tagName !== 'BUTTON') return;

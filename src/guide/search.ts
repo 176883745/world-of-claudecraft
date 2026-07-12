@@ -5,7 +5,7 @@
 // intercepts. Rebuilt per language because the chrome is rebuilt on a language switch.
 
 import { esc } from '../ui/esc';
-import { type TranslationKey, t } from '../ui/i18n';
+import { getLanguage, languageTag, type TranslationKey, t } from '../ui/i18n';
 import {
   GUIDE_CLASSES,
   GUIDE_DEEDS,
@@ -26,11 +26,18 @@ export interface SearchEntry {
 
 const MAX_RESULTS = 10;
 
+// Case-fold through the active locale so the haystack and the needle lower-case
+// identically. A locale-agnostic toLowerCase mishandles the Turkish dotted-I:
+// 'Insansilar-with-dotted-I'.toLowerCase() injects a combining dot after the i, so
+// a typed plain 'insan' never matches. The deeds window folds the same way
+// (src/ui/deeds_window.ts).
+const fold = (s: string): string => s.toLocaleLowerCase(languageTag(getLanguage()));
+
 /** Exported for the node-level tests; the UI consumes it through mountSearch. */
 export function buildIndex(): SearchEntry[] {
   const entries: SearchEntry[] = [];
   const add = (label: string, type: string, href: string, extra = '') => {
-    if (label) entries.push({ label, type, href, haystack: `${label} ${extra}`.toLowerCase() });
+    if (label) entries.push({ label, type, href, haystack: fold(`${label} ${extra}`) });
   };
 
   for (const r of GUIDE_ROUTES) {
@@ -86,7 +93,7 @@ export function buildIndex(): SearchEntry[] {
 // never matters ("crypt hollow" finds The Hollow Crypt). Scored so label prefixes beat
 // word prefixes beat plain substrings.
 function scoreEntry(e: SearchEntry, tokens: string[]): number {
-  const label = e.label.toLowerCase();
+  const label = fold(e.label);
   let score = 0;
   for (const tok of tokens) {
     if (!e.haystack.includes(tok)) return -1;
@@ -99,7 +106,7 @@ function scoreEntry(e: SearchEntry, tokens: string[]): number {
 
 /** Exported for the node-level tests; the UI consumes it through mountSearch. */
 export function rank(index: SearchEntry[], query: string): SearchEntry[] {
-  const q = query.trim().toLowerCase();
+  const q = fold(query.trim());
   if (!q) return [];
   const tokens = q.split(/\s+/).filter(Boolean);
   const hits = index.map((e) => ({ e, score: scoreEntry(e, tokens) })).filter((h) => h.score >= 0);

@@ -30,10 +30,11 @@ import {
   topbarRoutes,
   toSub,
 } from '../src/guide/routes';
+import { buildIndex, rank } from '../src/guide/search';
 import { DEEDS } from '../src/sim/content/deeds';
 import { CAMPS, MOBS } from '../src/sim/data';
 import { DEED_IMAGE_IDS } from '../src/ui/deed_image_ids';
-import { setLanguage, t } from '../src/ui/i18n';
+import { ensureLocaleLoaded, setLanguage, t } from '../src/ui/i18n';
 import { guideStrings } from '../src/ui/i18n.catalog/guide';
 
 const repoRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -719,6 +720,52 @@ describe('Guide deeds spoiler safety', () => {
     const one = catalogSections(first ? [first] : []);
     expect(one).toContain(`${t('guide.deedsPage.cat.progression')} (1)`);
     expect(one).not.toContain(t('guide.deedsPage.cat.combat'));
+  });
+
+  it('never leaks the boss display name or an encounter mechanic, case-insensitively', () => {
+    // Hardening pin for a refuted spoiler finding: the raid boss display name and
+    // its encounter mechanics never reach the generated wiki, but the scans above
+    // are case-sensitive, so a future generator change that lower-cased or
+    // title-cased one would slip past. The bare 'nythraxis' id-slug and its crest
+    // path (/ui/deeds/dgn_nythraxis*.webp) are the recorded maintainer tolerance
+    // (an id spoils nothing; see the module-graph containment test), so this scans
+    // only the forms that DO spoil: the full display name (with its comma and
+    // title, which no id-slug carries) and the two encounter mechanic strings.
+    const haystack = generatedSource.toLowerCase();
+    for (const secret of ['Nythraxis, Scourge of Thornpeak', 'Deathless Rage', 'Soul Rend']) {
+      expect(
+        haystack.includes(secret.toLowerCase()),
+        `spoiler string "${secret}" leaked into content.generated.ts`,
+      ).toBe(false);
+    }
+  });
+});
+
+// The site search folds the haystack and the needle through the ACTIVE locale, not
+// a locale-agnostic toLowerCase, so a Turkish label that starts with the dotted
+// capital I still matches a query typed in plain ASCII (the deeds-window pattern).
+describe('Guide search locale-insensitive folding', () => {
+  it('matches a Turkish label typed without the dotted capital I (tr_TR)', async () => {
+    // 'Insansilar-with-dotted-capital-I'.toLowerCase() injects a combining dot
+    // after the i, so a locale-agnostic fold never matches a typed plain 'insan'.
+    await ensureLocaleLoaded('tr_TR');
+    try {
+      setLanguage('tr_TR');
+      const humanoid = t('guide.family.humanoid.name' as never);
+      // Guard the premise: the label really begins with the dotted capital I
+      // (U+0130), the letter whose locale-agnostic lowercase breaks the match.
+      expect(humanoid.charCodeAt(0)).toBe(0x0130);
+      const hits = rank(buildIndex(), 'insan');
+      expect(hits.some((e) => e.label === humanoid)).toBe(true);
+    } finally {
+      setLanguage('en');
+    }
+  });
+
+  it('still finds an English entry after the fold change (regression)', () => {
+    setLanguage('en');
+    const hits = rank(buildIndex(), 'first steps');
+    expect(hits.some((e) => e.label === 'First Steps')).toBe(true);
   });
 });
 

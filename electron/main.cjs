@@ -381,6 +381,16 @@ ipcMain.handle('desktop-steam-link-ticket', async (event) => {
   return await steamShell.getLinkTicket();
 });
 
+// The renderer signals that a link attempt has settled (POST /api/steam/link
+// resolved or rejected) so the shell can CancelAuthTicket the live handle
+// promptly (Valve's contract), rather than waiting for the next mint or process
+// exit. Idempotent; inert on website builds (no live handle ever exists).
+ipcMain.handle('desktop-steam-link-settled', (event) => {
+  if (!trustedSender(event)) return null;
+  steamShell.cancelLinkTicket();
+  return null;
+});
+
 // Whether this shell can mint link tickets at all (steam distribution or the
 // unpackaged dev loop): the renderer hides the Link button when false instead
 // of offering a click whose ticket can never exist (website builds). Computed

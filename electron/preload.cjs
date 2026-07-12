@@ -107,6 +107,10 @@ contextBridge.exposeInMainWorld('wocDesktop', {
   // website builds): the renderer hides the Link button instead of offering
   // a click whose ticket can never exist.
   steamLinkSupported: () => ipcRenderer.invoke('desktop-steam-capability'),
+  // Signal that a link attempt has settled (the server verify resolved or
+  // rejected) so the shell can cancel the Steam auth ticket (Valve's
+  // CancelAuthTicket contract). Fire-and-forget; the main handler is idempotent.
+  steamLinkSettled: () => ipcRenderer.invoke('desktop-steam-link-settled'),
   // Auto-update events (website distribution only; the channel is simply
   // silent on Steam/dev builds). Payloads are the whitelisted shapes built in
   // electron/update_events.cjs.

@@ -66,7 +66,9 @@ export class GuideApp {
     this.withViewTransition(() => {
       this.rebuildChrome();
       this.applyDocumentLang();
-      this.renderRoute(window.location.pathname);
+      // Preserve the fragment across the relocalize so a language switch on a
+      // deep-linked section re-scrolls to that anchor, not back to the top.
+      this.renderRoute(window.location.pathname + window.location.hash);
     });
   }
 

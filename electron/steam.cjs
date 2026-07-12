@@ -105,10 +105,12 @@ function createSteamShell({
 
   // The hex form of a web-api auth ticket bound to the link identity, or null
   // (integration off, Steam not running, or the ticket call failed). Handles
-  // are kept to at most one live per session: the shell never learns when the
-  // server finishes verifying a ticket (the renderer POSTs it fire-and-forget),
-  // so the live handle cannot be cancelled eagerly; instead it is cancelled
-  // when the NEXT mint supersedes it, an empty-bytes ticket (never sent to the
+  // are kept to at most one live per session: the renderer awaits the server's
+  // verify (POST /api/steam/link) and then signals completion, so the live
+  // handle is normally cancelled the moment the attempt settles
+  // (cancelLinkTicket below, wired to the desktop-steam-link-settled IPC). As a
+  // fallback the live handle is also cancelled when the NEXT mint supersedes it
+  // (a renderer too old to signal), an empty-bytes ticket (never sent to the
   // server) is cancelled on the spot, and the final handle dies with the Steam
   // session at process exit.
   async function getLinkTicket() {
@@ -134,7 +136,18 @@ function createSteamShell({
     }
   }
 
-  return { enabled, appId, getLinkTicket };
+  // Release the live link ticket once the renderer reports the attempt settled
+  // (server verify resolved or rejected): Valve's contract wants
+  // CancelAuthTicket when the ticket is done with, rather than the handle
+  // lingering to the next mint or process exit. Idempotent and never throws (the
+  // never-throws contract): a repeat signal, or one with no live handle
+  // (integration off, website build, a null/empty mint), is a no-op.
+  function cancelLinkTicket() {
+    cancelQuietly(lastTicket);
+    lastTicket = null;
+  }
+
+  return { enabled, appId, getLinkTicket, cancelLinkTicket };
 }
 
 module.exports = {

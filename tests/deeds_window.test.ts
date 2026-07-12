@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+//
 // Source-guard suite for the Book of Deeds window + tracker wiring (the
 // bank_window.test.ts pattern): no-magic-values in the painters, the hud.ts
 // orchestration pins (construction, Esc arm, slow band, language switch, the
@@ -6,32 +8,29 @@
 // tap-target floors. Behavior of the pure core is covered in
 // tests/deeds_view.test.ts; these pins keep the thin consumers honest.
 import { readFileSync } from 'node:fs';
-import { describe, expect, it } from 'vitest';
+import { join } from 'node:path';
+import { describe, expect, it, vi } from 'vitest';
 
-const painter = readFileSync(new URL('../src/ui/deeds_window.ts', import.meta.url), 'utf8');
-const tracker = readFileSync(new URL('../src/ui/deed_tracker_painter.ts', import.meta.url), 'utf8');
-const hud = readFileSync(new URL('../src/ui/hud.ts', import.meta.url), 'utf8');
-const mainSrc = readFileSync(new URL('../src/main.ts', import.meta.url), 'utf8');
-const inputSrc = readFileSync(new URL('../src/game/input.ts', import.meta.url), 'utf8');
-const settingsSrc = readFileSync(new URL('../src/game/settings.ts', import.meta.url), 'utf8');
-const rendererSrc = readFileSync(new URL('../src/render/renderer.ts', import.meta.url), 'utf8');
-const nameplateSrc = readFileSync(
-  new URL('../src/render/nameplate_painter.ts', import.meta.url),
-  'utf8',
-);
-const chrome = readFileSync(
-  new URL('../src/ui/i18n.catalog/hud_chrome.ts', import.meta.url),
-  'utf8',
-);
-const components = readFileSync(new URL('../src/styles/components.css', import.meta.url), 'utf8');
-const hudCss = readFileSync(new URL('../src/styles/hud.css', import.meta.url), 'utf8');
-const hudMobile = readFileSync(new URL('../src/styles/hud.mobile.css', import.meta.url), 'utf8');
-const mobileControlsSrc = readFileSync(
-  new URL('../src/game/mobile_controls.ts', import.meta.url),
-  'utf8',
-);
-const indexHtml = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const playHtml = readFileSync(new URL('../play.html', import.meta.url), 'utf8');
+// This file runs under jsdom (for the keyboard-guard behavioral test below),
+// where import.meta.url is an http URL that readFileSync rejects; resolve the
+// source-guard reads from __dirname instead.
+const read = (rel: string): string => readFileSync(join(__dirname, rel), 'utf8');
+
+const painter = read('../src/ui/deeds_window.ts');
+const tracker = read('../src/ui/deed_tracker_painter.ts');
+const hud = read('../src/ui/hud.ts');
+const mainSrc = read('../src/main.ts');
+const inputSrc = read('../src/game/input.ts');
+const settingsSrc = read('../src/game/settings.ts');
+const rendererSrc = read('../src/render/renderer.ts');
+const nameplateSrc = read('../src/render/nameplate_painter.ts');
+const chrome = read('../src/ui/i18n.catalog/hud_chrome.ts');
+const components = read('../src/styles/components.css');
+const hudCss = read('../src/styles/hud.css');
+const hudMobile = read('../src/styles/hud.mobile.css');
+const mobileControlsSrc = read('../src/game/mobile_controls.ts');
+const indexHtml = read('../index.html');
+const playHtml = read('../play.html');
 
 describe('painter hygiene', () => {
   it('keeps hex/px literals out of the painter TS (tokens and classes only)', () => {
@@ -458,5 +457,56 @@ describe('chrome keys and CSS floors', () => {
 
   it('keeps the search input at the 16px iOS anti-zoom floor', () => {
     expect(components).toMatch(/\.deed-search \{[^}]*font-size: 16px/);
+  });
+});
+
+describe('non-modal Enter/Space activation guard (WCAG 2.1.1)', () => {
+  it('adds the Book of Deeds window to the guard array, keeping the shared guard body', () => {
+    // The Book is a non-modal overlay, so canUseGameKeys() stays true while a
+    // Book button has focus: without the guard, Space jumps the character and
+    // Enter opens chat instead of activating the control. Mirror the bank pin
+    // (tests/bank_window.test.ts): slice the guard array so removing the entry reds.
+    const start = hud.indexOf("'#delve-board',");
+    expect(start).toBeGreaterThan(0);
+    const guardArray = hud.slice(start, hud.indexOf(']', start));
+    expect(guardArray).toContain("'#deeds-window'");
+    // The shared guard body the behavioral test below faithfully copies: it
+    // stopPropagation's Enter/Space only when a BUTTON has focus and NEVER
+    // preventDefault's (native activation survives). Scope the preventDefault
+    // absence to the guard region so an unrelated hud handler cannot mask a drift.
+    const guardRegion = hud.slice(start, hud.indexOf("$('#mm-map')", start));
+    expect(guardRegion).toContain("(e.target as HTMLElement).tagName !== 'BUTTON'");
+    expect(guardRegion).toContain('e.stopPropagation()');
+    expect(guardRegion).not.toContain('preventDefault');
+  });
+
+  it('stops Enter/Space from the game binds on a focused Book button, preserving native activation', () => {
+    // Drives the exact hud.ts guard body over a Book button. The source pin above
+    // keeps hud.ts wiring #deeds-window into the array and keeps this copy honest;
+    // deeds_window_focus.test.ts covers that the real Book renders buttons here.
+    document.body.innerHTML = '<div id="deeds-window"><button data-close></button></div>';
+    const root = document.getElementById('deeds-window') as HTMLElement;
+    const btn = root.querySelector('button') as HTMLButtonElement;
+    // The listener hud.ts installs on each guarded panel root (survives the
+    // painter's innerHTML rebuilds because it lives on the root).
+    root.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).tagName !== 'BUTTON') return;
+      if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') e.stopPropagation();
+    });
+    const windowSpy = vi.fn();
+    window.addEventListener('keydown', windowSpy);
+    btn.focus();
+    for (const init of [
+      { key: 'Enter', code: 'Enter' },
+      { key: ' ', code: 'Space' },
+    ]) {
+      const ev = new KeyboardEvent('keydown', { ...init, bubbles: true, cancelable: true });
+      btn.dispatchEvent(ev);
+      // No preventDefault: the button's native activation still fires.
+      expect(ev.defaultPrevented).toBe(false);
+    }
+    // stopPropagation kept both keys from reaching the window-level game binds.
+    expect(windowSpy).not.toHaveBeenCalled();
+    window.removeEventListener('keydown', windowSpy);
   });
 });
