@@ -263,8 +263,7 @@ export const guideStrings = {
     valeCup: 'Vale Cup',
     calendar: 'Event Calendar',
     discord: 'Discord',
-    abilities:
-      'Use action bar abilities (the number row plus Q and E; the secondary bar sits on the numpad or Shift+1 to Shift+0)',
+    abilities: 'Use action bar abilities (the number row; a second bar sits on the numpad)',
     targetFriendly: 'Target nearest friendly',
     cycleFriendly: 'Cycle friendly target',
     gameMenu: 'Open game menu and options',

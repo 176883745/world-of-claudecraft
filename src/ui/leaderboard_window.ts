@@ -35,6 +35,7 @@ import {
 } from './deeds_leaderboard_view';
 import { buildDevLeaderboardView, type DevLeaderboardRow } from './dev_leaderboard_view';
 import { devTierBadgeDataUrl, devTierByIndex, devTierDisplayName } from './dev_tier';
+import { markDialogRoot } from './dialog_root';
 import { classDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import { buildGuildLeaderboardView, type GuildLeaderboardRow } from './guild_leaderboard_view';
@@ -46,19 +47,8 @@ import {
   type LeaderboardStanding,
 } from './leaderboard_view';
 import { rovingTarget } from './roving_index';
-import { ensureWindowFrame } from './window_frame_mount';
-import type { WindowFrameDescriptor } from './window_frame_view';
+import { svgIcon } from './ui_icons';
 import { formatXp } from './xp_bar';
-
-// A closable, tab-less frame (the board's own Players/Guilds/Devs/Daily rail is a
-// content control inside the body, not the frame tab rail): the title carries the
-// realm subtitle, and the boards render into one scrollable body. Title + close
-// keys are reused from the existing leaderboard catalog.
-const LEADERBOARD_FRAME: WindowFrameDescriptor = {
-  id: 'leaderboard-window',
-  titleKey: 'game.leaderboard.title',
-  closeLabelKey: 'hudChrome.leaderboard.close',
-};
 
 /** Which high-score board the window is showing. */
 type LeaderboardBoard = 'players' | 'guilds' | 'deeds' | 'devs' | 'daily';
@@ -172,17 +162,11 @@ export class LeaderboardWindow {
     if (this.board === 'devs' && !this.deps.showDevBadges()) this.board = 'players';
     const el = this.deps.root();
     const world = this.deps.world();
-    // The shared frame owns the titlebar + close (built cold on first open,
-    // reused after; dialog role/aria live on the inner mount so the root stays a
-    // plain .window.panel). The board rail + rows repaint into the window-body.
-    const { body: frameBody } = ensureWindowFrame(el, LEADERBOARD_FRAME, {
-      onClose: () => this.close(),
-    });
-    const titleEl = el.querySelector<HTMLElement>('.window-title');
-    if (titleEl) titleEl.innerHTML = this.titleInnerHtml(world.realm);
-    frameBody.innerHTML = this.tabsHtml() + this.loadingBodyHtml();
+    markDialogRoot(el, { labelledBy: 'leaderboard-title' });
+    el.innerHTML = this.titleHtml(world.realm) + this.tabsHtml() + this.loadingBodyHtml();
+    el.querySelector('[data-close]')?.addEventListener('click', () => this.close());
     this.wireTabs(el);
-    if (focus === 'open') (el.querySelector('[data-window-close]') as HTMLElement | null)?.focus();
+    if (focus === 'open') (el.querySelector('[data-close]') as HTMLElement | null)?.focus();
     // A tab switch rebuilt the strip and destroyed the focused button; put the
     // roving focus back on the now-active tab so keyboard focus is never dropped
     // to <body> (selection-follows-focus, mirroring social_window/talents_window).
@@ -436,14 +420,12 @@ export class LeaderboardWindow {
 
   // ---- HTML builders (the localized DOM the pure view-model drives) ----------
 
-  // The frame builder resolves the plain title key; the realm subtitle is set into
-  // the .window-title node here (the builder cannot interpolate it), mirroring how
-  // the vendor window sets its merchant name.
-  private titleInnerHtml(realm: string): string {
+  private titleHtml(realm: string): string {
     const realmTag = realm ? ` &middot; ${esc(realm)}` : '';
     return (
-      `${esc(t('game.leaderboard.title'))} ` +
-      `<span class="lb-subtitle">${esc(t('game.leaderboard.subtitle'))}${realmTag}</span>`
+      `<div class="panel-title"><span id="leaderboard-title">${esc(t('game.leaderboard.title'))} ` +
+      `<span class="lb-subtitle">${esc(t('game.leaderboard.subtitle'))}${realmTag}</span></span>` +
+      `<button type="button" class="x-btn" data-close aria-label="${esc(t('hudChrome.leaderboard.close'))}">${svgIcon('close')}</button></div>`
     );
   }
 
@@ -712,6 +694,6 @@ export class LeaderboardWindow {
   // rather than letting it fall to <body> (WCAG 2.4.3).
   private focusCloseAfterPage(focus: FocusTarget): void {
     if (focus !== 'prev' && focus !== 'next') return;
-    (this.deps.root().querySelector('[data-window-close]') as HTMLElement | null)?.focus();
+    (this.deps.root().querySelector('[data-close]') as HTMLElement | null)?.focus();
   }
 }

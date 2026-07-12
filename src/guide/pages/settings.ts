@@ -192,13 +192,13 @@ const SETTING_ROWS: SettingRow[] = [
   },
   {
     setting: 'hud.options.reduceMotion',
-    where: ['hudChrome.options.ia.catAccessibilityName'],
+    where: ['hud.options.interface'],
     body: 'guide.settingsPage.rowReduceMotion',
     impact: 'light',
   },
   {
     setting: 'hudChrome.perf.enable',
-    where: ['hudChrome.options.ia.catSystemName', 'hudChrome.perf.title'],
+    where: ['hudChrome.perf.title'],
     body: 'guide.settingsPage.rowPerfOverlay',
     impact: 'none',
   },
