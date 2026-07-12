@@ -539,6 +539,27 @@ describe('retro on join', () => {
     expect(meta.deedsEarned.has('col_first_epic')).toBe(false);
   });
 
+  it('a buyback instance with a rolled quality seeds the quality-first marks on join', () => {
+    // Buyback entries persist bare {itemId, count} today, so this arm is
+    // forward insurance: if a vendor sale ever keeps its instance payload,
+    // the seed must credit the rolled quality exactly like bags, bank, and
+    // equipment do.
+    const sim = makeSim();
+    const pid = sim.addPlayer('warrior', 'BuybackVet', {
+      state: {
+        ...veteranState(),
+        inventory: [],
+        vendorBuyback: [
+          { itemId: 'redbrook_blade', count: 1, instance: { rolled: { quality: 'rare' } } },
+        ],
+      },
+    });
+    const meta = sim.players.get(pid)!;
+    expect(meta.deedStats.itemsDiscovered.has('redbrook_blade')).toBe(true);
+    expect(meta.deedStats.visited.has('quality:rare')).toBe(true);
+    expect(meta.deedsEarned.has('col_first_rare')).toBe(true);
+  });
+
   it('the retro pass is a pure function of the loaded state and the catalog', () => {
     const a = new Sim({ seed: 7, playerClass: 'mage' });
     const b = new Sim({ seed: 7, playerClass: 'mage' });

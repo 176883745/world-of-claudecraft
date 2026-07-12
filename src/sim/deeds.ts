@@ -956,7 +956,10 @@ export function seedItemDiscovery(ctx: SimContext, meta: PlayerMeta): void {
     if (bagId) markItemDiscovered(ctx, meta, bagId);
   }
   for (const slot of meta.vendorBuyback) {
-    markItemDiscovered(ctx, meta, slot.itemId);
+    // Buyback entries persist bare {itemId, count} today, but the rolled
+    // quality rides along like the sibling loops so a future instance payload
+    // cannot silently under-credit quality-first discoveries.
+    markItemDiscovered(ctx, meta, slot.itemId, slot.instance?.rolled?.quality);
   }
 }
 
