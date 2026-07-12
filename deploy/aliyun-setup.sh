@@ -24,7 +24,7 @@ DOMAIN=""
 ADMIN_DOMAIN=""
 
 # ---------------------------------------------------------------------------
-REPO="https://github.com/levy-street/world-of-claudecraft.git"
+REPO="https://github.com/176883745/world-of-claudecraft.git"
 APP_DIR="/opt/eastbrook"
 BACKUP_DIR="/var/backups/eastbrook"
 

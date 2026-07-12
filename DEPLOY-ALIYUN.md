@@ -37,7 +37,7 @@ ssh root@121.40.186.35
 Download and run the setup script:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/levy-street/world-of-claudecraft/main/deploy/aliyun-setup.sh > setup.sh
+curl -fsSL https://raw.githubusercontent.com/176883745/world-of-claudecraft/main/deploy/aliyun-setup.sh > setup.sh
 chmod +x setup.sh
 # Edit DOMAIN if you have one
 ./setup.sh
