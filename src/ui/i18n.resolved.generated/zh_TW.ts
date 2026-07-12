@@ -338,7 +338,9 @@ export const zh_TW: EnTranslations = {
       "moveBodyTouch": "使用搖桿移動，拖曳螢幕環顧四周。先走幾步開始吧。",
       "talkBodyTouch": "靠近雷德布魯克元帥並點按「使用」按鈕與他交談，然後接受他的任務。",
       "returnBodyTouch": "任務已完成。返回雷德布魯克元帥處並點按「使用」按鈕繳交任務。",
-      "doneBodyTouch": "你已掌握基礎，{name}。東溪谷任你探索。點按「更多」再選「任務日誌」即可隨時查看任務。祝你狩獵順利。"
+      "doneBodyTouch": "你已掌握基礎，{name}。東溪谷任你探索。點按「更多」再選「任務日誌」即可隨時查看任務。祝你狩獵順利。",
+      "slayTargetHint": "第一次戰鬥嗎？按下 {targetKey} 或點擊狼來選定牠，然後使用快捷欄技能攻擊牠。",
+      "slayTargetHintTouch": "第一次戰鬥嗎？點擊狼來選定牠，然後點擊快捷欄技能攻擊牠。"
     },
     "widgets": {
       "clockTitle": "本地時間 - 點擊切換 12／24 小時制",

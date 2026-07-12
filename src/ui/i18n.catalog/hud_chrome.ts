@@ -317,6 +317,17 @@ export const hudChromeStrings = {
       'Your task is done. Return to Marshal Redbrook and tap the Use button to turn it in.',
     doneBodyTouch:
       'You have the basics, {name}. The Vale is yours to explore. Tap More, then Quests, to review your quest log anytime. Good hunting.',
+    // Appended to the slay-step body (hud.tutorial.slayBody) so first-time players
+    // learn HOW to fight, not just what to fight: playtesters reported the wolf
+    // step never explains targeting. Keyboard/mouse points at the actual bound
+    // target key (Tab by default, see src/game/keybinds.ts) and a click; the
+    // touch variant taps instead, matching the other *Touch keys in this block.
+    // English-only add, WORDY by M16, so the five non-Latin overlays carry real
+    // fills below.
+    slayTargetHint:
+      'New to combat? Press {targetKey} or click a wolf to target it, then use an action bar ability to attack it.',
+    slayTargetHintTouch:
+      'New to combat? Tap a wolf to target it, then tap an action bar ability to attack it.',
   },
   // Minimap / compass / clock / coordinate widget tooltips and accessible names.
   widgets: {

@@ -9,25 +9,70 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "es_ES": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "fr_FR": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "fr_CA": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
+  "it_IT": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "de_DE": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
   "zh_CN": [],
   "zh_TW": [],
   "ko_KR": [],
   "ja_JP": [],
-  "pt_BR": [],
+  "pt_BR": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
   "ru_RU": [],
-  "cs_CZ": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "cs_CZ": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "nl_NL": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "pl_PL": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "id_ID": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "tr_TR": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "sv_SE": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "vi_VN": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ],
+  "da_DK": [
+    "hudChrome.tutorial.slayTargetHint",
+    "hudChrome.tutorial.slayTargetHintTouch"
+  ]
 };

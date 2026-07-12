@@ -174,6 +174,10 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '任务已完成。返回雷德布鲁克元帅处并点击“使用”按钮交付任务。',
   'hudChrome.tutorial.doneBodyTouch':
     '你已掌握基础，{name}。东溪谷任你探索。点击“更多”，再点击“任务日志”，随时查看你的任务日志。祝你狩猎顺利。',
+  'hudChrome.tutorial.slayTargetHint':
+    '第一次战斗？按下 {targetKey} 或点击狼来选中它，然后使用快捷栏技能攻击它。',
+  'hudChrome.tutorial.slayTargetHintTouch':
+    '第一次战斗？点击狼来选中它，然后点击快捷栏技能攻击它。',
   'hudChrome.raidLockout.title': '团队副本锁定',
   'hudChrome.raidLockout.allReady': '所有团队副本就绪',
   'hudChrome.raidLockout.daysHours': '{d}天{h}小时',

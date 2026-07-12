@@ -338,7 +338,9 @@ export const nl_NL: EnTranslations = {
       "moveBodyTouch": "Gebruik de bewegingsstick om te bewegen en sleep over het scherm om rond te kijken. Zet een paar stappen om te beginnen.",
       "talkBodyTouch": "Ga dicht bij Marshal Redbrook staan en tik op de Gebruik-knop om te spreken, neem dan zijn taak aan.",
       "returnBodyTouch": "Je taak is volbracht. Keer terug naar Marshal Redbrook en tik op de Gebruik-knop om hem in te leveren.",
-      "doneBodyTouch": "Je kent de basis, {name}. Het Dal ligt voor je om te verkennen. Tik op Meer, dan op Queesten, om je queestelogboek op elk moment na te kijken. Goede jacht."
+      "doneBodyTouch": "Je kent de basis, {name}. Het Dal ligt voor je om te verkennen. Tik op Meer, dan op Queesten, om je queestelogboek op elk moment na te kijken. Goede jacht.",
+      "slayTargetHint": "New to combat? Press {targetKey} or click a wolf to target it, then use an action bar ability to attack it.",
+      "slayTargetHintTouch": "New to combat? Tap a wolf to target it, then tap an action bar ability to attack it."
     },
     "widgets": {
       "clockTitle": "Lokale tijd - klik om te wisselen tussen 12/24-uurs",

@@ -19,7 +19,12 @@ import { dist2d, INTERACT_RANGE } from '../sim/types';
 import type { IWorld } from '../world_api';
 import type { TranslationKey } from './i18n';
 import { formatNumber, t } from './i18n';
-import { type TutorialParam, tutorialBodyPlan, tutorialNeedsRerender } from './tutorial_copy';
+import {
+  type TutorialParam,
+  tutorialBodyPlan,
+  tutorialNeedsRerender,
+  tutorialSlayHintPlan,
+} from './tutorial_copy';
 
 // Starter content the onboarding guides the player toward — all derived from the
 // shipped sim sources so a content rename or a moved spawn can't silently desync
@@ -230,6 +235,7 @@ export class TutorialOverlay {
     // a literal blank gap in "press  to speak" (mirrors the HUD keybind list).
     const interactKey = keybinds.primaryLabel('interact') || t('hud.options.unbound');
     const questKey = keybinds.primaryLabel('questlog') || t('hud.options.unbound');
+    const targetKey = keybinds.primaryLabel('target') || t('hud.options.unbound');
     const name = world.player.name || t('hud.core.you');
 
     // On the touch interface the controls are on-screen sticks + Use/More
@@ -238,7 +244,13 @@ export class TutorialOverlay {
     // the same body class the HUD uses so it tracks the Interface Mode override.
     const touch = document.body.classList.contains('mobile-touch');
     this.lastTouch = touch;
-    const allParams: Record<TutorialParam, string> = { moveKeys, interactKey, questKey, name };
+    const allParams: Record<TutorialParam, string> = {
+      moveKeys,
+      interactKey,
+      questKey,
+      targetKey,
+      name,
+    };
     const plan = tutorialBodyPlan(this.step!, touch);
     const params: Partial<Record<TutorialParam, string>> = {};
     for (const key of plan.params) params[key] = allParams[key];
@@ -253,7 +265,16 @@ export class TutorialOverlay {
     };
 
     this.titleEl.textContent = t(titleKey[this.step!]);
-    this.bodyEl.textContent = t(plan.bodyKey, params);
+    let body = t(plan.bodyKey, params);
+    if (this.step === 'slay') {
+      // First-time targeting/attack hint (see tutorialSlayHintPlan): the objective
+      // body above never explains how to engage a wolf.
+      const hintPlan = tutorialSlayHintPlan(touch);
+      const hintParams: Partial<Record<TutorialParam, string>> = {};
+      for (const key of hintPlan.params) hintParams[key] = allParams[key];
+      body = `${body} ${t(hintPlan.bodyKey, hintParams)}`;
+    }
+    this.bodyEl.textContent = body;
 
     const idx = STEP_ORDER.indexOf(this.step!);
     this.stepEl.textContent =

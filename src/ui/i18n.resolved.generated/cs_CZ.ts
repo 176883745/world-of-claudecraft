@@ -338,7 +338,9 @@ export const cs_CZ: EnTranslations = {
       "moveBodyTouch": "Pohybuj se páčkou pohybu a tažením po obrazovce se rozhlížej. Udělej pár kroků a začni.",
       "talkBodyTouch": "Postav se blízko maršála Redbrooka, klepni na Použít, promluv s ním a přijmi jeho úkol.",
       "returnBodyTouch": "Tvůj úkol je hotový. Vrať se k maršálu Redbrookovi a klepni na Použít pro odevzdání.",
-      "doneBodyTouch": "Základy už znáš, {name}. Údolí je tvoje k prozkoumání. Klepni na Více a potom Úkoly, kdykoli chceš zkontrolovat deník úkolů. Dobrý lov."
+      "doneBodyTouch": "Základy už znáš, {name}. Údolí je tvoje k prozkoumání. Klepni na Více a potom Úkoly, kdykoli chceš zkontrolovat deník úkolů. Dobrý lov.",
+      "slayTargetHint": "New to combat? Press {targetKey} or click a wolf to target it, then use an action bar ability to attack it.",
+      "slayTargetHintTouch": "New to combat? Tap a wolf to target it, then tap an action bar ability to attack it."
     },
     "widgets": {
       "clockTitle": "Místní čas - kliknutím přepneš 12/24 h",

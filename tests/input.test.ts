@@ -690,6 +690,43 @@ describe('Input Book of Deeds keybind', () => {
   });
 });
 
+describe('Input chat keybind', () => {
+  it("dispatches onUiKey('chat') for the default Enter key", () => {
+    const { cb, windowListeners } = makeInput();
+
+    windowListeners.get('keydown')!({ code: 'Enter', repeat: false, preventDefault: vi.fn() });
+
+    expect(cb.onUiKey).toHaveBeenCalledWith('chat');
+  });
+
+  it('cancels the default action so the newly-focused composer does not also see this keydown as a newline', () => {
+    // Regression: opening chat focuses the composer textarea as a side effect
+    // of this very keydown. Left un-prevented, the browser still delivers the
+    // follow-up keypress/input (and its default newline insertion) to
+    // whichever element is now focused, so Enter both opened chat AND typed a
+    // newline into it before the placeholder was ever visible.
+    const { windowListeners } = makeInput();
+    const preventDefault = vi.fn();
+
+    windowListeners.get('keydown')!({ code: 'Enter', repeat: false, preventDefault });
+
+    expect(preventDefault).toHaveBeenCalled();
+  });
+
+  it('does not cancel a focused button own Enter activation when it also opens chat', () => {
+    // A focused button (e.g. a HUD button reached via Tab) still activates on
+    // Enter today; only the composer-newline case needs its default cancelled.
+    const { cb, windowListeners } = makeInput();
+    (globalThis as any).document.activeElement = { tagName: 'BUTTON' };
+    const preventDefault = vi.fn();
+
+    windowListeners.get('keydown')!({ code: 'Enter', repeat: false, preventDefault });
+
+    expect(cb.onUiKey).toHaveBeenCalledWith('chat');
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+});
+
 describe('Input Space handling', () => {
   it('prevents native Space button activation while preserving jump input', () => {
     const { input, windowListeners } = makeInput();

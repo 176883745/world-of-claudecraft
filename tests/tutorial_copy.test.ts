@@ -4,6 +4,7 @@ import type { TutorialStep } from '../src/ui/tutorial';
 import {
   tutorialBodyPlan,
   tutorialNeedsRerender,
+  tutorialSlayHintPlan,
   tutorialStepDiffersByTouch,
 } from '../src/ui/tutorial_copy';
 
@@ -60,20 +61,20 @@ describe('tutorialNeedsRerender', () => {
 
   it('re-renders when Interface Mode is toggled mid-step on a step whose copy differs by mode', () => {
     // The control copy differs between touch and keyboard, so an open card must
-    // rebuild when the mode changes even though the step is the same.
-    for (const step of ['move', 'talk', 'return', 'done'] as const) {
+    // rebuild when the mode changes even though the step is the same. slay's own
+    // body never changes, but the rendered card also appends the slayHintPlan
+    // hint (see tutorialStepDiffersByTouch), which does differ by mode.
+    for (const step of ['move', 'talk', 'return', 'done', 'slay'] as const) {
       expect(tutorialNeedsRerender(step, step, false, true)).toBe(true);
       expect(tutorialNeedsRerender(step, step, true, false)).toBe(true);
     }
   });
 
-  it('does not re-render on a mode toggle for mode-agnostic steps (seek/slay)', () => {
-    // seek/slay read identically on touch and keyboard, so a toggle is a no-op for
-    // the rendered card (the slay kill counter still refreshes on its own path).
-    for (const step of ['seek', 'slay'] as const) {
-      expect(tutorialNeedsRerender(step, step, false, true)).toBe(false);
-      expect(tutorialNeedsRerender(step, step, true, false)).toBe(false);
-    }
+  it('does not re-render on a mode toggle for the mode-agnostic seek step', () => {
+    // seek reads identically on touch and keyboard, so a toggle is a no-op for
+    // the rendered card.
+    expect(tutorialNeedsRerender('seek', 'seek', false, true)).toBe(false);
+    expect(tutorialNeedsRerender('seek', 'seek', true, false)).toBe(false);
   });
 
   it('does not re-render when neither the step nor the touch state changed', () => {
@@ -83,13 +84,14 @@ describe('tutorialNeedsRerender', () => {
 });
 
 describe('tutorialStepDiffersByTouch', () => {
-  it('is true only for the steps that have a touch-variant body', () => {
-    for (const step of ['move', 'talk', 'return', 'done'] as const) {
+  it('is true for the steps that have a touch-variant body, plus slay via its appended hint', () => {
+    // slay's own body key never changes by mode, but its rendered card also
+    // appends tutorialSlayHintPlan's hint, which does (targetKey vs a tap), so
+    // slay counts as mode-dependent through the hint.
+    for (const step of ['move', 'talk', 'return', 'done', 'slay'] as const) {
       expect(tutorialStepDiffersByTouch(step)).toBe(true);
     }
-    for (const step of ['seek', 'slay'] as const) {
-      expect(tutorialStepDiffersByTouch(step)).toBe(false);
-    }
+    expect(tutorialStepDiffersByTouch('seek')).toBe(false);
   });
 });
 
@@ -107,4 +109,36 @@ describe('touch tutorial copy is control-accurate', () => {
       expect(text).not.toMatch(FORBIDDEN);
     });
   }
+});
+
+describe('tutorialSlayHintPlan', () => {
+  // The slay step's objective body (hud.tutorial.slayBody) never explains HOW to
+  // engage a wolf; this hint is appended to teach targeting the first time a
+  // brand-new player needs it (playtester feedback: the wolf tutorial step never
+  // says how to target a wolf).
+  it('points at the target-key hint and needs the bound key on keyboard', () => {
+    const plan = tutorialSlayHintPlan(false);
+    expect(plan.bodyKey).toBe('hudChrome.tutorial.slayTargetHint');
+    expect(plan.params).toEqual(['targetKey']);
+  });
+
+  it('points at the tap-only hint and needs no params on touch', () => {
+    const plan = tutorialSlayHintPlan(true);
+    expect(plan.bodyKey).toBe('hudChrome.tutorial.slayTargetHintTouch');
+    expect(plan.params).toEqual([]);
+  });
+
+  it('the keyboard hint interpolates {targetKey} and never mentions Tab literally', () => {
+    // Naming the literal default ("Tab") in the string would go stale the moment
+    // a player rebinds Target Nearest Enemy; the {targetKey} splice always reads
+    // the live bind (see renderPanel in tutorial.ts).
+    const en = hudChromeStrings.tutorial.slayTargetHint;
+    expect(en).toMatch(/\{targetKey\}/);
+    expect(en).not.toMatch(/\bTab\b/);
+  });
+
+  it('the touch hint never references a keyboard, mouse, or {targetKey}', () => {
+    const en = hudChromeStrings.tutorial.slayTargetHintTouch;
+    expect(en).not.toMatch(/\bkeyboard\b|\bmouse\b|\{targetKey\}/i);
+  });
 });

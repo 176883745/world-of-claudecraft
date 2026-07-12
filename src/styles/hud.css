@@ -4342,4 +4342,24 @@
     font: 700 11px var(--title-font);
     letter-spacing: 0.4px;
   }
+  /* ---------- intro logo overlay ---------- */
+  /* Wordmark shown fading in/hold/out over the opening of the first-spawn intro
+     cinematic (spawn_cinematic.ts): intro_logo_overlay.ts drives opacity/display
+     from the pure logo_fade.ts curve each frame, so this rule only sets the
+     static look and the base hidden state. Centered over the canvas, above the
+     HUD (which the intro hides) but never intercepting input. */
+  #intro-logo {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(46vw, 420px);
+    max-width: 90vw;
+    height: auto;
+    z-index: 40;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 14px #000a);
+  }
 }

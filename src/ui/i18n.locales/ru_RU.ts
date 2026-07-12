@@ -185,6 +185,10 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Задание выполнено. Вернитесь к маршалу Редбруку и нажмите кнопку «Использовать», чтобы сдать его.',
   'hudChrome.tutorial.doneBodyTouch':
     'Основы освоены, {name}. Долина в вашем распоряжении: исследуйте её. Нажмите «Еще», затем «Журнал заданий», чтобы просмотреть свои задания в любой момент. Удачной охоты!',
+  'hudChrome.tutorial.slayTargetHint':
+    'Впервые в бою? Нажмите {targetKey} или щелкните по волку, чтобы выбрать цель, затем атакуйте способностью с панели действий.',
+  'hudChrome.tutorial.slayTargetHintTouch':
+    'Впервые в бою? Коснитесь волка, чтобы выбрать цель, затем коснитесь способности на панели действий, чтобы атаковать.',
   'hudChrome.raidLockout.title': 'Блокировки рейдов',
   'hudChrome.raidLockout.allReady': 'Все рейды доступны',
   'hudChrome.raidLockout.daysHours': '{d}д {h}ч',

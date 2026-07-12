@@ -27,7 +27,7 @@ are the imported KayKit/Quaternius/Kenney models plus PBR/HDRI/sprite/audio asse
 | `textures/skins` | 7 per-class skin texture dirs | texture |
 | `env` | 8 HDRIs (`*_1k.hdr` + `*_2k.hdr`) for IBL/sky + 6 `*_backdrop(.webp/_4k.webp)` | RGBELoader / texture |
 | `vfx` | 16 particle sprites (`.png`) | texture |
-| `audio` | `main-theme.mp3` + `sfx/` (combat/ambient/footsteps…) + `voice/<npc>/` lines | `Audio()` / `src/game/voice_manifest.generated.ts` |
+| `audio` | `main-theme.mp3` + `sfx/` (combat/ambient/footsteps…) + `voice/<npc>/` lines | `Audio()` / `src/game/sfx_manifest.generated.ts` / `src/game/voice_manifest.generated.ts` |
 | `ui` | `skills/<class>/` (WebP ability icons) + `deeds/` (192 WebP deed crests) + `cursors/` (PNG) + `emotes/` (PNG) + `weapons/` (JPG icons) | `<img>` / CSS cursor |
 | `fonts` | 22 self-hosted `.woff2` guide fonts (Alegreya, Alegreya Sans, Cinzel subsets) | CSS `@font-face` |
 | `guide-stills` | 46 model stills (`.webp`) for the `/wiki` guide, baked by `scripts/wiki/render_model_stills.mjs` | `<img>` |
@@ -41,10 +41,14 @@ standalone localized HTML pages `server-unavailable.html` (offline page) and
 - **Runtime loading:** `src/render/assets/loader.ts` (`loadGltf` / HDR / texture,
   meshopt-decoded, promise-cached). URLs for `models/ textures/ env/ vfx/` resolve
   through `src/render/assets/media.ts` `assetUrl()`: logical path in **dev**
-  (`/models/...`), content-hashed path in **prod**. `audio/`, `ui/`, `fonts/`, and
-  `guide-stills/` are referenced by **raw logical path** (`/audio/...`, `/ui/...`):
-  NOT in the manifest, served unhashed (`assetUrl()` also falls back to
-  `/${logical}` for these).
+  (`/models/...`), content-hashed path in **prod**. `ui/`, `fonts/`,
+  `guide-stills/`, music, and voice use raw logical paths. Sampled `audio/sfx/`
+  files use the separate generated SFX manifest with content-versioned query URLs
+  and immutable production caching. A generated `audio/sfx/runtime-pack.json`
+  mirrors the compiled fallback. A deployed Studio artifact can replace that stable
+  JSON with a strict, catalog-compatible pack that references immutable
+  `audio/sfx/blobs/<sha256>.mp3` files. These categories remain outside the render
+  media manifest.
 - **Build:** `scripts/build_media_manifest.mjs` walks the `MEDIA_ROOTS`
   (`models/ textures/ env/ vfx/` only), content-hashes each file, writes
   `src/render/assets/manifest.generated.ts` (`generate`) and copies hashed files to
@@ -73,8 +77,8 @@ The inline set must match `supportedLanguages` exactly.
   uncompressed exports won't load, optimize via `scripts/assets/build_assets.mjs`.
 - Only `models/ textures/ env/ vfx/` are in the manifest. A new asset category
   needs adding to `MEDIA_ROOTS` in the manifest script, or it won't ship to prod.
-  (`audio/`/`ui/`/`fonts/`/`guide-stills/` are intentionally outside it, referenced
-  by raw path.)
+  (`audio/`, `ui/`, `fonts/`, and `guide-stills/` are intentionally outside it. SFX
+  uses its own generated manifest; the remaining files use raw paths.)
 - **Don't add large binaries casually**: raw source packs aren't committed; keep
   only shipped, optimized assets. New art/audio: add an attribution row to `CREDITS.md`.
 - **Class ability icons are WebP, committed directly** (`ui/skills/<class>/`): WebP is a fraction
