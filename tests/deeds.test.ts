@@ -4,7 +4,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEED_ORDER, DEEDS } from '../src/sim/content/deeds';
 import { emptyAllocation } from '../src/sim/content/talents';
-import { ITEMS } from '../src/sim/data';
+import { ITEMS, MOBS, QUESTS } from '../src/sim/data';
 import {
   bumpDeedStat,
   checkDeedTrigger,
@@ -12,10 +12,14 @@ import {
   grantDeed,
   markItemDiscovered,
   markVisited,
+  onDamageDealtForDeeds,
+  onDelveClearForDeeds,
   onDungeonFinalBossKilledForDeeds,
   onFishCaughtForDeeds,
   restoreDeedStats,
 } from '../src/sim/deeds';
+import { queueGatheringGrant } from '../src/sim/professions/gathering';
+import { turnInQuestCore } from '../src/sim/quests/quest_commands';
 import { type CharacterState, Sim } from '../src/sim/sim';
 import * as duelMod from '../src/sim/social/duel';
 import { type Entity, MAX_LEVEL, MILESTONES, type SimEvent } from '../src/sim/types';
@@ -1323,5 +1327,69 @@ describe('deedsRarity (offline facet arm)', () => {
   it('always resolves null: a sandbox has no population to aggregate', async () => {
     const sim = makeSim();
     await expect(sim.deedsRarity()).resolves.toBeNull();
+  });
+});
+
+// Live-site wiring: each test below drives the REAL game site (not a hand
+// bumped counter plus markDeedsDirty) and asserts the deed lands in the same
+// run. This is the anti-masking suite: persisted state (questsDone,
+// proficiency, delveClears, damage counters) would still retro-grant the deed
+// at the NEXT login, so a broken live site keeps state-poke tests green while
+// the in-the-moment unlock silently disappears; these tests red instead.
+describe('live sites grant in the same run (retro cannot mask a broken site)', () => {
+  it('quest turn-in: turnInQuestCore itself makes the quest deed land in-tick', () => {
+    const sim = makeSim();
+    const { meta } = primary(sim);
+    const quest = QUESTS.q_prof_intro; // prog_callused_hands, {kind:'quest'}
+    expect(quest).toBeDefined();
+    sim.ctx.addItem('chunk_of_ore', 5, meta.entityId); // the collect objective hand-in
+    meta.questLog.set('q_prof_intro', { questId: 'q_prof_intro', counts: [5], state: 'ready' });
+    // Consume the addItem dirty mark on its own tick first, so the final
+    // tick's only marks come from the turn-in itself. The live turn-in path
+    // carries two independent full marks (grantXp marks on every xp grant,
+    // and turnInQuestCore marks explicitly for xp-less future quests); this
+    // test guards the path as a whole, so it reds only when the in-the-moment
+    // grant is actually broken, never on a refactor that keeps either mark.
+    sim.tick();
+    expect(meta.deedsEarned.has('prog_callused_hands')).toBe(false);
+    turnInQuestCore(sim.ctx, 'q_prof_intro', quest, meta);
+    expect(meta.questsDone.has('q_prof_intro')).toBe(true);
+    expect(meta.deedsEarned.has('prog_callused_hands')).toBe(false); // grants at the tick tail
+    sim.tick();
+    expect(meta.deedsEarned.has('prog_callused_hands')).toBe(true);
+  });
+
+  it('gathering: a queued grant drains in the tick and the proficiency deed lands in-tick', () => {
+    const sim = makeSim();
+    const { meta } = primary(sim);
+    meta.gatheringProficiency.mining = 99; // one point shy; no dirty mark on purpose
+    queueGatheringGrant(meta, 'mining', 1);
+    sim.tick();
+    expect(meta.gatheringProficiency.mining).toBe(100);
+    expect(meta.deedsEarned.has('prog_mining_100')).toBe(true);
+  });
+
+  it('delve clear: the live site call makes the clear deed land in-tick', () => {
+    const sim = makeSim();
+    const { meta } = primary(sim);
+    // The caller contract (delves/runs.ts): the counter bump precedes the site call.
+    meta.delveClears['collapsed_reliquary:normal'] = 1;
+    onDelveClearForDeeds(sim.ctx, meta, { tierId: 'normal' });
+    sim.tick();
+    expect(meta.deedsEarned.has('dlv_reliquary')).toBe(true);
+    expect(meta.deedsEarned.has('dlv_solo_heroic')).toBe(false); // normal tier: no solo grant
+  });
+
+  it('damage: onDamageDealtForDeeds feeds the lifetime counter and the deed lands in-tick', () => {
+    const sim = makeSim();
+    const { meta, e } = primary(sim);
+    const mob = [...sim.entities.values()].find(
+      (x) => x.kind === 'mob' && MOBS[x.templateId]?.dummy !== true,
+    ) as Entity;
+    expect(mob).toBeDefined();
+    onDamageDealtForDeeds(sim.ctx, e, mob, 500_000, false, 'hit');
+    sim.tick();
+    expect(meta.deedStats.counters.damageDealt).toBe(500_000);
+    expect(meta.deedsEarned.has('cmb_heavy_hitter')).toBe(true);
   });
 });
