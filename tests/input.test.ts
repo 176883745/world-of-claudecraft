@@ -880,7 +880,7 @@ describe('Input modifier combos', () => {
     windowListeners.get('keydown')!({ code: 'Digit1', repeat: false }); // slot0 = Attack
     expect(cb.onAbilityDown).toHaveBeenLastCalledWith(0);
     cb.onAbilityDown.mockClear();
-    // Shift+1 is a distinct, unbound chord — it must NOT fire bare slot 0.
+    // Shift+1 is a distinct, unbound chord: it must NOT fire bare slot 0.
     windowListeners.get('keydown')!({ code: 'Digit1', repeat: false, shiftKey: true });
     expect(cb.onAbilityDown).not.toHaveBeenCalled();
   });
