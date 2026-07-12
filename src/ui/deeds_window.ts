@@ -8,7 +8,7 @@
 // imports Hud and never hardcodes the window id).
 
 import { audio } from '../game/audio';
-import { DEED_ORDER, DEEDS } from '../sim/data';
+import { DEED_ORDER, DEEDS } from '../sim/content/deeds';
 import type { DeedsRarity, IWorld } from '../world_api';
 import { deedDesc, deedName, deedTitleText } from './deed_i18n';
 import {
@@ -23,6 +23,7 @@ import {
   deedRarityFraction,
   deedStatsDigest,
   deedsRefreshSig,
+  pruneWatched,
   toggleWatch,
 } from './deeds_view';
 import { markDialogRoot } from './dialog_root';
@@ -200,6 +201,7 @@ export class DeedsWindow {
   render(): void {
     const el = this.deps.root();
     if (!this.opened) return;
+    this.pruneWatchedIfStale();
     const active = document.activeElement as HTMLElement | null;
     const hadFocus = el.contains(active);
     const searchEl = el.querySelector('.deed-search') as HTMLInputElement | null;
@@ -513,6 +515,21 @@ export class DeedsWindow {
   private watchKey(): string {
     const world = this.deps.world();
     return `${DEED_WATCH_KEY_PREFIX}_${world.cfg.playerClass}_${world.player.name}`;
+  }
+
+  /** Drop earned and catalog-unknown ids where the set meets fresh earned
+   *  data, so a filled slot frees up the moment its card loses the unwatch
+   *  button (an earned watch must never wedge the cap, in memory or in
+   *  storage). On a drop: persist, bump the repaint signature, and nudge the
+   *  HUD tracker. */
+  private pruneWatchedIfStale(): void {
+    this.ensureWatchLoaded();
+    const result = pruneWatched(this.watchedSet, this.deps.world().deedsEarned, DEEDS);
+    if (!result.changed) return;
+    this.watchedSet = new Set(result.watched);
+    this.watchRev++;
+    this.persistWatched();
+    this.deps.onWatchChanged();
   }
 
   private ensureWatchLoaded(): void {

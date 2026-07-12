@@ -92,6 +92,21 @@ describe('painter hygiene', () => {
     expect(painter).not.toMatch(/activeTitle\s*=/);
   });
 
+  it('prunes earned and stale watches in the render path and persists the drop', () => {
+    // The wiring for the pure pruneWatched core (tests/deeds_view.test.ts):
+    // render() must prune BEFORE the cap renders, and a drop must persist,
+    // bump the repaint signature, and nudge the HUD tracker, or the freed
+    // slot stays disabled until another dimension moves.
+    expect(painter).toMatch(/if \(!this\.opened\) return;\s*this\.pruneWatchedIfStale\(\);/);
+    const start = painter.indexOf('private pruneWatchedIfStale(');
+    expect(start).toBeGreaterThan(-1);
+    const body = painter.slice(start, painter.indexOf('private ensureWatchLoaded(', start));
+    expect(body).toContain('pruneWatched(this.watchedSet, this.deps.world().deedsEarned, DEEDS)');
+    expect(body).toContain('this.watchRev++;');
+    expect(body).toContain('this.persistWatched();');
+    expect(body).toContain('this.deps.onWatchChanged();');
+  });
+
   it('elides slow-band repaints through the pure refresh-signature builders', () => {
     // Both builders live in deeds_view.ts where every repaint dimension is
     // unit-pinned; the painter must not grow a private signature again.

@@ -4,7 +4,7 @@
 // tracker view, crest resolution, recent ordering, the filter arms, the
 // unlock-drain plan, and Sim-shaped vs ClientWorld-shaped input parity.
 import { describe, expect, it } from 'vitest';
-import { DEED_ORDER, DEEDS } from '../src/sim/data';
+import { DEED_ORDER, DEEDS } from '../src/sim/content/deeds';
 import { freshDeedStats } from '../src/sim/deeds';
 import type { DeedDef, DeedStats, DeedTrigger } from '../src/sim/types';
 import { DEED_IMAGE_IDS } from '../src/ui/deed_image_ids';
@@ -24,6 +24,7 @@ import {
   deedStatsDigest,
   deedsRefreshSig,
   makeDeedTrackerView,
+  pruneWatched,
   toggleWatch,
 } from '../src/ui/deeds_view';
 
@@ -611,6 +612,37 @@ describe('toggleWatch', () => {
     const removal = toggleWatch(atCap, 'c');
     expect(removal.changed).toBe(true);
     expect(removal.watched.size).toBe(4);
+  });
+});
+
+describe('pruneWatched', () => {
+  it('drops earned and catalog-unknown ids and reports the change', () => {
+    const watched = new Set(['prog_a', 'cmb_counter', 'dgn_clears', 'cmb_title', 'removed_deed']);
+    expect(watched.size).toBe(DEED_WATCH_CAP);
+    const result = pruneWatched(watched, new Map([['cmb_title', '2026-07-08']]), TEST_DEEDS);
+    expect(result.changed).toBe(true);
+    expect([...result.watched]).toEqual(['prog_a', 'cmb_counter', 'dgn_clears']);
+  });
+
+  it('returns the SAME set instance unchanged when every id is eligible', () => {
+    const watched = new Set(['prog_a', 'cmb_counter']);
+    const result = pruneWatched(watched, new Map(), TEST_DEEDS);
+    expect(result.changed).toBe(false);
+    expect(result.watched).toBe(watched);
+  });
+
+  it('frees the wedged slot: a full set with an earned member accepts a new watch once pruned', () => {
+    // The defect chain: five watches, one of them then earned. The earned card
+    // loses its unwatch button, so the raw set holds five ids forever and
+    // toggleWatch refuses every further add; the prune is what frees the slot.
+    const atCap = new Set(['prog_a', 'cmb_counter', 'dgn_clears', 'col_items', 'cmb_title']);
+    expect(atCap.size).toBe(DEED_WATCH_CAP);
+    const pruned = pruneWatched(atCap, new Map([['cmb_title', '2026-07-08']]), TEST_DEEDS);
+    const added = toggleWatch(pruned.watched, 'exp_visits');
+    expect(added.changed).toBe(true);
+    expect(added.full).toBe(false);
+    expect(added.watched.size).toBe(DEED_WATCH_CAP);
+    expect(added.watched.has('exp_visits')).toBe(true);
   });
 });
 

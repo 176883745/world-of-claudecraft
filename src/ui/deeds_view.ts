@@ -363,6 +363,36 @@ export interface WatchToggleResult {
   changed: boolean;
 }
 
+export interface WatchPruneResult {
+  watched: ReadonlySet<string>;
+  changed: boolean;
+}
+
+/** Drop earned and catalog-unknown ids from the watch set (the exact skip
+ *  predicate of buildDeedTrackerViewInto, so the stored set and the tracker
+ *  display can never diverge). An earned watched deed loses its unwatch
+ *  button, so without this prune it would hold its cap slot forever. Returns
+ *  the SAME set instance on the common nothing-dropped path. */
+export function pruneWatched(
+  watched: ReadonlySet<string>,
+  deedsEarned: ReadonlyMap<string, string>,
+  deeds: Readonly<Record<string, DeedDef>>,
+): WatchPruneResult {
+  let dropped = false;
+  for (const id of watched) {
+    if (!deeds[id] || deedsEarned.has(id)) {
+      dropped = true;
+      break;
+    }
+  }
+  if (!dropped) return { watched, changed: false };
+  const next = new Set<string>();
+  for (const id of watched) {
+    if (deeds[id] && !deedsEarned.has(id)) next.add(id);
+  }
+  return { watched: next, changed: true };
+}
+
 /** Toggle a deed on the watch set, enforcing the cap of DEED_WATCH_CAP.
  *  Returns the UNCHANGED set plus the full flag when an add hits the cap. */
 export function toggleWatch(watched: ReadonlySet<string>, id: string): WatchToggleResult {
