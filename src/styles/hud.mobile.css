@@ -2368,7 +2368,10 @@
     max-width: none;
     box-sizing: border-box;
     overflow: hidden;
-    z-index: 95;
+    /* Managed windows receive an inline desktop z-index. Bags is a modal sheet
+       here, so this scoped override must beat that inline value while leaving
+       desktop Need/Greed above its compact Bags window. */
+    z-index: 95 !important;
   }
   body.mobile-touch #bags .bag-grid {
     min-height: 150px;
@@ -2414,6 +2417,13 @@
   body.mobile-touch #trade-window .btn {
     min-height: 40px;
     font-size: 16px;
+  }
+  /* Short landscape phones keep only actionable roll cards (hud.ts filters the
+     answered watch rows). The desktop vote monitor is useful context, but its
+     multi-row strip makes one mobile card taller than the rail's usable height
+     and pushes Need/Greed/Pass below the fold. Results still land in loot chat. */
+  body.mobile-touch .loot-roll-votes {
+    display: none;
   }
   body.mobile-touch .soc-add input,
   body.mobile-touch .trade-money input {
