@@ -303,6 +303,12 @@ applyNativeDeviceLanguage({
 
 const SITE_URL = 'https://worldofclaudecraft.com/';
 
+// Optional override: when set, the homepage Wiki and News nav items navigate to
+// this external URL instead of the local /wiki guide SPA and in-page news view.
+// Useful for self-hosted/local stacks that want to point visitors at the public
+// site instead of running MediaWiki + MariaDB locally. Set in .env (gitignored).
+const HOME_EXTERNAL_URL = String(import.meta.env.VITE_HOME_EXTERNAL_URL ?? '').trim();
+
 const RESOURCE_KEYS = {
   mana: 'classDetails.resources.mana',
   energy: 'classDetails.resources.energy',
@@ -7874,11 +7880,17 @@ function wireStartScreens(): void {
     void loadHighscores();
   });
   // The wiki is the curated guide SPA at /wiki (its own page), so this nav item
-  // navigates there rather than switching an in-page view.
+  // navigates there rather than switching an in-page view. When HOME_EXTERNAL_URL
+  // is set (e.g. local stacks pointing at the public site), both Wiki and News
+  // redirect there so the host does not need to run MediaWiki + MariaDB.
   setupNavBtn(navBtnWiki, '', () => {
-    window.location.href = '/wiki';
+    window.location.href = HOME_EXTERNAL_URL || '/wiki';
   });
   setupNavBtn(navBtnNews, '#news-view', () => {
+    if (HOME_EXTERNAL_URL) {
+      window.location.href = HOME_EXTERNAL_URL;
+      return;
+    }
     switchMainView('#news-view');
     void loadNews();
   });

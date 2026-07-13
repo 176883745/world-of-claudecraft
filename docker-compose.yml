@@ -160,6 +160,8 @@ services:
   mediawiki-db:
     image: mariadb:11
     container_name: eastbrook-wiki-db
+    profiles:
+      - wiki
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${MEDIAWIKI_DB_NAME:-mediawiki}
@@ -179,6 +181,8 @@ services:
       context: .
       dockerfile: mediawiki/Dockerfile
     container_name: eastbrook-wiki
+    profiles:
+      - wiki
     restart: unless-stopped
     depends_on:
       mediawiki-db:
