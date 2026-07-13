@@ -1,5 +1,9 @@
 import { isSupportedLanguage, type SupportedLanguage, setLanguage } from './i18n';
 
+// Browser-only opt-in: when VITE_AUTO_DETECT_LANG is set, apply the device/browser
+// language even in a regular browser runtime (not just native/Capacitor/Electron).
+const AUTO_DETECT_LANG = String(import.meta.env.VITE_AUTO_DETECT_LANG ?? '').trim() !== '';
+
 type LocaleStorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 
 export interface NativeLanguageEnv {
@@ -120,7 +124,8 @@ export function nativeDeviceLocaleList(
 }
 
 export function applyNativeDeviceLanguage(env: NativeLanguageEnv): SupportedLanguage | null {
-  if (!env.native || explicitLanguageSelection(env)) return null;
+  if (!env.native && !AUTO_DETECT_LANG) return null;
+  if (explicitLanguageSelection(env)) return null;
   const selected = resolveSupportedDeviceLanguage(nativeDeviceLocaleList(env));
   if (selected) {
     setLanguage(selected);

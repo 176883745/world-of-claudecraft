@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getLanguage, setLanguage } from '../src/ui/i18n';
 import {
   applyNativeDeviceLanguage,
@@ -128,5 +128,41 @@ describe('native device language selection', () => {
       'ar-SA',
       'vi-VN',
     ]);
+  });
+
+  it('auto-detects browser language when VITE_AUTO_DETECT_LANG is set', async () => {
+    vi.stubEnv('VITE_AUTO_DETECT_LANG', '1');
+    vi.resetModules();
+    const i18n = await import('../src/ui/i18n');
+    const { applyNativeDeviceLanguage: apply } = await import('../src/ui/native_language');
+    i18n.setLanguage('en');
+
+    const result = apply({
+      native: false,
+      storage: storageWithLocale(null),
+      languages: ['fr-FR'],
+    });
+
+    expect(result).toBe('fr_FR');
+    expect(i18n.getLanguage()).toBe('fr_FR');
+    vi.unstubAllEnvs();
+  });
+
+  it('does not auto-detect browser language when VITE_AUTO_DETECT_LANG is unset', async () => {
+    vi.stubEnv('VITE_AUTO_DETECT_LANG', '');
+    vi.resetModules();
+    const i18n = await import('../src/ui/i18n');
+    const { applyNativeDeviceLanguage: apply } = await import('../src/ui/native_language');
+    i18n.setLanguage('en');
+
+    const result = apply({
+      native: false,
+      storage: storageWithLocale(null),
+      languages: ['fr-FR'],
+    });
+
+    expect(result).toBeNull();
+    expect(i18n.getLanguage()).toBe('en');
+    vi.unstubAllEnvs();
   });
 });
