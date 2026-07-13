@@ -1,11 +1,11 @@
 // The Heroic Quartermaster: the item-level/budget pins for the jewelry stock,
 // the server-authoritative buy path (marks debit from bags, range, stock,
-// space refusals), the pure shop view, and the realm-reset income gate on
-// awardHeroicMarks. The equip mechanics of the jewelry itself live in
+// space refusals), the pure shop view, and the realm-reset reward and deed
+// telemetry contract on awardHeroicMarks. The equip mechanics of the jewelry itself live in
 // tests/equip_jewelry.test.ts.
 
 import { describe, expect, it } from 'vitest';
-import { HEROIC_MARK_ITEM_ID } from '../src/sim/content/dungeon_difficulty';
+import { HEROIC_DUNGEON_TUNING, HEROIC_MARK_ITEM_ID } from '../src/sim/content/dungeon_difficulty';
 import { HEROIC_VENDOR_ITEMS, HEROIC_VENDOR_STOCK } from '../src/sim/content/heroic_vendor';
 import { ITEMS, NPCS } from '../src/sim/data';
 import { enterDungeon } from '../src/sim/instances/dungeons';
@@ -149,6 +149,8 @@ describe('heroic vendor shop view (pure)', () => {
 });
 
 describe('heroic mark reward persistence', () => {
+  const DAY_MS = 24 * 60 * 60 * 1000;
+
   function killHeroicMorthen(sim: AnySim, pid: number): AnyEntity {
     sim.setDungeonDifficulty('heroic', pid);
     enterDungeon(sim.ctx, 'hollow_crypt', pid);
@@ -165,7 +167,7 @@ describe('heroic mark reward persistence', () => {
     return morthen;
   }
 
-  it('persists a kill-time mark without depending on corpse or daily-stamp state', () => {
+  it('persists a kill-time mark and its deed telemetry without depending on the corpse', () => {
     const sim = makeSim(21);
     sim.utcDay = '2026-07-07';
     const pid = sim.addPlayer('warrior', 'Daily');
@@ -179,8 +181,67 @@ describe('heroic mark reward persistence', () => {
     expect(state?.inventory).toEqual(
       expect.arrayContaining([expect.objectContaining({ itemId: HEROIC_MARK_ITEM_ID, count: 1 })]),
     );
-    // Retained only for save compatibility. It no longer gates mark income.
-    expect(state?.heroicDaily).toEqual({ date: '', marked: [] });
+    // Deed telemetry persists beside the mark but never gates mark income.
+    expect(state?.heroicDaily).toEqual({ date: 'reset:1', marked: ['hollow_crypt'] });
+  });
+
+  it('resets deed telemetry at the next authoritative reset even within one UTC day', () => {
+    let now = 0;
+    let nextReset = DAY_MS;
+    const sim = new Sim({
+      seed: 22,
+      playerClass: 'warrior',
+      noPlayer: true,
+      lockoutNowMs: () => now,
+      raidResetMs: () => nextReset,
+    }) as AnySim;
+    sim.utcDay = '2026-07-07';
+    const pid = sim.addPlayer('warrior', 'Resetter');
+    const morthen = killHeroicMorthen(sim, pid);
+    const meta = sim.players.get(pid)!;
+    meta.heroicDaily.marked.add('sunken_bastion');
+    expect(meta.heroicDaily.date).toBe('reset:1');
+
+    now = nextReset;
+    nextReset += DAY_MS;
+    sim.awardHeroicMarks(morthen, [meta]);
+
+    expect(sim.utcDay).toBe('2026-07-07');
+    expect(sim.countItem(HEROIC_MARK_ITEM_ID, pid)).toBe(2);
+    expect(meta.heroicDaily.date).toBe('reset:2');
+    expect([...meta.heroicDaily.marked]).toEqual(['hollow_crypt']);
+  });
+
+  it('unlocks the Full Circuit deed from four distinct rewards in one reset window', () => {
+    const sim = makeSim(25);
+    const pid = sim.addPlayer('warrior', 'Circuit');
+    const meta = sim.players.get(pid)!;
+    const circuit = [
+      'hollow_crypt',
+      'sunken_bastion',
+      'drowned_temple',
+      'gravewyrm_sanctum',
+    ] as const;
+
+    sim.setDungeonDifficulty('heroic', pid);
+    for (const dungeonId of circuit) {
+      enterDungeon(sim.ctx, dungeonId, pid);
+      const inst = (sim.instances as any[]).find(
+        (candidate) => candidate.dungeonId === dungeonId && candidate.partyKey !== null,
+      );
+      const boss = inst.mobIds
+        .map((id: number) => sim.entities.get(id))
+        .find(
+          (entity: AnyEntity | undefined) =>
+            entity?.templateId === HEROIC_DUNGEON_TUNING[dungeonId].finalBossId,
+        ) as AnyEntity;
+      sim.awardHeroicMarks(boss, [meta]);
+    }
+    sim.tick();
+
+    expect(meta.heroicDaily.date).toBe('reset:1');
+    expect(meta.heroicDaily.marked).toEqual(new Set(circuit));
+    expect(meta.deedsEarned.has('dgn_mark_circuit')).toBe(true);
   });
 
   it('continues to load and preserve a pre-hotfix heroicDaily payload', () => {

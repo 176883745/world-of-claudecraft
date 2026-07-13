@@ -614,9 +614,22 @@ describe('dungeons: heroic boss drops', () => {
     expect(((nBoss.loot?.items ?? []) as any[]).some((s) => heroicIds.has(s.itemId))).toBe(false);
   });
 
-  it('the heroic Nythraxis raid boss drops from its own heroic table', () => {
-    const table = HEROIC_BOSS_LOOT.nythraxis_scourge_of_thornpeak.map((e) => e.itemId);
-    const dropped = new Set<string>();
+  it('a heroic Nythraxis kill drops raid-tier heroic set pieces plus one heroic-only weapon', () => {
+    // The explicit heroic raid table carries only the heroic-ONLY extras: the
+    // three bespoke raid weapons in a single roll group (one drops per kill). The
+    // heroic set pieces and legendaries are not listed here: the boss's normal
+    // set-piece and legendary drops auto-upgrade to their raid-tier heroic
+    // variants in a heroic claim (loot/loot_roll.ts + heroic_variants.ts).
+    const heroicTable = HEROIC_BOSS_LOOT.nythraxis_scourge_of_thornpeak;
+    const weaponIds = heroicTable.flatMap((e) => (e.itemId ? [e.itemId] : []));
+    const groups = new Set(heroicTable.map((e) => e.rollGroup));
+    expect(groups.size).toBe(1);
+    expect(new Set(weaponIds).size).toBe(3);
+    expect(heroicTable.reduce((sum, e) => sum + e.chance, 0)).toBeCloseTo(1, 10);
+    for (const id of weaponIds) expect(ITEMS[id]?.kind, id).toBe('weapon');
+
+    const droppedWeapons = new Set<string>();
+    const droppedVariants = new Set<string>();
     for (let seed = 1; seed <= 8; seed++) {
       const sim = makeSim(seed);
       const tank = sim.addPlayer('warrior', 'Tank');
@@ -640,11 +653,18 @@ describe('dungeons: heroic boss drops', () => {
         null,
         'hit',
       );
-      const epics = ((boss.loot?.items ?? []) as any[]).filter((s) => table.includes(s.itemId));
-      expect(epics.length, `seed ${seed}`).toBe(2); // one per roll group
-      for (const s of epics) dropped.add(s.itemId);
+      const items = (boss.loot?.items ?? []) as any[];
+      // Exactly one heroic-only weapon per kill (one roll group summing to 1.0).
+      const weapons = items.filter((s) => weaponIds.includes(s.itemId));
+      expect(weapons.length, `seed ${seed} weapons`).toBe(1);
+      for (const s of weapons) droppedWeapons.add(s.itemId);
+      // The set-piece / legendary drops are upgraded to their heroic variants.
+      for (const s of items)
+        if (String(s.itemId).startsWith('heroic_')) droppedVariants.add(s.itemId);
     }
-    expect(dropped.size).toBeGreaterThan(2);
+    // Over eight kills all three weapons show up, and the set-piece swap is live.
+    expect(droppedWeapons.size).toBe(3);
+    expect(droppedVariants.size).toBeGreaterThan(2);
   });
 });
 
@@ -1100,6 +1120,7 @@ describe('dungeons: heroic Nythraxis raid arena', () => {
     }
     sim.convertPartyToRaid(tank);
     if (difficulty === 'heroic') sim.setDungeonDifficulty('heroic', tank);
+    sim.enterDungeon('nythraxis_crypt', tank);
     sim.enterDungeon('nythraxis_boss_arena', tank);
     const inst = claimedDungeon(sim, 'nythraxis_boss_arena', difficulty);
     return { sim, tank, raiders, inst };
@@ -1167,6 +1188,308 @@ describe('dungeons: heroic Nythraxis raid arena', () => {
     expect(((boss.loot?.items ?? []) as any[]).some((s) => s.itemId === HEROIC_MARK_ITEM_ID)).toBe(
       false,
     );
+  });
+
+  it('lets a locked ghost return to its defeated heroic raid instance for loot', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    raiders.forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, boss.pos.x + (i - 2), boss.pos.z - 4);
+    });
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    (sim as any).handleDeath(tankEntity, boss);
+    expect(tankEntity.dead).toBe(true);
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    expect(boss.dead).toBe(true);
+    expect(sim.players.get(tank)!.raidLockouts.has('nythraxis_boss_arena:heroic')).toBe(true);
+
+    sim.releaseSpirit(tank);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceSlotAt(tankEntity.pos)).toBeNull();
+    sim.drainEvents();
+
+    enterDungeon(sim.ctx, 'nythraxis_crypt', tank);
+
+    expect(tankEntity.dead).toBe(true);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceInfoAt(tankEntity.pos)?.dungeonId).toBe('nythraxis_crypt');
+
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(tankEntity.dead).toBe(false);
+    expect(tankEntity.ghost).toBe(false);
+    expect(sim.instanceInfoAt(tankEntity.pos)).toEqual({
+      slot: inst.slot,
+      dungeonId: 'nythraxis_boss_arena',
+    });
+    expect(
+      (sim.drainEvents() as any[]).some(
+        (event) =>
+          event.type === 'error' && event.text === 'You are locked to Heroic Nythraxis Raid Arena.',
+      ),
+    ).toBe(false);
+  });
+
+  it('rejects a ghost corpse bound to an older Nythraxis instance claim', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    raiders.forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, boss.pos.x + (i - 2), boss.pos.z - 4);
+    });
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    (sim as any).handleDeath(tankEntity, boss);
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    sim.releaseSpirit(tank);
+    expect(tankEntity.corpseInstanceId).toBe(inst.exitId);
+    // A reclaimed slot creates a new exit entity while retaining the same
+    // coordinates. Model that new claim identity around the old corpse.
+    tankEntity.corpseInstanceId = (inst.exitId ?? 0) + 1;
+    sim.drainEvents();
+
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(tankEntity.dead).toBe(true);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceSlotAt(tankEntity.pos)).toBeNull();
+    expect(
+      (sim.drainEvents() as any[]).some(
+        (event) =>
+          event.type === 'error' && event.text === 'You are locked to Heroic Nythraxis Raid Arena.',
+      ),
+    ).toBe(true);
+  });
+
+  it('recognizes an eligible corpse in the wide Nythraxis side wing', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    const origin = instanceOriginOf(inst);
+    const wingX = origin.x + 200;
+    const wingZ = origin.z + 50;
+    teleport(sim, boss, wingX, wingZ);
+    raiders.forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, wingX + i - 2, wingZ - 4);
+    });
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    (sim as any).handleDeath(tankEntity, boss);
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    expect(boss.lootRecipientIds).toContain(tank);
+
+    sim.releaseSpirit(tank);
+    const corpsePos = tankEntity.corpsePos;
+    if (!corpsePos) throw new Error('release did not preserve the side-wing corpse position');
+    expect(Math.abs(corpsePos.x - origin.x)).toBeGreaterThan(120);
+    enterDungeon(sim.ctx, 'nythraxis_crypt', tank);
+
+    expect(tankEntity.dead).toBe(true);
+    expect(tankEntity.ghost).toBe(true);
+
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(tankEntity.dead).toBe(false);
+    expect(tankEntity.ghost).toBe(false);
+    expect(sim.instanceInfoAt(tankEntity.pos)).toEqual({
+      slot: inst.slot,
+      dungeonId: 'nythraxis_boss_arena',
+    });
+  });
+
+  it('keeps a living locked raider outside the defeated heroic claim', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    raiders.forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, boss.pos.x + (i - 2), boss.pos.z - 4);
+    });
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    teleport(sim, tankEntity, 0, 0);
+    sim.drainEvents();
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(sim.instanceSlotAt(tankEntity.pos)).toBeNull();
+    expect(
+      (sim.drainEvents() as any[]).some(
+        (event) =>
+          event.type === 'error' && event.text === 'You are locked to Heroic Nythraxis Raid Arena.',
+      ),
+    ).toBe(true);
+  });
+
+  it('resurrects an ineligible locked ghost in the crypt and keeps it out of the arena', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    raiders.slice(1).forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, boss.pos.x + i, boss.pos.z - 4);
+    });
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    teleport(sim, tankEntity, boss.pos.x + 100, boss.pos.z);
+    (sim as any).handleDeath(tankEntity, boss);
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    expect(sim.players.get(tank)!.raidLockouts.has('nythraxis_boss_arena:heroic')).toBe(true);
+    expect(boss.lootRecipientIds).not.toContain(tank);
+
+    sim.releaseSpirit(tank);
+    enterDungeon(sim.ctx, 'nythraxis_crypt', tank);
+
+    expect(tankEntity.dead).toBe(false);
+    expect(tankEntity.ghost).toBe(false);
+    expect(sim.instanceInfoAt(tankEntity.pos)?.dungeonId).toBe('nythraxis_crypt');
+    sim.drainEvents();
+
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(sim.instanceInfoAt(tankEntity.pos)?.dungeonId).toBe('nythraxis_crypt');
+    expect(
+      (sim.drainEvents() as any[]).some(
+        (event) =>
+          event.type === 'error' && event.text === 'You are locked to Heroic Nythraxis Raid Arena.',
+      ),
+    ).toBe(true);
+  });
+
+  it('keeps a locked ghost out after its defeated heroic claim is freed', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    raiders.forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, boss.pos.x + (i - 2), boss.pos.z - 4);
+    });
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    (sim as any).handleDeath(tankEntity, boss);
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    sim.releaseSpirit(tank);
+    raiders.slice(1).forEach((pid) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, 0, 0);
+    });
+    inst.emptyFor = 100000;
+    updateInstances(sim.ctx);
+    expect(inst.partyKey).toBeNull();
+    sim.drainEvents();
+
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(tankEntity.dead).toBe(true);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceSlotAt(tankEntity.pos)).toBeNull();
+    expect(
+      (sim.drainEvents() as any[]).some(
+        (event) =>
+          event.type === 'error' && event.text === 'You are locked to Heroic Nythraxis Raid Arena.',
+      ),
+    ).toBe(true);
+  });
+
+  it('lets a returning ghost leave the crypt if its defeated claim is freed', () => {
+    const { sim, tank, raiders, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    raiders.forEach((pid, i) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, boss.pos.x + (i - 2), boss.pos.z - 4);
+    });
+
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    (sim as any).handleDeath(tankEntity, boss);
+    (sim as any).dealDamage(
+      sim.entities.get(raiders[1]),
+      boss,
+      boss.hp + 100,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    sim.releaseSpirit(tank);
+    enterDungeon(sim.ctx, 'nythraxis_crypt', tank);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceInfoAt(tankEntity.pos)?.dungeonId).toBe('nythraxis_crypt');
+
+    raiders.slice(1).forEach((pid) => {
+      teleport(sim, sim.entities.get(pid) as AnyEntity, 0, 0);
+    });
+    inst.emptyFor = 100000;
+    updateInstances(sim.ctx);
+    expect(inst.partyKey).toBeNull();
+
+    leaveDungeon(sim.ctx, tank);
+
+    expect(tankEntity.dead).toBe(true);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceInfoAt(tankEntity.pos)).toBeNull();
+  });
+
+  it('keeps a locked ghost out of an undefeated heroic claim', () => {
+    const { sim, tank, inst } = raidSetup('heroic');
+    const boss = mobInInstance(sim, inst, NYTHRAXIS_BOSS_ID);
+    const tankEntity = sim.entities.get(tank) as AnyEntity;
+    boss.lootRecipientIds = [tank];
+    sim.players.get(tank)!.raidLockouts.set('nythraxis_boss_arena:heroic', Number.MAX_SAFE_INTEGER);
+    tankEntity.dead = true;
+    tankEntity.hp = 0;
+    sim.releaseSpirit(tank);
+    sim.drainEvents();
+
+    enterDungeon(sim.ctx, 'nythraxis_boss_arena', tank);
+
+    expect(tankEntity.dead).toBe(true);
+    expect(tankEntity.ghost).toBe(true);
+    expect(sim.instanceSlotAt(tankEntity.pos)).toBeNull();
+    expect(
+      (sim.drainEvents() as any[]).some(
+        (event) =>
+          event.type === 'error' && event.text === 'You are locked to Heroic Nythraxis Raid Arena.',
+      ),
+    ).toBe(true);
   });
 
   it('binds a released side-wing corpse to the wide Nythraxis claim', () => {
