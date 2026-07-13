@@ -44,6 +44,7 @@ import { talentChoiceIconDataUrl, talentNodeIconDataUrl } from './talent_icons';
 import { talentTreeFitScale } from './talent_tree_fit';
 import { buildTalentsView, type TalentsView, type TalentTreeVM } from './talents_view';
 import { svgIcon } from './ui_icons';
+import { getUiScale } from './ui_scale';
 
 /**
  * Hud-supplied glue. attachTooltip comes from the shared PainterHostPresentation
@@ -265,8 +266,13 @@ export class TalentsWindow {
     const foot = win.querySelector<HTMLElement>('.tal-foot');
     if (!foot) return;
     const winMaxHeight = Number.parseFloat(getComputedStyle(win).maxHeight);
-    const bodyTop = body.getBoundingClientRect().top - win.getBoundingClientRect().top;
-    const footHeight = foot.getBoundingClientRect().height;
+    // getBoundingClientRect() reports visual (zoomed) px under #ui's `zoom:
+    // var(--ui-scale)`, but the cap is written back as an author-space
+    // style.maxHeight, so these two rect-derived terms must be un-zoomed first
+    // (see the getUiScale doc comment / hud.ts's setWindowPixelPosition).
+    const uiScale = getUiScale();
+    const bodyTop = (body.getBoundingClientRect().top - win.getBoundingClientRect().top) / uiScale;
+    const footHeight = foot.getBoundingClientRect().height / uiScale;
     const cap = talentBodyMaxHeight(winMaxHeight, bodyTop, footHeight);
     if (cap !== null && body.scrollHeight > cap) {
       body.style.maxHeight = `${cap}px`;
