@@ -10,7 +10,10 @@
 
 export const pending: Record<string, readonly string[]> = {
   "es": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -19,7 +22,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "es_ES": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -28,7 +34,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "fr_FR": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -37,7 +46,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "fr_CA": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -47,7 +59,10 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "en_CA": [],
   "it_IT": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -56,7 +71,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "de_DE": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -69,7 +87,10 @@ export const pending: Record<string, readonly string[]> = {
   "ko_KR": [],
   "ja_JP": [],
   "pt_BR": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -79,7 +100,10 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "ru_RU": [],
   "cs_CZ": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -88,7 +112,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "nl_NL": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -97,7 +124,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "pl_PL": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -106,7 +136,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "id_ID": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -115,7 +148,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "tr_TR": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -124,7 +160,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "sv_SE": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -133,7 +172,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "vi_VN": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
@@ -142,7 +184,10 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.tutorial.slayTargetHintTouch"
   ],
   "da_DK": [
+    "hudChrome.corpseHarvest.harvestButtonTooltip",
+    "hudChrome.deeds.openBookHint",
     "hudChrome.discord.link.joinServer",
+    "hudChrome.loot.takeAllTooltip",
     "hudChrome.tutorial.nextTipMap",
     "hudChrome.tutorial.nextTipQuestLog",
     "hudChrome.tutorial.nextTipSocial",
