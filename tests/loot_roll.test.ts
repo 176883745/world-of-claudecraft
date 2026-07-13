@@ -282,6 +282,31 @@ describe('loot_roll: need-greed resolution (module entry)', () => {
     expect(sim.countItem('greyjaw_hide_boots', a)).toBe(0);
     expect(sim.countItem('greyjaw_hide_boots', b) + sim.countItem('greyjaw_hide_boots', c)).toBe(1);
   });
+
+  it('returns the item if an abruptly missing winner bypassed normal leave reconciliation', () => {
+    const { sim, a, b, c } = partyOfThree();
+    const mob = deadCorpse(sim, a, [a, b, c], {
+      copper: 0,
+      items: [{ itemId: 'greyjaw_hide_boots', count: 1 }],
+    });
+    awardSharedLootItem(sim.ctx, 'greyjaw_hide_boots', mob, playerMeta(sim, a));
+    mob.loot = { copper: 0, items: [] };
+    const rollId = lootRollEvent(sim).rollId;
+    submitLootRoll(sim.ctx, rollId, 'need', a);
+
+    // Defensive path only: normal logout calls removePlayerFromLootRolls first.
+    sim.entities.delete(a);
+    sim.players.delete(a);
+    submitLootRoll(sim.ctx, rollId, 'greed', b);
+    submitLootRoll(sim.ctx, rollId, 'pass', c);
+
+    expect((sim as any).pendingLootRolls.has(rollId)).toBe(false);
+    expect(sim.countItem('greyjaw_hide_boots', b)).toBe(0);
+    expect(mob.loot?.items.find((slot) => slot.itemId === 'greyjaw_hide_boots')).toMatchObject({
+      count: 1,
+      openToAll: true,
+    });
+  });
 });
 
 describe('loot_roll: group roll status + resolution broadcast (module entry)', () => {

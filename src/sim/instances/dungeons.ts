@@ -37,6 +37,7 @@ import {
 } from './difficulty';
 
 const DOOR_TRIGGER_RADIUS = 2.0; // walking this close to a dungeon door teleports you
+const HEROIC_REWARD_WINDOW_MS = 24 * 60 * 60 * 1000;
 const RAID_ALLOWED_DUNGEON_IDS = new Set(['nythraxis_crypt', 'nythraxis_boss_arena']);
 const RAID_REQUIRED_DUNGEON_IDS = new Set(['nythraxis_boss_arena']);
 
@@ -67,12 +68,20 @@ function instanceContains(origin: { x: number; z: number }, pos: Vec3): boolean 
 }
 
 function instanceClaimContains(ctx: SimContext, inst: InstanceSlot, pos: Vec3): boolean {
-  if (instanceContains(instanceOriginOf(inst), pos)) return true;
+  const origin = instanceOriginOf(inst);
+  if (instanceContains(origin, pos)) return true;
   if (inst.dungeonId !== 'nythraxis_boss_arena') return false;
   const boss = inst.mobIds
     .map((id) => ctx.entities.get(id))
     .find((entity) => entity?.templateId === NYTHRAXIS_BOSS_ID);
-  return !!boss && dist2d(pos, boss.spawnPos) <= NYTHRAXIS_ROOM_RADIUS;
+  // The raid room is wider than the generic instance footprint, so its claim
+  // includes the side wings. Keep that wider circle clipped to this slot's z
+  // band or it reaches into the adjacent arena slot 500 yards away.
+  return (
+    !!boss &&
+    Math.abs(pos.z - origin.z) < 250 &&
+    dist2d(pos, boss.spawnPos) <= NYTHRAXIS_ROOM_RADIUS
+  );
 }
 
 // Difficulty-scoped lockout key: heroic clears lock beside the normal key, so
@@ -111,10 +120,19 @@ export function updateDoorTriggers(ctx: SimContext, p: Entity): void {
   }
 }
 
-export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): void {
+export function enterDungeon(
+  ctx: SimContext,
+  dungeonId: string,
+  pid?: number,
+  // [dev] /dev raid: skip the raid-group requirement and the Nythraxis attunement
+  // so a lone tester can zone into the raid. Dev-gated (never in production). The
+  // raid LOCKOUT is deliberately NOT bypassed (use /dev raid reset for that).
+  devBypass = false,
+): void {
   const r = ctx.resolve(pid);
   const dungeon = DUNGEONS[dungeonId];
   if (!r || !dungeon) return;
+  const bypass = devBypass && ctx.devCommands;
   // A living player enters normally; a ghost that has run its spirit back re-enters to
   // resurrect at the entrance (below). A fresh corpse (dead, spirit not yet released)
   // cannot move, so it never reaches the door.
@@ -126,11 +144,11 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
     ctx.error(r.meta.entityId, 'Raid groups cannot enter standard dungeons.');
     return;
   }
-  if (!party?.raid && raidRequired) {
+  if (!party?.raid && raidRequired && !bypass) {
     ctx.error(r.meta.entityId, 'You must convert your party to a raid group first.');
     return;
   }
-  if (dungeonId === 'nythraxis_boss_arena' && !canEnterNythraxisRaid(r.meta)) {
+  if (dungeonId === 'nythraxis_boss_arena' && !canEnterNythraxisRaid(r.meta) && !bypass) {
     ctx.error(r.meta.entityId, 'The royal door is sealed to you.');
     return;
   }
@@ -151,14 +169,16 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
   // group's live instance instead of stranding the player in a fresh parallel
   // claim. The selected difficulty applies only when claiming a new instance.
   let inst = ctx.instances.find((i) => i.dungeonId === dungeonId && i.partyKey === key);
-  // Nythraxis keeps its at-the-door lockout (even a live claim is barred after
-  // the kill), now scoped to the difficulty actually being entered: the live
-  // claim's when one exists, else the current selection. Normal and heroic
-  // never consume each other's lockout.
+  const corpseRunClaim = defeatedNythraxisCorpseRunClaim(ctx, key, r.e);
+  const returningForLoot = inst !== undefined && corpseRunClaim === inst;
+  // Nythraxis keeps its at-the-door lockout, scoped to the difficulty actually
+  // being entered: the live claim's when one exists, else the current selection.
+  // A loot-eligible ghost may return to its party's defeated live claim for the
+  // normal corpse-run resurrection, but the lockout still bars every fresh claim.
   if (dungeonId === 'nythraxis_boss_arena') {
     const doorDifficulty = inst?.difficulty ?? difficulty;
     const lockId = doorDifficulty === 'heroic' ? heroicLockoutId(dungeonId) : dungeonId;
-    if (isRaidLocked(ctx, r.meta, lockId)) {
+    if (isRaidLocked(ctx, r.meta, lockId) && !returningForLoot) {
       ctx.error(
         r.meta.entityId,
         doorDifficulty === 'heroic'
@@ -170,8 +190,8 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
   }
   // A locked player may walk back into a LIVE heroic claim only when its final
   // boss is already down AND that kill is the one their lock came from (the
-  // claim's clearedBy set): the corpse-run / loot-retrieval path the kill
-  // lockout deliberately leaves open. Anything else bars the door. Without the
+  // claim's clearedBy set), or when the stricter Nythraxis corpse-run proof above
+  // binds them to that exact defeated claim. Anything else bars the door. Without the
   // boss-alive arm, one unlocked member (a fresh recruit, or a camper the kill
   // never locked) could claim a fresh heroic instance and ferry the whole
   // locked party into another full run; without the clearedBy arm, a player
@@ -180,6 +200,7 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
   if (
     inst &&
     inst.difficulty === 'heroic' &&
+    !returningForLoot &&
     isRaidLocked(ctx, r.meta, heroicLockoutId(dungeonId)) &&
     (heroicFinalBossAlive(ctx, inst) || !inst.clearedBy.has(r.meta.entityId))
   ) {
@@ -222,8 +243,15 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
   // A ghost that ran its spirit back and re-entered resurrects at the entrance,
   // penalty-free: the re-entry IS the corpse run under the instance death model (no
   // Spirit Healer inside an instance).
-  if (p.ghost) resurrectOnInstanceReentry(ctx, r.meta, p, p.pos);
+  // Nythraxis has a nested entrance: a returning ghost must cross the approach crypt
+  // before reaching the royal door. Keep that spirit released through the outer
+  // transition and resurrect only after it reaches its defeated arena claim.
+  const passingThroughNythraxisCrypt =
+    dungeonId === 'nythraxis_crypt' && corpseRunClaim !== undefined;
+  if (p.ghost && !passingThroughNythraxisCrypt) resurrectOnInstanceReentry(ctx, r.meta, p, p.pos);
   ctx.emit({ type: 'log', text: dungeon.enterText, color: '#b9f', pid: r.meta.entityId });
+  // Stepping through the moongate is a Chronicle task.
+  if (dungeonId === 'drowned_temple') ctx.markVisited(r.meta, 'dungeon:drowned_temple');
 }
 
 function canEnterNythraxisRaid(meta: PlayerMeta): boolean {
@@ -271,9 +299,38 @@ function nythraxisInstanceSealed(ctx: SimContext, inst: InstanceSlot): boolean {
   return false;
 }
 
+function isDefeatedNythraxisParticipant(ctx: SimContext, inst: InstanceSlot, pid: number): boolean {
+  for (const id of inst.mobIds) {
+    const boss = ctx.entities.get(id);
+    if (boss?.templateId === NYTHRAXIS_BOSS_ID && boss.dead && boss.lootRecipientIds?.includes(pid))
+      return true;
+  }
+  return false;
+}
+
+function defeatedNythraxisCorpseRunClaim(
+  ctx: SimContext,
+  partyKey: string,
+  p: Entity,
+): InstanceSlot | undefined {
+  const corpsePos = p.corpsePos;
+  if (!p.ghost || !corpsePos || p.corpseInstanceId === null) return undefined;
+  const inst = ctx.instances.find(
+    (candidate) =>
+      candidate.dungeonId === 'nythraxis_boss_arena' &&
+      candidate.partyKey === partyKey &&
+      candidate.exitId === p.corpseInstanceId &&
+      instanceClaimContains(ctx, candidate, corpsePos),
+  );
+  if (!inst || !isDefeatedNythraxisParticipant(ctx, inst, p.id)) return undefined;
+  return inst;
+}
+
 export function leaveDungeon(ctx: SimContext, pid?: number): void {
   const r = ctx.resolve(pid);
-  if (!r || r.e.dead) return;
+  // A fresh corpse cannot move, but a released ghost crossing the nested Nythraxis
+  // approach must be able to backtrack outside if its arena claim becomes unavailable.
+  if (!r || (r.e.dead && !r.e.ghost)) return;
   const p = r.e;
   // not inside any instance: nothing to leave (no DUNGEON_LIST[0] fallback —
   // that silently teleported outdoor callers to the Hollow Crypt door)
@@ -315,6 +372,8 @@ function claimInstance(
   inst.partyKey = key;
   inst.difficulty = difficulty;
   inst.emptyFor = 0;
+  // The Sanctum speed deed measures from the claim.
+  inst.claimedAt = ctx.time;
   inst.clearedBy = new Set();
   const origin = instanceOriginOf(inst);
   for (const spawn of dungeon.spawns) {
@@ -387,6 +446,7 @@ function freeInstance(ctx: SimContext, inst: InstanceSlot): void {
   inst.objectIds = [];
   inst.exitId = null;
   inst.emptyFor = 0;
+  inst.claimedAt = undefined;
   inst.clearedBy = new Set();
 }
 
@@ -430,6 +490,10 @@ function lockToHeroicClaim(
   meta.raidLockouts.set(lockId, lockedUntil);
 }
 
+function heroicRewardWindowToken(lockedUntil: number): string {
+  return `reset:${Math.floor(lockedUntil / HEROIC_REWARD_WINDOW_MS)}`;
+}
+
 // Settle a heroic final-boss kill in one synchronous mutation. The whole group
 // owning the claim (plus anyone still inside) receives the realm-reset lockout,
 // while the death-time participation snapshot receives the configured marks.
@@ -443,6 +507,7 @@ export function awardHeroicMarks(ctx: SimContext, mob: Entity, recipients: Playe
   const tuning = HEROIC_DUNGEON_TUNING[inst.dungeonId];
   if (!tuning || mob.templateId !== tuning.finalBossId) return;
   const lockedUntil = ctx.raidResetMs(ctx.lockoutNowMs());
+  const rewardWindow = heroicRewardWindowToken(lockedUntil);
   const rewardIds = new Set(recipients.map((meta) => meta.entityId));
   const lockoutRecipients = new Map<number, PlayerMeta>();
   for (const meta of instanceLockoutMetas(ctx, inst)) lockoutRecipients.set(meta.entityId, meta);
@@ -454,6 +519,13 @@ export function awardHeroicMarks(ctx: SimContext, mob: Entity, recipients: Playe
     const alreadyLocked = isRaidLocked(ctx, meta, heroicLockoutId(inst.dungeonId));
     if (!alreadyLocked && rewardIds.has(meta.entityId)) {
       ctx.addItem(HEROIC_MARK_ITEM_ID, tuning.marksPerParticipant, meta.entityId);
+      // The Book of Deeds daily circuit observes successful rewards, but it is
+      // telemetry only: the realm-reset lockout above remains the income gate.
+      if (meta.heroicDaily.date !== rewardWindow) {
+        meta.heroicDaily = { date: rewardWindow, marked: new Set() };
+      }
+      meta.heroicDaily.marked.add(inst.dungeonId);
+      ctx.markDeedsDirty(meta.entityId);
     }
     lockToHeroicClaim(ctx, inst, meta, lockedUntil);
   }
