@@ -30,8 +30,14 @@ release-to-main merge b948d47f1, PR #1959) and release/v0.27.0 was cut from
 it with a tree identical to this branch's base 9d6d1e4c0, so the retarget
 merge 946d2754d brought zero tree changes and PR #1967's base moved to
 release/v0.27.0; all recorded run evidence predates the retarget and remains
-valid. Full measurement record in progress.md Phase 4. Next: Phase 4 QA
-(phase-04-qa.md), which marks PR #1967 ready for review on PASS.
+valid. Full measurement record in progress.md Phase 4. Phase 4 QA ran 2026-07-15:
+verdict PASS (0 BLOCKING; 4 SHOULD-FIX found, 4 resolved: three pin-coverage
+gaps closed by test(ci) 5cbb96d4c and the vale_cup_meta PRD prose by
+docs(prd) cee777149; two pin NICE-TO-HAVEs closed in the same commit; full
+record in the Phase 4 QA notes below). The 4-shard design is LOCKED (D7
+note). PR #1967 marked ready for review; merge timing stays owner-scheduled.
+Next: Phase 5 (phase-05-typescript-7-flip.md) off release/v0.27.0 once PR
+#1967 merges.
 Phase 4 execution notes for later phases are below.
 
 Phase 3 (CI parallel checks job + FFmpeg from npm static binaries): IMPLEMENTED
@@ -501,6 +507,63 @@ Phase 3 (phase-03-ci-parallel-checks-ffmpeg.md).
   FFmpeg (the D8 no-shim condition); the armory_mobile_layout browser failure
   remains environmental (PR CI green is the arbiter).
 
+## Phase 4 QA notes (2026-07-15)
+
+- Verdict: PASS. 0 BLOCKING; 4 SHOULD-FIX found (deduped across a 4-agent
+  independent audit workflow and 3 fresh reviewers), 4 resolved (3 pin
+  hardenings in test(ci) 5cbb96d4c, 1 PRD prose fix in docs(prd) cee777149);
+  2 pin NICE-TO-HAVEs closed in the same commit. PR #1967 marked ready for
+  review; merge timing stays owner-scheduled. The compact record is the
+  progress.md Phase 4 QA entry; this section holds what later phases need.
+- Pin hardenings shipped (all in tests/ci_workflow.test.ts, ci.yml itself
+  unchanged; every red path proven by mutation before commit): structural
+  step-count pins (pr-gate has exactly 4 step name lines, release-gate
+  exactly 12), a name-to-run adjacency regex proving the release TEST step
+  carries no if: condition (closing the compensating double-edit that keeps
+  the count-of-8 green while quartering the release tier), the
+  I18N_RELEASE_TIER pin anchored to the job-level 4-space env block (a
+  step-level move would run the release test shards at PR tier), and the
+  local gate's 'vitest (full suite)' step plus its --maxWorkers bound pinned
+  (deletion or unbounding now fails the suite). RULE FOR LATER PHASES: any
+  step added to pr-gate or release-gate must consciously bump the 4/12
+  step-count pins (and carry if: matrix.shard == 1 when serialized in
+  release-gate, bumping the count-of-8); this is deliberate friction.
+- Independent verification highlights (beyond the progress.md record): the
+  sha1 BaseSequencer replica (tmp/shard_sim.mjs pattern) reproduced the live
+  shard-2 file set EXACTLY on a fresh instrumented dump, so local simulation
+  remains a trustworthy predictor of CI placement; three consecutive local
+  shard-2 runs were byte-identical in module sets and per-file states (no
+  order dependence introduced); the red-path probe run 29422776406 failed
+  EXACTLY the predicted shard with a legible file:line report while the
+  other three shards ran to completion (fail-fast off observed live).
+- Deferrals (recorded, not fixed; none block): step ORDER within jobs is
+  unpinned (reordering the freshness diff above i18n:gen would make it
+  vacuous; pre-existing class, pr-checks and release-gate alike); an extra
+  matrix dimension (e.g. node: [22, 24]) survives every pin and would
+  multiply the shard jobs and the single-shard steps; the jobSource()
+  lookahead cannot terminate a slice at a job id containing digits or
+  uppercase (latent slice-merge trap if such a job id ever lands); false-FAIL
+  comment tripwires enumerated for ci.yml editors (a job-leading comment
+  containing the literal 'needs:' or 'matrix.shard == 1', quoting
+  'if: matrix.shard == 1' in a release-gate comment, writing the
+  i18n.status.summary.json path with its src/ui/ prefix in job prose, a
+  gate.mjs comment containing '--shard', and rewriting conditions in the
+  ${{ }} if-syntax, which the count regex does not match); the pr-checks
+  merge-ref checkout stays comment-declared but unpinned (pre-existing);
+  branch-protection check names remain the OPEN item 4 owner action; gh job
+  records for SKIPPED jobs can carry zero or negative durations (external
+  cosmetic; use run createdAt to last job completion for walls, as the
+  packet does); two env-gated suites (tests/parity/rename_state_proof and
+  tests/player_metrics_db_integration) skip identically in every run and are
+  counted in the 1129; and the recorded three consecutive runs include one
+  workflow_dispatch re-run of the same head, closed in practice by the three
+  later distinct-commit push runs (29420329730, 29420536165, 29420921769).
+- Environment note: QA ran under nvm Node 24 with no ffmpeg shim; the
+  armory_mobile_layout browser failure remains environmental (this PR's CI
+  browser-gate green on the same content is the arbiter). The QA probe
+  commit was built in a detached temp worktree and pushed by sha, so the
+  main worktree never left the QA head during the audit.
+
 ## Locked design decisions (record once, reference forever)
 
 - D1: TypeScript 7 adoption is GO, via the official dual-alias install:
@@ -541,6 +604,11 @@ Phase 3 (phase-03-ci-parallel-checks-ffmpeg.md).
   more runner. The sha1 co-location premise was re-derived post-merge: only
   vale_cup still co-located meaningfully, and the split flattened the worst
   shard from 252.5s to 230.0s. Full numbers in progress.md Phase 4.)
+  (LOCKED by Phase 4 QA, 2026-07-15: independent re-derivation of the
+  partition, the balance, the six live green runs, and the one-shard red path
+  confirmed the N=4 design; QA also added structural step-count and
+  test-step-adjacency pins so an unconditioned step addition or a gated test
+  step fails tests/ci_workflow.test.ts. See the Phase 4 QA notes.)
 - D8: FFmpeg in CI comes from the ffmpeg-static/ffprobe-static npm packages (already
   devDependencies with allowlisted install scripts; verify their binaries by execution,
   a scripts-skipped install leaves them missing), preferably by repointing the two
