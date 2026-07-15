@@ -6,6 +6,7 @@ import {
   instanceMusicDecision,
 } from '../src/game/instance_music';
 import { DELVE_X_MIN, ZONES } from '../src/sim/data';
+import { SOWFIELD_CENTER } from '../src/sim/vale_cup_layout';
 
 const eastbrookFixture = ZONES.find((zone) => zone.id === 'eastbrook_vale');
 if (!eastbrookFixture) throw new Error('eastbrook_vale fixture is missing');
@@ -63,7 +64,32 @@ describe('instance music policy', () => {
     expect(port.update).toHaveBeenLastCalledWith('dungeon_hollow_crypt', false);
   });
 
-  it('routes stadium and private-practice phases through the Vale Cup tracks', () => {
+  it('selects the Sowfield music zone and follows its public match phase', () => {
+    const waiting = instanceMusicDecision(
+      input({
+        playerPos: SOWFIELD_CENTER,
+        cupInfo: null,
+      }),
+    );
+    expect(waiting.atSowfield).toBe(true);
+    expect(waiting.zone).toBe('vale_cup');
+    expect(waiting.sowfieldTrack).toBe('waiting');
+
+    const active = instanceMusicDecision(
+      input({
+        playerPos: SOWFIELD_CENTER,
+        cupInfo: {
+          match: { phase: 'active', origin: { x: 0, z: 0 } },
+          spectate: null,
+        },
+      }),
+    );
+    expect(active.atSowfield).toBe(true);
+    expect(active.zone).toBe('vale_cup');
+    expect(active.sowfieldTrack).toBe('match');
+  });
+
+  it('routes private-practice phases through the Vale Cup tracks', () => {
     const practice = instanceMusicDecision(
       input({
         playerPos: { x: 30000, z: 0 },
