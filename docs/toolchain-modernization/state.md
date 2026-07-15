@@ -50,8 +50,15 @@ conflict and is pinned by tests/sfx_export_bundle.test.ts. The WOC_* overrides
 and the PATH fallback do not reach the conformance-measuring call sites.)
 The Phase 2 QA freshness-comment rider is closed (both comments reworded).
 Phase 3 QA ran 2026-07-15: verdict PASS (0 BLOCKING; 8 SHOULD-FIX found, 8
-resolved; PR #1945 marked ready for review, merge timing owner-scheduled; full
-record in the Phase 3 QA notes below). Next: Phase 4.
+resolved; PR #1945 marked ready for review; full record in the Phase 3 QA
+notes below). MERGED into release/v0.26.0 on 2026-07-15 (PR #1945, merge
+fecfce196), the owner merging the same day. The merge push ran the first live
+release-tier pass of the apt-free workflow FULLY GREEN (run 29416055867:
+release-version-gate, release-gate with I18N_RELEASE_TIER end to end on the
+static binaries, browser regressions, lint; PR jobs correctly skipped),
+closing Phase 3's release-arm observation and confirming live that a
+release/v0.26.0 push is now fully green post-fill, not the old expected
+mid-cycle red. Next: Phase 4.
 Phase 3 execution notes for later phases are below.
 
 Phase 1 (Degit the i18n aggregate artifacts): MERGED into release/v0.26.0 on

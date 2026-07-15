@@ -8,7 +8,7 @@
 | Phase 1 QA | complete: PASS-WITH-FOLLOWUPS (criterion 2 re-scoped by the owner's OPEN item 8 decision; pending.ts durable fix specced as a follow-up); 2 SHOULD-FIX fixed | 2026-07-14 | 2026-07-14 |
 | Phase 2: Flat TranslationKey + baseUrl | MERGED into release/v0.26.0 (PR #1940, merge 66b5eb6c5) | 2026-07-14 | 2026-07-14 |
 | Phase 2 QA | complete: PASS (0 BLOCKING; 2 SHOULD-FIX found and resolved: the committed teeth successor test + the recorded cadence deviation; 7 doc corrections) | 2026-07-14 | 2026-07-14 |
-| Phase 3: CI parallel checks + FFmpeg | implemented; PR #1945 ready for review (post-merge CI green), merge owner-scheduled | 2026-07-14 | 2026-07-14 |
+| Phase 3: CI parallel checks + FFmpeg | MERGED into release/v0.26.0 (PR #1945, merge fecfce196) | 2026-07-14 | 2026-07-15 |
 | Phase 3 QA | complete: PASS (0 BLOCKING; 8 SHOULD-FIX found and resolved; release base merged in as e0f442637; 2 tests added) | 2026-07-15 | 2026-07-15 |
 | Phase 4: Test sharding | IMPLEMENTED (draft PR #1967 off release/v0.26.0) | 2026-07-15 | |
 | Phase 4 QA | not started | | |
@@ -264,8 +264,11 @@ tests added, dead code removed, deferrals.
   carried biome errors in two delve test files that blocked the pre-push
   floor; healed by a scoped biome --write as chore(tests) 0b6ff86a5. Final
   QA-head run 29415139204 all green (wall 547s = pr-gate 544s parallel with
-  pr-checks 95s). PR #1945 marked ready for review; merge timing
-  owner-scheduled.
+  pr-checks 95s). PR #1945 marked ready for review and merged by the owner the
+  same day (fecfce196). The release-arm observation closed on the merge push:
+  run 29416055867 ran the release tier end to end on the apt-free workflow
+  fully green (the first fully green release/v0.26.0 push, confirming the
+  post-fill expectation live).
 - Phase 4 QA:
 - Phase 5 QA (includes the packet-teardown offer):
 
