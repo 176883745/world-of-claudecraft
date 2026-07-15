@@ -19,12 +19,8 @@ import type { ClaudiumStoreItem } from '../net/economy_sdk';
 import { castBarState, consumeBarState } from '../render/cast_bar';
 import { CharacterPreview } from '../render/characters';
 import { preloadMechAssets } from '../render/characters/assets';
-import { mechHeldWeaponOverride, skinCount } from '../render/characters/manifest';
-import {
-  onPortraitsReady,
-  playerPortraitDataUrl,
-  visualPortraitDataUrl,
-} from '../render/characters/portrait';
+import { mechHeldWeaponOverride } from '../render/characters/manifest';
+import { onPortraitsReady } from '../render/characters/portrait';
 import { isFriendlyPet, mobTooltipConColor } from '../render/reaction';
 import type { Renderer } from '../render/renderer';
 import {
@@ -35,13 +31,7 @@ import {
 import { DEED_ORDER, DEEDS } from '../sim/content/deeds';
 import { HEROIC_MARK_ITEM_ID } from '../sim/content/dungeon_difficulty';
 import { HEROIC_VENDOR_STOCK } from '../sim/content/heroic_vendor';
-import {
-  EVENT_SKIN_TIERS,
-  MECH_CHROMAS,
-  SKIN_RANKS,
-  type SkinTier,
-  skinRankOrder,
-} from '../sim/content/skins';
+import { MECH_CHROMAS } from '../sim/content/skins';
 import { FIRST_TALENT_LEVEL, type TalentAllocation, talentsFor } from '../sim/content/talents';
 import type { ZoneDef } from '../sim/data';
 import {
@@ -84,7 +74,6 @@ import type {
   PetMode,
   PlayerClass,
   ResourceType,
-  SkinRank,
   Stats,
 } from '../sim/types';
 import {
@@ -278,6 +267,8 @@ import {
 } from './hud/chat/chat_line';
 import { type ChatClock, clampChatClock, formatChatTimestamp } from './hud/chat/chat_timestamp';
 import { ChatWindowController } from './hud/chat/chat_window_controller';
+import { SkinEventController } from './hud/cosmetics/skin_event_controller';
+import { mechChromaName } from './hud/cosmetics/skin_event_i18n';
 import { DelveBoardController } from './hud/delve/delve_board_controller';
 import { DelveMapPainter } from './hud/delve/delve_map_painter';
 import { DelveTrackerController } from './hud/delve/delve_tracker_controller';
@@ -1271,18 +1262,7 @@ export class Hud {
   private targetTitleDecoration: TitledNameDecoration = { pre: '', post: '' };
   private charPreview: CharacterPreview | null = null;
   private charPreviewCanvas: HTMLCanvasElement | null = null;
-  // Cosmetic skin-select event overlay (opened by the skinEvent cue). The shared
-  // CharacterPreview above is borrowed for the rotatable 3D preview.
-  private skinEventEl: HTMLElement | null = null;
-  private skinEventTrap: FocusTrapHandle | null = null;
-  private skinEventRank: SkinRank | null = null;
-  private skinEventTiers: readonly SkinTier[] = EVENT_SKIN_TIERS;
-  private skinEventSelected = -1;
-  private skinEventSelectedKey = '';
-  private skinEventRevealTimer: number | null = null;
-  private skinEventWheelAngle = 0;
-  // 'class' = per-class event skins; 'mech' = the Combat Mech chroma catalog.
-  private skinEventMode: 'class' | 'mech' = 'class';
+  private readonly skinEvent: SkinEventController;
   // Pending lazy-load of the mech GLB + chromas; the reveal waits on it.
   private mechAssetsPromise: Promise<void> | null = null;
   private readonly playerCard: PlayerCardController;
@@ -1423,6 +1403,36 @@ export class Hud {
       },
       slotName: itemSlotName,
       click: () => audio.click(),
+    });
+    this.skinEvent = new SkinEventController({
+      document,
+      window,
+      world: () => this.sim,
+      closeTop: () => this.closeAll(),
+      hideTooltip: () => this.hideTooltip(),
+      onPortraitsReady,
+      preloadMechAssets: () => {
+        if (!this.mechAssetsPromise) this.mechAssetsPromise = preloadMechAssets();
+        return this.mechAssetsPromise;
+      },
+      preview: {
+        mount: (container, playerClass, skin, previewKey) =>
+          this.mountCharPreview(container, playerClass, skin, previewKey),
+        setSkin: (skin) => this.charPreview?.setSkin(skin),
+      },
+      openFocusTrap: (root) => this.focusManager.open({ root }),
+      attachTooltip: (element, html) => this.attachTooltip(element, html),
+      showBanner: (text) => this.showBanner(text),
+      renderBagsIfOpen: () => {
+        if ($('#bags').style.display !== 'none') this.renderBags();
+      },
+      random: Math.random,
+      audio: {
+        bagOpen: () => audio.bagOpen(),
+        bagClose: () => audio.bagClose(),
+        click: () => audio.click(),
+        levelUp: () => audio.levelUp(),
+      },
     });
     this.chatGeometry = new ChatGeometryController({
       document,
@@ -8018,7 +8028,7 @@ export class Hud {
           break;
         }
         case 'skinEvent':
-          this.openSkinEvent(ev.rank, ev.catalog === 'mech' ? { mech: true } : undefined);
+          this.skinEvent.open(ev.rank, ev.catalog === 'mech' ? { mech: true } : undefined);
           break;
         case 'mailbox':
           // Keyboard/sim interact at a mailbox object: open the mail window.
@@ -10663,7 +10673,7 @@ export class Hud {
         'aria-label',
         option.kind === 'class'
           ? t('auth.chromaOption', { n: labelNumber })
-          : this.mechChromaName(option.chromaId),
+          : mechChromaName(option.chromaId),
       );
       b.addEventListener('click', () => {
         row.querySelectorAll('.skin-swatch').forEach((x) => {
@@ -10714,7 +10724,7 @@ export class Hud {
         this.attachTooltip(
           b,
           () =>
-            `<div class="tt-name">${esc(this.mechChromaName(option.chromaId))}</div><div class="tt-sub">${esc(t('skinEvent.unlocked'))}</div>`,
+            `<div class="tt-name">${esc(mechChromaName(option.chromaId))}</div><div class="tt-sub">${esc(t('skinEvent.unlocked'))}</div>`,
         );
       }
       row.appendChild(b);
@@ -10735,413 +10745,11 @@ export class Hud {
       this.attachTooltip(
         unequip,
         () =>
-          `<div class="tt-name">${esc(this.mechChromaName(currentChroma.id))}</div><div class="tt-sub">${esc(t('skinEvent.unequip'))}</div>`,
+          `<div class="tt-name">${esc(mechChromaName(currentChroma.id))}</div><div class="tt-sub">${esc(t('skinEvent.unequip'))}</div>`,
       );
       row.appendChild(unequip);
     }
   }
-
-  // -------------------------------------------------------------------------
-  // Cosmetic skin-select event overlay (opened by the server-rolled `skinEvent`
-  // cue). Left column: rank-gated tier list of selectable skins. Right column:
-  // the shared rotatable 3D preview + a Lock In button that commits the choice
-  // through IWorld.claimEventSkin (re-validated server-side against the rank).
-  // -------------------------------------------------------------------------
-
-  private static readonly SKIN_RANK_NAME_KEY: Record<SkinRank, TranslationKey> = {
-    uncommon: 'itemUi.quality.uncommon',
-    rare: 'itemUi.quality.rare',
-    epic: 'itemUi.quality.epic',
-  };
-
-  private skinRankName(rank: SkinRank): string {
-    return t(Hud.SKIN_RANK_NAME_KEY[rank]);
-  }
-
-  // Combat Mech chroma id -> display-name key. Keyed by MECH_CHROMAS[].id.
-  private static readonly MECH_NAME_KEY: Record<string, TranslationKey> = {
-    amber_crimson: 'skinEvent.mech.amber_crimson',
-    crimson_amber: 'skinEvent.mech.crimson_amber',
-    cyan_magenta: 'skinEvent.mech.cyan_magenta',
-    magenta_cyan: 'skinEvent.mech.magenta_cyan',
-    orange_steel: 'skinEvent.mech.orange_steel',
-    steel_orange: 'skinEvent.mech.steel_orange',
-    forest_pink: 'skinEvent.mech.forest_pink',
-    pink_forest: 'skinEvent.mech.pink_forest',
-    amethyst_silver: 'skinEvent.mech.amethyst_silver',
-    ivory_copper: 'skinEvent.mech.ivory_copper',
-    onyx_gold: 'skinEvent.mech.onyx_gold',
-    imperial_crimson: 'skinEvent.mech.imperial_crimson',
-    imperial_gold: 'skinEvent.mech.imperial_gold',
-    vanguard_azure: 'skinEvent.mech.vanguard_azure',
-    vanguard_chrome: 'skinEvent.mech.vanguard_chrome',
-  };
-
-  private mechChromaName(id: string): string {
-    const key = Hud.MECH_NAME_KEY[id];
-    return key ? t(key) : id;
-  }
-
-  // The selectable skins for the current overlay mode, each carrying its rank,
-  // skin index, a stable choice key, and (mech only) the chroma id for naming.
-  private skinEventChoices(): { rank: SkinRank; index: number; key: string; id?: string }[] {
-    if (this.skinEventMode === 'mech') {
-      return MECH_CHROMAS.map((c, i) => ({ rank: c.rank, index: i, key: `mech:${i}`, id: c.id }));
-    }
-    return this.skinEventTiers.map((tier) => ({
-      rank: tier.rank,
-      index: tier.skin,
-      key: this.skinTierKey(tier),
-    }));
-  }
-
-  private skinEventPreviewKey(): string {
-    return this.skinEventMode === 'mech' ? 'player_mech' : `player_${this.sim.cfg.playerClass}`;
-  }
-
-  // Whether a choice's skin actually exists to render. Mech chromas always do;
-  // class skins are bounded by how many that class's model ships.
-  private skinChoiceAvailable(index: number): boolean {
-    if (this.skinEventMode === 'mech') return true;
-    return index < skinCount(`player_${this.sim.cfg.playerClass}`);
-  }
-
-  private skinChoiceThumb(index: number): string | null {
-    return this.skinEventMode === 'mech'
-      ? visualPortraitDataUrl('player_mech', index)
-      : playerPortraitDataUrl(this.sim.cfg.playerClass, index);
-  }
-
-  /** Best choice the rolled rank unlocks AND that exists, or null. Works for
-   *  both modes via skinEventChoices(). */
-  private defaultChoiceSelection(rank: SkinRank): { index: number; key: string } | null {
-    const granted = skinRankOrder(rank);
-    let best: { index: number; key: string } | null = null;
-    let bestOrder = -1;
-    for (const ch of this.skinEventChoices()) {
-      const order = skinRankOrder(ch.rank);
-      if (order > granted || !this.skinChoiceAvailable(ch.index)) continue;
-      if (order > bestOrder) {
-        bestOrder = order;
-        best = { index: ch.index, key: ch.key };
-      }
-    }
-    return best;
-  }
-
-  /** Open the skin-select overlay for a server-rolled rank, defaulting the
-   *  selection to the best skin the rank unlocks.
-   *  `opts.mech` opens the real Combat Mech cosmetic catalog. */
-  openSkinEvent(rank: SkinRank, opts?: { mech?: boolean }): void {
-    for (let i = 0; i < 20 && this.closeAll(); i++) {
-      /* close stacked HUD overlays before the roll reveal */
-    }
-    this.skinEventRank = rank;
-    this.skinEventMode = opts?.mech ? 'mech' : 'class';
-    if (this.skinEventMode === 'mech') {
-      // Kick off the lazy asset fetch; the reveal waits on it before rendering.
-      this.mechAssetsPromise = preloadMechAssets();
-    } else {
-      this.skinEventTiers = EVENT_SKIN_TIERS;
-    }
-    this.skinEventWheelAngle = this.randomSkinEventLandingAngle(rank);
-    const selected = this.defaultChoiceSelection(rank);
-    this.skinEventSelected = selected?.index ?? -1;
-    this.skinEventSelectedKey = selected?.key ?? '';
-    this.hideTooltip();
-    // Render the tier list once data + assets are ready. For mech that means the
-    // lazy GLB/chromas; otherwise once portraits finish their boot preload.
-    const reveal = (): void => {
-      if (this.skinEventRank === null) return;
-      if (this.skinEventMode === 'mech' && this.mechAssetsPromise) {
-        void this.mechAssetsPromise.then(() => {
-          if (this.skinEventRank !== null) this.renderSkinEvent();
-        });
-      } else {
-        this.renderSkinEvent();
-      }
-    };
-    onPortraitsReady(() => {
-      if (this.skinEventEl?.classList.contains('open') && this.skinEventRevealTimer === null)
-        reveal();
-    });
-    this.renderSkinEventWheel();
-    const reduceMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (this.skinEventRevealTimer !== null) window.clearTimeout(this.skinEventRevealTimer);
-    this.skinEventRevealTimer = window.setTimeout(
-      () => {
-        this.skinEventRevealTimer = null;
-        reveal();
-      },
-      reduceMotion ? 140 : 6600,
-    );
-    audio.bagOpen();
-  }
-
-  closeSkinEvent(): void {
-    if (!this.skinEventEl) return;
-    if (this.skinEventRevealTimer !== null) {
-      window.clearTimeout(this.skinEventRevealTimer);
-      this.skinEventRevealTimer = null;
-    }
-    this.skinEventEl.classList.remove('open');
-    this.skinEventTrap?.release();
-    this.skinEventTrap = null;
-    this.skinEventRank = null;
-    this.skinEventTiers = EVENT_SKIN_TIERS;
-    this.skinEventMode = 'class';
-    this.skinEventSelectedKey = '';
-    this.skinEventWheelAngle = 0;
-    audio.bagClose();
-  }
-
-  private skinTierKey(tier: SkinTier): string {
-    return `${tier.rank}:${tier.skin}`;
-  }
-
-  private randomSkinEventLandingAngle(rank: SkinRank): number {
-    // CSS wheel uses `conic-gradient(from -90deg, ...)`, so the visual centers
-    // are shifted 90deg from the raw stop midpoints. Add bounded per-roll
-    // jitter so repeat rolls of the same rarity do not stop at the same point.
-    const jitter = (span: number): number => (Math.random() - 0.5) * span;
-    switch (rank) {
-      case 'uncommon':
-        return -15 + jitter(150);
-      case 'rare':
-        return -172.5 + jitter(72);
-      case 'epic':
-        return -247.5 + jitter(28);
-    }
-    return 0;
-  }
-
-  private renderSkinEventWheel(): void {
-    const rank = this.skinEventRank;
-    if (rank === null) return;
-
-    let el = this.skinEventEl;
-    if (!el) {
-      el = document.createElement('div');
-      el.id = 'skin-event';
-      el.className = 'skin-event-overlay';
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') this.closeSkinEvent();
-      });
-      el.addEventListener('mousedown', (e) => {
-        if (e.target === el) this.closeSkinEvent();
-      });
-      document.body.appendChild(el);
-      this.skinEventEl = el;
-    }
-
-    const title = esc(t('skinEvent.title'));
-    const landed = esc(this.skinRankName(rank));
-    el.innerHTML =
-      `<div class="se-wheel-stage" role="dialog" aria-modal="true" aria-label="${title}">` +
-      `<div class="se-wheel-pointer" aria-hidden="true"></div>` +
-      `<div class="se-wheel" style="--land-angle:${this.skinEventWheelAngle}deg" aria-hidden="true">` +
-      `<svg class="se-wheel-labels" viewBox="0 0 200 200">` +
-      `<defs><path id="se-wheel-label-ring" d="M 100 25 A 75 75 0 1 1 99.9 25"/></defs>` +
-      `<text class="se-wheel-label-bg uncommon"><textPath href="#se-wheel-label-ring" startOffset="4%">${esc(this.skinRankName('uncommon'))}</textPath></text>` +
-      `<text class="se-wheel-label-bg rare"><textPath href="#se-wheel-label-ring" startOffset="48%">${esc(this.skinRankName('rare'))}</textPath></text>` +
-      `<text class="se-wheel-label-bg epic"><textPath href="#se-wheel-label-ring" startOffset="69%">${esc(this.skinRankName('epic'))}</textPath></text>` +
-      `<text class="se-wheel-label-fg"><textPath href="#se-wheel-label-ring" startOffset="4%">${esc(this.skinRankName('uncommon'))}</textPath></text>` +
-      `<text class="se-wheel-label-fg"><textPath href="#se-wheel-label-ring" startOffset="48%">${esc(this.skinRankName('rare'))}</textPath></text>` +
-      `<text class="se-wheel-label-fg"><textPath href="#se-wheel-label-ring" startOffset="69%">${esc(this.skinRankName('epic'))}</textPath></text>` +
-      `</svg>` +
-      `</div>` +
-      `<div class="se-wheel-result" style="--tier-color:${QUALITY_COLOR[rank] ?? '#fff'}">` +
-      `<span>${landed}</span>` +
-      `<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>` +
-      `<b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>` +
-      `<b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>` +
-      `</div>`;
-    if (!this.skinEventTrap)
-      this.skinEventTrap = this.focusManager.open({ root: () => this.skinEventEl });
-    el.classList.add('open');
-  }
-
-  private renderSkinEvent(): void {
-    const rank = this.skinEventRank;
-    if (rank === null) return;
-    const cls = this.sim.cfg.playerClass;
-    const granted = skinRankOrder(rank);
-    const mech = this.skinEventMode === 'mech';
-    const previewKey = this.skinEventPreviewKey();
-
-    // Build the shell once and reuse it across opens so the single 3D canvas
-    // can be moved in/out via setContainer without being recreated.
-    let el = this.skinEventEl;
-    if (!el) {
-      el = document.createElement('div');
-      el.id = 'skin-event';
-      el.className = 'skin-event-overlay';
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') this.closeSkinEvent();
-      });
-      el.addEventListener('mousedown', (e) => {
-        if (e.target === el) this.closeSkinEvent();
-      });
-      document.body.appendChild(el);
-      this.skinEventEl = el;
-    }
-
-    const title = esc(t('skinEvent.title'));
-    const rankName = this.skinRankName(rank);
-    el.innerHTML =
-      `<div class="panel skin-event-panel" role="dialog" aria-modal="true" aria-label="${title}">` +
-      `<div class="se-body"><div class="se-left">` +
-      `<div class="se-roll-banner" style="--tier-color:${QUALITY_COLOR[rank] ?? '#fff'}">${esc(t('skinEvent.rolled', { rank: rankName }))}</div>` +
-      `<div class="se-tiers" role="radiogroup" aria-label="${title}"></div>` +
-      `<button type="button" class="btn se-lockin" data-lockin>${esc(t('skinEvent.lockIn'))}</button>` +
-      `</div><div class="se-preview-col">` +
-      `<div class="se-preview"><div class="se-preview-hint">${esc(t('skinEvent.previewHint'))}</div></div>` +
-      `<div class="se-preview-name" data-preview-name></div>` +
-      `</div></div></div>`;
-
-    const tiersEl = el.querySelector('.se-tiers') as HTMLElement;
-    const lockInBtn = el.querySelector('[data-lockin]') as HTMLButtonElement;
-    const swatches: HTMLButtonElement[] = [];
-
-    const syncSelection = (): void => {
-      let selectedCanLock = false;
-      for (const b of swatches) {
-        const sel = b.dataset.choice === this.skinEventSelectedKey;
-        b.classList.toggle('sel', sel);
-        b.setAttribute('aria-checked', String(sel));
-        b.tabIndex = sel ? 0 : -1;
-        if (sel && b.dataset.lockable === 'true') selectedCanLock = true;
-      }
-      lockInBtn.disabled = !selectedCanLock;
-    };
-
-    const nameEl = el.querySelector('[data-preview-name]') as HTMLElement;
-    const choiceName = (ch: { rank: SkinRank; id?: string }): string =>
-      mech && ch.id ? this.mechChromaName(ch.id) : this.skinRankName(ch.rank);
-
-    const select = (ch: { rank: SkinRank; index: number; key: string; id?: string }): void => {
-      this.skinEventSelected = ch.index;
-      this.skinEventSelectedKey = ch.key;
-      this.charPreview?.setSkin(ch.index);
-      nameEl.textContent = choiceName(ch);
-      syncSelection();
-      audio.click();
-    };
-
-    const choices = this.skinEventChoices();
-    // Highest rank at the top (epic → uncommon), matching the design sketch.
-    // Class mode shows one swatch per tier; mech mode shows every chroma in it.
-    for (const tierRank of [...SKIN_RANKS].reverse()) {
-      const rankChoices = choices.filter((c) => c.rank === tierRank);
-      if (!rankChoices.length) continue;
-      const order = skinRankOrder(tierRank);
-      const unlocked = order <= granted;
-      const anyAvailable = rankChoices.some((c) => this.skinChoiceAvailable(c.index));
-      const rawName = this.skinRankName(tierRank);
-      const row = document.createElement('div');
-      row.className = `se-tier${unlocked ? '' : ' locked'}`;
-      row.style.setProperty('--tier-color', QUALITY_COLOR[tierRank] ?? '#fff');
-      const hint = !unlocked
-        ? `<span class="se-tier-hint">${svgIcon('lock')}${esc(t('skinEvent.lockedHint', { rank: rawName }))}</span>`
-        : !anyAvailable
-          ? `<span class="se-tier-hint">${esc(t('skinEvent.unavailable'))}</span>`
-          : '';
-      row.innerHTML =
-        `<div class="se-tier-head"><span class="se-tier-name">${esc(rawName)}</span>${hint}</div>` +
-        `<div class="se-swatches"></div>`;
-      const swatchesEl = row.querySelector('.se-swatches') as HTMLElement;
-
-      rankChoices.forEach((ch, i) => {
-        const available = this.skinChoiceAvailable(ch.index);
-        const label = choiceName(ch);
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'se-swatch';
-        b.dataset.skin = String(ch.index);
-        b.dataset.choice = ch.key;
-        b.dataset.lockable = String(unlocked && available);
-        b.setAttribute('role', 'radio');
-        if (available) {
-          const url = this.skinChoiceThumb(ch.index);
-          if (!unlocked) b.classList.add('locked');
-          b.innerHTML = url ? `<img src="${esc(url)}" alt="">` : String(i + 1);
-          b.setAttribute(
-            'aria-label',
-            mech ? label : t('skinEvent.optionAria', { rank: rawName, index: i + 1 }),
-          );
-          b.addEventListener('click', () => select(ch));
-          this.attachTooltip(
-            b,
-            () =>
-              `<div class="tt-name">${esc(label)}</div>` +
-              (unlocked
-                ? ''
-                : `<div class="tt-sub">${esc(t('skinEvent.lockedHint', { rank: rawName }))}</div>`),
-          );
-          swatches.push(b);
-        } else {
-          b.classList.add('unavailable');
-          b.setAttribute('aria-disabled', 'true');
-          b.innerHTML = unlocked
-            ? '<span class="se-lock">—</span>'
-            : `<span class="se-lock">${svgIcon('lock')}</span>`;
-          b.setAttribute(
-            'aria-label',
-            unlocked ? t('skinEvent.unavailable') : t('skinEvent.locked'),
-          );
-          this.attachTooltip(
-            b,
-            () =>
-              `<div class="tt-name">${esc(rawName)}</div><div class="tt-sub">${esc(t('skinEvent.unavailable'))}</div>`,
-          );
-        }
-        swatchesEl.appendChild(b);
-      });
-      tiersEl.appendChild(row);
-    }
-
-    lockInBtn.addEventListener('click', () => {
-      if (this.skinEventSelected < 0 || lockInBtn.disabled) return;
-      if (mech) {
-        this.sim.claimEventSkin(this.skinEventSelected);
-        this.showBanner(t('skinEvent.unlocked'));
-        audio.levelUp();
-        this.closeSkinEvent();
-        if ($('#bags').style.display !== 'none') this.renderBags();
-        return;
-      }
-      this.sim.claimEventSkin(this.skinEventSelected);
-      this.showBanner(t('skinEvent.unlocked'));
-      audio.levelUp();
-      this.closeSkinEvent();
-      if ($('#bags').style.display !== 'none') this.renderBags();
-    });
-
-    // Show, mount the shared 3D preview into the right column, focus the choice.
-    if (!this.skinEventTrap)
-      this.skinEventTrap = this.focusManager.open({ root: () => this.skinEventEl });
-    el.classList.add('open');
-    this.mountCharPreview(
-      el.querySelector('.se-preview') as HTMLElement,
-      cls,
-      this.skinEventSelected >= 0 ? this.skinEventSelected : 0,
-      mech ? previewKey : undefined,
-    );
-    const selChoice = choices.find((c) => c.key === this.skinEventSelectedKey);
-    if (selChoice) nameEl.textContent = choiceName(selChoice);
-    syncSelection();
-    (swatches.find((b) => b.dataset.choice === this.skinEventSelectedKey) ?? swatches[0])?.focus();
-  }
-
-  // -------------------------------------------------------------------------
-  // Shareable player card. Captures a crisp close-up of the character from the
-  // character-window preview, composites it with the player's stats, gear, and
-  // $WOC holder badge, and offers share/download/publish actions. Hosting a
-  // public card link is online-only (requires the injected uploader); offline
-  // play still gets download + native share.
-  // -------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------
   // Post-cap progression (Max-Level XP Overflow): character-sheet block,
