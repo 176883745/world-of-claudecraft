@@ -108,9 +108,11 @@ import {
   type ReleaseEntry,
 } from './net/online';
 import { realmPopulation } from './net/realm_population';
+import { RECONNECT_CONFLICT_ERROR } from './net/reconnect_policy';
 import {
   clearPlayMarker,
-  freshMarkerCharacterId,
+  freshMarker,
+  markResumeAttempt,
   readPlayMarker,
   refreshPlayMarker,
   savePlayMarker,
@@ -292,10 +294,10 @@ let pendingDeleteCharacter: CharacterSummary | null = null;
 // instead of a per-row one; it acts on whichever character is selected. Mobile
 // and narrow layouts keep the per-row buttons and never read this.
 let charselectSelected: CharacterSummary | null = null;
-// One-shot: set by the boot resume path to the character id to auto-enter, then
-// consumed by refreshCharacters once its list has loaded (mobile WebView-reload
-// resume; see src/net/resume_play.ts).
-let pendingResumeCharacterId: number | null = null;
+// One-shot: set by the boot resume path to the character (and the realm it was
+// playing on) to auto-enter, then consumed by refreshCharacters once its list
+// has loaded (mobile WebView-reload resume; see src/net/resume_play.ts).
+let pendingResume: { characterId: number; realm: string } | null = null;
 let homepageMusic: HTMLAudioElement | null = null;
 let homepageMusicStarted = false;
 let homepageMusicMuted = readHomepageMusicMuted();
@@ -4017,6 +4019,7 @@ function setupAccountPortal(): void {
     try {
       await api.deactivateAccount(deUser.value, dePass.value);
       api.clearSession();
+      clearPlayMarker();
       setAccountFieldMsg('#account-deactivate-msg', t('hudChrome.account.deactivated'), true);
       window.setTimeout(() => location.reload(), 1200);
     } catch (e2) {
@@ -4171,7 +4174,7 @@ function showRealmList(dir?: import('./net/online').RealmDirectory): void {
   // (no remembered realm). Drop any pending resume intent here so a later manual
   // realm pick does not surprise-enter the world on a decision made at boot; the
   // player continues through normal realm + character select.
-  pendingResumeCharacterId = null;
+  pendingResume = null;
   show('#realm-panel');
   const listEl = $('#realm-list');
   const render = (d: import('./net/online').RealmDirectory) => {
@@ -4459,27 +4462,31 @@ async function refreshCharacters(): Promise<void> {
     if (chars.some((c) => c.skinCatalog === 'mech')) void preloadMechAssets();
     if (api.realm) $('#charselect-realm').textContent = api.realm;
     listEl.innerHTML = '';
-    if (chars.length === 0) {
-      // No characters on this realm, drop straight into the create screen.
-      listEl.innerHTML = `<li class="char-list-message">${escapeHtml(t('character.noneYet'))}</li>`;
-      show('#charcreate-panel');
-      return;
-    }
     // Boot resume: a WebView reload during play sent us here with a persisted
-    // active-play marker. If that character still exists, re-enter the world
-    // directly instead of showing char-select (a linkdead session resumes
-    // seamlessly; a genuinely live duplicate falls back to the fatal overlay,
-    // same as a manual enter). One-shot: consume the pending id either way, and
-    // clear the persisted marker if the character is gone so we stop retrying.
-    if (pendingResumeCharacterId !== null) {
-      const resumeId = pendingResumeCharacterId;
-      pendingResumeCharacterId = null;
-      const target = chars.find((c) => c.id === resumeId);
+    // active-play marker. If that character still exists on the marker's realm,
+    // re-enter the world directly instead of showing char-select (a linkdead
+    // session resumes seamlessly; a genuinely live duplicate falls back to the
+    // fatal overlay, same as a manual enter). One-shot: consume the pending
+    // intent either way (including the empty-roster case below), and clear the
+    // persisted marker if the character or realm is gone so we stop retrying.
+    // The realm check closes the cross-realm id-collision hole: character ids
+    // are only unique per realm database.
+    if (pendingResume !== null) {
+      const resume = pendingResume;
+      pendingResume = null;
+      const target =
+        resume.realm === api.realm ? chars.find((c) => c.id === resume.characterId) : undefined;
       if (target) {
         void enterWorld(target);
         return;
       }
       clearPlayMarker();
+    }
+    if (chars.length === 0) {
+      // No characters on this realm, drop straight into the create screen.
+      listEl.innerHTML = `<li class="char-list-message">${escapeHtml(t('character.noneYet'))}</li>`;
+      show('#charcreate-panel');
+      return;
     }
     for (const c of chars) {
       const row = document.createElement('li');
@@ -4593,11 +4600,22 @@ async function refreshCharacters(): Promise<void> {
       renderClassDetails('charselect-class-details', 'warrior');
     }
   } catch (err) {
+    // A failed roster load must also drop any boot resume intent: leaving it
+    // armed would auto-enter the world on whatever unrelated refresh (sort,
+    // realm switch, rename) happens to succeed next.
+    pendingResume = null;
     listEl.innerHTML = `<li class="char-list-message char-list-error">${escapeHtml(userFacingApiError(err))}</li>`;
   }
 }
 
-function fatalOverlay(message: string): void {
+function fatalOverlay(message: string, opts?: { keepResumeMarker?: boolean }): void {
+  // A fatal overlay is a terminal client state whose only exit is a reload, so
+  // clearing the resume marker HERE covers every present and future caller: the
+  // reload lands on the normal boot path instead of auto-resuming into the same
+  // failure. The one exception is a duplicate-session conflict ("character
+  // already in world"): the session is alive in another tab or device, and
+  // clearing would erase THAT session's marker, so the caller opts out.
+  if (!opts?.keepResumeMarker) clearPlayMarker();
   hideLoadingScreen(); // its art would bleed through the translucent backdrop
   if (document.getElementById('disconnect-overlay')) return; // first reason wins
   const el = document.createElement('div');
@@ -4710,18 +4728,19 @@ async function enterWorld(c: CharacterSummary, button?: HTMLButtonElement): Prom
   const poll = setInterval(() => {
     if (world.connected && world.entities.has(world.playerId)) {
       clearInterval(poll);
-      // Remember the active session so a WebView reload during play resumes
-      // straight back into the world instead of the home/login screen.
-      savePlayMarker(c.id, Date.now());
+      // Remember the active session (character + realm) so a WebView reload
+      // during play resumes straight back into the world instead of the
+      // home/login screen. Also resets the resume-attempt budget: entry
+      // completed, the session is known-good.
+      if (api.realm) savePlayMarker(c.id, api.realm, Date.now());
       void startGame(world, null, world, `char:${c.id}`, true);
     } else if (Date.now() - waitStart > 10000) {
       clearInterval(poll);
       world.close();
       clearCardProviders();
       hideReconnectOverlay();
-      // Entry never completed: drop any resume marker so the next boot does not
-      // loop straight back into a session that will not start.
-      clearPlayMarker();
+      // Entry never completed: fatalOverlay drops the resume marker so the next
+      // boot does not loop straight back into a session that will not start.
       fatalOverlay(t('loading.enterTimeout'));
     }
   }, 50);
@@ -4732,9 +4751,14 @@ async function enterWorld(c: CharacterSummary, button?: HTMLButtonElement): Prom
     clearCardProviders();
     hideReconnectOverlay();
     // The session ended for good (retries exhausted, kick, takeover, auth fail):
-    // clear the resume marker so a reload does not loop back into a dead session.
-    clearPlayMarker();
-    fatalOverlay(userFacingApiError(reason));
+    // fatalOverlay clears the resume marker so a reload does not loop back into
+    // a dead session. Exception: a duplicate-session conflict means the
+    // character is ALIVE in another tab or device, so the marker (theirs, via
+    // the shared localStorage) must survive; the bounded resume-attempt budget
+    // in resume_play.ts keeps this tab from looping on the overlay forever.
+    fatalOverlay(userFacingApiError(reason), {
+      keepResumeMarker: reason === RECONNECT_CONFLICT_ERROR,
+    });
   };
   // an unexpected drop is not fatal: the server holds the character in-world
   // (linkdead) while ClientWorld auto-reconnects, so just veil the game until
@@ -6671,6 +6695,7 @@ function wireRecoveryEmailModal(): void {
     // return to the login screen. They are prompted again on the next sign-in.
     void api.logout().catch(() => {});
     api.clearSession();
+    clearPlayMarker();
     closeRecoveryEmailModal();
     enterLoggedOutChrome();
     switchMainView('#hero-view');
@@ -7084,8 +7109,13 @@ function wireStartScreens(): void {
 
   const goToLoggedInPlay = () => {
     void enterRealmFlow().catch((err) => {
+      // Entering play failed before character select: drop any boot resume
+      // intent (it must not fire on a later unrelated roster refresh), and on
+      // an auth failure clear the marker with the session it belonged to.
+      pendingResume = null;
       if (isAuthError(err)) {
         api.clearSession();
+        clearPlayMarker();
         enterLoggedOutChrome();
       } else {
         loginError(userFacingApiError(err));
@@ -8362,12 +8392,28 @@ function wireStartScreens(): void {
       // WebView-reload resume: if the session survived revalidation and a fresh
       // active-play marker is present, re-enter the world directly instead of
       // leaving the player parked on the home/character-select chrome. The
-      // Discord-onboarding arm below already enters play, so skip it there.
+      // Discord-onboarding arm below already enters play, so skip it there, and
+      // the desktop-login handoff page must mint its code, never load the game.
       if (discordOnboarding) return;
+      if (isDesktopLoginPage()) return;
       if (!api.token) return; // revalidation cleared a stale session
-      const resumeId = freshMarkerCharacterId(readPlayMarker(), Date.now());
-      if (resumeId === null) return;
-      pendingResumeCharacterId = resumeId;
+      const marker = readPlayMarker();
+      const resume = freshMarker(marker, Date.now());
+      if (resume === null) {
+        // A marker that exists but no longer resumes (stale, or its attempt
+        // budget is spent) is dead weight: clear it so the restamp handlers
+        // below cannot keep it around indefinitely.
+        if (marker) clearPlayMarker();
+        return;
+      }
+      // Count this consumption against the marker's bounded attempt budget (a
+      // completed entry resets it), then route through the normal realm flow:
+      // restoring the marker's realm as the remembered one makes enterRealmFlow
+      // auto-select it even if the player browsed other realms before the
+      // reload, and refreshCharacters consumes the pending intent.
+      markResumeAttempt();
+      pendingResume = { characterId: resume.characterId, realm: resume.realm };
+      localStorage.setItem(LAST_REALM_KEY, resume.realm);
       goToLoggedInPlay();
     });
     // Re-bind the account's linked wallet on a restored session (not just on fresh
