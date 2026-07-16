@@ -617,6 +617,15 @@ export const pl_PL: EnTranslations = {
       "notNow": "Nie teraz",
       "update": "Aktualizuj"
     },
+    "cameraPrompt": {
+      "title": "Wybierz Kamerę",
+      "intro": "Wybierz, jak kamera podąża za twoją postacią.",
+      "mouseDesc": "Ruszaj myszą, aby obracać kamerą bez przytrzymywania przycisku.",
+      "classicTitle": "Kamera Klasyczna",
+      "classicDesc": "Przytrzymaj prawy przycisk myszy i ruszaj myszą, aby obracać kamerą.",
+      "changeLater": "Możesz to zmienić później w Esc, Skróty Klawiszowe.",
+      "confirm": "Potwierdź"
+    },
     "castBar": {
       "playerAria": "Twój pasek rzucania",
       "targetAria": "Pasek rzucania jednostki"
@@ -662,7 +671,12 @@ export const pl_PL: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m}m {s}s",
-      "seconds": "{s}s"
+      "seconds": "{s}s",
+      "autoShowHint": "Wiersze pojawiają się automatycznie, gdy twoja drużyna zadaje obrażenia lub leczy, a ten segment zamyka się kilka sekund po zakończeniu walki."
+    },
+    "petFeed": {
+      "disabledFullHp": "Zwierzę ma pełne zdrowie",
+      "disabledNoFood": "W twoich torbach nie ma jedzenia, które uleczy twoje zwierzę"
     },
     "keybinds": {
       "emoteWheel": "Koło emotek",
@@ -670,6 +684,7 @@ export const pl_PL: EnTranslations = {
       "targetFriendlyNext": "Przełączaj przyjazny cel",
       "discord": "Discord",
       "valecup": "Puchar Doliny",
+      "sheathe": "Schowaj/Wyciągnij Broń",
       "categoryPet": "Zwierzę",
       "petAttack": "Zwierzę: Atak",
       "petStop": "Zwierzę: Zatrzymaj",
@@ -842,6 +857,7 @@ export const pl_PL: EnTranslations = {
       "aurasOnPlayerFrame": "Wzmocnienia na ramce gracza",
       "highContrastBackground": "Tło o wysokim kontraście",
       "startAttackOnAbility": "Automatyczny atak przy użyciu umiejętności",
+      "showAttackButton": "Pokaż Przycisk Ataku",
       "walkByAutoloot": "Automatyczny łup w przelocie",
       "groundReticle": "Celownik naziemny",
       "showItemLevel": "Pokaż poziom przedmiotu",
@@ -963,6 +979,7 @@ export const pl_PL: EnTranslations = {
         "spellPower": "Moc zaklęć",
         "critRating": "Ocena krytyczna",
         "hasteRating": "Ocena pośpiechu",
+        "hitRating": "Ocena Trafienia",
         "warfare": "Działania wojenne"
       },
       "warfareValue": "+{increase}% zadawane / -{reduction}% otrzymywane",
@@ -980,6 +997,7 @@ export const pl_PL: EnTranslations = {
         "dodge": "Twoja szansa na całkowite uniknięcie nadchodzącego ataku wręcz, bez otrzymania obrażeń.",
         "critRating": "Ocena krytyczna z twojego ekwipunku i bonusów zestawów, zwiększająca szansę na trafienie krytyczne. Około 10 oceny daje 1% trafienia krytycznego.",
         "hasteRating": "Ocena pośpiechu z twojego ekwipunku i bonusów zestawów, przyspieszająca twoje ataki i rzucanie zaklęć. Około 10 oceny daje 1% pośpiechu.",
+        "hitRating": "Ocena trafienia z wyposażenia i bonusów zestawów, zmniejszająca częstotliwość chybień ataków i oparcia zaklęć, szczególnie przeciwko wrogom wyższego poziomu. Około 10 oceny daje 1% trafienia.",
         "warfare": "Zwiększa obrażenia zadawane graczom o {increase}% i zmniejsza obrażenia otrzymywane od graczy o {reduction}%."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const pl_PL: EnTranslations = {
         "few": "jesteś rangi {rank}, {count} członkowie",
         "many": "jesteś rangi {rank}, {count} członków",
         "other": "jesteś rangi {rank}, {count} członków"
+      },
+      "finderPartySize": {
+        "one": "{count} gracz",
+        "few": "{count} graczy",
+        "many": "{count} graczy",
+        "other": "{count} graczy"
       },
       "characterCount": {
         "one": "{count} postać",
@@ -1263,7 +1287,10 @@ export const pl_PL: EnTranslations = {
     },
     "bags": {
       "cannotDestroy": "Tego przedmiotu nie można zniszczyć.",
-      "rightClickDestroy": "Kliknij prawym, aby zniszczyć",
+      "rightClickDestroy": "Kliknij prawym przyciskiem, aby zniszczyć",
+      "dragEquipHint": "Przeciągnij na postać, aby założyć",
+      "dragDestroyHint": "Przeciągnij poza okno, aby zniszczyć",
+      "reorderNeedsRecent": "Wyczyść filtr i posortuj według Ostatnich, aby zmienić kolejność w torbach",
       "filterGroupAria": "Filtruj torby według kategorii",
       "filterAll": "Wszystko",
       "filterWeapon": "Bronie",
@@ -1336,6 +1363,8 @@ export const pl_PL: EnTranslations = {
       },
       "dodge": "Erhöht Ausweichchance um {pct}%",
       "dodgeReduce": "Verringert Ausweichchance um {pct}%",
+      "damageReduction": "Zmniejsza wszelkie otrzymywane obrażenia o {pct}%",
+      "guardianWard": "Kolejny śmiertelny cios wroga zamiast tego przywraca cię do {pct}% zdrowia",
       "armorFlat": "Verringert Rüstung um {value}",
       "armorFlatStacks": "Verringert Rüstung um {value} ({stacks} Stapel)",
       "armorPct": "Zmniejsza pancerz o {pct}%",
@@ -1463,7 +1492,8 @@ export const pl_PL: EnTranslations = {
         "connecting": "Otwieranie Discorda...",
         "benefits": "Połącz Discord, aby zdobywać punkty za grę i aktywność w społeczności oraz wspinać się po progach statusu.",
         "error": "Nie udało się połączyć Discorda. Spróbuj ponownie.",
-        "success": "Discord połączony."
+        "success": "Discord połączony.",
+        "joinServer": "Dołącz do serwera Discord"
       },
       "choice": {
         "title": "Kontynuuj z Discordem",
@@ -1511,8 +1541,13 @@ export const pl_PL: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Główny deweloper",
         "devs": "Dev",
+        "seniormods": "Starszy Moderator",
         "mods": "Mod",
-        "artists": "Grafik"
+        "juniormods": "Młodszy Moderator",
+        "artists": "Grafik",
+        "contentcreator": "Twórca Treści",
+        "legend": "LEGENDA",
+        "shill": "GORLIWY ORĘDOWNIK"
       },
       "guildMember": "Zweryfikowany członek",
       "notMember": "Jeszcze nie na serwerze",
@@ -1779,7 +1814,8 @@ export const pl_PL: EnTranslations = {
       "title": "Zbieractwo",
       "mining": "Górnictwo",
       "logging": "Wyrąb",
-      "herbalism": "Zielarstwo"
+      "herbalism": "Zielarstwo",
+      "notReady": "Ten węzeł zasobu jeszcze nie odrósł dla ciebie."
     },
     "archetypeTitle": {
       "label": "Tytuł",
@@ -1811,6 +1847,107 @@ export const pl_PL: EnTranslations = {
       "notAtHub": "Musisz być w warsztacie rzemieślniczym i mieć wymagany poziom, aby to wytworzyć.",
       "throttled": "Wytwarzasz zbyt szybko. Zaczekaj chwilę i spróbuj ponownie.",
       "recipeNotLearned": "Nie nauczyłeś się jeszcze tego przepisu."
+    },
+    "finder": {
+      "title": "Znajdywacz Lochów",
+      "close": "Zamknij",
+      "back": "Wstecz",
+      "syncing": "Oczekiwanie na serwer...",
+      "tabCatalogue": "Katalog",
+      "tabQueue": "Szybkie Dopasowanie",
+      "tabBoard": "Gotowe Grupy",
+      "normal": "Normalny",
+      "heroic": "Heroiczny",
+      "kindDungeon": "Loch",
+      "kindRaid": "Rajd",
+      "kindSolo": "Samotna przygoda",
+      "levels": "Poziomy {min} do {max}",
+      "levelOne": "Poziom {level}",
+      "clock": "{minutes}:{seconds} min",
+      "roleCount": "Liczba {role}: {count}",
+      "roleTank": "Tancerz Tarczy",
+      "roleHealer": "Uzdrowiciel",
+      "roleDps": "Obrażenia",
+      "freeRoles": "Wszystkie role mile widziane",
+      "lockoutDaily": "Dzienny blokada na ostatniego bossa",
+      "lockoutNone": "Brak blokady",
+      "lockedFor": "Zablokowany na około {minutes} min",
+      "attunement": "Wymaga dostrojenia: {quest}",
+      "heroicMarks": "Heroiczne Znaczniki: {count} na gracza",
+      "entrance": "Wejście: {zone}",
+      "showOnMap": "Pokaż na mapie",
+      "encounters": "Starcia",
+      "finalBoss": "Ostatni boss",
+      "summoned": "Przywołany strażnik",
+      "lootGuaranteed": "Jeden z tych zawsze wypada:",
+      "lootMaybe": "Co najwyżej jeden z tych może wypaść:",
+      "lootChance": "Losowe przedmioty do zdobycia:",
+      "lootHeroic": "Bonus heroiczny, jeden z tych zawsze wypada:",
+      "pct": "{pct} %",
+      "blockedLevel": "Tylko poziomy {min} do {max}",
+      "blockedSpec": "Wymaga specjalizacji",
+      "yourRoles": "Twoje role",
+      "needsSpec": "Wybierz specjalizację, aby korzystać z Znajdywacza Lochów.",
+      "leaderNote": "Tylko lider grupy może umieścić grupę w kolejce.",
+      "chooseActivities": "Wybierz aktywności",
+      "joinQueue": "Dołącz do kolejki",
+      "leaveQueue": "Opuść kolejkę",
+      "waited": "Czas w kolejce: {time}",
+      "cooldownNote": "Możesz ponownie dołączyć do kolejki za {seconds}s.",
+      "travelNote": "Grupa formuje się tam, gdzie stoją wszyscy. Podróżujcie razem do wejścia; nikt nie zostaje teleportowany.",
+      "proposalTitle": "Znaleziono grupę: {name}",
+      "proposalRole": "Twoja rola: {role}",
+      "accepted": "{accepted} z {size} potwierdzonych",
+      "remaining": "{seconds}s na odpowiedź",
+      "accept": "Akceptuj",
+      "decline": "Odrzuć",
+      "acceptedWait": "Oczekiwanie na pozostałych...",
+      "slotState": "{role}: {accepted} z {total} gotowych",
+      "openListings": "Otwarte ogłoszenia",
+      "boardEmpty": "Brak ogłoszeń. Opublikuj własne!",
+      "boardLeaderGate": "Tylko lider grupy może publikować ogłoszenia.",
+      "publishListing": "Opublikuj ogłoszenie",
+      "activity": "Aktywność",
+      "publish": "Opublikuj",
+      "yourListing": "Twoje ogłoszenie",
+      "closeListing": "Zamknij ogłoszenie",
+      "applicants": "Kandydaci",
+      "noApplicants": "Brak kandydatów.",
+      "acceptApplicantAria": "Akceptuj {name}",
+      "declineApplicantAria": "Odrzuć {name}",
+      "levelClass": "Poz. {level} {className}",
+      "leader": "Lider: {name}",
+      "needs": "Potrzebuje: {roles}",
+      "slots": "{size} z {capacity}",
+      "apply": "Zgłoś się",
+      "withdraw": "Wycofaj zgłoszenie",
+      "tagFirstRun": "Pierwszy przebieg",
+      "tagQuestRun": "Przebieg zadań",
+      "tagFullClear": "Pełne czyszczenie",
+      "tagLearning": "Nauka mile widziana",
+      "tagFastRun": "Szybki przebieg",
+      "mech": {
+        "shadow_pulse": "Puls Cienia (pulsujące obrażenia obszarowe)",
+        "reaping_arc": "Kosiący Łuk (frontalne cięcie)",
+        "mist_surge": "Nawałnica Mgły (pulsujące obrażenia obszarowe)",
+        "summons_adds": "Przywołuje posiłki",
+        "lunar_tide": "Księżycowy Odpływ (pulsujące obrażenia obszarowe)",
+        "enrage": "Wpada w szał przy niskim zdrowiu",
+        "shuddering_stomp": "Wstrząsające Tupnięcie (ogłuszenie obszarowe)",
+        "necrotic_shockwave": "Nekrotyczna Fala Uderzeniowa (silne obrażenia obszarowe)",
+        "grave_cleaver": "Grobowe Cięcie (frontalne cięcie)",
+        "shadow_nova": "Nova Cienia (wybuch obszarowy)",
+        "profane_mending": "Plugawe Leczenie (leczy sojuszników)",
+        "mana_burn": "Zwiędłe Błogosławieństwo (wypala manę)",
+        "deathstalker_cleave": "Kosiące Cięcie Łowcy Śmierci (frontalne cięcie)",
+        "mortal_wound": "Zapomniana Rana (zmniejsza otrzymane leczenie)",
+        "sealbreak_shockwave": "Fala Uderzeniowa Pieczęci (wybuch obszarowy)",
+        "gravebreaker": "Łamacz Grobów (frontowy stożek, odwróć od rajdu)",
+        "raise_fallen": "Wskrzeszenie Poległych (okresowe fale wrogów)",
+        "soul_rend": "Rozdarcie Duszy (oznaczeni gracze muszą się rozprószyć i być leczeni)",
+        "deathless_rage": "Nieśmiertelna Furia (przerywana przy kamieniach wardowych)",
+        "wardstones": "Kanały kamieni wardowych (przejście fazy)"
+      }
     },
     "deeds": {
       "title": "Księga Czynów",
@@ -2551,6 +2688,10 @@ export const pl_PL: EnTranslations = {
       "dragonkin": {
         "name": "Smoczy ród",
         "desc": "Łuskowate, wężowate istoty ze starych głębin. Rzadkie, dumne i znacznie silniejsze, niż na to wyglądają."
+      },
+      "reptile": {
+        "name": "Gady",
+        "desc": "Zimnokrwiste drapieżniki o własnym syczeniu i kłapaniu, odmienne od ciepłokrwistych bestii."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const pl_PL: EnTranslations = {
     "title": "Pobierz launcher na komputer",
     "desc": "Pobierz samodzielny launcher dla zoptymalizowanej wydajności i gry na pełnym ekranie.",
     "macCta": "Pobierz dla macOS",
+    "windowsCta": "Pobierz dla Windows",
     "linuxCta": "Pobierz dla Linuksa",
     "linuxHint": "AppImage: uczyń go wykonywalnym, a następnie uruchom. Nie wymaga instalacji.",
     "windowsPending": "Build Windows w przygotowaniu."
@@ -4459,6 +4601,8 @@ export const pl_PL: EnTranslations = {
     "connectionLost": "Połączenie z serwerem zostało utracone.",
     "reconnecting": "Połączenie utracone. Ponowne łączenie...",
     "connectionRejected": "Serwer zamknął połączenie.",
+    "realmFull": "Ten świat jest teraz pełny. Spróbuj ponownie za kilka minut.",
+    "tooManyConnections": "Z twojej sieci pochodzi zbyt wiele połączeń do tego świata. Zamknij dodatkowe okna gry lub spróbuj ponownie za kilka minut.",
     "tips": {
       "classes": "Wskazówka: każdą z 9 klas gra się inaczej. Wypróbuj kilka, zanim zdecydujesz się na jedną.",
       "talents": "Wskazówka: poza walką możesz w każdej chwili wyzerować talenty, więc wczesny wybór nigdy nie jest pułapką.",
@@ -5225,6 +5369,7 @@ export const pl_PL: EnTranslations = {
     "actionBar": {
       "attackName": "Atak",
       "attackTooltip": "Przełącza automatyczny atak na cel. Kliknięcie wroga prawym przyciskiem również go atakuje.",
+      "attackRemoveHint": "Kliknij prawym przyciskiem, aby usunąć z paska i zwolnić miejsce.",
       "emptySlot": "Puste pole",
       "slotAria": "Pole akcji {slot}: {ability}",
       "emptySlotAria": "Pole akcji {slot}: puste",
@@ -6140,6 +6285,18 @@ export const pl_PL: EnTranslations = {
       "barkskin": {
         "name": "Dębowa skóra",
         "description": "Twoja skóra twardnieje niczym kora, zwiększając pancerz o 150 na 15 sek."
+      },
+      "ironhold": {
+        "name": "Żelazny Uchwyt",
+        "description": "Chronisz się za tarczą, zmniejszając wszelkie otrzymywane obrażenia o 40% przez 8 sek."
+      },
+      "sacred_bulwark": {
+        "name": "Święty Bastion",
+        "description": "Przez {duration} sek. kolejny cios wroga, który miałby cię zabić, zostaje odparty, a twoje zdrowie jest przywracane do 35%."
+      },
+      "primal_reflexes": {
+        "name": "Pierwotne Odruchy",
+        "description": "Twoje instynkty wyostrzają się, zwiększając szansę na unik o 50% przez 6 sek."
       },
       "starfire": {
         "name": "Spadające niebo",
@@ -7623,6 +7780,15 @@ export const pl_PL: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Berło nieśmiertelnego dworu"
       },
+      "deathless_warguard_legmail": {
+        "name": "Nieśmiertelne nogawice wojennej straży"
+      },
+      "soulrend_diadem": {
+        "name": "Diadem rozdarcia dusz"
+      },
+      "scourgehide_carapace": {
+        "name": "Pancerz ze skóry plagi"
+      },
       "cryptplate_helm": {
         "name": "Hełm z kryptowej płyty"
       },
@@ -7661,6 +7827,9 @@ export const pl_PL: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Nieśmiertelne wielkie ostrze"
+      },
+      "soulforged_warplate": {
+        "name": "Bojowa zbroja kuta z duszy"
       },
       "stormcallers_focus": {
         "name": "Ognisko przyzywacza burz"

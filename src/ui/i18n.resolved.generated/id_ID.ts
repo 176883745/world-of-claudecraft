@@ -617,6 +617,15 @@ export const id_ID: EnTranslations = {
       "notNow": "Jangan sekarang",
       "update": "Perbarui"
     },
+    "cameraPrompt": {
+      "title": "Pilih Kameramu",
+      "intro": "Pilih cara kamera mengikuti karaktermu.",
+      "mouseDesc": "Gerakkan tetikus untuk memutar kamera tanpa menahan tombol apa pun.",
+      "classicTitle": "Kamera Klasik",
+      "classicDesc": "Tahan klik kanan dan gerakkan tetikus untuk memutar kamera.",
+      "changeLater": "Kamu dapat mengubah ini nanti di Esc, Ikatan Tombol.",
+      "confirm": "Konfirmasi"
+    },
     "castBar": {
       "playerAria": "Bilah Rapal Anda",
       "targetAria": "Bilah Rapal Unit"
@@ -662,7 +671,12 @@ export const id_ID: EnTranslations = {
       "perSecond": "{value}/d",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m}m {s}d",
-      "seconds": "{s}d"
+      "seconds": "{s}d",
+      "autoShowHint": "Baris muncul secara otomatis setelah partaimu memberikan kerusakan atau penyembuhan, dan segmen ini tertutup beberapa detik setelah pertarungan berakhir."
+    },
+    "petFeed": {
+      "disabledFullHp": "Peliharaan sudah dalam kondisi darah penuh",
+      "disabledNoFood": "Tidak ada makanan di tasmu yang dapat menyembuhkan peliharaanmu"
     },
     "keybinds": {
       "emoteWheel": "Roda Emote",
@@ -670,6 +684,7 @@ export const id_ID: EnTranslations = {
       "targetFriendlyNext": "Putar Bidikan Sekutu",
       "discord": "Discord",
       "valecup": "Piala Lembah",
+      "sheathe": "Sarungkan/Cabut Senjata",
       "categoryPet": "Peliharaan",
       "petAttack": "Peliharaan: Serang",
       "petStop": "Peliharaan: Berhenti",
@@ -842,6 +857,7 @@ export const id_ID: EnTranslations = {
       "aurasOnPlayerFrame": "Buff pada Bingkai Pemain",
       "highContrastBackground": "Latar Kontras Tinggi",
       "startAttackOnAbility": "Serangan Otomatis Saat Memakai Kemampuan",
+      "showAttackButton": "Tampilkan Tombol Serang",
       "walkByAutoloot": "Jarah Otomatis Sambil Lewat",
       "groundReticle": "Retikel bidik darat",
       "showItemLevel": "Tampilkan Level Item",
@@ -963,6 +979,7 @@ export const id_ID: EnTranslations = {
         "spellPower": "Kekuatan Mantra",
         "critRating": "Rating Kritis",
         "hasteRating": "Rating Kecepatan",
+        "hitRating": "Rating Pukulan",
         "warfare": "Perang"
       },
       "warfareValue": "+{increase}% dibagikan / -{reduction}% diambil",
@@ -980,6 +997,7 @@ export const id_ID: EnTranslations = {
         "dodge": "Peluang Anda untuk sepenuhnya menghindari serangan jarak dekat, tanpa menerima kerusakan.",
         "critRating": "Rating kritis dari perlengkapan dan bonus set Anda, menaikkan peluang serangan kritis Anda. Sekitar 10 rating memberi 1% kritis.",
         "hasteRating": "Rating kecepatan dari perlengkapan dan bonus set Anda, mempercepat serangan dan rapalan mantra Anda. Sekitar 10 rating memberi 1% kecepatan.",
+        "hitRating": "Rating pukulan dari perlengkapan dan bonus setelanmu, mengurangi seberapa sering seranganmu meleset dan mantramu ditangkal, terutama melawan musuh level lebih tinggi. Sekitar 10 rating memberikan 1% hit.",
         "warfare": "Meningkatkan kerusakan yang diberikan kepada pemain sebesar {increase}% dan mengurangi kerusakan yang diterima dari pemain sebesar {reduction}%."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const id_ID: EnTranslations = {
         "few": "Anda adalah {rank}, {count} anggota",
         "many": "Anda adalah {rank}, {count} anggota",
         "other": "Anda adalah {rank}, {count} anggota"
+      },
+      "finderPartySize": {
+        "one": "{count} pemain",
+        "few": "{count} pemain",
+        "many": "{count} pemain",
+        "other": "{count} pemain"
       },
       "characterCount": {
         "one": "{count} karakter",
@@ -1264,6 +1288,9 @@ export const id_ID: EnTranslations = {
     "bags": {
       "cannotDestroy": "Item ini tidak dapat dihancurkan.",
       "rightClickDestroy": "Klik kanan untuk menghancurkan",
+      "dragEquipHint": "Seret ke karaktermu untuk memakai",
+      "dragDestroyHint": "Seret ke dunia untuk menghancurkan",
+      "reorderNeedsRecent": "Hapus filter dan urutkan berdasarkan Terbaru untuk mengatur ulang tasmu",
       "filterGroupAria": "Saring tas menurut kategori",
       "filterAll": "Semua",
       "filterWeapon": "Senjata",
@@ -1336,6 +1363,8 @@ export const id_ID: EnTranslations = {
       },
       "dodge": "Aumenta la probabilidad de esquivar un {pct}%",
       "dodgeReduce": "Reduce la probabilidad de esquivar un {pct}%",
+      "damageReduction": "Mengurangi semua kerusakan yang diterima sebesar {pct}%",
+      "guardianWard": "Serangan musuh mematikan berikutnya memulihkanmu menjadi {pct}% kesehatan",
       "armorFlat": "Reduce la armadura en {value}",
       "armorFlatStacks": "Reduce la armadura en {value} ({stacks} acumulaciones)",
       "armorPct": "Mengurangi zirah sebesar {pct}%",
@@ -1463,7 +1492,8 @@ export const id_ID: EnTranslations = {
         "connecting": "Membuka Discord...",
         "benefits": "Tautkan Discord-mu untuk meraih poin dari bermain dan aktivitas komunitas, serta naik tingkat status.",
         "error": "Tidak dapat menautkan Discord. Silakan coba lagi.",
-        "success": "Discord tertaut."
+        "success": "Discord tertaut.",
+        "joinServer": "Langsung bergabung ke server Discord"
       },
       "choice": {
         "title": "Lanjutkan dengan Discord",
@@ -1511,8 +1541,13 @@ export const id_ID: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Dev Inti",
         "devs": "Pengembang",
+        "seniormods": "Moderator Senior",
         "mods": "Moderator",
-        "artists": "Seniman"
+        "juniormods": "Moderator Muda",
+        "artists": "Seniman",
+        "contentcreator": "Kreator Konten",
+        "legend": "LEGENDA",
+        "shill": "PENDUKUNG"
       },
       "guildMember": "Anggota terverifikasi",
       "notMember": "Belum berada di server",
@@ -1779,7 +1814,8 @@ export const id_ID: EnTranslations = {
       "title": "Pengumpulan",
       "mining": "Penambangan",
       "logging": "Penebangan",
-      "herbalism": "Herbalisme"
+      "herbalism": "Herbalisme",
+      "notReady": "Simpul sumber daya ini belum muncul kembali untukmu."
     },
     "archetypeTitle": {
       "label": "Gelar",
@@ -1811,6 +1847,107 @@ export const id_ID: EnTranslations = {
       "notAtHub": "Kamu harus berada di pusat kerajinan, pada level yang disyaratkan, untuk membuat itu.",
       "throttled": "Kamu membuat terlalu cepat. Tunggu sejenak dan coba lagi.",
       "recipeNotLearned": "Kamu belum mempelajari resep itu."
+    },
+    "finder": {
+      "title": "Pencari Dungeon",
+      "close": "Tutup",
+      "back": "Kembali",
+      "syncing": "Menunggu realm...",
+      "tabCatalogue": "Katalog",
+      "tabQueue": "Pencocokan Cepat",
+      "tabBoard": "Grup Premade",
+      "normal": "Biasa",
+      "heroic": "Heroik",
+      "kindDungeon": "Penjara Bawah Tanah",
+      "kindRaid": "Serangan Massal",
+      "kindSolo": "Petualangan solo",
+      "levels": "Level {min} hingga {max}",
+      "levelOne": "Tingkat {level}",
+      "clock": "{minutes} menit {seconds} detik",
+      "roleCount": "{count} orang {role}",
+      "roleTank": "Pelindung",
+      "roleHealer": "Penyembuh",
+      "roleDps": "Penyerang",
+      "freeRoles": "Semua peran diterima",
+      "lockoutDaily": "Penguncian harian pada bos terakhir",
+      "lockoutNone": "Tanpa penguncian",
+      "lockedFor": "Terkunci sekitar {minutes} menit",
+      "attunement": "Memerlukan penyelarasan: {quest}",
+      "heroicMarks": "Tanda Heroik: {count} per pemain",
+      "entrance": "Pintu masuk: {zone}",
+      "showOnMap": "Tampilkan di Peta",
+      "encounters": "Pertemuan",
+      "finalBoss": "Bos terakhir",
+      "summoned": "Wali yang dipanggil",
+      "lootGuaranteed": "Salah satu dari ini selalu jatuh:",
+      "lootMaybe": "Paling banyak salah satu dari ini mungkin jatuh:",
+      "lootChance": "Peluang jatuhan tambahan:",
+      "lootHeroic": "Bonus heroik, salah satu dari ini selalu jatuh:",
+      "pct": "{pct} persen",
+      "blockedLevel": "Khusus level {min} hingga {max}",
+      "blockedSpec": "Memerlukan spesialisasi",
+      "yourRoles": "Peranmu",
+      "needsSpec": "Pilih spesialisasi untuk menggunakan Pencari Dungeon.",
+      "leaderNote": "Hanya pemimpin partaimu yang dapat mengantrekan grup.",
+      "chooseActivities": "Pilih aktivitas",
+      "joinQueue": "Masuk antrean",
+      "leaveQueue": "Tinggalkan antrean",
+      "waited": "Waktu dalam antrean: {time}",
+      "cooldownNote": "Kamu dapat mengantri lagi dalam {seconds} detik.",
+      "travelNote": "Grup terbentuk di tempat semua orang berdiri. Berjalanlah bersama menuju pintu masuk; tidak ada yang diteleportasi.",
+      "proposalTitle": "Grup ditemukan: {name}",
+      "proposalRole": "Peranmu: {role}",
+      "accepted": "{accepted} dari {size} dikonfirmasi",
+      "remaining": "{seconds} detik untuk menjawab",
+      "accept": "Terima",
+      "decline": "Tolak",
+      "acceptedWait": "Menunggu yang lainnya...",
+      "slotState": "{role}: {accepted} dari {total} siap",
+      "openListings": "Daftar terbuka",
+      "boardEmpty": "Tidak ada daftar saat ini. Buat satu!",
+      "boardLeaderGate": "Hanya pemimpin partaimu yang dapat menerbitkan daftar.",
+      "publishListing": "Terbitkan daftar",
+      "activity": "Aktivitas",
+      "publish": "Terbitkan",
+      "yourListing": "Daftarmu",
+      "closeListing": "Tutup daftar",
+      "applicants": "Pelamar",
+      "noApplicants": "Belum ada pelamar.",
+      "acceptApplicantAria": "Terima {name}",
+      "declineApplicantAria": "Tolak {name}",
+      "levelClass": "Lvl {level} {className}",
+      "leader": "Pemimpin: {name}",
+      "needs": "Membutuhkan {roles}",
+      "slots": "{size} dari {capacity}",
+      "apply": "Lamar",
+      "withdraw": "Cabut lamaran",
+      "tagFirstRun": "Kali pertama",
+      "tagQuestRun": "Misi pencarian",
+      "tagFullClear": "Bersih tuntas",
+      "tagLearning": "Pemula diterima",
+      "tagFastRun": "Berlari cepat",
+      "mech": {
+        "shadow_pulse": "Denyut Bayangan (kerusakan area berdenyut)",
+        "reaping_arc": "Busur Penuai (tebasan ke depan)",
+        "mist_surge": "Lonjakan Kabut (kerusakan area berdenyut)",
+        "summons_adds": "Memanggil bala bantuan",
+        "lunar_tide": "Arus Bulan (kerusakan area berdenyut)",
+        "enrage": "Mengamuk saat darah menipis",
+        "shuddering_stomp": "Hentakan Gemetar (stun area)",
+        "necrotic_shockwave": "Gelombang Kejut Nekrotik (kerusakan area berat)",
+        "grave_cleaver": "Penebas Kubur (tebasan ke depan)",
+        "shadow_nova": "Nova Bayangan (ledakan area)",
+        "profane_mending": "Pemulihan Najis (menyembuhkan sekutunya)",
+        "mana_burn": "Berkah Layu (membakar mana)",
+        "deathstalker_cleave": "Tebasan Deathstalker (tebasan ke depan)",
+        "mortal_wound": "Luka Terlupakan (mengurangi penyembuhan yang diterima)",
+        "sealbreak_shockwave": "Gelombang Kejut Pemecah Segel (ledakan area)",
+        "gravebreaker": "Pemecah Kubur (kerucut ke depan, arahkan menjauhi raid)",
+        "raise_fallen": "Bangkitkan Yang Gugur (gelombang bala bantuan berkala)",
+        "soul_rend": "Robek Jiwa (pemain yang ditandai harus menyebar dan disembuhkan)",
+        "deathless_rage": "Murka Abadi (diputus di wardstone)",
+        "wardstones": "Saluran Wardstone (transisi fase)"
+      }
     },
     "deeds": {
       "title": "Kitab Jasa",
@@ -2551,6 +2688,10 @@ export const id_ID: EnTranslations = {
       "dragonkin": {
         "name": "Bangsa Naga",
         "desc": "Makhluk bersisik dan berlekuk ular dari kedalaman purba. Langka, angkuh, dan jauh lebih kuat dari penampakannya."
+      },
+      "reptile": {
+        "name": "Reptil",
+        "desc": "Pemburu berdarah dingin dengan desis dan cakitan khas mereka sendiri, berbeda dari hewan berdarah panas."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const id_ID: EnTranslations = {
     "title": "Unduh Peluncur Desktop",
     "desc": "Dapatkan peluncur mandiri untuk performa optimal dan permainan layar penuh.",
     "macCta": "Unduh untuk macOS",
+    "windowsCta": "Unduh untuk Windows",
     "linuxCta": "Unduh untuk Linux",
     "linuxHint": "AppImage: membuatnya dapat dieksekusi, lalu jalankan. Tidak perlu instalasi.",
     "windowsPending": "Build Windows tertunda."
@@ -4459,6 +4601,8 @@ export const id_ID: EnTranslations = {
     "connectionLost": "Koneksi ke server terputus.",
     "reconnecting": "Koneksi terputus. Menyambungkan kembali...",
     "connectionRejected": "Server menutup koneksi.",
+    "realmFull": "Dunia ini sedang penuh. Coba lagi dalam beberapa menit.",
+    "tooManyConnections": "Terlalu banyak koneksi ke dunia ini dari jaringanmu. Tutup jendela permainan ekstra atau coba lagi dalam beberapa menit.",
     "tips": {
       "classes": "Kiat: masing-masing dari 9 kelas memiliki gaya bermain berbeda. Cobalah beberapa sebelum menetapkan pilihan.",
       "talents": "Kiat: kamu dapat mengatur ulang talenta kapan saja saat tidak bertarung, jadi pilihan awal tidak akan menjadi jebakan.",
@@ -5225,6 +5369,7 @@ export const id_ID: EnTranslations = {
     "actionBar": {
       "attackName": "Serang",
       "attackTooltip": "Alihkan serangan otomatis pada targetmu. Klik kanan pada musuh juga menyerang.",
+      "attackRemoveHint": "Klik kanan untuk menghapusnya dari bilah dan mengosongkan slot.",
       "emptySlot": "Slot kosong",
       "slotAria": "Slot aksi {slot}: {ability}",
       "emptySlotAria": "Slot aksi {slot}: kosong",
@@ -6140,6 +6285,18 @@ export const id_ID: EnTranslations = {
       "barkskin": {
         "name": "Kulit Ek",
         "description": "Kulitmu mengeras bagai kulit kayu, meningkatkan zirah sebesar 150 selama 15 detik."
+      },
+      "ironhold": {
+        "name": "Cengkeraman Besi",
+        "description": "Bertahan di balik perlindunganmu, mengurangi semua kerusakan yang diterima sebesar 40% selama 8 detik."
+      },
+      "sacred_bulwark": {
+        "name": "Benteng Suci",
+        "description": "Selama {duration} detik, serangan musuh berikutnya yang seharusnya membunuhmu ditolak, dan kamu dipulihkan menjadi 35% kesehatan."
+      },
+      "primal_reflexes": {
+        "name": "Refleks Purba",
+        "description": "Nalurimu menajam, meningkatkan peluang menghindar sebesar 50% selama 6 detik."
       },
       "starfire": {
         "name": "Skyfall",
@@ -7623,6 +7780,15 @@ export const id_ID: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Tongkat Kebesaran Istana Nirmaut"
       },
+      "deathless_warguard_legmail": {
+        "name": "Zirah Kaki Garda Perang Nirmaut"
+      },
+      "soulrend_diadem": {
+        "name": "Diadem Pengoyak Jiwa"
+      },
+      "scourgehide_carapace": {
+        "name": "Karapas Kulit Sampar"
+      },
       "cryptplate_helm": {
         "name": "Helm Lempeng Kripta"
       },
@@ -7661,6 +7827,9 @@ export const id_ID: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Bilah Agung Nirmaut"
+      },
+      "soulforged_warplate": {
+        "name": "Zirah Perang Tempaan Jiwa"
       },
       "stormcallers_focus": {
         "name": "Fokus Pemanggil Badai"

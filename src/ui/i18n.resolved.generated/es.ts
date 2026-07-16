@@ -617,6 +617,15 @@ export const es: EnTranslations = {
       "notNow": "Ahora no",
       "update": "Actualizar"
     },
+    "cameraPrompt": {
+      "title": "Elige tu camara",
+      "intro": "Elige como la camara sigue a tu personaje.",
+      "mouseDesc": "Mueve el raton para girar la camara sin mantener ningun boton.",
+      "classicTitle": "Camara Clasica",
+      "classicDesc": "Mantén el clic derecho y mueve el raton para girar la camara.",
+      "changeLater": "Puedes cambiarlo mas adelante en Esc, Asignacion de teclas.",
+      "confirm": "Confirmar"
+    },
     "castBar": {
       "playerAria": "Tu barra de lanzamiento",
       "targetAria": "Barra de lanzamiento del objetivo"
@@ -662,7 +671,12 @@ export const es: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m} min {s} s",
-      "seconds": "{s} s"
+      "seconds": "{s} s",
+      "autoShowHint": "Las filas aparecen automaticamente cuando tu grupo inflige dano o curacion, y este panel se cierra unos segundos despues de que el combate termine."
+    },
+    "petFeed": {
+      "disabledFullHp": "La mascota tiene la salud al maximo",
+      "disabledNoFood": "No hay comida en tus bolsas que cure a tu mascota"
     },
     "keybinds": {
       "emoteWheel": "Rueda de gestos",
@@ -670,6 +684,7 @@ export const es: EnTranslations = {
       "targetFriendlyNext": "Objetivo amistoso siguiente",
       "discord": "Discord",
       "valecup": "Copa del Valle",
+      "sheathe": "Envainar/Desenvainar arma",
       "categoryPet": "Mascota",
       "petAttack": "Mascota: atacar",
       "petStop": "Mascota: detenerse",
@@ -842,6 +857,7 @@ export const es: EnTranslations = {
       "aurasOnPlayerFrame": "Beneficios en el marco del jugador",
       "highContrastBackground": "Fondo de alto contraste",
       "startAttackOnAbility": "Ataque automático al usar habilidad",
+      "showAttackButton": "Mostrar boton de ataque",
       "walkByAutoloot": "Saqueo automático al pasar",
       "groundReticle": "Retícula de objetivo terrestre",
       "showItemLevel": "Mostrar nivel de objeto",
@@ -963,6 +979,7 @@ export const es: EnTranslations = {
         "spellPower": "Poder con hechizos",
         "critRating": "Índice de golpe crítico",
         "hasteRating": "Índice de celeridad",
+        "hitRating": "Puntuacion de impacto",
         "warfare": "Pericia bélica"
       },
       "warfareValue": "+{increase}% infligido / -{reduction}% recibido",
@@ -980,6 +997,7 @@ export const es: EnTranslations = {
         "dodge": "Tu probabilidad de evitar por completo un ataque cuerpo a cuerpo entrante, sin recibir daño.",
         "critRating": "Índice de golpe crítico de tu equipo y bonificaciones de conjunto, que aumenta tu probabilidad de golpe crítico. Unos 10 de índice otorgan un 1% de crítico.",
         "hasteRating": "Índice de celeridad de tu equipo y bonificaciones de conjunto, que acelera tus ataques y lanzamientos de hechizos. Unos 10 de índice otorgan un 1% de celeridad.",
+        "hitRating": "Puntuacion de impacto proveniente de tu equipo y bonificaciones de conjunto, que reduce la frecuencia con que tus ataques fallan y tus hechizos son resistidos, especialmente contra enemigos de nivel superior. Aproximadamente 10 puntos de puntuacion otorgan un 1% de impacto.",
         "warfare": "Aumenta un {increase}% el daño infligido a jugadores y reduce un {reduction}% el daño recibido de jugadores."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const es: EnTranslations = {
         "few": "eres {rank}, {count} miembros",
         "many": "eres {rank}, {count} miembros",
         "other": "eres {rank}, {count} miembros"
+      },
+      "finderPartySize": {
+        "one": "{count} jugador",
+        "few": "{count} jugadores",
+        "many": "{count} jugadores",
+        "other": "{count} jugadores"
       },
       "characterCount": {
         "one": "{count} personaje",
@@ -1264,6 +1288,9 @@ export const es: EnTranslations = {
     "bags": {
       "cannotDestroy": "Este elemento no se puede destruir.",
       "rightClickDestroy": "Clic derecho para destruir",
+      "dragEquipHint": "Arrastra sobre tu personaje para equipar",
+      "dragDestroyHint": "Arrastra fuera del inventario para destruir",
+      "reorderNeedsRecent": "Limpia el filtro y ordena por Reciente para reorganizar tus bolsas",
       "filterGroupAria": "Filtrar bolsas por categoría",
       "filterAll": "Todos",
       "filterWeapon": "Armas",
@@ -1336,6 +1363,8 @@ export const es: EnTranslations = {
       },
       "dodge": "Aumenta la probabilidad de esquivar un {pct}%",
       "dodgeReduce": "Reduce la probabilidad de esquivar un {pct}%",
+      "damageReduction": "Reduce el dano recibido en un {pct}%",
+      "guardianWard": "El siguiente golpe enemigo letal te restaura al {pct}% de salud en su lugar",
       "armorFlat": "Reduce la armadura en {value}",
       "armorFlatStacks": "Reduce la armadura en {value} ({stacks} acumulaciones)",
       "armorPct": "Reduce la armadura un {pct}%",
@@ -1463,7 +1492,8 @@ export const es: EnTranslations = {
         "connecting": "Abriendo Discord...",
         "benefits": "Vincula tu Discord para ganar puntos jugando y participando en la comunidad, y escalar los niveles de estatus.",
         "error": "No se pudo vincular Discord. Inténtalo de nuevo.",
-        "success": "Discord vinculado."
+        "success": "Discord vinculado.",
+        "joinServer": "Unete al servidor de Discord"
       },
       "choice": {
         "title": "Continuar con Discord",
@@ -1511,8 +1541,13 @@ export const es: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Desarrollador principal",
         "devs": "Dev",
+        "seniormods": "Moderador senior",
         "mods": "Mod",
-        "artists": "Artista"
+        "juniormods": "Moderador junior",
+        "artists": "Artista",
+        "contentcreator": "Creador de contenido",
+        "legend": "LEYENDA",
+        "shill": "PROMOTOR"
       },
       "guildMember": "Miembro verificado",
       "notMember": "Aún no estás en el servidor",
@@ -1779,7 +1814,8 @@ export const es: EnTranslations = {
       "title": "Recolección",
       "mining": "Minería",
       "logging": "Tala",
-      "herbalism": "Herboristería"
+      "herbalism": "Herboristería",
+      "notReady": "Este nodo de recursos aun no ha reaparecido para ti."
     },
     "archetypeTitle": {
       "label": "Título",
@@ -1811,6 +1847,107 @@ export const es: EnTranslations = {
       "notAtHub": "Debes estar en el centro de elaboración, con el nivel requerido, para elaborar eso.",
       "throttled": "Estás elaborando demasiado rápido. Espera un momento e inténtalo de nuevo.",
       "recipeNotLearned": "Aún no has aprendido esa receta."
+    },
+    "finder": {
+      "title": "Buscador de Mazmorras",
+      "close": "Cerrar",
+      "back": "Volver",
+      "syncing": "Esperando al reino...",
+      "tabCatalogue": "Catalogo",
+      "tabQueue": "Busqueda rapida",
+      "tabBoard": "Grupos preformados",
+      "normal": "Estandar",
+      "heroic": "Heroico",
+      "kindDungeon": "Mazmorra",
+      "kindRaid": "Banda",
+      "kindSolo": "Aventura en solitario",
+      "levels": "Niveles {min} a {max}",
+      "levelOne": "Nivel {level}",
+      "clock": "{minutes}:{seconds}",
+      "roleCount": "{count} {role}",
+      "roleTank": "Tanque",
+      "roleHealer": "Sanador",
+      "roleDps": "Dano",
+      "freeRoles": "Cualquier rol es bienvenido",
+      "lockoutDaily": "Bloqueo diario en el jefe final",
+      "lockoutNone": "Sin bloqueo",
+      "lockedFor": "Bloqueado aproximadamente {minutes} min",
+      "attunement": "Requiere sintonizacion: {quest}",
+      "heroicMarks": "Marcas heroicas: {count} por jugador",
+      "entrance": "Entrada: {zone}",
+      "showOnMap": "Mostrar en el mapa",
+      "encounters": "Encuentros",
+      "finalBoss": "Jefe final",
+      "summoned": "Guardian invocado",
+      "lootGuaranteed": "Siempre cae uno de estos:",
+      "lootMaybe": "Puede caer como maximo uno de estos:",
+      "lootChance": "Objetos con probabilidad de caer:",
+      "lootHeroic": "Bonus heroico, siempre cae uno de estos:",
+      "pct": "{pct} %",
+      "blockedLevel": "Solo niveles {min} a {max}",
+      "blockedSpec": "Requiere una especializacion",
+      "yourRoles": "Tus roles",
+      "needsSpec": "Elige una especializacion para usar el Buscador de Mazmorras.",
+      "leaderNote": "Solo el lider del grupo puede poner al grupo completo en cola.",
+      "chooseActivities": "Elige actividades",
+      "joinQueue": "Unirse a la cola",
+      "leaveQueue": "Abandonar la cola",
+      "waited": "Tiempo en cola: {time}",
+      "cooldownNote": "Podras unirte a la cola de nuevo en {seconds} segundos.",
+      "travelNote": "El grupo se forma donde cada uno se encuentra. Viajad juntos a la entrada; nadie es teletransportado.",
+      "proposalTitle": "Grupo encontrado: {name}",
+      "proposalRole": "Tu rol: {role}",
+      "accepted": "{accepted} de {size} confirmados",
+      "remaining": "{seconds}s para responder",
+      "accept": "Aceptar",
+      "decline": "Rechazar",
+      "acceptedWait": "Esperando a los demas...",
+      "slotState": "{role}: {accepted} de {total} listos",
+      "openListings": "Anuncios abiertos",
+      "boardEmpty": "Sin anuncios por ahora. Publica uno.",
+      "boardLeaderGate": "Solo el lider del grupo puede publicar un anuncio.",
+      "publishListing": "Publicar un anuncio",
+      "activity": "Actividad",
+      "publish": "Publicar",
+      "yourListing": "Tu anuncio",
+      "closeListing": "Cerrar anuncio",
+      "applicants": "Solicitantes",
+      "noApplicants": "Aun no hay solicitantes.",
+      "acceptApplicantAria": "Aceptar a {name}",
+      "declineApplicantAria": "Rechazar a {name}",
+      "levelClass": "Nv {level} {className}",
+      "leader": "Lider: {name}",
+      "needs": "Necesita {roles}",
+      "slots": "{size}/{capacity}",
+      "apply": "Solicitar",
+      "withdraw": "Retirar solicitud",
+      "tagFirstRun": "Primera vez",
+      "tagQuestRun": "Mision en curso",
+      "tagFullClear": "Limpieza completa",
+      "tagLearning": "Aprendizaje bienvenido",
+      "tagFastRun": "Rapido",
+      "mech": {
+        "shadow_pulse": "Pulso de Sombra (dano de area pulsante)",
+        "reaping_arc": "Arco Segador (tajo frontal)",
+        "mist_surge": "Oleada de Niebla (dano de area pulsante)",
+        "summons_adds": "Invoca refuerzos",
+        "lunar_tide": "Marea Lunar (dano de area pulsante)",
+        "enrage": "Entra en furia al tener poca salud",
+        "shuddering_stomp": "Pisada Estremecedora (aturdimiento de area)",
+        "necrotic_shockwave": "Onda de Choque Necrotica (dano de area intenso)",
+        "grave_cleaver": "Hacha Funebra (tajo frontal)",
+        "shadow_nova": "Nova de Sombra (explosion de area)",
+        "profane_mending": "Restauracion Profana (cura a sus aliados)",
+        "mana_burn": "Bendicion Marchita (quema el mana)",
+        "deathstalker_cleave": "Tajo del Acechador de la Muerte (tajo frontal)",
+        "mortal_wound": "Herida Olvidada (reduce la curacion recibida)",
+        "sealbreak_shockwave": "Onda Rompesello (explosion de area)",
+        "gravebreaker": "Rompatumbas (cono frontal, alejarlo de la banda)",
+        "raise_fallen": "Despertar a los Caidos (oleadas periodicas de refuerzos)",
+        "soul_rend": "Desgarro de Alma (los jugadores marcados deben dispersarse y recibir curacion)",
+        "deathless_rage": "Furia Inmortal (se interrumpe en las piedras de guardia)",
+        "wardstones": "Canalizacion de piedras de guardia (transicion de fase)"
+      }
     },
     "deeds": {
       "title": "Libro de Gestas",
@@ -2551,6 +2688,10 @@ export const es: EnTranslations = {
       "dragonkin": {
         "name": "Dracónidos",
         "desc": "Criaturas escamosas y serpentinas de las viejas profundidades. Raras, orgullosas y mucho más fuertes de lo que aparentan."
+      },
+      "reptile": {
+        "name": "Reptilidos",
+        "desc": "Cazadores de sangre fria con su propio silbido y mordisco, bien distintos de las bestias de sangre caliente."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const es: EnTranslations = {
     "title": "Descargar Lanzador de Escritorio",
     "desc": "Consigue el lanzador independiente para un rendimiento optimizado y juego a pantalla completa.",
     "macCta": "Descargar para macOS",
+    "windowsCta": "Descargar para Windows",
     "linuxCta": "Descargar para Linux",
     "linuxHint": "AppImage: hazlo ejecutable y luego ejecútalo. No se necesita instalación.",
     "windowsPending": "Compilacion para Windows pendiente."
@@ -4459,6 +4601,8 @@ export const es: EnTranslations = {
     "connectionLost": "Se perdió la conexión con el servidor.",
     "reconnecting": "Conexión perdida. Reconectando...",
     "connectionRejected": "El servidor cerró la conexión.",
+    "realmFull": "Este mundo esta lleno en este momento. Por favor, intentalo de nuevo en unos minutos.",
+    "tooManyConnections": "Hay demasiadas conexiones a este mundo desde tu red. Cierra ventanas adicionales del juego o intentalo de nuevo en unos minutos.",
     "tips": {
       "classes": "Consejo: cada una de las 9 clases se juega de forma distinta. Prueba varias antes de decidirte por una.",
       "talents": "Consejo: puedes restablecer tus talentos cuando estés fuera de combate, así que una elección temprana nunca es definitiva.",
@@ -5225,6 +5369,7 @@ export const es: EnTranslations = {
     "actionBar": {
       "attackName": "Atacar",
       "attackTooltip": "Activa o desactiva el autoataque sobre tu objetivo. Hacer clic derecho en un enemigo también ataca.",
+      "attackRemoveHint": "Clic derecho para quitarlo de la barra y liberar el espacio.",
       "emptySlot": "Ranura vacía",
       "slotAria": "Ranura de acción {slot}: {ability}",
       "emptySlotAria": "Ranura de acción {slot}: vacía",
@@ -6140,6 +6285,18 @@ export const es: EnTranslations = {
       "barkskin": {
         "name": "Piel de Roble",
         "description": "Tu piel se endurece como corteza y aumenta la armadura en 150 durante 15 s."
+      },
+      "ironhold": {
+        "name": "Bastion de Hierro",
+        "description": "Te parapetas tras tu guardia, reduciendo el dano recibido en un 40% durante 8 segundos."
+      },
+      "sacred_bulwark": {
+        "name": "Baluarte Sagrado",
+        "description": "Durante {duration} segundos, el siguiente golpe enemigo que te mataria es anulado y recuperas el 35% de tu salud en su lugar."
+      },
+      "primal_reflexes": {
+        "name": "Reflejos Primigenios",
+        "description": "Tus instintos se agudizan, aumentando tu probabilidad de esquivar un 50% durante 6 segundos."
       },
       "starfire": {
         "name": "Caída Celeste",
@@ -7623,6 +7780,15 @@ export const es: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Cetro de la Corte Imperecedera"
       },
+      "deathless_warguard_legmail": {
+        "name": "Malla de piernas del Guardián Imperecedero"
+      },
+      "soulrend_diadem": {
+        "name": "Diadema Desgarralmas"
+      },
+      "scourgehide_carapace": {
+        "name": "Caparazón de piel de Azote"
+      },
       "cryptplate_helm": {
         "name": "Yelmo Placacripta"
       },
@@ -7661,6 +7827,9 @@ export const es: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Mandoble Imperecedero"
+      },
+      "soulforged_warplate": {
+        "name": "Coraza de guerra forjada en almas"
       },
       "stormcallers_focus": {
         "name": "Foco del Invocador de Tormentas"

@@ -617,6 +617,15 @@ export const zh_TW: EnTranslations = {
       "notNow": "暫不",
       "update": "更新"
     },
+    "cameraPrompt": {
+      "title": "選擇你的鏡頭",
+      "intro": "選擇鏡頭跟隨角色的方式。",
+      "mouseDesc": "無需按住滑鼠按鍵，移動滑鼠即可轉動鏡頭。",
+      "classicTitle": "經典鏡頭",
+      "classicDesc": "按住滑鼠右鍵並移動滑鼠來轉動鏡頭。",
+      "changeLater": "稍後可在 Esc 選單的「按鍵綁定」中變更。",
+      "confirm": "確認"
+    },
     "castBar": {
       "playerAria": "你的施法條",
       "targetAria": "目標施法條"
@@ -662,7 +671,12 @@ export const zh_TW: EnTranslations = {
       "perSecond": "{value}/秒",
       "perSecondRow": "{total}（{rate}）",
       "minutesSeconds": "{m}分{s}秒",
-      "seconds": "{s}秒"
+      "seconds": "{s}秒",
+      "autoShowHint": "一旦你的小隊造成傷害或治療，行數就會自動出現，此區段會在戰鬥結束幾秒後關閉。"
+    },
+    "petFeed": {
+      "disabledFullHp": "寵物生命值已滿",
+      "disabledNoFood": "你的背包中沒有可以治療寵物的食物"
     },
     "keybinds": {
       "emoteWheel": "表情輪盤",
@@ -670,6 +684,7 @@ export const zh_TW: EnTranslations = {
       "targetFriendlyNext": "切換友方目標",
       "discord": "Discord",
       "valecup": "溪谷盃",
+      "sheathe": "收起/拔出武器",
       "categoryPet": "寵物",
       "petAttack": "寵物：攻擊",
       "petStop": "寵物：停止",
@@ -842,6 +857,7 @@ export const zh_TW: EnTranslations = {
       "aurasOnPlayerFrame": "增益顯示在玩家框",
       "highContrastBackground": "高對比度背景",
       "startAttackOnAbility": "使用技能時自動攻擊",
+      "showAttackButton": "顯示攻擊按鈕",
       "walkByAutoloot": "路過自動拾取",
       "groundReticle": "地面瞄準指示圈",
       "showItemLevel": "顯示物品等級",
@@ -963,6 +979,7 @@ export const zh_TW: EnTranslations = {
         "spellPower": "法術強度",
         "critRating": "暴擊等級",
         "hasteRating": "急速等級",
+        "hitRating": "命中等級",
         "warfare": "戰爭"
       },
       "warfareValue": "造成傷害 +{increase}% / 承受傷害 -{reduction}%",
@@ -980,6 +997,7 @@ export const zh_TW: EnTranslations = {
         "dodge": "你完全閃躲受到的近戰攻擊、不受任何傷害的機率。",
         "critRating": "來自裝備和套裝加成的暴擊等級，提升你的暴擊機率。約每10點等級提供1%暴擊。",
         "hasteRating": "來自裝備和套裝加成的急速等級，加快你的攻擊和施法速度。約每10點等級提供1%急速。",
+        "hitRating": "來自裝備和套裝獎勵的命中等級，降低你的攻擊被閃避和法術被抵抗的機率，對更高等級的敵人尤其有效。約每10點等級提供1%命中。",
         "warfare": "對玩家造成的傷害提高 {increase}%，受到玩家造成的傷害降低 {reduction}%。"
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const zh_TW: EnTranslations = {
         "few": "你是{rank}，{count}名成員",
         "many": "你是{rank}，{count}名成員",
         "other": "你是{rank}，{count}名成員"
+      },
+      "finderPartySize": {
+        "one": "{count} 名玩家",
+        "few": "{count} 名玩家",
+        "many": "{count} 名玩家",
+        "other": "{count} 名玩家"
       },
       "characterCount": {
         "one": "{count} 個角色",
@@ -1264,6 +1288,9 @@ export const zh_TW: EnTranslations = {
     "bags": {
       "cannotDestroy": "此物品無法銷毀。",
       "rightClickDestroy": "右鍵單擊以銷毀",
+      "dragEquipHint": "拖曳到角色身上以裝備",
+      "dragDestroyHint": "拖曳到世界中以銷毀",
+      "reorderNeedsRecent": "清除篩選並按「最近」排序即可整理背包",
       "filterGroupAria": "依類別篩選背包",
       "filterAll": "全部",
       "filterWeapon": "武器",
@@ -1336,6 +1363,8 @@ export const zh_TW: EnTranslations = {
       },
       "dodge": "閃躲機率提高 {pct}%",
       "dodgeReduce": "閃避機率降低 {pct}%",
+      "damageReduction": "受到的所有傷害降低 {pct}%",
+      "guardianWard": "下一次敵人的致命攻擊會改為將你的生命值恢復至 {pct}%",
       "armorFlat": "護甲降低 {value}",
       "armorFlatStacks": "護甲降低 {value}（{stacks} 層）",
       "armorPct": "護甲降低 {pct}%",
@@ -1463,7 +1492,8 @@ export const zh_TW: EnTranslations = {
         "connecting": "正在開啟 Discord...",
         "benefits": "連結你的 Discord，從遊玩與社群活動中賺取點數，並攀升階級。",
         "error": "無法連結 Discord。請再試一次。",
-        "success": "Discord 已連結。"
+        "success": "Discord 已連結。",
+        "joinServer": "直接加入 Discord 伺服器"
       },
       "choice": {
         "title": "使用 Discord 繼續",
@@ -1511,8 +1541,13 @@ export const zh_TW: EnTranslations = {
         "admin": "管理員",
         "coredevs": "核心開發者",
         "devs": "開發者",
+        "seniormods": "資深管理員",
         "mods": "管理員",
-        "artists": "美術"
+        "juniormods": "初級管理員",
+        "artists": "美術",
+        "contentcreator": "內容創作者",
+        "legend": "傳奇",
+        "shill": "擁護者"
       },
       "guildMember": "已驗證成員",
       "notMember": "尚未加入伺服器",
@@ -1779,7 +1814,8 @@ export const zh_TW: EnTranslations = {
       "title": "採集",
       "mining": "採礦",
       "logging": "伐木",
-      "herbalism": "藥草學"
+      "herbalism": "藥草學",
+      "notReady": "這個資源節點尚未為你重新生成。"
     },
     "archetypeTitle": {
       "label": "稱號",
@@ -1811,6 +1847,107 @@ export const zh_TW: EnTranslations = {
       "notAtHub": "必須達到所需等級並位於製作站，才能製作該物品。",
       "throttled": "你製作得太快了，請稍等片刻後再試。",
       "recipeNotLearned": "你還沒有學會這個配方。"
+    },
+    "finder": {
+      "title": "地城搜尋器",
+      "close": "關閉",
+      "back": "返回",
+      "syncing": "正在等待伺服器...",
+      "tabCatalogue": "目錄",
+      "tabQueue": "快速配對",
+      "tabBoard": "預組隊伍",
+      "normal": "普通",
+      "heroic": "英雄",
+      "kindDungeon": "地城",
+      "kindRaid": "團隊副本",
+      "kindSolo": "單人冒險",
+      "levels": "等級 {min} 至 {max}",
+      "levelOne": "等級 {level}",
+      "clock": "{minutes}:{seconds}",
+      "roleCount": "{count} {role}",
+      "roleTank": "坦克",
+      "roleHealer": "補師",
+      "roleDps": "輸出",
+      "freeRoles": "不限職責",
+      "lockoutDaily": "最終首領每日鎖定",
+      "lockoutNone": "無鎖定",
+      "lockedFor": "鎖定約 {minutes} 分鐘",
+      "attunement": "需要完成前置任務：{quest}",
+      "heroicMarks": "英雄徽記：每人 {count} 枚",
+      "entrance": "入口：{zone}",
+      "showOnMap": "在地圖上顯示",
+      "encounters": "首領戰",
+      "finalBoss": "最終首領",
+      "summoned": "召喚的守衛",
+      "lootGuaranteed": "以下物品必掉其一：",
+      "lootMaybe": "以下物品至多掉落其一：",
+      "lootChance": "額外機率掉落：",
+      "lootHeroic": "英雄獎勵，以下物品必掉其一：",
+      "pct": "{pct}%",
+      "blockedLevel": "僅限等級 {min} 至 {max}",
+      "blockedSpec": "需要選擇專精",
+      "yourRoles": "你的職責",
+      "needsSpec": "選擇一個專精才能使用地城搜尋器。",
+      "leaderNote": "只有隊長才能為隊伍排隊。",
+      "chooseActivities": "選擇活動",
+      "joinQueue": "加入佇列",
+      "leaveQueue": "離開佇列",
+      "waited": "排隊時間：{time}",
+      "cooldownNote": "你可以在 {seconds} 秒後再次排隊。",
+      "travelNote": "隊伍在原地組成。請一起前往入口；不會傳送任何人。",
+      "proposalTitle": "找到隊伍：{name}",
+      "proposalRole": "你的職責：{role}",
+      "accepted": "{accepted}/{size} 已確認",
+      "remaining": "剩餘 {seconds} 秒確認",
+      "accept": "接受",
+      "decline": "拒絕",
+      "acceptedWait": "正在等待其他人...",
+      "slotState": "{role}：{accepted}/{total} 已就緒",
+      "openListings": "公開招募",
+      "boardEmpty": "目前沒有招募。發佈一個吧！",
+      "boardLeaderGate": "只有隊長才能發佈招募。",
+      "publishListing": "發佈招募",
+      "activity": "活動",
+      "publish": "發佈",
+      "yourListing": "你的招募",
+      "closeListing": "關閉招募",
+      "applicants": "申請者",
+      "noApplicants": "還沒有申請者。",
+      "acceptApplicantAria": "接受 {name}",
+      "declineApplicantAria": "拒絕 {name}",
+      "levelClass": "{level} 級 {className}",
+      "leader": "隊長：{name}",
+      "needs": "需要：{roles}",
+      "slots": "{size}/{capacity}",
+      "apply": "申請",
+      "withdraw": "撤回申請",
+      "tagFirstRun": "初次挑戰",
+      "tagQuestRun": "任務團",
+      "tagFullClear": "全通",
+      "tagLearning": "歡迎新手",
+      "tagFastRun": "速通",
+      "mech": {
+        "shadow_pulse": "暗影脈衝（週期性範圍傷害）",
+        "reaping_arc": "收割之弧（正面順劈）",
+        "mist_surge": "迷霧湧動（週期性範圍傷害）",
+        "summons_adds": "召喚增援",
+        "lunar_tide": "月潮（週期性範圍傷害）",
+        "enrage": "低血量時狂怒",
+        "shuddering_stomp": "震顫踐踏（範圍暈眩）",
+        "necrotic_shockwave": "死靈衝擊波（高額範圍傷害）",
+        "grave_cleaver": "掘墓劈砍（正面順劈）",
+        "shadow_nova": "暗影新星（範圍爆發）",
+        "profane_mending": "褻瀆治療（治療其盟友）",
+        "mana_burn": "枯萎祝福（燃燒法力）",
+        "deathstalker_cleave": "死亡潛行者劈砍（正面順劈）",
+        "mortal_wound": "遺忘之傷（降低受到的治療）",
+        "sealbreak_shockwave": "破印衝擊波（範圍爆發）",
+        "gravebreaker": "碎墓打擊（正面扇形，背對團隊）",
+        "raise_fallen": "亡者復生（週期性召喚小怪）",
+        "soul_rend": "靈魂撕裂（被標記者需分散並接受治療）",
+        "deathless_rage": "不死之怒（需在護符石處打斷）",
+        "wardstones": "護符石引導（階段轉換）"
+      }
     },
     "deeds": {
       "title": "功績之書",
@@ -2551,6 +2688,10 @@ export const zh_TW: EnTranslations = {
       "dragonkin": {
         "name": "龍類",
         "desc": "來自遠古深淵、覆鱗如蛇的生物。稀少、高傲，且遠比外表看來更為強大。"
+      },
+      "reptile": {
+        "name": "爬行類",
+        "desc": "冷血的獵手，帶著獨有的嘶聲與撕咬，與溫血的野獸截然不同。"
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const zh_TW: EnTranslations = {
     "title": "下載電腦版啟動器",
     "desc": "獲取獨立啟動器，以獲得更優化的效能和全螢幕遊戲體驗。",
     "macCta": "下載 macOS 版",
+    "windowsCta": "下載 Windows 版",
     "linuxCta": "下載 Linux 版",
     "linuxHint": "AppImage 格式：賦予可執行權限後直接執行，無需安裝。",
     "windowsPending": "Windows 版本即將推出。"
@@ -4459,6 +4601,8 @@ export const zh_TW: EnTranslations = {
     "connectionLost": "與伺服器的連線已中斷。",
     "reconnecting": "連線已中斷。正在重新連線...",
     "connectionRejected": "伺服器已關閉連線。",
+    "realmFull": "這個世界目前已滿，請於幾分鐘後再試。",
+    "tooManyConnections": "您的網路對這個世界建立的連線過多。請關閉多餘的遊戲視窗，或於幾分鐘後再試。",
     "tips": {
       "classes": "提示：9 個職業玩法各不相同，投入之前不妨都試一試。",
       "talents": "提示：只要不在戰鬥中，隨時都能重置天賦，因此早期的選擇不會成為陷阱。",
@@ -4536,9 +4680,9 @@ export const zh_TW: EnTranslations = {
     "medium": "中",
     "low": "低",
     "popTipLow": "人數較少：目前在線玩家不足 15 人。空間充足，適合全新開始。",
-    "popTipMedium": "人數適中：目前在線玩家 15 至 39 人。健康活躍的世界。",
-    "popTipHigh": "人數較多：目前在線玩家 40 至 79 人。繁忙，玩家眾多。",
-    "popTipFull": "人數已滿：目前在線玩家 80 人或以上。非常繁忙；登入時可能需要排隊。",
+    "popTipMedium": "人數適中：目前在線玩家 15 至 79 人。健康活躍的世界。",
+    "popTipHigh": "人數較多：目前在線玩家 80 人以上。繁忙，玩家眾多。",
+    "popTipFull": "人數已滿：這個世界目前已達到玩家上限。在有玩家登出之前，新的登入將被拒絕。",
     "popTipOffline": "離線：此世界目前無法連接，無法加入。",
     "characterCountOne": "{count} 個角色",
     "characterCountOther": "{count} 個角色",
@@ -5225,6 +5369,7 @@ export const zh_TW: EnTranslations = {
     "actionBar": {
       "attackName": "攻擊",
       "attackTooltip": "對目標開啟或關閉自動攻擊。右鍵點擊敵人也會發起攻擊。",
+      "attackRemoveHint": "右鍵點擊可將其從動作列移除並空出欄位。",
       "emptySlot": "空欄位",
       "slotAria": "動作欄位 {slot}：{ability}",
       "emptySlotAria": "動作欄位 {slot}：空",
@@ -6140,6 +6285,18 @@ export const zh_TW: EnTranslations = {
       "barkskin": {
         "name": "橡樹皮術",
         "description": "你的皮膚硬化如樹皮，使護甲提高 150，持續 15 秒。"
+      },
+      "ironhold": {
+        "name": "鐵壁",
+        "description": "以堅固的防禦自守，使受到的所有傷害降低 40%，持續 8 秒。"
+      },
+      "sacred_bulwark": {
+        "name": "神聖壁壘",
+        "description": "在 {duration} 秒內，下一次會殺死你的敵人攻擊將被抵消，轉而將你恢復至 35% 生命值。"
+      },
+      "primal_reflexes": {
+        "name": "野性反射",
+        "description": "你的本能變得敏銳，使閃避機率提高 50%，持續 6 秒。"
       },
       "starfire": {
         "name": "隕天術",
@@ -7623,6 +7780,15 @@ export const zh_TW: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "不死王庭權杖"
       },
+      "deathless_warguard_legmail": {
+        "name": "不死戰衛腿甲"
+      },
+      "soulrend_diadem": {
+        "name": "裂魂冠冕"
+      },
+      "scourgehide_carapace": {
+        "name": "災禍之皮甲殼"
+      },
       "cryptplate_helm": {
         "name": "墓板頭盔"
       },
@@ -7661,6 +7827,9 @@ export const zh_TW: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "不死巨刃"
+      },
+      "soulforged_warplate": {
+        "name": "鑄魂戰甲"
       },
       "stormcallers_focus": {
         "name": "喚雷之核"

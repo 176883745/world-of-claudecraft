@@ -617,6 +617,15 @@ export const de_DE: EnTranslations = {
       "notNow": "Jetzt nicht",
       "update": "Aktualisieren"
     },
+    "cameraPrompt": {
+      "title": "Kamera wahlen",
+      "intro": "Waehle, wie die Kamera deinem Charakter folgt.",
+      "mouseDesc": "Maus bewegen, um die Kamera zu drehen, ohne eine Taste gehalten zu haben.",
+      "classicTitle": "Klassische Kamera",
+      "classicDesc": "Rechtsklick halten und die Maus bewegen, um die Kamera zu drehen.",
+      "changeLater": "Du kannst dies spater unter Esc, Tastenbelegung aendern.",
+      "confirm": "Bestatigen"
+    },
     "castBar": {
       "playerAria": "Eure Zauberleiste",
       "targetAria": "Zauberleiste des Ziels"
@@ -662,7 +671,12 @@ export const de_DE: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m} Min. {s} Sek.",
-      "seconds": "{s} Sek."
+      "seconds": "{s} Sek.",
+      "autoShowHint": "Zeilen erscheinen automatisch, sobald deine Gruppe Schaden verursacht oder heilt, und dieses Segment schliessen sich einige Sekunden nach Kampfende."
+    },
+    "petFeed": {
+      "disabledFullHp": "Begleiter hat volle Gesundheit",
+      "disabledNoFood": "Kein Futter in deinen Taschen heilt deinen Begleiter"
     },
     "keybinds": {
       "emoteWheel": "Emote-Rad",
@@ -670,6 +684,7 @@ export const de_DE: EnTranslations = {
       "targetFriendlyNext": "Freundliches Ziel wechseln",
       "discord": "Discord",
       "valecup": "Talpokal",
+      "sheathe": "Waffe einstecken/ziehen",
       "categoryPet": "Begleiter",
       "petAttack": "Begleiter: Angreifen",
       "petStop": "Begleiter: Stopp",
@@ -842,6 +857,7 @@ export const de_DE: EnTranslations = {
       "aurasOnPlayerFrame": "Stärkungszauber am Spielerfenster",
       "highContrastBackground": "Hintergrund mit hohem Kontrast",
       "startAttackOnAbility": "Auto-Angriff bei Fähigkeitseinsatz",
+      "showAttackButton": "Angriffs-Schaltflache anzeigen",
       "walkByAutoloot": "Plündern im Vorbeigehen",
       "groundReticle": "Bodenziel-Fadenkreuz",
       "showItemLevel": "Gegenstandsstufe anzeigen",
@@ -963,6 +979,7 @@ export const de_DE: EnTranslations = {
         "spellPower": "Zaubermacht",
         "critRating": "Kritische Trefferwertung",
         "hasteRating": "Tempowertung",
+        "hitRating": "Trefferwertung",
         "warfare": "Kriegsführung"
       },
       "warfareValue": "+{increase}% verursacht / -{reduction}% erlitten",
@@ -980,6 +997,7 @@ export const de_DE: EnTranslations = {
         "dodge": "Deine Chance, einem eingehenden Nahkampfangriff vollständig auszuweichen und keinen Schaden zu erleiden.",
         "critRating": "Kritische Trefferwertung aus deiner Ausrüstung und deinen Setboni, die deine kritische Trefferchance erhöht. Etwa 10 Wertung gewähren 1% kritische Trefferchance.",
         "hasteRating": "Tempowertung aus deiner Ausrüstung und deinen Setboni, die deine Angriffe und dein Zaubern beschleunigt. Etwa 10 Wertung gewähren 1% Tempo.",
+        "hitRating": "Trefferwertung aus deiner Ausrustung und Setboni, die verringert, wie oft deine Angriffe verfehlen und deine Zauber widerstanden werden, besonders gegen hoher stufige Feinde. Etwa 10 Wertung verleihen 1% Treffer.",
         "warfare": "Erhöht den Spielern zugefügten Schaden um {increase}% und verringert von Spielern erlittenen Schaden um {reduction}%."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const de_DE: EnTranslations = {
         "few": "Ihr seid {rank}, {count} Mitglieder",
         "many": "Ihr seid {rank}, {count} Mitglieder",
         "other": "Ihr seid {rank}, {count} Mitglieder"
+      },
+      "finderPartySize": {
+        "one": "{count} Spieler",
+        "few": "{count} Spieler",
+        "many": "{count} Spieler",
+        "other": "{count} Spieler"
       },
       "characterCount": {
         "one": "{count} Charakter",
@@ -1263,7 +1287,10 @@ export const de_DE: EnTranslations = {
     },
     "bags": {
       "cannotDestroy": "Dieser Gegenstand kann nicht zerstört werden.",
-      "rightClickDestroy": "Rechtsklick zum Zerstören",
+      "rightClickDestroy": "Rechtsklick zum Vernichten",
+      "dragEquipHint": "Auf deinen Charakter ziehen, um anzulegen",
+      "dragDestroyHint": "In die Welt ziehen, um zu vernichten",
+      "reorderNeedsRecent": "Filter aufheben und nach Zuletzt sortieren, um deine Taschen neu anzuordnen",
       "filterGroupAria": "Taschen nach Kategorie filtern",
       "filterAll": "Alle",
       "filterWeapon": "Waffen",
@@ -1336,6 +1363,8 @@ export const de_DE: EnTranslations = {
       },
       "dodge": "Erhöht Ausweichchance um {pct}%",
       "dodgeReduce": "Verringert Ausweichchance um {pct}%",
+      "damageReduction": "Verringert allen erlittenen Schaden um {pct}%",
+      "guardianWard": "Der naechste todliche Feindtreffer stellt stattdessen {pct}% deiner Gesundheit wieder her",
       "armorFlat": "Verringert Rüstung um {value}",
       "armorFlatStacks": "Verringert Rüstung um {value} ({stacks} Stapel)",
       "armorPct": "Verringert Rüstung um {pct}%",
@@ -1463,7 +1492,8 @@ export const de_DE: EnTranslations = {
         "connecting": "Discord wird geöffnet...",
         "benefits": "Verknüpfe deinen Discord, um durch Spiel und Gemeinschaftsaktivität Punkte zu verdienen und die Statusstufen zu erklimmen.",
         "error": "Discord konnte nicht verknüpft werden. Bitte versuche es erneut.",
-        "success": "Discord verknüpft."
+        "success": "Discord verknüpft.",
+        "joinServer": "Einfach dem Discord-Server beitreten"
       },
       "choice": {
         "title": "Mit Discord fortfahren",
@@ -1511,8 +1541,13 @@ export const de_DE: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Kernentwickler",
         "devs": "Entwickler",
+        "seniormods": "Senior-Moderator",
         "mods": "Mod",
-        "artists": "Künstler"
+        "juniormods": "Junior-Moderator",
+        "artists": "Künstler",
+        "contentcreator": "Ersteller von Inhalten",
+        "legend": "LEGENDE",
+        "shill": "WERBETROMMEL"
       },
       "guildMember": "Verifiziertes Mitglied",
       "notMember": "Noch nicht auf dem Server",
@@ -1779,7 +1814,8 @@ export const de_DE: EnTranslations = {
       "title": "Sammeln",
       "mining": "Bergbau",
       "logging": "Holzfällen",
-      "herbalism": "Kräuterkunde"
+      "herbalism": "Kräuterkunde",
+      "notReady": "Dieser Ressourcenknoten ist fur dich noch nicht nachgewachsen."
     },
     "archetypeTitle": {
       "label": "Titel",
@@ -1811,6 +1847,107 @@ export const de_DE: EnTranslations = {
       "notAtHub": "Ihr müsst Euch am Handwerksplatz und auf der erforderlichen Stufe befinden, um das herzustellen.",
       "throttled": "Ihr stellt zu schnell her. Wartet einen Moment und versucht es erneut.",
       "recipeNotLearned": "Ihr habt dieses Rezept noch nicht erlernt."
+    },
+    "finder": {
+      "title": "Instanzfinder",
+      "close": "Schliessen",
+      "back": "Zuruck",
+      "syncing": "Warte auf das Reich...",
+      "tabCatalogue": "Katalog",
+      "tabQueue": "Schnellsuche",
+      "tabBoard": "Vorgefertigte Gruppen",
+      "normal": "Standard",
+      "heroic": "Heroisch",
+      "kindDungeon": "Instanz",
+      "kindRaid": "Schlachtzug",
+      "kindSolo": "Soloabenteuer",
+      "levels": "Stufen {min} bis {max}",
+      "levelOne": "Stufe {level}",
+      "clock": "{minutes} Min. {seconds} Sek.",
+      "roleCount": "{count}x {role}",
+      "roleTank": "Schutzer",
+      "roleHealer": "Heiler",
+      "roleDps": "Schaden",
+      "freeRoles": "Alle Rollen willkommen",
+      "lockoutDaily": "Tagliche Sperre fur den Endgegner",
+      "lockoutNone": "Keine Sperre",
+      "lockedFor": "Gesperrt fur etwa {minutes} Min.",
+      "attunement": "Erfordert Abstimmung: {quest}",
+      "heroicMarks": "Heldenmarken: {count} je Spieler",
+      "entrance": "Eingang: {zone}",
+      "showOnMap": "Auf der Karte anzeigen",
+      "encounters": "Begegnungen",
+      "finalBoss": "Endgegner",
+      "summoned": "Beschworener Wachter",
+      "lootGuaranteed": "Eines davon fallt immer:",
+      "lootMaybe": "Hochstens eines davon kann fallen:",
+      "lootChance": "Zusatzliche Beutemoglichkeiten:",
+      "lootHeroic": "Heroischer Bonus, eines davon fallt immer:",
+      "pct": "{pct} Prozent",
+      "blockedLevel": "Nur Stufen {min} bis {max}",
+      "blockedSpec": "Erfordert eine Spezialisierung",
+      "yourRoles": "Deine Rollen",
+      "needsSpec": "Wahle eine Spezialisierung, um den Instanzfinder zu nutzen.",
+      "leaderNote": "Nur dein Gruppenanfuhrer kann die Gruppe einreihen.",
+      "chooseActivities": "Aktivitaten wahlen",
+      "joinQueue": "Warteschlange beitreten",
+      "leaveQueue": "Warteschlange verlassen",
+      "waited": "Wartezeit: {time}",
+      "cooldownNote": "Du kannst dich in {seconds}s erneut einreihen.",
+      "travelNote": "Die Gruppe bildet sich dort, wo jeder steht. Reist gemeinsam zum Eingang; niemand wird teleportiert.",
+      "proposalTitle": "Gruppe gefunden: {name}",
+      "proposalRole": "Deine Rolle: {role}",
+      "accepted": "{accepted} von {size} bestatigt",
+      "remaining": "{seconds}s zum Antworten",
+      "accept": "Annehmen",
+      "decline": "Ablehnen",
+      "acceptedWait": "Warte auf die anderen...",
+      "slotState": "{role}: {accepted} von {total} bereit",
+      "openListings": "Offene Angebote",
+      "boardEmpty": "Derzeit keine Angebote. Veroffentliche eines!",
+      "boardLeaderGate": "Nur dein Gruppenanfuhrer kann ein Angebot veroffentlichen.",
+      "publishListing": "Angebot veroffentlichen",
+      "activity": "Aktivitat",
+      "publish": "Veroffentlichen",
+      "yourListing": "Dein Angebot",
+      "closeListing": "Angebot schliessen",
+      "applicants": "Bewerber",
+      "noApplicants": "Noch keine Bewerber.",
+      "acceptApplicantAria": "{name} annehmen",
+      "declineApplicantAria": "{name} ablehnen",
+      "levelClass": "Stufe {level} {className}",
+      "leader": "Anfuhrer: {name}",
+      "needs": "Benotigt {roles}",
+      "slots": "{size} von {capacity}",
+      "apply": "Bewerben",
+      "withdraw": "Bewerbung zurueckziehen",
+      "tagFirstRun": "Erster Durchlauf",
+      "tagQuestRun": "Questdurchlauf",
+      "tagFullClear": "Vollstandige Raumung",
+      "tagLearning": "Einsteiger willkommen",
+      "tagFastRun": "Schneller Durchlauf",
+      "mech": {
+        "shadow_pulse": "Schattenpuls (pulsierender Flachenschaden)",
+        "reaping_arc": "Sichelschwung (frontaler Schwung)",
+        "mist_surge": "Nebelwelle (pulsierender Flachenschaden)",
+        "summons_adds": "Beschwort Verstarkung",
+        "lunar_tide": "Mondflut (pulsierender Flachenschaden)",
+        "enrage": "Rasiert bei geringer Gesundheit",
+        "shuddering_stomp": "Erschutternder Stampfer (Flachenbetaubung)",
+        "necrotic_shockwave": "Nekrotische Schockwelle (schwerer Flachenschaden)",
+        "grave_cleaver": "Grabspalter (frontaler Schwung)",
+        "shadow_nova": "Schattennova (Flachenexplosion)",
+        "profane_mending": "Entweihte Heilung (heilt Verbundete)",
+        "mana_burn": "Verdorrter Segen (verbrennt Mana)",
+        "deathstalker_cleave": "Todjaeger-Schwung (frontaler Schwung)",
+        "mortal_wound": "Vergessene Wunde (verringert erhaltene Heilung)",
+        "sealbreak_shockwave": "Siegelbruch-Schockwelle (Flachenexplosion)",
+        "gravebreaker": "Grabreisser (frontaler Kegel, vom Schlachtzug abwenden)",
+        "raise_fallen": "Gefallene erheben (periodische Verstarkungswellen)",
+        "soul_rend": "Seelenzerfetzung (markierte Spieler mussen sich verteilen und geheilt werden)",
+        "deathless_rage": "Unsterbliche Raserei (an den Schutzsteinen unterbrochen)",
+        "wardstones": "Schutzstein-Kanale (Phasenubergang)"
+      }
     },
     "deeds": {
       "title": "Buch der Taten",
@@ -2551,6 +2688,10 @@ export const de_DE: EnTranslations = {
       "dragonkin": {
         "name": "Drachkin",
         "desc": "Schuppige, schlangenhafte Wesen aus den alten Tiefen. Selten, stolz und weit stärker, als sie aussehen."
+      },
+      "reptile": {
+        "name": "Reptilien",
+        "desc": "Kaltblutige Jaeger mit ihrem ganz eigenen Zischen und Schnappen, deutlich verschieden von den warmblutigen Bestien."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const de_DE: EnTranslations = {
     "title": "Desktop-Launcher herunterladen",
     "desc": "Hol dir den eigenständigen Launcher für optimierte Leistung und Vollbildspiel.",
     "macCta": "Download fuer macOS",
+    "windowsCta": "Für Windows herunterladen",
     "linuxCta": "Für Linux herunterladen",
     "linuxHint": "AppImage: Machen Sie es ausführbar und führen Sie es dann aus. Keine Installation erforderlich.",
     "windowsPending": "Windows-Build ausstehend."
@@ -4459,6 +4601,8 @@ export const de_DE: EnTranslations = {
     "connectionLost": "Die Verbindung zum Server wurde unterbrochen.",
     "reconnecting": "Verbindung verloren. Verbindung wird wieder hergestellt...",
     "connectionRejected": "Der Server hat die Verbindung geschlossen.",
+    "realmFull": "Diese Welt ist derzeit voll. Bitte versuche es in wenigen Minuten erneut.",
+    "tooManyConnections": "Zu viele Verbindungen zu dieser Welt kommen von deinem Netzwerk. Bitte schliesse zusatzliche Spielfenster oder versuche es in wenigen Minuten erneut.",
     "tips": {
       "classes": "Tipp: Jede der 9 Klassen spielt sich anders. Probiere einige aus, bevor du dich für eine entscheidest.",
       "talents": "Tipp: Du kannst deine Talente jederzeit außerhalb des Kampfes zurücksetzen, eine frühe Wahl ist also nie eine Falle.",
@@ -5225,6 +5369,7 @@ export const de_DE: EnTranslations = {
     "actionBar": {
       "attackName": "Angreifen",
       "attackTooltip": "Schaltet den automatischen Angriff auf Euer Ziel um. Ein Rechtsklick auf einen Gegner greift ebenfalls an.",
+      "attackRemoveHint": "Rechtsklick, um es von der Leiste zu entfernen und den Slot freizugeben.",
       "emptySlot": "Leerer Platz",
       "slotAria": "Aktionsplatz {slot}: {ability}",
       "emptySlotAria": "Aktionsplatz {slot}: leer",
@@ -6140,6 +6285,18 @@ export const de_DE: EnTranslations = {
       "barkskin": {
         "name": "Eichenhaut",
         "description": "Eure Haut härtet wie Rinde und erhöht die Rüstung 15 Sek. lang um 150."
+      },
+      "ironhold": {
+        "name": "Eisenbastion",
+        "description": "Du verschanzt dich hinter deiner Deckung und verringerst allen erlittenen Schaden um 40% fur 8 Sek."
+      },
+      "sacred_bulwark": {
+        "name": "Heiliges Bollwerk",
+        "description": "Fur {duration} Sek. wird der naechste feindliche Treffer, der dich toeten wurde, abgewehrt und stellt stattdessen 35% deiner Gesundheit wieder her."
+      },
+      "primal_reflexes": {
+        "name": "Urreflexe",
+        "description": "Deine Instinkte schaerfen sich und erhoehen deine Ausweichschance fur 6 Sek. um 50%."
       },
       "starfire": {
         "name": "Skyfall",
@@ -7623,6 +7780,15 @@ export const de_DE: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Zepter des Todlosen Hofes"
       },
+      "deathless_warguard_legmail": {
+        "name": "Todlose Beinkette der Kriegswache"
+      },
+      "soulrend_diadem": {
+        "name": "Seelenriss-Diadem"
+      },
+      "scourgehide_carapace": {
+        "name": "Geißelhaut-Panzer"
+      },
       "cryptplate_helm": {
         "name": "Gruftplatten-Helm"
       },
@@ -7661,6 +7827,9 @@ export const de_DE: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Todlose Großklinge"
+      },
+      "soulforged_warplate": {
+        "name": "Seelengeschmiedete Kriegsplatte"
       },
       "stormcallers_focus": {
         "name": "Fokus des Sturmrufers"

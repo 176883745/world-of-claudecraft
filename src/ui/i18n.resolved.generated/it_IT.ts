@@ -617,6 +617,15 @@ export const it_IT: EnTranslations = {
       "notNow": "Non ora",
       "update": "Aggiorna"
     },
+    "cameraPrompt": {
+      "title": "Scegli la Telecamera",
+      "intro": "Scegli come la telecamera segue il tuo personaggio.",
+      "mouseDesc": "Muovi il mouse per ruotare la telecamera senza tenere premuto alcun pulsante.",
+      "classicTitle": "Telecamera Classica",
+      "classicDesc": "Tieni premuto il clic destro e muovi il mouse per ruotare la telecamera.",
+      "changeLater": "Puoi modificarlo in seguito tramite Esc, Tasti di scelta rapida.",
+      "confirm": "Conferma"
+    },
     "castBar": {
       "playerAria": "La tua barra di lancio",
       "targetAria": "Barra di lancio del bersaglio"
@@ -662,7 +671,12 @@ export const it_IT: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m}m {s}s",
-      "seconds": "{s}s"
+      "seconds": "{s}s",
+      "autoShowHint": "Le righe appaiono automaticamente non appena il tuo gruppo infligge danni o cura, e questo pannello si chiude qualche secondo dopo la fine del combattimento."
+    },
+    "petFeed": {
+      "disabledFullHp": "Il famiglio e a salute piena",
+      "disabledNoFood": "Nessun cibo nelle borse curera il tuo famiglio"
     },
     "keybinds": {
       "emoteWheel": "Ruota emote",
@@ -670,6 +684,7 @@ export const it_IT: EnTranslations = {
       "targetFriendlyNext": "Scorri i bersagli amici",
       "discord": "Discord",
       "valecup": "Coppa della Valle",
+      "sheathe": "Fodera/Sfodera Arma",
       "categoryPet": "Famiglio",
       "petAttack": "Famiglio: attacca",
       "petStop": "Famiglio: fermo",
@@ -842,6 +857,7 @@ export const it_IT: EnTranslations = {
       "aurasOnPlayerFrame": "Buff sul riquadro del giocatore",
       "highContrastBackground": "Sfondo a contrasto elevato",
       "startAttackOnAbility": "Attacco automatico all'uso dell'abilita",
+      "showAttackButton": "Mostra Pulsante Attacco",
       "walkByAutoloot": "Raccolta automatica al passaggio",
       "groundReticle": "Reticolo di puntamento a terra",
       "showItemLevel": "Mostra livello oggetto",
@@ -963,6 +979,7 @@ export const it_IT: EnTranslations = {
         "spellPower": "Potere Magico",
         "critRating": "Indice di critico",
         "hasteRating": "Indice di celerità",
+        "hitRating": "Valutazione Colpo",
         "warfare": "Guerra"
       },
       "warfareValue": "+{increase}% inflitti / -{reduction}% subiti",
@@ -980,6 +997,7 @@ export const it_IT: EnTranslations = {
         "dodge": "La tua probabilità di evitare completamente un attacco in mischia in arrivo, senza subire danni.",
         "critRating": "Indice di critico dal tuo equipaggiamento e dai bonus di set, che aumenta la tua probabilità di colpo critico. Circa 10 punti conferiscono l'1% di critico.",
         "hasteRating": "Indice di celerità dal tuo equipaggiamento e dai bonus di set, che accelera i tuoi attacchi e i tuoi lanci. Circa 10 punti conferiscono l'1% di celerità.",
+        "hitRating": "Valutazione colpo dall'equipaggiamento e dai bonus di set, che riduce la frequenza con cui i tuoi attacchi mancano e i tuoi incantesimi vengono resistiti, specialmente contro nemici di livello superiore. Circa 10 punti di valutazione concedono l'1% di colpo.",
         "warfare": "Aumenta il danno inflitto ai giocatori del {increase}% e riduce il danno subito dai giocatori del {reduction}%."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const it_IT: EnTranslations = {
         "few": "sei {rank}, {count} membri",
         "many": "sei {rank}, {count} membri",
         "other": "sei {rank}, {count} membri"
+      },
+      "finderPartySize": {
+        "one": "{count} giocatore",
+        "few": "{count} giocatori",
+        "many": "{count} giocatori",
+        "other": "{count} giocatori"
       },
       "characterCount": {
         "one": "{count} personaggio",
@@ -1264,6 +1288,9 @@ export const it_IT: EnTranslations = {
     "bags": {
       "cannotDestroy": "Questo oggetto non può essere distrutto.",
       "rightClickDestroy": "Clic destro per distruggere",
+      "dragEquipHint": "Trascina sul personaggio per equipaggiare",
+      "dragDestroyHint": "Trascina nel mondo per distruggere",
+      "reorderNeedsRecent": "Rimuovi il filtro e ordina per Recenti per riorganizzare le borse",
       "filterGroupAria": "Filtra le borse per categoria",
       "filterAll": "Tutti",
       "filterWeapon": "Armi",
@@ -1336,6 +1363,8 @@ export const it_IT: EnTranslations = {
       },
       "dodge": "Aumenta la probabilità di schivata del {pct}%",
       "dodgeReduce": "Riduce la probabilità di schivata del {pct}%",
+      "damageReduction": "Riduce tutti i danni subiti del {pct}%",
+      "guardianWard": "Il prossimo colpo nemico letale ti ripristina al {pct}% della salute",
       "armorFlat": "Riduce l'armatura di {value}",
       "armorFlatStacks": "Riduce l'armatura di {value} ({stacks} accumuli)",
       "armorPct": "Riduce l'armatura del {pct}%",
@@ -1463,7 +1492,8 @@ export const it_IT: EnTranslations = {
         "connecting": "Apertura di Discord...",
         "benefits": "Collega il tuo Discord per ottenere punti dal gioco e dall'attivita nella comunita, e scalare i gradi di stato.",
         "error": "Impossibile collegare Discord. Riprova.",
-        "success": "Discord collegato."
+        "success": "Discord collegato.",
+        "joinServer": "Unisciti al server Discord"
       },
       "choice": {
         "title": "Continua con Discord",
@@ -1511,8 +1541,13 @@ export const it_IT: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Sviluppatore Principale",
         "devs": "Dev",
+        "seniormods": "Moderatore Senior",
         "mods": "Mod",
-        "artists": "Artista"
+        "juniormods": "Moderatore Junior",
+        "artists": "Artista",
+        "contentcreator": "Creatore di Contenuti",
+        "legend": "LEGGENDA",
+        "shill": "SOSTENITORE"
       },
       "guildMember": "Membro verificato",
       "notMember": "Non ancora nel server",
@@ -1779,7 +1814,8 @@ export const it_IT: EnTranslations = {
       "title": "Raccolta",
       "mining": "Estrazione mineraria",
       "logging": "Taglio del legname",
-      "herbalism": "Erbalismo"
+      "herbalism": "Erbalismo",
+      "notReady": "Questo nodo di risorse non e ancora rispawnato per te."
     },
     "archetypeTitle": {
       "label": "Titolo",
@@ -1811,6 +1847,107 @@ export const it_IT: EnTranslations = {
       "notAtHub": "Devi trovarti alla postazione artigiana, al livello richiesto, per fabbricarlo.",
       "throttled": "Stai fabbricando troppo in fretta. Aspetta un momento e riprova.",
       "recipeNotLearned": "Non hai ancora imparato quella ricetta."
+    },
+    "finder": {
+      "title": "Cercatore di Dungeon",
+      "close": "Chiudi",
+      "back": "Indietro",
+      "syncing": "In attesa del reame...",
+      "tabCatalogue": "Catalogo",
+      "tabQueue": "Partita Rapida",
+      "tabBoard": "Gruppi Prefissati",
+      "normal": "Normale",
+      "heroic": "Eroico",
+      "kindDungeon": "Dungeon",
+      "kindRaid": "Incursione",
+      "kindSolo": "Avventura in solitario",
+      "levels": "Livelli da {min} a {max}",
+      "levelOne": "Livello {level}",
+      "clock": "{minutes}:{seconds}",
+      "roleCount": "{count} {role}",
+      "roleTank": "Tank",
+      "roleHealer": "Guaritore",
+      "roleDps": "Danno",
+      "freeRoles": "Qualsiasi ruolo benvenuto",
+      "lockoutDaily": "Blocco giornaliero sul boss finale",
+      "lockoutNone": "Nessun blocco",
+      "lockedFor": "Bloccato per circa {minutes} min",
+      "attunement": "Richiede sintonia: {quest}",
+      "heroicMarks": "Marchi Eroici: {count} per giocatore",
+      "entrance": "Ingresso: {zone}",
+      "showOnMap": "Mostra sulla Mappa",
+      "encounters": "Scontri",
+      "finalBoss": "Boss finale",
+      "summoned": "Guardiano evocato",
+      "lootGuaranteed": "Uno di questi cade sempre:",
+      "lootMaybe": "Al massimo uno di questi puo cadere:",
+      "lootChance": "Possibilita di bottino aggiuntivo:",
+      "lootHeroic": "Bonus eroico, uno di questi cade sempre:",
+      "pct": "{pct}%",
+      "blockedLevel": "Solo livelli da {min} a {max}",
+      "blockedSpec": "Richiede una specializzazione",
+      "yourRoles": "I tuoi ruoli",
+      "needsSpec": "Scegli una specializzazione per usare il Cercatore di Dungeon.",
+      "leaderNote": "Solo il capo gruppo puo mettere il gruppo in coda.",
+      "chooseActivities": "Scegli le attivita",
+      "joinQueue": "Unisciti alla coda",
+      "leaveQueue": "Lascia la coda",
+      "waited": "Tempo in coda: {time}",
+      "cooldownNote": "Potrai accodarti di nuovo tra {seconds}s.",
+      "travelNote": "Il gruppo si forma dove si trovano tutti. Raggiungi l'ingresso insieme agli altri; nessuno viene teletrasportato.",
+      "proposalTitle": "Gruppo trovato: {name}",
+      "proposalRole": "Il tuo ruolo: {role}",
+      "accepted": "{accepted} di {size} confermati",
+      "remaining": "{seconds}s per rispondere",
+      "accept": "Accetta",
+      "decline": "Rifiuta",
+      "acceptedWait": "In attesa degli altri...",
+      "slotState": "{role}: {accepted} di {total} pronti",
+      "openListings": "Annunci aperti",
+      "boardEmpty": "Nessun annuncio al momento. Pubblica il tuo!",
+      "boardLeaderGate": "Solo il capo gruppo puo pubblicare un annuncio.",
+      "publishListing": "Pubblica un annuncio",
+      "activity": "Attivita",
+      "publish": "Pubblica",
+      "yourListing": "Il tuo annuncio",
+      "closeListing": "Chiudi annuncio",
+      "applicants": "Candidati",
+      "noApplicants": "Ancora nessun candidato.",
+      "acceptApplicantAria": "Accetta {name}",
+      "declineApplicantAria": "Rifiuta {name}",
+      "levelClass": "Lv {level} {className}",
+      "leader": "Capo: {name}",
+      "needs": "Cerca {roles}",
+      "slots": "{size}/{capacity}",
+      "apply": "Candidati",
+      "withdraw": "Ritira candidatura",
+      "tagFirstRun": "Prima corsa",
+      "tagQuestRun": "Corsa missioni",
+      "tagFullClear": "Pulizia completa",
+      "tagLearning": "Principianti benvenuti",
+      "tagFastRun": "Corsa veloce",
+      "mech": {
+        "shadow_pulse": "Impulso d'Ombra (danno ad area pulsante)",
+        "reaping_arc": "Arco Mietitore (fendente frontale)",
+        "mist_surge": "Ondata di Nebbia (danno ad area pulsante)",
+        "summons_adds": "Evoca rinforzi",
+        "lunar_tide": "Marea Lunare (danno ad area pulsante)",
+        "enrage": "Va in furia con poca salute",
+        "shuddering_stomp": "Pestata Tremenda (stordimento ad area)",
+        "necrotic_shockwave": "Onda d'Urto Necrotica (danno ad area pesante)",
+        "grave_cleaver": "Tranciatumba (fendente frontale)",
+        "shadow_nova": "Nova d'Ombra (esplosione ad area)",
+        "profane_mending": "Cura Profana (cura i propri alleati)",
+        "mana_burn": "Benedizione Avvizzita (brucia mana)",
+        "deathstalker_cleave": "Fendente del Cacciatore di Morti (fendente frontale)",
+        "mortal_wound": "Ferita Dimenticata (riduce le cure ricevute)",
+        "sealbreak_shockwave": "Onda d'Urto Spezzasigillo (esplosione ad area)",
+        "gravebreaker": "Frantumatore di Tombe (cono frontale, voltalo lontano dall'incursione)",
+        "raise_fallen": "Richiama i Caduti (ondate periodiche di rinforzi)",
+        "soul_rend": "Squarcio dell'Anima (i giocatori segnati devono disperdersi ed essere curati)",
+        "deathless_rage": "Furia Immortale (interrotta alle pietre di guardia)",
+        "wardstones": "Canalizzazione delle pietre di guardia (transizione di fase)"
+      }
     },
     "deeds": {
       "title": "Libro delle Imprese",
@@ -2551,6 +2688,10 @@ export const it_IT: EnTranslations = {
       "dragonkin": {
         "name": "Draconici",
         "desc": "Creature squamose e serpentine delle antiche profondità. Rare, fiere e ben più forti di quanto sembrino."
+      },
+      "reptile": {
+        "name": "Rettili",
+        "desc": "Cacciatori a sangue freddo con un sibilo e uno scatto tutti loro, ben distinti dalle bestie a sangue caldo."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const it_IT: EnTranslations = {
     "title": "Scarica il launcher per desktop",
     "desc": "Ottieni il launcher autonomo per prestazioni ottimizzate e gioco a schermo intero.",
     "macCta": "Scarica per macOS",
+    "windowsCta": "Scarica per Windows",
     "linuxCta": "Scarica per Linux",
     "linuxHint": "AppImage: rendilo eseguibile, quindi eseguilo. Nessuna installazione necessaria.",
     "windowsPending": "Build Windows in arrivo."
@@ -4459,6 +4601,8 @@ export const it_IT: EnTranslations = {
     "connectionLost": "Connessione al server persa.",
     "reconnecting": "Connessione persa. Riconnessione...",
     "connectionRejected": "Il server ha chiuso la connessione.",
+    "realmFull": "Questo mondo e al completo in questo momento. Riprova tra qualche minuto.",
+    "tooManyConnections": "Troppe connessioni a questo mondo provengono dalla tua rete. Chiudi le finestre di gioco extra o riprova tra qualche minuto.",
     "tips": {
       "classes": "Suggerimento: ciascuna delle 9 classi si gioca in modo diverso. Provane alcune prima di sceglierne una.",
       "talents": "Suggerimento: puoi azzerare i talenti ogni volta che sei fuori combattimento, quindi una scelta iniziale non è mai definitiva.",
@@ -5225,6 +5369,7 @@ export const it_IT: EnTranslations = {
     "actionBar": {
       "attackName": "Attacca",
       "attackTooltip": "Attiva o disattiva l'autoattacco sul bersaglio. Anche il clic destro su un nemico attacca.",
+      "attackRemoveHint": "Clic destro per rimuoverlo dalla barra e liberare lo slot.",
       "emptySlot": "Slot vuoto",
       "slotAria": "Slot azione {slot}: {ability}",
       "emptySlotAria": "Slot azione {slot}: vuoto",
@@ -6140,6 +6285,18 @@ export const it_IT: EnTranslations = {
       "barkskin": {
         "name": "Scorza di Quercia",
         "description": "La tua pelle si indurisce come corteccia, aumentando l'armatura di 150 per 15 s."
+      },
+      "ironhold": {
+        "name": "Fortezza di Ferro",
+        "description": "Ti ripari dietro la guardia, riducendo tutti i danni subiti del 40% per 8 sec."
+      },
+      "sacred_bulwark": {
+        "name": "Bastione Sacro",
+        "description": "Per {duration} sec, il prossimo colpo nemico che ti ucciderebbe viene negato, ripristinandoti invece al 35% della salute."
+      },
+      "primal_reflexes": {
+        "name": "Riflessi Primordiali",
+        "description": "I tuoi istinti si affilano, aumentando la possibilita di schivata del 50% per 6 sec."
       },
       "starfire": {
         "name": "Caduta Celeste",
@@ -7623,6 +7780,15 @@ export const it_IT: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Scettro della corte senza morte"
       },
+      "deathless_warguard_legmail": {
+        "name": "Cosciali di maglia del guardiaguerra senza morte"
+      },
+      "soulrend_diadem": {
+        "name": "Diadema straccianima"
+      },
+      "scourgehide_carapace": {
+        "name": "Carapace di pelle del flagello"
+      },
       "cryptplate_helm": {
         "name": "Elmo della corazza della cripta"
       },
@@ -7661,6 +7827,9 @@ export const it_IT: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Spadone senza morte"
+      },
+      "soulforged_warplate": {
+        "name": "Corazza da guerra forgianima"
       },
       "stormcallers_focus": {
         "name": "Focus dell'evocatempesta"

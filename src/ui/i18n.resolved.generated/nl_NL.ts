@@ -617,6 +617,15 @@ export const nl_NL: EnTranslations = {
       "notNow": "Niet nu",
       "update": "Bijwerken"
     },
+    "cameraPrompt": {
+      "title": "Kies je Camera",
+      "intro": "Kies hoe de camera je personage volgt.",
+      "mouseDesc": "Beweeg de muis om de camera te draaien zonder een knop ingedrukt te houden.",
+      "classicTitle": "Klassieke Camera",
+      "classicDesc": "Houd rechts klikken ingedrukt en beweeg de muis om de camera te draaien.",
+      "changeLater": "Je kunt dit later wijzigen via Esc, Sneltoetsen.",
+      "confirm": "Bevestigen"
+    },
     "castBar": {
       "playerAria": "Jouw Spreukbalk",
       "targetAria": "Spreukbalk van Doelwit"
@@ -662,7 +671,12 @@ export const nl_NL: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m}m {s}s",
-      "seconds": "{s}s"
+      "seconds": "{s}s",
+      "autoShowHint": "Rijen verschijnen automatisch zodra je groep schade aanricht of geneest, en dit segment sluit een paar seconden na het einde van het gevecht."
+    },
+    "petFeed": {
+      "disabledFullHp": "Huisdier heeft volledige gezondheid",
+      "disabledNoFood": "Geen voedsel in je tassen dat je huisdier kan genezen"
     },
     "keybinds": {
       "emoteWheel": "Emotewiel",
@@ -670,6 +684,7 @@ export const nl_NL: EnTranslations = {
       "targetFriendlyNext": "Door Bondgenoten Bladeren",
       "discord": "Discord",
       "valecup": "Dalbeker",
+      "sheathe": "Wapen Schede In/Uit",
       "categoryPet": "Huisdier",
       "petAttack": "Huisdier: Aanvallen",
       "petStop": "Huisdier: Stoppen",
@@ -842,6 +857,7 @@ export const nl_NL: EnTranslations = {
       "aurasOnPlayerFrame": "Buffs op het spelerframe",
       "highContrastBackground": "Hoog-contrastachtergrond",
       "startAttackOnAbility": "Auto-aanval bij gebruik van vaardigheid",
+      "showAttackButton": "Aanvalsknop Tonen",
       "walkByAutoloot": "Buit oprapen in het voorbijgaan",
       "groundReticle": "Grondrichtkruis",
       "showItemLevel": "Itemniveau tonen",
@@ -963,6 +979,7 @@ export const nl_NL: EnTranslations = {
         "spellPower": "Spreukkracht",
         "critRating": "Crit-waardering",
         "hasteRating": "Snelheidswaardering",
+        "hitRating": "Raakwaarde",
         "warfare": "Oorlogvoering"
       },
       "warfareValue": "+{increase}% toegebracht / -{reduction}% opgelopen",
@@ -980,6 +997,7 @@ export const nl_NL: EnTranslations = {
         "dodge": "Je kans om een inkomende slagaanval volledig te ontwijken, zonder schade op te lopen.",
         "critRating": "Crit-waardering van je uitrusting en setbonussen, die je kans op een kritieke treffer verhoogt. Ongeveer 10 waardering verleent 1% crit.",
         "hasteRating": "Snelheidswaardering van je uitrusting en setbonussen, die je aanvallen en spreukbezwering versnelt. Ongeveer 10 waardering verleent 1% snelheid.",
+        "hitRating": "Raakwaarde van je uitrusting en setbonussen, waardoor je aanvallen minder vaak missen en je spreuken minder weerstand ondervinden, vooral tegen vijanden van een hoger niveau. Ongeveer 10 raakwaarde geeft 1% raakkans.",
         "warfare": "Verhoogt de schade die aan spelers wordt toegebracht met {increase}% en vermindert de schade die aan spelers wordt toegebracht met {reduction}%."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const nl_NL: EnTranslations = {
         "few": "je bent {rank}, {count} leden",
         "many": "je bent {rank}, {count} leden",
         "other": "je bent {rank}, {count} leden"
+      },
+      "finderPartySize": {
+        "one": "{count} speler",
+        "few": "{count} spelers",
+        "many": "{count} spelers",
+        "other": "{count} spelers"
       },
       "characterCount": {
         "one": "{count} personage",
@@ -1263,7 +1287,10 @@ export const nl_NL: EnTranslations = {
     },
     "bags": {
       "cannotDestroy": "Dit voorwerp kan niet worden vernietigd.",
-      "rightClickDestroy": "Rechtsklik om te vernietigen",
+      "rightClickDestroy": "Klik met rechts om te vernietigen",
+      "dragEquipHint": "Sleep naar je personage om uit te rusten",
+      "dragDestroyHint": "Sleep naar buiten in de wereld om te vernietigen",
+      "reorderNeedsRecent": "Verwijder het filter en sorteer op Recent om je tassen opnieuw te rangschikken",
       "filterGroupAria": "Tassen filteren op categorie",
       "filterAll": "Alle",
       "filterWeapon": "Wapens",
@@ -1336,6 +1363,8 @@ export const nl_NL: EnTranslations = {
       },
       "dodge": "Erhöht Ausweichchance um {pct}%",
       "dodgeReduce": "Verringert Ausweichchance um {pct}%",
+      "damageReduction": "Vermindert alle schade die je oploopt met {pct}%",
+      "guardianWard": "De volgende dodelijke vijandelijke treffer herstelt je in plaats daarvan naar {pct}% gezondheid",
       "armorFlat": "Verringert Rüstung um {value}",
       "armorFlatStacks": "Verringert Rüstung um {value} ({stacks} Stapel)",
       "armorPct": "Vermindert pantser met {pct}%",
@@ -1463,7 +1492,8 @@ export const nl_NL: EnTranslations = {
         "connecting": "Discord openen...",
         "benefits": "Koppel je Discord om punten te verdienen door spelen en gemeenschapsactiviteit, en klim door de statusrangen.",
         "error": "Kon Discord niet koppelen. Probeer het opnieuw.",
-        "success": "Discord gekoppeld."
+        "success": "Discord gekoppeld.",
+        "joinServer": "Doe gewoon mee met de Discord-server"
       },
       "choice": {
         "title": "Doorgaan met Discord",
@@ -1511,8 +1541,13 @@ export const nl_NL: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Kernontwikkelaar",
         "devs": "Dev",
+        "seniormods": "Senior Mod",
         "mods": "Mod",
-        "artists": "Artiest"
+        "juniormods": "Junior Mod",
+        "artists": "Artiest",
+        "contentcreator": "Contentmaker",
+        "legend": "LEGENDE",
+        "shill": "PROMOTOR"
       },
       "guildMember": "Geverifieerd lid",
       "notMember": "Nog niet in de server",
@@ -1779,7 +1814,8 @@ export const nl_NL: EnTranslations = {
       "title": "Verzamelen",
       "mining": "Mijnbouw",
       "logging": "Houtkap",
-      "herbalism": "Kruidenkunde"
+      "herbalism": "Kruidenkunde",
+      "notReady": "Dit grondstoffenpunt is voor jou nog niet teruggekeerd."
     },
     "archetypeTitle": {
       "label": "Titel",
@@ -1811,6 +1847,107 @@ export const nl_NL: EnTranslations = {
       "notAtHub": "Je moet bij de werkbank zijn, op het vereiste niveau, om dat te maken.",
       "throttled": "Je maakt te snel. Wacht even en probeer het opnieuw.",
       "recipeNotLearned": "Je hebt dat recept nog niet geleerd."
+    },
+    "finder": {
+      "title": "Kerkerzoekmachine",
+      "close": "Sluiten",
+      "back": "Terug",
+      "syncing": "Wachten op het rijk...",
+      "tabCatalogue": "Catalogus",
+      "tabQueue": "Snelle Koppeling",
+      "tabBoard": "Voorgemaakte Groepen",
+      "normal": "Normaal",
+      "heroic": "Heroïsch",
+      "kindDungeon": "Kerker",
+      "kindRaid": "Raid",
+      "kindSolo": "Soloavontuur",
+      "levels": "Niveaus {min} tot {max}",
+      "levelOne": "Niveau {level}",
+      "clock": "{minutes}:{seconds}",
+      "roleCount": "{count} {role}",
+      "roleTank": "Tank",
+      "roleHealer": "Genezer",
+      "roleDps": "Schade",
+      "freeRoles": "Alle rollen welkom",
+      "lockoutDaily": "Dagelijkse vergrendeling op de eindbaas",
+      "lockoutNone": "Geen vergrendeling",
+      "lockedFor": "Vergrendeld voor ongeveer {minutes} min",
+      "attunement": "Vereist afstemming: {quest}",
+      "heroicMarks": "Heroïsche Merktekens: {count} per speler",
+      "entrance": "Ingang: {zone}",
+      "showOnMap": "Tonen op Kaart",
+      "encounters": "Ontmoetingen",
+      "finalBoss": "Eindbaas",
+      "summoned": "Opgeroepen wachter",
+      "lootGuaranteed": "Een van deze valt altijd:",
+      "lootMaybe": "Maximaal een van deze kan vallen:",
+      "lootChance": "Extra kansen op buit:",
+      "lootHeroic": "Heroïsche bonus, een van deze valt altijd:",
+      "pct": "{pct}%",
+      "blockedLevel": "Alleen niveaus {min} tot {max}",
+      "blockedSpec": "Vereist een specialisatie",
+      "yourRoles": "Jouw rollen",
+      "needsSpec": "Kies een specialisatie om de Kerkerzoekmachine te gebruiken.",
+      "leaderNote": "Alleen je groepsleider kan de groep in de wachtrij plaatsen.",
+      "chooseActivities": "Kies activiteiten",
+      "joinQueue": "Wachtrij betreden",
+      "leaveQueue": "Wachtrij verlaten",
+      "waited": "Tijd in wachtrij: {time}",
+      "cooldownNote": "Je kunt je over {seconds}s opnieuw aanmelden.",
+      "travelNote": "De groep vormt zich waar iedereen staat. Reis samen naar de ingang; niemand wordt geteleporteerd.",
+      "proposalTitle": "Groep gevonden: {name}",
+      "proposalRole": "Jouw rol: {role}",
+      "accepted": "{accepted} van {size} bevestigd",
+      "remaining": "{seconds}s om te antwoorden",
+      "accept": "Accepteren",
+      "decline": "Afwijzen",
+      "acceptedWait": "Wachten op de anderen...",
+      "slotState": "{role}: {accepted} van {total} gereed",
+      "openListings": "Open vermeldingen",
+      "boardEmpty": "Momenteel geen vermeldingen. Plaats er een!",
+      "boardLeaderGate": "Alleen je groepsleider kan een vermelding plaatsen.",
+      "publishListing": "Een vermelding publiceren",
+      "activity": "Activiteit",
+      "publish": "Publiceren",
+      "yourListing": "Jouw vermelding",
+      "closeListing": "Vermelding sluiten",
+      "applicants": "Aanvragers",
+      "noApplicants": "Nog geen aanvragers.",
+      "acceptApplicantAria": "{name} accepteren",
+      "declineApplicantAria": "{name} afwijzen",
+      "levelClass": "Niv {level} {className}",
+      "leader": "Leider: {name}",
+      "needs": "Heeft {roles} nodig",
+      "slots": "{size}/{capacity}",
+      "apply": "Aanmelden",
+      "withdraw": "Aanmelding intrekken",
+      "tagFirstRun": "Eerste run",
+      "tagQuestRun": "Questrunn",
+      "tagFullClear": "Volledig leegmaken",
+      "tagLearning": "Beginners welkom",
+      "tagFastRun": "Snelle run",
+      "mech": {
+        "shadow_pulse": "Schaduwpuls (pulserende gebiedsschade)",
+        "reaping_arc": "Maaiboog (frontale maaislaan)",
+        "mist_surge": "Mistgolf (pulserende gebiedsschade)",
+        "summons_adds": "Roept versterkingen op",
+        "lunar_tide": "Maantij (pulserende gebiedsschade)",
+        "enrage": "Razend bij weinig gezondheid",
+        "shuddering_stomp": "Huiverende Stamp (gebiedsverdoving)",
+        "necrotic_shockwave": "Necrotische Schokgolf (zware gebiedsschade)",
+        "grave_cleaver": "Grafsplijter (frontale maaislaan)",
+        "shadow_nova": "Schaduw-Nova (gebiedsexplosie)",
+        "profane_mending": "Onheilige Heling (geneest zijn bondgenoten)",
+        "mana_burn": "Verdorde Zegening (verbrandt mana)",
+        "deathstalker_cleave": "Doodstalker-Maaislaan (frontale maaislaan)",
+        "mortal_wound": "Vergeten Wond (vermindert ontvangen heling)",
+        "sealbreak_shockwave": "Zegelbreuk Schokgolf (gebiedsexplosie)",
+        "gravebreaker": "Grafbreker (frontale kegel, keer het weg van de raid)",
+        "raise_fallen": "Gevallenen Herrijzen (periodieke golven van toevoegingen)",
+        "soul_rend": "Zielenscheur (gemarkeerde spelers moeten spreiden en worden genezen)",
+        "deathless_rage": "Doodloze Razernij (onderbroken bij de wardstones)",
+        "wardstones": "Wardstone-kanalen (faseovergang)"
+      }
     },
     "deeds": {
       "title": "Boek der Daden",
@@ -2551,6 +2688,10 @@ export const nl_NL: EnTranslations = {
       "dragonkin": {
         "name": "Drakenvolk",
         "desc": "Geschubde, slangachtige wezens uit de oude diepten. Zeldzaam, trots en veel sterker dan ze eruitzien."
+      },
+      "reptile": {
+        "name": "Reptielen",
+        "desc": "Koudbloedige jagers met een eigen sis en snap, onderscheiden van de warmbloedige dieren."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const nl_NL: EnTranslations = {
     "title": "Desktop-launcher downloaden",
     "desc": "Download de losse launcher voor optimale prestaties en schermvullend spelen.",
     "macCta": "Download voor macOS",
+    "windowsCta": "Downloaden voor Windows",
     "linuxCta": "Downloaden voor Linux",
     "linuxHint": "AppImage: maak het uitvoerbaar en voer het vervolgens uit. Geen installatie nodig.",
     "windowsPending": "Windows-build volgt later."
@@ -4459,6 +4601,8 @@ export const nl_NL: EnTranslations = {
     "connectionLost": "De verbinding met de server is verbroken.",
     "reconnecting": "Verbinding verbroken. Opnieuw verbinding maken...",
     "connectionRejected": "De server heeft de verbinding gesloten.",
+    "realmFull": "Deze wereld is op dit moment vol. Probeer het over een paar minuten opnieuw.",
+    "tooManyConnections": "Er komen te veel verbindingen naar deze wereld vanuit jouw netwerk. Sluit extra spelvensters of probeer het over een paar minuten opnieuw.",
     "tips": {
       "classes": "Tip: elk van de 9 klassen speelt anders. Probeer er een paar voordat je er een kiest.",
       "talents": "Tip: je kunt je talenten buiten gevechten altijd herstellen, dus een vroege keuze is nooit een valstrik.",
@@ -5225,6 +5369,7 @@ export const nl_NL: EnTranslations = {
     "actionBar": {
       "attackName": "Aanvallen",
       "attackTooltip": "Schakel auto-aanval op je doelwit in of uit. Rechtsklikken op een vijand valt ook aan.",
+      "attackRemoveHint": "Klik met rechts om het van de balk te verwijderen en de plek vrij te maken.",
       "emptySlot": "Lege sleuf",
       "slotAria": "Actiesleuf {slot}: {ability}",
       "emptySlotAria": "Actiesleuf {slot}: leeg",
@@ -6140,6 +6285,18 @@ export const nl_NL: EnTranslations = {
       "barkskin": {
         "name": "Eikenhuid",
         "description": "Je huid verhardt als schors, waardoor je pantser met 150 toeneemt gedurende 15 sec."
+      },
+      "ironhold": {
+        "name": "IJzeren Bolwerk",
+        "description": "Verschans je achter je schild en verminder alle schade die je oploopt met 40% gedurende 8 sec."
+      },
+      "sacred_bulwark": {
+        "name": "Heilige Verschansing",
+        "description": "Gedurende {duration} sec wordt de volgende vijandelijke treffer die je zou doden afgeweerd en herstel je in plaats daarvan 35% gezondheid."
+      },
+      "primal_reflexes": {
+        "name": "Oerreflexen",
+        "description": "Je instincten verscherpen, waardoor je kans om aan te wijken met 50% stijgt gedurende 6 sec."
       },
       "starfire": {
         "name": "Hemelval",
@@ -7623,6 +7780,15 @@ export const nl_NL: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Scepter van het Doodloze Hof"
       },
+      "deathless_warguard_legmail": {
+        "name": "Doodloze Krijgswacht-Beenmalie"
+      },
+      "soulrend_diadem": {
+        "name": "Zielscheur-Diadeem"
+      },
+      "scourgehide_carapace": {
+        "name": "Geselhuid-Pantser"
+      },
       "cryptplate_helm": {
         "name": "Kryptplaat-Helm"
       },
@@ -7661,6 +7827,9 @@ export const nl_NL: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Doodloos Grootzwaard"
+      },
+      "soulforged_warplate": {
+        "name": "Zielgesmede Krijgsplaat"
       },
       "stormcallers_focus": {
         "name": "Stormroepers Focus"

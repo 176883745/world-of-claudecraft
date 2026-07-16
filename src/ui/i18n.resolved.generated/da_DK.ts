@@ -617,6 +617,15 @@ export const da_DK: EnTranslations = {
       "notNow": "Ikke nu",
       "update": "Opdater"
     },
+    "cameraPrompt": {
+      "title": "Vælg dit kamera",
+      "intro": "Vælg, hvordan kameraet følger din karakter.",
+      "mouseDesc": "Bevæg musen for at dreje kameraet uden at holde en knap nede.",
+      "classicTitle": "Klassisk Kamera",
+      "classicDesc": "Hold højreklik nede og bevæg musen for at dreje kameraet.",
+      "changeLater": "Du kan ændre dette senere under Escape, Tastebindinger.",
+      "confirm": "Bekræft"
+    },
     "castBar": {
       "playerAria": "Din castbjælke",
       "targetAria": "Enhedens castbjælke"
@@ -662,7 +671,12 @@ export const da_DK: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m}m {s}s",
-      "seconds": "{s}s"
+      "seconds": "{s}s",
+      "autoShowHint": "Rækker vises automatisk, når din gruppe påfører skade eller heling, og dette segment lukker et par sekunder efter kampens afslutning."
+    },
+    "petFeed": {
+      "disabledFullHp": "Kæledyret har fuldt helbred",
+      "disabledNoFood": "Ingen mad i dine tasker vil hele dit kæledyr"
     },
     "keybinds": {
       "emoteWheel": "Følelseshjul",
@@ -670,6 +684,7 @@ export const da_DK: EnTranslations = {
       "targetFriendlyNext": "Skift allieret mål",
       "discord": "Discord",
       "valecup": "Dalpokalen",
+      "sheathe": "Gem/fremvis våben",
       "categoryPet": "Kæledyr",
       "petAttack": "Kæledyr: Angrib",
       "petStop": "Kæledyr: Stop",
@@ -842,6 +857,7 @@ export const da_DK: EnTranslations = {
       "aurasOnPlayerFrame": "Buffs på spillerrammen",
       "highContrastBackground": "Baggrund med høj kontrast",
       "startAttackOnAbility": "Autoangreb ved brug af evne",
+      "showAttackButton": "Vis angrebsknap",
       "walkByAutoloot": "Auto-plyndring i forbifarten",
       "groundReticle": "Jordsigte-retikel",
       "showItemLevel": "Vis genstandsniveau",
@@ -963,6 +979,7 @@ export const da_DK: EnTranslations = {
         "spellPower": "Besværgelseskraft",
         "critRating": "Kritvurdering",
         "hasteRating": "Hastevurdering",
+        "hitRating": "Rammevurdering",
         "warfare": "Krigsførelse"
       },
       "warfareValue": "+{increase}% givet / -{reduction}% modtaget",
@@ -980,6 +997,7 @@ export const da_DK: EnTranslations = {
         "dodge": "Din chance for helt at undgå et indkommende nærkampsangreb og tage ingen skade.",
         "critRating": "Kritvurdering fra dit udstyr og sætbonusser, der hæver din chance for kritisk slag. Cirka 10 vurdering giver 1% krit.",
         "hasteRating": "Hastevurdering fra dit udstyr og sætbonusser, der fremskynder dine angreb og besværgelser. Cirka 10 vurdering giver 1% hast.",
+        "hitRating": "Rammevurdering fra dit udstyr og sætbonusser, der reducerer, hvor ofte dine angreb misser og dine trylleformularer modstås, navnlig mod fjender af højere niveau. Cirka 10 vurdering giver 1% ramme.",
         "warfare": "Øger skade givet til spillere med {increase}% og reducerer skade modtaget fra spillere med {reduction}%."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const da_DK: EnTranslations = {
         "few": "du er {rank}, {count} medlemmer",
         "many": "du er {rank}, {count} medlemmer",
         "other": "du er {rank}, {count} medlemmer"
+      },
+      "finderPartySize": {
+        "one": "{count} spiller",
+        "few": "{count} spillere",
+        "many": "{count} spillere",
+        "other": "{count} spillere"
       },
       "characterCount": {
         "one": "{count} karakter",
@@ -1264,6 +1288,9 @@ export const da_DK: EnTranslations = {
     "bags": {
       "cannotDestroy": "Denne genstand kan ikke ødelægges.",
       "rightClickDestroy": "Højreklik for at ødelægge",
+      "dragEquipHint": "Træk hen på din karakter for at udruste",
+      "dragDestroyHint": "Træk ud i verden for at ødelægge",
+      "reorderNeedsRecent": "Ryd filteret og sortér efter Seneste for at omarrangere dine tasker",
       "filterGroupAria": "Filtrér tasker efter kategori",
       "filterAll": "Alle",
       "filterWeapon": "Våben",
@@ -1336,6 +1363,8 @@ export const da_DK: EnTranslations = {
       },
       "dodge": "Erhöht Ausweichchance um {pct}%",
       "dodgeReduce": "Verringert Ausweichchance um {pct}%",
+      "damageReduction": "Reducerer al skade modtaget med {pct}%",
+      "guardianWard": "Det næste dødelige fjendtlige slag genopretter dig til {pct}% helbred i stedet",
       "armorFlat": "Verringert Rüstung um {value}",
       "armorFlatStacks": "Verringert Rüstung um {value} ({stacks} Stapel)",
       "armorPct": "Reducerer rustning med {pct}%",
@@ -1463,7 +1492,8 @@ export const da_DK: EnTranslations = {
         "connecting": "Åbner Discord...",
         "benefits": "Forbind din Discord for at optjene point fra spil og fællesskabsaktivitet og stige i statusrangene.",
         "error": "Kunne ikke forbinde Discord. Prøv igen.",
-        "success": "Discord forbundet."
+        "success": "Discord forbundet.",
+        "joinServer": "Tilslut dig Discord-serveren"
       },
       "choice": {
         "title": "Fortsæt med Discord",
@@ -1511,8 +1541,13 @@ export const da_DK: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Kerneudvikler",
         "devs": "Udvikler",
+        "seniormods": "Senior-mod",
         "mods": "Moderator",
-        "artists": "Kunstner"
+        "juniormods": "Junior-mod",
+        "artists": "Kunstner",
+        "contentcreator": "Indholdsskaber",
+        "legend": "LEGENDE",
+        "shill": "FORKÆMPER"
       },
       "guildMember": "Verificeret medlem",
       "notMember": "Ikke på serveren endnu",
@@ -1779,7 +1814,8 @@ export const da_DK: EnTranslations = {
       "title": "Indsamling",
       "mining": "Minedrift",
       "logging": "Skovhugst",
-      "herbalism": "Urtekundskab"
+      "herbalism": "Urtekundskab",
+      "notReady": "Denne ressourcekilde er endnu ikke genskabt for dig."
     },
     "archetypeTitle": {
       "label": "Titel",
@@ -1811,6 +1847,107 @@ export const da_DK: EnTranslations = {
       "notAtHub": "Du skal være ved håndværksstationen og på det krævede niveau for at lave det.",
       "throttled": "Du laver ting for hurtigt. Vent et øjeblik, og prøv igen.",
       "recipeNotLearned": "Du har ikke lært den opskrift endnu."
+    },
+    "finder": {
+      "title": "Fangekældersfinder",
+      "close": "Luk",
+      "back": "Tilbage",
+      "syncing": "Venter på verdenen...",
+      "tabCatalogue": "Katalog",
+      "tabQueue": "Hurtig Matchning",
+      "tabBoard": "Forhåndssammensatte Grupper",
+      "normal": "Sædvanlig",
+      "heroic": "Heroisk",
+      "kindDungeon": "Fangekælder",
+      "kindRaid": "Stor raid",
+      "kindSolo": "Soloæventyr",
+      "levels": "Niveauer {min} til {max}",
+      "levelOne": "Niveau {level}",
+      "clock": "{minutes} min. {seconds} sek.",
+      "roleCount": "{count} af rollen {role}",
+      "roleTank": "Forsvarer",
+      "roleHealer": "Heler",
+      "roleDps": "Skade",
+      "freeRoles": "Alle roller velkomne",
+      "lockoutDaily": "Daglig låsning på den endelige chef",
+      "lockoutNone": "Ingen låsning",
+      "lockedFor": "Låst i ca. {minutes} min.",
+      "attunement": "Kræver indstilling: {quest}",
+      "heroicMarks": "Heroiske mærker: {count} pr. spiller",
+      "entrance": "Indgang: {zone}",
+      "showOnMap": "Vis på kortet",
+      "encounters": "Møder",
+      "finalBoss": "Endelig chef",
+      "summoned": "Tilkaldt vogter",
+      "lootGuaranteed": "Et af disse falder altid:",
+      "lootMaybe": "Højst et af disse kan falde:",
+      "lootChance": "Chancedråb ekstra:",
+      "lootHeroic": "Heroisk bonus, et af disse falder altid:",
+      "pct": "{pct} pct.",
+      "blockedLevel": "Kun niveau {min} til {max}",
+      "blockedSpec": "Kræver en specialisering",
+      "yourRoles": "Dine roller",
+      "needsSpec": "Vælg en specialisering for at bruge Fangekældersfinderen.",
+      "leaderNote": "Kun din gruppeleder kan stille gruppen i kø.",
+      "chooseActivities": "Vælg aktiviteter",
+      "joinQueue": "Stil dig i kø",
+      "leaveQueue": "Forlad køen",
+      "waited": "Tid i kø: {time}",
+      "cooldownNote": "Du kan stille igen i kø om {seconds}s.",
+      "travelNote": "Gruppen dannes, hvor alle befinder sig. Rejs til indgangen sammen; ingen teleporteres.",
+      "proposalTitle": "Gruppe fundet: {name}",
+      "proposalRole": "Din rolle: {role}",
+      "accepted": "{accepted} af {size} bekræftet",
+      "remaining": "{seconds}s til at svare",
+      "accept": "Accepter",
+      "decline": "Afvis",
+      "acceptedWait": "Venter på de andre...",
+      "slotState": "{role}: {accepted} af {total} klar",
+      "openListings": "Åbne opslag",
+      "boardEmpty": "Ingen opslag i øjeblikket. Opret ét!",
+      "boardLeaderGate": "Kun din gruppeleder kan oprette et opslag.",
+      "publishListing": "Publicér et opslag",
+      "activity": "Aktivitet",
+      "publish": "Publicér",
+      "yourListing": "Dit opslag",
+      "closeListing": "Luk opslag",
+      "applicants": "Ansøgere",
+      "noApplicants": "Ingen ansøgere endnu.",
+      "acceptApplicantAria": "Accepter {name}",
+      "declineApplicantAria": "Afvis {name}",
+      "levelClass": "Nv. {level} {className}",
+      "leader": "Leder: {name}",
+      "needs": "Mangler {roles}",
+      "slots": "{size} af {capacity}",
+      "apply": "Ansøg",
+      "withdraw": "Træk ansøgning tilbage",
+      "tagFirstRun": "Første runde",
+      "tagQuestRun": "Opgaverunde",
+      "tagFullClear": "Fuld oprydning",
+      "tagLearning": "Begyndere velkomne",
+      "tagFastRun": "Hurtig runde",
+      "mech": {
+        "shadow_pulse": "Skyggeimpuls (pulserende omradesskade)",
+        "reaping_arc": "Mejende Bue (frontal mejning)",
+        "mist_surge": "Tågebølge (pulserende omradesskade)",
+        "summons_adds": "Tilkalder forstærkninger",
+        "lunar_tide": "Manetide (pulserende omradesskade)",
+        "enrage": "Raserer ved lavt helbred",
+        "shuddering_stomp": "Rystende Tramp (omradesbedøvelse)",
+        "necrotic_shockwave": "Nekrotisk Chokbølge (kraftig omradesskade)",
+        "grave_cleaver": "Gravhugger (frontal mejning)",
+        "shadow_nova": "Skyggeudbrud (omradesudbrud)",
+        "profane_mending": "Vanhellig Heling (heler sine allierede)",
+        "mana_burn": "Visnet Velsignelse (forbrænder mana)",
+        "deathstalker_cleave": "Dødsstalkers Mejning (frontal mejning)",
+        "mortal_wound": "Glemt Sår (reducerer modtaget heling)",
+        "sealbreak_shockwave": "Segelbrudets Chokbølge (omradesudbrud)",
+        "gravebreaker": "Gravknuser (frontal kegle, vend den væk fra raidet)",
+        "raise_fallen": "Rejse de Faldne (periodiske bølger af tilkaldelser)",
+        "soul_rend": "Sjælerivning (markerede spillere skal sprede sig og heles)",
+        "deathless_rage": "Udødelig Raseri (afbrydes ved vardstene)",
+        "wardstones": "Vardstenskanaler (faseovergang)"
+      }
     },
     "deeds": {
       "title": "Bedrifternes Bog",
@@ -2551,6 +2688,10 @@ export const da_DK: EnTranslations = {
       "dragonkin": {
         "name": "Drageæt",
         "desc": "Skældækkede, slangeagtige væsner fra de gamle dyb. Sjældne, stolte og langt stærkere, end de ser ud."
+      },
+      "reptile": {
+        "name": "Krybdyr",
+        "desc": "Koldblodede jægere med en hvislen og et snap, der er helt deres egne, og som adskiller sig fra de varmblodede dyr."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const da_DK: EnTranslations = {
     "title": "Download Desktop-launcher",
     "desc": "Hent den selvstændige launcher for optimeret ydeevne og fuldskærmsspil.",
     "macCta": "Download til macOS",
+    "windowsCta": "Download til Windows",
     "linuxCta": "Download til Linux",
     "linuxHint": "AppImage: gør det eksekverbart, og kør det derefter. Ingen installation nødvendig.",
     "windowsPending": "Windows-build afventer."
@@ -4459,6 +4601,8 @@ export const da_DK: EnTranslations = {
     "connectionLost": "Forbindelsen til serveren gik tabt.",
     "reconnecting": "Forbindelse mistet. Genopretter forbindelse...",
     "connectionRejected": "Serveren lukkede forbindelsen.",
+    "realmFull": "Denne verden er fuld i øjeblikket. Prøv igen om et par minutter.",
+    "tooManyConnections": "Der kommer for mange forbindelser til denne verden fra dit netværk. Luk ekstra spilvinduer, eller prøv igen om et par minutter.",
     "tips": {
       "classes": "Tip: Hver af de 9 klasser spilles forskelligt. Prøv nogle stykker, før du vælger én.",
       "talents": "Tip: Du kan nulstille dine talenter, når du er ude af kamp, så et tidligt valg er aldrig en fælde.",
@@ -5225,6 +5369,7 @@ export const da_DK: EnTranslations = {
     "actionBar": {
       "attackName": "Angrib",
       "attackTooltip": "Slå automatisk angreb til/fra på dit mål. Højreklik på en fjende angriber også.",
+      "attackRemoveHint": "Højreklik for at fjerne den fra bjælken og frigøre pladsen.",
       "emptySlot": "Tom plads",
       "slotAria": "Handlingsplads {slot}: {ability}",
       "emptySlotAria": "Handlingsplads {slot}: tom",
@@ -6140,6 +6285,18 @@ export const da_DK: EnTranslations = {
       "barkskin": {
         "name": "Egehud",
         "description": "Din hud hærder som bark, og øger rustning med 150 i 15 sek."
+      },
+      "ironhold": {
+        "name": "Jernhold",
+        "description": "Slut dig bag dit skjold og reducer al skade med 40% i 8 sek."
+      },
+      "sacred_bulwark": {
+        "name": "Hellig Bolværk",
+        "description": "I {duration} sek. nægtes det næste fjendtlige ramte slag, der ville dræbe dig, og du genvinder 35% helbred i stedet."
+      },
+      "primal_reflexes": {
+        "name": "Primalreflekser",
+        "description": "Dine instinkter skærpes og øger din chance for at undvige med 50% i 6 sek."
       },
       "starfire": {
         "name": "Himmelfald",
@@ -7623,6 +7780,15 @@ export const da_DK: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Scepter fra Det Udødelige Hof"
       },
+      "deathless_warguard_legmail": {
+        "name": "Udødelig Krigsvagt-Benbrynje"
+      },
+      "soulrend_diadem": {
+        "name": "Sjæleflæng-Diadem"
+      },
+      "scourgehide_carapace": {
+        "name": "Svøbehud-Panser"
+      },
       "cryptplate_helm": {
         "name": "Kryptplade-Hjelm"
       },
@@ -7661,6 +7827,9 @@ export const da_DK: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Udødelig Storklinge"
+      },
+      "soulforged_warplate": {
+        "name": "Sjælesmedet Krigsplade"
       },
       "stormcallers_focus": {
         "name": "Stormkalderens Fokus"

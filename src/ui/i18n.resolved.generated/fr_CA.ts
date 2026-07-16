@@ -617,6 +617,15 @@ export const fr_CA: EnTranslations = {
       "notNow": "Pas maintenant",
       "update": "Mettre à jour"
     },
+    "cameraPrompt": {
+      "title": "Choisissez votre caméra",
+      "intro": "Choisissez comment la caméra suit votre personnage.",
+      "mouseDesc": "Déplacez la souris pour faire pivoter la caméra sans maintenir de bouton.",
+      "classicTitle": "Caméra classique",
+      "classicDesc": "Maintenez le clic droit et déplacez la souris pour faire pivoter la caméra.",
+      "changeLater": "Vous pouvez modifier ce réglage plus tard via Échap, Raccourcis clavier.",
+      "confirm": "Confirmer"
+    },
     "castBar": {
       "playerAria": "Votre barre d'incantation",
       "targetAria": "Barre d'incantation de la cible"
@@ -662,7 +671,12 @@ export const fr_CA: EnTranslations = {
       "perSecond": "{value}/s",
       "perSecondRow": "{total} ({rate})",
       "minutesSeconds": "{m} min {s} s",
-      "seconds": "{s} s"
+      "seconds": "{s} s",
+      "autoShowHint": "Les lignes apparaissent automatiquement dès que votre groupe inflige des dégâts ou des soins, et ce panneau se ferme quelques secondes après la fin du combat."
+    },
+    "petFeed": {
+      "disabledFullHp": "Le familier est à pleine santé",
+      "disabledNoFood": "Aucune nourriture dans vos sacs ne peut soigner votre familier"
     },
     "keybinds": {
       "emoteWheel": "Roue des emotes",
@@ -670,6 +684,7 @@ export const fr_CA: EnTranslations = {
       "targetFriendlyNext": "Changer de cible alliée",
       "discord": "Discord",
       "valecup": "Coupe du Val",
+      "sheathe": "Ranger/Dégainer l'arme",
       "categoryPet": "Familier",
       "petAttack": "Familier : attaquer",
       "petStop": "Familier : arrêter",
@@ -842,6 +857,7 @@ export const fr_CA: EnTranslations = {
       "aurasOnPlayerFrame": "Améliorations sur le cadre du joueur",
       "highContrastBackground": "Arrière-plan à contraste élevé",
       "startAttackOnAbility": "Attaque auto à l'utilisation d'une compétence",
+      "showAttackButton": "Afficher le bouton d'attaque",
       "walkByAutoloot": "Ramassage auto au passage",
       "groundReticle": "Réticule de ciblage au sol",
       "showItemLevel": "Afficher le niveau d'objet",
@@ -963,6 +979,7 @@ export const fr_CA: EnTranslations = {
         "spellPower": "Puissance des sorts",
         "critRating": "Score de critique",
         "hasteRating": "Score de hâte",
+        "hitRating": "Précision",
         "warfare": "Art de la guerre"
       },
       "warfareValue": "+{increase} % infligés / -{reduction} % subis",
@@ -980,6 +997,7 @@ export const fr_CA: EnTranslations = {
         "dodge": "Vos chances d'éviter complètement une attaque de mêlée, sans subir aucun dégât.",
         "critRating": "Score de critique de votre équipement et de vos bonus de panoplie, augmentant vos chances de coup critique. Environ 10 points de score confèrent 1% de critique.",
         "hasteRating": "Score de hâte de votre équipement et de vos bonus de panoplie, accélérant vos attaques et vos incantations. Environ 10 points de score confèrent 1% de hâte.",
+        "hitRating": "La précision provenant de votre équipement et de vos bonus d'ensemble, réduisant la fréquence à laquelle vos attaques ratent et vos sorts sont résistés, notamment contre les ennemis de niveau supérieur. Environ 10 points de précision accordent 1 % de toucher.",
         "warfare": "Augmente de {increase} % les dégâts infligés aux joueurs et réduit de {reduction} % les dégâts que les joueurs vous infligent."
       },
       "effects": {
@@ -1053,6 +1071,12 @@ export const fr_CA: EnTranslations = {
         "few": "vous êtes {rank}, {count} membres",
         "many": "vous êtes {rank}, {count} membres",
         "other": "vous êtes {rank}, {count} membres"
+      },
+      "finderPartySize": {
+        "one": "{count} joueur",
+        "few": "{count} joueurs",
+        "many": "{count} joueurs",
+        "other": "{count} joueurs"
       },
       "characterCount": {
         "one": "{count} personnage",
@@ -1264,6 +1288,9 @@ export const fr_CA: EnTranslations = {
     "bags": {
       "cannotDestroy": "Cet objet ne peut pas être détruit.",
       "rightClickDestroy": "Clic droit pour détruire",
+      "dragEquipHint": "Faites glisser sur votre personnage pour équiper",
+      "dragDestroyHint": "Faites glisser dans le monde pour détruire",
+      "reorderNeedsRecent": "Effacez le filtre et triez par Récents pour réorganiser vos sacs",
       "filterGroupAria": "Filtrer les sacs par catégorie",
       "filterAll": "Tous",
       "filterWeapon": "Armes",
@@ -1336,6 +1363,8 @@ export const fr_CA: EnTranslations = {
       },
       "dodge": "Accroît les chances d'esquive de {pct}%",
       "dodgeReduce": "Diminue les chances d'esquive de {pct}%",
+      "damageReduction": "Réduit tous les dégâts subis de {pct} %",
+      "guardianWard": "Le prochain coup ennemi fatal vous restaure à {pct} % de vos points de vie à la place",
       "armorFlat": "Diminue l'armure de {value}",
       "armorFlatStacks": "Diminue l'armure de {value} ({stacks} charges)",
       "armorPct": "Réduit l'armure de {pct}%",
@@ -1463,7 +1492,8 @@ export const fr_CA: EnTranslations = {
         "connecting": "Ouverture de Discord...",
         "benefits": "Liez votre Discord pour gagner des points en jouant et en participant à la communauté, et gravir les rangs de statut.",
         "error": "Impossible de lier Discord. Veuillez réessayer.",
-        "success": "Discord lié."
+        "success": "Discord lié.",
+        "joinServer": "Rejoignez simplement le serveur Discord"
       },
       "choice": {
         "title": "Continuer avec Discord",
@@ -1511,8 +1541,13 @@ export const fr_CA: EnTranslations = {
         "admin": "Admin",
         "coredevs": "Développeur principal",
         "devs": "Dév",
+        "seniormods": "Modérateur senior",
         "mods": "Modo",
-        "artists": "Artiste"
+        "juniormods": "Modérateur junior",
+        "artists": "Artiste",
+        "contentcreator": "Créateur de contenu",
+        "legend": "LÉGENDE",
+        "shill": "COMPLICE"
       },
       "guildMember": "Membre vérifié",
       "notMember": "Pas encore sur le serveur",
@@ -1779,7 +1814,8 @@ export const fr_CA: EnTranslations = {
       "title": "Récolte",
       "mining": "Minage",
       "logging": "Bûcheronnage",
-      "herbalism": "Herboristerie"
+      "herbalism": "Herboristerie",
+      "notReady": "Ce nœud de ressource n'a pas encore réapparu pour vous."
     },
     "archetypeTitle": {
       "label": "Titre",
@@ -1811,6 +1847,107 @@ export const fr_CA: EnTranslations = {
       "notAtHub": "Vous devez être à l'atelier d'artisanat, au niveau requis, pour fabriquer cela.",
       "throttled": "Vous fabriquez trop vite. Patientez un instant et réessayez.",
       "recipeNotLearned": "Vous n'avez pas encore appris cette recette."
+    },
+    "finder": {
+      "title": "Chercheur de donjons",
+      "close": "Fermer",
+      "back": "Retour",
+      "syncing": "En attente du royaume...",
+      "tabCatalogue": "Catalogue",
+      "tabQueue": "Partie rapide",
+      "tabBoard": "Groupes formés",
+      "normal": "Normal",
+      "heroic": "Héroïque",
+      "kindDungeon": "Donjon",
+      "kindRaid": "Raid",
+      "kindSolo": "Aventure en solo",
+      "levels": "Niveaux {min} à {max}",
+      "levelOne": "Niveau {level}",
+      "clock": "{minutes}:{seconds}",
+      "roleCount": "{count} {role}",
+      "roleTank": "Tank",
+      "roleHealer": "Soigneur",
+      "roleDps": "Dégâts",
+      "freeRoles": "Tous les rôles bienvenus",
+      "lockoutDaily": "Verrouillage quotidien sur le boss final",
+      "lockoutNone": "Aucun verrouillage",
+      "lockedFor": "Verrouillé environ {minutes} min",
+      "attunement": "Harmonisation requise: {quest}",
+      "heroicMarks": "Marques héroïques: {count} par joueur",
+      "entrance": "Entrée: {zone}",
+      "showOnMap": "Afficher sur la carte",
+      "encounters": "Rencontres",
+      "finalBoss": "Boss final",
+      "summoned": "Gardien invoqué",
+      "lootGuaranteed": "L'un de ces objets tombe toujours:",
+      "lootMaybe": "Au plus l'un de ces objets peut tomber:",
+      "lootChance": "Chances de butin supplémentaires:",
+      "lootHeroic": "Bonus héroïque, l'un de ces objets tombe toujours:",
+      "pct": "{pct} %",
+      "blockedLevel": "Niveaux {min} à {max} uniquement",
+      "blockedSpec": "Nécessite une spécialisation",
+      "yourRoles": "Vos rôles",
+      "needsSpec": "Choisissez une spécialisation pour utiliser le Chercheur de donjons.",
+      "leaderNote": "Seul le chef de groupe peut mettre le groupe en file d'attente.",
+      "chooseActivities": "Choisir des activités",
+      "joinQueue": "Rejoindre la file",
+      "leaveQueue": "Quitter la file",
+      "waited": "Temps en file: {time}",
+      "cooldownNote": "Vous pourrez rejoindre la file dans {seconds} s.",
+      "travelNote": "Le groupe se forme là où se trouvent les membres. Rejoignez l'entrée ensemble: personne n'est téléporté.",
+      "proposalTitle": "Groupe trouvé: {name}",
+      "proposalRole": "Votre rôle: {role}",
+      "accepted": "{accepted} sur {size} confirmés",
+      "remaining": "{seconds} s pour répondre",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "acceptedWait": "En attente des autres...",
+      "slotState": "{role}: {accepted} sur {total} prêts",
+      "openListings": "Annonces ouvertes",
+      "boardEmpty": "Aucune annonce pour le moment. Publiez-en une !",
+      "boardLeaderGate": "Seul le chef de groupe peut publier une annonce.",
+      "publishListing": "Publier une annonce",
+      "activity": "Activité",
+      "publish": "Publier",
+      "yourListing": "Votre annonce",
+      "closeListing": "Fermer l'annonce",
+      "applicants": "Candidats",
+      "noApplicants": "Aucun candidat pour l'instant.",
+      "acceptApplicantAria": "Accepter {name}",
+      "declineApplicantAria": "Refuser {name}",
+      "levelClass": "Nv {level} {className}",
+      "leader": "Chef: {name}",
+      "needs": "Recherche {roles}",
+      "slots": "{size}/{capacity}",
+      "apply": "Postuler",
+      "withdraw": "Retirer la candidature",
+      "tagFirstRun": "Première visite",
+      "tagQuestRun": "Run de quête",
+      "tagFullClear": "Nettoyage complet",
+      "tagLearning": "Débutants bienvenus",
+      "tagFastRun": "Run rapide",
+      "mech": {
+        "shadow_pulse": "Pulsation d'ombre (dégâts de zone pulsés)",
+        "reaping_arc": "Arc faucheur (cleave frontal)",
+        "mist_surge": "Déferlante de brume (dégâts de zone pulsés)",
+        "summons_adds": "Invoque des renforts",
+        "lunar_tide": "Marée lunaire (dégâts de zone pulsés)",
+        "enrage": "Entre en rage à faible santé",
+        "shuddering_stomp": "Piétinement tremblant (étourdissement de zone)",
+        "necrotic_shockwave": "Onde de choc nécrotique (dégâts de zone importants)",
+        "grave_cleaver": "Faucheur de tombes (cleave frontal)",
+        "shadow_nova": "Nova des ombres (explosion de zone)",
+        "profane_mending": "Soins profanes (soigne ses alliés)",
+        "mana_burn": "Bénédiction desséchée (brûle le mana)",
+        "deathstalker_cleave": "Balayage du traqueur de mort (cleave frontal)",
+        "mortal_wound": "Blessure oubliée (réduit les soins reçus)",
+        "sealbreak_shockwave": "Onde de brise-sceau (explosion de zone)",
+        "gravebreaker": "Brise-sépulcre (cône frontal, orientez-le à l'opposé du raid)",
+        "raise_fallen": "Relever les morts (vagues périodiques de renforts)",
+        "soul_rend": "Déchirement de l'âme (les joueurs marqués doivent s'écarter et être soignés)",
+        "deathless_rage": "Fureur immortelle (interrompue aux pierres de garde)",
+        "wardstones": "Canaux des pierres de garde (transition de phase)"
+      }
     },
     "deeds": {
       "title": "Livre des hauts faits",
@@ -2551,6 +2688,10 @@ export const fr_CA: EnTranslations = {
       "dragonkin": {
         "name": "Draconiens",
         "desc": "Des créatures écailleuses et serpentines des anciennes profondeurs. Rares, fières et bien plus fortes qu'elles n'en ont l'air."
+      },
+      "reptile": {
+        "name": "Reptiles",
+        "desc": "Des chasseurs à sang froid dotés d'un sifflement et d'un claquement qui leur sont propres, distincts des créatures à sang chaud."
       }
     },
     "worldPage": {
@@ -3572,6 +3713,7 @@ export const fr_CA: EnTranslations = {
     "title": "Télécharger le lanceur de bureau",
     "desc": "Obtenez le lanceur autonome pour des performances optimisées et un jeu en plein écran.",
     "macCta": "Telecharger la version macOS",
+    "windowsCta": "Télécharger pour Windows",
     "linuxCta": "Télécharger pour Linux",
     "linuxHint": "AppImage$1 rendez-le exécutable, puis exécutez-le. Aucune installation nécessaire.",
     "windowsPending": "Version Windows a venir."
@@ -4459,6 +4601,8 @@ export const fr_CA: EnTranslations = {
     "connectionLost": "La connexion au serveur a été perdue.",
     "reconnecting": "Connexion perdue. Reconnexion...",
     "connectionRejected": "Le serveur a fermé la connexion.",
+    "realmFull": "Ce monde est complet en ce moment. Veuillez réessayer dans quelques minutes.",
+    "tooManyConnections": "Trop de connexions à ce monde proviennent de votre réseau. Veuillez fermer les fenêtres de jeu superflues ou réessayer dans quelques minutes.",
     "tips": {
       "classes": "Conseil : chacune des 9 classes se joue différemment. Essayez-en plusieurs avant de faire votre choix.",
       "talents": "Conseil : vous pouvez réinitialiser vos talents dès que vous êtes hors combat, un premier choix ne vous enferme donc jamais.",
@@ -5225,6 +5369,7 @@ export const fr_CA: EnTranslations = {
     "actionBar": {
       "attackName": "Attaquer",
       "attackTooltip": "Active ou désactive l'attaque automatique sur votre cible. Un clic droit sur un ennemi attaque aussi.",
+      "attackRemoveHint": "Clic droit pour le retirer de la barre et libérer l'emplacement.",
       "emptySlot": "Emplacement vide",
       "slotAria": "Emplacement d'action {slot}: {ability}",
       "emptySlotAria": "Emplacement d'action {slot}: vide",
@@ -6140,6 +6285,18 @@ export const fr_CA: EnTranslations = {
       "barkskin": {
         "name": "Peau de chêne",
         "description": "Votre peau durcit comme de l'écorce et augmente l'armure de 150 pendant 15 s."
+      },
+      "ironhold": {
+        "name": "Rempart de fer",
+        "description": "Vous vous retranchez derrière votre garde, réduisant tous les dégâts subis de 40 % pendant 8 sec."
+      },
+      "sacred_bulwark": {
+        "name": "Rempart sacré",
+        "description": "Pendant {duration} sec, le prochain coup ennemi qui vous tuerait est annulé, vous restaurant à 35 % de vos points de vie à la place."
+      },
+      "primal_reflexes": {
+        "name": "Réflexes primordiaux",
+        "description": "Vos instincts s'aiguisent, augmentant votre chance d'esquiver de 50 % pendant 6 sec."
       },
       "starfire": {
         "name": "Skyfall",
@@ -7623,6 +7780,15 @@ export const fr_CA: EnTranslations = {
       "scepter_of_the_deathless_court": {
         "name": "Sceptre de la Cour immortelle"
       },
+      "deathless_warguard_legmail": {
+        "name": "Cotte de jambes de la garde immortelle"
+      },
+      "soulrend_diadem": {
+        "name": "Diadème Déchire-âme"
+      },
+      "scourgehide_carapace": {
+        "name": "Carapace en peau de Fléau"
+      },
       "cryptplate_helm": {
         "name": "Heaume de plaques sépulcrales"
       },
@@ -7661,6 +7827,9 @@ export const fr_CA: EnTranslations = {
       },
       "deathless_greatblade": {
         "name": "Grande lame immortelle"
+      },
+      "soulforged_warplate": {
+        "name": "Harnois de guerre forgé dans les âmes"
       },
       "stormcallers_focus": {
         "name": "Focalisateur de l'Invocateur de tempêtes"
