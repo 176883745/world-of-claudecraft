@@ -40,6 +40,7 @@ import { buildDailyRewardsView } from '../src/ui/daily_rewards_view';
 
 class FakeDailyRewardDb implements DailyRewardDb {
   banReason: string | null = null;
+  winnerAnnouncements: DailyRewardWinnerAnnouncement[] = [];
   score = 0;
   spin: { outcomeKey: string; points: number; createdAt: string } | null = null;
   tasks: DailyRewardTaskSeed[] = [];
@@ -170,7 +171,7 @@ class FakeDailyRewardDb implements DailyRewardDb {
     return [];
   }
   async unannouncedWinnerDays(): Promise<DailyRewardWinnerAnnouncement[]> {
-    return [];
+    return this.winnerAnnouncements;
   }
   async markWinnersAnnounced(): Promise<boolean> {
     return true;
@@ -391,6 +392,89 @@ describe('daily rewards', () => {
     expect(db.tasks).toMatchObject([
       { id: 'quests_today', type: 'quest_completion', title: 'Quest push', basePoints: 12 },
     ]);
+  });
+
+  it('adds the current and next task names to Discord winner announcements', async () => {
+    const db = new FakeDailyRewardDb();
+    db.winnerAnnouncements = [
+      {
+        day: '2026-06-30',
+        realm: 'Claudemoon',
+        prizePoolUsd: 150,
+        finalizedAt: '2026-07-01T00:00:00.000Z',
+        payouts: [],
+      },
+    ];
+    resetDailyRewardPriceCacheForTests();
+    vi.mocked(fetch).mockImplementation(async (input: RequestInfo | URL) => {
+      const day = new URL(String(input)).searchParams.get('day');
+      const tasks: DailyRewardTaskSeed[] =
+        day === '2026-07-01'
+          ? [
+              {
+                id: 'arena_today',
+                type: 'arena_result',
+                title: 'Win an arena match',
+                description: 'Win an arena match.',
+                points: 10,
+                basePoints: 10,
+                sortOrder: 1,
+                active: true,
+                config: {},
+              },
+            ]
+          : [
+              {
+                id: 'inactive_task',
+                type: 'quest_completion',
+                title: 'Inactive task',
+                description: 'Inactive task.',
+                points: 10,
+                basePoints: 10,
+                sortOrder: 0,
+                active: false,
+                config: {},
+              },
+              {
+                id: 'later_task',
+                type: 'quest_completion',
+                title: 'Complete later task',
+                description: 'Complete later task.',
+                points: 10,
+                basePoints: 10,
+                sortOrder: 2,
+                active: true,
+                config: {},
+              },
+              {
+                id: 'quests_today',
+                type: 'quest_completion',
+                title: 'Complete quests',
+                description: 'Complete quests.',
+                points: 10,
+                basePoints: 10,
+                sortOrder: 1,
+                active: true,
+                config: {},
+              },
+            ];
+      return new Response(JSON.stringify(rewardConfig({ tasks })), { status: 200 });
+    });
+    const service = new DailyRewardService(db);
+    vi.spyOn(service, 'finalizePreviousDay').mockResolvedValue();
+
+    const result = (await service.discordWinnerAnnouncements(1)) as {
+      days: Array<{ day: string; taskName: string; nextTaskName: string }>;
+    };
+
+    expect(result.days).toEqual([
+      expect.objectContaining({
+        day: '2026-06-30',
+        taskName: 'Complete quests',
+        nextTaskName: 'Win an arena match',
+      }),
+    ]);
+    expect(vi.mocked(fetch)).toHaveBeenCalledTimes(2);
   });
 
   it('awards quest task points using the online-time multiplier', async () => {

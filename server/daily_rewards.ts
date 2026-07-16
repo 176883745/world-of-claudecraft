@@ -232,6 +232,13 @@ function fallbackRuntimeConfig(): DailyRewardRuntimeConfig {
   };
 }
 
+function featuredDailyRewardTaskName(config: DailyRewardRuntimeConfig): string {
+  const [task] = config.tasks
+    .filter((candidate) => candidate.active !== false)
+    .sort((left, right) => left.sortOrder - right.sortOrder);
+  return task?.title ?? DEFAULT_TASKS[0].title;
+}
+
 function parseRuntimeConfigPayload(payload: unknown): DailyRewardRuntimeConfig {
   const record = payload && typeof payload === 'object' ? (payload as Record<string, unknown>) : {};
   const fallback = fallbackRuntimeConfig();
@@ -997,7 +1004,23 @@ export class DailyRewardService {
 
   async discordWinnerAnnouncements(limit = 1): Promise<unknown> {
     await this.finalizePreviousDay();
-    return { days: await this.db.unannouncedWinnerDays(limit) };
+    const days = await this.db.unannouncedWinnerDays(limit);
+    const rewardDays = [...new Set(days.flatMap((day) => [day.day, addRewardDays(day.day, 1)]))];
+    const taskNames = new Map(
+      await Promise.all(
+        rewardDays.map(
+          async (day) =>
+            [day, featuredDailyRewardTaskName(await dailyRewardRuntimeConfig(day))] as const,
+        ),
+      ),
+    );
+    return {
+      days: days.map((day) => ({
+        ...day,
+        taskName: taskNames.get(day.day) ?? DEFAULT_TASKS[0].title,
+        nextTaskName: taskNames.get(addRewardDays(day.day, 1)) ?? DEFAULT_TASKS[0].title,
+      })),
+    };
   }
 
   async markDiscordWinnersAnnounced(
