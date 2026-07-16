@@ -3377,6 +3377,9 @@ export const ABILITIES: Record<string, AbilityDef> = {
     school: 'nature',
     requiresTarget: false,
     offGcd: true,
+    // A tank cooldown, so it must fire mid-fight in Bruin Form (or Wolf Form)
+    // like Primal Reflexes/Primal Surge below, not just pre-cast in caster form.
+    usableInForm: true,
     effects: [{ type: 'selfBuff', kind: 'buff_armor', value: 150, duration: 15 }],
     description: 'Your skin hardens like bark, increasing armor by 150 for 15 sec.',
   },
