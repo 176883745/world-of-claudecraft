@@ -763,6 +763,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.browserEffectsNote':
     '自動はブラウザとデバイスに応じて、負荷の高い CSS エフェクト（ぼかし・グロー・背景アニメーション）を抑えます。動作が重い場合は手動で下げてください。',
   'hudChrome.options.footstepSounds': '足音',
+  'hudChrome.options.interfaceSounds': 'インターフェースとフィードバック音',
   'hudChrome.options.clickFeedback': 'クリックマーカー',
   'hudChrome.options.startAttackOnAbility': 'アビリティ使用時に自動攻撃',
   'hudChrome.options.walkByAutoloot': '通りがかり自動ルート',

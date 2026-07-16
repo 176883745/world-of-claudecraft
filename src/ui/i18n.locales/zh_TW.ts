@@ -734,6 +734,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.browserEffectsNote':
     '自動模式會根據你的瀏覽器與裝置調低高負擔的 CSS 特效（模糊、光暈、背景動畫）。若介面感覺卡頓，可手動降低。',
   'hudChrome.options.footstepSounds': '腳步聲',
+  'hudChrome.options.interfaceSounds': '介面與回饋音效',
   'hudChrome.options.clickFeedback': '點擊標記',
   'hudChrome.options.startAttackOnAbility': '使用技能時自動攻擊',
   'hudChrome.options.walkByAutoloot': '路過自動拾取',

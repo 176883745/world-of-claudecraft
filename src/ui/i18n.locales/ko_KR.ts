@@ -758,6 +758,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.browserEffectsNote':
     '자동은 브라우저와 기기에 맞춰 무거운 CSS 효과(흐림, 글로우, 배경 모션)를 낮춥니다. 인터페이스가 느리게 느껴지면 수동으로 낮추세요.',
   'hudChrome.options.footstepSounds': '발소리',
+  'hudChrome.options.interfaceSounds': '인터페이스 및 피드백 소리',
   'hudChrome.options.clickFeedback': '클릭 표시',
   'hudChrome.options.startAttackOnAbility': '스킬 사용 시 자동 공격',
   'hudChrome.options.walkByAutoloot': '지나가며 자동 획득',

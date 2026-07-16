@@ -1679,6 +1679,10 @@ async function startGame(
       sfx.setFootstepsEnabled(settings.set('footstepSfx', !!value));
       return;
     }
+    if (key === 'interfaceSfx') {
+      audio.setFeedbackEnabled(settings.set('interfaceSfx', !!value));
+      return;
+    }
     if (key === 'landingHighContrast') {
       // Mirror of the start-screen toggle; keeps the persisted preference in sync
       // and re-applies the backdrop (the landing page is hidden in-game, but the

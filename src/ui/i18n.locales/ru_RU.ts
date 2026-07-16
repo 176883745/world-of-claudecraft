@@ -775,6 +775,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.browserEffectsNote':
     'Авто снижает тяжёлые CSS-эффекты (размытие, свечение, движение фона) в зависимости от браузера и устройства. Если интерфейс тормозит, понизьте вручную.',
   'hudChrome.options.footstepSounds': 'Звуки шагов',
+  'hudChrome.options.interfaceSounds': 'Звуки интерфейса и откликов',
   'hudChrome.options.clickFeedback': 'Метка клика',
   'hudChrome.options.startAttackOnAbility': 'Автоатака при использовании способности',
   'hudChrome.options.walkByAutoloot': 'Автосбор добычи при проходе',

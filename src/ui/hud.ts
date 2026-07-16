@@ -7585,12 +7585,16 @@ export class Hud {
         if (swing && src) {
           this.combat(swing, src.pos.x, src.pos.y, src.pos.z, 0.5, { cooldown: 0.08 });
         }
+        // The miss/dodge/resist/parry "avoid" cues are interface feedback (they report
+        // an outcome, not a world impact), so the Interface & Feedback Sounds toggle
+        // silences them. The early return stays either way, so a muted avoid never
+        // falls through to an impact sound.
         if (ev.kind === 'miss' || ev.kind === 'dodge' || ev.kind === 'resist') {
-          this.combat('combat_dodge', tp.x, tp.y, tp.z, 0.5);
+          if (audio.feedbackEnabled) this.combat('combat_dodge', tp.x, tp.y, tp.z, 0.5);
           return;
         }
         if (ev.kind === 'parry') {
-          this.combat('combat_parry', tp.x, tp.y, tp.z, 0.6);
+          if (audio.feedbackEnabled) this.combat('combat_parry', tp.x, tp.y, tp.z, 0.6);
           return;
         }
         if (src?.kind === 'mob') this.playAttackerSfx(src);
