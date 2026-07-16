@@ -16,7 +16,7 @@ import {
   isChatOpenTab,
   isChatTabChannel,
   parseChatTabs,
-  sentLineChannel,
+  sentLineTarget,
   serializeChatTabs,
   WHISPER_TAB,
   WHISPER_TAB_LABEL_KEY,
@@ -61,7 +61,13 @@ export interface ChatWindowControllerDeps {
 export class ChatWindowController {
   private chatTabs: ChatOpenTab[] = [];
   private activeChatTab: ChatTabId = 'all';
-  private stickyChannel: ChatTabChannel = 'say';
+  // The last target the player actually sent to (classic sticky-channel behavior):
+  // a standing channel OR the whisper collector (a `/r` reply). On the All/combat
+  // views a plain typed line goes here and the input is tinted to match; a
+  // channel-bound tab always overrides it. `say` is the neutral default (no tint,
+  // generic placeholder). Tracking whisper here is what keeps a reply conversation
+  // going instead of snapping the input back to the previous standing channel.
+  private stickyTarget: ChatInputTintTarget = 'say';
   private tabsWheelBound = false;
   private initialized = false;
   private pendingLinks: readonly { display: string; token: string }[] = [];
@@ -117,15 +123,20 @@ export class ChatWindowController {
     if (input) this.presentInput(input);
   }
 
+  // Remember the target a just-sent line reached as the sticky default for the next
+  // chat open on the All tab: a standing channel, or `whisper` for a `/r` reply so a
+  // whisper conversation keeps going. An explicit `/w Name`, emotes, rolls, channel
+  // membership, and unknown commands leave the sticky target unchanged.
   noteSentChannel(sentLine: string): void {
-    const channel = sentLineChannel(sentLine);
-    if (channel) this.stickyChannel = channel;
+    const target = sentLineTarget(sentLine);
+    if (target) this.stickyTarget = target;
   }
 
   composeSend(typed: string): string {
     const withLinks = this.applyPendingLinks(typed);
-    if (this.activeChatTab === WHISPER_TAB) return composeWhisperReply(withLinks);
-    return composeChatLine(this.effectiveSendChannel(), withLinks);
+    const target = this.effectiveSendTarget();
+    if (target === WHISPER_TAB) return composeWhisperReply(withLinks);
+    return composeChatLine(target, withLinks);
   }
 
   insertQuestLink(questId: string): void {
@@ -153,15 +164,20 @@ export class ChatWindowController {
     return true;
   }
 
+  // Placeholder for the chat input reflecting the active tab and sticky target.
   activePlaceholder(): string {
-    if (this.activeChatTab === WHISPER_TAB) {
+    const target = this.effectiveSendTarget();
+    // The whisper collector (its own tab, or a sticky `/r` reply) prompts "Whisper".
+    if (target === WHISPER_TAB) {
       return t('hud.core.chatChannels.sendingTo', { channel: t(WHISPER_TAB_LABEL_KEY) });
     }
+    // A channel-bound tab keeps its "Message {channel}" prompt (unchanged, incl. a
+    // Say tab). On the All/combat views a non-say sticky channel surfaces the same
+    // "Message {channel}" prompt so the player sees where plain text will go.
     const bound = this.sendChannel();
-    const channel = bound ?? this.stickyChannel;
-    if (bound !== null || channel !== 'say') {
+    if (bound !== null || target !== 'say') {
       return t('hud.core.chatChannels.sendingTo', {
-        channel: t(CHANNEL_LABEL_KEYS[channel]),
+        channel: t(CHANNEL_LABEL_KEYS[target]),
       });
     }
     return this.deps.isMobileLayout()
@@ -317,12 +333,19 @@ export class ChatWindowController {
     return tab !== null && isChatTabChannel(tab) ? tab : null;
   }
 
-  private effectiveSendChannel(): ChatTabChannel {
-    return this.sendChannel() ?? this.stickyChannel;
+  // The target a plain typed line actually reaches, honoring the active tab and the
+  // sticky "last used" target: the whisper collector wins on its own tab, else a
+  // channel-bound tab wins (its bound channel), else the All/combat views fall back
+  // to the sticky target (`say` by default, or `whisper` right after a reply).
+  private effectiveSendTarget(): ChatInputTintTarget {
+    if (this.activeChatTab === WHISPER_TAB) return WHISPER_TAB;
+    return this.sendChannel() ?? this.stickyTarget;
   }
 
+  // The target the chat input's tint should signal. chatInputTint maps `say` to no
+  // tint (the default input color) and `whisper` to the whisper color.
   private inputTintTarget(): ChatInputTintTarget {
-    return this.activeChatTab === WHISPER_TAB ? WHISPER_TAB : this.effectiveSendChannel();
+    return this.effectiveSendTarget();
   }
 
   private applyFilter(): void {

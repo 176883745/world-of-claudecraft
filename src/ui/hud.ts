@@ -174,6 +174,7 @@ import {
   makeDeedTrackerView,
 } from './deeds_view';
 import { DeedsWindow } from './deeds_window';
+import { DevCommandWindow } from './dev_command_window';
 import { devTierBadgeDataUrl, devTierByIndex, devTierDisplayName } from './dev_tier';
 import { discordRoleTagLabel } from './discord_role_tag';
 import { discordStatusBadgeDataUrl, discordStatusDisplayName } from './discord_tier';
@@ -195,6 +196,7 @@ import { fctSpawnShape } from './fct_event';
 import { FctPainter } from './fct_painter';
 import { FocusManager, type FocusTrapHandle } from './focus_manager';
 import {
+  PARTY_FRAME_POS_KEY,
   PLAYER_FRAME_POS_KEY,
   resetFramePositionsOnce,
   TARGET_FRAME_POS_KEY,
@@ -345,6 +347,7 @@ import {
   chatPlayerContextActions,
   type PlayerContextAction,
   type PlayerContextActionId,
+  selfPlayerContextActions,
   streamerActionPlatform,
   streamerMenuActions,
 } from './player_context_menu';
@@ -377,6 +380,8 @@ import { swingTimerState } from './swing_timer';
 import { SwingTimerPainter } from './swing_timer_painter';
 import { localizeTalentTitle, roleLabel, tTalent } from './talent_i18n';
 import { TalentsWindow } from './talents_window';
+import { targetPortraitUrl } from './target_portrait_view';
+import { targetRankView, targetUsesEliteFrame } from './target_rank_view';
 import type { PresetId, ThemeKnob, ThemeState } from './theme';
 import { SharedTooltipOwner } from './tooltip_owner';
 import { TOOLTIP_PEEK_MS, TouchPeekGuard } from './touch_peek';
@@ -509,6 +514,7 @@ export interface ClaudiumHooks {
 
 export interface HudFeatures {
   dailyRewardsEnabled: boolean;
+  devCommandsEnabled?: boolean;
 }
 
 export interface BugReportPayload {
@@ -557,10 +563,8 @@ const VCUP_WALKUP_EVENTS = new Set([
 // Stadium-scale: covers the pitch + stands + approach, but nowhere near another
 // match's pitch (the real Sowfield and practice instances are >600yd apart).
 const VCUP_THEATRE_RADIUS = 200;
-// The target frame's boss glyph (a skull replaces the numeric level chip for a
-// boss-rank target) and the number of combo pips, named so the per-frame target
-// paint carries no bare literal at the call site.
-const BOSS_SKULL_GLYPH = '☠';
+// The number of combo pips, named so the per-frame player paint carries no bare
+// literal at the call site.
 const COMBO_PIP_COUNT = 5;
 // The mob-hover tooltip's fixed desktop bottom-right slot (the WoW default
 // GameTooltip corner), in author-space px: the right margin clears the sidebar
@@ -1217,6 +1221,7 @@ export class Hud {
   // pointer drag, and a persisted top-left. Constructed once in initFrameMovers.
   private targetFrameMover: MovableFrame | null = null;
   private playerFrameMover: MovableFrame | null = null;
+  private partyFrameMover: MovableFrame | null = null;
   private windowObserver: MutationObserver | null = null;
   private windowZ = 50;
   private localIgnoredNames = new Set<string>();
@@ -1709,11 +1714,20 @@ export class Hud {
       this.openTargetFrameMenuAt(pe.clientX, pe.clientY);
     });
     this.bindMobileFrameLongPress($('#target-frame'), (x, y) => this.openTargetFrameMenuAt(x, y));
-    $('#player-frame').addEventListener('contextmenu', (ev) => {
+    const playerFrame = $('#player-frame');
+    playerFrame.addEventListener('contextmenu', (ev) => {
       ev.preventDefault();
       this.openSelfContextMenu((ev as MouseEvent).clientX, (ev as MouseEvent).clientY);
     });
-    this.bindMobileFrameLongPress($('#player-frame'), (x, y) => this.openSelfContextMenu(x, y), {
+    playerFrame.addEventListener('keydown', (ev) => {
+      if (ev.key !== 'ContextMenu' && !(ev.shiftKey && ev.key === 'F10')) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      const rect = playerFrame.getBoundingClientRect();
+      this.openSelfContextMenu(rect.left, rect.bottom, playerFrame);
+      $('#ctx-menu').querySelector<HTMLElement>('.ctx-item')?.focus();
+    });
+    this.bindMobileFrameLongPress(playerFrame, (x, y) => this.openSelfContextMenu(x, y), {
       ignoreSelector: 'button, #buff-bar, #debuff-bar',
     });
     $('#mm-char').addEventListener('click', () => this.toggleChar());
@@ -2366,6 +2380,9 @@ export class Hud {
         // consistent with the toggle/X close path.
         this.socialWindow.close();
         break;
+      case 'dev-command-window':
+        this.devCommandWindow.close();
+        break;
       case 'char-window':
         // Route through the painter so focus returns to the opener (WCAG 2.2 AA).
         this.charWindow.close();
@@ -2539,13 +2556,23 @@ export class Hud {
         onPositioned: (active) => this.setPlayerFrameDetached(active),
       });
     }
+    this.partyFrameMover = new MovableFrame({
+      frame: this.partyFramesEl,
+      storageKey: PARTY_FRAME_POS_KEY,
+      unlockLabelKey: 'hudChrome.partyFrames.unlock',
+      lockLabelKey: 'hudChrome.partyFrames.lock',
+      draggingBodyClass: 'party-frame-dragging',
+      fallbackSize: { w: 360, h: 240 },
+      isMobileLayout,
+    });
   }
 
-  // Public: snap both movable unit frames back to their stock CSS spots and
+  // Public: snap all movable unit frames back to their stock CSS spots and
   // forget the saved drags. Wired to the "Reset Frame Positions" interface option.
   resetUnitFrames(): void {
     this.targetFrameMover?.reset();
     this.playerFrameMover?.reset();
+    this.partyFrameMover?.reset();
   }
 
   /** Repaint persisted visual-space geometry after a live UI Scale change. */
@@ -2553,6 +2580,7 @@ export class Hud {
     this.chatGeometry.reapply();
     this.targetFrameMover?.reapplyPosition();
     this.playerFrameMover?.reapplyPosition();
+    this.partyFrameMover?.reapplyPosition();
   }
 
   // The player frame docks inside #actionbar-stack, whose #bottom-bar ancestor
@@ -3081,8 +3109,11 @@ export class Hud {
       classCss,
       onTarget: (pid) => this.sim.targetEntity(pid),
       onContextMenu: (pid, name, x, y) => this.openContextMenu(pid, name, x, y),
-      onLeave: () => this.sim.partyLeave(),
-      leaveLabel: () => t('hud.social.leaveParty'),
+      // Row hover hook. Clique-style mouseover casting (acting on the hovered member)
+      // is deferred until the authoritative cast-on-target sim path exists, so this is
+      // a no-op for now. Leaving the party moved from a per-frame button to the self
+      // portrait context menu.
+      onHover: () => {},
       chipLabel: () => t('hudChrome.unitFrame.partyChip'),
       onToggleCollapse: () => this.togglePartyCollapsed(),
       partyAuras: this.partyAurasDeps,
@@ -3236,6 +3267,12 @@ export class Hud {
     showPrompt: (text, acceptLabel, onAccept, onDecline) =>
       this.showPrompt(text, acceptLabel, onAccept, onDecline),
     startWhisper: (name) => this.startWhisper(name),
+  });
+  private readonly devCommandWindow = new DevCommandWindow({
+    available: () => this.features.devCommandsEnabled === true,
+    world: () => this.sim,
+    closeOthers: () => this.closeOtherWindows('#dev-command-window'),
+    ...this.windowFocus('#dev-command-window'),
   });
   // Bags window painter (bags_view.ts core + bags_window.ts painter). It composes
   // the shared presentation bag (icon/money/tooltip) and adds the inventory-cluster
@@ -3634,7 +3671,7 @@ export class Hud {
         ({
           balance: null,
           skus: [],
-          nativeRails: { sol: false, woc: false },
+          nativeRails: { sol: false, usdc: false, woc: false },
         } satisfies ClaudiumSnapshot);
       this.setClaudiumLauncherBalance(snapshot.balance);
       return snapshot;
@@ -3710,7 +3747,7 @@ export class Hud {
   // gate ONLY when the target identity changes (or after invalidatePortrait), never
   // per frame, and reads the subject set just before that frame's paint() call. A
   // player target shows its real 3D class headshot (rendered locally from the synced
-  // class + skin); any other entity shows its faction/family crest.
+  // class + skin); mobs use committed model portraits and NPCs use their crest.
   private drawTargetPortrait(): void {
     const target = this.targetPortraitSubject;
     if (!target) return;
@@ -3721,10 +3758,21 @@ export class Hud {
         target.skin ?? 0,
       );
     } else {
-      this.portraits.drawCrest(
-        this.targetPortraitEl,
-        crestIdForEntity(target.kind, MOBS[target.templateId]?.family),
-      );
+      const template = MOBS[target.templateId];
+      const faceUrl = targetPortraitUrl(target.templateId, Boolean(template));
+      if (faceUrl) {
+        this.portraits.drawHeadshot(this.targetPortraitEl, faceUrl, () => {
+          this.portraits.drawCrest(
+            this.targetPortraitEl,
+            crestIdForEntity(target.kind, template?.family),
+          );
+        });
+      } else {
+        this.portraits.drawCrest(
+          this.targetPortraitEl,
+          crestIdForEntity(target.kind, template?.family),
+        );
+      }
     }
   }
 
@@ -4462,6 +4510,7 @@ export class Hud {
     // the party rows above).
     this.targetFrameMover?.relocalize();
     this.playerFrameMover?.relocalize();
+    this.partyFrameMover?.relocalize();
     if (this.questlogWindow.isOpen) this.questlogWindow.render();
     if ($('#bags').style.display !== 'none') this.renderBags();
     if (this.openVendorNpcId !== null && $('#vendor-window').style.display === 'block')
@@ -6350,7 +6399,8 @@ export class Hud {
     // target instance. (Targeting a world object hides the frame, like no target.)
     const target = p.targetId !== null ? sim.entities.get(p.targetId) : null;
     if (target && target.kind !== 'object') {
-      const isBoss = !!MOBS[target.templateId]?.boss;
+      const targetTemplate = MOBS[target.templateId];
+      const targetRank = targetRankView(targetTemplate);
       // The portrait gate fires inside paint(); hand it the subject to redraw.
       this.targetPortraitSubject = target;
       // The target is a NON-SELF frame; on low throttle its HP/level/
@@ -6411,7 +6461,7 @@ export class Hud {
               target.dead || !target.resourceType
                 ? ''
                 : `${Math.round(target.resource)} / ${target.maxResource}`,
-            levelText: isBoss ? BOSS_SKULL_GLYPH : String(target.level),
+            levelText: String(target.level),
             name: entityDisplayName(target),
             titlePre: this.targetTitleDecoration.pre,
             titlePost: this.targetTitleDecoration.post,
@@ -6427,8 +6477,12 @@ export class Hud {
       // Target-only sub-parts the family frame does not express, each routed through
       // the elided writers (the elite class + name color are the two writes the four
       // original writers cannot express, hence the toggleClass / setStyleProp).
-      this.toggleClass(this.targetFrameEl, 'elite', !!MOBS[target.templateId]?.elite);
-      this.setText(this.targetEliteTagEl, isBoss ? t('hud.core.boss') : t('hud.core.elite'));
+      this.toggleClass(this.targetFrameEl, 'elite', targetUsesEliteFrame(targetRank));
+      this.toggleClass(this.targetFrameEl, 'boss', targetRank === 'boss');
+      this.setText(
+        this.targetEliteTagEl,
+        targetRank === 'boss' ? t('hud.core.boss') : t('hud.core.elite'),
+      );
       // Linked-Discord players get their staff-role name color (else friendly/hostile),
       // plus a Discord info line (nickname + rank + role chips) under the healthbar.
       const tfRoleColor = target.kind === 'player' ? specialRoleColor(target.discordRole) : null;
@@ -8912,7 +8966,7 @@ export class Hud {
       // a screen reader hears (the throttled self-note precedent above).
       this.combatAnnouncer.push(bannerText, performance.now());
     }
-    if (plan.playSound) audio.levelUp();
+    if (plan.playSound) audio.achievement();
     if (plan.retroCount > 0) {
       const retroText = t('hudChrome.deeds.retroSummary', {
         count: formatNumber(plan.retroCount, { maximumFractionDigits: 0 }),
@@ -10895,11 +10949,33 @@ export class Hud {
     // Hoist the cheap signature (a single string pass, no intermediate arrays) AHEAD
     // of the selector so an unchanged party short-circuits before selectPartyFrameMembers
     // allocates its sorted / filtered / mapped arrays.
-    const sig = partyFrameSignature(info, this.sim.playerId, this.sim.player.pos);
+    const settings = this.optionsHooks?.settings;
+    const config = {
+      showSelf: settings?.get('partyFrameShowSelf') ?? false,
+      showResource: settings?.get('partyFrameShowResource') ?? true,
+      showAbsorbs: settings?.get('partyFrameShowAbsorbs') ?? true,
+      showAuras: settings?.get('partyFrameShowAuras') ?? true,
+      presentation: Math.round(settings?.get('partyFrameStyle') ?? 0) as 0 | 1 | 2,
+      healthText: Math.round(settings?.get('partyFrameHealthText') ?? 1) as 0 | 1 | 2 | 3,
+      sort: Math.round(settings?.get('partyFrameSort') ?? 0) as 0 | 1 | 2,
+    };
+    const sig = partyFrameSignature(
+      info,
+      this.sim.playerId,
+      this.sim.player.pos,
+      undefined,
+      config,
+    );
     if (sig === this.lastPartySig) return;
     this.lastPartySig = sig;
-    const others = selectPartyFrameMembers(info, this.sim.playerId, this.sim.player.pos);
-    this.partyFramesPainter.sync(others, info.leader, info.raid);
+    const others = selectPartyFrameMembers(
+      info,
+      this.sim.playerId,
+      this.sim.player.pos,
+      undefined,
+      config,
+    );
+    this.partyFramesPainter.sync(others, info.leader, info.raid, config);
     // Re-dock the Loot Settings panel below the (just re-synced) party frames when their
     // size changes (row count / raid grouping). Gated so the layout measure runs on a real
     // geometry change, not every combat tick; positionLootSettingsPanel honors a manual drag.
@@ -10916,36 +10992,25 @@ export class Hud {
   // Context menu on players
   // -------------------------------------------------------------------------
 
-  private openSelfContextMenu(x: number, y: number): void {
+  private openSelfContextMenu(x: number, y: number, opener: HTMLElement | null = null): void {
     const el = $('#ctx-menu');
+    this.ctxMenuOpener = opener;
     const party = this.sim.partyInfo;
-    const canConvert =
-      !!party && party.leader === this.sim.playerId && !party.raid && party.members.length >= 5;
-    const canUnconvert =
-      !!party && party.leader === this.sim.playerId && party.raid && party.members.length <= 5;
     let html = `<div class="ctx-title ctx-title-player">${portraitChipHtml({ cls: this.sim.cfg.playerClass, skin: this.sim.player.skin ?? 0, name: this.sim.player.name, variant: 'sm' })}<span class="ctx-title-name">${esc(this.sim.player.name)}</span></div>`;
-    if (canConvert)
-      html += `<div class="ctx-item" data-act="convert-raid">${esc(t('hud.chat.context.convertToRaid'))}</div>`;
-    if (canUnconvert)
-      html += `<div class="ctx-item" data-act="convert-party">${esc(t('hud.chat.context.convertToParty'))}</div>`;
-    if (party)
-      html += `<div class="ctx-item" data-act="loot-settings">${esc(t('hudChrome.lootSettings.menuItem'))}</div>`;
-    // Dungeon difficulty (classic portrait-menu placement): the label states
-    // the ACTION (switch to the other difficulty). Solo players and party
-    // leaders only; the sim refuses the change from other members. The
-    // confirmation toast comes back from the sim ("Dungeon difficulty set
-    // to ..."), re-localized by sim_i18n like every sim emit.
-    if (!party || party.leader === this.sim.playerId) {
-      const isHeroic = this.sim.dungeonDifficulty() === 'heroic';
-      html += `<div class="ctx-item" data-act="dungeon-difficulty">${esc(
-        t(
-          isHeroic
-            ? 'hudChrome.dungeonDifficulty.setNormal'
-            : 'hudChrome.dungeonDifficulty.setHeroic',
-        ),
-      )}</div>`;
+    // Party membership actions (convert, loot, leave), the dungeon-difficulty
+    // toggle, the reset-dungeons action, and close, resolved by the pure
+    // selfPlayerContextActions. Leaving the party lives here now, not a
+    // permanent button under the party frames.
+    const actions = selfPlayerContextActions({
+      inParty: !!party,
+      isLeader: party?.leader === this.sim.playerId,
+      isRaid: party?.raid ?? false,
+      partySize: party?.members.length ?? 1,
+      isHeroic: this.sim.dungeonDifficulty() === 'heroic',
+    });
+    for (const action of actions) {
+      html += `<div class="ctx-item" data-act="${action.id}">${esc(action.label)}</div>`;
     }
-    html += `<div class="ctx-item" data-act="close">${esc(t('hud.chat.context.cancel'))}</div>`;
     el.innerHTML = html;
     hydratePortraits(el);
     el.style.display = 'block';
@@ -10961,9 +11026,18 @@ export class Hud {
         this.sim.convertRaidToParty();
         this.socialWindow.selectRaidTab();
       } else if (act === 'loot-settings') this.openLootSettings();
+      else if (act === 'leave-party') this.sim.partyLeave();
       else if (act === 'dungeon-difficulty') {
         this.sim.setDungeonDifficulty(
           this.sim.dungeonDifficulty() === 'heroic' ? 'normal' : 'heroic',
+        );
+      } else if (act === 'reset-dungeons') {
+        this.confirmDialog(
+          t('hudChrome.dungeonDifficulty.resetConfirmTitle'),
+          t('hudChrome.dungeonDifficulty.resetConfirmBody'),
+          t('hudChrome.dungeonDifficulty.resetConfirm'),
+          t('hud.chat.context.cancel'),
+          () => this.sim.chat('/dungeon reset'),
         );
       }
     });
@@ -11798,6 +11872,10 @@ export class Hud {
 
   toggleSocial(): void {
     this.socialWindow.toggle();
+  }
+
+  toggleDevCommandWindow(): boolean {
+    return this.devCommandWindow.toggle();
   }
 
   // Open the chat bar pre-filled with a whisper to this player (classic-MMO-style DM).
