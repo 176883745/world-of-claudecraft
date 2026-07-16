@@ -123,7 +123,7 @@ export function updatePlayerAutoAttack(ctx: SimContext, p: Entity, meta: PlayerM
   if (facingDiff > MELEE_ARC) return;
 
   // ranged auto-attack: hunters (auto shot, dead zone inside minRange) and
-  // casters (wand-style, no dead zone so they don't run into melee — #94).
+  // casters (wand-style, no dead zone so they don't run into melee, #94).
   // Form-aware: a druid keeps the class wand only in caster or Moonwing Form;
   // bear/cat/travel resolve to undefined here and fall through to melee.
   const ranged = rangedAutoProfile(p, meta.cls);
