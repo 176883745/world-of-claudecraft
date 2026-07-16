@@ -54,13 +54,13 @@ import {
 } from '../types';
 import { drawWeapon } from '../weapon_stow';
 import { isInStasis, isLockedOut, isSilenced, isStunned, tonguesMult } from './cc';
-import { extendOwnedDot } from './dot_mutation';
 import {
   ARCANE_SURGE_ID,
   aetherDartsBoltBonus,
   aetherDartsChannelStart,
   aetherSurgeCastMult,
 } from './chronomancy';
+import { extendOwnedDot } from './dot_mutation';
 import {
   consumeFreeCostFor,
   consumeNextAttackCrit,
@@ -70,7 +70,7 @@ import {
   hasScopedNextCastInstant,
   nextCastCheapMultiplier,
 } from './empower_next';
-import { isActionLockingFormAuraKind, isFormAuraKind } from './forms';
+import { isActionLockingFormAuraKind, isFormAuraKind, isResourceShiftFormAuraKind } from './forms';
 import {
   applyBrainFreezeOverride,
   brainFreezeBypassesCooldown,
@@ -943,7 +943,16 @@ function spendAbilityCost(
   const shift = formShiftKind(p, res.def);
   if (shift === 'off') return;
   if (shift === 'cross') {
-    p.savedMana = Math.max(0, p.savedMana - res.cost);
+    // The parked-mana debit only applies when the CURRENT form swapped the
+    // resource bar (bear/cat rage/energy park the mana pool). A caster form
+    // (moonkin/shadow) keeps the live mana bar, and recalc would overwrite
+    // savedMana on the next resource-shift entry anyway, so bill live mana.
+    const parked = p.auras.some((a) => isResourceShiftFormAuraKind(a.kind));
+    if (parked) {
+      p.savedMana = Math.max(0, p.savedMana - res.cost);
+    } else {
+      spendResource(p, res.cost);
+    }
     return;
   }
   spendResource(p, res.cost);
