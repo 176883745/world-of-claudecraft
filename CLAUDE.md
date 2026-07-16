@@ -150,6 +150,14 @@ with `npm run gate` (above) before calling it done.
 
 ## Conventions
 - **ESM + TypeScript `strict`** everywhere. 2-space indent; match the surrounding file.
+- **TypeScript toolchain:** `tsc` is the TypeScript 7 native binary (installed as the
+  `@typescript/native` alias); a full-repo `npx tsc --noEmit` takes about 2 seconds, so run it
+  liberally as a check while working. `require('typescript')` deliberately resolves a
+  TypeScript 6 JS API wrapper because svelte-check needs that API; never collapse the dual
+  alias yourself (the collapse triggers live in CONTRIBUTING.md, "TypeScript toolchain", and
+  `tests/server/new_endpoint.test.ts` pins both arms). Regenerate `package-lock.json` ONLY
+  with `npx npm@10 install --package-lock-only`; plain `npm ci` is safe on any npm major
+  (rationale in CONTRIBUTING.md).
 - **Keep the dependency set tiny.** Don't add packages without a clear need. (Svelte
   and `@sveltejs/vite-plugin-svelte` are the one sanctioned exception, scoped to the
   `src/admin/` dashboard bundle; the game/guide/play entries stay framework-free.)
