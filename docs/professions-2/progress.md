@@ -11,7 +11,7 @@ Update this file at the end of every implementation and QA session. Statuses:
 | 1 QA | Verify ring and identity foundations | complete | 2026-07-17 | 2026-07-17 |
 | 2 | Masterwork model | complete | 2026-07-17 | 2026-07-17 |
 | 2 QA | Verify masterwork model | complete | 2026-07-17 | 2026-07-17 |
-| 3 | Host-parity bug fixes | not started | | |
+| 3 | Host-parity bug fixes | complete | 2026-07-17 | 2026-07-17 |
 | 3 QA | Verify host-parity bug fixes | not started | | |
 | 4 | Node materials and pristine veins | not started | | |
 | 4 QA | Verify node materials and pristine veins | not started | | |
@@ -104,9 +104,30 @@ ignores unknown SimEvent types, so a new server's masterwork event is
 harmless to an old client.
 
 ### Phase 3: Host-parity bug fixes
-- [ ] Trade carries `ItemInstancePayload` end to end (regression test)
-- [ ] `harvestClaimedBy` mirrored online; corpse picker stops offering claimed corpses
-- [ ] Crafting view consumes the shared combo-eligibility rule in both hosts
+- [x] Trade carries `ItemInstancePayload` end to end (regression test)
+- [x] `harvestClaimedBy` mirrored online; corpse picker stops offering claimed corpses
+- [x] Crafting view consumes the shared combo-eligibility rule in both hosts
+
+Completed 2026-07-17. The trade code fix had pre-landed on release via
+PR 2045; this phase added the missing bidirectional full-payload pin
+(signer, charges, rolled including the masterwork marker, enchant,
+boundTo, both directions in one mixed trade). harvestClaimedBy rides
+the per-entity wire as the sparse hcb key (server/game.ts dynamicFields
+emit, unconditional ClientWorld reset in src/net/online.ts), pinned by
+the round-trip suite in tests/snapshots.test.ts and the online-picker
+parity suite in tests/corpse_harvest_sim.test.ts; hcb is deliberately
+NOT in ALL_DELTA_KEYS / TERSE_TO_IWORLD (those pin selfWireJson maybe()
+self keys; the per-entity round-trip + bandwidth pins are the teeth).
+Combo-gating liveness pinned in
+tests/crafting_view_combo_liveness.test.ts (Sim and ClientWorld arms
+fed by a real cprof broadcast; decisiveness mutation-tested). Review
+fan-out (cross-platform-sync, privacy-security, qa-checklist,
+test-coverage-auditor): PASS, zero blocking. Deferred to Phase 4:
+src/main.ts still passes harvestStateReliable = (online === null) at
+the three interaction open-gate sites, so the truthful mirror is not
+yet consumed at the online OPEN gate (harvest-only corpses still do
+not open online, pre-existing); flip with an open-gate test when
+Phase 4 makes gathering trust corpse claims (details in state.md).
 
 ### Phase 4: Node materials and pristine veins
 - [ ] Per-rarity node material tables replace placeholder junk (zone-1 stays low-tier)

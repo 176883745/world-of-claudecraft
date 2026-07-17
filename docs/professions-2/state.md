@@ -201,11 +201,13 @@ Phase 13), and interaction handlers return an outcome boolean (#1982).
   throttle + gold sink (#1301). NO skillReq admission gate.
 - Instances: ItemInstancePayload {signer, charges, rolled, boundTo} rides the
   inv wire; bags/bank/equip/save-load correct; trade CARRIES payloads (the
-  Phase 3 trade deliverable pre-landed on release via PR 2045, regression
-  test in tests/trade.test.ts; Phase 3 keeps only the harvestClaimedBy
-  mirror); mail/market refuse instanced items (wave 2).
+  Phase 3 trade deliverable pre-landed on release via PR 2045; Phase 3 added
+  the bidirectional full-payload pin, signer/charges/rolled incl masterwork/
+  enchant/boundTo in one mixed trade, in tests/trade.test.ts); mail/market
+  refuse instanced items (wave 2).
 - Gathering: nodes (harvestNode both hosts, ncd cooldowns), corpse harvesting
-  (claims + focus picker + town focus, tfocus), fixed corpse rarity baseline
+  (claims + focus picker + town focus, tfocus; claims mirrored online via the
+  per-entity hcb key since Phase 3), fixed corpse rarity baseline
   40; node yields are placeholder junk until Phase 4.
 - Salvage/disenchant/enchant: sim-complete in salvage.ts / enchanting.ts;
   lastSalvageResult/lastDisenchantResult/lastEnchantResult on PlayerMeta;
@@ -379,7 +381,39 @@ tables, i18n key namespaces, files created)
   - Mixed-fleet check: the previous release's HUD event if-chain
     ignores unknown SimEvent types, so a new server's masterwork event
     is harmless to an old client during a staged rollout.
-- Phase 3: (planned) hcb wire key (corpse claims); trade payload carriage.
+- Phase 3: LANDED 2026-07-17. hcb wire key (corpse claims): sparse per-entity
+  emit in server/game.ts dynamicFields (present only when claimed, so the
+  entity delta cache elides unclaimed corpses byte-unchanged) + unconditional
+  reset-on-absence mirror in src/net/online.ts applyWire. Pinned by the
+  round-trip suite in tests/snapshots.test.ts (claimed, sparse absence,
+  stale-claim clear) and the online-picker parity suite in
+  tests/corpse_harvest_sim.test.ts (claimed corpse harvestable false against
+  a ClientWorld-shaped mirror). hcb is deliberately NOT in ALL_DELTA_KEYS or
+  TERSE_TO_IWORLD: those pin selfWireJson maybe() self keys only (the scrape
+  test asserts set-equality), and a per-entity dynamicFields key is pinned by
+  the round-trip + bandwidth tests instead; the phase file's pin instruction
+  was written for self keys (deviation reviewed, cross-platform-sync PASS).
+  Trade payload carriage pre-landed via PR 2045; Phase 3 added the
+  bidirectional full-payload pin (tests/trade.test.ts) and the combo-gating
+  liveness pin (tests/crafting_view_combo_liveness.test.ts: Sim and
+  ClientWorld arms fed by a real cprof broadcast, decisiveness
+  mutation-tested). No IWorld member changes; world_api_parity untouched.
+  - DEFERRED to Phase 4 (gathering trusts corpse claims): src/main.ts still
+    passes harvestStateReliable = (online === null) at its three interaction
+    open-gate sites, so the truthful mirror is consumed by the in-window
+    picker (hud.ts wiring defaults reliable true) but not yet at the online
+    OPEN gate: a harvest-only corpse (tags, no regular loot) still never
+    opens online, a pre-existing limitation, not a Phase 3 regression. Flip
+    the three sites to trust the mirror, with an open-gate test, when
+    Phase 4 makes gathering trust corpse claims.
+  - Drift notes: instance-level boundTo copies are tradeable (tradeSetOffer
+    gates only def-level soulbound; carried verbatim per #1298, possible
+    design follow-up); vendor sellItem buyback still re-grants a plain copy
+    losing the payload (pre-existing, documented in trade.ts's header, out
+    of scope); the bareClient test fixture now has three hand-rolled copies
+    (snapshots, corpse_harvest_sim, combo liveness suites): rule-of-three
+    tripped, a shared tests/helpers/ extraction is a Phase 3 QA or Phase 15
+    cleanup candidate.
 - Phase 4: (planned) node material tables; per-node-type rare events
   (pristine vein / ancient heartwood / moonlit bloom) + deed-mark hooks.
 - Phase 5: (planned) professions window (.window id professions-window) +
