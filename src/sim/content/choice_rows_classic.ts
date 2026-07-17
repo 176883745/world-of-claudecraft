@@ -1999,15 +1999,18 @@ export const DRUID_CHOICE_ROWS: ClassChoiceRows = {
           effect: { grant: { ability: 'typhoon' } },
         },
         {
+          // Balance pass: the root has no cooldown, so the instant Wildbolt
+          // now sits behind an internal cooldown instead of chaining forever.
           id: 'dru_r8_improved_roots',
           name: 'Briar Ambush',
-          description: 'Gripping Roots makes your next Wildbolt within 8 sec instant.',
+          description:
+            'Gripping Roots makes your next Wildbolt within 8 sec instant, at most once every 15 sec.',
           icon: 'entangling_roots',
           effect: {
             proc: {
               id: 'dru_briar_ambush',
               name: 'Briar Ambush',
-              trigger: { on: 'castNth', n: 1, abilities: ['entangling_roots'] },
+              trigger: { on: 'castNth', n: 1, abilities: ['entangling_roots'], icd: 15 },
               responses: [
                 {
                   kind: 'empowerNext',
@@ -2123,15 +2126,18 @@ export const DRUID_CHOICE_ROWS: ClassChoiceRows = {
           },
         },
         {
+          // Balance pass: was n:1 off a no-cooldown instant, which made every
+          // Skyfall in the game instant forever. Now every 3rd, behind an icd.
           id: 'dru_r14_moonfury',
           name: 'Moonspite',
-          description: 'Lunar Tempest makes your next Skyfall within 8 sec instant.',
+          description:
+            'Every 3rd Lunar Tempest makes your next Skyfall within 8 sec instant, at most once every 15 sec.',
           icon: 'moonfire',
           effect: {
             proc: {
               id: 'dru_moonspite',
               name: 'Moonspite',
-              trigger: { on: 'castNth', n: 1, abilities: ['moonfire'] },
+              trigger: { on: 'castNth', n: 3, abilities: ['moonfire'], icd: 15 },
               responses: [
                 {
                   kind: 'empowerNext',
@@ -2222,18 +2228,21 @@ export const DRUID_CHOICE_ROWS: ClassChoiceRows = {
       decision: 'Galeheart cadence vs feral burst vs party healing channel',
       options: [
         {
+          // Balance pass: buffed into a real capstone (was a 4 sec refund on
+          // a 12 sec cooldown plus one free 25-mana Lunar Tempest).
           id: 'dru_r20_improved_hurricane',
           name: 'Storm Refrain',
           description:
-            'Starting Galeheart removes 4 sec from its cooldown and makes your next Lunar Tempest within 8 sec free.',
+            'Galeheart costs 50% less, and starting it removes 6 sec from its cooldown and makes your next Lunar Tempest within 8 sec free.',
           icon: 'hurricane',
           effect: {
+            ability: [{ ability: 'hurricane', costPct: -0.5 }],
             proc: {
               id: 'dru_improved_hurricane',
               name: 'Storm Refrain',
               trigger: { on: 'castNth', n: 1, abilities: ['hurricane'] },
               responses: [
-                { kind: 'cooldownRefund', ability: 'hurricane', seconds: 4 },
+                { kind: 'cooldownRefund', ability: 'hurricane', seconds: 6 },
                 {
                   kind: 'empowerNext',
                   aura: 'next_cast_free',

@@ -229,7 +229,8 @@ describe('druid wave 2 choice rows', () => {
     expect(bear.p.auras.some((a) => a.id === 'dru_survival_of_the_fittest')).toBe(true);
     bear.p.cooldowns.set('hurricane', 10);
     completeCast(bear.sim, 'hurricane');
-    expect(bear.p.cooldowns.get('hurricane')).toBe(6);
+    // Balance pass: the capstone refund is 6 sec now (10 - 6 = 4 remaining).
+    expect(bear.p.cooldowns.get('hurricane')).toBe(4);
     expect(bear.p.auras.some((a) => a.id === 'dru_improved_hurricane')).toBe(true);
   });
 });
