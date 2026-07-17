@@ -170,27 +170,26 @@ describe('buildDeedsLeaderboardView', () => {
     expect(offPage.rows.every((r) => !r.me)).toBe(true);
   });
 
-  it('passes the server-resolved self standing through, null when absent', () => {
-    // A current server sends the account's renown on the self line; the core
-    // passes it through untouched so the painter can render the
-    // Renown-carrying arm.
+  it('decides the self-line arm in the core: account with renown, rank without, null absent', () => {
+    // A current server sends the account's renown: the CORE picks the
+    // 'account' arm, so the choice is behaviorally pinned here (the painter
+    // only maps each kind to its t() key; swapping the keys between arms
+    // fails the painter's arm-bound source pin, not just a scan).
     const withRenown = buildDeedsLeaderboardView({
       kind: 'page',
       page: page({ self: { rank: 12, topPercent: 4, renown: 1620 } }),
     });
     if (withRenown.kind !== 'ranked') throw new Error('expected ranked');
-    expect(withRenown.self).toEqual({ rank: 12, topPercent: 4, renown: 1620 });
+    expect(withRenown.self).toEqual({ kind: 'account', rank: 12, topPercent: 4, renown: 1620 });
 
-    // An OLDER server (rolling deploy, self-hosted) omits renown: the line
-    // still flows, renown-less, so the painter falls back to the rank-only
-    // arm rather than dropping the standing.
+    // An OLDER server (rolling deploy, self-hosted) omits renown: the core
+    // falls back to the rank-only arm rather than dropping the standing.
     const withSelf = buildDeedsLeaderboardView({
       kind: 'page',
       page: page({ self: { rank: 12, topPercent: 4 } }),
     });
     if (withSelf.kind !== 'ranked') throw new Error('expected ranked');
-    expect(withSelf.self).toEqual({ rank: 12, topPercent: 4 });
-    expect(withSelf.self?.renown).toBeUndefined();
+    expect(withSelf.self).toEqual({ kind: 'rank', rank: 12, topPercent: 4 });
 
     const withoutSelf = buildDeedsLeaderboardView({ kind: 'page', page: page() });
     if (withoutSelf.kind !== 'ranked') throw new Error('expected ranked');

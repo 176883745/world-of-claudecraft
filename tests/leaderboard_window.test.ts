@@ -251,13 +251,14 @@ describe('leaderboard_window: Renown (deeds) board tab', () => {
   });
 
   it('renders the localized self standing line only when the server resolved one', () => {
-    // Two arms: a current server sends self.renown (the account line the
-    // player can verify against their Book); an older server omits it and
-    // gets the rank-only line. Neither renders when self is null.
-    expect(code).toContain("t('hudChrome.deeds.lbSelfAccount'");
-    expect(code).toContain("t('hudChrome.deeds.lbSelfRank'");
+    // Two arms decided by the PURE CORE (kind 'account' with renown, kind
+    // 'rank' without; behaviorally pinned in deeds_leaderboard_view.test.ts).
+    // Here each t() key is bound to ITS arm of the ternary, so swapping the
+    // keys between arms fails this pin, not just a bare contains-scan.
+    expect(code).toMatch(
+      /self\.kind === 'account'\s*\?\s*t\('hudChrome\.deeds\.lbSelfAccount'[\s\S]{0,220}:\s*t\('hudChrome\.deeds\.lbSelfRank'/,
+    );
     expect(code).toMatch(/deedsSelfHtml\([\s\S]{0,400}if \(!self\) return '';/);
-    expect(code).toMatch(/self\.renown !== undefined/);
     // The renown value goes through formatNumber, never raw interpolation.
     expect(code).toMatch(/renown: formatNumber\(self\.renown/);
   });

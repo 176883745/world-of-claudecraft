@@ -601,16 +601,16 @@ export class LeaderboardWindow {
   }
 
   // The viewer's own account standing, server-resolved (present only for an
-  // authenticated caller who is on the board). With the account's Renown on
-  // the line (a current server), a single-character player can verify it
-  // against their Book of Deeds; an older server omits renown and gets the
-  // rank-only arm.
+  // authenticated caller who is on the board). The pure core already decided
+  // the arm ('account' carries the board-scored Renown a single-character
+  // player can verify against their Book; 'rank' is the old-server
+  // fallback); this only maps each kind to its t() key.
   private deedsSelfHtml(self: DeedsLeaderboardSelfLine | null): string {
     if (!self) return '';
     const rank = formatNumber(self.rank, { maximumFractionDigits: 0 });
     const percent = formatNumber(self.topPercent, { maximumFractionDigits: 0 });
     const line =
-      self.renown !== undefined
+      self.kind === 'account'
         ? t('hudChrome.deeds.lbSelfAccount', {
             rank,
             percent,
