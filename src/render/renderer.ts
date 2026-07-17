@@ -49,7 +49,12 @@ import {
   createCharacterVisual,
   setWeaponVfxViewportHeight,
 } from './characters';
-import { mechAssetsReady, preloadMechAssets } from './characters/assets';
+import {
+  mechAssetsReady,
+  preloadMechAssets,
+  preloadTrainingDummyAssets,
+  trainingDummyAssetsReady,
+} from './characters/assets';
 import { skinCount, visualKeyFor } from './characters/manifest';
 import {
   playerRangedAttackAlreadyStarted,
@@ -3441,6 +3446,12 @@ export class Renderer {
       if (visualKey === 'player_mech' && !mechAssetsReady()) {
         void preloadMechAssets().catch((err) =>
           console.error('Failed to preload live mech cosmetic:', err),
+        );
+        return;
+      }
+      if (visualKey === 'mob_training_dummy' && !trainingDummyAssetsReady()) {
+        void preloadTrainingDummyAssets().catch((err) =>
+          console.error('Failed to preload the Training Dummy:', err),
         );
         return;
       }
