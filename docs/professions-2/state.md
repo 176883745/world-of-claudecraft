@@ -4,7 +4,8 @@ The ONLY file every session must trust. Update it at the end of every phase.
 
 ## Current phase
 
-Phase 1 (Ring and identity foundations): not started.
+Phase 1 (Ring and identity foundations): complete (landed on the PR 2039
+head, 2026-07-17). Next: Phase 1 QA (phase-01-qa.md), then Phase 2.
 
 ## Locked design decisions
 
@@ -106,6 +107,11 @@ Phase 1 (Ring and identity foundations): not started.
   `npx @biomejs/biome check --write <file>`.
 
 ## Key existing surfaces (verified 2026-07-16, release/v0.27.0 + PR 2039)
+
+Note (2026-07-17): release moved after this verification; re-verify against
+code per the docs anchor rule. Known drift so far: enchanting shipped a
+two-tier table with a shard-consuming Greater tier (#1950, relevant to
+Phase 13), and interaction handlers return an outcome boolean (#1982).
 
 - Craft skills: PlayerMeta.craftSkills; wheel math in
   src/sim/professions/wheel.ts (TIER_SKILL_STEP=25, tierForSkill,
