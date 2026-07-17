@@ -103,7 +103,14 @@ function fireOne(
       player.resource = Math.min(player.maxResource, player.resource + response.amount);
       break;
     case 'heal':
-      ctx.applyHeal(player, subject, response.amount, def.name);
+      ctx.applyHeal(
+        player,
+        subject,
+        response.amountPctMaxHp !== undefined
+          ? Math.round(subject.maxHp * response.amountPctMaxHp)
+          : (response.amount ?? 0),
+        def.name,
+      );
       break;
     case 'absorb':
       ctx.applyAura(subject, {
@@ -112,7 +119,10 @@ function fireOne(
         kind: 'absorb',
         remaining: response.duration,
         duration: response.duration,
-        value: response.amount,
+        value:
+          response.amountPctMaxHp !== undefined
+            ? Math.round(subject.maxHp * response.amountPctMaxHp)
+            : (response.amount ?? 0),
         sourceId: player.id,
         school: def.school ?? 'holy',
       });
@@ -131,7 +141,10 @@ function fireOne(
         kind: 'heal_echo',
         remaining: response.window,
         duration: response.window,
-        value: response.heal,
+        value:
+          response.healPctMaxHp !== undefined
+            ? Math.round(subject.maxHp * response.healPctMaxHp)
+            : (response.heal ?? 0),
         value2: response.belowFrac,
         sourceId: player.id,
         school: 'holy',

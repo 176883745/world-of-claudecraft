@@ -168,9 +168,19 @@ export type ProcResponse =
     }
   | { kind: 'cooldownRefund'; ability: string; seconds: number | 'reset' }
   | { kind: 'resource'; amount: number; resourceType?: ResourceType }
-  | { kind: 'heal'; amount: number }
-  | { kind: 'absorb'; amount: number; duration: number; name: string }
-  | { kind: 'echo'; belowFrac: number; window: number; heal: number; name: string };
+  // The pct-of-max-health variants (phase-2 defensive pass) override the flat
+  // number when present, so the responses scale with the wearer instead of
+  // rotting as levels rise.
+  | { kind: 'heal'; amount?: number; amountPctMaxHp?: number }
+  | { kind: 'absorb'; amount?: number; amountPctMaxHp?: number; duration: number; name: string }
+  | {
+      kind: 'echo';
+      belowFrac: number;
+      window: number;
+      heal?: number;
+      healPctMaxHp?: number;
+      name: string;
+    };
 
 export interface ProcDef {
   id: string;

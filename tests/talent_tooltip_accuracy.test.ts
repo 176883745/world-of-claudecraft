@@ -188,6 +188,9 @@ const PCT_FIELDS = new Set([
   // proc trigger fire chance (Venom Dividend, shown as "20% chance").
   'critPct',
   'chance',
+  // Phase-2 defensive pass: pct-of-max-health proc responses.
+  'amountPctMaxHp',
+  'healPctMaxHp',
   // Serpent's Venom (hunter choice row): the added dot totals a fraction of the
   // direct hit (effect_dispatch resolves total = lastDirectDamage * directPct),
   // shown as "50% of its damage".

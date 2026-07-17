@@ -609,17 +609,21 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           },
         },
         {
+          // Phase-2 defensive pass: the flat 200 was ~45% of an 11-hunter's
+          // bar; the ward is 20% of max health now and scales forever.
           id: 'hun_r11_survival_instincts',
           name: 'Deathless Will',
           description:
-            'Taking a hit for at least 30% of your maximum health grants a shield absorbing 200 damage for 8 sec. 30 sec internal cooldown.',
+            'Taking a hit for at least 30% of your maximum health grants a shield absorbing 20% of your maximum health for 8 sec. 30 sec internal cooldown.',
           icon: 'aspect_of_the_monkey',
           effect: {
             proc: {
               id: 'hun_deathless_will',
               name: 'Deathless Will',
               trigger: { on: 'bigHitTaken', hpFrac: 0.3, icd: 30 },
-              responses: [{ kind: 'absorb', amount: 200, duration: 8, name: 'Deathless Will' }],
+              responses: [
+                { kind: 'absorb', amountPctMaxHp: 0.2, duration: 8, name: 'Deathless Will' },
+              ],
             },
           },
         },
@@ -1287,14 +1291,16 @@ export const PRIEST_CHOICE_ROWS: ClassChoiceRows = {
           id: 'pri_r17_inner_fire',
           name: 'Wounded Halo',
           description:
-            'Taking a hit for at least 15% of your maximum health kindles a ward absorbing 70 damage for 10 sec. 20 sec internal cooldown.',
+            'Taking a hit for at least 15% of your maximum health kindles a ward absorbing 15% of your maximum health for 10 sec. 20 sec internal cooldown.',
           icon: 'power_word_shield',
           effect: {
             proc: {
               id: 'pri_inner_fire',
               name: 'Wounded Halo',
               trigger: { on: 'bigHitTaken', hpFrac: 0.15, icd: 20 },
-              responses: [{ kind: 'absorb', amount: 70, duration: 10, name: 'Wounded Halo' }],
+              responses: [
+                { kind: 'absorb', amountPctMaxHp: 0.15, duration: 10, name: 'Wounded Halo' },
+              ],
             },
           },
         },
@@ -1575,17 +1581,19 @@ export const SHAMAN_CHOICE_ROWS: ClassChoiceRows = {
           effect: { ability: [{ ability: 'ghost_wolf', castPct: -1 }] },
         },
         {
+          // Phase-2 defensive pass: the copy-paste shield becomes the shaman
+          // flavor: the ancestors knit the wound shut on the spot.
           id: 'sha_r17_elemental_warding',
-          name: 'Stonewake Shell',
+          name: 'Ancestral Mending',
           description:
-            'Taking a hit for at least 15% of your maximum health raises an earthen shell absorbing 80 damage for 10 sec. 20 sec internal cooldown.',
+            'Taking a hit for at least 15% of your maximum health instantly heals you for 12% of your maximum health. 20 sec internal cooldown.',
           icon: 'lightning_shield',
           effect: {
             proc: {
               id: 'sha_elemental_warding',
-              name: 'Stonewake Shell',
+              name: 'Ancestral Mending',
               trigger: { on: 'bigHitTaken', hpFrac: 0.15, icd: 20 },
-              responses: [{ kind: 'absorb', amount: 80, duration: 10, name: 'Stonewake Shell' }],
+              responses: [{ kind: 'heal', amountPctMaxHp: 0.12 }],
             },
           },
         },
@@ -1751,17 +1759,27 @@ export const WARLOCK_CHOICE_ROWS: ClassChoiceRows = {
           effect: { ability: [{ ability: 'drain_life', castWhileMoving: true }] },
         },
         {
+          // Phase-2 defensive pass: the copy-paste shield becomes a demonic
+          // safety net: the pact pays out only if the beating continues.
           id: 'wlk_r11_demon_armor',
           name: 'Fiendward',
           description:
-            'Taking a hit for at least 15% of your maximum health raises a ward absorbing 60 damage for 10 sec. 20 sec internal cooldown.',
+            'Taking a hit for at least 15% of your maximum health binds your demon to you for 10 sec: if you fall below 35% health, it heals you for 15% of your maximum health. 20 sec internal cooldown.',
           icon: 'demon_skin',
           effect: {
             proc: {
               id: 'wlk_demon_armor',
               name: 'Fiendward',
               trigger: { on: 'bigHitTaken', hpFrac: 0.15, icd: 20 },
-              responses: [{ kind: 'absorb', amount: 60, duration: 10, name: 'Fiendward' }],
+              responses: [
+                {
+                  kind: 'echo',
+                  belowFrac: 0.35,
+                  window: 10,
+                  healPctMaxHp: 0.15,
+                  name: 'Fiendward',
+                },
+              ],
             },
           },
         },
@@ -1836,19 +1854,14 @@ export const WARLOCK_CHOICE_ROWS: ClassChoiceRows = {
           effect: { ability: [{ ability: 'fear', castPct: -1, cooldownFlat: 16 }] },
         },
         {
+          // Phase-2 defensive pass: the second warlock panic response becomes
+          // proactive leech sustain instead (Consume heals 100% of damage, so
+          // the damage boost is the healing boost).
           id: 'wlk_r17_demonic_resilience',
-          name: 'Unyielding Pact',
-          description:
-            'Taking a hit for at least 15% of your maximum health heals you for 50. 20 sec internal cooldown.',
+          name: 'Deep Hunger',
+          description: 'Consume deals 50% more damage.',
           icon: 'demon_skin',
-          effect: {
-            proc: {
-              id: 'wlk_unyielding_pact',
-              name: 'Unyielding Pact',
-              trigger: { on: 'bigHitTaken', hpFrac: 0.15, icd: 20 },
-              responses: [{ kind: 'heal', amount: 50 }],
-            },
-          },
+          effect: { ability: [{ ability: 'drain_life', dmgPct: 0.5 }] },
         },
       ],
     },
@@ -2209,10 +2222,12 @@ export const DRUID_CHOICE_ROWS: ClassChoiceRows = {
           effect: { grant: { ability: 'frenzied_regeneration' } },
         },
         {
+          // Phase-2 defensive pass: the rage kick stays (the least-lazy of the
+          // old seven); the absorb scales with max health now.
           id: 'dru_r17_survival_of_the_fittest',
           name: 'Ironhide Reflex',
           description:
-            'Taking a hit for at least 20% of your maximum health shields you, absorbing 80 damage for 6 sec. While in Bruin Form, it also restores 20 rage. 20 sec internal cooldown.',
+            'Taking a hit for at least 20% of your maximum health shields you, absorbing 15% of your maximum health for 6 sec. While in Bruin Form, it also restores 20 rage. 20 sec internal cooldown.',
           icon: 'bear_form',
           effect: {
             proc: {
@@ -2221,7 +2236,7 @@ export const DRUID_CHOICE_ROWS: ClassChoiceRows = {
               trigger: { on: 'bigHitTaken', hpFrac: 0.2, icd: 20 },
               responses: [
                 { kind: 'resource', amount: 20, resourceType: 'rage' },
-                { kind: 'absorb', amount: 80, duration: 6, name: 'Ironhide Reflex' },
+                { kind: 'absorb', amountPctMaxHp: 0.15, duration: 6, name: 'Ironhide Reflex' },
               ],
             },
           },

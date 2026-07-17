@@ -9125,12 +9125,27 @@ function procResponseDescription(
       return `${abilityName(response.ability)}: -${response.seconds === 'reset' ? formatPercent(1, lang) : seconds(response.seconds, lang)} ${text.statLabels.cooldown}`;
     case 'resource':
       return `+${formatNumber(response.amount, lang)} ${t('classDetails.labels.resource')}`;
-    case 'heal':
-      return `+${formatNumber(response.amount, lang)} ${t('hud.meters.healing')}`;
-    case 'absorb':
-      return `${t('hudChrome.auraEffect.absorb', { value: formatNumber(response.amount, lang) })} (${seconds(response.duration, lang)})`;
-    case 'echo':
-      return `+${formatNumber(response.heal, lang)} ${t('hud.meters.healing')} @ <= ${formatPercent(response.belowFrac, lang)} ${text.statLabels.maxHpPct} (${seconds(response.window, lang)})`;
+    case 'heal': {
+      const healValue =
+        response.amountPctMaxHp !== undefined
+          ? `${formatPercent(response.amountPctMaxHp, lang)} ${text.statLabels.maxHpPct}`
+          : formatNumber(response.amount ?? 0, lang);
+      return `+${healValue} ${t('hud.meters.healing')}`;
+    }
+    case 'absorb': {
+      const absorbValue =
+        response.amountPctMaxHp !== undefined
+          ? `${formatPercent(response.amountPctMaxHp, lang)} ${text.statLabels.maxHpPct}`
+          : formatNumber(response.amount ?? 0, lang);
+      return `${t('hudChrome.auraEffect.absorb', { value: absorbValue })} (${seconds(response.duration, lang)})`;
+    }
+    case 'echo': {
+      const echoValue =
+        response.healPctMaxHp !== undefined
+          ? `${formatPercent(response.healPctMaxHp, lang)} ${text.statLabels.maxHpPct}`
+          : formatNumber(response.heal ?? 0, lang);
+      return `+${echoValue} ${t('hud.meters.healing')} @ <= ${formatPercent(response.belowFrac, lang)} ${text.statLabels.maxHpPct} (${seconds(response.window, lang)})`;
+    }
   }
 }
 

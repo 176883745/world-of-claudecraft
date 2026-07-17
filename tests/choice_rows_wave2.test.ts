@@ -155,7 +155,10 @@ describe('hunter wave 2 choice rows', () => {
 
     const guarded = rig('hunter', 20, { 11: 'hun_r11_survival_instincts' });
     dealDamage(guarded.sim, guarded.p, Math.ceil(guarded.p.maxHp * 0.35));
-    expect(guarded.p.auras.find((a) => a.id === 'hun_deathless_will')?.value).toBe(200);
+    // Phase-2 defensive pass: the ward is 20% of max health, not a flat 200.
+    expect(guarded.p.auras.find((a) => a.id === 'hun_deathless_will')?.value).toBe(
+      Math.round(guarded.p.maxHp * 0.2),
+    );
   });
 });
 
@@ -283,14 +286,21 @@ describe('warlock wave 2 choice rows', () => {
     };
     expect(hit(true)).toBeGreaterThan(hit(false) * 1.15);
 
+    // Phase-2 defensive pass: Fiendward is a demonic safety net now: the big
+    // hit arms a 10 sec echo that pays 15% max health only if the wearer then
+    // falls below 35%.
     const guarded = rig('warlock', 20, {
       11: 'wlk_r11_demon_armor',
       17: 'wlk_r17_demonic_resilience',
     });
-    guarded.p.hp = Math.round(guarded.p.maxHp * 0.5);
-    const before = guarded.p.hp;
-    dealDamage(guarded.sim, guarded.p, Math.ceil(guarded.p.maxHp * 0.2));
-    expect(guarded.p.auras.some((a) => a.id === 'wlk_demon_armor')).toBe(true);
-    expect(guarded.p.hp).toBeGreaterThan(before - Math.ceil(guarded.p.maxHp * 0.2));
+    guarded.p.hp = Math.round(guarded.p.maxHp * 0.8);
+    dealDamage(guarded.sim, guarded.p, Math.ceil(guarded.p.maxHp * 0.2)); // arms at ~60%
+    const echo = guarded.p.auras.find((a) => a.id === 'wlk_demon_armor');
+    expect(echo?.kind).toBe('heal_echo');
+    expect(echo?.value).toBe(Math.round(guarded.p.maxHp * 0.15));
+    const beforeDrop = guarded.p.hp;
+    dealDamage(guarded.sim, guarded.p, Math.ceil(guarded.p.maxHp * 0.3)); // below 35%
+    expect(guarded.p.hp).toBeGreaterThan(beforeDrop - Math.ceil(guarded.p.maxHp * 0.3));
+    expect(guarded.p.auras.some((a) => a.id === 'wlk_demon_armor')).toBe(false);
   });
 });
