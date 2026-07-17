@@ -481,27 +481,3 @@ export function rollCorpseMaterialRarity(rng: Rng): MaterialRarity {
 export function isSignableMaterialRarity(rarity: MaterialRarity): boolean {
   return rarity === 'rare' || rarity === 'epic' || rarity === 'legendary';
 }
-
-// Fixed rarity ladder, low to high, matching the tier-index scale professions/
-// archetype.ts's empowerment ceiling already uses (common=0, uncommon=1,
-// rare=2, epic=3, legendary=4).
-const MATERIAL_RARITY_ORDER: readonly MaterialRarity[] = [
-  'common',
-  'uncommon',
-  'rare',
-  'epic',
-  'legendary',
-];
-
-/** Clamp a rolled rarity down to at most `maxTier` (a tier index on the same
- *  ladder, e.g. from archetype.ts `archetypeCeilingFor`; `Infinity` is a no-op).
- *  Used to cap crafted-output quality at the #1129 empowerment ceiling: a
- *  dormant or hobby craft can still ROLL a high rarity off raw skill, but the
- *  actual result granted never exceeds what that craft is empowered to
- *  produce. Never raises a roll, only lowers it. */
-export function clampMaterialRarity(rarity: MaterialRarity, maxTier: number): MaterialRarity {
-  if (!Number.isFinite(maxTier)) return rarity;
-  const cap = Math.max(0, Math.min(MATERIAL_RARITY_ORDER.length - 1, Math.floor(maxTier)));
-  const rolled = MATERIAL_RARITY_ORDER.indexOf(rarity);
-  return MATERIAL_RARITY_ORDER[Math.min(rolled, cap)];
-}

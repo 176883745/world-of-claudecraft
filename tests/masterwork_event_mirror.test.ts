@@ -95,6 +95,40 @@ describe('online ClientWorld host', () => {
     const queued = (client as unknown as { eventQueue: SimEvent[] }).eventQueue;
     expect(queued.map((ev) => ev.type)).toEqual(['masterwork', 'masterwork', 'craftResult']);
   });
+
+  it('the craftResult mirror carries the masterwork flag and rebuilds it per event', () => {
+    // applyCraftResultEvent (online.ts) must copy the Phase 2 `masterwork`
+    // field into the lastCraftResult mirror: a dropped field here would leave
+    // the online HUD unable to distinguish a proc, with every other test
+    // (Sim-side only) still green.
+    const client = bareClient();
+    feed(client, {
+      type: 'craftResult',
+      ok: true,
+      recipeId: RECIPE_ID,
+      itemId: ITEM_ID,
+      count: 1,
+      quality: 'uncommon',
+      masterwork: true,
+      pid: 7,
+    });
+    expect(client.lastCraftResult?.ok).toBe(true);
+    expect(client.lastCraftResult?.quality).toBe('uncommon');
+    expect(client.lastCraftResult?.masterwork).toBe(true);
+    // The mirror is rebuilt wholesale per event: a later non-proc craft must
+    // not inherit the flag from the previous proc.
+    feed(client, {
+      type: 'craftResult',
+      ok: true,
+      recipeId: RECIPE_ID,
+      itemId: ITEM_ID,
+      count: 1,
+      quality: 'uncommon',
+      pid: 7,
+    });
+    expect(client.lastCraftResult?.ok).toBe(true);
+    expect(client.lastCraftResult?.masterwork).toBeUndefined();
+  });
 });
 
 describe('host parity', () => {

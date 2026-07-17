@@ -13,7 +13,6 @@ import { COMBO_RECIPES, recipeById } from '../src/sim/content/recipes';
 import { ITEMS } from '../src/sim/data';
 import { archetypeCeilingFor, craftCeiling } from '../src/sim/professions/archetype';
 import { meetsComboRequirement, resolveCraftForRecipe } from '../src/sim/professions/crafting';
-import { clampMaterialRarity } from '../src/sim/professions/gathering';
 import { MASTERWORK_BASE_CHANCE } from '../src/sim/professions/masterwork';
 import type { ProfessionRecipeRecord } from '../src/sim/professions/types';
 import { type CraftSkills, emptyCraftSkills, tierCapability } from '../src/sim/professions/wheel';
@@ -599,15 +598,5 @@ describe('archetype ceilings gate the masterwork effect (Phase 2: ceilings bind 
     expect(result.masterwork).toBe(true);
     const minted = metaOf(sim, pid).inventory.find((s) => s.itemId === recipe.resultItemId);
     expect(minted?.instance?.rolled?.masterwork).toBe(true);
-  });
-});
-
-describe('clampMaterialRarity stays on the INPUT side (gathering rolls; Phase 2 removed it from craft outputs)', () => {
-  it('clampMaterialRarity lowers a roll to the cap and never raises one', () => {
-    expect(clampMaterialRarity('legendary', 2)).toBe('rare');
-    expect(clampMaterialRarity('epic', 0)).toBe('common');
-    expect(clampMaterialRarity('uncommon', 2)).toBe('uncommon'); // below the cap: untouched
-    expect(clampMaterialRarity('common', 4)).toBe('common'); // a cap never raises a roll
-    expect(clampMaterialRarity('legendary', Infinity)).toBe('legendary'); // no-op ceiling
   });
 });

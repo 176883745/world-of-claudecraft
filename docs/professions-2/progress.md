@@ -10,7 +10,7 @@ Update this file at the end of every implementation and QA session. Statuses:
 | 1 | Ring and identity foundations | complete | 2026-07-16 | 2026-07-17 |
 | 1 QA | Verify ring and identity foundations | complete | 2026-07-17 | 2026-07-17 |
 | 2 | Masterwork model | complete | 2026-07-17 | 2026-07-17 |
-| 2 QA | Verify masterwork model | not started | | |
+| 2 QA | Verify masterwork model | complete | 2026-07-17 | 2026-07-17 |
 | 3 | Host-parity bug fixes | not started | | |
 | 3 QA | Verify host-parity bug fixes | not started | | |
 | 4 | Node materials and pristine veins | not started | | |
@@ -72,6 +72,36 @@ IWorldProfessions member retirement (Phase 15 candidate).
 - [x] Masterwork proc (skill, self-signed, specialization inputs) with pinned rng-draw contract
 - [x] Masterwork stats baked via `item_budget` into `instance.rolled.stats`; deeds reader still coherent
 - [x] Masterwork SimEvent with celebration payload; power-ceiling tuning targets in `state.md`
+
+Phase 2 QA (2026-07-17): PASS, zero blocking findings across the packet's
+three audit roles plus the matched dispatch-matrix rows (architecture,
+cross-platform sync, privacy/security, migration safety, pin quality,
+qa-checklist; frontend seam and database performance were NO-MATCH for
+this diff). The phase-emphasis probes all bind: an inserted extra rng
+draw reddens five tests across three suites, a 2-tier bump reddens the
+raid-floor bound through its literal tripwire pins (the derived sweep
+moves with the model by design; the literal rows are the teeth, never
+delete them thinking the sweep suffices), and the legacy rolled.quality
+path is proven end to end in both hosts. QA landed: proc-chance wiring
+pins through the real craft path (self-signed at hunted seed 69, the
+joint specialization-plus-tier 74/75/76 boundary at hunted seed 2,
+spares recorded in-file), the ClientWorld craftResult mirror's
+masterwork flag, the top-level enchant marker save/load round trip, an
+observed-roll pin making the miss-arm's seed-1 premise load-bearing,
+an inv-snapshot passthrough pin (masterwork and legacy instance
+payloads reach the client byte-identical), and the quality-roll
+retirement cleanup (dead clampMaterialRarity deleted with its orphan
+test pin; the area CLAUDE.md re-taught the deterministic model). One
+audit finding dissolved on verification: the reported vestments armor
+anomaly is the displaced starter recruit_tunic (delta 30 minus 20),
+not a bug. Deferred with reasons: the 0.15-cap integration hunted pin
+(the clamp is pure-function pinned and every term wiring is craft-path
+pinned; a fourth hunted seed adds maintenance without coverage), and
+the online-inspect equippedInstances gap (pre-existing, recorded in
+the state.md drift notes for the Phase 6 surfacing decision).
+Mixed-fleet safety verified: the previous release's HUD event if-chain
+ignores unknown SimEvent types, so a new server's masterwork event is
+harmless to an old client.
 
 ### Phase 3: Host-parity bug fixes
 - [ ] Trade carries `ItemInstancePayload` end to end (regression test)

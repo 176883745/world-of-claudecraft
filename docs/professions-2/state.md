@@ -8,8 +8,9 @@ Phase 1 (Ring and identity foundations) and its QA: complete
 (2026-07-17, PASS, zero blocking; fixes and drift notes below). Phase 2
 (Masterwork model): complete (2026-07-17, branch
 feature/professions-2-phase-02-masterwork; six reviewers, zero blocking;
-landed surfaces and drift notes below). Next: Phase 2 QA
-(phase-02-qa.md).
+landed surfaces and drift notes below). Phase 2 QA: complete
+(2026-07-17, PASS, zero blocking; coverage pins, retirement cleanup, and
+QA drift notes below). Next: Phase 3 (phase-03-parity-bug-fixes.md).
 
 ## Locked design decisions
 
@@ -267,7 +268,13 @@ tables, i18n key namespaces, files created)
     rolled-back code reads bare rolled.stats as already-enchanted, so
     masterwork copies are temporarily non-enchantable and
     non-disenchantable under rollback; no data loss or corruption,
-    fully reversible on roll-forward.
+    fully reversible on roll-forward. Second arm (Phase 2 QA,
+    migration-safety): Phase 2 crafts stop writing rolled.quality, and
+    the previous release's battlefield_xp reads only rolled.quality, so
+    under rollback EVERY new-format signed craft (masterwork or plain
+    rare-plus) grants no Battlefield Experience trickle; the signer
+    field survives on the row and the trickle resumes on roll-forward
+    via the def-quality fallback.
   - Battlefield XP trickle, two maintainer questions surfaced and NOT
     changed here: (a) a masterwork of a sub-rare def carries bonus stats
     but does not trickle (the def-quality gate; masterwork is not
@@ -286,6 +293,28 @@ tables, i18n key namespaces, files created)
     command ingests a client-supplied ItemInstancePayload; any future
     command that would must re-mint the instance server-side or
     masterwork and enchant forgery becomes possible.
+- Phase 2 QA drift notes (2026-07-17):
+  - Deeds quality-mark delta (intended, silently absorbed by the
+    fallback): markItemDiscovered records the def quality for new
+    crafts (rolled.quality is gone), so a masterwork copy credits its
+    DEF quality toward discovery deeds, never the bumped tier,
+    consistent with the battlefield-trickle stance above. If masterwork
+    copies should count toward higher-quality discovery deeds, that is
+    a deliberate maintainer design change, not a fix.
+  - Online inspect never carries equippedInstances (the identity wire
+    has no instance payloads; offline builds them for the render
+    mirror), so another player's masterwork and enchant stats are
+    invisible to online inspection. Pre-existing for enchants; Phase 6
+    (masterwork surfacing) decides whether to extend the identity wire
+    or accept the limitation.
+  - Quality-roll retirement cleanup landed in QA: clampMaterialRarity
+    and its private ladder deleted from gathering.ts (zero consumers
+    after the craft-side clamp retirement); the professions CLAUDE.md
+    module map and ceiling invariant re-teach the deterministic
+    masterwork model.
+  - Mixed-fleet check: the previous release's HUD event if-chain
+    ignores unknown SimEvent types, so a new server's masterwork event
+    is harmless to an old client during a staged rollout.
 - Phase 3: (planned) hcb wire key (corpse claims); trade payload carriage.
 - Phase 4: (planned) node material tables; pristine vein event + deed mark.
 - Phase 5: (planned) professions window (.window id professions-window) +

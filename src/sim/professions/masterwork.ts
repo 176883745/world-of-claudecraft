@@ -57,8 +57,8 @@ export function masterworkProcChance(input: MasterworkChanceInput): number {
 }
 
 // The quality ladder a masterwork bumps along, index-aligned with the tier
-// scale the archetype empowerment ceiling uses (archetype.ts / gathering.ts
-// MATERIAL_RARITY_ORDER: common=0, uncommon=1, rare=2, epic=3, legendary=4).
+// scale the archetype empowerment ceiling uses (archetype.ts: common=0,
+// uncommon=1, rare=2, epic=3, legendary=4).
 // 'poor' is deliberately off the ladder: a junk-grade def never masterworks.
 export const MASTERWORK_QUALITY_LADDER = [
   'common',
