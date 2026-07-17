@@ -8,6 +8,7 @@
 
 import { describe, expect, it } from 'vitest';
 import { ITEMS } from '../src/sim/data';
+import { isEnchantedInstance } from '../src/sim/professions/enchanting';
 import { Sim } from '../src/sim/sim';
 import { cloneItemInstancePayload, type Entity, type ItemInstancePayload } from '../src/sim/types';
 import { groundHeight } from '../src/sim/world';
@@ -287,5 +288,42 @@ describe('masterwork and legacy instance payloads (Professions 2.0 Phase 2 back-
       rolled: { quality: 'rare', stats: { spellPower: 5 }, masterwork: true },
       boundTo: sim.playerId,
     });
+  });
+
+  it('the top-level enchant marker survives save/load intact and keeps the copy enchant-guarded', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior', autoEquip: false });
+    // The exact post-Phase-2 shape of an enchanted masterwork copy: signer plus
+    // rolled.masterwork plus baked stats plus the authoritative top-level
+    // enchant id (types.ts ItemInstancePayload.enchant). If persistence dropped
+    // the marker, isEnchantedInstance would fall through to the masterwork arm
+    // (NOT enchanted) and a reloaded copy could be enchanted twice.
+    sim.addItemInstance(
+      'apprentice_staff',
+      {
+        signer: 'Aldric',
+        enchant: 'enchant_weapon_might',
+        rolled: { masterwork: true, stats: { int: 2, spi: 1 } },
+      },
+      sim.playerId,
+    );
+
+    const state = sim.serializeCharacter(sim.playerId)!;
+    const saved = state.inventory.find((s) => s.itemId === 'apprentice_staff')!;
+    expect(saved.instance?.enchant).toBe('enchant_weapon_might');
+
+    const sim2 = new Sim({ seed: 42, playerClass: 'warrior', autoEquip: false });
+    const pid2 = sim2.addPlayer('warrior', 'Reloaded', { state });
+    const loaded = sim2.meta(pid2)?.inventory.find((s) => s.itemId === 'apprentice_staff');
+    expect(loaded?.instance).toEqual({
+      signer: 'Aldric',
+      enchant: 'enchant_weapon_might',
+      rolled: { masterwork: true, stats: { int: 2, spi: 1 } },
+    });
+    // The reloaded copy still reads as already enchanted, so the double-enchant
+    // guard holds across a save/load cycle.
+    expect(isEnchantedInstance(loaded!.instance!)).toBe(true);
+    // And the payload cloner carries the marker alongside signer and rolled.
+    const clone = cloneItemInstancePayload(loaded!.instance!);
+    expect(clone.enchant).toBe('enchant_weapon_might');
   });
 });

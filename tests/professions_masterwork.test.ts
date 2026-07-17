@@ -4,6 +4,7 @@
 // determinism contract over a real Sim (one rng draw per successful craft,
 // zero on denial, proc occurrences reproducible by seed).
 import { describe, expect, it } from 'vitest';
+import { PERK_THRESHOLDS } from '../src/sim/content/professions';
 import { ALL_RECIPES, recipeById } from '../src/sim/content/recipes';
 import { ITEMS } from '../src/sim/data';
 import { PRIMARY_STATS, primaryStatBudget } from '../src/sim/item_budget';
@@ -481,5 +482,82 @@ describe('draw-order determinism over a real Sim (Phase 2)', () => {
       { signer: a.playerName, rolled: { masterwork: true, stats: { int: 1, spi: 1 } } },
       { signer: a.playerName, rolled: { masterwork: true, stats: { int: 1, spi: 1 } } },
     ]);
+  });
+});
+
+describe('proc-chance wiring over a real Sim (hunted boundary-window seeds)', () => {
+  // Both cases craft recipe_eastbrook_ritual_vestments (skillReq 0, uncommon
+  // def, bump tier 2: inside the pre-attunement rare ceiling) on a fresh
+  // warrior, so the only chance inputs in play are the ones each case flips.
+  // Granting materials and setting craftSkills directly never draws rng, so
+  // paired same-seed runs share the identical single proc draw; each seed was
+  // hunted (bounded scan from seed 1, draw value verified via the rng
+  // observer during the hunt) for a draw inside the decisive window where the
+  // flipped input alone decides the proc.
+
+  function craftVestments(seed: number, setup: (sim: Sim, pid: number) => void) {
+    const sim = new Sim({ seed, playerClass: 'warrior', autoEquip: false });
+    const pid = sim.playerId;
+    setup(sim, pid);
+    sim.craftItem('recipe_eastbrook_ritual_vestments', pid);
+    return { ...sim.lastCraftResult! };
+  }
+
+  it('a self-signed reagent feeds the proc chance: the same seed procs only with the signed copy', () => {
+    // Seed 69, hunted: the single proc draw lands in [0.03, 0.05), above the
+    // 3 percent base but under base plus the 2 percent self-signed bonus, so
+    // the proc fires ONLY when crafting.ts passes selfSignedBonusApplied into
+    // masterworkProcChance. Spares on record: 89, 117, 134, 185.
+    const SEED = 69;
+    const signed = craftVestments(SEED, (sim, pid) => {
+      const meta = (sim as any).players.get(pid);
+      // One self-signed linen_scrap plus one plain: the #1145 reduction drops
+      // the linen requirement from 3 to 2, so ok:true here also re-proves the
+      // detection arm through the craftItem path (without the reduction this
+      // grant set is insufficient and the craft would deny).
+      sim.addItemInstance('linen_scrap', { signer: meta.name }, pid);
+      sim.addItem('linen_scrap', 1, pid);
+      sim.addItem('spider_leg', 1, pid);
+    });
+    expect(signed.ok).toBe(true);
+    expect(signed.selfSignedBonusApplied).toBe(true);
+    expect(signed.masterwork).toBe(true);
+    // Control at the SAME seed and stream position, no signed copy held: the
+    // identical draw sits above the 3 percent base and must miss.
+    const plain = craftVestments(SEED, (sim, pid) => {
+      for (let i = 0; i < 3; i++) sim.addItem('linen_scrap', 1, pid);
+      sim.addItem('spider_leg', 1, pid);
+    });
+    expect(plain.ok).toBe(true);
+    expect(plain.selfSignedBonusApplied).toBe(false);
+    expect(plain.masterwork).toBeUndefined();
+  });
+
+  it('the specialization threshold binds in the craft path: skill 74 misses where 75 and 76 proc', () => {
+    // Premise anchor: the content threshold this boundary rides. A content
+    // retune moves the boundary and this seed must be re-hunted.
+    expect(PERK_THRESHOLDS.tailoring.specializedSkillThreshold).toBe(75);
+    // Seed 2, hunted: the single proc draw lands in [0.06, 0.09). At skill 74
+    // (tier 2, not specialized) the chance is 0.03 + 0.02 = 0.05: miss. At 75
+    // and 76 (tier 3, specialized) it is 0.03 + 0.03 + 0.03 = 0.09: proc, and
+    // only if BOTH the tiersAboveRecipe term and isSpecialized are wired into
+    // masterworkProcChance by crafting.ts (either wiring dropped leaves the
+    // chance at or below 0.06, under the hunted draw). Spares on record: 79,
+    // 83, 87, 195.
+    const SEED = 2;
+    const at = (skill: number) =>
+      craftVestments(SEED, (sim, pid) => {
+        const meta = (sim as any).players.get(pid);
+        meta.craftSkills.tailoring = skill;
+        for (let i = 0; i < 3; i++) sim.addItem('linen_scrap', 1, pid);
+        sim.addItem('spider_leg', 1, pid);
+      });
+    const r74 = at(74);
+    const r75 = at(75);
+    const r76 = at(76);
+    expect([r74.ok, r75.ok, r76.ok]).toEqual([true, true, true]);
+    expect(r74.masterwork).toBeUndefined();
+    expect(r75.masterwork).toBe(true);
+    expect(r76.masterwork).toBe(true);
   });
 });

@@ -13,6 +13,7 @@ import {
   resolveCraft,
   resolveCraftForRecipe,
 } from '../src/sim/professions/crafting';
+import { MASTERWORK_CHANCE_CAP } from '../src/sim/professions/masterwork';
 import type { ProfessionRecipeRecord } from '../src/sim/professions/types';
 import type { Rng } from '../src/sim/rng';
 import { Sim } from '../src/sim/sim';
@@ -861,7 +862,10 @@ describe('masterwork proc (Professions 2.0 Phase 2)', () => {
     // The same maximum-chance shape on a common-def output (the chain vest,
     // under armorcrafting as the MAJOR craft). Seed 1 was hunted so the single
     // proc draw lands ABOVE the capped 15 percent chance: the roll itself
-    // misses, decisively, independent of what the effect gates would say.
+    // misses, decisively. The observed-roll pin below keeps that premise
+    // load-bearing (this def is armor-only, so the effect gate would ALSO
+    // deny; without the pin, a re-seeded roll under the cap would pass
+    // silently through the gate instead of proving a roll miss).
     const sim = makeSim(1);
     const pid = sim.playerId;
     sim.acceptArchetypeQuest('armorcrafting');
@@ -872,16 +876,20 @@ describe('masterwork proc (Professions 2.0 Phase 2)', () => {
     sim.addItemInstance('bone_fragments', { signer: meta.name }, pid);
     sim.drainEvents();
     let draws = 0;
+    let roll = -1;
     const rng: Rng = (sim as any).ctx.rng;
-    rng.setObserver(() => {
+    rng.setObserver((value) => {
       draws++;
+      roll = value;
     });
     sim.craftItem('recipe_eastbrook_chain_vest', pid);
     rng.setObserver(null);
 
     // The proc draw is unconditional on the success path: exactly one draw
-    // even when it misses.
+    // even when it misses, and the seed-1 draw really does land at or above
+    // the capped chance, so the miss is the roll's doing.
     expect(draws).toBe(1);
+    expect(roll).toBeGreaterThanOrEqual(MASTERWORK_CHANCE_CAP);
     expect(sim.lastCraftResult?.ok).toBe(true);
     expect(sim.lastCraftResult?.quality).toBe('common');
     expect(sim.lastCraftResult?.masterwork).toBeUndefined();

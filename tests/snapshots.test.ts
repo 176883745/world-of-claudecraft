@@ -827,6 +827,37 @@ describe('delta snapshots', () => {
     expect(client.inventory.some((s) => s.itemId === 'worn_sword')).toBe(true);
   });
 
+  it('instance payloads (masterwork and legacy quality) ride the inv snapshot verbatim', () => {
+    // Phase 2 back-compat over the wire: the server sends the live
+    // meta.inventory wholesale, so a masterwork copy's full payload (signer,
+    // enchant marker, rolled.masterwork plus baked stats) and a legacy copy's
+    // rolled.quality must both arrive on the client mirror byte-identical.
+    // A future snapshot serializer that field-picks the instance would red
+    // here before it could strip either generation.
+    const masterwork = {
+      signer: 'Testa',
+      enchant: 'enchant_chest_stamina',
+      rolled: { masterwork: true, stats: { int: 2, spi: 1 } },
+    };
+    const legacy = { signer: 'Oldhand', rolled: { quality: 'rare' as const } };
+    server.sim.addItemInstance('eastbrook_ritual_vestments', masterwork, session.pid);
+    server.sim.addItemInstance('apprentice_staff', legacy, session.pid);
+
+    broadcast(server);
+    const snap = lastSnap(fc.sent);
+    const wireMw = snap.self.inv.find((s: any) => s.itemId === 'eastbrook_ritual_vestments');
+    const wireLegacy = snap.self.inv.find((s: any) => s.itemId === 'apprentice_staff');
+    expect(wireMw?.instance).toEqual(masterwork);
+    expect(wireLegacy?.instance).toEqual(legacy);
+
+    const client = bareClient(session.pid);
+    (client as any).applySnapshot(snap);
+    expect(
+      client.inventory.find((s) => s.itemId === 'eastbrook_ritual_vestments')?.instance,
+    ).toEqual(masterwork);
+    expect(client.inventory.find((s) => s.itemId === 'apprentice_staff')?.instance).toEqual(legacy);
+  });
+
   it('mirrors vendor buyback deltas to the client', () => {
     const wilkes = [...server.sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
     const player = server.sim.entities.get(session.pid)!;
