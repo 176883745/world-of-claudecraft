@@ -21,8 +21,8 @@ const baseIdentity = {
   },
   activeArchetype: 'armorcrafting',
   pairedMajor: 'weaponcrafting',
-  hobbyCraft: 'cooking',
-  attunedPairs: ['armorcrafting+weaponcrafting'],
+  hobbyCraft: 'leatherworking',
+  attunedPairs: ['weaponcrafting+armorcrafting'],
   switchCount: 2,
   amendsProgress: 1,
   amendsRequired: 11,
@@ -46,9 +46,9 @@ describe('buildProfessionIdentityView', () => {
     const view = buildProfessionIdentityView(baseIdentity);
     expect(view.state).toBe('attuned');
     expect(view.summary).toMatchObject({
-      titleCraft: 'armorcrafting',
+      pairId: 'weaponcrafting+armorcrafting',
       majors: ['armorcrafting', 'weaponcrafting'],
-      hobbyCraft: 'cooking',
+      hobbyCraft: 'leatherworking',
       attunedPairCount: 1,
       returnCount: 2,
     });
@@ -58,7 +58,7 @@ describe('buildProfessionIdentityView', () => {
       tier: 1,
       pointsToNextTier: 1,
     });
-    expect(view.skills.find((row) => row.craftId === 'cooking')).toMatchObject({
+    expect(view.skills.find((row) => row.craftId === 'leatherworking')).toMatchObject({
       role: 'hobby',
       ceiling: 'rare',
     });
@@ -87,12 +87,11 @@ describe('buildProfessionIdentityView', () => {
 describe('buildAttunementPreview', () => {
   it('previews title, majors, deterministic hobby, caps, and retained knowledge', () => {
     expect(
-      buildAttunementPreview('armorcrafting+weaponcrafting', baseIdentity.craftSkills),
+      buildAttunementPreview('weaponcrafting+armorcrafting', baseIdentity.craftSkills),
     ).toEqual({
-      target: 'armorcrafting+weaponcrafting',
-      titleCraft: 'armorcrafting',
-      majors: ['armorcrafting', 'weaponcrafting'],
-      hobbyCraft: 'cooking',
+      target: 'weaponcrafting+armorcrafting',
+      majors: ['weaponcrafting', 'armorcrafting'],
+      hobbyCraft: 'leatherworking',
       majorCeiling: 'unlimited',
       hobbyCeiling: 'rare',
       otherCeiling: 'common',

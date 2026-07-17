@@ -120,7 +120,7 @@ describe('buildCraftingView combo-recipe gate (#1132 review)', () => {
         synced: true,
         activeArchetype: 'armorcrafting',
         pairedMajor: 'weaponcrafting',
-        hobbyCraft: 'cooking',
+        hobbyCraft: 'leatherworking',
       },
     );
     expect(view.recipes[0].craftable).toBe(true);

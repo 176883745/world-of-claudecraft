@@ -5,18 +5,16 @@
 // PAIR (activeArchetype, the title craft the player swaps via quest, plus
 // pairedMajor, its ring-adjacent second major). See src/sim/professions/archetype.ts.
 //
-// STUB NOTE (read before extending these tests): the two quests behind this feature
-// (the zone-1 acceptance lore quest and the repeatable "make amends" quest) are
-// content STUBS (src/sim/content/zone1.ts, q_archetype_acceptance /
-// q_prof_make_amends): placeholder giver/turn-in NPC and placeholder objective, not
-// wired into the generic quest accept/turn-in flow. These tests exercise the STATE
-// MACHINE directly via its sim entry points (acceptArchetypeQuest /
-// advanceAmendsProgress / switchArchetype), which is what a real quest-completion
-// hook would call once that content is authored.
+// NOTE: the quests behind this feature (zone-1 q_archetype_acceptance /
+// q_prof_make_amends / q_prof_hobby_switch) are wired live into the generic quest
+// accept/turn-in flow via completionEffect (src/sim/quests/profession_quest_effects.ts);
+// the quest-driven path is covered by tests/profession_attunement_quests.test.ts.
+// These tests exercise the STATE MACHINE directly via its sim entry points
+// (acceptArchetypeQuest / advanceAmendsProgress / switchArchetype).
 
 import { describe, expect, it } from 'vitest';
 import { CRAFT_RING } from '../src/sim/content/professions';
-import { normalizeArchetypeState } from '../src/sim/professions/archetype';
+import { emptyArchetypeState, normalizeArchetypeState } from '../src/sim/professions/archetype';
 import { Sim } from '../src/sim/sim';
 
 function makeSim(seed = 42) {
@@ -147,7 +145,7 @@ describe('the stubbed default paired major (#1129 pair model, #1638 review round
   it('falls back to the first ring-adjacent neighbor for a craft with no content combo', () => {
     const sim = makeSim();
     sim.acceptArchetypeQuest('cooking');
-    expect(archetypeOf(sim).pairedMajor).toBe('engineering'); // cooking's ring-prev neighbor
+    expect(archetypeOf(sim).pairedMajor).toBe('alchemy'); // cooking's ring-prev neighbor
   });
 
   it('switchArchetype re-derives the pair for the new title craft', () => {
@@ -185,7 +183,7 @@ describe('archetype persistence: pairedMajor round trip and pre-pair save backfi
       switchCount: 1,
       amendsProgress: 2,
     });
-    expect(state.pairedMajor).toBe('engineering'); // backfilled, not left null
+    expect(state.pairedMajor).toBe('alchemy'); // backfilled, not left null
     expect(state.activeArchetype).toBe('cooking');
     expect(state.switchCount).toBe(1);
     expect(state.amendsProgress).toBe(2);
@@ -194,7 +192,7 @@ describe('archetype persistence: pairedMajor round trip and pre-pair save backfi
   it('a saved pairedMajor that is not ring-adjacent to the title craft is replaced by the default', () => {
     const state = normalizeArchetypeState({
       activeArchetype: 'armorcrafting',
-      pairedMajor: 'cooking', // opposite, not adjacent: malformed
+      pairedMajor: 'tailoring', // opposite, not adjacent: malformed
       switchCount: 0,
       amendsProgress: 0,
     });
@@ -204,11 +202,11 @@ describe('archetype persistence: pairedMajor round trip and pre-pair save backfi
   it('a saved NON-DEFAULT but ring-adjacent pairedMajor is preserved (a future quest-chosen pair)', () => {
     const state = normalizeArchetypeState({
       activeArchetype: 'armorcrafting',
-      pairedMajor: 'leatherworking', // the OTHER neighbor, valid
+      pairedMajor: 'engineering', // the OTHER neighbor (across the ring wrap), valid
       switchCount: 0,
       amendsProgress: 0,
     });
-    expect(state.pairedMajor).toBe('leatherworking');
+    expect(state.pairedMajor).toBe('engineering');
   });
 
   it('no archetype means no pair, for missing, null, and malformed saves alike', () => {
@@ -217,5 +215,16 @@ describe('archetype persistence: pairedMajor round trip and pre-pair save backfi
     const malformed = normalizeArchetypeState({ activeArchetype: 'not_a_craft' });
     expect(malformed.activeArchetype).toBeNull();
     expect(malformed.pairedMajor).toBeNull();
+  });
+
+  // The shape every real production save carries: v0.26.0 shipped the archetype
+  // blob with the acceptance quests retired, so activeArchetype is null (or the
+  // blob is absent entirely) in every deployed row. Pin that BOTH shapes load to
+  // the exact empty state, so the ring reorder's pairedMajor/attunedPairs repair
+  // paths (which only run for a non-null activeArchetype) provably never touch a
+  // shipped save.
+  it('the deployed v0.26.0 save shapes (null archetype, bare blob) load as the exact empty state', () => {
+    expect(normalizeArchetypeState({ activeArchetype: null })).toEqual(emptyArchetypeState());
+    expect(normalizeArchetypeState({})).toEqual(emptyArchetypeState());
   });
 });

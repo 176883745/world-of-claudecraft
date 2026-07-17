@@ -235,14 +235,21 @@ describe('QuestDialogController', () => {
     expect(preview?.textContent).toBeTruthy();
 
     if (!select) throw new Error('profession selector missing');
-    select.value = 'weaponcrafting+jewelcrafting';
+    // The option labels lead with the pair archetype name and keep both craft
+    // names visible, e.g. "Bladewright (Jewelcrafting + Weaponcrafting)".
+    const option = [...select.options].find((o) => o.value === 'jewelcrafting+weaponcrafting');
+    expect(option?.textContent).toBe('Bladewright (Jewelcrafting + Weaponcrafting)');
+    select.value = 'jewelcrafting+weaponcrafting';
     select.dispatchEvent(new Event('change'));
-    expect(preview?.textContent).toContain('Jeweler');
+    // The preview names the pair title and both major crafts.
+    expect(preview?.textContent).toContain('Bladewright');
+    expect(preview?.textContent).toContain('Jewelcrafting');
+    expect(preview?.textContent).toContain('Weaponcrafting');
 
     test.element.querySelector<HTMLButtonElement>('.btn')?.click();
     expect(test.acceptQuest).toHaveBeenCalledWith(
       'q_archetype_acceptance',
-      'weaponcrafting+jewelcrafting',
+      'jewelcrafting+weaponcrafting',
     );
   });
 

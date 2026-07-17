@@ -15,15 +15,26 @@ import type { ProfessionRecipeRecord } from '../src/sim/professions/types';
 import { type CraftSkills, emptyCraftSkills, tierCapability } from '../src/sim/professions/wheel';
 import { Sim } from '../src/sim/sim';
 
-const ARMOR = CRAFT_RING[0].id; // 'armorcrafting'
+const ARMOR = CRAFT_RING[9].id; // 'armorcrafting' (the ring's wrap point since the Professions 2.0 reorder)
 // The second major acceptArchetypeQuest(ARMOR) defaults to: pinned as a
 // LITERAL (not recomputed via adjacentCrafts/defaultPairedMajor) so a change
 // to the default-pair rule reddens here deliberately. armorcrafting's content
-// combo partner (recipes.ts COMBO_RECIPES) is weaponcrafting, its ring-next
-// neighbor, so the combo-aware default picks it over the ring-prev neighbor.
+// combo partner (recipes.ts COMBO_RECIPES) is weaponcrafting, its ring-prev
+// neighbor, so the combo-aware default picks it over the ring-next neighbor
+// (engineering, across the wrap).
 const PAIRED_MAJOR = 'weaponcrafting';
-const COOKING = oppositeCraft(ARMOR).id; // opposite of ARMOR (the title major) -> the hobby
-const OUTSIDE = CRAFT_RING.find((c) => ![ARMOR, PAIRED_MAJOR, COOKING].includes(c.id))!.id;
+// getHobbyCraft's deterministic single-craft fallback: the craft opposite the
+// title major ('tailoring'). This is what the PURE ceiling helpers default to
+// when no explicit hobby argument is passed.
+const FALLBACK_HOBBY = oppositeCraft(ARMOR).id;
+// The ACTUAL persisted hobby acceptArchetypeQuest(ARMOR) selects with zero
+// skills: defaultHobbyForPair over the pair's two opposites (tailoring,
+// leatherworking) tie-breaks by ring order to leatherworking. Pinned as a
+// LITERAL so a change to the hobby-default rule reddens here deliberately.
+const STATE_HOBBY = 'leatherworking';
+const OUTSIDE = CRAFT_RING.find(
+  (c) => ![ARMOR, PAIRED_MAJOR, FALLBACK_HOBBY, STATE_HOBBY].includes(c.id),
+)!.id;
 
 function skillsAt(craftId: string, skill: number): CraftSkills {
   const skills = emptyCraftSkills();
@@ -34,7 +45,7 @@ function skillsAt(craftId: string, skill: number): CraftSkills {
 describe('archetypeCeilingFor (#1129/#1203 empowerment ceiling, pair model)', () => {
   it('is uncapped-to-rare for every craft before any archetype has been chosen', () => {
     expect(archetypeCeilingFor(null, null, ARMOR)).toBe(2);
-    expect(archetypeCeilingFor(null, null, COOKING)).toBe(2);
+    expect(archetypeCeilingFor(null, null, FALLBACK_HOBBY)).toBe(2);
     expect(archetypeCeilingFor(null, null, OUTSIDE)).toBe(2);
   });
 
@@ -47,7 +58,7 @@ describe('archetypeCeilingFor (#1129/#1203 empowerment ceiling, pair model)', ()
   });
 
   it('is capped at rare (tier 2) for the hobby: the opposite craft on CRAFT_RING from the title major', () => {
-    expect(archetypeCeilingFor(ARMOR, PAIRED_MAJOR, COOKING)).toBe(2);
+    expect(archetypeCeilingFor(ARMOR, PAIRED_MAJOR, FALLBACK_HOBBY)).toBe(2);
   });
 
   it('is capped at common (tier 0) for every craft outside the pair and the hobby once an archetype is set', () => {
@@ -73,13 +84,13 @@ describe('craftCeiling composes tierCapability with the archetype ceiling (min o
   });
 
   it('hobby craft is clamped to rare even with very high raw skill', () => {
-    const skills = skillsAt(COOKING, 500);
-    expect(craftCeiling(skills, ARMOR, PAIRED_MAJOR, COOKING)).toBe(2);
+    const skills = skillsAt(FALLBACK_HOBBY, 500);
+    expect(craftCeiling(skills, ARMOR, PAIRED_MAJOR, FALLBACK_HOBBY)).toBe(2);
   });
 
   it('hobby craft with raw skill below the rare ceiling is bounded by the raw skill instead', () => {
-    const skills = skillsAt(COOKING, 10); // tierCapability = 0
-    expect(craftCeiling(skills, ARMOR, PAIRED_MAJOR, COOKING)).toBe(0);
+    const skills = skillsAt(FALLBACK_HOBBY, 10); // tierCapability = 0
+    expect(craftCeiling(skills, ARMOR, PAIRED_MAJOR, FALLBACK_HOBBY)).toBe(0);
   });
 
   it('a craft outside the pair and the hobby is clamped to common (0) regardless of raw skill', () => {
@@ -117,10 +128,12 @@ describe('meetsComboRequirement composes the archetype ceiling (#1132 combo gate
   });
 
   it('a major plus hobby never substitutes for the exact active pair', () => {
-    const hobbyCombo = { craftA: ARMOR, craftB: COOKING, minTier: 1 };
-    const skills = { ...emptyCraftSkills(), [ARMOR]: 25, [COOKING]: 25 };
+    const hobbyCombo = { craftA: ARMOR, craftB: STATE_HOBBY, minTier: 1 };
+    const skills = { ...emptyCraftSkills(), [ARMOR]: 25, [STATE_HOBBY]: 25 };
     const hobbyRecipe = { comboRequirement: hobbyCombo } as unknown as ProfessionRecipeRecord;
-    expect(meetsComboRequirement(skills, hobbyRecipe, ARMOR, PAIRED_MAJOR, COOKING)).toBe(false);
+    expect(meetsComboRequirement(skills, hobbyRecipe, ARMOR, PAIRED_MAJOR, STATE_HOBBY)).toBe(
+      false,
+    );
   });
 
   it('every real content combo stays craftable after attuning to EITHER of its two crafts (#1638 review round 2)', () => {
@@ -308,11 +321,11 @@ describe('resolveCraftForRecipe reads the archetype-gated ceiling for skill-gain
     const pid = sim.playerId;
     sim.acceptArchetypeQuest(ARMOR);
     const meta = metaOf(sim, pid);
-    meta.craftSkills[COOKING] = 50; // tierCapability = 2 (rare), exactly at the hobby ceiling
+    meta.craftSkills[STATE_HOBBY] = 50; // tierCapability = 2 (rare), exactly at the hobby ceiling
 
     const recipe: ProfessionRecipeRecord = {
       id: 'test_recipe_tier3_hobby',
-      professionId: COOKING,
+      professionId: STATE_HOBBY,
       resultItemId: 'bone_fragments',
       resultCount: 1,
       reagents: [],
@@ -324,7 +337,7 @@ describe('resolveCraftForRecipe reads the archetype-gated ceiling for skill-gain
     const result = resolveCraftForRecipe(ctxOf(sim), pid, recipe);
 
     expect(result.ok).toBe(true);
-    expect(meta.craftSkills[COOKING]).toBe(50); // frozen at the rare ceiling
+    expect(meta.craftSkills[STATE_HOBBY]).toBe(50); // frozen at the rare ceiling
   });
 
   // #1638 review round 2: the freeze guard must fire ONLY above the archetype
@@ -364,11 +377,11 @@ describe('resolveCraftForRecipe reads the archetype-gated ceiling for skill-gain
     const pid = sim.playerId;
     sim.acceptArchetypeQuest(ARMOR);
     const meta = metaOf(sim, pid);
-    meta.craftSkills[COOKING] = 30; // raw capability 1, below the rare (2) hobby ceiling
+    meta.craftSkills[STATE_HOBBY] = 30; // raw capability 1, below the rare (2) hobby ceiling
 
     const recipe: ProfessionRecipeRecord = {
       id: 'test_recipe_tier2_hobby_climb',
-      professionId: COOKING,
+      professionId: STATE_HOBBY,
       resultItemId: 'bone_fragments',
       resultCount: 1,
       reagents: [],
@@ -380,7 +393,7 @@ describe('resolveCraftForRecipe reads the archetype-gated ceiling for skill-gain
     const result = resolveCraftForRecipe(ctxOf(sim), pid, recipe);
 
     expect(result.ok).toBe(true);
-    expect(meta.craftSkills[COOKING]).toBe(31); // full progress up to the ceiling
+    expect(meta.craftSkills[STATE_HOBBY]).toBe(31); // full progress up to the ceiling
   });
 
   it('pre-archetype, a recipe above the rare ceiling grants zero progress (uncapped-to-rare)', () => {

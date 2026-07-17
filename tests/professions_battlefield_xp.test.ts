@@ -158,7 +158,7 @@ describe('battlefieldExperienceTrickle active-specialty gate (#1149/#1205)', () 
       itemId: 'minor_healing_potion', // -> alchemy
       instance: { signer: 'Aria', rolled: { quality: 'rare' } },
       observerName: 'Aria',
-      observerActiveArchetype: 'tailoring', // alchemy's opposite on CRAFT_RING
+      observerActiveArchetype: 'enchanting', // alchemy's opposite on CRAFT_RING
     });
     expect(amount).toBe(0);
     expect(skills.alchemy).toBe(0);

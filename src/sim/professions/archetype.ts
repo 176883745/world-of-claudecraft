@@ -81,6 +81,14 @@ export function normalizeArchetypeState(
     state.activeArchetype = saved.activeArchetype;
   }
   if (state.activeArchetype !== null) {
+    // The isAdjacent-or-redefault repair below CAN change pairedMajor when the
+    // ring order changes between releases (v0.26.0 shipped this field, and the
+    // Professions 2.0 reorder breaks 3 of the 10 old default pairs). That never
+    // fires on a real save today for one reason only: every shipped build kept
+    // the acceptance quests retired, so no production save holds a non-null
+    // activeArchetype. THE INVARIANT THAT KEEPS THIS SAFE: the ring order and
+    // the live quest wiring ship together (both land in PR 2039); never wire
+    // the quests live in a release whose ring a later change intends to reorder.
     state.pairedMajor =
       typeof saved.pairedMajor === 'string' &&
       isCraftId(saved.pairedMajor) &&
@@ -89,6 +97,14 @@ export function normalizeArchetypeState(
         : defaultPairedMajor(state.activeArchetype);
     const currentPairId = archetypePairId(state.activeArchetype, state.pairedMajor);
     const savedHistory = Array.isArray(saved.attunedPairs) ? saved.attunedPairs : [];
+    // Drop-by-design: any saved pair id not in the CURRENT ARCHETYPE_PAIR_TARGETS
+    // is silently discarded here. Safe for the same reason as pairedMajor above:
+    // attunedPairs first ships WITH the reordered ring (and retired quests mean
+    // no shipped save carries profession state at all), so a pre-reorder
+    // canonical id cannot exist in production saves; anything unrecognized is a
+    // hand-edited or corrupt value, and losing it is the intended behavior.
+    // The current pair is re-derived and re-appended below, so an ACTIVE
+    // attunement is never lost, only unrecognized history entries.
     state.attunedPairs = [...new Set(savedHistory.filter(isAdjacentPairTarget))];
     if (currentPairId && !state.attunedPairs.includes(currentPairId)) {
       state.attunedPairs.push(currentPairId);

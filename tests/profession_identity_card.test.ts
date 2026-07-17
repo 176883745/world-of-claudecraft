@@ -25,8 +25,8 @@ describe('profession identity card painter contract', () => {
       craftSkills: { armorcrafting: 49, weaponcrafting: 25, cooking: 30 },
       activeArchetype: 'armorcrafting',
       pairedMajor: 'weaponcrafting',
-      hobbyCraft: 'cooking',
-      attunedPairs: ['armorcrafting+weaponcrafting'],
+      hobbyCraft: 'leatherworking',
+      attunedPairs: ['weaponcrafting+armorcrafting'],
       switchCount: 1,
       amendsProgress: 0,
       amendsRequired: 8,
@@ -37,7 +37,10 @@ describe('profession identity card painter contract', () => {
     expect(card?.getAttribute('role')).toBe('region');
     expect(card?.getAttribute('aria-label')).toBeTruthy();
     expect(card?.querySelectorAll('.profession-skill-row')).toHaveLength(10);
-    expect(card?.textContent).toContain('Armorer');
+    // The title line renders the PAIR archetype name (weaponcrafting +
+    // armorcrafting is the Smith pair); the skill rows render craft names.
+    expect(card?.textContent).toContain('Smith');
+    expect(card?.textContent).toContain('Armorcrafting');
 
     parent.replaceChildren();
     renderProfessionIdentityCard(

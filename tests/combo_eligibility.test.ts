@@ -15,14 +15,14 @@ describe('comboEligibility', () => {
       comboEligibility(requirement, skilled, {
         activeArchetype: 'armorcrafting',
         pairedMajor: 'weaponcrafting',
-        hobbyCraft: 'cooking',
+        hobbyCraft: 'leatherworking',
       }),
     ).toMatchObject({ ok: true, reason: null });
     expect(
       comboEligibility(requirement, skilled, {
         activeArchetype: 'weaponcrafting',
         pairedMajor: 'armorcrafting',
-        hobbyCraft: 'inscription',
+        hobbyCraft: 'tailoring',
       }).ok,
     ).toBe(true);
   });
@@ -30,7 +30,7 @@ describe('comboEligibility', () => {
   it.each([
     ['unattuned', null, null, 'cooking', 'not_attuned'],
     ['wrong pair', 'weaponcrafting', 'jewelcrafting', 'cooking', 'wrong_pair'],
-    ['major plus hobby', 'armorcrafting', 'leatherworking', 'weaponcrafting', 'wrong_pair'],
+    ['major plus hobby', 'armorcrafting', 'engineering', 'weaponcrafting', 'wrong_pair'],
   ] as const)(
     'denies %s high-skill state',
     (_label, activeArchetype, pairedMajor, hobbyCraft, reason) => {
@@ -48,7 +48,7 @@ describe('comboEligibility', () => {
         {
           activeArchetype: 'armorcrafting',
           pairedMajor: 'weaponcrafting',
-          hobbyCraft: 'cooking',
+          hobbyCraft: 'leatherworking',
         },
       ),
     ).toMatchObject({ ok: false, reason: 'tier_unmet', unmetCrafts: ['weaponcrafting'] });

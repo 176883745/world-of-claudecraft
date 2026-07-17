@@ -2676,8 +2676,8 @@ function dirtyEveryDeltaField(): {
   meta.archetype = {
     activeArchetype: 'armorcrafting',
     pairedMajor: 'weaponcrafting',
-    hobbyCraft: 'cooking',
-    attunedPairs: ['armorcrafting+weaponcrafting'],
+    hobbyCraft: 'leatherworking',
+    attunedPairs: ['weaponcrafting+armorcrafting'],
     switchCount: 2,
     amendsProgress: 4,
   };
@@ -2758,8 +2758,8 @@ describe('full self-state snapshot delta fixture', () => {
     meta.archetype = {
       activeArchetype: 'armorcrafting',
       pairedMajor: 'weaponcrafting',
-      hobbyCraft: 'cooking',
-      attunedPairs: ['armorcrafting+weaponcrafting'],
+      hobbyCraft: 'leatherworking',
+      attunedPairs: ['weaponcrafting+armorcrafting'],
       switchCount: 0,
       amendsProgress: 0,
     };
@@ -2887,12 +2887,16 @@ describe('full self-state snapshot delta fixture', () => {
       synced: true,
       activeArchetype: 'armorcrafting',
       pairedMajor: 'weaponcrafting',
-      hobbyCraft: 'cooking',
-      attunedPairs: ['armorcrafting+weaponcrafting'],
+      hobbyCraft: 'leatherworking',
+      attunedPairs: ['weaponcrafting+armorcrafting'],
       switchCount: 2,
       amendsProgress: 4,
       amendsRequired: 11,
     }); // cprof -> craftingIdentity
+    // The pair-named archetype title derives LIVE from the mirrored
+    // craftingIdentity (Professions 2.0 Phase 1): the canonical pair id, not a
+    // craft id, and it must reflect the cprof delta just applied.
+    expect(client.archetypeTitle).toBe('weaponcrafting+armorcrafting');
     expect(client.craftSkills).toMatchObject({ armorcrafting: 31, weaponcrafting: 29 });
     expect(client.delveClears).toEqual({ 'collapsed_reliquary:heroic': 1 }); // dclears -> delveClears
     expect(client.delveDaily).toMatchObject({ markClears: 4 }); // delveDaily

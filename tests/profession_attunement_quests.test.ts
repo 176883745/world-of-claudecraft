@@ -6,8 +6,11 @@ import { COMMAND_NAMES } from '../src/world_api';
 const LORE_QUEST = 'q_archetype_acceptance';
 const AMENDS_QUEST = 'q_prof_make_amends';
 const HOBBY_QUEST = 'q_prof_hobby_switch';
-const ARMOR_WEAPON = 'armorcrafting+weaponcrafting';
-const WEAPON_JEWEL = 'weaponcrafting+jewelcrafting';
+// Canonical pair ids follow CRAFT_RING order (see archetypePairId), so the
+// armor/weapon pair reads weaponcrafting-first since the Professions 2.0
+// ring reorder.
+const WEAPON_ARMOR = 'weaponcrafting+armorcrafting';
+const JEWEL_WEAPON = 'jewelcrafting+weaponcrafting';
 
 function makeSim(seed = 9042): Sim {
   return new Sim({ seed, playerClass: 'warrior', autoEquip: true });
@@ -71,15 +74,15 @@ describe('live profession attunement quests', () => {
     const sim = makeSim();
     unlockProfessionQuests(sim);
 
-    acceptProfessionQuest(sim, LORE_QUEST, ARMOR_WEAPON);
+    acceptProfessionQuest(sim, LORE_QUEST, WEAPON_ARMOR);
     expect(sim.activeArchetype).toBeNull();
-    expect(sim.questLog.get(LORE_QUEST)?.selection).toBe(ARMOR_WEAPON);
+    expect(sim.questLog.get(LORE_QUEST)?.selection).toBe(WEAPON_ARMOR);
 
     completeAndTurnIn(sim, LORE_QUEST);
     expect(sim.craftingIdentity).toMatchObject({
-      activeArchetype: 'armorcrafting',
-      pairedMajor: 'weaponcrafting',
-      attunedPairs: [ARMOR_WEAPON],
+      activeArchetype: 'weaponcrafting',
+      pairedMajor: 'armorcrafting',
+      attunedPairs: [WEAPON_ARMOR],
     });
     expect(sim.archetypeSwitchCount).toBe(0);
   });
@@ -93,38 +96,38 @@ describe('live profession attunement quests', () => {
     sim.acceptQuest(LORE_QUEST, 'armorcrafting+cooking');
     expect(sim.questLog.has(LORE_QUEST)).toBe(false);
 
-    attuneNewPair(sim, ARMOR_WEAPON);
-    sim.acceptQuest(LORE_QUEST, ARMOR_WEAPON);
+    attuneNewPair(sim, WEAPON_ARMOR);
+    sim.acceptQuest(LORE_QUEST, WEAPON_ARMOR);
     expect(sim.questLog.has(LORE_QUEST)).toBe(false);
   });
 
   it('uses lore for a new pair and escalating make-amends for a previously held pair', () => {
     const sim = makeSim();
     unlockProfessionQuests(sim);
-    attuneNewPair(sim, ARMOR_WEAPON);
-    attuneNewPair(sim, WEAPON_JEWEL);
+    attuneNewPair(sim, WEAPON_ARMOR);
+    attuneNewPair(sim, JEWEL_WEAPON);
     expect(sim.archetypeSwitchCount).toBe(0);
 
-    acceptProfessionQuest(sim, AMENDS_QUEST, ARMOR_WEAPON);
+    acceptProfessionQuest(sim, AMENDS_QUEST, WEAPON_ARMOR);
     const first = sim.questLog.get(AMENDS_QUEST);
     expect(first?.resolvedCounts).toEqual([5]);
     completeAndTurnIn(sim, AMENDS_QUEST);
-    expect(sim.craftingIdentity.activeArchetype).toBe('armorcrafting');
+    expect(sim.craftingIdentity.activeArchetype).toBe('weaponcrafting');
     expect(sim.archetypeSwitchCount).toBe(1);
 
-    acceptProfessionQuest(sim, AMENDS_QUEST, WEAPON_JEWEL);
+    acceptProfessionQuest(sim, AMENDS_QUEST, JEWEL_WEAPON);
     expect(sim.questLog.get(AMENDS_QUEST)?.resolvedCounts).toEqual([8]);
   });
 
   it('switches the explicit hobby only to the other opposite candidate', () => {
     const sim = makeSim();
     unlockProfessionQuests(sim);
-    attuneNewPair(sim, ARMOR_WEAPON);
-    expect(sim.hobbyCraft).toBe('cooking');
+    attuneNewPair(sim, WEAPON_ARMOR);
+    expect(sim.hobbyCraft).toBe('leatherworking');
 
-    acceptProfessionQuest(sim, HOBBY_QUEST, 'inscription');
+    acceptProfessionQuest(sim, HOBBY_QUEST, 'tailoring');
     completeAndTurnIn(sim, HOBBY_QUEST);
-    expect(sim.hobbyCraft).toBe('inscription');
+    expect(sim.hobbyCraft).toBe('tailoring');
 
     acceptProfessionQuest(sim, HOBBY_QUEST, 'alchemy');
     expect(sim.questLog.has(HOBBY_QUEST)).toBe(false);
@@ -133,21 +136,21 @@ describe('live profession attunement quests', () => {
   it('round-trips active pair, explicit hobby, history, and an accepted quest selection', () => {
     const sim = makeSim();
     unlockProfessionQuests(sim);
-    attuneNewPair(sim, ARMOR_WEAPON);
-    acceptProfessionQuest(sim, HOBBY_QUEST, 'inscription');
+    attuneNewPair(sim, WEAPON_ARMOR);
+    acceptProfessionQuest(sim, HOBBY_QUEST, 'tailoring');
 
     const saved = sim.serializeCharacter(sim.playerId);
     const reloaded = makeSim(9043);
     const pid = reloaded.addPlayer('warrior', 'Reloaded', { state: saved ?? undefined });
 
     expect(reloaded.craftingIdentityFor(pid)).toMatchObject({
-      activeArchetype: 'armorcrafting',
-      pairedMajor: 'weaponcrafting',
-      hobbyCraft: 'cooking',
-      attunedPairs: [ARMOR_WEAPON],
+      activeArchetype: 'weaponcrafting',
+      pairedMajor: 'armorcrafting',
+      hobbyCraft: 'leatherworking',
+      attunedPairs: [WEAPON_ARMOR],
     });
     expect(reloaded.players.get(pid)?.questLog.get(HOBBY_QUEST)).toMatchObject({
-      selection: 'inscription',
+      selection: 'tailoring',
       resolvedCounts: [3],
     });
   });
@@ -163,10 +166,35 @@ describe('live profession attunement quests', () => {
     ).toEqual({
       activeArchetype: 'armorcrafting',
       pairedMajor: 'weaponcrafting',
-      hobbyCraft: 'cooking',
-      attunedPairs: [ARMOR_WEAPON],
+      hobbyCraft: 'leatherworking',
+      attunedPairs: [WEAPON_ARMOR],
       switchCount: 2,
       amendsProgress: 4,
+    });
+  });
+
+  it('drops a stale or unknown attuned pair id by design and keeps the rest of the save intact', () => {
+    // normalizeArchetypeState filters attunedPairs through isAdjacentPairTarget.
+    // The stale id below ('armorcrafting+weaponcrafting') is the pre-reorder
+    // canonical form of the armor/weapon pair; no deployed build ever persisted
+    // attunedPairs before the ring reorder landed, so dropping it silently (no
+    // throw, no repair) is the intended semantics for any unrecognized id.
+    const state = normalizeArchetypeState({
+      activeArchetype: 'armorcrafting',
+      pairedMajor: 'weaponcrafting',
+      hobbyCraft: 'tailoring',
+      attunedPairs: ['armorcrafting+weaponcrafting', WEAPON_ARMOR, 'not+a+pair'],
+      switchCount: 3,
+      amendsProgress: 2,
+    });
+    expect(state.attunedPairs).toEqual([WEAPON_ARMOR]);
+    expect(state).toEqual({
+      activeArchetype: 'armorcrafting',
+      pairedMajor: 'weaponcrafting',
+      hobbyCraft: 'tailoring',
+      attunedPairs: [WEAPON_ARMOR],
+      switchCount: 3,
+      amendsProgress: 2,
     });
   });
 
