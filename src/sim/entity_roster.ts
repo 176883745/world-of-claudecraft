@@ -20,6 +20,7 @@
 // `src/sim`-pure: no DOM/Three/render/ui/game/net imports, no Math.random/Date.now
 // (enforced by tests/architecture.test.ts).
 
+import { tickHunterTrap } from './combat/hunter_trap';
 import { tickRingOfFrost } from './combat/ring_of_frost';
 import { tickTemporalHourglassGround } from './combat/temporal_hourglass';
 import { DELVES, DUNGEON_X_THRESHOLD, dungeonAt, zoneAt } from './data';
@@ -72,6 +73,14 @@ export type GroundAoE = {
     freezeDuration: number;
     innerRadius: number;
     triggeredIds: Set<number>;
+  };
+  // Hunter trap (combat/hunter_trap.ts): placed at the owner's feet, arms
+  // after armRemaining, freezes the first enemy contact, then is consumed.
+  hunterTrap?: {
+    abilityId: string;
+    armRemaining: number;
+    freezeDuration: number;
+    triggered: boolean;
   };
   temporalHourglass?: {
     id: string;
@@ -204,7 +213,7 @@ export function tickGroundAoEs(ctx: SimContext): void {
             300 ** 2),
     );
     if (
-      (effect.frostRing && !persistentSource) ||
+      ((effect.frostRing || effect.hunterTrap) && !persistentSource) ||
       (effect.temporalHourglass && (!persistentSource || persistentSource.dead)) ||
       hourglassChangedRegion
     ) {
@@ -215,6 +224,13 @@ export function tickGroundAoEs(ctx: SimContext): void {
     if (effect.frostRing) {
       if (effect.remaining > CAST_COMPLETE_EPS) tickRingOfFrost(ctx, effect);
       if (effect.remaining <= CAST_COMPLETE_EPS) ctx.groundAoEs.splice(i, 1);
+      continue;
+    }
+    if (effect.hunterTrap) {
+      if (effect.remaining > CAST_COMPLETE_EPS) tickHunterTrap(ctx, effect);
+      if (effect.remaining <= CAST_COMPLETE_EPS || effect.hunterTrap.triggered) {
+        ctx.groundAoEs.splice(i, 1);
+      }
       continue;
     }
     if (effect.temporalHourglass) {

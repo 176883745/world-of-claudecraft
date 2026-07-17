@@ -82,6 +82,7 @@ import { spawnFrozenOrb } from './frozen_orb';
 import { glacialFrontContains } from './glacial_front';
 import { applyGroupHaste } from './haste_burst';
 import { armHeroicLeap, relocateSwept } from './heroic_leap';
+import { spawnHunterTrap } from './hunter_trap';
 import { resurrectDeadGroupMembers } from './mass_resurrection';
 import { applyRewind } from './rewind';
 import { spawnRingOfFrost } from './ring_of_frost';
@@ -1960,6 +1961,12 @@ export function runEffects(
         // the ring module, which owns placement, arming, and the catch pulses.
         if (eff.ring) {
           spawnRingOfFrost(ctx, p, center, { ...eff, ring: eff.ring }, ability.name, ability.id);
+          break;
+        }
+        // Optional armed trap at the caster's feet (Rime Snare): the trap
+        // module owns placement, arming, and the single-target spring.
+        if (eff.trap) {
+          spawnHunterTrap(ctx, p, { ...eff, trap: eff.trap }, ability.name, ability.id);
           break;
         }
         if (p.castAim) {

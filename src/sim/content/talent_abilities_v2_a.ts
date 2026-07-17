@@ -134,13 +134,25 @@ export const TALENT_ABILITIES_V2_A = {
     cost: 35,
     castTime: 0,
     cooldown: 30,
-    range: 30,
+    range: 0,
     school: 'frost',
     requiresTarget: false,
-    targetMode: 'position',
-    effects: [{ type: 'aoeRoot', duration: 3, radius: 8, min: 0, max: 0, stun: true }],
+    // A real trap (G6, combat/hunter_trap.ts): placed at the hunter's feet,
+    // arms after 1.5 sec, freezes the FIRST enemy that touches it, one trap
+    // at a time. Was a 30yd aimed 8yd-radius instant root+stun nova.
+    effects: [
+      {
+        type: 'aoeRoot',
+        duration: 3,
+        radius: 3,
+        min: 0,
+        max: 0,
+        stun: true,
+        trap: { armTime: 1.5, lifetime: 60 },
+      },
+    ],
     description:
-      'Freezes enemies at the target area for 3 sec, preventing movement and actions. (Hunter talent)',
+      'Places a frost trap at your feet that arms after 1.5 sec. The first enemy to touch it is frozen for 3 sec, unable to move or act. One trap at a time. Lasts 60 sec. (Hunter talent)',
   },
   multi_shot: {
     id: 'multi_shot',

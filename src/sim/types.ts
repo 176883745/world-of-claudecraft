@@ -1911,6 +1911,10 @@ export type AbilityEffect =
       // Optional persistent annular trap. `duration` remains the root duration;
       // the nested duration is how long the ring can catch new enemies.
       ring?: { duration: number; innerRadius: number };
+      // Optional armed trap at the caster's feet (combat/hunter_trap.ts):
+      // arms after armTime, freezes the first enemy contact for `duration`,
+      // expires after lifetime. One per owner.
+      trap?: { armTime: number; lifetime: number };
     }
   | {
       type: 'empoweredCone';
