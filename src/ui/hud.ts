@@ -10271,7 +10271,18 @@ export class Hud {
   }
 
   private skinHost(): CharSkinPainterHost {
-    return this as unknown as CharSkinPainterHost;
+    return {
+      sim: this.sim,
+      preloadMechAssets: () => {
+        if (!this.mechAssetsPromise) this.mechAssetsPromise = preloadMechAssets();
+        return this.mechAssetsPromise;
+      },
+      mountCharPreview: (container, cls, skin, previewKey) =>
+        this.mountCharPreview(container, cls, skin, previewKey),
+      attachTooltip: (el, html) => this.attachTooltip(el, html),
+      renderBags: () => this.renderBags(),
+      renderCharIfOpen: () => this.renderCharIfOpen(),
+    };
   }
 
   // Post-cap progression (Max-Level XP Overflow): character-sheet block,

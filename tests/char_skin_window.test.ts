@@ -18,18 +18,19 @@ function makeHost(overrides?: {
   unequipCalls: string[];
   renderBagsCalls: number;
   renderCharIfOpenCalls: number;
+  preloadMechAssetsCalls: number;
 } {
   const changeSkinCalls: [number, 'class' | 'mech'][] = [];
   const unequipCalls: string[] = [];
   let renderBagsCalls = 0;
   let renderCharIfOpenCalls = 0;
+  let preloadMechAssetsCalls = 0;
   return {
     sim: {
       cfg: { playerClass: (overrides?.playerClass ?? 'mage') as never },
       player: {
         skin: overrides?.skin ?? 0,
         skinCatalog: overrides?.skinCatalog ?? 'class',
-        level: 10,
       },
       accountCosmetics: { mechChromaIds: overrides?.mechChromaIds ?? [] },
       changeSkin(skin: number, catalog: 'class' | 'mech') {
@@ -39,7 +40,10 @@ function makeHost(overrides?: {
         unequipCalls.push(id);
       },
     },
-    mechAssetsPromise: null,
+    preloadMechAssets: () => {
+      preloadMechAssetsCalls++;
+      return Promise.resolve();
+    },
     mountCharPreview: vi.fn(),
     attachTooltip: vi.fn(),
     renderBags: () => {
@@ -60,11 +64,15 @@ function makeHost(overrides?: {
     get renderCharIfOpenCalls() {
       return renderCharIfOpenCalls;
     },
+    get preloadMechAssetsCalls() {
+      return preloadMechAssetsCalls;
+    },
   } as unknown as CharSkinPainterHost & {
     changeSkinCalls: [number, 'class' | 'mech'][];
     unequipCalls: string[];
     renderBagsCalls: number;
     renderCharIfOpenCalls: number;
+    preloadMechAssetsCalls: number;
   };
 }
 
@@ -123,5 +131,23 @@ describe('char_skin_window: paintCharSkinPicker (extracted from hud.ts)', () => 
     paintCharSkinPicker(host);
     const row = document.getElementById('char-skin-row') as HTMLElement;
     expect(row.querySelector('.skin-unequip-btn')).toBeNull();
+  });
+
+  it('clicking a mech swatch commits the skin and re-mounts the preview once assets load', async () => {
+    const chromaId = MECH_CHROMAS[0].id;
+    const host = makeHost({ skinCatalog: 'class', skin: 0, mechChromaIds: [chromaId] });
+    paintCharSkinPicker(host);
+    const row = document.getElementById('char-skin-row') as HTMLElement;
+    const mechSwatch = row.querySelectorAll<HTMLButtonElement>('.skin-swatch')[4];
+    mechSwatch.click();
+    expect(host.changeSkinCalls).toEqual([[0, 'mech']]);
+    expect(mechSwatch.classList.contains('sel')).toBe(true);
+    // preloadMechAssets is prewarmed once on render (mech options present), then
+    // again on click, mirroring the display:block + .sel guard in the mocked promise chain.
+    expect(host.preloadMechAssetsCalls).toBeGreaterThanOrEqual(2);
+    expect(host.mountCharPreview).not.toHaveBeenCalled();
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(host.mountCharPreview).toHaveBeenCalled();
   });
 });

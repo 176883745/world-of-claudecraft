@@ -95,7 +95,12 @@ async function grantMechChromas() {
   await page.evaluate(() => {
     const sim = window.__game.sim;
     sim.accountCosmetics.mechChromaIds = Array.from(
-      new Set([...sim.accountCosmetics.mechChromaIds, 0, 1, 2]),
+      new Set([
+        ...sim.accountCosmetics.mechChromaIds,
+        'amber_crimson',
+        'crimson_amber',
+        'cyan_magenta',
+      ]),
     );
   });
 }

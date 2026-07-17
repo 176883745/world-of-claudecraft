@@ -27,8 +27,9 @@ class FakeTab {
 
 class FakeContainer {
   constructor(private readonly tabs: FakeTab[]) {}
-  querySelectorAll<T>(_sel: string): T[] {
-    return this.tabs as unknown as T[];
+  querySelectorAll<T>(sel: string): T[] {
+    const classes = sel.split('.').filter(Boolean);
+    return this.tabs.filter((tab) => classes.every((c) => tab.classes.has(c))) as unknown as T[];
   }
   querySelector<T>(sel: string): T | null {
     const classes = sel.split('.').filter(Boolean);
@@ -39,7 +40,10 @@ class FakeContainer {
 
 describe('wireTabStrip', () => {
   it('dispatches a click without focus-follow', () => {
-    const [friends, guild] = [new FakeTab('friends'), new FakeTab('guild')];
+    const [friends, guild] = [
+      new FakeTab('friends', ['soc-tab']),
+      new FakeTab('guild', ['soc-tab']),
+    ];
     const calls: [string, boolean][] = [];
     wireTabStrip(
       new FakeContainer([friends, guild]) as unknown as HTMLElement,
@@ -51,7 +55,10 @@ describe('wireTabStrip', () => {
   });
 
   it('moves selection to the next tab on ArrowRight, with focus-follow', () => {
-    const [friends, guild] = [new FakeTab('friends'), new FakeTab('guild')];
+    const [friends, guild] = [
+      new FakeTab('friends', ['soc-tab']),
+      new FakeTab('guild', ['soc-tab']),
+    ];
     const calls: [string, boolean][] = [];
     wireTabStrip(
       new FakeContainer([friends, guild]) as unknown as HTMLElement,
@@ -66,9 +73,9 @@ describe('wireTabStrip', () => {
 
   it('wraps Home/End and activates the focused tab on Enter/Space, all focus-follow', () => {
     const [friends, guild, block] = [
-      new FakeTab('friends'),
-      new FakeTab('guild'),
-      new FakeTab('block'),
+      new FakeTab('friends', ['soc-tab']),
+      new FakeTab('guild', ['soc-tab']),
+      new FakeTab('block', ['soc-tab']),
     ];
     const calls: [string, boolean][] = [];
     wireTabStrip(
@@ -87,7 +94,7 @@ describe('wireTabStrip', () => {
   });
 
   it('ignores a non-navigation key', () => {
-    const friends = new FakeTab('friends');
+    const friends = new FakeTab('friends', ['soc-tab']);
     const calls: [string, boolean][] = [];
     wireTabStrip(new FakeContainer([friends]) as unknown as HTMLElement, 'soc-tab', (id, f) =>
       calls.push([id, f]),
@@ -97,7 +104,7 @@ describe('wireTabStrip', () => {
   });
 
   it("honors an explicit 'both' orientation (Up/Down roving, for a future vertical strip)", () => {
-    const [a, b] = [new FakeTab('a'), new FakeTab('b')];
+    const [a, b] = [new FakeTab('a', ['tal-tab']), new FakeTab('b', ['tal-tab'])];
     const calls: [string, boolean][] = [];
     wireTabStrip(
       new FakeContainer([a, b]) as unknown as HTMLElement,
@@ -110,12 +117,22 @@ describe('wireTabStrip', () => {
   });
 
   it("defaults to 'horizontal' orientation (ArrowDown is not a navigation key)", () => {
-    const [a, b] = [new FakeTab('a'), new FakeTab('b')];
+    const [a, b] = [new FakeTab('a', ['soc-tab']), new FakeTab('b', ['soc-tab'])];
     const calls: [string, boolean][] = [];
     wireTabStrip(new FakeContainer([a, b]) as unknown as HTMLElement, 'soc-tab', (id, f) =>
       calls.push([id, f]),
     );
     a.fire('keydown', { key: 'ArrowDown', preventDefault: () => {} });
+    expect(calls).toEqual([]);
+  });
+
+  it('wires nothing when tabClass does not match any tab (closes the querySelectorAll hole)', () => {
+    const friends = new FakeTab('friends', ['soc-tab']);
+    const calls: [string, boolean][] = [];
+    wireTabStrip(new FakeContainer([friends]) as unknown as HTMLElement, 'tal-tab', (id, f) =>
+      calls.push([id, f]),
+    );
+    friends.fire('click');
     expect(calls).toEqual([]);
   });
 });

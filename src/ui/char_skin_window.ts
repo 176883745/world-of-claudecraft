@@ -1,5 +1,4 @@
 import { audio } from '../game/audio';
-import { preloadMechAssets } from '../render/characters/assets';
 import { MECH_CHROMAS } from '../sim/content/skins';
 import { CLASSES } from '../sim/data';
 import type { PlayerClass } from '../sim/types';
@@ -16,18 +15,21 @@ const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => document.quer
 const classCss = (cls: string): string =>
   `#${((CLASSES as Record<string, { color: number }>)[cls]?.color ?? 0x5fa8ff).toString(16).padStart(6, '0')}`;
 
-/** The host state + Hud callbacks this module needs. `Hud` satisfies this
- *  structurally (same field/method names), so its methods pass `this` in
- *  directly; no adapter object required. */
+/** The explicit dependency object `hud.ts`'s `skinHost()` builds for this module.
+ *  `sim`/`mechAssetsPromise`/`mountCharPreview`/`renderCharIfOpen` all name private
+ *  `Hud` members, so a structural `Hud`-as-host cast would have to go through
+ *  `unknown` and lose all compile-time coverage of the seam; passing bound
+ *  closures instead (the same idiom `SkinEventController` and `BagsWindow` use)
+ *  keeps tsc checking every member. */
 export interface CharSkinPainterHost {
   readonly sim: {
     cfg: { playerClass: PlayerClass };
-    player: { skin?: number; skinCatalog?: 'class' | 'mech'; level: number };
+    player: { skin?: number; skinCatalog?: 'class' | 'mech' };
     accountCosmetics: { mechChromaIds: string[] };
     changeSkin(skin: number, catalog: 'class' | 'mech'): void;
     unequipMechChroma(id: string): void;
   };
-  mechAssetsPromise: Promise<void> | null;
+  preloadMechAssets(): Promise<void>;
   mountCharPreview(
     container: HTMLElement,
     cls: PlayerClass,
@@ -42,7 +44,7 @@ export interface CharSkinPainterHost {
 /** The character-sheet skin (chroma) picker row: renders one swatch per
  *  unlocked class skin plus, once at least one mech chroma is owned, the
  *  Combat Mech catalog swatches and an unequip control. Wired via the
- *  `CharSkinPainterHost` narrowing of `Hud` (see `hud.ts`'s `skinHost()`).
+ *  `CharSkinPainterHost` deps object `hud.ts`'s `skinHost()` builds.
  *  Distinct from the cosmetic skin-roll reveal overlay, which lives in
  *  `hud/cosmetics/skin_event_controller.ts`. */
 export function paintCharSkinPicker(host: CharSkinPainterHost): void {
@@ -53,9 +55,7 @@ export function paintCharSkinPicker(host: CharSkinPainterHost): void {
   row.innerHTML = '';
   row.style.setProperty('--class-color', classCss(cls));
   if (options.length <= 1) return;
-  if (options.some((option) => option.kind === 'mech') && !host.mechAssetsPromise) {
-    host.mechAssetsPromise = preloadMechAssets();
-  }
+  if (options.some((option) => option.kind === 'mech')) void host.preloadMechAssets();
   const current = Math.max(0, host.sim.player.skin ?? 0);
   const currentCatalog = host.sim.player.skinCatalog ?? 'class';
   for (const option of options) {
@@ -92,9 +92,8 @@ export function paintCharSkinPicker(host: CharSkinPainterHost): void {
         return;
       }
       host.sim.changeSkin(option.skin, 'mech');
-      if (!host.mechAssetsPromise) host.mechAssetsPromise = preloadMechAssets();
-      const mechAssets = host.mechAssetsPromise;
-      void mechAssets
+      void host
+        .preloadMechAssets()
         .then(() => {
           if (
             ($('#char-window') as HTMLElement).style.display === 'block' &&
