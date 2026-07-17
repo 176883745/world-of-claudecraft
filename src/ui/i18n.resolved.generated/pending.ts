@@ -9,25 +9,85 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "es_ES": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "fr_FR": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "fr_CA": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
+  "it_IT": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "de_DE": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
   "zh_CN": [],
   "zh_TW": [],
   "ko_KR": [],
   "ja_JP": [],
-  "pt_BR": [],
+  "pt_BR": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
   "ru_RU": [],
-  "cs_CZ": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "cs_CZ": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "nl_NL": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "pl_PL": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "id_ID": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "tr_TR": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "sv_SE": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "vi_VN": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ],
+  "da_DK": [
+    "gpuNotice.bodyDesktop",
+    "gpuNotice.bodyWeb",
+    "gpuNotice.dismiss"
+  ]
 };

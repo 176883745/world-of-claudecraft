@@ -4866,6 +4866,11 @@ export const zh_TW: EnTranslations = {
       "fatalBody": "World of ClaudeCraft 發生未預期的錯誤，必須關閉。"
     }
   },
+  "gpuNotice": {
+    "bodyDesktop": "遊戲目前在沒有 GPU 加速的情況下執行，會非常緩慢。請更新顯示卡驅動程式後重新啟動遊戲。在 Windows 上，還請在 設定 > 系統 > 顯示器 > 顯示卡 中將本遊戲設為「高效能」。",
+    "bodyWeb": "遊戲目前在沒有 GPU 加速的情況下執行，會非常緩慢。請在瀏覽器設定中啟用硬體加速，更新顯示卡驅動程式，然後重新啟動瀏覽器。",
+    "dismiss": "關閉"
+  },
   "realm": {
     "noRealms": "沒有可用的世界。",
     "loading": "正在載入世界...",

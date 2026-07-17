@@ -4866,6 +4866,11 @@ export const nl_NL: EnTranslations = {
       "fatalBody": "World of ClaudeCraft is op een onverwachte fout gestuit en moet worden afgesloten."
     }
   },
+  "gpuNotice": {
+    "bodyDesktop": "The game is running without GPU acceleration and will be slow. Update your graphics drivers, then restart the game. On Windows, also set the game to High performance under Settings > System > Display > Graphics.",
+    "bodyWeb": "The game is running without GPU acceleration and will be slow. Enable hardware acceleration in your browser settings, update your graphics drivers, then restart your browser.",
+    "dismiss": "Dismiss"
+  },
   "realm": {
     "noRealms": "Geen werelden beschikbaar.",
     "loading": "Werelden laden...",

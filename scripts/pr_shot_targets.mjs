@@ -303,6 +303,31 @@ export const TARGETS = [
     },
   },
   {
+    key: 'gpu-notice',
+    label: 'Software rendering notice',
+    when: ['ui/gpu_notice', 'render/software_renderer', 'game/software_render_notice'],
+    variants: [
+      { key: 'web-desktop', desktopShell: false },
+      { key: 'desktop-shell', desktopShell: true },
+      { key: 'web-mobile', desktopShell: false, mobile: true },
+    ],
+    // The toast only shows when the session resolved to a software rasterizer, which a
+    // capture machine with a real GPU never does; import the module directly (Vite serves
+    // /src in dev) and force the state, exactly what src/game/software_render_notice.ts
+    // would pass on a WARP box. Clearing the persisted dismissal and any prior element
+    // keeps the recipe rerunnable; the two desktopShell variants show both copy branches.
+    async capture(page, variant) {
+      await page.evaluate(async (desktopShell) => {
+        localStorage.removeItem('woc_gpu_notice_dismissed');
+        document.querySelector('#gpu-notice')?.remove();
+        const mod = await import('/src/ui/gpu_notice_toast.ts');
+        mod.initGpuNotice({ softwareRendering: true, desktopShell });
+      }, Boolean(variant?.desktopShell));
+      const open = await pollForSize(page, '#gpu-notice');
+      return open ? { clip: '#gpu-notice' } : {};
+    },
+  },
+  {
     key: 'gather-node',
     label: 'Gather node (click/tap-to-harvest, #1866)',
     when: ['gather_node', 'gather_nodes'],

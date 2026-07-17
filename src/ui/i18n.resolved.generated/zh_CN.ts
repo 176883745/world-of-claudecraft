@@ -4866,6 +4866,11 @@ export const zh_CN: EnTranslations = {
       "fatalBody": "World of ClaudeCraft 遇到意外错误，需要关闭。"
     }
   },
+  "gpuNotice": {
+    "bodyDesktop": "游戏正在没有 GPU 加速的情况下运行，会非常缓慢。请更新显卡驱动后重启游戏。在 Windows 上，还请在 设置 > 系统 > 显示 > 显示卡 中将本游戏设为“高性能”。",
+    "bodyWeb": "游戏正在没有 GPU 加速的情况下运行，会非常缓慢。请在浏览器设置中启用硬件加速，更新显卡驱动，然后重启浏览器。",
+    "dismiss": "关闭"
+  },
   "realm": {
     "noRealms": "没有可用服务器。",
     "loading": "正在加载服务器...",
