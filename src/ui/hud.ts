@@ -7995,6 +7995,10 @@ export class Hud {
         }
         case 'honor': {
           const amount = formatNumber(ev.amount, { maximumFractionDigits: 0 });
+          const honorMessage = t('hudChrome.warfare.honorGain', {
+            amount,
+            reason: t(HONOR_REASON_KEYS[ev.reason]),
+          });
           const honorShape = fctSpawnShape({ type: 'honor' });
           if (honorShape) {
             this.fctPainter.spawn(
@@ -8006,13 +8010,16 @@ export class Hud {
               now,
             );
           }
-          this.combatLog(
-            t('hudChrome.warfare.honorGain', {
-              amount,
-              reason: t(HONOR_REASON_KEYS[ev.reason]),
-            }),
-            '#ffd100',
-          );
+          this.log(honorMessage, '#ffd100');
+          // Mirror to the combat pane as a SILENT visual line (appendLog, not
+          // combatLog): the log() line above already announces via #chat-live, so
+          // routing it through the combat announcer too would make a screen reader hear
+          // every Honor gain twice. This matches the xp-float precedent and the announce
+          // contract (see appendLog / showSelfNote).
+          this.appendLog(this.combatLogEl, honorMessage, '#ffd100');
+          // Keep the character sheet's Honor balance live if the sheet is open (spending
+          // already refreshes via the inventory path; an award landing did not).
+          this.renderCharIfOpen();
           break;
         }
         case 'levelup': {
@@ -8574,18 +8581,18 @@ export class Hud {
           const sign = delta >= 0 ? '+' : '';
           const ratingDelta = `${sign}${formatNumber(delta, { maximumFractionDigits: 0 })}`;
           const ratingAfter = formatNumber(ev.ratingAfter, { maximumFractionDigits: 0 });
+          let arenaResultLine: string;
+          let arenaResultColor: string;
           if (ev.draw) {
             this.showBanner(
               t('hud.system.arenaDrawBanner', { name: ev.oppName, delta: ratingDelta }),
             );
-            this.combatLog(
-              t('hud.system.arenaDrawLog', {
-                name: ev.oppName,
-                rating: ratingAfter,
-                delta: ratingDelta,
-              }),
-              '#fa6',
-            );
+            arenaResultLine = t('hud.system.arenaDrawLog', {
+              name: ev.oppName,
+              rating: ratingAfter,
+              delta: ratingDelta,
+            });
+            arenaResultColor = '#fa6';
           } else if (ev.won) {
             this.showBanner(
               t('hud.system.arenaVictoryBanner', {
@@ -8594,14 +8601,12 @@ export class Hud {
                 delta: ratingDelta,
               }),
             );
-            this.combatLog(
-              t('hud.system.arenaVictoryLog', {
-                name: ev.oppName,
-                rating: ratingAfter,
-                delta: ratingDelta,
-              }),
-              '#7fdc4f',
-            );
+            arenaResultLine = t('hud.system.arenaVictoryLog', {
+              name: ev.oppName,
+              rating: ratingAfter,
+              delta: ratingDelta,
+            });
+            arenaResultColor = '#7fdc4f';
             audio.duelEnd();
           } else {
             this.showBanner(
@@ -8611,16 +8616,18 @@ export class Hud {
                 delta: ratingDelta,
               }),
             );
-            this.combatLog(
-              t('hud.system.arenaDefeatLog', {
-                name: ev.oppName,
-                rating: ratingAfter,
-                delta: ratingDelta,
-              }),
-              '#ff7a6a',
-            );
+            arenaResultLine = t('hud.system.arenaDefeatLog', {
+              name: ev.oppName,
+              rating: ratingAfter,
+              delta: ratingDelta,
+            });
+            arenaResultColor = '#ff7a6a';
             audio.death();
           }
+          this.log(arenaResultLine, arenaResultColor);
+          // Combat-pane mirror without the announcer (log() above already announces the
+          // Arena result via #chat-live); see the Honor case and the announce contract.
+          this.appendLog(this.combatLogEl, arenaResultLine, arenaResultColor);
           break;
         }
         // The yumi events are personal per participant; offline the sim hands
