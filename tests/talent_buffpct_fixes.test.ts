@@ -89,11 +89,13 @@ describe('talent buffPct resolver fixes', () => {
 
     expect(ability.cooldown).toBeCloseTo(300, 6);
     expect(effect).toMatchObject({ kind: 'buff_haste', value: 1.4 });
-    expect(proc?.trigger).toMatchObject({ on: 'castNth', n: 3 });
+    // Balance pass: 5 sec per proc behind an 8 sec internal cooldown (was an
+    // uncapped 15 sec that free-shot feeding compressed the 300s cooldown with).
+    expect(proc?.trigger).toMatchObject({ on: 'castNth', n: 3, icd: 8 });
     expect(proc?.responses).toContainEqual({
       kind: 'cooldownRefund',
       ability: 'rapid_fire',
-      seconds: 15,
+      seconds: 5,
     });
   });
 

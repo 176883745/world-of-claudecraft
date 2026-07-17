@@ -77,7 +77,10 @@ function expireHot(sim: Sim, ability: string, target: Entity): void {
 // The mage tree was replaced wholesale by the owner's design (2026-07-11);
 // its coverage lives in tests/mage_choice_rows.test.ts.
 describe('hunter wave 2 choice rows', () => {
-  it('shot rhythm procs grant free or instant followups', () => {
+  it('the reworked shot rows: venom damage, mana-only Lean Quiver, no relays', () => {
+    // Balance pass: Deepvenom is a flat poison boost (no free-shot relay),
+    // Lean Quiver only returns mana (no instant Long Draw), and Steady Draw
+    // replaced the Rattling Ambush reset+free loop outright.
     const { sim, p } = rig('hunter', 20, {
       5: 'hun_r5_improved_serpent_sting',
       11: 'hun_r11_efficiency',
@@ -85,13 +88,33 @@ describe('hunter wave 2 choice rows', () => {
     });
     p.resource = p.maxResource - 30;
     for (let i = 0; i < 3; i++) completeCast(sim, 'serpent_sting');
-    // The final #1756 choice pass renamed the row 5 proc to Venom Relay and
-    // the row 14 proc to Rattling Ambush (id hun_full_draw_rhythm).
-    expect(p.auras.some((a) => a.id === 'hun_venom_relay')).toBe(true);
-    expect(p.auras.some((a) => a.id === 'hun_lean_quiver')).toBe(true);
-    expect(p.resource).toBe(p.maxResource - 10);
+    expect(p.auras.some((a) => a.id === 'hun_venom_relay')).toBe(false);
+    expect(p.auras.some((a) => a.id === 'hun_lean_quiver')).toBe(false);
+    expect(p.resource).toBe(p.maxResource - 10); // the every-3rd 20 mana survives
     completeCast(sim, 'concussive_shot');
-    expect(p.auras.some((a) => a.id === 'hun_full_draw_rhythm')).toBe(true);
+    expect(p.auras.some((a) => a.id === 'hun_full_draw_rhythm')).toBe(false);
+    // Deepvenom: the poison dot resolves 20% harder (rank 3 total 55 -> 66).
+    expect(sim.resolvedAbility('serpent_sting')?.effects[0]).toMatchObject({
+      type: 'dot',
+      total: 66,
+    });
+  });
+
+  it('Pinning Barb and Guisecraft are plain ability improvements now', () => {
+    // Balance pass: Pinning Barb lost its 2 sec root and the cut is 25%
+    // (12 -> 9 sec); Guisecraft strengthens the two early Guises instead of
+    // discounting shots on a swap.
+    const { sim } = rig('hunter', 20, {
+      5: 'hun_r5_aspect_mastery',
+      8: 'hun_r8_improved_concussive',
+    });
+    const rattling = sim.resolvedAbility('concussive_shot');
+    expect(rattling?.cooldown).toBeCloseTo(9);
+    expect(rattling?.effects.some((e) => e.type === 'root')).toBe(false);
+    expect(sim.resolvedAbility('aspect_of_the_hawk')?.effects[0]).toMatchObject({
+      type: 'selfBuff',
+      value: 75, // rank 3 at level 20: 50 AP * 1.5
+    });
   });
 
   it('Bloodbond, Deathless Will, and Steady Rain use pet-share, big-hit, and passive hooks', () => {

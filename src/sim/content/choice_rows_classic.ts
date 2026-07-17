@@ -507,28 +507,16 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
     {
       level: 5,
       theme: 'shot_cadence',
-      decision: 'Venom Barb handoff vs banked Fell Shots vs guise-fed shot discount',
+      decision: 'venom damage vs banked Fell Shots vs stronger Guises',
       options: [
         {
+          // Balance pass: was Venom Relay, an every-cast free-Fell-Shot relay.
+          // Now the classic Improved Serpent Sting shape: a flat poison boost.
           id: 'hun_r5_improved_serpent_sting',
-          name: 'Venom Relay',
-          description: 'Venom Barb makes your next Fell Shot within 8 sec free.',
+          name: 'Deepvenom',
+          description: "Venom Barb's poison deals 20% more damage.",
           icon: 'serpent_sting',
-          effect: {
-            proc: {
-              id: 'hun_venom_relay',
-              name: 'Venom Relay',
-              trigger: { on: 'castNth', n: 1, abilities: ['serpent_sting'] },
-              responses: [
-                {
-                  kind: 'empowerNext',
-                  aura: 'next_cast_free',
-                  abilities: ['arcane_shot'],
-                  duration: 8,
-                },
-              ],
-            },
-          },
+          effect: { ability: [{ ability: 'serpent_sting', dmgPct: 0.2 }] },
         },
         {
           id: 'hun_r5_quick_shots',
@@ -538,30 +526,19 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           effect: { ability: [{ ability: 'arcane_shot', bonusCharges: 1 }] },
         },
         {
+          // Balance pass: was a swap-into-guise shot discount that cost more
+          // mana than it saved. Now the Guises themselves get stronger.
+          // Courser's Guise (learn 14) stays unbuffed: the unlock guard bans
+          // a level-5 row from modifying a later-learned ability.
           id: 'hun_r5_aspect_mastery',
           name: 'Guisecraft',
-          description:
-            "Changing into Harrier's Guise or Marten's Guise makes your next shot within 8 sec cost 50% less.",
+          description: "Harrier's Guise and Marten's Guise effects are 50% stronger.",
           icon: 'aspect_of_the_hawk',
           effect: {
-            proc: {
-              id: 'hun_aspect_mastery',
-              name: 'Guisecraft',
-              trigger: {
-                on: 'castNth',
-                n: 1,
-                abilities: ['aspect_of_the_hawk', 'aspect_of_the_monkey', 'aspect_of_the_cheetah'],
-              },
-              responses: [
-                {
-                  kind: 'empowerNext',
-                  aura: 'next_cast_cheap',
-                  abilities: hunterRangedShotAbilityIds,
-                  duration: 8,
-                  costPct: 0.5,
-                },
-              ],
-            },
+            ability: [
+              { ability: 'aspect_of_the_hawk', buffPct: 0.5 },
+              { ability: 'aspect_of_the_monkey', buffPct: 0.5 },
+            ],
           },
         },
       ],
@@ -586,26 +563,20 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           effect: { grant: { ability: 'frost_trap' } },
         },
         {
+          // Balance pass: the 2 sec root is gone (a 7.2s-cadence ranged root
+          // chain was permanent CC) and the cooldown cut is 25%, not 40%.
           id: 'hun_r8_improved_concussive',
           name: 'Pinning Barb',
-          description: 'Rattling Shot cooldown reduced by 40% and roots the target for 2 sec.',
+          description: 'Rattling Shot cooldown reduced by 25%.',
           icon: 'concussive_shot',
-          effect: {
-            ability: [
-              {
-                ability: 'concussive_shot',
-                cooldownPct: -0.4,
-                addEffects: [{ type: 'root', duration: 2 }],
-              },
-            ],
-          },
+          effect: { ability: [{ ability: 'concussive_shot', cooldownPct: -0.25 }] },
         },
       ],
     },
     {
       level: 11,
       theme: 'sustain',
-      decision: 'pet sustain vs shot-fed mana and instant aim vs reactive self-shield',
+      decision: 'pet sustain vs shot-fed mana vs reactive self-shield',
       options: [
         {
           id: 'hun_r11_mend_pet',
@@ -615,10 +586,12 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           effect: { ability: [{ ability: 'revive_pet', dmgPct: 0.5 }] },
         },
         {
+          // Balance pass: the instant-Long-Draw second payload is gone; the
+          // mana return stays (and G1 keeps proc-fed free shots from feeding
+          // the counter).
           id: 'hun_r11_efficiency',
           name: 'Lean Quiver',
-          description:
-            'Every 3rd ranged shot restores 20 mana and makes your next Long Draw within 8 sec instant.',
+          description: 'Every 3rd ranged shot restores 20 mana.',
           icon: 'aimed_shot',
           effect: {
             proc: {
@@ -629,15 +602,7 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
                 n: 3,
                 abilities: hunterRangedShotAbilityIds,
               },
-              responses: [
-                { kind: 'resource', amount: 20 },
-                {
-                  kind: 'empowerNext',
-                  aura: 'next_cast_instant',
-                  abilities: ['aimed_shot'],
-                  duration: 8,
-                },
-              ],
+              responses: [{ kind: 'resource', amount: 20 }],
             },
           },
         },
@@ -661,7 +626,7 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
     {
       level: 14,
       theme: 'damage_profile',
-      decision: 'area shot vs Long Draw follow-up vs venomous instant shot',
+      decision: 'area shot vs faster Long Draw vs venom rider',
       options: [
         {
           id: 'hun_r14_multi_shot',
@@ -671,27 +636,14 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           effect: { grant: { ability: 'multi_shot' } },
         },
         {
+          // Balance pass: was Rattling Ambush, the worst loop in the game
+          // (every Rattling Shot reset Fell Shot AND made it free). Now the
+          // Long Draw lane: a plain cast-speed talent.
           id: 'hun_r14_sniper_training',
-          name: 'Rattling Ambush',
-          description:
-            "Rattling Shot finishes Fell Shot's cooldown and makes your next Fell Shot within 8 sec free.",
+          name: 'Steady Draw',
+          description: "Long Draw's cast time is reduced by 20%.",
           icon: 'aimed_shot',
-          effect: {
-            proc: {
-              id: 'hun_full_draw_rhythm',
-              name: 'Rattling Ambush',
-              trigger: { on: 'castNth', n: 1, abilities: ['concussive_shot'] },
-              responses: [
-                { kind: 'cooldownRefund', ability: 'arcane_shot', seconds: 'reset' },
-                {
-                  kind: 'empowerNext',
-                  aura: 'next_cast_free',
-                  abilities: ['arcane_shot'],
-                  duration: 8,
-                },
-              ],
-            },
-          },
+          effect: { ability: [{ ability: 'aimed_shot', castPct: -0.2 }] },
         },
         {
           id: 'hun_r14_serpents_venom',
@@ -722,7 +674,7 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
     {
       level: 17,
       theme: 'survival_response',
-      decision: 'active avoidance vs pet damage sharing vs hit-fed instant aim',
+      decision: 'active avoidance vs pet damage sharing vs hardy constitution',
       options: [
         {
           id: 'hun_r17_deterrence',
@@ -739,26 +691,13 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           effect: { global: { petDmgSharePct: 0.2 } },
         },
         {
+          // Balance pass: was Calloused Hide (take a big hit, gain an instant
+          // Long Draw). Now the classic Survivalist shape.
           id: 'hun_r17_thick_hide',
-          name: 'Calloused Hide',
-          description:
-            'Taking a hit for at least 15% of your maximum health makes your next Long Draw within 8 sec instant. 15 sec internal cooldown.',
+          name: 'Fieldhardy',
+          description: 'Increases your maximum health by 10%.',
           icon: 'aspect_of_the_monkey',
-          effect: {
-            proc: {
-              id: 'hun_calloused_hide',
-              name: 'Calloused Hide',
-              trigger: { on: 'bigHitTaken', hpFrac: 0.15, icd: 15 },
-              responses: [
-                {
-                  kind: 'empowerNext',
-                  aura: 'next_cast_instant',
-                  abilities: ['aimed_shot'],
-                  duration: 8,
-                },
-              ],
-            },
-          },
+          effect: { stats: { maxHpPct: 0.1 } },
         },
       ],
     },
@@ -778,16 +717,20 @@ export const HUNTER_CHOICE_ROWS: ClassChoiceRows = {
           },
         },
         {
+          // Balance pass: was 15 sec per proc with no gate (free shots fed it
+          // and compressed the 300 sec cooldown to ~75). Now 5 sec, at most
+          // once every 8 sec, and G1 keeps proc-fed shots out of the count.
           id: 'hun_r20_rapid_killing',
           name: 'Redline Draw',
-          description: "Every 3rd ranged shot reduces Fevered Draw's cooldown by 15 sec.",
+          description:
+            "Every 3rd ranged shot reduces Fevered Draw's cooldown by 5 sec, at most once every 8 sec.",
           icon: 'rapid_fire',
           effect: {
             proc: {
               id: 'hun_redline_draw',
               name: 'Redline Draw',
-              trigger: { on: 'castNth', n: 3, abilities: hunterRangedShotAbilityIds },
-              responses: [{ kind: 'cooldownRefund', ability: 'rapid_fire', seconds: 15 }],
+              trigger: { on: 'castNth', n: 3, abilities: hunterRangedShotAbilityIds, icd: 8 },
+              responses: [{ kind: 'cooldownRefund', ability: 'rapid_fire', seconds: 5 }],
             },
           },
         },

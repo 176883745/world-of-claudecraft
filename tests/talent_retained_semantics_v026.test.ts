@@ -102,19 +102,13 @@ describe('retained v0.26 all-class Talents V2 semantics', () => {
     const verdict = resolved('paladin', 'judgement', { 14: 'pal_r14_swift_verdicts' });
     expect(verdict).toMatchObject({ cost: 30, charges: 2, bonusCharges: 1 });
 
-    const ambush = rowOption('hunter', 'hun_r14_sniper_training');
-    expect(ambush.name).toBe('Rattling Ambush');
-    expect(ambush.effect.proc).toEqual({
-      id: 'hun_full_draw_rhythm',
-      name: 'Rattling Ambush',
-      trigger: { on: 'castNth', n: 1, abilities: ['concussive_shot'] },
-      responses: [
-        { kind: 'cooldownRefund', ability: 'arcane_shot', seconds: 'reset' },
-        { kind: 'empowerNext', aura: 'next_cast_free', abilities: ['arcane_shot'], duration: 8 },
-      ],
-    });
+    // Balance pass: hun_r14_sniper_training is Steady Draw now (the Rattling
+    // Ambush reset+free relay was the worst loop in the game).
+    const steadyDraw = rowOption('hunter', 'hun_r14_sniper_training');
+    expect(steadyDraw.name).toBe('Steady Draw');
+    expect(steadyDraw.effect.proc).toBeUndefined();
     const aimed = resolved('hunter', 'aimed_shot', { 14: 'hun_r14_sniper_training' });
-    expect(aimed.castTime).toBeCloseTo(3.0);
+    expect(aimed.castTime).toBeCloseTo(2.4);
     expect(effect(aimed, 'directDamage')).toEqual(
       effect(resolved('hunter', 'aimed_shot'), 'directDamage'),
     );
@@ -194,25 +188,18 @@ describe('retained v0.26 all-class Talents V2 semantics', () => {
     expect(doubleBlink).toMatchObject({ charges: 2, bonusCharges: 1 });
   });
 
-  it('Calloused Hide makes only its scoped physical Long Draw cast instant', () => {
+  it('Fieldhardy (was Calloused Hide) is a flat max-health passive', () => {
+    // Balance pass: the on-hit instant Long Draw is gone; the option is the
+    // classic Survivalist shape and no bigHitTaken response remains on it.
     const sim = harness(new Sim({ seed: 2608, playerClass: 'hunter', autoEquip: false }));
     sim.setPlayerLevel(20);
+    const before = sim.player.maxHp;
     expect(sim.selectTalentRow(17, 'hun_r17_thick_hide')).toBe(true);
+    expect(sim.player.maxHp).toBeGreaterThan(before);
     const player = sim.player;
     player.resource = player.maxResource;
     spawnTarget(sim, player);
-
     onDamageTaken(sim.ctx, player, Math.ceil(player.maxHp * 0.15));
-    expect(player.auras).toContainEqual(
-      expect.objectContaining({
-        id: 'hun_calloused_hide',
-        kind: 'next_cast_instant',
-        empowerAbilities: ['aimed_shot'],
-      }),
-    );
-
-    sim.castAbility('aimed_shot');
-    expect(player.castingAbility).toBeNull();
     expect(player.auras.some((aura) => aura.id === 'hun_calloused_hide')).toBe(false);
   });
 

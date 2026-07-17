@@ -102,9 +102,11 @@ const HUNTER_SPECS: SpecDef[] = [
     'o',
     'A skirmisher who controls distance and survives close pressure.',
     'wyvern_sting',
+    // Balance pass: was +15% Agility / +15% physical damage, a straight Iron
+    // Aim rival with no niche. Now the evasive-skirmisher identity.
     'Quickblood',
-    'Increases your Agility by 15% and physical ability damage by 15%.',
-    { global: { meleeDmgPct: 0.15 }, stats: { agiPct: 0.15 } },
+    'Increases your Agility by 15% and your dodge chance by 4%.',
+    { stats: { agiPct: 0.15, dodge: 0.04 } },
   ),
 ];
 

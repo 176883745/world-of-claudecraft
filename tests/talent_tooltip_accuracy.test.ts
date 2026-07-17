@@ -122,9 +122,9 @@ describe('talent tooltip accuracy (all 9 classes x 3 specs)', () => {
     const swift = render('paladin', (e) => e.id === 'pal_r14_swift_verdicts');
     expect(swift).toContain('stores 2 uses');
 
+    // Balance pass: the option is now Steady Draw, a plain cast-speed talent.
     const sniper = render('hunter', (e) => e.id === 'hun_r14_sniper_training');
-    expect(sniper).toContain("finishes Fell Shot's cooldown");
-    expect(sniper).toContain('within 8 sec free');
+    expect(sniper).toContain('cast time is reduced by 20%');
 
     const attunement = render('shaman', (e) => e.id === 'sha_r11_elemental_attunement');
     expect(attunement).toContain('critical strikes');
@@ -549,7 +549,8 @@ describe('talent tooltip accuracy for specs, masteries, and choice rows', () => 
     const survival = render('hunter', 'survival.mastery');
     expect(survival).toContain('Agility');
     expect(survival).toContain('15%');
-    expect(survival).toContain('physical ability damage');
+    // Balance pass: Quickblood is the evasive-skirmisher mastery now.
+    expect(survival).toContain('dodge chance by 4%');
   });
 
   it('localized thorns procs identify the ward and reflected melee strike trigger', async () => {
