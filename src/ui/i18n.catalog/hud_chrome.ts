@@ -1537,6 +1537,8 @@ export const hudChromeStrings = {
     dmgDoneReduce: 'Reduces damage dealt by {pct}%',
     heatingUp:
       'Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up',
+    elementalConvergencePrimed:
+      'Your next spell from the other elemental school grants Elemental Convergence',
     battleStance: 'Battle Stance: 10% more rage generation',
     berserkerStance: 'Berserker Stance: crits 3% more often and hit 3% harder',
     crit: 'Increases critical strike chance by {pct}%',

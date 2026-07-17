@@ -1538,6 +1538,7 @@ export const cs_CZ: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Bojový postoj: o 10 % vyšší generování vzteku",
       "berserkerStance": "Postoj berserka: kritické zásahy o 3 % častěji a o 3 % tvrdší",
       "crit": "Zvyšuje šanci na kritický zásah o {pct} %",
@@ -5858,7 +5859,8 @@ export const cs_CZ: EnTranslations = {
       "attackPower": "Útočná síla",
       "dps": "Poškození/s",
       "critChance": "Šance na kritický zásah",
-      "dodge": "Vyhnutí"
+      "dodge": "Vyhnutí",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

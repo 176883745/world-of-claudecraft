@@ -1538,6 +1538,7 @@ export const sv_SE: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Stridsställning: 10% mer raserigenerering",
       "berserkerStance": "Bärsärkaställning: kritiska träffar sker 3% oftare och slår 3% hårdare",
       "crit": "Ökar kritisk träffchans med {pct}%",
@@ -5858,7 +5859,8 @@ export const sv_SE: EnTranslations = {
       "attackPower": "Anfallskraft",
       "dps": "Skada/sek",
       "critChance": "Kritisk chans",
-      "dodge": "Undvikande"
+      "dodge": "Undvikande",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

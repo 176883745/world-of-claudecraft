@@ -78,6 +78,14 @@ export const PERSONAL_BARRIER_IDS: readonly string[] = [
   'temporal_barrier',
 ];
 
+/** The active mage spec's occupant of the shared personal-barrier slot. */
+export function personalBarrierIdForSpec(spec: string | null): string | null {
+  if (spec === 'arcane') return 'temporal_barrier';
+  if (spec === 'fire') return 'blazing_barrier';
+  if (spec === 'frost') return 'ice_barrier';
+  return null;
+}
+
 function fireSpecMods(ctx: SimContext, p: Entity) {
   if (p.kind !== 'player') return null;
   const meta = ctx.players.get(p.id);

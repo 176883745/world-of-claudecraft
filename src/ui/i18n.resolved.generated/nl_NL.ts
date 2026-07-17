@@ -1538,6 +1538,7 @@ export const nl_NL: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Strijdhouding: 10% meer woedeopbouw",
       "berserkerStance": "Berserkerhouding: kritieke treffers landen 3% vaker en raken 3% harder",
       "crit": "Verhoogt kans op kritieke treffers met {pct}%",
@@ -5858,7 +5859,8 @@ export const nl_NL: EnTranslations = {
       "attackPower": "Aanvalskracht",
       "dps": "Schade/sec",
       "critChance": "Kritieke Kans",
-      "dodge": "Ontwijken"
+      "dodge": "Ontwijken",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

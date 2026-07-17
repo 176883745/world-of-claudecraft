@@ -1538,6 +1538,7 @@ export const fr_FR: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Posture de combat : 10% de génération de rage en plus",
       "berserkerStance": "Posture berserker : coups critiques 3% plus fréquents et 3% plus puissants",
       "crit": "Augmente les chances de coup critique de {pct}%",
@@ -5858,7 +5859,8 @@ export const fr_FR: EnTranslations = {
       "attackPower": "Puissance d'attaque",
       "dps": "Dégâts/s",
       "critChance": "Chances de critique",
-      "dodge": "Esquive"
+      "dodge": "Esquive",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{kind} {quality}",

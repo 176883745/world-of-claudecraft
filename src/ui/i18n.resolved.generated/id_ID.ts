@@ -1538,6 +1538,7 @@ export const id_ID: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Kuda-kuda Tempur: penghasilan amarah 10% lebih banyak",
       "berserkerStance": "Kuda-kuda Berserker: kritis 3% lebih sering dan menghantam 3% lebih keras",
       "crit": "Meningkatkan peluang serangan kritis sebesar {pct}%",
@@ -5858,7 +5859,8 @@ export const id_ID: EnTranslations = {
       "attackPower": "Daya Serang",
       "dps": "Kerusakan/detik",
       "critChance": "Peluang Kritis",
-      "dodge": "Mengelak"
+      "dodge": "Mengelak",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

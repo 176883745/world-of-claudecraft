@@ -205,7 +205,7 @@ describe('Phoenix mobile size', () => {
 
     expect(baseRule).toContain('width: 300px');
     expect(baseRule).toContain('height: 232px');
-    expect(baseRule).not.toContain('scale: 0.65');
-    expect(mobileRule).toContain('scale: 0.65');
+    expect(baseRule).not.toContain('scale: 0.5');
+    expect(mobileRule).toContain('scale: 0.5');
   });
 });

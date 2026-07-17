@@ -63,10 +63,12 @@ export const pending: Record<string, readonly string[]> = {
     "hud.prompts.resurrectionOffer",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.heatingUp",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "es_ES": [
     "entities.abilities.arcane_surge.description",
@@ -120,10 +122,12 @@ export const pending: Record<string, readonly string[]> = {
     "hud.prompts.resurrectionOffer",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.heatingUp",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "fr_FR": [
     "entities.abilities.arcane_surge.description",
@@ -191,6 +195,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -202,7 +207,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.sanguine",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "fr_CA": [
     "entities.abilities.arcane_surge.description",
@@ -270,6 +276,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -281,7 +288,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.sanguine",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "en_CA": [],
   "it_IT": [
@@ -350,6 +358,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -361,7 +370,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.sanguine",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "de_DE": [
     "entities.abilities.arcane_surge.description",
@@ -429,6 +439,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -439,12 +450,21 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
-  "zh_CN": [],
-  "zh_TW": [],
-  "ko_KR": [],
-  "ja_JP": [],
+  "zh_CN": [
+    "itemUi.stats.parry"
+  ],
+  "zh_TW": [
+    "itemUi.stats.parry"
+  ],
+  "ko_KR": [
+    "itemUi.stats.parry"
+  ],
+  "ja_JP": [
+    "itemUi.stats.parry"
+  ],
   "pt_BR": [
     "entities.abilities.arcane_surge.description",
     "entities.abilities.arcane_surge.name",
@@ -511,6 +531,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -521,9 +542,12 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
-  "ru_RU": [],
+  "ru_RU": [
+    "itemUi.stats.parry"
+  ],
   "cs_CZ": [
     "entities.abilities.arcane_surge.description",
     "entities.abilities.arcane_surge.name",
@@ -588,6 +612,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -598,7 +623,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "nl_NL": [
     "entities.abilities.arcane_surge.description",
@@ -664,6 +690,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -674,7 +701,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "pl_PL": [
     "entities.abilities.arcane_surge.description",
@@ -740,6 +768,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -750,7 +779,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "id_ID": [
     "entities.abilities.arcane_surge.description",
@@ -816,6 +846,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -826,7 +857,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "tr_TR": [
     "entities.abilities.arcane_surge.description",
@@ -892,6 +924,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -902,7 +935,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "sv_SE": [
     "entities.abilities.arcane_surge.description",
@@ -968,6 +1002,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -978,7 +1013,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "vi_VN": [
     "entities.abilities.arcane_surge.description",
@@ -1044,6 +1080,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -1054,7 +1091,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ],
   "da_DK": [
     "entities.abilities.arcane_surge.description",
@@ -1120,6 +1158,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.combustionCrit",
     "hudChrome.auraEffect.dmgDone",
     "hudChrome.auraEffect.dmgDoneReduce",
+    "hudChrome.auraEffect.elementalConvergencePrimed",
     "hudChrome.auraEffect.formFireball",
     "hudChrome.auraEffect.freeCast",
     "hudChrome.auraEffect.heatingUp",
@@ -1130,6 +1169,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.auraEffect.powerEchoNext",
     "hudChrome.auraEffect.temporalHourglass",
     "hudChrome.specPanel.specUnlockBanner",
-    "hudChrome.specPanel.specUnlockHint"
+    "hudChrome.specPanel.specUnlockHint",
+    "itemUi.stats.parry"
   ]
 };

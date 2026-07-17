@@ -62,7 +62,7 @@
      proportions while taking less of the phone battlefield. The root is
      already draggable, and scale composes with its independent translate. */
   body.mobile-touch #proc-overlay {
-    scale: 0.65;
+    scale: 0.5;
   }
   /* The HUD overlay must let one-finger panning reach scrollable windows (Bag,
      Market, etc.) on iOS: Safari intersects touch-action down the ancestor
@@ -3410,9 +3410,15 @@
     max-width: none;
     max-height: none;
     transform: none;
+    column-count: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
     z-index: 95 !important;
   }
   body.mobile-touch #talents-window #tal-body {
+    width: 100%;
+    min-height: 0;
+    max-height: calc(100% - 150px);
     overflow: auto;
   }
   /* The class/spec tab switch already exists on desktop (tal-tabs); on mobile
@@ -3485,6 +3491,7 @@
     }
     body.mobile-touch #talents-window .ts-panel {
       padding: 9px;
+      min-height: 260px;
     }
     body.mobile-touch #talents-window .ts-panel-head {
       margin-bottom: 4px;
@@ -4445,32 +4452,10 @@
     body.mobile-touch #mobile-preflight-steps {
       font-size: 11px;
     }
-    /* Issue 1577 round 2 (11): a further landscape improvement on top of the
-       full-screen fit-to-view talent tree. Flow the window as a wrapping row so
-       the tree (#tal-body) and the build/loadout controls (.tal-foot) sit side
-       by side (two columns) instead of the foot stacking below and stealing the
-       vertical room the tree fits into. The header/help/tabs stay full width on
-       top. The tree's fit-to-view scale (fitTreeToMobileViewport) measures
-       #tal-body live, so it adapts to the narrower-but-taller column
-       automatically. */
-    body.mobile-touch #talents-window {
-      column-count: 2;
-      column-gap: 14px;
-      box-sizing: border-box;
-    }
-    body.mobile-touch #talents-window > * {
-      break-inside: avoid;
-    }
-    body.mobile-touch #talents-window > .panel-title,
-    body.mobile-touch #talents-window > .tal-head,
-    body.mobile-touch #talents-window > .tal-help,
-    body.mobile-touch #talents-window > .tal-tabs {
-      column-span: all;
-    }
+    /* Keep the footer compact below the full-width, internally scrollable body. */
     body.mobile-touch #talents-window > .tal-foot {
       margin-top: 0;
-      border-top: 0;
-      padding-top: 0;
+      padding-top: 4px;
     }
   }
   /* Re-homed from the char-select responsive block in shell.css: narrow-width

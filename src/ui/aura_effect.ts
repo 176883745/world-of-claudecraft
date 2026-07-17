@@ -72,6 +72,9 @@ export function auraEffectDescriptor(a: AuraEffectInput): AuraEffectDescriptor |
   if (a.id === 'heating_up' && a.kind === 'internal_cd') {
     return { key: `${KEY}.heatingUp`, nums: {} };
   }
+  if (a.id === 'convergence_mark' && a.kind === 'internal_cd') {
+    return { key: `${KEY}.elementalConvergencePrimed`, nums: {} };
+  }
   switch (a.kind) {
     case 'dot':
       return {

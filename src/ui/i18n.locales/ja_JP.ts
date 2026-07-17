@@ -5939,6 +5939,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.haste': '攻撃速度と詠唱速度を{pct}%上昇させる',
   'hudChrome.auraEffect.dmgDone': '与えるダメージを{pct}%上昇させる',
   'hudChrome.auraEffect.dmgDoneReduce': '与えるダメージを{pct}%低下させる',
+  'hudChrome.auraEffect.elementalConvergencePrimed':
+    '次に異なる属性の呪文を唱えると、エレメンタル・コンバージェンスが発動します',
   'hudChrome.auraEffect.heatingUp':
     '次の炎系ビルダーが連続でクリティカルになるとホットストリークを獲得し、クリティカルでなければヒーティングアップが解除されます',
   'hudChrome.auraEffect.tongues': '詠唱時間を{pct}%増加させる',

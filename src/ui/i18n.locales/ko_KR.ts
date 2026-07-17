@@ -5942,6 +5942,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.haste': '공격 속도와 시전 속도를 {pct}% 증가시킵니다',
   'hudChrome.auraEffect.dmgDone': '입히는 피해가 {pct}% 증가합니다',
   'hudChrome.auraEffect.dmgDoneReduce': '입히는 피해가 {pct}% 감소합니다',
+  'hudChrome.auraEffect.elementalConvergencePrimed':
+    '다음에 다른 원소 계열 주문을 시전하면 원소 융합이 발동합니다',
   'hudChrome.auraEffect.heatingUp':
     '다음 화염 생성기가 연속으로 치명타를 적중하면 몰아치는 열기를 얻고, 치명타가 아니면 달아오름이 제거됩니다',
   'hudChrome.auraEffect.tongues': '시전 시간을 {pct}% 증가시킵니다',

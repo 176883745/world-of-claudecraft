@@ -2,6 +2,22 @@ import { describe, expect, it } from 'vitest';
 import { Sim } from '../src/sim/sim';
 
 describe('Mass Barrier specialization theme', () => {
+  for (const [spec, personalBarrierId, personalBarrierCooldown] of [
+    ['arcane', 'temporal_barrier', 12],
+    ['fire', 'blazing_barrier', 30],
+    ['frost', 'ice_barrier', 30],
+  ] as const) {
+    it(`also starts ${personalBarrierId}'s cooldown for a ${spec} caster`, () => {
+      const sim = new Sim({ seed: 86, playerClass: 'mage', autoEquip: true });
+      sim.setPlayerLevel(20);
+      expect(sim.applyTalents({ spec, rows: { 17: 'mag_r17_mass_barrier' } })).toBe(true);
+
+      sim.castAbility('mass_barrier');
+
+      expect(sim.player.cooldowns.get(personalBarrierId)).toBe(personalBarrierCooldown);
+    });
+  }
+
   for (const [spec, school] of [
     ['arcane', 'arcane'],
     ['fire', 'fire'],

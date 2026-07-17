@@ -1538,6 +1538,7 @@ export const vi_VN: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Thế Công: tạo nộ khí nhiều hơn 10%",
       "berserkerStance": "Thế Cuồng Chiến: chí mạng thường xuyên hơn 3% và mạnh hơn 3%",
       "crit": "Tăng tỉ lệ chí mạng thêm {pct}%",
@@ -5858,7 +5859,8 @@ export const vi_VN: EnTranslations = {
       "attackPower": "Sức Tấn Công",
       "dps": "Sát thương/giây",
       "critChance": "Tỉ Lệ Chí Mạng",
-      "dodge": "Né Tránh"
+      "dodge": "Né Tránh",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

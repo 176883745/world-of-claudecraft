@@ -187,6 +187,22 @@ describe('createAurasView: derivation per mode', () => {
     expect(slot.effectHtml).toBe('hudChrome.auraEffect.dmgDone:15');
   });
 
+  it('explains the first Elemental Convergence school marker in the top-right buff view', () => {
+    const primed = aura({
+      id: 'convergence_mark',
+      name: 'Elemental Convergence',
+      kind: 'internal_cd',
+      value: 0,
+    });
+    const viewDeps: AurasDeps = {
+      ...deps(),
+      auraEffectHtml: (input) => auraEffectDescriptor(input)?.key ?? '',
+    };
+
+    const slot = createAurasView('buffs', viewDeps).tick(entity([primed])).slots[0];
+    expect(slot.effectHtml).toBe('hudChrome.auraEffect.elementalConvergencePrimed');
+  });
+
   it('derives the debuff school for the border tint (physical fallback; buffs carry none)', () => {
     const state = createAurasView('all', deps()).tick(
       entity([

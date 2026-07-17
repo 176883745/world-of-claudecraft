@@ -1538,6 +1538,7 @@ export const tr_TR: EnTranslations = {
       "dmgDone": "Increases damage dealt by {pct}%",
       "dmgDoneReduce": "Reduces damage dealt by {pct}%",
       "heatingUp": "Your next consecutive Fire builder critical strike grants Hot Streak; a non-critical builder removes Heating Up",
+      "elementalConvergencePrimed": "Your next spell from the other elemental school grants Elemental Convergence",
       "battleStance": "Savaş Duruşu: %10 daha fazla öfke üretimi",
       "berserkerStance": "Berserker Duruşu: kritikler %3 daha sık gerçekleşir ve %3 daha sert vurur",
       "crit": "Kritik vuruş şansını %{pct} artırır",
@@ -5858,7 +5859,8 @@ export const tr_TR: EnTranslations = {
       "attackPower": "Saldırı Gücü",
       "dps": "Hasar/sn",
       "critChance": "Kritik Şansı",
-      "dodge": "Sıyırma"
+      "dodge": "Sıyırma",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

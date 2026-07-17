@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { CRAFT_RING } from '../src/sim/content/professions';
 import { archetypeTitleText, hobbyCraftText } from '../src/ui/char_window';
+import { hasTranslation } from '../src/ui/i18n';
 
 // The character window painter is a DOM module; driving the live DOM + events is
 // the opt-in browser suite. This is the no-DOM-suite
@@ -54,6 +55,24 @@ describe('char_window: WCAG 2.2 AA', () => {
 });
 
 describe('char_window: paperdoll core + HUD-owned preview boundary', () => {
+  it('registers every computed character-stat label used while opening the window', () => {
+    for (const stat of [
+      'str',
+      'armor',
+      'agi',
+      'attackPower',
+      'sta',
+      'dps',
+      'int',
+      'critChance',
+      'spi',
+      'dodge',
+      'parry',
+    ]) {
+      expect(hasTranslation(`itemUi.stats.${stat}`), stat).toBe(true);
+    }
+  });
+
   it('renders one player-facing Warfare stat row', () => {
     expect(painter).toContain("'warfare'");
     expect(painter).not.toContain("'pvpOffense'");
@@ -114,13 +133,14 @@ describe('archetypeTitleText (#1130): id-to-key view model', () => {
     expect(Object.keys(EXPECTED_TITLE).sort()).toEqual(CRAFT_RING.map((c) => c.id).sort());
   });
 
-  it.each(
-    CRAFT_RING.map((craft) => [craft.id, EXPECTED_TITLE[craft.id]] as const),
-  )('resolves %s to its named title, not the fallback', (craftId, expected) => {
-    const text = archetypeTitleText(craftId);
-    expect(text).toBe(expected);
-    expect(text).not.toBe('None');
-  });
+  it.each(CRAFT_RING.map((craft) => [craft.id, EXPECTED_TITLE[craft.id]] as const))(
+    'resolves %s to its named title, not the fallback',
+    (craftId, expected) => {
+      const text = archetypeTitleText(craftId);
+      expect(text).toBe(expected);
+      expect(text).not.toBe('None');
+    },
+  );
 
   it('resolves every craft id to a distinct title (no accidental key collision)', () => {
     const titles = CRAFT_RING.map((craft) => archetypeTitleText(craft.id));

@@ -1538,6 +1538,7 @@ export const ko_KR: EnTranslations = {
       "dmgDone": "입히는 피해가 {pct}% 증가합니다",
       "dmgDoneReduce": "입히는 피해가 {pct}% 감소합니다",
       "heatingUp": "다음 화염 생성기가 연속으로 치명타를 적중하면 몰아치는 열기를 얻고, 치명타가 아니면 달아오름이 제거됩니다",
+      "elementalConvergencePrimed": "다음에 다른 원소 계열 주문을 시전하면 원소 융합이 발동합니다",
       "battleStance": "전투 태세: 분노 생성 10% 증가",
       "berserkerStance": "광전사 태세: 치명타 확률 3% 증가, 피해 3% 증가",
       "crit": "치명타 확률이 {pct}% 증가합니다",
@@ -5858,7 +5859,8 @@ export const ko_KR: EnTranslations = {
       "attackPower": "전투력",
       "dps": "초당 피해",
       "critChance": "치명타율",
-      "dodge": "회피"
+      "dodge": "회피",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

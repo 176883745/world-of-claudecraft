@@ -68,7 +68,7 @@ import { extendOwnedDot } from './dot_mutation';
 import { consumeAuraKind, consumeNextAttackCrit } from './empower_next';
 import { runWeaponProcs } from './equip_procs';
 import { exclusiveAuraConflicts } from './exclusive_aura';
-import { fireGuaranteedCrit } from './fire_mage';
+import { fireGuaranteedCrit, personalBarrierIdForSpec } from './fire_mage';
 import { isFormAuraKind, isTravelFormAuraKind } from './forms';
 import {
   frostMageAfterCast,
@@ -1878,6 +1878,18 @@ export function runEffects(
         }
         const resolved = ctx.resolve(p.id);
         const spec = resolved ? ctx.playerMods(resolved.meta).spec : null;
+        if (ability.id === 'mass_barrier') {
+          const personalBarrierId = personalBarrierIdForSpec(spec);
+          const personalBarrier = personalBarrierId
+            ? ctx.resolvedAbility(personalBarrierId, p.id)
+            : null;
+          if (personalBarrierId && personalBarrier && personalBarrier.cooldown > 0) {
+            p.cooldowns.set(
+              personalBarrierId,
+              Math.max(p.cooldowns.get(personalBarrierId) ?? 0, personalBarrier.cooldown),
+            );
+          }
+        }
         const barrierSchool =
           ability.id === 'mass_barrier' && spec === 'arcane'
             ? 'arcane'

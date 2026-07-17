@@ -58,6 +58,7 @@ const itemStringsEn = {
       dps: 'Damage/sec',
       critChance: 'Crit Chance',
       dodge: 'Dodge',
+      parry: 'Parry',
     },
     tooltip: {
       qualityKind: '{quality} {kind}',
@@ -253,6 +254,7 @@ export const itemStrings = {
         dps: 'Daño/seg',
         critChance: 'Prob. de crítico',
         dodge: 'Esquiva',
+        parry: 'Parada',
       },
       tooltip: {
         qualityKind: '{kind} {quality}',
@@ -415,6 +417,7 @@ export const itemStrings = {
         dps: 'Dégâts/s',
         critChance: 'Chances de critique',
         dodge: 'Esquive',
+        parry: 'Parade',
       },
       tooltip: {
         qualityKind: '{kind} {quality}',
@@ -578,6 +581,7 @@ export const itemStrings = {
         dps: 'Danni/sec',
         critChance: 'Prob. critico',
         dodge: 'Schivata',
+        parry: 'Parata',
       },
       tooltip: {
         qualityKind: '{kind} {quality}',
@@ -737,6 +741,7 @@ export const itemStrings = {
         dps: 'Schaden/Sek.',
         critChance: 'Krit. Chance',
         dodge: 'Ausweichen',
+        parry: 'Parieren',
       },
       tooltip: {
         qualityKind: '{quality} {kind}',
@@ -898,6 +903,7 @@ export const itemStrings = {
         dps: '每秒伤害',
         critChance: '暴击几率',
         dodge: '躲闪',
+        parry: '招架',
       },
       tooltip: {
         qualityKind: '{quality}{kind}',
@@ -1052,6 +1058,7 @@ export const itemStrings = {
         dps: '每秒傷害',
         critChance: '暴擊機率',
         dodge: '閃躲',
+        parry: '招架',
       },
       tooltip: {
         qualityKind: '{quality}{kind}',
@@ -1206,6 +1213,7 @@ export const itemStrings = {
         dps: '초당 피해',
         critChance: '치명타율',
         dodge: '회피',
+        parry: '무기 막기',
       },
       tooltip: {
         qualityKind: '{quality} {kind}',
@@ -1364,6 +1372,7 @@ export const itemStrings = {
         dps: '秒間ダメージ',
         critChance: 'クリティカル率',
         dodge: '回避',
+        parry: '受け流し',
       },
       tooltip: {
         qualityKind: '{quality} {kind}',
@@ -1522,6 +1531,7 @@ export const itemStrings = {
         dps: 'Dano/s',
         critChance: 'Chance crítica',
         dodge: 'Esquiva',
+        parry: 'Aparo',
       },
       tooltip: {
         qualityKind: '{kind} {quality}',
@@ -1680,6 +1690,7 @@ export const itemStrings = {
         dps: 'Урон/сек',
         critChance: 'Шанс крита',
         dodge: 'Уклонение',
+        parry: 'Парирование',
       },
       tooltip: {
         qualityKind: '{quality} {kind}',

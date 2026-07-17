@@ -1538,6 +1538,7 @@ export const ru_RU: EnTranslations = {
       "dmgDone": "Повышает наносимый урон на {pct}%",
       "dmgDoneReduce": "Снижает наносимый урон на {pct}%",
       "heatingUp": "Следующий критический удар огненного заклинания в серии дает «Полосу везения»; некритический удар снимает «Разогрев»",
+      "elementalConvergencePrimed": "Следующее заклинание другой стихийной школы активирует Стихийное слияние",
       "battleStance": "Боевая стойка: на 10% больше создания ярости",
       "berserkerStance": "Стойка берсерка: крит. удары на 3% чаще и на 3% сильнее",
       "crit": "Повышает шанс критического удара на {pct}%",
@@ -5858,7 +5859,8 @@ export const ru_RU: EnTranslations = {
       "attackPower": "Сила атаки",
       "dps": "Урон/сек",
       "critChance": "Шанс крита",
-      "dodge": "Уклонение"
+      "dodge": "Уклонение",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality} {kind}",

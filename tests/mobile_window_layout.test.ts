@@ -45,4 +45,14 @@ describe('mobile window layout CSS', () => {
     expect(block).toContain('width: min(330px, calc(var(--app-vw) / var(--ui-scale, 1) - 32px));');
     expect(block).toContain('max-width: calc(var(--app-vw) / var(--ui-scale, 1) - 32px);');
   });
+
+  it('uses the full mobile Talents width instead of splitting the window into CSS columns', () => {
+    expect(mobileCss).not.toMatch(/body\.mobile-touch #talents-window \{[^}]*column-count: 2;/);
+    expect(mobileCss).toMatch(
+      /body\.mobile-touch #talents-window \{[^}]*column-count: auto;[^}]*overflow-x: hidden;[^}]*overflow-y: hidden;/,
+    );
+    expect(mobileCss).toMatch(
+      /body\.mobile-touch #talents-window #tal-body \{[^}]*width: 100%;[^}]*min-height: 0;[^}]*max-height: calc\(100% - 150px\);[^}]*overflow: auto;/,
+    );
+  });
 });

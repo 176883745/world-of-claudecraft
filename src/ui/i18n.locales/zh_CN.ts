@@ -5674,6 +5674,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.haste': '攻击速度和施法速度提高 {pct}%',
   'hudChrome.auraEffect.dmgDone': '造成的伤害提高 {pct}%',
   'hudChrome.auraEffect.dmgDoneReduce': '造成的伤害降低 {pct}%',
+  'hudChrome.auraEffect.elementalConvergencePrimed': '你的下一个不同元素学派法术将触发元素汇聚',
   'hudChrome.auraEffect.heatingUp':
     '你的下一个火焰生成技能若连续造成暴击，会获得炽热连击；未造成暴击则移除热力迸发',
   'hudChrome.auraEffect.tongues': '施法时间延长 {pct}%',

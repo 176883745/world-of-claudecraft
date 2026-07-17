@@ -1538,6 +1538,7 @@ export const zh_CN: EnTranslations = {
       "dmgDone": "造成的伤害提高 {pct}%",
       "dmgDoneReduce": "造成的伤害降低 {pct}%",
       "heatingUp": "你的下一个火焰生成技能若连续造成暴击，会获得炽热连击；未造成暴击则移除热力迸发",
+      "elementalConvergencePrimed": "你的下一个不同元素学派法术将触发元素汇聚",
       "battleStance": "战斗姿态：怒气产生提高 10%",
       "berserkerStance": "狂暴姿态：暴击几率提高 3%，暴击伤害提高 3%",
       "crit": "暴击几率提高 {pct}%",
@@ -5858,7 +5859,8 @@ export const zh_CN: EnTranslations = {
       "attackPower": "攻击强度",
       "dps": "每秒伤害",
       "critChance": "暴击几率",
-      "dodge": "躲闪"
+      "dodge": "躲闪",
+      "parry": "Parry"
     },
     "tooltip": {
       "qualityKind": "{quality}{kind}",
