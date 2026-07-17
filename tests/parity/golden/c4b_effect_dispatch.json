@@ -101,7 +101,7 @@
       "tick": 32,
       "time": 1.6,
       "nextId": 415,
-      "state": "d6fe841d",
+      "state": "7d5f9545",
       "events": "96532acf",
       "rng": {
         "draws": 4,
@@ -936,6 +936,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -1011,7 +1012,7 @@
       "tick": 35,
       "time": 1.75,
       "nextId": 415,
-      "state": "614aa6d0",
+      "state": "3772534c",
       "events": "fb804d0a",
       "rng": {
         "draws": 4,
@@ -1022,7 +1023,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 415,
-      "state": "ea8ac2bb",
+      "state": "9f48b505",
       "events": "741638a5",
       "rng": {
         "draws": 4,
@@ -1033,7 +1034,7 @@
       "tick": 45,
       "time": 2.25,
       "nextId": 415,
-      "state": "07f18e50",
+      "state": "46ecbe82",
       "events": "741638a5",
       "rng": {
         "draws": 36,
@@ -1044,7 +1045,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 415,
-      "state": "0e2014be",
+      "state": "a7d504a8",
       "events": "741638a5",
       "rng": {
         "draws": 50,
@@ -1055,7 +1056,7 @@
       "tick": 55,
       "time": 2.75,
       "nextId": 415,
-      "state": "cdb543d8",
+      "state": "06ae0e5a",
       "events": "741638a5",
       "rng": {
         "draws": 66,
@@ -1066,7 +1067,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 415,
-      "state": "c5ad14d8",
+      "state": "cc1f20e0",
       "events": "741638a5",
       "rng": {
         "draws": 80,
@@ -1077,7 +1078,7 @@
       "tick": 65,
       "time": 3.25,
       "nextId": 415,
-      "state": "7c72b5a8",
+      "state": "6434bb60",
       "events": "741638a5",
       "rng": {
         "draws": 101,
@@ -1088,7 +1089,7 @@
       "tick": 70,
       "time": 3.5,
       "nextId": 415,
-      "state": "fd86b3b6",
+      "state": "7e474660",
       "events": "741638a5",
       "rng": {
         "draws": 127,
@@ -1099,7 +1100,7 @@
       "tick": 75,
       "time": 3.75,
       "nextId": 415,
-      "state": "30e0c2bd",
+      "state": "b0bd1fc3",
       "events": "741638a5",
       "rng": {
         "draws": 152,
@@ -1110,7 +1111,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 415,
-      "state": "3b5d0e29",
+      "state": "94d15557",
       "events": "741638a5",
       "rng": {
         "draws": 174,
@@ -1121,7 +1122,7 @@
       "tick": 85,
       "time": 4.25,
       "nextId": 415,
-      "state": "aad701c6",
+      "state": "b5c39e1a",
       "events": "741638a5",
       "rng": {
         "draws": 203,
@@ -1132,7 +1133,7 @@
       "tick": 90,
       "time": 4.5,
       "nextId": 415,
-      "state": "44c7bd10",
+      "state": "97bac136",
       "events": "741638a5",
       "rng": {
         "draws": 230,
@@ -1143,7 +1144,7 @@
       "tick": 95,
       "time": 4.75,
       "nextId": 415,
-      "state": "d7971d56",
+      "state": "18597ba8",
       "events": "741638a5",
       "rng": {
         "draws": 253,
@@ -1154,7 +1155,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 415,
-      "state": "51e5748a",
+      "state": "aafbe92c",
       "events": "741638a5",
       "rng": {
         "draws": 276,
@@ -1165,7 +1166,7 @@
       "tick": 105,
       "time": 5.25,
       "nextId": 415,
-      "state": "2a36a330",
+      "state": "d23527f8",
       "events": "741638a5",
       "rng": {
         "draws": 304,
@@ -1176,7 +1177,7 @@
       "tick": 110,
       "time": 5.5,
       "nextId": 415,
-      "state": "62697b4d",
+      "state": "769011b7",
       "events": "741638a5",
       "rng": {
         "draws": 328,
@@ -1187,7 +1188,7 @@
       "tick": 115,
       "time": 5.75,
       "nextId": 415,
-      "state": "795addca",
+      "state": "94ca2fbc",
       "events": "741638a5",
       "rng": {
         "draws": 360,
@@ -1198,7 +1199,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 415,
-      "state": "376e41a0",
+      "state": "9d3226ea",
       "events": "741638a5",
       "rng": {
         "draws": 388,
@@ -1209,7 +1210,7 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 415,
-      "state": "7ca138d4",
+      "state": "01ebbeb8",
       "events": "741638a5",
       "rng": {
         "draws": 408,
@@ -1220,7 +1221,7 @@
       "tick": 130,
       "time": 6.5,
       "nextId": 415,
-      "state": "b5cc154a",
+      "state": "f521afa0",
       "events": "741638a5",
       "rng": {
         "draws": 435,
@@ -1231,7 +1232,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 416,
-      "state": "75393364",
+      "state": "b332970a",
       "events": "61c649c3",
       "rng": {
         "draws": 445,
@@ -2066,6 +2067,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -2141,7 +2143,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 417,
-      "state": "d642218d",
+      "state": "3eb9f561",
       "events": "134c7356",
       "rng": {
         "draws": 446,
@@ -2979,6 +2981,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -3120,7 +3123,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 419,
-      "state": "be94674f",
+      "state": "f7f51c57",
       "events": "bed3dccb",
       "rng": {
         "draws": 448,
@@ -3963,6 +3966,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -4212,7 +4216,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 420,
-      "state": "ed1079f0",
+      "state": "df89076c",
       "events": "5a85d3d9",
       "rng": {
         "draws": 453,
@@ -5067,6 +5071,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -5381,7 +5386,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 421,
-      "state": "2bac8957",
+      "state": "b65f03c5",
       "events": "56b9b8eb",
       "rng": {
         "draws": 454,
@@ -6265,6 +6270,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -6630,7 +6636,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 422,
-      "state": "0971125b",
+      "state": "946ab7fd",
       "events": "0d619ac6",
       "rng": {
         "draws": 454,
@@ -7527,6 +7533,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",
@@ -7933,7 +7940,7 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 422,
-      "state": "0971125b",
+      "state": "946ab7fd",
       "events": "741638a5",
       "rng": {
         "draws": 454,
@@ -8830,6 +8837,7 @@
           "aiState": "chase",
           "auras": [
             {
+              "breakChanceScale": 0.1,
               "breaksOnDamage": true,
               "duration": 8,
               "id": "fear_incap",

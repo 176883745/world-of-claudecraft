@@ -696,6 +696,16 @@ export function dealDamage(
           breakable.breakThreshold -= amount;
           continue;
         }
+        // Fear family (G5): damage-scaled break chance instead of insta-break.
+        // The rng draw happens only while such an aura is present, so builds
+        // without the new fears keep their draw order untouched.
+        if (
+          breakable.breakChanceScale !== undefined &&
+          target.maxHp > 0 &&
+          !ctx.rng.chance(Math.min(1, amount / (breakable.breakChanceScale * target.maxHp)))
+        ) {
+          continue;
+        }
         ctx.emit({
           type: 'aura',
           targetId: target.id,

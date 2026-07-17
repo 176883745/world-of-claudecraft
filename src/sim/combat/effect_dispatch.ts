@@ -93,6 +93,13 @@ export { SWEEP_MULT } from './area_echo';
 
 const CHARGE_MAX_DURATION = 3; // seconds before a blocked charge gives up
 
+// Fear-family break scaling (G5): a single hit for this fraction of the
+// target's max health always breaks the fear; smaller hits break it with
+// proportional probability (combat/damage.ts). Applies to the fear family
+// only (aoeFear and fearDr incapacitates): plain incapacitates keep the
+// classic break-on-any-damage rule.
+export const FEAR_BREAK_CHANCE_SCALE = 0.1;
+
 function isStealthToggle(ability: AbilityDef): boolean {
   return ability.effects.some((e) => e.type === 'selfBuff' && e.kind === 'stealth');
 }
@@ -941,6 +948,7 @@ export function runEffects(
             sourceId: p.id,
             school: ability.school,
             breaksOnDamage: true,
+            breakChanceScale: FEAR_BREAK_CHANCE_SCALE,
             breakThreshold:
               fearBreakPct > 0 ? Math.max(1, Math.round(hostile.maxHp * fearBreakPct)) : undefined,
           });
@@ -1221,6 +1229,9 @@ export function runEffects(
           sourceId: p.id,
           school: ability.school,
           breaksOnDamage: true,
+          // Fear-family members (fearDr: Harrow, Morrowlash) get the graded
+          // break; plain incapacitates (Eye Jab, Wyvern Sting) insta-break.
+          breakChanceScale: ability.fearDr ? FEAR_BREAK_CHANCE_SCALE : undefined,
         });
         if (ability.awardsCombo && !comboAwarded) {
           ctx.awardCombo(p, target, ability.awardsCombo);

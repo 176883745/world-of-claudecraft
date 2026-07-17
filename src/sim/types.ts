@@ -450,6 +450,11 @@ export interface Aura {
   // Lingering Dread lets a break-on-damage fear absorb this much damage before
   // breaking. Undefined retains the normal break-on-any-damage behavior.
   breakThreshold?: number;
+  // Fear-family break model (combat/damage.ts): each damage event breaks the
+  // aura with probability min(1, amount / (breakChanceScale * maxHp)), so a
+  // hit for breakChanceScale of max health always breaks it and a dot tick
+  // usually does not. Undefined keeps the classic break-on-any-damage rule.
+  breakChanceScale?: number;
   damageAccrued?: number;
   stacks?: number; // sunder armor: applications stack up to the effect's cap
   charges?: number; // thorns: remaining reflect charges (Lightning Shield); undefined => unlimited
