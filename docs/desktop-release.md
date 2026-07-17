@@ -447,6 +447,15 @@ Rules that keep this working:
    the working lever there; Windows 11 with an attached eGPU can ignore the per-app
    preference while the eGPU is connected; pre-1803 Windows 10 ignores the key
    entirely.
+   On Linux, hybrid-graphics laptops (NVIDIA Optimus, AMD/Intel Mesa PRIME) have no
+   per-app OS preference and the Chromium switch is a no-op (the GPU adapter is
+   resolved by the driver's client library at dynamic-link time, before Chromium
+   parses its switches), so `gpu_preference.cjs` sets the standard PRIME
+   render-offload environment variables instead: `DRI_PRIME=1` (Mesa) and
+   `__NV_PRIME_RENDER_OFFLOAD=1` / `__GLX_VENDOR_LIBRARY_NAME=nvidia` /
+   `__VK_LAYER_NV_optimus=NVIDIA_only` (NVIDIA proprietary driver), applied on every
+   launch (packaged or dev) and never overriding a name the player's own environment
+   already set (e.g. their own `prime-run` wrapper).
 3. Login both paths: email/password in-app, and Discord via the external browser +
    `worldofclaudecraft://desktop-login` deep link handoff (app focuses and enters
    the world; second-instance and cold-start deep links both work).

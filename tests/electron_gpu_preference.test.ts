@@ -2,12 +2,14 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 import {
   alreadyHighPerformance,
+  buildLinuxPrimeEnv,
   buildRegQueryArgs,
   buildRegWriteArgs,
   forceHighPerformanceGpu,
   HIGH_PERF_GPU_SWITCHES,
   HIGH_PERFORMANCE_PREFERENCE,
   hasUnparseableValueType,
+  LINUX_PRIME_ENV,
   mergeHighPerformancePreference,
   parseRegQueryData,
   summarizeGpuDevices,
@@ -262,6 +264,31 @@ describe('summarizeGpuDevices', () => {
   });
 });
 
+describe('buildLinuxPrimeEnv', () => {
+  it('offers all four PRIME offload variables against an empty environment', () => {
+    expect(buildLinuxPrimeEnv({})).toEqual(LINUX_PRIME_ENV);
+  });
+
+  it('never overrides a variable the caller already set', () => {
+    // A player who already launches via their own `prime-run`, or who hand-picked a
+    // vendor library, keeps their own value; we only fill in what is missing.
+    const existing = { __GLX_VENDOR_LIBRARY_NAME: 'mesa', UNRELATED: 'x' };
+    const additions = buildLinuxPrimeEnv(existing);
+    expect(additions).toEqual({
+      DRI_PRIME: '1',
+      __NV_PRIME_RENDER_OFFLOAD: '1',
+      __VK_LAYER_NV_optimus: 'NVIDIA_only',
+    });
+    expect(additions).not.toHaveProperty('__GLX_VENDOR_LIBRARY_NAME');
+  });
+
+  it('does not mutate the environment object passed in', () => {
+    const existing = { FOO: 'bar' };
+    buildLinuxPrimeEnv(existing);
+    expect(existing).toEqual({ FOO: 'bar' });
+  });
+});
+
 describe('forceHighPerformanceGpu', () => {
   it('appends both switches on non-Windows and never touches the registry', () => {
     const { app, switches } = fakeApp();
@@ -269,6 +296,31 @@ describe('forceHighPerformanceGpu', () => {
     forceHighPerformanceGpu({ app, platform: 'darwin', execFileSync });
     expect(switches).toEqual(['force-high-performance-gpu', 'force_high_performance_gpu']);
     expect(execFileSync).not.toHaveBeenCalled();
+  });
+
+  it('sets the Linux PRIME offload env vars (and never touches the registry)', () => {
+    const { app, switches } = fakeApp();
+    const execFileSync = vi.fn();
+    const env = {};
+    forceHighPerformanceGpu({ app, platform: 'linux', execFileSync, env });
+    expect(switches).toEqual(['force-high-performance-gpu', 'force_high_performance_gpu']);
+    expect(env).toEqual(LINUX_PRIME_ENV);
+    expect(execFileSync).not.toHaveBeenCalled();
+  });
+
+  it('leaves a caller-configured Linux env var alone', () => {
+    const { app } = fakeApp();
+    const env: Record<string, string> = { __GLX_VENDOR_LIBRARY_NAME: 'mesa' };
+    forceHighPerformanceGpu({ app, platform: 'linux', execFileSync: vi.fn(), env });
+    expect(env.__GLX_VENDOR_LIBRARY_NAME).toBe('mesa');
+    expect(env.DRI_PRIME).toBe('1');
+  });
+
+  it('applies the Linux env vars on an UNPACKAGED run too (no persistent host state to protect)', () => {
+    const { app } = fakeApp({ isPackaged: false });
+    const env = {};
+    forceHighPerformanceGpu({ app, platform: 'linux', execFileSync: vi.fn(), env });
+    expect(env).toEqual(LINUX_PRIME_ENV);
   });
 
   it('appends the switches but skips the registry in an unpackaged (dev) run', () => {

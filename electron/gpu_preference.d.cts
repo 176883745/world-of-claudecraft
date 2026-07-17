@@ -5,7 +5,11 @@
 export const USER_GPU_PREFERENCES_KEY: string;
 export const HIGH_PERFORMANCE_PREFERENCE: string;
 export const HIGH_PERF_GPU_SWITCHES: readonly string[];
+export const LINUX_PRIME_ENV: Readonly<Record<string, string>>;
 
+export function buildLinuxPrimeEnv(
+  existingEnv?: Record<string, string | undefined>,
+): Record<string, string>;
 export function buildRegQueryArgs(exePath: string): string[];
 export function buildRegWriteArgs(exePath: string, data?: string): string[];
 export function parseRegQueryData(regQueryStdout: unknown): string;

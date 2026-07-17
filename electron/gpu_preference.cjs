@@ -55,6 +55,29 @@ const nodePath = require('node:path');
 //     binary (one orphan entry per worktree, steering everything else launched from that
 //     shared binary); only the stable installed exe path is worth pinning.
 //
+//  3. Linux PRIME render-offload environment variables. On a Linux hybrid-graphics laptop
+//     (NVIDIA Optimus, AMD/Intel Mesa PRIME) there is no per-app OS-level preference to write
+//     (no registry equivalent) and force-high-performance-gpu is a no-op: the driver decides
+//     which adapter serves EGL/GLX at DYNAMIC-LINK time, before Chromium's own switch parsing
+//     ever runs. The standard offload contract (what `prime-run`/`optirun` wrapper scripts
+//     set) is a handful of environment variables read by the vendor's client driver when it
+//     resolves the GPU vendor library: DRI_PRIME=1 (Mesa: AMD/Intel PRIME offload, ignored by
+//     the NVIDIA proprietary driver), and for NVIDIA's proprietary PRIME render offload,
+//     __NV_PRIME_RENDER_OFFLOAD=1 plus __GLX_VENDOR_LIBRARY_NAME=nvidia (GLX) and
+//     __VK_LAYER_NV_optimus=NVIDIA_only (Vulkan, which Chromium's ANGLE backend can select).
+//     All four are set unconditionally: a single-GPU or non-hybrid machine, or a machine
+//     without the corresponding vendor library installed, simply never resolves those names
+//     and the variables sit inert (this mirrors the existing "append both switch spellings,
+//     harmless if unmatched" posture above). Electron's GPU process on Linux is a fresh
+//     fork+exec, not a fork of an already-initialized zygote sharing loaded GL libraries, so
+//     it re-resolves the vendor library from environ at spawn time; setting process.env here
+//     (before app.whenReady(), same call site as the other two levers) lands before that
+//     spawn and is effective the current launch. Applied on EVERY launch (packaged or not):
+//     unlike the Windows registry lever there is no persistent host state to avoid polluting,
+//     so the dev loop benefits too. A caller-supplied override in the parent environment
+//     (say, the player already launches via their own `prime-run`) is left untouched: we only
+//     set a variable that is not already present, never overwrite one the player configured.
+//
 // The arg-building, query parsing, and token merging are pure and dependency-injected so
 // tests exercise them without a real registry or a real Electron app.
 
@@ -160,6 +183,31 @@ function hasUnparseableValueType(regQueryStdout) {
   return /\bREG_(?!SZ\b|EXPAND_SZ\b)[A-Z_]+/.test(String(regQueryStdout ?? ''));
 }
 
+// The Linux PRIME render-offload variables (see lever 3 above): Mesa's DRI_PRIME plus
+// NVIDIA's proprietary-driver GLX/Vulkan offload trio. Exported so a caller can log or pin
+// exactly which names this module sets.
+const LINUX_PRIME_ENV = Object.freeze({
+  DRI_PRIME: '1',
+  __NV_PRIME_RENDER_OFFLOAD: '1',
+  __GLX_VENDOR_LIBRARY_NAME: 'nvidia',
+  __VK_LAYER_NV_optimus: 'NVIDIA_only',
+});
+
+/**
+ * The env additions needed to request PRIME render offload, skipping any name the caller's
+ * environment already sets (a player who already launches via their own `prime-run` or has
+ * hand-picked `__GLX_VENDOR_LIBRARY_NAME` keeps their own value). Pure: returns only the
+ * NEW entries to apply, never mutates `existingEnv`.
+ */
+function buildLinuxPrimeEnv(existingEnv) {
+  const env = existingEnv ?? {};
+  const additions = {};
+  for (const [name, value] of Object.entries(LINUX_PRIME_ENV)) {
+    if (env[name] === undefined) additions[name] = value;
+  }
+  return additions;
+}
+
 // Vendor ids as getGPUInfo reports them: NVIDIA 0x10de, AMD 0x1002, Intel 0x8086,
 // Microsoft 0x1414 (the WARP software adapter).
 const DISCRETE_VENDOR_IDS = [0x10de, 0x1002];
@@ -206,6 +254,16 @@ function forceHighPerformanceGpu(deps = {}) {
       app?.commandLine?.appendSwitch(name);
     } catch (err) {
       log?.warn?.('[gpu] could not append switch', name, err);
+    }
+  }
+
+  if (platform === 'linux') {
+    const additions = buildLinuxPrimeEnv(env);
+    for (const [name, value] of Object.entries(additions)) {
+      env[name] = value;
+    }
+    if (Object.keys(additions).length > 0) {
+      log?.info?.('[gpu] set Linux PRIME render-offload env vars', Object.keys(additions));
     }
   }
 
@@ -268,6 +326,8 @@ module.exports = {
   USER_GPU_PREFERENCES_KEY,
   HIGH_PERFORMANCE_PREFERENCE,
   HIGH_PERF_GPU_SWITCHES,
+  LINUX_PRIME_ENV,
+  buildLinuxPrimeEnv,
   buildRegQueryArgs,
   buildRegWriteArgs,
   parseRegQueryData,
