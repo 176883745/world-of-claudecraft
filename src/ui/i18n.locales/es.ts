@@ -7005,15 +7005,11 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Cómo funcionan las gestas',
   'guide.deedsPage.intro':
     'El Libro de Gestas es donde el mundo lleva la cuenta de todos tus hechos, desde tus primeros pasos fuera del valle inicial hasta los combates más duros que el reino puede ofrecer. Consigue gestas mientras juegas, luce los títulos que otorgan y mira cómo asciende tu Renombre.',
-  'guide.deedsPage.renownBody':
-    'El Renombre es la puntuación detrás del Libro. Cada gesta que consigues vale una cantidad fija, y tu total solo puede subir, así que una semana tranquila nunca te hace perder terreno. Unas pocas gestas dependen de la suerte más que de la destreza, y las proezas son un honor aparte, de modo que ninguna de las dos otorga Renombre.',
   'guide.deedsPage.renownHeading': 'Renombre',
   'guide.deedsPage.rewardBorder': 'Borde',
   'guide.deedsPage.rewardsBody':
     'Las recompensas son pura apariencia, y esa es la gracia. Algunas gestas otorgan un título que puedes lucir o un borde que enmarca tu nombre, y nunca nada que haga más fuerte a tu héroe. Elige el título que quieras desde el Libro de Gestas y te acompañará en tu placa de nombre, en el chat y en las clasificaciones, a la vista de cualquiera.',
   'guide.deedsPage.rewardsHeading': 'Títulos y bordes',
-  'guide.deedsPage.standingsNote':
-    'Los reinos llevan un recuento continuo del Renombre de cada cuenta. Para ver quién ocupa cada puesto, abre la Tabla de Clasificación dentro del juego y ve a su pestaña de Renombre; las posiciones están allí, no en la wiki.',
   'guide.nav.deeds': 'Libro de Gestas',
   'hudChrome.deeds.broadcastLine': '{name} ha logrado una gesta: {deed}',
   'hudChrome.deeds.broadcastsLabel':
@@ -7047,9 +7043,7 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Casi listas',
   'hudChrome.deeds.filterUnearned': 'Pendientes',
   'hudChrome.deeds.hiddenBadge': 'Oculta',
-  'hudChrome.deeds.lbDeedsCol': 'Gestas',
   'hudChrome.deeds.lbEmpty': 'Aún no hay cronistas clasificados.',
-  'hudChrome.deeds.lbSelf': 'Tu posición: puesto {rank}, dentro del {percent} por ciento superior',
   'hudChrome.deeds.lbTab': 'Renombre',
   'hudChrome.deeds.lbTitleCol': 'Título',
   'hudChrome.deeds.nearestLabel': 'A un paso:',

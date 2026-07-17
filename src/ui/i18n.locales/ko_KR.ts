@@ -3118,6 +3118,26 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.heroic_quartermaster.title': '영웅 병참장교',
   'entities.npcs.heroic_quartermaster.greeting':
     '영웅 던전의 증표는 하이워치 최고의 반지와 펜던트로 바꿀 수 있소. 징표를 보여 주시오.',
+  'entities.npcs.card_master.name': '카드 마스터',
+  'entities.npcs.card_master.title': '운명의 딜러',
+  'entities.npcs.card_master.greeting':
+    '카드 대결 한 판 어떻소? 삼판양승, 승자에게는 자랑거리가 생기지.',
+  'cardDuel.title': '카드 대결',
+  'cardDuel.close': '닫기',
+  'cardDuel.join': '대기열 참가',
+  'cardDuel.joinAria': '카드 대결 대기열에 참가',
+  'cardDuel.leave': '대기열 나가기',
+  'cardDuel.leaveAria': '카드 대결 대기열에서 나가기',
+  'cardDuel.queued': '상대를 기다리는 중...',
+  'cardDuel.vsOpponent': '{name}와(과) 대결',
+  'cardDuel.round': '라운드 점수: {mine} - {theirs}',
+  'cardDuel.forfeit': '기권',
+  'cardDuel.forfeitAria': '카드 대결 기권하기',
+  'cardDuel.unavailable': '카드 대결을 하려면 다른 플레이어가 온라인 상태여야 합니다.',
+  'cardDuel.counts': '덱: {deck} · 버린 카드: {discard}',
+  'cardDuel.playCardAria': '{value} 카드 내기',
+  'cardDuel.waitingOnOpponent': '상대의 카드를 기다리는 중...',
+  'cardDuel.yourTurn': '카드를 내세요',
   'entities.npcs.loremaster_caddis.name': '현자 캐디스',
   'entities.npcs.loremaster_caddis.title': '현자',
   'entities.npcs.loremaster_caddis.greeting':
@@ -4346,14 +4366,14 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.intro':
     '업적의 서는 시작의 골짜기를 벗어나는 첫걸음부터 왕국이 내놓을 수 있는 가장 힘든 싸움까지, 당신이 이룬 모든 것을 세계가 기록해 두는 곳입니다. 플레이하며 업적을 얻고, 그것이 주는 칭호를 걸치고, 명성이 오르는 것을 지켜보세요.',
   'guide.deedsPage.renownBody':
-    '명성은 업적의 서 뒤에 있는 점수입니다. 당신이 얻는 모든 업적은 정해진 점수를 지니며, 총점은 오르기만 하므로 한가한 한 주가 있어도 쌓아 온 것을 잃지 않습니다. 일부 업적은 실력이 아니라 운에 달려 있고, 위업은 그 자체로 하나의 영예이므로, 그 둘은 모두 명성을 전혀 주지 않습니다.',
+    '명성은 업적의 서 뒤에 있는 점수입니다. 당신이 얻는 모든 업적은 정해진 점수를 지니며, 총점은 오르기만 하므로 한가한 한 주가 있어도 쌓아 온 것을 잃지 않습니다. 일부 업적은 실력이 아니라 운에 달려 있고, 위업은 그 자체로 하나의 영예이므로, 그 둘은 모두 명성을 전혀 주지 않습니다. 명성이 없는 업적도 업적의 서의 달성 수에는 포함되지만, 점수가 되지는 않습니다.',
   'guide.deedsPage.renownHeading': '명성',
   'guide.deedsPage.rewardBorder': '테두리',
   'guide.deedsPage.rewardsBody':
     '보상은 모두 과시를 위한 것이며, 바로 그것이 핵심입니다. 일부 업적은 걸칠 수 있는 칭호나 이름을 꾸미는 테두리를 주지만, 영웅을 더 강하게 만드는 것은 결코 주지 않습니다. 업적의 서에서 원하는 칭호를 고르면 그것이 당신의 이름표와 채팅, 그리고 순위표에까지 따라붙어 모두의 눈에 보입니다.',
   'guide.deedsPage.rewardsHeading': '칭호와 테두리',
   'guide.deedsPage.standingsNote':
-    '각 왕국은 모든 계정에 걸친 명성의 누계를 기록합니다. 누가 어디에 서 있는지 보려면 게임 내에서 순위표를 열고 명성 탭으로 넘어가세요. 순위는 위키가 아니라 그곳에 있습니다.',
+    '각 왕국은 모든 계정에 걸친 명성의 누계를 기록합니다. 순위표는 계정 전체를 평생 명성으로 순위 매기며, 각 업적은 당신의 모든 캐릭터를 통틀어 한 번만 계산되고, 표시되는 것은 명성뿐입니다. 따라서 명성이 없는 업적은 업적의 서에는 계산되더라도 순위를 움직이지 않습니다. 누가 어디에 서 있는지 보려면 게임 내에서 순위표를 열고 명성 탭으로 넘어가세요. 순위는 위키가 아니라 그곳에 있습니다.',
   'guide.delvesPage.affixesBody':
     '더 어려운 탐굴에서는 진행 방식을 바꾸는 고난 요소가 하나 붙습니다. 잠들지 못한 죽은 자부터 탁한 공기, 무너져 가는 천장까지 그 종류는 다양합니다. 고난 요소는 위험과 보상을 함께 끌어올립니다. 각 탐굴은 저마다의 주제에 어울리는 고난 요소만 뽑아 쓰며, 왕국 전체로 보면 그 목록은 다음과 같습니다:',
   'guide.delvesPage.affixesHeading': '고난 요소',
@@ -7322,9 +7342,11 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.charTitleNone': '선택한 칭호 없음',
   'hudChrome.deeds.charOpenBook': '업적의 서',
   'hudChrome.deeds.lbTab': '명성',
-  'hudChrome.deeds.lbDeedsCol': '업적',
   'hudChrome.deeds.lbTitleCol': '칭호',
-  'hudChrome.deeds.lbSelf': '내 순위: {rank}위, 상위 {percent}%',
+  'hudChrome.deeds.lbScopeNote':
+    '계정의 평생 명성으로 순위를 매깁니다. 각 업적은 계정의 모든 캐릭터를 통틀어 한 번만 계산됩니다.',
+  'hudChrome.deeds.lbSelfAccount': '내 계정: {rank}위, 상위 {percent}%, 명성 {renown}',
+  'hudChrome.deeds.lbSelfRank': '내 계정: {rank}위, 상위 {percent}%',
   'hudChrome.deeds.lbEmpty': '아직 순위에 오른 연대기 작가가 없습니다.',
   'hudChrome.deeds.broadcastsLabel': '업적 달성을 길드와 친구에게 공유',
   'guide.deedsPage.catHeading': '{label} ({count})',

@@ -3008,6 +3008,25 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.heroic_quartermaster.title': '英雄军需官',
   'entities.npcs.heroic_quartermaster.greeting':
     '英雄深渊的凭证能换来高崖望最上等的戒指和吊坠。把你的徽记拿给我看。',
+  'entities.npcs.card_master.name': '牌局大师',
+  'entities.npcs.card_master.title': '运气经销人',
+  'entities.npcs.card_master.greeting': '来一局纸牌对决？三局两胜，赢家赢得吹嘘的资本。',
+  'cardDuel.title': '纸牌对决',
+  'cardDuel.close': '关闭',
+  'cardDuel.join': '加入队列',
+  'cardDuel.joinAria': '加入纸牌对决队列',
+  'cardDuel.leave': '离开队列',
+  'cardDuel.leaveAria': '离开纸牌对决队列',
+  'cardDuel.queued': '正在等待对手……',
+  'cardDuel.vsOpponent': '对战 {name}',
+  'cardDuel.round': '局分：{mine} - {theirs}',
+  'cardDuel.forfeit': '认输',
+  'cardDuel.forfeitAria': '认输退出纸牌对决',
+  'cardDuel.unavailable': '纸牌对决需要另一名玩家在线。',
+  'cardDuel.counts': '牌堆：{deck} · 弃牌堆：{discard}',
+  'cardDuel.playCardAria': '打出 {value} 号牌',
+  'cardDuel.waitingOnOpponent': '正在等待对手出牌……',
+  'cardDuel.yourTurn': '出一张牌',
   'entities.npcs.loremaster_caddis.name': '凯迪斯博学者',
   'entities.npcs.loremaster_caddis.title': '博学者',
   'entities.npcs.loremaster_caddis.greeting':
@@ -4181,14 +4200,14 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.intro':
     '功绩之书记录着你在这个世界所做的一切，从走出新手山谷的第一步，到王国所能提供的最艰难的战斗。一边游玩一边赢得功绩，佩戴它们授予的头衔，看着你的名望不断攀升。',
   'guide.deedsPage.renownBody':
-    '名望是功绩之书背后的分数。你赢得的每个功绩都价值固定的点数，而你的总分只增不减，因此清闲的一周绝不会让你失去已有的成绩。少数功绩取决于运气而非技巧，而壮举则自成一份荣誉，因此这两者都不提供任何名望。',
+    '名望是功绩之书背后的分数。你赢得的每个功绩都价值固定的点数，而你的总分只增不减，因此清闲的一周绝不会让你失去已有的成绩。少数功绩取决于运气而非技巧，而壮举则自成一份荣誉，因此这两者都不提供任何名望。不带名望的功绩仍会计入功绩之书的完成度，只是从不计分。',
   'guide.deedsPage.renownHeading': '名望',
   'guide.deedsPage.rewardBorder': '边框',
   'guide.deedsPage.rewardsBody':
     '这些奖励纯粹是为了炫耀，而这正是它们的意义所在。有些功绩会授予你可佩戴的头衔，或是为你的名字增添装饰的边框，绝不会给出任何让你的英雄变强的东西。在功绩之书中选择你想要的头衔，它便会显示在你的铭牌上、聊天中和排行榜上，供所有人观看。',
   'guide.deedsPage.rewardsHeading': '头衔与边框',
   'guide.deedsPage.standingsNote':
-    '各王国会统计所有账号累积的名望。想知道谁位居何处，请在游戏内打开排行榜并转到它的名望标签页；排名在那里，而不在维基上。',
+    '各王国会统计所有账号累积的名望：排行榜按账号的累计名望排名，每个功绩在你所有角色中只计一次，且榜上只显示名望，因此不带名望的功绩即使计入你的功绩之书，也绝不会影响排名。想知道谁位居何处，请在游戏内打开排行榜并转到它的名望标签页；排名在那里，而不在维基上。',
   'guide.delvesPage.affixesBody':
     '难度更高的探秘会随机附带一种词缀，改变下潜的玩法走向，从不安的亡者，到污浊的浊气，再到摇摇欲坠的顶棚。它们会让危险与回报一同提升。每座探秘只从契合自身主题的词缀中抽取；就整个王国而言，词缀池如下：',
   'guide.delvesPage.affixesHeading': '探秘词缀',
@@ -6986,9 +7005,11 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.charTitleNone': '未选择头衔',
   'hudChrome.deeds.charOpenBook': '功绩之书',
   'hudChrome.deeds.lbTab': '名望',
-  'hudChrome.deeds.lbDeedsCol': '功绩',
   'hudChrome.deeds.lbTitleCol': '头衔',
-  'hudChrome.deeds.lbSelf': '你的排名：第 {rank} 名，位居前 {percent}%',
+  'hudChrome.deeds.lbScopeNote':
+    '排行榜按账号的累计名望排名。每个功绩在一个账号的所有角色中只计一次。',
+  'hudChrome.deeds.lbSelfAccount': '你的账号：第 {rank} 名，位居前 {percent}%，名望 {renown}',
+  'hudChrome.deeds.lbSelfRank': '你的账号：第 {rank} 名，位居前 {percent}%',
   'hudChrome.deeds.lbEmpty': '暂无上榜的编年史家。',
   'hudChrome.deeds.broadcastsLabel': '与公会和好友分享功绩达成',
   'guide.deedsPage.catHeading': '{label}（{count}）',

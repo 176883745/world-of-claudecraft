@@ -6962,15 +6962,11 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Como funcionam os feitos',
   'guide.deedsPage.intro':
     'O Livro dos Feitos é onde o mundo anota tudo o que você já fez, dos primeiros passos fora do vale inicial às lutas mais duras que o reino pode oferecer. Conquiste feitos enquanto joga, ostente os títulos que eles concedem e veja seu Renome subir.',
-  'guide.deedsPage.renownBody':
-    'O Renome é a pontuação por trás do Livro. Cada feito conquistado vale uma quantia fixa, e seu total só sobe, então uma semana parada nunca faz você perder terreno. Um punhado de feitos depende mais de sorte do que de habilidade, e as Proezas são uma honraria à parte, então nenhum dos dois vale Renome algum.',
   'guide.deedsPage.renownHeading': 'Renome',
   'guide.deedsPage.rewardBorder': 'Moldura',
   'guide.deedsPage.rewardsBody':
     'As recompensas servem só para exibir, e é justamente essa a intenção. Alguns feitos concedem um título para ostentar ou uma moldura para o seu nome, e nunca nada que torne seu herói mais forte. Escolha o título que quiser no Livro dos Feitos e ele acompanha você na placa de nome, no chat e nos placares, para que todos vejam.',
   'guide.deedsPage.rewardsHeading': 'Títulos e molduras',
-  'guide.deedsPage.standingsNote':
-    'Os reinos mantêm uma contagem contínua de Renome de todas as contas. Para ver quem está onde, abra o Placar no jogo e vá até a aba de Renome; a classificação fica lá, não na wiki.',
   'guide.nav.deeds': 'Livro dos Feitos',
   'hudChrome.deeds.broadcastLine': '{name} realizou um feito: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Compartilhar feitos desbloqueados com a guilda e os amigos',
@@ -7003,9 +6999,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Quase lá',
   'hudChrome.deeds.filterUnearned': 'Pendentes',
   'hudChrome.deeds.hiddenBadge': 'Oculto',
-  'hudChrome.deeds.lbDeedsCol': 'Feitos',
   'hudChrome.deeds.lbEmpty': 'Ainda não há cronistas na classificação.',
-  'hudChrome.deeds.lbSelf': 'Sua colocação: posição {rank}, entre os {percent} por cento melhores',
   'hudChrome.deeds.lbTab': 'Renome',
   'hudChrome.deeds.lbTitleCol': 'Título',
   'hudChrome.deeds.nearestLabel': 'Quase lá:',

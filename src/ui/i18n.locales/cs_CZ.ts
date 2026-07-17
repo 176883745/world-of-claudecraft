@@ -6738,15 +6738,11 @@ export const cs_CZ: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Jak skutky fungují',
   'guide.deedsPage.intro':
     'Kniha skutků je místo, kde si svět počítá vše, co máš za sebou: od prvních kroků z počátečního údolí až po nejtěžší boje, jaké říše nabízí. Vykonávej skutky při hraní, nos tituly, které ti udělí, a sleduj, jak tvůj věhlas roste.',
-  'guide.deedsPage.renownBody':
-    'Věhlas je skóre, které stojí za Knihou. Každý vykonaný skutek má pevně danou hodnotu a tvůj součet jen roste, takže klidný týden tě nikdy nepřipraví o pozici. Hrstka skutků závisí spíš na štěstí než na umu a počiny jsou poctou samy o sobě, proto ani jedny nenesou žádný věhlas.',
   'guide.deedsPage.renownHeading': 'Věhlas',
   'guide.deedsPage.rewardBorder': 'Rámeček',
   'guide.deedsPage.rewardsBody':
     'Odměny jsou čistě na parádu, a přesně o to jde. Některé skutky udělují titul, který můžeš nosit, nebo rámeček, jenž orámuje tvé jméno, nikdy však nic, co by tvého hrdinu posílilo. Vyber si v Knize skutků titul, o který stojíš, a ponese se s tebou na jmenovce, v chatu i na žebříčcích, všem na očích.',
   'guide.deedsPage.rewardsHeading': 'Tituly a rámečky',
-  'guide.deedsPage.standingsNote':
-    'Světy si vedou průběžný součet věhlasu napříč všemi účty. Chceš-li vidět, kdo si jak stojí, otevři ve hře žebříček a přejdi na jeho záložku Věhlas; pořadí žije tam, ne na wiki.',
   'guide.nav.deeds': 'Kniha skutků',
   'hudChrome.deeds.broadcastLine': '{name} završuje skutek: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Sdílet vykonané skutky s cechem a přáteli',
@@ -6779,9 +6775,7 @@ export const cs_CZ: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Skoro hotové',
   'hudChrome.deeds.filterUnearned': 'Nevykonané',
   'hudChrome.deeds.hiddenBadge': 'Skrytý',
-  'hudChrome.deeds.lbDeedsCol': 'Skutky',
   'hudChrome.deeds.lbEmpty': 'V žebříčku zatím nejsou žádní kronikáři.',
-  'hudChrome.deeds.lbSelf': 'Tvoje umístění: pořadí {rank}, horních {percent} procent',
   'hudChrome.deeds.lbTab': 'Věhlas',
   'hudChrome.deeds.lbTitleCol': 'Titul',
   'hudChrome.deeds.nearestLabel': 'Skoro tam:',

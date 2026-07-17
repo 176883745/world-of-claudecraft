@@ -6962,15 +6962,11 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Hoe daden werken',
   'guide.deedsPage.intro':
     'In het Boek der Daden houdt de wereld de stand bij van alles wat je hebt verricht, van je eerste stappen buiten het dal waar je begon tot de zwaarste gevechten die het rijk te bieden heeft. Behaal daden terwijl je speelt, draag de titels die ze schenken en zie je Roem stijgen.',
-  'guide.deedsPage.renownBody':
-    'Roem is de score achter het Boek. Elke daad die je behaalt is een vaste hoeveelheid waard, en je totaal stijgt alleen maar, dus een rustige week kost je nooit terrein. Een handvol daden hangt af van geluk in plaats van kunde, en Wapenfeiten zijn een eer op zich, dus beide leveren helemaal geen Roem op.',
   'guide.deedsPage.renownHeading': 'Roem',
   'guide.deedsPage.rewardBorder': 'Rand',
   'guide.deedsPage.rewardsBody':
     'De beloningen zijn puur voor de sier, en dat is precies de bedoeling. Sommige daden schenken een titel die je kunt dragen of een rand die je naam omlijst, en nooit iets dat je held sterker maakt. Kies de titel die je wilt in het Boek der Daden en hij reist mee op je naamplaatje, in de chat en op de ranglijsten, voor iedereen zichtbaar.',
   'guide.deedsPage.rewardsHeading': 'Titels en randen',
-  'guide.deedsPage.standingsNote':
-    'De rijken houden een doorlopende telling van Roem bij over elk account. Om te zien wie waar staat, open je de Ranglijst in het spel en blader je naar het tabblad Roem; de standen leven daar, niet op de wiki.',
   'guide.nav.deeds': 'Boek der Daden',
   'hudChrome.deeds.broadcastLine': '{name} heeft een daad volbracht: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Deel behaalde daden met je gilde en vrienden',
@@ -7003,9 +6999,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Bijna klaar',
   'hudChrome.deeds.filterUnearned': 'Niet behaald',
   'hudChrome.deeds.hiddenBadge': 'Verborgen',
-  'hudChrome.deeds.lbDeedsCol': 'Daden',
   'hudChrome.deeds.lbEmpty': 'Nog geen kroniekschrijvers op de ranglijst.',
-  'hudChrome.deeds.lbSelf': 'Jouw positie: rang {rank}, top {percent} procent',
   'hudChrome.deeds.lbTab': 'Roem',
   'hudChrome.deeds.lbTitleCol': 'Titel',
   'hudChrome.deeds.nearestLabel': 'Bijna zover:',

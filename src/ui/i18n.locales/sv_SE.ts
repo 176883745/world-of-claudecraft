@@ -6876,15 +6876,11 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Så fungerar bedrifter',
   'guide.deedsPage.intro':
     'Bedrifternas bok är där världen håller räkning på allt du har uträttat, från dina första steg ut ur startdalen till de hårdaste strider riket kan bjuda. Fullborda bedrifter medan du spelar, bär titlarna de skänker och se din ryktbarhet stiga.',
-  'guide.deedsPage.renownBody':
-    'Ryktbarhet är poängräkningen bakom boken. Varje bedrift du fullbordar är värd en bestämd summa, och din totalsumma kan bara stiga, så en lugn vecka gör aldrig att du tappar mark. En handfull bedrifter avgörs av tur snarare än skicklighet, och bragder är en ära för sig, så ingen av dem ger någon ryktbarhet alls.',
   'guide.deedsPage.renownHeading': 'Ryktbarhet',
   'guide.deedsPage.rewardBorder': 'Ram',
   'guide.deedsPage.rewardsBody':
     'Belöningarna är enbart för syns skull, och det är hela poängen. Vissa bedrifter skänker en titel att bära eller en ram som pryder ditt namn, men aldrig något som gör din hjälte starkare. Välj den titel du vill ha i Bedrifternas bok, så följer den med på din namnskylt, i chatten och på topplistorna där alla kan se den.',
   'guide.deedsPage.rewardsHeading': 'Titlar och ramar',
-  'guide.deedsPage.standingsNote':
-    'Rikena för en löpande räkning av Ryktbarhet över alla konton. Vill du se vem som står var, öppna topplistan i spelet och slå upp dess Ryktbarhet-flik; ställningen finns där, inte på wikin.',
   'guide.nav.deeds': 'Bedrifternas bok',
   'hudChrome.deeds.broadcastLine': '{name} har fullbordat en bedrift: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Dela fullbordade bedrifter med gille och vänner',
@@ -6917,9 +6913,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Nästan klara',
   'hudChrome.deeds.filterUnearned': 'Ofullbordade',
   'hudChrome.deeds.hiddenBadge': 'Dold',
-  'hudChrome.deeds.lbDeedsCol': 'Bedrifter',
   'hudChrome.deeds.lbEmpty': 'Inga rankade krönikörer ännu.',
-  'hudChrome.deeds.lbSelf': 'Din placering: plats {rank}, bland de främsta {percent} procenten',
   'hudChrome.deeds.lbTab': 'Ryktbarhet',
   'hudChrome.deeds.lbTitleCol': 'Titel',
   'hudChrome.deeds.nearestLabel': 'Nästan framme:',

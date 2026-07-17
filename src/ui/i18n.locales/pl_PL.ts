@@ -6917,15 +6917,11 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Jak działają czyny',
   'guide.deedsPage.intro':
     'Księga Czynów to miejsce, w którym świat prowadzi rachunek wszystkiego, czego dokonałeś: od pierwszych kroków poza początkową doliną po najtrudniejsze starcia, jakie królestwo ma do zaoferowania. Zdobywaj czyny podczas gry, noś tytuły, które przyznają, i patrz, jak twoja Renoma rośnie.',
-  'guide.deedsPage.renownBody':
-    'Renoma to wynik kryjący się za Księgą. Każdy zdobyty czyn jest wart ustaloną liczbę punktów, a twoja suma tylko rośnie, więc spokojny tydzień nigdy nie odbiera ci pozycji. Garść czynów zależy od szczęścia, a nie umiejętności, Wyczyny zaś są osobnym wyróżnieniem, dlatego ani jedne, ani drugie nie są warte żadnej Renomy.',
   'guide.deedsPage.renownHeading': 'Renoma',
   'guide.deedsPage.rewardBorder': 'Obramowanie',
   'guide.deedsPage.rewardsBody':
     'Nagrody służą wyłącznie ozdobie i właśnie o to chodzi. Niektóre czyny przyznają tytuł do noszenia albo obramowanie, które oprawi twoje imię, nigdy zaś nic, co uczyniłoby twojego bohatera silniejszym. Wybierz tytuł w Księdze Czynów, a będzie ci towarzyszył na plakietce z imieniem, na czacie i w rankingach, na oczach wszystkich.',
   'guide.deedsPage.rewardsHeading': 'Tytuły i obramowania',
-  'guide.deedsPage.standingsNote':
-    'Królestwa prowadzą bieżący rachunek Renomy na wszystkich kontach. Aby zobaczyć, kto jak stoi, otwórz Ranking w grze i przejdź do jego zakładki Renomy; zestawienie żyje tam, nie na wiki.',
   'guide.nav.deeds': 'Księga Czynów',
   'hudChrome.deeds.broadcastLine': '{name} dokonuje czynu: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Ogłaszaj zdobyte czyny gildii i znajomym',
@@ -6958,9 +6954,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Prawie ukończone',
   'hudChrome.deeds.filterUnearned': 'Niezdobyte',
   'hudChrome.deeds.hiddenBadge': 'Ukryty',
-  'hudChrome.deeds.lbDeedsCol': 'Czyny',
   'hudChrome.deeds.lbEmpty': 'W rankingu nie ma jeszcze żadnych kronikarzy.',
-  'hudChrome.deeds.lbSelf': 'Twoja pozycja: miejsce {rank}, czołowe {percent} procent',
   'hudChrome.deeds.lbTab': 'Renoma',
   'hudChrome.deeds.lbTitleCol': 'Tytuł',
   'hudChrome.deeds.nearestLabel': 'Prawie u celu:',

@@ -7408,15 +7408,11 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Comment fonctionnent les hauts faits',
   'guide.deedsPage.intro':
     "Le Livre des hauts faits est l'endroit où le monde tient le compte de tout ce que vous avez accompli, de vos premiers pas hors de la vallée de départ aux combats les plus rudes que le royaume puisse offrir. Obtenez des hauts faits au fil du jeu, portez les titres qu'ils confèrent et regardez votre Renommée grimper.",
-  'guide.deedsPage.renownBody':
-    "La Renommée est le score qui se cache derrière le Livre. Chaque haut fait obtenu vaut un montant fixe, et votre total ne fait que grimper: une semaine calme ne vous fait jamais perdre de terrain. Une poignée de hauts faits tiennent à la chance plutôt qu'au talent, et les Prouesses sont un honneur à part; ni les uns ni les autres ne rapportent la moindre Renommée.",
   'guide.deedsPage.renownHeading': 'Renommée',
   'guide.deedsPage.rewardBorder': 'Bordure',
   'guide.deedsPage.rewardsBody':
     "Les récompenses sont purement d'apparat, et c'est bien le but. Certains hauts faits confèrent un titre à porter ou une bordure pour encadrer votre nom, jamais rien qui rende votre héros plus fort. Choisissez le titre qui vous plaît dans le Livre des hauts faits: il vous accompagne sur votre plaque de nom, dans le chat et sur les classements, à la vue de tous.",
   'guide.deedsPage.rewardsHeading': 'Titres et bordures',
-  'guide.deedsPage.standingsNote':
-    "Les royaumes tiennent un décompte continu de la Renommée sur l'ensemble des comptes. Pour savoir qui se place où, ouvrez le Classement en jeu et rendez-vous sur son onglet Renommée ; le classement se trouve là, pas sur le wiki.",
   'guide.nav.deeds': 'Livre des hauts faits',
   'hudChrome.deeds.broadcastLine': '{name} a accompli un haut fait: {deed}',
   'hudChrome.deeds.broadcastsLabel':
@@ -7450,9 +7446,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Presque finis',
   'hudChrome.deeds.filterUnearned': 'À obtenir',
   'hudChrome.deeds.hiddenBadge': 'Secret',
-  'hudChrome.deeds.lbDeedsCol': 'Hauts faits',
   'hudChrome.deeds.lbEmpty': 'Aucun chroniqueur classé pour le moment.',
-  'hudChrome.deeds.lbSelf': 'Votre position: rang {rank}, dans le top {percent} %',
   'hudChrome.deeds.lbTab': 'Renommée',
   'hudChrome.deeds.lbTitleCol': 'Titre',
   'hudChrome.deeds.nearestLabel': 'Presque au but:',

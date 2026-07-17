@@ -6943,15 +6943,11 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Cách kỳ công hoạt động',
   'guide.deedsPage.intro':
     'Sách Kỳ Công là nơi thế giới ghi sổ tất cả những gì bạn đã làm, từ những bước chân đầu tiên rời thung lũng khởi đầu cho đến những trận đánh khó nhất mà vương quốc có thể bày ra. Hãy lập kỳ công khi chơi, mang những danh hiệu chúng ban tặng, và nhìn Danh Vọng của bạn leo cao.',
-  'guide.deedsPage.renownBody':
-    'Danh Vọng là điểm số đứng sau cuốn Sách. Mỗi kỳ công bạn lập được đều mang về một lượng điểm cố định, và tổng điểm chỉ có tăng chứ không bao giờ giảm, nên một tuần thảnh thơi không hề khiến bạn tụt lại. Một nhúm kỳ công phụ thuộc vào may mắn hơn là kỹ năng, còn Kỳ Tích là một vinh dự riêng, nên cả hai loại này đều không mang chút Danh Vọng nào.',
   'guide.deedsPage.renownHeading': 'Danh Vọng',
   'guide.deedsPage.rewardBorder': 'Viền',
   'guide.deedsPage.rewardsBody':
     'Phần thưởng đều chỉ để phô diễn, và đó chính là chủ ý. Một số kỳ công ban danh hiệu để bạn mang hoặc viền để đóng khung tên bạn, và không bao giờ có thứ gì khiến anh hùng của bạn mạnh hơn. Hãy chọn danh hiệu bạn muốn trong Sách Kỳ Công, nó sẽ theo bạn trên bảng tên, trong kênh trò chuyện và trên các bảng xếp hạng cho mọi người cùng thấy.',
   'guide.deedsPage.rewardsHeading': 'Danh hiệu và viền tên',
-  'guide.deedsPage.standingsNote':
-    'Các vương quốc luôn ghi sổ Danh Vọng của mọi tài khoản. Muốn biết ai đứng ở đâu, hãy mở Bảng Xếp Hạng trong trò chơi và lật đến thẻ Danh Vọng của nó; bảng xếp hạng nằm ở đó, không nằm trên wiki.',
   'guide.nav.deeds': 'Sách Kỳ Công',
   'hudChrome.deeds.broadcastLine': '{name} vừa lập một kỳ công: {deed}',
   'hudChrome.deeds.broadcastsLabel': 'Chia sẻ kỳ công vừa lập với bang hội và bạn bè',
@@ -6984,9 +6980,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Sắp Xong',
   'hudChrome.deeds.filterUnearned': 'Chưa Lập',
   'hudChrome.deeds.hiddenBadge': 'Ẩn',
-  'hudChrome.deeds.lbDeedsCol': 'Kỳ Công',
   'hudChrome.deeds.lbEmpty': 'Chưa có sử quan nào được xếp hạng.',
-  'hudChrome.deeds.lbSelf': 'Thứ hạng của bạn: hạng {rank}, trong top {percent} phần trăm',
   'hudChrome.deeds.lbTab': 'Danh Vọng',
   'hudChrome.deeds.lbTitleCol': 'Danh Hiệu',
   'hudChrome.deeds.nearestLabel': 'Sắp đạt:',

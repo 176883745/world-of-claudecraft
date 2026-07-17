@@ -6988,15 +6988,11 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'guide.deedsPage.howHeading': 'Come funzionano le imprese',
   'guide.deedsPage.intro':
     'Il Libro delle Imprese è il luogo dove il mondo tiene il conto di tutto ciò che hai fatto, dai primi passi fuori dalla valle iniziale agli scontri più duri che il reame possa offrire. Ottieni imprese giocando, indossa i titoli che concedono e guarda salire la tua Fama.',
-  'guide.deedsPage.renownBody':
-    "La Fama è il punteggio dietro il Libro. Ogni impresa che ottieni vale una cifra fissa, e il tuo totale non fa che salire, così una settimana tranquilla non ti fa mai perdere terreno. Una manciata di imprese dipende dalla fortuna più che dall'abilità, e le Prodezze sono un onore a sé: né le une né le altre valgono alcuna Fama.",
   'guide.deedsPage.renownHeading': 'Fama',
   'guide.deedsPage.rewardBorder': 'Bordo',
   'guide.deedsPage.rewardsBody':
     'Le ricompense sono tutte estetiche, ed è proprio questo il punto. Alcune imprese concedono un titolo da indossare o un bordo che incornicia il tuo nome, e mai nulla che renda più forte il tuo eroe. Scegli il titolo che preferisci dal Libro delle Imprese e ti seguirà sulla targhetta del nome, in chat e in classifica, sotto gli occhi di tutti.',
   'guide.deedsPage.rewardsHeading': 'Titoli e bordi',
-  'guide.deedsPage.standingsNote':
-    'I reami tengono un conteggio continuo della Fama di ogni account. Per vedere chi sta dove, apri la Classifica in gioco e passa alla sua scheda Fama; le graduatorie vivono lì, non sulla wiki.',
   'guide.nav.deeds': 'Libro delle Imprese',
   'hudChrome.deeds.broadcastLine': "{name} ha compiuto un'impresa: {deed}",
   'hudChrome.deeds.broadcastsLabel': 'Condividi le imprese ottenute con la gilda e gli amici',
@@ -7029,10 +7025,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.deeds.filterNearly': 'Quasi fatte',
   'hudChrome.deeds.filterUnearned': 'Da ottenere',
   'hudChrome.deeds.hiddenBadge': 'Nascosta',
-  'hudChrome.deeds.lbDeedsCol': 'Imprese',
   'hudChrome.deeds.lbEmpty': 'Ancora nessun cronista in classifica.',
-  'hudChrome.deeds.lbSelf':
-    'Il tuo piazzamento: posizione {rank}, nel {percent} percento dei migliori',
   'hudChrome.deeds.lbTab': 'Fama',
   'hudChrome.deeds.lbTitleCol': 'Titolo',
   'hudChrome.deeds.nearestLabel': 'Ci sei quasi:',
