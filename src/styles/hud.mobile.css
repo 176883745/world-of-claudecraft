@@ -3535,6 +3535,13 @@
     box-sizing: border-box;
     font-size: 16px;
   }
+  /* Desktop lays the spell list out as a landscape grid; touch stays a single
+     scrollable column so the existing 40x40px tap targets below keep working. */
+  body.mobile-touch #spellbook .spell-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
   body.mobile-touch #spellbook .spell-row {
     min-height: 52px;
     padding-right: 4px;

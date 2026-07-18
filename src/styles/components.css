@@ -1154,7 +1154,7 @@
   /* ---------- spellbook ---------- */
   /* spellbook */
   #spellbook {
-    width: 430px;
+    width: 760px;
   }
   .spellbook-class,
   .spell-rank {
@@ -1162,9 +1162,17 @@
     font-size: 11px;
   }
   .spell-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2px;
+  }
+  @media (min-width: 900px) {
+    body:not(.mobile-touch) .spell-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .spell-list > .spell-sub {
+    grid-column: 1 / -1;
   }
   .spell-row {
     display: flex;
