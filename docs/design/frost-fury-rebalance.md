@@ -23,14 +23,12 @@ throughput layers than they need. The next phase is therefore incremental:
 Builder, spender, proc, offensive cooldown, and defensive cooldown remain useful labels for
 explaining a core loop. They are not a required five-ability destination.
 
-The community keep-list constrains every cut. Players singled out dual wielding, the
-dual-wield area attack, Blink, Charge (with a request to review its range), the slowing
-attack, and the execute as abilities they love, and warrior mobility as the class identity.
-Cuts target redundancy and hidden multipliers, never these anchors. Passive stat buffs are
-popular, so maintained buffs such as Arcane Intellect are candidates to become passives
-rather than buttons. Community kit sketches (a defensive that casts itself below 30 percent
-health, an execute that lands automatically under 20 percent, a one-stance Arms) are audit
-input for later passes, not decisions.
+The community keep-list constrains every cut. Players singled out dual wielding, area attacks,
+mobility, slows, and Execute as abilities they love. Cuts target redundancy and hidden multipliers,
+not those anchors. Maintained buffs such as Arcane Intellect may move into existing class or group
+setup instead of occupying a button, but that is not a reason to create a second list of visible
+passives. Community kit sketches such as an automatic low-health defensive, an automatic Execute,
+or one-stance Arms are audit input for later passes, not decisions.
 
 ## Problem statement
 
@@ -38,7 +36,7 @@ Raid observations place some Warriors near 300 DPS while other classes and speci
 commonly sit around 80 to 130 DPS. Raw raid values are not a regression fixture because gear,
 encounter length, target count, buffs, and deaths differ, but the size of the gap is a stop signal.
 
-The current Warrior excess has three coupled sources:
+The v0.27 Warrior excess had three coupled sources:
 
 1. Fury receives too much white damage from two weapon streams and two item-stat budgets.
 2. Damage-based rage turns that white-damage advantage into additional active attacks.
@@ -135,15 +133,30 @@ Bloodrush is an aggressive dual-wield build-and-spend specialization:
 
 | Core role | Target behavior |
 |---|---|
-| Builder | Bloodletting supplies the active portion of rage |
+| Builder | Bloodletting supplies the primary active portion of rage |
+| Filler | Twinstrike uses charge timing and supplies a small amount of rage |
 | Spend | Red Harvest converts rage into the main payoff |
 | Visible payoff | Enrage is nonstacking and changes attack cadence |
-| Burst anchor | Avatar is the clear personal-output reference |
+| Burst anchor | Recklessness is the Fury reference; the selected level-17 option owns this slot |
 | Defense anchor | Furious Mending is deliberate recovery |
 
 White attacks provide steady pressure and supplementary rage. They do not provide a second full
 rotation by themselves. Distinct movement, control, area, and support actions may remain, but a
 talent must not stack several personal throughput layers onto the core loop.
+
+Player feedback identifies the following interactions as identity, not disposable button count:
+
+- Dual wielding and the dual-wield area attack.
+- Onrush and Heroic Leap as high-mobility tools.
+- Hobbling Cut as a way to disengage.
+- Early Grave as a visible execute payoff.
+- Jawcrack as deliberate encounter utility.
+
+Preserve those interactions while reducing maintenance, stacking, and input around them. Onrush
+currently advertises an 8 to 25 yard range. Investigate pathing and effective reach before changing
+the number, then test a range-only correction if mobile players still experience it as too short.
+Heroic Leap's ground targeting should be improved for mobile rather than used as a reason to remove
+a movement tool players enjoy.
 
 ### Immediate Fury slice: white damage first (shipped in v0.27.1)
 
@@ -198,34 +211,64 @@ does not starve early Fury. One review question stayed open: whether offhand hit
 generate less rage than main-hand hits. The hotfix judged the shared-coefficient correction
 sufficient, so measure before splitting.
 
+Do not add a Fury-only offhand stat suppression or reduce the generic offhand white multiplier
+after this hotfix. Those approaches duplicate the game-wide item correction and the explicit
+Titan's Grip tradeoff.
+
+### Fury complexity follow-up
+
+Balance correction and action-bar correction are separate phases. The recurring damage loop can
+be described as Bloodletting, Twinstrike, Red Harvest, and the situational Bladed Gyre, plus one
+selected offensive cooldown. Early Grave, Onrush, Heroic Leap, Jawcrack, and Hobbling Cut remain
+distinct combat tools outside that loop. This is a readability target, not a mandatory total-action
+count.
+
+Use this order for the first complexity audit:
+
+1. Remove passive or talent throughput that does not change the next decision.
+2. Make the long-duration Iron Bellow group buff automatic or fold it into existing group setup so
+   it does not occupy a maintenance input.
+3. Put Emboldening Roar and Valor Roar into one clear support choice or shared roar slot if mobile
+   bars still carry both. Preserve their offensive and defensive identities as mutually exclusive
+   behavior rather than stacking both effects.
+4. Keep Early Grave active for the first pass. Players called out Execute as useful and satisfying;
+   automatically attaching it to Red Harvest removes its timing decision. A contextual rotation
+   button may select Early Grave when its health gate is valid without deleting the manual action.
+5. Keep Furious Mending deliberate for the first pass. Automatically firing it below 30 percent
+   health can waste a two-minute defensive and replaces a decision with another passive. Test that
+   behavior as an accessibility option or talent only if mobile feedback supports it.
+6. Improve targeting and placement for retained movement tools before considering their removal.
+
 ### Warrior choice rows
 
-The Warrior rows keep six decisions but stop creating six additional throughput layers:
+The Warrior rows keep six decisions, but only the level-17 row owns a major personal offensive
+effect:
 
 | Level | Current problem | Incremental direction |
 |---|---|---|
-| 5 | Mobility can add another control package | Keep movement distinct and avoid damage riders |
-| 8 | Passive healing and extra attacks add hidden power | Prefer clear survival behavior |
-| 11 | Several extra control buttons overlap | Remove or fold one redundant control at a time |
-| 14 | Rage, haste, critical damage, and damage stack | Resource cadence only |
-| 17 | Options carry several throughput effects | One major offensive identity per option |
-| 20 | Another offensive effect stacks with level 17 | One named interaction or a lateral utility choice |
+| 5 | Mobility can add another control package | Preserve movement choices and avoid damage riders |
+| 8 | Automatic healing can erase defensive timing | Offer one clear survival behavior per choice |
+| 11 | Several controls can compete for bar space | Keep lateral control choices, not a control bundle |
+| 14 | Resource effects can also add damage | Resource cadence or reliability only |
+| 17 | Major choices can contain several multipliers | One major offensive identity per option |
+| 20 | Recovery can multiply the level-17 choice | One bounded interaction or lateral utility |
 
-Immediate one-effect corrections:
+The hotfix already trims Anger Management and bounds Colossal Might. Evaluate the remaining
+stacking candidates one at a time:
 
-- Anger Management is trimmed to one rage-smoothing role. Shipped in v0.27.1.
-- Colossal Might caps its cooldown recovery at 10 seconds per 30 second rolling window.
-  Shipped in v0.27.1.
-- Battle Rhythm loses its damage multiplier and remains resource behavior only.
-- Recklessness loses rage generation and keeps critical-strike reliability.
-- Avatar keeps its damage effect and control break.
-- Bloodbath becomes one nonstacking effect that refreshes.
+1. Remove Battle Rhythm's 5 percent damage component while retaining its every-third-ability
+   resource behavior, or replace the hidden counter with a visible resource choice.
+2. Test Recklessness without its 50 percent rage multiplier. If critical reliability alone is too
+   weak for the level-17 row, tune the one retained effect rather than restoring two multipliers.
+3. Replace Bloodbath's stacking critical chance plus damage with one nonstacking effect that
+   refreshes, or a lateral area or group option. Add-heavy raid encounters must not turn it into a
+   second major cooldown.
+4. Keep Avatar's damage effect and control break together only if the break is treated as utility,
+   not another throughput multiplier.
 
-Combat Mastery, Bladestorm, Sanguine Aura, and any action removal remain later audit
-candidates. Change them one at a time only after the corrected white-damage and rage profiles
-are available. Avatar is the reference burst anchor, not a mandate to delete every
-alternative. Enrage's haste value sits in the pre-sized reserve round below rather than a
-standing change.
+Combat Mastery, Bladestorm, Sanguine Aura, Enrage, and action removal remain later audit
+candidates. Do not bundle them into the balance hotfix. Change one after corrected single-target,
+area, and raid-add profiles are available.
 
 ## Talent and aura stacking invariant
 
@@ -288,12 +331,17 @@ Remaining Fury work, one behavior per PR:
 
 | Unit | One change | Depends on | Evidence |
 |---|---|---|---|
-| W5 | Recklessness loses rage generation, keeps critical reliability | None | Talent interaction test |
-| W6 | Battle Rhythm loses its damage multiplier, stays resource behavior | None | Talent interaction test |
-| W7 | Reserve round, only if the post-deploy live meter still reads above the band: Red Harvest coefficients -20 percent, Enrage haste 25 to 15 to 18, optional Twinstrike -10 to -15 percent | Live measurement | Probe plus live meter |
-| W8 | Bloodbath becomes one nonstacking refreshing effect | None | Aura stacking test |
-| W9 | Loadout-attribution fixture: 2H versus dual-wield at comparable item level, damage and rage by hand; answers the open offhand-rage question | None | Test-only; extends `scripts/fury_dps_probe.ts` |
-| W10 | Titan's Grip miss-chance variant as a measured experiment | W9 | Probe comparison against the shipped 12 percent penalty |
+| W5 | Battle Rhythm loses its damage multiplier and stays resource behavior | None | Talent interaction test |
+| W6 | Recklessness is tested without rage generation and keeps critical reliability | Normalized profile | Talent interaction and cadence tests |
+| W7 | Bloodbath becomes one nonstacking refreshing effect or a lateral option | Raid-add profile | Aura stacking and add-wave tests |
+| W8 | Loadout attribution for comparable 2H, dual-1H, and mixed Titan's Grip setups | None | Damage and rage by hand |
+| W9 | One maintenance or support input is folded, beginning with Iron Bellow or the roar slot | Mobile feedback | Action-bar playtest |
+| W10 | Optional contextual rotation prototype | W9 | Manual parity and heavy-mobile playtest |
+| W11 | Reserve coefficient round only if Fury remains above the band | Live measurement | Probe, normalized profiles, and PBE |
+
+The Titan's Grip miss-chance variant remains an experiment behind the measurement harness, not a
+scheduled gameplay change. The shipped 12 percent penalty stays unless loadout evidence shows it
+misses the target.
 
 ### Final gate
 
