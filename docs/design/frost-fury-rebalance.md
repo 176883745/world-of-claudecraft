@@ -245,7 +245,13 @@ Use this order for the first complexity audit:
 ### Warrior choice rows
 
 The Warrior rows keep six decisions, but only the level-17 row owns a major personal offensive
-effect:
+effect. Working talent rules for every row, pending owner approval:
+
+- One purpose per talent.
+- Resource talents do not also increase damage.
+- Offensive cooldowns are mutually exclusive.
+- Transformative talents replace behavior instead of adding another button.
+- No option stacks damage, haste, critical chance, rage, and proc multipliers.
 
 | Level | Current problem | Incremental direction |
 |---|---|---|
@@ -315,11 +321,27 @@ fails-before and passes-after evidence, and can be reverted independently. Follo
 `docs/design/spell-balance-framework.md`: pin behavior, change one source, show the fixture flip,
 re-run relevant profiles, and name what target-dummy tests cannot prove.
 
+### Landing priority
+
+1. PR #2112 is the must-have Fury incident hotfix and is already merged to `main`.
+2. PR #2113 is the remaining must-have correctness hotfix. Scripted encounter control must never
+   be consumed by Temporal Rift, regardless of the later talent direction.
+3. PR #2117 is the smallest recommended Fury follow-up. It removes Battle Rhythm's damage layer
+   while preserving its resource identity, but it is not another emergency coefficient pass.
+4. PR #2115 is the Frost balance and talent slice. It needs owner approval and PBE evidence rather
+   than emergency-hotfix treatment.
+5. PR #2114 records the plan and has no runtime effect.
+
+The active follow-up branches target `main` and contain the merged PR #2112 state, so none can
+accidentally land ahead of the Fury incident correction.
+
 ### Frost delivery
 
-The open Frost quick-correction PR contains the four immediate source removals listed above. It
-does not remove actions or establish a fixed action count. Any later Frost reduction is a separate
-review after play and mobile feedback.
+The Frost quick corrections are in flight as draft PR #2115, containing the four immediate
+source removals listed above plus the Temporal Rift replacement. It does not remove actions or
+establish a fixed action count. PR #2113 separately closes the scripted boss-control leak and
+should land first; replacing the passive talent remains the broader balance decision. Any later
+Frost reduction is a separate review after play and mobile feedback.
 
 ### Fury delivery
 
@@ -334,13 +356,13 @@ Remaining Fury work, one behavior per PR:
 
 | Unit | One change | Depends on | Evidence |
 |---|---|---|---|
-| W5 | Battle Rhythm loses its damage multiplier and stays resource behavior | None | Talent interaction test |
+| W5 | Battle Rhythm loses its damage multiplier and stays resource behavior. In flight as draft PR #2117 | None | Talent interaction test |
 | W6 | Recklessness is tested without rage generation and keeps critical reliability | Normalized profile | Talent interaction and cadence tests |
 | W7 | Bloodbath becomes one nonstacking refreshing effect or a lateral option | Raid-add profile | Aura stacking and add-wave tests |
 | W8 | Loadout attribution for comparable 2H, dual-1H, and mixed Titan's Grip setups | None | Damage and rage by hand |
 | W9 | One maintenance or support input is folded, beginning with Iron Bellow or the roar slot | Mobile feedback | Action-bar playtest |
 | W10 | Optional contextual rotation prototype | W9 | Manual parity and heavy-mobile playtest |
-| W11 | Reserve coefficient round only if Fury remains above the band | Live measurement | Probe, normalized profiles, and PBE |
+| W11 | Reserve coefficient round only if Fury remains above the band | PBE raid data | Probe, normalized profiles, and PBE |
 
 The Titan's Grip miss-chance variant remains an experiment behind the measurement harness, not a
 scheduled gameplay change. The shipped 12 percent penalty stays unless loadout evidence shows it
