@@ -4,6 +4,11 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
+# 设置 npm 镜像源为淘宝镜像
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm config set fetch-timeout 120000 && \
+    npm config set fetch-retry-mintimeout 20000 && \
+    npm config set fetch-retry-maxtimeout 120000
 RUN npm ci --no-audit --no-fund
 COPY .browserslistrc tsconfig.json vite.config.ts svelte.config.js index.html admin.html play.html guide.html editor.html wallet-handoff.html ./
 COPY src ./src
