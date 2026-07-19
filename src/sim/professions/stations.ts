@@ -1,9 +1,9 @@
 // Crafting stations (Professions 2.0 Phase 8): the hands-vs-stations split.
 // Field recipes (content/recipes.ts FIELD_RECIPES) craft anywhere; a recipe
 // carrying a `stationType` (professions/types.ts ProfessionRecipeRecord)
-// resolves only while the crafter stands at a matching station, or next to
-// their own active mobile station (mobile_station.ts) whose craft maps to
-// that type. This replaces the retired level-20 crafting-hub gate (#1297's
+// resolves only while the crafter stands at a matching station, or while
+// their own mobile station (mobile_station.ts) whose craft maps to that
+// type is ACTIVE (the mobile arm checks activity and type, never distance). This replaces the retired level-20 crafting-hub gate (#1297's
 // crafting_hub.ts): the level arm is gone entirely (2026-07-17 maintainer
 // ruling), and the single hub circle is replaced by per-type stations spread
 // across the towns (content/professions.ts STATIONS).

@@ -51,7 +51,8 @@ export interface CraftResultView {
     | 'throttled'
     // Phase 8 (supersedes #1297's not_at_hub): denied because the recipe is
     // station-bound and the player is neither at a station of its type nor
-    // beside their own active mobile station for that craft. The ui resolves
+    // holding an ACTIVE mobile station for that craft (the mobile arm checks
+    // activity and type, never distance). The ui resolves
     // WHICH station from recipeById(recipeId)?.stationType (static content,
     // identical in both worlds): no station field rides the event.
     | 'station_required';
