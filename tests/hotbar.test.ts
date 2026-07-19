@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CLASSES } from '../src/sim/content/classes';
+import { emptyAllocation } from '../src/sim/content/talents';
 import {
   actionForAttackSlot,
   applyLoadoutBar,
@@ -12,6 +13,7 @@ import {
   handleMobileAttackTap,
   hotbarActionsEqual,
   loadAttackSlotAction,
+  loadoutKnownAbilityIds,
   parseHotbarActions,
   parseStoredHotbarAction,
   placeAbilityOnSlot,
@@ -20,7 +22,7 @@ import {
   saveAttackSlotAction,
   shouldSeedFormBar,
   syncHotbarActions,
-} from '../src/ui/hotbar';
+} from '../src/ui/hud/action_bar/hotbar';
 
 const abilityIds = new Set([
   'fireball',
@@ -462,6 +464,26 @@ describe('hotbar slot sync', () => {
       { type: 'ability', id: 'blink' },
     ]);
   });
+
+  it('sweeps a passive left on the bar by an older build, and never re-places it', () => {
+    const slots = [
+      { type: 'ability' as const, id: 'fireball' },
+      { type: 'ability' as const, id: 'measured_fury' }, // passive saved by an older build
+      { type: 'ability' as const, id: 'blink' },
+    ];
+    const known = ['fireball', 'measured_fury', 'blink'];
+    const isPassive = (id: string) => id === 'measured_fury';
+
+    // measured_fury is known but passive: its slot is cleared, and it is NOT
+    // re-added even if the auto-place set (defensively) contains it.
+    const synced = syncHotbarActions(slots, known, new Set(['measured_fury']), isPassive);
+    expect(synced.actions).toEqual([
+      { type: 'ability', id: 'fireball' },
+      null,
+      { type: 'ability', id: 'blink' },
+    ]);
+    expect(synced.changed).toBe(true);
+  });
 });
 
 describe('applying a saved talent loadout bar', () => {
@@ -501,6 +523,56 @@ describe('applying a saved talent loadout bar', () => {
     const current = [{ type: 'ability' as const, id: 'fireball' }];
 
     expect(applyLoadoutBar(current, ['no_such_ability'], 1, abilityExists)).toEqual([null]);
+  });
+});
+
+describe('loadoutKnownAbilityIds', () => {
+  // Regression: switching talent loadouts scrambled the action bar (shaman bug
+  // report). applyLoadoutBar's "does this ability id exist" check must resolve
+  // against what the TARGET build actually grants, not the global ability
+  // table: two shaman specs grant disjoint signature abilities (stormstrike for
+  // Enhancement, chain_heal for Restoration), and stormstrike/chain_heal both
+  // exist in ABILITIES regardless of which spec is active.
+  it('only includes abilities the loadout own allocation actually grants', () => {
+    const enhancement = { ...emptyAllocation(), spec: 'enhancement' };
+    const restoration = { ...emptyAllocation(), spec: 'restoration' };
+
+    const enhancementKnown = loadoutKnownAbilityIds('shaman', enhancement, 20);
+    const restorationKnown = loadoutKnownAbilityIds('shaman', restoration, 20);
+
+    expect(enhancementKnown.has('stormstrike')).toBe(true);
+    expect(enhancementKnown.has('chain_heal')).toBe(false);
+    expect(restorationKnown.has('chain_heal')).toBe(true);
+    expect(restorationKnown.has('stormstrike')).toBe(false);
+  });
+
+  it('still includes base class-kit abilities regardless of spec', () => {
+    const known = loadoutKnownAbilityIds('shaman', { ...emptyAllocation(), spec: 'elemental' }, 20);
+    expect(known.has('lightning_bolt')).toBe(true);
+  });
+
+  it('excludes passive traits from saved loadout action-bar eligibility', () => {
+    const armsKnown = loadoutKnownAbilityIds('warrior', { ...emptyAllocation(), spec: 'arms' }, 20);
+
+    expect(armsKnown.has('measured_fury')).toBe(false);
+    expect(armsKnown.has('seasoned_soldier')).toBe(false);
+    expect(armsKnown.has('sudden_death')).toBe(false);
+    expect(armsKnown.has('deep_wounds')).toBe(false);
+    expect(armsKnown.has('battle_shout')).toBe(true);
+  });
+
+  // Pins the actual applyLoadoutBar call site wiring, not just the predicate in
+  // isolation: reverting the predicate to `(id) => !!ABILITIES[id]` would let
+  // stormstrike survive a switch to a Restoration loadout without failing this.
+  it("rejects a foreign-spec ability when used as applyLoadoutBar's predicate", () => {
+    const restoration = { ...emptyAllocation(), spec: 'restoration' };
+    const restorationKnown = loadoutKnownAbilityIds('shaman', restoration, 20);
+
+    const current = [{ type: 'ability' as const, id: 'stormstrike' }];
+
+    expect(applyLoadoutBar(current, ['stormstrike'], 1, (id) => restorationKnown.has(id))).toEqual([
+      null,
+    ]);
   });
 });
 

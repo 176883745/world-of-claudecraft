@@ -13,6 +13,11 @@ import { APPLE_AUTH_SCHEMA } from './apple_auth_db';
 import type { BankBonusFacts } from './bank_entitlements';
 import { seedChatFilterDefaults } from './chat_filter_db';
 import type { ChatLogRow } from './chat_log';
+import {
+  DAILY_REWARD_EVENTS_CONCURRENT_INDEX_SQL,
+  DAILY_REWARD_EVENTS_INVALID_INDEX_CHECK_SQL,
+  DAILY_REWARD_EVENTS_INVALID_INDEX_DROP_SQL,
+} from './daily_rewards_schema';
 import type { RankedDeedsAccount } from './deeds_board';
 import { DISCORD_SCHEMA } from './discord_db';
 import { GITHUB_SCHEMA } from './github_db';
@@ -49,20 +54,9 @@ import { USER_ASSETS_SCHEMA } from './user_assets_db';
 // consumers (the market tests) keep importing it from ./db unchanged.
 export { marketStateKey } from './market_backfill';
 
-try {
-  process.loadEnvFile?.();
-} catch {
-  // .env is optional; production usually injects DATABASE_URL directly.
-}
-try {
-  // Local-dev convenience: also load .env.local so the server can reuse the
-  // client's VITE_* values (e.g. the Solana RPC + $WOC mint) for the in-world
-  // holder-tier reads. Existing keys from .env are not overwritten. In
-  // production these come from real env vars (SOLANA_RPC_URL / WOC_MINT).
-  process.loadEnvFile?.('.env.local');
-} catch {
-  // .env.local is optional.
-}
+// The actual load lives in server/env.ts so import-time readers other than
+// db.ts (realm.ts via main.ts's first import) share one bootstrap.
+import './env';
 
 export const DATABASE_URL =
   process.env.DATABASE_URL ??
@@ -743,6 +737,7 @@ CREATE TABLE IF NOT EXISTS daily_reward_bans (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+ALTER TABLE daily_reward_bans ADD COLUMN IF NOT EXISTS expires_at TIMESTAMPTZ;
 CREATE TABLE IF NOT EXISTS daily_reward_ip_bans (
   ip_address TEXT PRIMARY KEY,
   reason TEXT NOT NULL,
@@ -752,6 +747,7 @@ CREATE TABLE IF NOT EXISTS daily_reward_ip_bans (
 );
 CREATE OR REPLACE VIEW daily_reward_excluded_accounts AS
 SELECT account_id, reason FROM daily_reward_bans
+ WHERE expires_at IS NULL OR expires_at > now()
 UNION
 SELECT a.id AS account_id, ib.reason
   FROM accounts a
@@ -1089,6 +1085,13 @@ export async function ensureSchema(): Promise<void> {
         await client.query(PLAYER_METRICS_INVALID_INDEX_DROP_SQL);
       }
       await client.query(PLAYER_METRICS_CONCURRENT_INDEX_SQL);
+      const invalidDailyRewardIndex = await client.query(
+        DAILY_REWARD_EVENTS_INVALID_INDEX_CHECK_SQL,
+      );
+      if ((invalidDailyRewardIndex.rowCount ?? 0) > 0) {
+        await client.query(DAILY_REWARD_EVENTS_INVALID_INDEX_DROP_SQL);
+      }
+      await client.query(DAILY_REWARD_EVENTS_CONCURRENT_INDEX_SQL);
     } finally {
       if (concurrentMigrationLocked) {
         await client.query('SELECT pg_advisory_unlock($1)', [SCHEMA_ADVISORY_LOCK_KEY]);
@@ -3007,12 +3010,15 @@ export async function topGuilds(
 // design; deliberately no LIMIT, so it can never become a cap that drops a
 // legitimate account). The output maps 1:1 onto computeDeedsBoard(...).ranked
 // (server/deeds_board.ts is the executable spec this mirrors): per account the
-// COUNTED SET is the distinct renown-bearing deed ids, so a deed earned by two
-// characters counts once; zero-renown deeds score and count nothing; the floor
-// is inclusive; completionTime is max over the counted set of each deed's
-// EARLIEST earn; the display character is the account's highest per-character
-// Renown character, ties to the lowest id; ordering is renown desc, completion
-// asc, accountId asc.
+// SCORING SET is the distinct renown-bearing deed ids, so a deed earned by two
+// characters scores once; zero-renown deeds sit outside the scoring set (they
+// never score and never move the tie-break); the floor is inclusive;
+// completionTime is max over the scoring set of each deed's EARLIEST earn; the
+// display character is the account's highest per-character Renown character,
+// ties to the lowest id; ordering is renown desc, completion asc, accountId
+// asc. deed_count (the scoring-set size) is a deprecated wire-compat output
+// removed next release together with the pure spec's field (issue #2044,
+// executable-spec lockstep both times); it is not displayed by current clients.
 export async function deedsBoardRanked(
   deedIds: readonly string[],
   renowns: readonly number[],

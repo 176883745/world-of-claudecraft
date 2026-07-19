@@ -1113,7 +1113,13 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
     facing: 2.8,
     color: 0x717d7e,
     questIds: [],
-    vendorItems: ['highwatch_warblade', 'craghorn_staff', 'icevein_dirk'],
+    vendorItems: [
+      'highwatch_warblade',
+      'highwatch_greatsword',
+      'highwatch_wallshield',
+      'craghorn_staff',
+      'icevein_dirk',
+    ],
     greeting: 'Forge is hot and the grindstone is turning. If it cuts, I sell it.',
   },
   heroic_quartermaster: {
@@ -2651,11 +2657,16 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
     name: 'Wyrmfang Greatblade',
     kind: 'weapon',
     slot: 'mainhand',
+    hand: 'twohand',
     quality: 'epic',
-    weapon: { min: 30, max: 48, speed: 2.6 },
-    stats: { str: 11, sta: 7 },
+    // 2H dps premium: weaponDpsBudget(26) = 14.5 x TWOHAND_DPS_MULT -> 16.7 dps
+    // (this pre-dated the Eastbrook/Highwatch rule and sat on the flat curve).
+    weapon: { min: 33, max: 53, speed: 2.6 },
+    // v0.27.1 re-budget: round(primaryStatBudget(26, epic, mainhand) = 18 x
+    // TWOHAND_STAT_MULT) = 23 points; a 2H's compensation lives on the dps side.
+    stats: { str: 14, sta: 9 },
     sellValue: 8000,
-    requiredClass: ['warrior', 'rogue', 'hunter', 'shaman', 'paladin'],
+    requiredClass: ['warrior', 'hunter', 'shaman', 'paladin'],
   },
   staff_of_the_gravewyrm: {
     id: 'staff_of_the_gravewyrm',
@@ -2999,6 +3010,91 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
     sellValue: 12000,
     requiredClass: ['shaman'],
   },
+  // --- Nythraxis raid (normal): the missing offhand-slot + two-hander epics.
+  // All four register at item level 29 (source 20 + epic 6 + raid 3), the same
+  // tier as the set pieces above, and carry the ilvl-29 raid seed rating (one
+  // rating at 20, off the stat budget, like every set piece). ---
+  bonewrought_greatsword: {
+    id: 'bonewrought_greatsword',
+    name: 'Bonewrought Greatsword',
+    kind: 'weapon',
+    slot: 'mainhand',
+    hand: 'twohand',
+    quality: 'epic',
+    // Two-handers trade stats for a slow, heavy swing: weaponDpsBudget(29) = 15.4
+    // x TWOHAND_DPS_MULT -> 17.65 dps here.
+    weapon: { min: 45, max: 75, speed: 3.4 },
+    // v0.27.1 re-budget: round(primaryStatBudget(29, epic, mainhand) = 20 x
+    // TWOHAND_STAT_MULT) = 26 points (a mainhand + offhand pair at this tier
+    // carries 35, so any dual-wield or shield setup out-stats this).
+    stats: { str: 14, sta: 12 },
+    // Physical melee identity: Hit, like the crownforged pieces.
+    hitRating: 20,
+    sellValue: 12000,
+    // The warrior weapon group MINUS rogue: rogues never equip two-handers
+    // (equipment_rules), and requiredClass must honestly list who can equip.
+    // The list no longer matches WARRIOR_WEAPON_CLASSES, so it resolves by
+    // literal membership.
+    requiredClass: ['warrior', 'hunter', 'shaman', 'paladin'],
+  },
+  direfang_greatblade: {
+    id: 'direfang_greatblade',
+    name: 'Direfang Greatblade',
+    kind: 'weapon',
+    slot: 'mainhand',
+    hand: 'twohand',
+    quality: 'epic',
+    // Same 2H rules as the Bonewrought Greatsword: weaponDpsBudget(29) x
+    // TWOHAND_DPS_MULT -> 17.67 dps at a faster 3.0 swing, same 26-point budget.
+    weapon: { min: 40, max: 66, speed: 3.0 },
+    stats: { agi: 14, sta: 12 },
+    // Physical melee identity: Hit, like the nighttalon pieces.
+    hitRating: 20,
+    sellValue: 12000,
+    // A bespoke hunter lock (not a proficiency group): the agi identity is the
+    // hunter's, and handing it to the rogue group would trade away dual wield.
+    requiredClass: ['hunter'],
+  },
+  bonewrought_bulwark: {
+    id: 'bonewrought_bulwark',
+    name: 'Bonewrought Bulwark',
+    kind: 'armor',
+    armorType: 'mail',
+    slot: 'offhand',
+    shield: true,
+    quality: 'epic',
+    // Shield armor is ~2x a same-tier epic chest (the common-tier rule:
+    // Wallshield 112 vs chain vest 60): the ilvl-29 epic mail chest
+    // extrapolates to ~340 (deathlord_warplate 270 at 26, scaled by the 29-tier
+    // helm ratio 310/245), so 680 here. blockValue extrapolates the common
+    // ladder (buckler 6, Wallshield 14) to the epic tier: 30. Stats are the
+    // exact offhand budget, primaryStatBudget(29, epic, offhand) = 15,
+    // sta-heavy for the tank identity.
+    blockValue: 30,
+    stats: { armor: 680, sta: 10, str: 5 },
+    // Physical tank identity: Hit (threat), like the crownforged pieces.
+    hitRating: 20,
+    sellValue: 12000,
+    requiredClass: ['warrior', 'paladin', 'shaman'],
+  },
+  wraithfire_orb: {
+    id: 'wraithfire_orb',
+    name: 'Wraithfire Orb',
+    kind: 'held_offhand',
+    slot: 'offhand',
+    quality: 'epic',
+    // Held-in-offhand caster stat stick: no weapon damage, stats on the exact
+    // offhand budget, primaryStatBudget(29, epic, offhand) = 15 (the budget
+    // model's 0.75x mainhand line), int/spi identity with minor sta.
+    stats: { int: 7, spi: 5, sta: 3 },
+    // Healer-inclusive spell throughput: crit like the stormcallers pieces,
+    // never Hit (heals are not resisted; the Heartwood healer-facing rule).
+    critRating: 20,
+    sellValue: 12000,
+    // The caster weapon-proficiency group list (CASTER_WEAPON_CLASSES); kind
+    // held_offhand equips by the literal requiredClass.
+    requiredClass: ['mage', 'priest', 'warlock', 'shaman', 'paladin', 'druid'],
+  },
   // --- vendor food & drink (Quartermaster Bree) ---
   trail_hardtack: {
     id: 'trail_hardtack',
@@ -3046,6 +3142,31 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
     weapon: { min: 15, max: 24, speed: 2.3 },
     sellValue: 600,
     buyValue: 6000,
+  },
+  highwatch_greatsword: {
+    id: 'highwatch_greatsword',
+    name: 'Highwatch Greatsword',
+    kind: 'weapon',
+    slot: 'mainhand',
+    hand: 'twohand',
+    quality: 'common',
+    weapon: { min: 26, max: 40, speed: 3.4 },
+    sellValue: 680,
+    buyValue: 6800,
+  },
+  highwatch_wallshield: {
+    id: 'highwatch_wallshield',
+    name: 'Highwatch Wallshield',
+    kind: 'armor',
+    armorType: 'mail',
+    slot: 'offhand',
+    shield: true,
+    blockValue: 14,
+    quality: 'common',
+    stats: { armor: 112, sta: 2 },
+    sellValue: 560,
+    buyValue: 5600,
+    requiredClass: ['warrior', 'paladin', 'shaman'],
   },
   craghorn_staff: {
     id: 'craghorn_staff',
@@ -3181,7 +3302,15 @@ export const ZONE3_PROPS: ZonePropsDef = {
   ],
   mines: [
     { x: 88, z: 612, rot: -2.0 }, // Deeprock Burrows
-    { x: -152, z: 610, rot: Math.PI / 2 }, // Abandoned crypt entrance
+    // Abandoned crypt entrance: shares its (x, z) with the dungeon door's own
+    // trigger point, so the mound's collider needs a bigger backward offset
+    // (moundOffset) than the generic mine default or it swallows the door
+    // itself, stranding any ghost that can only walk-trigger it (issue: dead
+    // players unable to enter/corpse-run the crypt). moundRadius is also
+    // shrunk from the generic default so the circle hugs this entry's own,
+    // smaller-footprint rock pile (src/render/props.ts) instead of bleeding
+    // onto open ground behind it and off the flanking boulders themselves.
+    { x: -152, z: 610, rot: Math.PI / 2, moundOffset: 4, moundRadius: 3.3 },
   ],
   docks: [],
   tents: [

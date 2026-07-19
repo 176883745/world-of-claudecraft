@@ -119,6 +119,18 @@ export const shellStrings = {
         fatalBody: 'World of ClaudeCraft hit an unexpected error and needs to close.',
       },
     },
+    // Software-rendering notice (src/ui/gpu_notice_toast.ts): shown once when
+    // the session runs on a software rasterizer (WARP/SwiftShader). Two body
+    // variants because the fix differs: inside the desktop shell there is no
+    // "browser setting" to enable, so that copy points at drivers and the
+    // Windows per-app graphics setting instead.
+    gpuNotice: {
+      bodyDesktop:
+        'The game is running without GPU acceleration and will be slow. Update your graphics drivers, then restart the game. On Windows, also set the game to High performance under Settings > System > Display > Graphics.',
+      bodyWeb:
+        'The game is running without GPU acceleration and will be slow. Enable hardware acceleration in your browser settings, update your graphics drivers, then restart your browser.',
+      dismiss: 'Dismiss',
+    },
     realm: {
       noRealms: 'No worlds available.',
       loading: 'Loading worlds...',
@@ -276,6 +288,29 @@ export const shellStrings = {
       heading: 'The world is temporarily unavailable.',
       body: 'We are restarting the game service and expect Claudemoon to return shortly. This page will keep checking automatically.',
       status: 'Back soon',
+    },
+    welcome: {
+      back: 'Welcome back, {name}',
+      level: 'Level {level}',
+      lastPlayed: 'Last played {when}',
+      continue: 'Enter World',
+      continueHint: 'Enter to continue, Esc to skip',
+      continueHintTouch: 'Tap to continue',
+      discord: {
+        title: 'The community lives on Discord',
+        sub: 'Patch previews, events, dev chat, and 2 bonus bank slots for linking.',
+        join: 'Join our Discord',
+      },
+      chest: {
+        ready: 'Daily chest ready',
+      },
+      armory: {
+        cta: 'Enter and browse the Armory',
+      },
+      news: {
+        new: 'New',
+        viewAll: 'View all updates on GitHub',
+      },
     },
   },
   es: {

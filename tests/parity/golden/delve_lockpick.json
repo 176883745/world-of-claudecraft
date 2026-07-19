@@ -15,8 +15,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 409,
-      "state": "20380ff5",
+      "nextId": 410,
+      "state": "8f620cf2",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -53,10 +53,11 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 408,
+          "entityId": 409,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger"
+            "mainhand": "rusty_dagger",
+            "offhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -70,8 +71,7 @@
           "mailWelcomed": true,
           "nodeHarvestReadyAt": {},
           "talents": {
-            "choices": {},
-            "ranks": {}
+            "rows": {}
           },
           "townFocus": {}
         }
@@ -85,16 +85,24 @@
           "critChance": 0.0625,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0625,
+          "dualWielding": true,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 62,
-          "id": 408,
+          "id": 409,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
           "maxHp": 62,
           "maxResource": 100,
           "moveSpeed": 7,
+          "offhandItemId": "rusty_dagger",
+          "offhandWeapon": {
+            "dagger": true,
+            "max": 4,
+            "min": 2,
+            "speed": 1.8
+          },
           "onGround": true,
           "overpowerUntil": -1,
           "petMode": "defensive",
@@ -133,9 +141,9 @@
     {
       "tick": 10,
       "time": 0.5,
-      "nextId": 422,
-      "state": "96ba5a50",
-      "events": "0743001f",
+      "nextId": 423,
+      "state": "6fa0a53a",
+      "events": "e4793f9c",
       "rng": {
         "draws": 7,
         "digest": "30365ad3"
@@ -144,9 +152,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 422,
-      "state": "dec5d3ae",
-      "events": "e8535d0d",
+      "nextId": 423,
+      "state": "670dbb2a",
+      "events": "7ca1844e",
       "rng": {
         "draws": 7,
         "digest": "30365ad3"
@@ -155,9 +163,9 @@
     {
       "tick": 30,
       "time": 1.5,
-      "nextId": 422,
-      "state": "a241fc2d",
-      "events": "adb5f051",
+      "nextId": 423,
+      "state": "971ffc47",
+      "events": "07fba550",
       "rng": {
         "draws": 10,
         "digest": "06665a19"
@@ -166,9 +174,9 @@
     {
       "tick": 38,
       "time": 1.9,
-      "nextId": 424,
-      "state": "88ffbe56",
-      "events": "4e2f9332",
+      "nextId": 425,
+      "state": "d87dbe22",
+      "events": "54d51f2b",
       "rng": {
         "draws": 13,
         "digest": "ded57bf5"
@@ -249,10 +257,11 @@
             "eastbrook_ledger"
           ],
           "delveMarks": 3,
-          "entityId": 408,
+          "entityId": 409,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger"
+            "mainhand": "rusty_dagger",
+            "offhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -268,8 +277,7 @@
           "nodeHarvestReadyAt": {},
           "renown": 55,
           "talents": {
-            "choices": {},
-            "ranks": {}
+            "rows": {}
           },
           "townFocus": {},
           "xp": 898
@@ -284,9 +292,10 @@
           "critChance": 0.0715,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0715,
+          "dualWielding": true,
           "fiveSecondRule": 100.9,
           "hp": 50000,
-          "id": 408,
+          "id": 409,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -294,6 +303,13 @@
           "maxHp": 50000,
           "maxResource": 100,
           "moveSpeed": 7,
+          "offhandItemId": "rusty_dagger",
+          "offhandWeapon": {
+            "dagger": true,
+            "max": 4,
+            "min": 2,
+            "speed": 1.8
+          },
           "onGround": true,
           "overpowerUntil": -1,
           "petMode": "defensive",
@@ -318,7 +334,7 @@
             "sta": 23,
             "str": 23
           },
-          "targetId": 418,
+          "targetId": 419,
           "templateId": "rogue",
           "weapon": {
             "dagger": true,
@@ -337,7 +353,7 @@
           "facing": -1.570796,
           "fiveSecondRule": 99,
           "hp": 56,
-          "id": 417,
+          "id": 418,
           "kind": "mob",
           "level": 4,
           "lootFfaTimer": "Infinity",
@@ -345,7 +361,7 @@
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
-          "ownerId": 408,
+          "ownerId": 409,
           "petMode": "defensive",
           "pos": {
             "x": 4800,
@@ -379,7 +395,7 @@
           "facing": 1.570796,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 418,
+          "id": 419,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -392,7 +408,7 @@
           },
           "lootFfaTimer": 59.6,
           "lootRecipientIds": [
-            408
+            409
           ],
           "lootable": true,
           "maxHp": 635,
@@ -415,7 +431,7 @@
           },
           "stompTimer": 10.5,
           "swingTimer": 0.75,
-          "tappedById": 408,
+          "tappedById": 409,
           "templateId": "deacon_varric",
           "weapon": {
             "max": 51,
@@ -433,7 +449,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 422,
+          "id": 423,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -466,8 +482,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 424,
-      "state": "d68a7282",
+      "nextId": 425,
+      "state": "be2801b4",
       "events": "741638a5",
       "rng": {
         "draws": 13,
@@ -477,8 +493,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 424,
-      "state": "d68a7282",
+      "nextId": 425,
+      "state": "be2801b4",
       "events": "741638a5",
       "rng": {
         "draws": 13,
@@ -560,10 +576,11 @@
             "eastbrook_ledger"
           ],
           "delveMarks": 3,
-          "entityId": 408,
+          "entityId": 409,
           "equipment": {
             "chest": "footpad_jerkin",
-            "mainhand": "rusty_dagger"
+            "mainhand": "rusty_dagger",
+            "offhand": "rusty_dagger"
           },
           "equipmentInstance": {},
           "gatheringProficiency": {},
@@ -579,8 +596,7 @@
           "nodeHarvestReadyAt": {},
           "renown": 55,
           "talents": {
-            "choices": {},
-            "ranks": {}
+            "rows": {}
           },
           "townFocus": {},
           "xp": 898
@@ -595,9 +611,10 @@
           "critChance": 0.0715,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.0715,
+          "dualWielding": true,
           "fiveSecondRule": 101,
           "hp": 50000,
-          "id": 408,
+          "id": 409,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -605,6 +622,13 @@
           "maxHp": 50000,
           "maxResource": 100,
           "moveSpeed": 7,
+          "offhandItemId": "rusty_dagger",
+          "offhandWeapon": {
+            "dagger": true,
+            "max": 4,
+            "min": 2,
+            "speed": 1.8
+          },
           "onGround": true,
           "overpowerUntil": -1,
           "petMode": "defensive",
@@ -629,7 +653,7 @@
             "sta": 23,
             "str": 23
           },
-          "targetId": 418,
+          "targetId": 419,
           "templateId": "rogue",
           "weapon": {
             "dagger": true,
@@ -648,7 +672,7 @@
           "facing": -1.570796,
           "fiveSecondRule": 99,
           "hp": 56,
-          "id": 417,
+          "id": 418,
           "kind": "mob",
           "level": 4,
           "lootFfaTimer": "Infinity",
@@ -656,7 +680,7 @@
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
-          "ownerId": 408,
+          "ownerId": 409,
           "petMode": "defensive",
           "pos": {
             "x": 4800,
@@ -690,7 +714,7 @@
           "facing": 1.570796,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 418,
+          "id": 419,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -703,7 +727,7 @@
           },
           "lootFfaTimer": 59.5,
           "lootRecipientIds": [
-            408
+            409
           ],
           "lootable": true,
           "maxHp": 635,
@@ -726,7 +750,7 @@
           },
           "stompTimer": 10.5,
           "swingTimer": 0.75,
-          "tappedById": 408,
+          "tappedById": 409,
           "templateId": "deacon_varric",
           "weapon": {
             "max": 51,
@@ -744,7 +768,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 422,
+          "id": 423,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",

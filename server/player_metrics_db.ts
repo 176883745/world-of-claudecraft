@@ -74,12 +74,33 @@ SELECT 1
 export const PLAYER_METRICS_INVALID_INDEX_DROP_SQL =
   'DROP INDEX CONCURRENTLY IF EXISTS play_sessions_account_started_id';
 
+/** Fixed first-day playtime buckets; a bounded label set, never per-player data. */
+export const FIRST_DAY_PLAYTIME_BUCKETS = [
+  'lt_10m',
+  '10m_30m',
+  '30m_1h',
+  '1h_3h',
+  'gte_3h',
+] as const;
+
+export type FirstDayPlaytimeBucket = (typeof FIRST_DAY_PLAYTIME_BUCKETS)[number];
+
+/** Ordered stages for the same-day account-created funnel. */
+export const DAY_ONE_FUNNEL_STAGES = [
+  'created',
+  'first_character',
+  'entered_world',
+  'played_10m',
+  'reached_level_2',
+  'reached_level_5',
+] as const;
+
+export type DayOneFunnelStage = (typeof DAY_ONE_FUNNEL_STAGES)[number];
+
 export interface PlayerBusinessDay {
   period: 'today' | 'yesterday';
-  accountsCreated: number;
   charactersCreated: number;
   firstCharacterAccounts: number;
-  firstWorldEntryRate: number | null;
   activeNew: number;
   activeReturning: number;
   avgPlaytimeSecondsAll: number | null;
@@ -88,6 +109,17 @@ export interface PlayerBusinessDay {
   firstSessionMedianSeconds: number | null;
   firstSessionLevel2Rate: number | null;
   firstSessionLevel5Rate: number | null;
+  firstDayPlaytimeP50Seconds: number | null;
+  firstDayPlaytimeP90Seconds: number | null;
+  firstDaySessionsMedian: number | null;
+  firstDayPlaytimeAccounts: Record<FirstDayPlaytimeBucket, number>;
+}
+
+export interface PlayerFunnelDay {
+  period: 'today' | 'yesterday';
+  accountsCreated: number;
+  firstWorldEntryRate: number | null;
+  dayOneFunnelAccounts: Record<DayOneFunnelStage, number>;
 }
 
 export interface PlayerRetentionMetric {
@@ -101,6 +133,10 @@ export interface PlayerBusinessSnapshot {
   retention: PlayerRetentionMetric[];
 }
 
+export interface PlayerFunnelSnapshot {
+  days: PlayerFunnelDay[];
+}
+
 interface Queryable {
   query(text: string, values?: unknown[]): Promise<{ rows: Record<string, unknown>[] }>;
 }
@@ -108,8 +144,8 @@ interface Queryable {
 /** Whole-refresh deadline, including waiting for a pooled client. */
 export const PLAYER_BUSINESS_SNAPSHOT_TIMEOUT_MS = 3_000;
 
-function snapshotTimeoutError(): Error {
-  return new Error('player business snapshot timed out');
+function snapshotTimeoutError(snapshotName = 'player metrics snapshot'): Error {
+  return new Error(`${snapshotName} timed out`);
 }
 
 /**
@@ -396,10 +432,6 @@ WITH days(period, day) AS (
     ('yesterday'::text, current_date - 1)
 ), daily AS (
   SELECT days.period, days.day,
-         (SELECT count(*)::int
-            FROM accounts
-           WHERE created_at >= days.day
-             AND created_at < days.day + 1) AS accounts_created,
          COALESCE((SELECT characters_created
                      FROM player_business_daily
                     WHERE realm = $1 AND day = days.day), 0)::int AS characters_created,
@@ -407,103 +439,219 @@ WITH days(period, day) AS (
             FROM player_account_facts
            WHERE realm = $1
              AND first_character_at >= days.day
-             AND first_character_at < days.day + 1) AS first_character_accounts,
-         (SELECT count(*)::int
-            FROM player_account_facts
-           WHERE realm = $1
-             AND account_created_at >= days.day
-             AND account_created_at < days.day + 1
-             AND first_play_at >= days.day
-             AND first_play_at < days.day + 1) AS same_day_first_plays
+             AND first_character_at < days.day + 1) AS first_character_accounts
     FROM days
 ), activity AS (
-  SELECT days.period,
-         count(activity.account_id)::int AS active_total,
-         count(activity.account_id) FILTER (
-           WHERE facts.first_play_at >= days.day
-             AND facts.first_play_at < days.day + 1
-         )::int AS active_new,
-         avg(activity.playtime_seconds)::double precision AS avg_playtime_all,
-         avg(activity.playtime_seconds) FILTER (
-           WHERE facts.first_play_at >= days.day
-             AND facts.first_play_at < days.day + 1
-         )::double precision AS avg_playtime_new,
-         avg(activity.playtime_seconds) FILTER (
-           WHERE activity.max_level >= 20
-         )::double precision AS avg_playtime_level_20
+  -- Keep active-account reads proportional to each selected day. The lateral
+  -- range uses the activity primary key instead of letting a grouped two-day
+  -- join hash the durable activity and fact tables in full.
+  SELECT days.period, activity_stats.*
     FROM days
-    LEFT JOIN player_activity_daily activity
-      ON activity.realm = $1 AND activity.day = days.day
-    LEFT JOIN player_account_facts facts
-      ON facts.realm = activity.realm AND facts.account_id = activity.account_id
-    GROUP BY days.period, days.day
+    CROSS JOIN LATERAL (
+      SELECT count(activity.account_id)::int AS active_total,
+             avg(activity.playtime_seconds)::double precision AS avg_playtime_all,
+             avg(activity.playtime_seconds) FILTER (
+               WHERE activity.max_level >= 20
+             )::double precision AS avg_playtime_level_20
+        FROM player_activity_daily activity
+       WHERE activity.realm = $1 AND activity.day = days.day
+    ) AS activity_stats
+), day_one AS (
+  -- Day-one aggregates live in their own per-day LATERAL so the ordered-set
+  -- percentiles sort only that day's new-player cohort (facts via the
+  -- first_play partial index, one primary-key activity row per account).
+  -- Folding them into the activity CTE would disable hashed aggregation for
+  -- that node (ordered-set aggregates force sorted grouping) and push the
+  -- whole two-day rowset through an external sort; a per-day plain aggregate
+  -- has no grouping sort at all and still returns one row for an empty day.
+  SELECT days.period, day_stats.*
+    FROM days
+    CROSS JOIN LATERAL (
+      SELECT count(activity.account_id)::int AS active_new,
+             avg(activity.playtime_seconds)::double precision AS avg_playtime_new,
+             percentile_cont(0.5) WITHIN GROUP (
+               ORDER BY activity.playtime_seconds
+             )::double precision AS playtime_p50_new,
+             percentile_cont(0.9) WITHIN GROUP (
+               ORDER BY activity.playtime_seconds
+             )::double precision AS playtime_p90_new,
+             percentile_cont(0.5) WITHIN GROUP (
+               ORDER BY activity.sessions
+             )::double precision AS sessions_p50_new,
+             count(activity.account_id) FILTER (
+               WHERE activity.playtime_seconds < 600
+             )::int AS new_playtime_lt_10m,
+             count(activity.account_id) FILTER (
+               WHERE activity.playtime_seconds >= 600
+                 AND activity.playtime_seconds < 1800
+             )::int AS new_playtime_10m_30m,
+             count(activity.account_id) FILTER (
+               WHERE activity.playtime_seconds >= 1800
+                 AND activity.playtime_seconds < 3600
+             )::int AS new_playtime_30m_1h,
+             count(activity.account_id) FILTER (
+               WHERE activity.playtime_seconds >= 3600
+                 AND activity.playtime_seconds < 10800
+             )::int AS new_playtime_1h_3h,
+             count(activity.account_id) FILTER (
+               WHERE activity.playtime_seconds >= 10800
+             )::int AS new_playtime_gte_3h
+        FROM player_account_facts facts
+        JOIN player_activity_daily activity
+          ON activity.realm = $1
+         AND activity.day = days.day
+         AND activity.account_id = facts.account_id
+       WHERE facts.realm = $1
+         AND facts.first_play_at >= days.day
+         AND facts.first_play_at < days.day + 1
+    ) AS day_stats
 ), first_sessions AS (
-  SELECT days.period,
-         percentile_cont(0.5) WITHIN GROUP (
-           ORDER BY facts.first_session_seconds
-         )::double precision AS median_seconds,
-         count(*) FILTER (
-           WHERE facts.first_session_max_level >= 2
-         )::double precision / NULLIF(count(facts.account_id), 0) AS level_2_rate,
-         count(*) FILTER (
-           WHERE facts.first_session_max_level >= 5
-         )::double precision / NULLIF(count(facts.account_id), 0) AS level_5_rate
+  SELECT days.period, first_session_stats.*
     FROM days
-    LEFT JOIN player_account_facts facts
-      ON facts.realm = $1
-     AND facts.first_play_at >= days.day
-     AND facts.first_play_at < days.day + 1
-     AND facts.first_session_ended_at IS NOT NULL
-    GROUP BY days.period
+    CROSS JOIN LATERAL (
+      SELECT percentile_cont(0.5) WITHIN GROUP (
+               ORDER BY facts.first_session_seconds
+             )::double precision AS median_seconds,
+             count(*) FILTER (
+               WHERE facts.first_session_max_level >= 2
+             )::double precision / NULLIF(count(facts.account_id), 0) AS level_2_rate,
+             count(*) FILTER (
+               WHERE facts.first_session_max_level >= 5
+             )::double precision / NULLIF(count(facts.account_id), 0) AS level_5_rate
+        FROM player_account_facts facts
+       WHERE facts.realm = $1
+         AND facts.first_play_at >= days.day
+         AND facts.first_play_at < days.day + 1
+         AND facts.first_session_ended_at IS NOT NULL
+    ) AS first_session_stats
 ), retention_offsets(retention_day) AS (
   VALUES (1), (7), (30)
 ), retention AS (
-  SELECT days.period,
-         retention_offsets.retention_day,
-         count(activity.account_id)::double precision / NULLIF(count(facts.account_id), 0)
-           AS retention_rate
+  -- Resolve each fixed cohort through the first-play and daily-activity
+  -- indexes. Grouping all six cohorts together invites full-table hash joins
+  -- as the durable fact and activity tables grow.
+  SELECT days.period, retention_offsets.retention_day, retention_stats.retention_rate
     FROM days
     CROSS JOIN retention_offsets
-    LEFT JOIN player_account_facts facts
-      ON facts.realm = $1
-     AND facts.first_play_at >= days.day - retention_offsets.retention_day
-     AND facts.first_play_at < days.day - retention_offsets.retention_day + 1
-    LEFT JOIN player_activity_daily activity
-      ON activity.realm = facts.realm
-     AND activity.account_id = facts.account_id
-     AND activity.day = days.day
-   GROUP BY days.period, days.day, retention_offsets.retention_day
+    CROSS JOIN LATERAL (
+      SELECT count(activity.account_id)::double precision
+               / NULLIF(count(facts.account_id), 0) AS retention_rate
+        FROM player_account_facts facts
+        LEFT JOIN player_activity_daily activity
+          ON activity.realm = facts.realm
+         AND activity.account_id = facts.account_id
+         AND activity.day = days.day
+       WHERE facts.realm = $1
+         AND facts.first_play_at >= days.day - retention_offsets.retention_day
+         AND facts.first_play_at < days.day - retention_offsets.retention_day + 1
+    ) AS retention_stats
 )
 SELECT daily.period,
-       daily.accounts_created,
        daily.characters_created,
        daily.first_character_accounts,
-       daily.same_day_first_plays::double precision
-         / NULLIF(daily.accounts_created, 0) AS first_world_entry_rate,
-       activity.active_new,
-       GREATEST(activity.active_total - activity.active_new, 0)::int AS active_returning,
+       day_one.active_new,
+       GREATEST(activity.active_total - day_one.active_new, 0)::int AS active_returning,
        activity.avg_playtime_all,
-       activity.avg_playtime_new,
+       day_one.avg_playtime_new,
        activity.avg_playtime_level_20,
        first_sessions.median_seconds,
        first_sessions.level_2_rate,
        first_sessions.level_5_rate,
+       day_one.playtime_p50_new,
+       day_one.playtime_p90_new,
+       day_one.sessions_p50_new,
+       day_one.new_playtime_lt_10m,
+       day_one.new_playtime_10m_30m,
+       day_one.new_playtime_30m_1h,
+       day_one.new_playtime_1h_3h,
+       day_one.new_playtime_gte_3h,
        (SELECT jsonb_object_agg(retention_day, retention_rate)
           FROM retention
          WHERE retention.period = daily.period) AS retention
   FROM daily
   JOIN activity USING (period)
   JOIN first_sessions USING (period)
+  JOIN day_one USING (period)
  ORDER BY CASE daily.period WHEN 'today' THEN 0 ELSE 1 END
+`;
+
+export const PLAYER_FUNNEL_SNAPSHOT_SQL = `
+WITH days(period, day) AS (
+  VALUES
+    ('today'::text, current_date),
+    ('yesterday'::text, current_date - 1)
+), created AS (
+  -- Count factless registrations with one contiguous accounts.created_at range
+  -- scan per selected day. Later stages never probe from this account rowset.
+  SELECT days.period, days.day, count(accounts.id)::int AS funnel_created
+    FROM days
+    LEFT JOIN accounts
+      ON accounts.created_at >= days.day
+     AND accounts.created_at < days.day + 1
+   GROUP BY days.period, days.day
+), first_character AS (
+  -- Start at the completed stage, not at every signup. account_created_at keeps
+  -- this on the same account-created cohort while first_character_at selects the
+  -- existing realm/day index before applying that residual cohort check.
+  SELECT days.period,
+         count(facts.account_id)::int AS funnel_first_character
+    FROM days
+    LEFT JOIN player_account_facts facts
+      ON facts.realm = $1
+     AND facts.first_character_at >= days.day
+     AND facts.first_character_at < days.day + 1
+     AND facts.account_created_at >= days.day
+     AND facts.account_created_at < days.day + 1
+   GROUP BY days.period
+), play_stages AS (
+  -- First-play and activity stages are one set join over the small completed
+  -- cohort. A factless signup never causes a facts or activity primary-key probe.
+  SELECT days.period,
+         count(facts.account_id)::int AS funnel_entered_world,
+         count(activity.account_id) FILTER (
+           WHERE activity.playtime_seconds >= 600
+         )::int AS funnel_played_10m,
+         count(activity.account_id) FILTER (
+           WHERE activity.max_level >= 2
+         )::int AS funnel_reached_level_2,
+         count(activity.account_id) FILTER (
+           WHERE activity.max_level >= 5
+         )::int AS funnel_reached_level_5
+    FROM days
+    LEFT JOIN player_account_facts facts
+      ON facts.realm = $1
+     AND facts.first_play_at >= days.day
+     AND facts.first_play_at < days.day + 1
+     AND facts.first_character_at >= days.day
+     AND facts.first_character_at < days.day + 1
+     AND facts.account_created_at >= days.day
+     AND facts.account_created_at < days.day + 1
+    LEFT JOIN player_activity_daily activity
+      ON activity.realm = $1
+     AND activity.day = days.day
+     AND activity.account_id = facts.account_id
+   GROUP BY days.period
+)
+SELECT created.period,
+       created.funnel_created AS accounts_created,
+       play_stages.funnel_entered_world::double precision
+         / NULLIF(created.funnel_created, 0) AS first_world_entry_rate,
+       first_character.funnel_first_character,
+       play_stages.funnel_entered_world,
+       play_stages.funnel_played_10m,
+       play_stages.funnel_reached_level_2,
+       play_stages.funnel_reached_level_5
+  FROM created
+  JOIN first_character USING (period)
+  JOIN play_stages USING (period)
+ ORDER BY CASE created.period WHEN 'today' THEN 0 ELSE 1 END
 `;
 
 function mapBusinessDay(row: Record<string, unknown>): PlayerBusinessDay {
   return {
     period: row.period === 'yesterday' ? 'yesterday' : 'today',
-    accountsCreated: Number(row.accounts_created ?? 0),
     charactersCreated: Number(row.characters_created ?? 0),
     firstCharacterAccounts: Number(row.first_character_accounts ?? 0),
-    firstWorldEntryRate: numberOrNull(row.first_world_entry_rate),
     activeNew: Number(row.active_new ?? 0),
     activeReturning: Number(row.active_returning ?? 0),
     avgPlaytimeSecondsAll: numberOrNull(row.avg_playtime_all),
@@ -512,6 +660,32 @@ function mapBusinessDay(row: Record<string, unknown>): PlayerBusinessDay {
     firstSessionMedianSeconds: numberOrNull(row.median_seconds),
     firstSessionLevel2Rate: numberOrNull(row.level_2_rate),
     firstSessionLevel5Rate: numberOrNull(row.level_5_rate),
+    firstDayPlaytimeP50Seconds: numberOrNull(row.playtime_p50_new),
+    firstDayPlaytimeP90Seconds: numberOrNull(row.playtime_p90_new),
+    firstDaySessionsMedian: numberOrNull(row.sessions_p50_new),
+    firstDayPlaytimeAccounts: {
+      lt_10m: Number(row.new_playtime_lt_10m ?? 0),
+      '10m_30m': Number(row.new_playtime_10m_30m ?? 0),
+      '30m_1h': Number(row.new_playtime_30m_1h ?? 0),
+      '1h_3h': Number(row.new_playtime_1h_3h ?? 0),
+      gte_3h: Number(row.new_playtime_gte_3h ?? 0),
+    },
+  };
+}
+
+function mapFunnelDay(row: Record<string, unknown>): PlayerFunnelDay {
+  return {
+    period: row.period === 'yesterday' ? 'yesterday' : 'today',
+    accountsCreated: Number(row.accounts_created ?? 0),
+    firstWorldEntryRate: numberOrNull(row.first_world_entry_rate),
+    dayOneFunnelAccounts: {
+      created: Number(row.accounts_created ?? 0),
+      first_character: Number(row.funnel_first_character ?? 0),
+      entered_world: Number(row.funnel_entered_world ?? 0),
+      played_10m: Number(row.funnel_played_10m ?? 0),
+      reached_level_2: Number(row.funnel_reached_level_2 ?? 0),
+      reached_level_5: Number(row.funnel_reached_level_5 ?? 0),
+    },
   };
 }
 
@@ -527,14 +701,19 @@ function mapRetention(
   }));
 }
 
-/** Run the bounded snapshot under fail-fast database safety limits. */
-export async function playerBusinessSnapshot(
+/** Run one bounded metrics snapshot under the shared fail-fast database limits. */
+async function playerMetricsSnapshotRows(
   pool: Pool,
   realm: string,
-  timeoutMs: number = PLAYER_BUSINESS_SNAPSHOT_TIMEOUT_MS,
-): Promise<PlayerBusinessSnapshot> {
+  sql: string,
+  snapshotName: string,
+  timeoutMs: number,
+): Promise<Record<string, unknown>[]> {
   const deadline = new AbortController();
-  const timer = setTimeout(() => deadline.abort(snapshotTimeoutError()), Math.max(1, timeoutMs));
+  const timer = setTimeout(
+    () => deadline.abort(snapshotTimeoutError(snapshotName)),
+    Math.max(1, timeoutMs),
+  );
   timer.unref();
 
   let client: PoolClient | null = null;
@@ -555,14 +734,9 @@ export async function playerBusinessSnapshot(
     await client.query("SET LOCAL lock_timeout = '250ms'");
     await client.query("SET LOCAL statement_timeout = '2000ms'");
     await client.query("SET LOCAL TIME ZONE 'UTC'");
-    const res = await client.query(PLAYER_BUSINESS_SNAPSHOT_SQL, [realm]);
+    const res = await client.query(sql, [realm]);
     await client.query('COMMIT');
-    return {
-      days: res.rows.map((row) => mapBusinessDay(row as Record<string, unknown>)),
-      retention: res.rows.flatMap((row) =>
-        mapRetention(row.period === 'yesterday' ? 'yesterday' : 'today', row.retention),
-      ),
-    };
+    return res.rows as Record<string, unknown>[];
   } catch (err) {
     if (client && !released) await client.query('ROLLBACK').catch(() => {});
     if (deadline.signal.aborted && deadline.signal.reason instanceof Error) {
@@ -574,4 +748,39 @@ export async function playerBusinessSnapshot(
     deadline.signal.removeEventListener('abort', abortActiveClient);
     releaseClient();
   }
+}
+
+export async function playerBusinessSnapshot(
+  pool: Pool,
+  realm: string,
+  timeoutMs: number = PLAYER_BUSINESS_SNAPSHOT_TIMEOUT_MS,
+): Promise<PlayerBusinessSnapshot> {
+  const rows = await playerMetricsSnapshotRows(
+    pool,
+    realm,
+    PLAYER_BUSINESS_SNAPSHOT_SQL,
+    'player business snapshot',
+    timeoutMs,
+  );
+  return {
+    days: rows.map(mapBusinessDay),
+    retention: rows.flatMap((row) =>
+      mapRetention(row.period === 'yesterday' ? 'yesterday' : 'today', row.retention),
+    ),
+  };
+}
+
+export async function playerFunnelSnapshot(
+  pool: Pool,
+  realm: string,
+  timeoutMs: number = PLAYER_BUSINESS_SNAPSHOT_TIMEOUT_MS,
+): Promise<PlayerFunnelSnapshot> {
+  const rows = await playerMetricsSnapshotRows(
+    pool,
+    realm,
+    PLAYER_FUNNEL_SNAPSHOT_SQL,
+    'player funnel snapshot',
+    timeoutMs,
+  );
+  return { days: rows.map(mapFunnelDay) };
 }
