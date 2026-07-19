@@ -14,7 +14,7 @@ Update this file at the end of every implementation and QA session. Statuses:
 | 3 | Host-parity bug fixes | complete | 2026-07-17 | 2026-07-17 |
 | 3 QA | Verify host-parity bug fixes | complete | 2026-07-17 | 2026-07-17 |
 | 4 | Node materials and pristine veins | complete | 2026-07-18 | 2026-07-18 |
-| 4 QA | Verify node materials and pristine veins | not started | | |
+| 4 QA | Verify node materials and pristine veins | complete | 2026-07-18 | 2026-07-18 |
 | 5 | The professions wheel window | not started | | |
 | 5 QA | Verify the professions wheel window | not started | | |
 | 6 | Crafting window upgrades and celebrations | not started | | |
@@ -195,6 +195,42 @@ manifest-gated). Deferred: node tier gating (Phase 12), recipe
 consumption of the new materials (Phase 10), rare-event deed authoring
 (Phase 15), a live-server instance-exclusion broadcast arm (unit-level
 covered).
+
+Phase 4 QA (2026-07-18): PASS with fixes. Three packet audits plus the
+four matched dispatch-matrix rows (architecture, cross-platform sync,
+frontend seam, qa-checklist; privacy/security, migration safety, and
+database performance were NO-MATCH), all seven reports complete first
+try with the hard tool-call budgets baked in. REAL FIND, fixed
+test-first: the signed harvest grant could overflow bag capacity by one
+slot per rare-or-better roll (the fungible canAddItem pre-gate passes
+on stack top-up room while a signed instance needs a fresh slot;
+runtime-confirmed via the crossing case of a slot-full bag holding a
+partial stack of the zone material). Every signed unit now requires a
+genuinely free slot, with an unsigned stack top-up fallback when none
+exists, so the truncation contract wins over signing in that edge; the
+draw order and the professions_gather golden are byte-identical. The
+corpse focus-harvest path carries the same pre-existing hole (it was
+the cited precedent) and is filed as #2139, deliberately not fixed
+here because it sits outside the phase diff. QA also landed: the
+crossing-case pin, the finder-only achievement-cue pin plus
+quality-color source pins (the unpinned halves of the D1 contract and
+acceptance criterion 5), and comment corrections (the gatherLine
+catalog comment described the exact loot-family wording the divergence
+pin forbids; the gathering.ts header still claimed no world nodes
+exist; gatherRareEvent's spare fields named as Phase 15 forward
+payload; corpseLootAvailability's harvestStateReliable documented as a
+deliberately retained seam whose false arm stays pinned POSITIONALLY
+in tests/corpse_loot_availability.test.ts and tests/interactions.test.ts,
+which a name-only grep misses, an audit claim that dissolved exactly
+there). Verified dismissals: finderName cannot smuggle the [[i:
+item-link token (validCharNameShape forbids brackets), and all four
+phase-emphasis probes bind. Deferred with reasons: the rare-event
+windfall's per-instance loot-line/cue burst (consistent with the D1
+cue-ownership decision, Phase 15 polish candidate), the zone-1 signed
+starter instances design confirm (maintainer, see state.md), the
+gatherEvent.* top-level catalog namespace (functional, moving it now
+is overlay churn without user value), and the pre-existing unused
+instanceOrigin import in tests/parity/scenarios.ts.
 
 ### Phase 5: The professions wheel window
 - [ ] New window at deeds quality per DESIGN.md: view core (UI_PURE_CORES), painter, styles, i18n

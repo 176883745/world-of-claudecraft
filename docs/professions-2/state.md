@@ -465,6 +465,39 @@ tables, i18n key namespaces, files created)
   sites trust the hcb mirror (open gate stays at the pre-existing
   INTERACT_RANGE + 1 boundary, so grace-frozen boundary corpses stay
   unreachable; tests/gather_open_gate.test.ts).
+  - Phase 4 QA: PASS with fixes 2026-07-18. Found and fixed test-first:
+    the signed harvest grant could overflow bag capacity (the fungible
+    canAddItem pre-gate counts stack top-up room; a signed instance
+    needs a fresh slot). Landed policy: every signed unit requires a
+    genuinely free slot, and with none the yield falls back to an
+    UNSIGNED stack top-up of what fits, so the truncation contract wins
+    over signing in that self-inflicted edge (crossing-case pin in
+    tests/gather_rare_events.test.ts; draw order and the
+    professions_gather golden untouched). The corpse focus-harvest path
+    keeps the same pre-existing hole (fitsAll fungible simulation vs
+    rare+ signed instance grants) and is filed as #2139 with the
+    gathering fix as the reference policy.
+  - Phase 4 QA drift notes (2026-07-18): a signed rare-event windfall
+    emits one grant-hub loot line + cue PER INSTANCE (up to five) on
+    top of the single "You gather: x5" line and the broadcast line;
+    consistent with the D1 cue-ownership decision but reads as spam,
+    Phase 15 polish candidate (batch or debounce). Zone-1 signed
+    starter instances are a design-confirm item for the maintainer:
+    signing tracks rarity/rare events, never zone tier, so
+    high-proficiency zone-1 farming mints signed sellValue-4 starters
+    (self-limiting: signed units never merge, so they consume slots
+    fast, and the stockpiling mitigation caps the item TIER as locked).
+    corpseLootAvailability's harvestStateReliable parameter is a
+    deliberately retained seam: production always uses the default
+    (true) since the open-gate flip, and its false arm stays pinned
+    POSITIONALLY (no named reference) in
+    tests/corpse_loot_availability.test.ts and tests/interactions.test.ts,
+    so name-greps miss it; documented at the helper. gatherEvent.* as a
+    top-level catalog namespace (not hudChrome.gathering) is accepted
+    as landed: the skinEvent idiom, overlays filled, moving it is
+    churn without user value. finderName cannot smuggle the [[i:
+    item-link token into the chat parser: validCharNameShape forbids
+    brackets server-side.
 - Phase 5: (planned) professions window (.window id professions-window) +
   view core + painter + hudChrome.professions.* keys.
 - Phase 7: (planned) trend detection module; Guild letter content; S3 scan
