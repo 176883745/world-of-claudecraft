@@ -39,12 +39,14 @@ import type { ResolvedAbility } from '../sim/sim';
 import { parseTalentAllocation } from '../sim/talent_allocation_input';
 import { repairTalentLoadouts } from '../sim/talent_loadouts';
 import {
+  cloneItemInstancePayload,
   type DeedStats,
   type DungeonDifficulty,
   type Entity,
   type EquipSlot,
   emptyMoveInput,
   type InvSlot,
+  type ItemInstancePayload,
   type LootRollChoice,
   type LootRollGroupStatus,
   type LootRollPrompt,
@@ -2047,6 +2049,16 @@ export class ClientWorld implements IWorld {
         e.offhandItemId = w.oh ?? null; // equipped offhand → held weapon model (render-only)
         e.weaponSkinId = w.wsk ?? null; // active weapon-skin cosmetic (render-only)
         e.equippedItems = w.eq ?? {}; // full worn set (render-only), for the inspect window
+        // Worn per-slot instance payloads (masterwork/enchant rolls), for the
+        // inspect window (terse `eqi`, sparse like `eq`: an absent key on a
+        // full record means no worn piece carries one, so it resets to {}).
+        // Deep-cloned per slot: a payload's own rolled.stats map must never
+        // alias wire-parsed JSON a later message could mutate.
+        e.equippedInstances = Object.fromEntries(
+          Object.entries((w.eqi ?? {}) as Record<string, ItemInstancePayload>).map(
+            ([slot, inst]) => [slot, cloneItemInstancePayload(inst)],
+          ),
+        );
         e.skinCatalog = w.cat === 'mech' ? 'mech' : 'class';
         e.holderTier = w.ht ?? 0; // $WOC holder-tier flair (cosmetic, server-set)
         e.holderBalance = typeof w.hb === 'number' ? w.hb : undefined; // exact $WOC, for inspect

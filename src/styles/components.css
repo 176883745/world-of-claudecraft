@@ -4748,6 +4748,28 @@
     font-size: 10px;
     line-height: 1.35;
   }
+  /* Phase 6 legibility: the skill-req / difficulty / station line inside the
+     recipe button. The difficulty tint is set inline from the shared quality
+     palette (icons.ts) with its text label always adjacent, so the info is
+     never color-only; no new tap targets (the whole row stays the button). */
+  .crafting-skill-line {
+    display: block;
+    margin-top: 2px;
+  }
+  .crafting-station-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 4px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 3px;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .crafting-station-badge.out-of-range {
+    border-style: dashed;
+  }
   .vendor-empty {
     padding: 5px;
     font-size: 11px;

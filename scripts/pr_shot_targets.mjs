@@ -194,11 +194,16 @@ export const TARGETS = [
     key: 'crafting',
     label: 'Crafting window',
     when: ['ui/crafting_view', 'ui/crafting_window', 'sim/content/recipes', 'sim/professions'],
+    // Desktop and mobile variants: the Phase 6 legibility rows (skill line,
+    // difficulty label, station badge, combo reason) are actionable info and
+    // must read on both form factors.
+    variants: [{ key: 'desktop' }, { key: 'mobile', mobile: true }],
     // Grant a spread of reagents across a few professions so several recipes read
     // craftable, force-hide then toggle so the open is deterministic, and clip to
     // the window.
-    async capture(page) {
+    async capture(page, variant) {
       await page.evaluate(() => {
+        document.querySelector('#gpu-notice')?.remove();
         const sim = window.__game?.sim;
         const ids = ['bone_fragments', 'linen_scrap', 'spider_leg'];
         for (const id of ids) {
@@ -215,7 +220,69 @@ export const TARGETS = [
       // bags/map windows do (getBoundingClientRect can report 0x0 for 2-4s), so
       // poll for a real size instead of guessing a fixed wait.
       const open = await pollForSize(page, '#crafting-window');
+      if (open && variant?.mobile) {
+        // The short landscape viewport shows only the identity card; scroll the
+        // first recipe section into view so the legibility rows are the shot.
+        await page.evaluate(() => {
+          document
+            .querySelector('#crafting-window .vendor-section-title')
+            ?.scrollIntoView({ block: 'start' });
+        });
+        await wait(300);
+      }
       return open ? { clip: '#crafting-window' } : {};
+    },
+  },
+  {
+    key: 'masterwork-tooltip',
+    label: 'Bag tooltip: masterwork seal, enchanted marker, makers mark',
+    when: ['ui/item_instance_tooltip', 'ui/painter_host', 'ui/bank_view'],
+    // Grant a signed masterwork copy, open bags, hover its slot: the tooltip's
+    // per-copy lines (gold seal, green baked bonus stats, Crafted by) all read
+    // in one frame. Full-frame shot: the tooltip renders beside the window and
+    // the single-selector clip cannot union the two rects.
+    async capture(page) {
+      await page.evaluate(() => {
+        document.querySelector('#gpu-notice')?.remove();
+        document.querySelector('.camera-prompt-confirm')?.click();
+        const game = window.__game;
+        try {
+          // A dungeon-drop def the starter bag can never contain, so the
+          // aria-label lookup below is unambiguous.
+          game?.sim?.addItemInstance('gravewyrm_gauntlets', {
+            signer: 'Thorgar',
+            rolled: { masterwork: true, stats: { str: 2, sta: 1 } },
+          });
+        } catch {}
+        const el = document.querySelector('#bags');
+        if (el) el.style.display = 'none';
+        game?.hud?.toggleBags?.();
+      });
+      // toggleBags tracks logical open state, so a shared page where an earlier
+      // target left the bags logically open needs a second toggle to reopen.
+      let open = await pollForSize(page, '#bags');
+      if (!open) {
+        await page.evaluate(() => window.__game?.hud?.toggleBags?.());
+        open = await pollForSize(page, '#bags');
+      }
+      if (!open) return {};
+      await page.evaluate(() => {
+        // The grant can pop a transient deed banner and the camera prompt on
+        // the shared page; clear both so the tooltip is the frame's subject.
+        document.querySelector('.camera-prompt-confirm')?.click();
+        const banner = document.querySelector('#banner');
+        if (banner) banner.style.opacity = '0';
+        // Real focus fires attachTooltip's focusin arm (keyboard-nav path), a
+        // sturdier trigger than synthetic mouseenter under headless.
+        const cell = Array.from(document.querySelectorAll('#bags button')).find((b) =>
+          b.getAttribute('aria-label')?.includes('Gravewyrm Gauntlets'),
+        );
+        cell?.scrollIntoView({ block: 'center' });
+        cell?.focus();
+      });
+      await pollForSize(page, '#tooltip');
+      await wait(300);
+      return {};
     },
   },
   {

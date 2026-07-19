@@ -2339,6 +2339,24 @@ export const hudChromeStrings = {
     throttled: 'You are crafting too quickly. Wait a moment and try again.',
     // #1299: the recipe exists but this player has not learned it yet.
     recipeNotLearned: 'You have not learned that recipe yet.',
+    // Professions 2.0 Phase 6: crafting window legibility (skill requirement
+    // line, skill-gain difficulty labels, hub-station badge) plus the
+    // masterwork and tier-up celebration copy. Masterwork is a proc with
+    // baked bonus stats; the copy never claims a quality-rank upgrade.
+    skillReqLine: 'Requires {craft} {skill}',
+    difficultyFull: 'Full skill gain',
+    difficultyReduced: 'Reduced skill gain',
+    difficultyNone: 'No skill gain',
+    stationBadge: 'Station',
+    stationOutOfRange: 'Move to the crafting hub station to craft this.',
+    masterworkToast: 'Masterwork! {name}',
+    masterworkZoneLine: '{crafter} crafted a masterwork {name}!',
+    tierUpToast: '{craft} advanced to tier {tier}!',
+    makersMark: 'Crafted by {name}',
+    masterworkSeal: 'Masterwork',
+    // Generic enchanted marker: EnchantDef.name has no localized display
+    // surface yet, so the tooltip marks the state without naming the enchant.
+    enchantedLine: 'Enchanted',
   },
   // Dungeon Finder window (docs/prd/dungeon-finder.md). Dungeon, creature,
   // item, quest, and zone NAMES resolve through tEntity/world_entity_i18n,

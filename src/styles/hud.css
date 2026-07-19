@@ -4155,6 +4155,11 @@
     letter-spacing: 1px;
     white-space: nowrap;
   }
+  /* Reduced-motion celebrations (hud.ts showBanner motion=false): the banner
+     appears and clears instantly, same text and duration, no fade. */
+  #banner.banner-no-motion {
+    transition: none;
+  }
   /* The quest-progress flash (quest_progress_banner.ts): small yellow lines
      stacked at the top-center, above the zone banner's slot, the classic
      "Forest Wolf slain: 3/8" cue. Lines are appended by the banner module and

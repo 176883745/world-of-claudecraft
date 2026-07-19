@@ -73,6 +73,9 @@ describe('profession identity card painter contract', () => {
             resultItemId: 'combo_result',
             resultCount: 1,
             reagents: [],
+            skillReq: 50,
+            difficulty: 'reduced',
+            station: null,
             craftable: false,
             comboRequirement: {
               craftA: 'armorcrafting',
@@ -104,6 +107,69 @@ describe('profession identity card painter contract', () => {
     expect(note?.textContent).toContain('Choose an archetype pair first.');
     expect(button?.contains(note ?? null)).toBe(false);
     expect(note?.parentElement?.classList.contains('crafting-recipe-item')).toBe(true);
+
+    // Phase 6 legibility on the same row: the skill-req line and the
+    // difficulty LABEL render inside the button, and the difficulty is never
+    // color-only (the tinted span carries the localized text, and the aria
+    // name repeats both).
+    const skillLine = button?.querySelector<HTMLElement>('.crafting-skill-line');
+    const difficulty = button?.querySelector<HTMLElement>('.crafting-difficulty');
+    expect(skillLine?.textContent).toContain('Requires Armorcrafting 50');
+    expect(difficulty?.getAttribute('data-difficulty')).toBe('reduced');
+    expect(difficulty?.textContent).toBe('Reduced skill gain');
+    expect(button?.getAttribute('aria-label')).toContain('Requires Armorcrafting 50');
+    expect(button?.getAttribute('aria-label')).toContain('Reduced skill gain');
+    // A station-free recipe renders no station badge and no station note.
+    expect(button?.querySelector('.crafting-station-badge')).toBeNull();
+    expect(parent.querySelector('.crafting-station-requirement')).toBeNull();
+  });
+
+  it('renders the station badge and an out-of-range reason outside the disabled button', () => {
+    const parent = document.createElement('div');
+    renderCraftingWindow(
+      parent,
+      {
+        recipes: [
+          {
+            recipeId: 'station_recipe',
+            professionId: 'engineering',
+            resultItemId: 'station_result',
+            resultCount: 1,
+            reagents: [],
+            skillReq: 0,
+            difficulty: 'full',
+            station: { required: true, inRange: false },
+            craftable: false,
+          },
+        ],
+      },
+      {
+        hideTooltip: vi.fn(),
+        onCraft: vi.fn(),
+        onClose: vi.fn(),
+        itemIcon: vi.fn(() => ''),
+        moneyHtml: vi.fn(() => ''),
+        itemTooltip: vi.fn(() => ''),
+        attachTooltip: vi.fn(),
+      },
+    );
+
+    const button = parent.querySelector<HTMLButtonElement>('button.vendor-item');
+    const badge = button?.querySelector<HTMLElement>('.crafting-station-badge');
+    const stationNote = parent.querySelector<HTMLElement>('.crafting-station-requirement');
+    expect(button?.disabled).toBe(true);
+    expect(badge?.textContent).toBe('Station');
+    expect(badge?.classList.contains('out-of-range')).toBe(true);
+    // Never a bare disabled button: the reason text sits ADJACENT, outside the
+    // button's :disabled opacity (the combo-note pattern), and the aria name
+    // carries the same sentence for non-visual users.
+    expect(stationNote?.textContent).toBe('Move to the crafting hub station to craft this.');
+    expect(button?.contains(stationNote ?? null)).toBe(false);
+    expect(button?.getAttribute('aria-label')).toContain(
+      'Move to the crafting hub station to craft this.',
+    );
+    // Full-gain difficulty still renders its text label (never color-only).
+    expect(button?.querySelector('.crafting-difficulty')?.textContent).toBe('Full skill gain');
   });
 
   it('renders localized visible identity, cap, tutorial, and nudge text', () => {

@@ -17,7 +17,7 @@ Update this file at the end of every implementation and QA session. Statuses:
 | 4 QA | Verify node materials and pristine veins | complete | 2026-07-18 | 2026-07-18 |
 | 5 | The professions wheel window | complete | 2026-07-18 | 2026-07-18 |
 | 5 QA | Verify the professions wheel window | complete | 2026-07-18 | 2026-07-18 |
-| 6 | Crafting window upgrades and celebrations | not started | | |
+| 6 | Crafting window upgrades and celebrations | complete | 2026-07-18 | 2026-07-19 |
 | 6 QA | Verify crafting window upgrades | not started | | |
 | 7 | The Guild letter and quest objectives | not started | | |
 | 7 QA | Verify the Guild letter and quest objectives | not started | | |
@@ -330,11 +330,11 @@ tree; the packet's shots live under docs/screenshots/ per root
 CLAUDE.md.
 
 ### Phase 6: Crafting window upgrades and celebrations
-- [ ] Recipe rows show profession + required skill + skill-gain difficulty tint (#2037)
-- [ ] Combo rows name their requirement; station-bound rows show a badge and disable reason
-- [ ] Masterwork toast + zone-visible broadcast (Phase 4 soft-zone mechanism); tier-up toasts; maker's mark and masterwork in item tooltips
-- [ ] Online inspect carries instance payloads (identity wire extended, parity pinned)
-- [ ] Craft button never lies: same eligibility rule as the sim in both hosts
+- [x] Recipe rows show profession + required skill + skill-gain difficulty tint (#2037)
+- [x] Combo rows name their requirement; station-bound rows show a badge and disable reason
+- [x] Masterwork toast + zone-visible broadcast (Phase 4 soft-zone mechanism); tier-up toasts; maker's mark and masterwork in item tooltips
+- [x] Online inspect carries instance payloads (identity wire extended, parity pinned)
+- [x] Craft button never lies: same eligibility rule as the sim in both hosts (shared craftSkillGainMultiplier and combo_eligibility)
 
 ### Phase 7: The Guild letter and quest objectives
 - [ ] Craft/gather quest objective types (minimal set for the letter quest)
@@ -419,3 +419,35 @@ bodies. Deferred and surfaced items live in the Phase 2 drift notes in
 state.md: the rollback enchantability caveat for the release notes, the
 two battlefield trickle questions, the guide prose deferral to Phases 6
 and 15, and the standing instance-payload wire invariant.
+
+2026-07-19 Phase 6 (crafting window upgrades and celebrations) landed on
+feature/professions-2-phase-06-crafting-window off release/v0.28.0
+(phase-start 0a4fd8078, the Phase 5 QA merge). All five checklist rows
+check; #2037's scope closes with the PR (close by hand at merge,
+release-branch merges never auto-close). Both sanctioned seam touches
+landed as specified: announceMasterworkZone (a new structured
+masterworkZone SimEvent riding the exported Phase 4 emitToZonePlayers,
+rng-free, instance space excluded) and the eqi identity-wire inspect
+extension (server-trimmed to signer/enchant/rolled, mirrored into
+ClientWorld equippedInstances, no new IWorld member). As-landed
+deviations, all recorded in the state.md Phase 6 surfaces entry: NO
+sim_i18n matcher row exists (the broadcast is text-free ids+values on
+the gatherRareEvent precedent; the S3 guard passes by construction);
+the celebration gate is the deeds pure-plan style (no fireworks module
+exists; reduced motion trims only the banner fade, information and the
+ARIA announcer never gated); the parity golden professions_craft
+eventDigest was re-pinned deliberately (the crafter's own zone copy,
+rng fingerprints byte-identical); armory_inspect.ts is the cosmetic
+skin panel, the real gear-inspect surface is hud openInspect (threaded
+there). Five-reviewer fan-out (architecture, cross-platform-sync,
+frontend-seam, privacy-security, qa-checklist): zero blocking; all four
+should-fixes landed in-phase (shared craftSkillGainMultiplier consumed
+by sim and view, eqi payload data minimization with a negative pin,
+the tier-up diff bounded to a post-craftResult drain window, a real
+plan.motion consumer). Deferred: the enchanted marker names the STATE
+only (EnchantDef.name has no localized display surface; a named enchant
+line needs an i18n surface first, Phase 13/15 candidate); bags/bank
+grid painters still pass the def only where no instance exists on the
+row (correct today); the online two-banner corner (masterwork and
+tier-up can land in separate drains online, each keeps its own banner,
+cosmetic only).
