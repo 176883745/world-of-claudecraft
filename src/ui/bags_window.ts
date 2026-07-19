@@ -51,7 +51,7 @@ import { itemDisplayName } from './entity_i18n';
 import { dropRequiredLevel, isPaperdollDraggable, paperdollDropAction } from './equip_drop_core';
 import { esc } from './esc';
 import { FOCUSABLE_SELECTOR } from './focus_manager';
-import { encodeHotbarAction, HOTBAR_ACTION_MIME } from './hotbar';
+import { encodeHotbarAction, HOTBAR_ACTION_MIME } from './hud/action_bar/hotbar';
 import { formatNumber, type TranslationKey, t } from './i18n';
 import { iconDataUrl, QUALITY_COLOR } from './icons';
 import type { BagItemDrag, ItemDragState } from './item_drag_state';
@@ -117,6 +117,7 @@ export interface BagsWindowDeps extends PainterHostPresentation {
   /** Localized launcher for the Claudium store, empty when the feature is not available. */
   claudiumLauncherHtml(): string;
   openClaudium(): void;
+  openWallet(): void;
   hideTooltip(): void;
   /** True when this click is the release of a long-press tooltip peek, so the
    *  stack's action (use / sell / deposit / feed) must be SUPPRESSED. Wired to the
@@ -256,6 +257,9 @@ export class BagsWindow {
     el.appendChild(moneyRow);
     moneyRow.querySelector('[data-claudium-launcher]')?.addEventListener('click', () => {
       this.deps.openClaudium();
+    });
+    moneyRow.querySelector('[data-wallet-action]')?.addEventListener('click', () => {
+      this.deps.openWallet();
     });
     el.querySelector('[data-close]')?.addEventListener('click', () => {
       // On touch the vendor / bank clusters hide their LEFT panel's own x-btn, so

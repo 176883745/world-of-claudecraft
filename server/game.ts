@@ -9,10 +9,12 @@ import {
   wireStreamerLinks,
 } from '../src/sim/account_flair';
 import { verifyChallenge } from '../src/sim/client_challenge';
+import { echoVisibleTo } from '../src/sim/combat/chronomancy';
+import { damageTakenWithin } from '../src/sim/combat/damage_history';
+import { rewindHealAmount } from '../src/sim/combat/rewind';
 import { DEEDS } from '../src/sim/content/deeds';
 import { isFinderListingTag, isFinderRole } from '../src/sim/content/dungeon_finder';
 import { MECH_CHROMAS, mechChromaItemId, mechChromaSkinIndex } from '../src/sim/content/skins';
-import type { TalentAllocation } from '../src/sim/content/talents';
 import { SPORT_ROLES, VALE_CUP_BALL_TEMPLATE_ID, VC_NATION_IDS } from '../src/sim/content/vale_cup';
 import { withWeaponSkinApplied } from '../src/sim/content/weapon_skin_rules';
 import { isWeaponSkinType, WEAPON_SKINS } from '../src/sim/content/weapon_skins';
@@ -41,9 +43,22 @@ import {
 import type { PickAction } from '../src/sim/lockpick';
 import { sanitizeMarketQuery } from '../src/sim/market_query';
 import { parseMoveInputFrame } from '../src/sim/move_input';
+import {
+  partyFrameAbsorb,
+  partyFrameAggroTargets,
+  partyFrameAuras,
+  partyFrameIncomingHeals,
+  partyFrameRole,
+} from '../src/sim/party_frame_info';
 import type { PetState, PlayerMeta } from '../src/sim/sim';
 import { MAX_CHAT_MESSAGE_LEN, Sim } from '../src/sim/sim';
 import type { VcMatch } from '../src/sim/social/vale_cup';
+import {
+  parseTalentAllocation,
+  parseTalentLoadoutIndex,
+  parseTalentOptionId,
+  parseTalentRowLevel,
+} from '../src/sim/talent_allocation_input';
 import { stealthDetectionRadius, threatEntries } from '../src/sim/threat';
 import {
   type Aura,
@@ -280,6 +295,7 @@ export const SIM_LAP_PHASES = [
   'respawns',
   'worldBosses',
   'groundAoEs',
+  'frozenOrbs',
   'despawnDecay',
   'projectiles',
   'p.move',
@@ -293,6 +309,7 @@ export const SIM_LAP_PHASES = [
   'ent.misc',
   'engaged',
   'duels',
+  'cardDuel',
   'arena',
   'trades',
   'lootRolls',
@@ -395,10 +412,12 @@ type ClientMessage = Record<string, unknown> & {
   node?: string;
   npc?: number;
   objectId?: number;
+  optionId?: unknown;
   price?: number;
   q?: string;
   quest?: string;
   r?: string;
+  rid?: number;
   role?: string;
   roles?: unknown;
   rollId?: number;
@@ -407,7 +426,7 @@ type ClientMessage = Record<string, unknown> & {
   sig?: string;
   skin?: number;
   slot?: number | string;
-  spec?: string;
+  spec?: unknown;
   t?: string;
   tags?: unknown;
   text?: string;
@@ -415,42 +434,6 @@ type ClientMessage = Record<string, unknown> & {
   x?: number;
   z?: number;
 };
-
-function recordValue(value: unknown): Record<string, unknown> | null {
-  return value && typeof value === 'object' && !Array.isArray(value)
-    ? (value as Record<string, unknown>)
-    : null;
-}
-
-function numberRecord(value: unknown): Record<string, number> {
-  const source = recordValue(value);
-  if (!source) return {};
-  const out: Record<string, number> = {};
-  for (const [key, raw] of Object.entries(source)) {
-    if (typeof raw === 'number') out[key] = raw;
-  }
-  return out;
-}
-
-function stringRecord(value: unknown): Record<string, string> {
-  const source = recordValue(value);
-  if (!source) return {};
-  const out: Record<string, string> = {};
-  for (const [key, raw] of Object.entries(source)) {
-    if (typeof raw === 'string') out[key] = raw;
-  }
-  return out;
-}
-
-function talentAllocationFromWire(value: unknown): TalentAllocation | null {
-  const source = recordValue(value);
-  if (!source) return null;
-  return {
-    spec: typeof source.spec === 'string' ? source.spec : null,
-    ranks: numberRecord(source.ranks),
-    choices: stringRecord(source.choices),
-  };
-}
 
 function isPickAction(value: unknown): value is PickAction {
   return typeof value === 'string' && LOCKPICK_ACTIONS.has(value as PickAction);
@@ -498,6 +481,7 @@ const JAILED_BLOCKED_COMMANDS = new Set<string>([
   'enter_delve',
   'duel_req',
   'duel_accept',
+  'card_queue_join',
 ]);
 const HEAVY_SELF_CMDS = new Set<string>([
   'equip',
@@ -521,6 +505,7 @@ const HEAVY_SELF_CMDS = new Set<string>([
   'applyTalents',
   'respec',
   'setSpec',
+  'selectTalentRow',
   'saveLoadout',
   'switchLoadout',
   'deleteLoadout',
@@ -816,6 +801,9 @@ interface WireAura {
   // client badge prefers this over stacks (auras_view). A pure cosmetic count, not actionable
   // information a graphics preset could hide, so it rides the wire unconditionally when present.
   charges?: number;
+  // Next-cast empowerment scope. Omitted for unscoped empowerment auras, which match any
+  // eligible cast just like the sim helper.
+  emp?: string[];
   // The caster's entity id, so the client's target strip can lead with and enlarge the
   // viewer's OWN dots/hots (auras_view ownFirst). A shared per-entity value (never
   // per-viewer), so the per-entity dyn cache keeps eliding; an old client ignores it and
@@ -843,6 +831,7 @@ function identityFields(e: Entity): Record<string, unknown> {
   if (e.skinCatalog === 'mech') out.cat = 'mech';
   if (e.skin) out.sk = e.skin;
   if (e.mainhandItemId) out.mh = e.mainhandItemId; // equipped mainhand → held weapon model (render-only)
+  if (e.offhandItemId) out.oh = e.offhandItemId; // equipped offhand → held weapon model (render-only)
   if (e.weaponSkinId) out.wsk = e.weaponSkinId; // active weapon-skin cosmetic (render-only, like mh)
   // Full worn set, for the inspect-another-player window. Players only and only
   // when something is equipped; rides the identity record (first appearance +
@@ -927,6 +916,9 @@ function wireAura(a: Aura): WireAura {
   // Carry the remaining charges only for a charge-limited aura (Lightning Shield), so the
   // buff icon can badge the count online exactly as offline; undefined for every other aura.
   if (a.charges !== undefined) w.charges = a.charges;
+  // Next-cast empowerment scope. Omitted for unscoped empowerment auras, which match any
+  // eligible cast just like the sim helper.
+  if (a.empowerAbilities !== undefined) w.emp = a.empowerAbilities;
   // The caster's entity id, for the client's own-aura prominence on the target strip
   // (auras_view ownFirst). Omitted for the rare 0/absent source, which decodes to 0.
   if (a.sourceId) w.src = a.sourceId;
@@ -967,7 +959,16 @@ function dynamicFields(e: Entity): Record<string, unknown> {
   if (e.sitting || e.eating || e.drinking) out.sit = 1;
   if (e.weaponStowed) out.ws = 1; // Z-key sheathe: weapons render on the back
   if (e.aggroTargetId !== null) out.aggro = e.aggroTargetId;
+  // A player's/bot's SELECTED target (mobs use aggroTargetId above): rides so the
+  // client can render the target-of-target frame for a PLAYER target, exactly as
+  // `aggro` already enables it for a mob/pet target. Emitted only for an entity that
+  // HAS a target (players/bots in combat), so idle mobs (targetId stays null) add
+  // nothing. The SELF record still carries its own precise `target` field.
+  if (e.targetId !== null) out.tgt = e.targetId;
   if (e.tappedById !== null) out.tap = e.tappedById;
+  // corpse harvest claim (single-use, first-come): the online corpse picker
+  // must stop offering a corpse another player already harvested
+  if (e.harvestClaimedBy !== null) out.hcb = e.harvestClaimedBy;
   if (e.ownerId !== null) out.own = e.ownerId;
   if (e.overheadEmoteId) {
     out.emo = e.overheadEmoteId;
@@ -977,6 +978,7 @@ function dynamicFields(e: Entity): Record<string, unknown> {
     out.pm = e.petMode;
     out.pt = round2(e.petTauntTimer);
     if (e.petAutoTaunt) out.pa = 1;
+    if (e.petAutoWaterJet) out.pw = 1;
   }
   if (e.rangedPower) out.rp = e.rangedPower;
   // top hate-table entries so the party threat meter shows real numbers
@@ -1114,6 +1116,15 @@ export class GameServer {
   readonly social: SocialService;
   private readonly moderation: ModerationService<ClientSession>;
   private wireCache = new Map<number, EntityWireCache>();
+  // partyFrameAggroTargets / partyFrameIncomingHeals scan the whole entity set and
+  // are GLOBAL (identical for every grouped session), yet partyWire runs once per
+  // grouped session per tick. Memoize both once per tick so a 40-raid does one scan,
+  // not one per member. (see review #1864, finding 1)
+  private partyFrameGlobalsCache: {
+    tick: number;
+    aggroTargets: ReturnType<typeof partyFrameAggroTargets>;
+    incomingHeals: ReturnType<typeof partyFrameIncomingHeals>;
+  } | null = null;
   private lastWireSweepTick = 0;
   private interval: NodeJS.Timeout | null = null;
   private holderTierInterval: NodeJS.Timeout | null = null;
@@ -1452,6 +1463,7 @@ export class GameServer {
     this.sim.arenaQueueLeave(target.pid);
     this.sim.vcupQueueLeave(target.pid);
     this.sim.vcupResolveDesertion(target.pid);
+    this.sim.leaveCardMinigameEntirely(target.pid);
     this.teleportJailedSession(target);
     // System notice (chat log), not the fading error toast: the prisoner must be
     // able to read the sentence after alt-tabbing back, like other moderation
@@ -2847,6 +2859,9 @@ export class GameServer {
     // remaining player's win/honor durable if both combatants disconnect close
     // together; removePlayer repeats the idempotent cleanup after the save.
     this.sim.arenaResolveDesertion(session.pid);
+    // Card Duel: drop the queue slot and forfeit any live match on disconnect,
+    // same idempotent-before-persistence shape as the two lines above.
+    this.sim.leaveCardMinigameEntirely(session.pid);
     // Freeze reward eligibility and reconcile pending loot before the leave
     // snapshot. saveCharacterOnLeave awaits the database; without this
     // synchronous prefix, a roll or boss death can mutate the character after
@@ -3734,6 +3749,7 @@ export class GameServer {
     // straight back, ruining the match for everyone else in it.
     if (session.jailed && typeof msg.cmd === 'string' && JAILED_BLOCKED_COMMANDS.has(msg.cmd)) {
       this.sendChatNotice(session, 'You cannot do that while jailed.');
+      this.sendCommandOutcome(session, msg, false);
       return;
     }
     // A command that can change a heavy self field forces the next snapshot to
@@ -3758,7 +3774,19 @@ export class GameServer {
         }
         break;
       case 'cast':
-        if (typeof msg.ability === 'string') sim.castAbility(msg.ability, pid);
+        if (typeof msg.ability === 'string') {
+          // Optional mouseover-cast override: an explicit friendly-target id.
+          // The sim validates it (friendly, alive, in range) and falls back to
+          // the classic current-target-else-self resolution when invalid.
+          if (typeof msg.target === 'number') {
+            sim.castAbilityOn(msg.ability, msg.target | 0, pid);
+          } else {
+            sim.castAbility(msg.ability, pid);
+          }
+        }
+        break;
+      case 'releaseEmpowered':
+        if (typeof msg.ability === 'string') sim.releaseEmpoweredAbility(msg.ability, pid);
         break;
       case 'cancel_aura':
         if (typeof msg.aura === 'string') sim.cancelAura(msg.aura, pid);
@@ -3788,7 +3816,11 @@ export class GameServer {
         sim.interact(pid);
         break;
       case 'loot':
-        if (typeof msg.id === 'number') sim.lootCorpse(msg.id, pid);
+        this.sendCommandOutcome(
+          session,
+          msg,
+          typeof msg.id === 'number' && sim.lootCorpse(msg.id, pid),
+        );
         break;
       case 'autoloot':
         if (typeof msg.id === 'number') sim.autoLoot(msg.id, pid);
@@ -3819,11 +3851,19 @@ export class GameServer {
         }
         break;
       case 'pickup':
-        if (typeof msg.id === 'number') sim.pickUpObject(msg.id, pid);
+        this.sendCommandOutcome(
+          session,
+          msg,
+          typeof msg.id === 'number' && sim.pickUpObject(msg.id, pid),
+        );
         break;
       case 'accept':
         if (typeof msg.quest === 'string') {
-          sim.acceptQuest(msg.quest, pid);
+          sim.acceptQuest(
+            msg.quest,
+            typeof msg.selection === 'string' ? msg.selection : undefined,
+            pid,
+          );
           this.resyncQuests(session);
         }
         break;
@@ -3908,7 +3948,11 @@ export class GameServer {
         if (typeof msg.item === 'string') sim.buyBackItem(msg.item, pid);
         break;
       case 'harvest_node':
-        if (typeof msg.node === 'string') sim.harvestNode(msg.node, pid);
+        this.sendCommandOutcome(
+          session,
+          msg,
+          typeof msg.node === 'string' && sim.harvestNode(msg.node, pid),
+        );
         break;
       case 'craft_item':
         if (typeof msg.recipe === 'string') sim.craftItem(msg.recipe, pid);
@@ -3975,7 +4019,10 @@ export class GameServer {
         sim.resurrectAtCorpse(pid);
         break;
       case 'resurrect_healer':
-        sim.resurrectAtSpiritHealer(pid);
+        this.sendCommandOutcome(session, msg, sim.resurrectAtSpiritHealer(pid));
+        break;
+      case 'resurrect_respond':
+        if (typeof msg.accept === 'boolean') sim.respondToResurrection(msg.accept, pid);
         break;
       case 'challengeResponse':
         if (typeof msg.n === 'string' && typeof msg.r === 'string' && typeof msg.sig === 'string') {
@@ -4148,11 +4195,17 @@ export class GameServer {
       case 'pet_attack':
         sim.petAttack(pid);
         break;
+      case 'pet_water_jet':
+        sim.petWaterJet(pid);
+        break;
       case 'pet_taunt':
         sim.petTaunt(pid);
         break;
       case 'pet_auto_taunt':
         if (typeof msg.enabled === 'boolean') sim.setPetAutoTaunt(msg.enabled, pid);
+        break;
+      case 'pet_auto_water_jet':
+        if (typeof msg.enabled === 'boolean') sim.setPetAutoWaterJet(msg.enabled, pid);
         break;
       case 'pet_feed':
         if (typeof msg.item === 'string') sim.feedPet(msg.item, pid);
@@ -4311,6 +4364,21 @@ export class GameServer {
         break;
       }
 
+      // Card Duel minigame (the Card Master NPC, docs: src/sim/social/card_duel.ts).
+      case 'card_queue_join':
+        sim.joinCardDuelQueue(pid);
+        break;
+      case 'card_queue_leave':
+        sim.leaveCardDuelQueue(pid);
+        break;
+      case 'play_card':
+        if (typeof msg.value === 'number' && Number.isInteger(msg.value))
+          sim.playCardInDuel(msg.value, pid);
+        break;
+      case 'card_forfeit':
+        sim.forfeitCardDuel(pid);
+        break;
+
       // The Vale Cup (boarball queue at the Sowfield, docs/prd/vale-cup.md).
       // Deliberately NOT in HEAVY_SELF_CMDS: queueing mutates no heavy self
       // field (queue state rides the throttled 'vcup' delta key + the pid-
@@ -4409,28 +4477,46 @@ export class GameServer {
 
       // Talents & Specializations — every allocation re-validated in the Sim.
       case 'applyTalents': {
-        const alloc = talentAllocationFromWire(msg.alloc);
+        const alloc = parseTalentAllocation(msg.alloc);
         if (alloc) sim.applyTalents(alloc, pid);
         break;
       }
       case 'respec':
         sim.respec(pid);
         break;
-      case 'setSpec':
-        sim.setSpec(typeof msg.spec === 'string' ? msg.spec : null, pid);
-        break;
-      case 'saveLoadout': {
-        const alloc = talentAllocationFromWire(msg.alloc) ?? undefined;
-        if (typeof msg.name === 'string')
-          sim.saveLoadout(msg.name, Array.isArray(msg.bar) ? msg.bar : [], pid, alloc);
+      case 'setSpec': {
+        const spec = parseTalentOptionId(msg.spec);
+        if (spec !== undefined) sim.setSpec(spec, pid);
         break;
       }
-      case 'switchLoadout':
-        if (typeof msg.index === 'number') sim.switchLoadout(msg.index | 0, pid);
+      case 'selectTalentRow': {
+        const level = parseTalentRowLevel(msg.level);
+        const optionId = parseTalentOptionId(msg.optionId);
+        if (level !== null && optionId !== undefined) sim.selectTalentRow(level, optionId, pid);
         break;
-      case 'deleteLoadout':
-        if (typeof msg.index === 'number') sim.deleteLoadout(msg.index | 0, pid);
+      }
+      case 'saveLoadout': {
+        const hasAlloc = Object.hasOwn(msg, 'alloc');
+        if (hasAlloc) {
+          const alloc = parseTalentAllocation(msg.alloc);
+          if (typeof msg.name === 'string' && alloc) {
+            sim.saveLoadout(msg.name, Array.isArray(msg.bar) ? msg.bar : [], pid, alloc);
+          }
+        } else if (typeof msg.name === 'string') {
+          sim.saveLoadout(msg.name, Array.isArray(msg.bar) ? msg.bar : [], pid);
+        }
         break;
+      }
+      case 'switchLoadout': {
+        const index = parseTalentLoadoutIndex(msg.index);
+        if (index !== null) sim.switchLoadout(index, pid);
+        break;
+      }
+      case 'deleteLoadout': {
+        const index = parseTalentLoadoutIndex(msg.index);
+        if (index !== null) sim.deleteLoadout(index, pid);
+        break;
+      }
       // World Market (the Merchant's auction house)
       case 'market_search':
         sim.marketSearch(
@@ -4669,13 +4755,20 @@ export class GameServer {
       case 'enter_dungeon': {
         // must actually be near that dungeon's door
         const dungeonId = msg.cmd === 'enter_crypt' ? 'hollow_crypt' : msg.dungeon;
-        if (typeof dungeonId !== 'string') break;
+        if (typeof dungeonId !== 'string') {
+          this.sendCommandOutcome(session, msg, false);
+          break;
+        }
         const e = sim.entities.get(pid);
         const door = [...sim.entities.values()].find(
           (x) => x.templateId === 'dungeon_door' && x.dungeonId === dungeonId,
         );
-        if (e && door && Math.hypot(e.pos.x - door.pos.x, e.pos.z - door.pos.z) < 8)
+        const succeeded =
+          !!e &&
+          !!door &&
+          Math.hypot(e.pos.x - door.pos.x, e.pos.z - door.pos.z) < 8 &&
           sim.enterDungeon(dungeonId, pid);
+        this.sendCommandOutcome(session, msg, succeeded);
         break;
       }
       case 'leave_crypt':
@@ -4688,7 +4781,7 @@ export class GameServer {
                 Math.hypot(e.pos.x - x.pos.x, e.pos.z - x.pos.z) < 8,
             )
           : null;
-        if (exit) sim.leaveDungeon(pid);
+        this.sendCommandOutcome(session, msg, !!exit && sim.leaveDungeon(pid));
         break;
       }
       case 'set_dungeon_difficulty': {
@@ -4719,8 +4812,11 @@ export class GameServer {
         break;
       }
       case 'delve_interact': {
-        if (typeof msg.objectId !== 'number') break;
-        sim.delveInteract(msg.objectId, pid);
+        this.sendCommandOutcome(
+          session,
+          msg,
+          typeof msg.objectId === 'number' && sim.delveInteract(msg.objectId, pid),
+        );
         break;
       }
       case 'companion_upgrade': {
@@ -4818,6 +4914,8 @@ export class GameServer {
       }
     }
     const head = `{"t":"snap","tick":${tick},"time":${round2(this.sim.time)}${tickHzJson}`;
+    const activeFrostRings = this.sim.activeFrostRings;
+    const activeTemporalHourglasses = this.sim.activeTemporalHourglasses;
     // Guard each session: a throw while building one player's snapshot must not
     // starve every other session of its snapshot this tick (server/CLAUDE.md).
     forEachGuarded(
@@ -4913,7 +5011,35 @@ export class GameServer {
         const selfJson = this.selfWireJson(session, anchorEntity, anchorMeta, anchorSession);
         if (this.perfDetailActive) this.bcastSelfNs += process.hrtime.bigint() - selfStart;
         const keepJson = keep.length > 0 ? `,"keep":[${keep.join(',')}]` : '';
-        this.sendRaw(session, `${head},"self":${selfJson},"ents":[${ents.join(',')}]${keepJson}}`);
+        const frostRings = activeFrostRings
+          .filter((ring) => {
+            const dx = ring.x - anchorEntity.pos.x;
+            const dz = ring.z - anchorEntity.pos.z;
+            const limit = INTEREST_QUERY_RADIUS + ring.radius;
+            return dx * dx + dz * dz <= limit * limit;
+          })
+          .map(
+            (ring) =>
+              `{"id":${JSON.stringify(ring.id)},"x":${round2(ring.x)},"z":${round2(ring.z)},"r":${round2(ring.radius)},"i":${round2(ring.innerRadius)},"dur":${round2(ring.duration)},"rem":${round2(ring.remaining)}}`,
+          );
+        const frostRingsJson = frostRings.length > 0 ? `,"rings":[${frostRings.join(',')}]` : '';
+        const temporalHourglasses = activeTemporalHourglasses
+          .filter((hourglass) => {
+            const dx = hourglass.x - anchorEntity.pos.x;
+            const dz = hourglass.z - anchorEntity.pos.z;
+            const limit = INTEREST_QUERY_RADIUS + hourglass.radius;
+            return dx * dx + dz * dz <= limit * limit;
+          })
+          .map(
+            (hourglass) =>
+              `{"id":${JSON.stringify(hourglass.id)},"x":${round2(hourglass.x)},"z":${round2(hourglass.z)},"r":${round2(hourglass.radius)},"dur":${round2(hourglass.duration)},"rem":${round2(hourglass.remaining)}}`,
+          );
+        const temporalHourglassesJson =
+          temporalHourglasses.length > 0 ? `,"hourglasses":[${temporalHourglasses.join(',')}]` : '';
+        this.sendRaw(
+          session,
+          `${head},"self":${selfJson},"ents":[${ents.join(',')}]${frostRingsJson}${temporalHourglassesJson}${keepJson}}`,
+        );
       },
       (err, session) =>
         console.error(`[snap] failed to build snapshot for pid ${session.pid}, skipping:`, err),
@@ -5070,12 +5196,23 @@ export class GameServer {
           .map(([k, until]) => [k, round2(until - this.sim.time)]),
       ),
     );
+    // Charge-limited ability live counts (abilityCharges, the one recharge
+    // model: Twinstrike, Double Charge, Frost's second Ice Block): {abilityId:
+    // charges}. The empty-pool recharge timer rides `cds`; the client derives
+    // the max from its own known-list rebake (1 + bonusCharges).
+    maybe(
+      'achg',
+      p.abilityCharges
+        ? Object.fromEntries(Object.entries(p.abilityCharges).map(([k, v]) => [k, v.charges]))
+        : {},
+    );
     maybe('stats', p.stats);
     maybe('weapon', p.weapon);
     maybe('party', this.partyWire(anchorSession.pid));
     maybe('marks', this.markersWire(anchorSession.pid));
     maybe('trade', this.tradeWire(anchorSession.pid));
     maybe('duel', this.duelWire(anchorSession.pid));
+    maybe('cardDuel', this.sim.cardMinigameInfoFor(anchorSession.pid));
     // Small PvP-ledger scalars. Delta-guarded like delve marks: a fresh
     // session receives both, then they ride only on earn/spend changes.
     maybe('honor', meta.honor);
@@ -5132,6 +5269,9 @@ export class GameServer {
     // mirrors the raw per-craft proficiency map for the `gatheringProficiency`
     // IWorld data member (#1119), independent of the `professionsState` view.
     maybe('prof', this.sim.professionsStateFor(anchorSession.pid));
+    // Craft skills and identity must arrive as one value so the client never
+    // evaluates a recipe against a pair from one tick and skills from another.
+    maybe('cprof', this.sim.craftingIdentityFor(anchorSession.pid));
     maybe('tfocus', this.sim.townFocusFor(anchorSession.pid));
     // Raw gathering-profession proficiency map (IWorld `gatheringProficiency`,
     // #1119), a second small read alongside `prof` for the ORIGINAL flat-map
@@ -5183,8 +5323,6 @@ export class GameServer {
       // talents/spec/loadouts: the client recomputes its known abilities from this.
       maybe('tal', {
         alloc: meta.talents,
-        spec: meta.talentMods.spec,
-        role: meta.talentMods.role,
         loadouts: meta.loadouts,
         activeLoadout: meta.activeLoadout,
       });
@@ -5199,9 +5337,30 @@ export class GameServer {
     return extra === '' ? json : `${json.slice(0, -1)}${extra}}`;
   }
 
+  // Global party-frame aggregates (aggro holders + incoming heals), scanned once
+  // per tick and shared by every partyWire call in that tick.
+  private partyFrameGlobals(): {
+    aggroTargets: ReturnType<typeof partyFrameAggroTargets>;
+    incomingHeals: ReturnType<typeof partyFrameIncomingHeals>;
+  } {
+    const tick = this.sim.tickCount;
+    const cache = this.partyFrameGlobalsCache;
+    if (cache && cache.tick === tick) return cache;
+    const fresh = {
+      tick,
+      aggroTargets: partyFrameAggroTargets(this.sim.entities.values()),
+      incomingHeals: partyFrameIncomingHeals(this.sim.entities.values(), (abilityId, casterId) =>
+        this.sim.resolvedAbility(abilityId, casterId),
+      ),
+    };
+    this.partyFrameGlobalsCache = fresh;
+    return fresh;
+  }
+
   private partyWire(pid: number): unknown {
     const party = this.sim.partyOf(pid);
     if (!party) return null;
+    const { aggroTargets, incomingHeals } = this.partyFrameGlobals();
     return {
       leader: party.leader,
       raid: party.raid,
@@ -5227,15 +5386,21 @@ export class GameServer {
                 dead: e.dead ? 1 : 0,
                 inCombat: e.inCombat ? 1 : 0,
                 group: party.raidGroups.get(mPid) ?? 1,
-                // The mini aura strip under the member's party row (mirrors
-                // Sim.partyInfo): first N in aura order, id + kind + sap flag
-                // only, no countdown, so this payload changes only when the
-                // aura SET changes and the party delta elision keeps working.
-                auras: e.auras.slice(0, PARTY_MEMBER_AURA_CAP).map((a) => ({
-                  id: a.id,
-                  kind: a.kind,
-                  ...(a.value < 0 ? { neg: 1 } : {}),
-                })),
+                absorb: partyFrameAbsorb(e.auras),
+                role: partyFrameRole(meta.talentMods.role),
+                // Effective health Rewind could currently restore to this member
+                // (combat/rewind.ts); 0 for members with no recent recorded loss.
+                rewind: rewindHealAmount(damageTakenWithin(e, this.sim.tickCount), e.hp, e.maxHp),
+                connected:
+                  meta.isDevBot || (this.clients.has(mPid) && !this.clients.get(mPid)?.linkdead)
+                    ? 1
+                    : 0,
+                hasAggro: aggroTargets.has(mPid) ? 1 : 0,
+                incomingHeal: incomingHeals.get(mPid) ?? 0,
+                // Temporal Echo marks are filtered per-viewer to `pid`'s own, so
+                // other chronomancers' echoes (which still heal in the sim) never
+                // show in this player's group/raid strip.
+                auras: partyFrameAuras(e.auras.filter((a) => echoVisibleTo(a, pid))),
               }
             : null;
         })
@@ -5573,7 +5738,7 @@ export class GameServer {
         }
         const mine: SimEvent[] = [];
         for (const ev of events) {
-          if (suppressedInvites !== null && suppressedInvites.has(ev)) continue;
+          if (suppressedInvites?.has(ev)) continue;
           // ignore list: drop chat originating from a character this player has
           // blocked, before it ever reaches their client
           if (
@@ -6134,6 +6299,11 @@ export class GameServer {
 
   private send(session: ClientSession, obj: unknown): void {
     this.sendRaw(session, JSON.stringify(obj));
+  }
+
+  private sendCommandOutcome(session: ClientSession, msg: ClientMessage, succeeded: boolean): void {
+    if (!Number.isSafeInteger(msg.rid) || (msg.rid ?? 0) <= 0) return;
+    this.send(session, { t: 'commandOutcome', rid: msg.rid, ok: succeeded });
   }
 
   private sendRaw(session: ClientSession, payload: string): void {
