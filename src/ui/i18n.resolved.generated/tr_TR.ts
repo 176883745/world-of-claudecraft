@@ -2170,6 +2170,7 @@ export const tr_TR: EnTranslations = {
       "comboNotAttuned": "Önce bir arketip çifti seç.",
       "comboWrongPair": "Onu yapmak için bu tam çifti etkinleştir.",
       "comboTierUnmet": "Her iki ana zanaatı da gerekli kademeye yükselt.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Meslek seçimi",
       "noProfessionChoice": "Şu anda geçerli bir meslek seçimi mevcut değil.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

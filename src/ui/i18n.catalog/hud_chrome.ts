@@ -2292,6 +2292,11 @@ export const hudChromeStrings = {
     comboNotAttuned: 'Choose an archetype pair first.',
     comboWrongPair: 'Activate this exact pair to craft it.',
     comboTierUnmet: 'Raise both major crafts to the required tier.',
+    // Named tier_unmet guidance (Phase 6 QA): {crafts} is the localized
+    // craft-name list of ONLY the under-tier crafts, so the player can tell
+    // which one to raise from the row alone. comboTierUnmet above stays the
+    // defensive fallback when the eligibility result names no craft.
+    comboTierUnmetNamed: 'Raise {crafts} to tier {tier}.',
     professionChoice: 'Profession choice',
     noProfessionChoice: 'No valid profession choice is currently available.',
     // One selectable pair in the attunement quest dropdown: the pair archetype

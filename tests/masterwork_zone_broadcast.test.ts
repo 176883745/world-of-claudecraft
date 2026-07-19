@@ -8,12 +8,38 @@
 // here with the same observer idiom. Client side, the zone copy must reach
 // the HUD eventQueue and must NOT touch lastMasterwork (that mirror rebuilds
 // from ANY 'masterwork' event, which is exactly why this is a separate type).
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+// Mock the db layer so the live GameServer routing suite below needs no
+// Postgres; only the sim fanout and the tick -> routeEvents wire pump are
+// under test, never persistence (the corpse_harvest_sim broadcast-suite
+// precedent).
+vi.mock('../server/db', () => ({
+  pool: { query: vi.fn(async () => ({ rows: [] })) },
+  saveCharacterState: vi.fn(async () => {}),
+  openPlaySession: vi.fn(async () => 1),
+  touchCharacterLogin: vi.fn(async () => {}),
+  closePlaySession: vi.fn(async () => {}),
+  insertChatLogs: vi.fn(async () => {}),
+  walletForAccount: vi.fn(async () => null),
+  loadAccountFlair: vi.fn(async () => ({ ai: false, streamer: false, links: {} })),
+  markAccountQuestComplete: vi.fn(async () => ({ completedQuestIds: [], mechChromaIds: [] })),
+  grantAccountMechChroma: vi.fn(async () => ({ completedQuestIds: [], mechChromaIds: [] })),
+  setAccountWeaponSkinLoadout: vi.fn(async () => ({
+    completedQuestIds: [],
+    mechChromaIds: [],
+    weaponSkinIds: [],
+    weaponSkinLoadout: {},
+  })),
+}));
+
+import { type ClientSession, GameServer } from '../server/game';
 import { ClientWorld } from '../src/net/online';
 import { DUNGEON_X_THRESHOLD, zoneAt } from '../src/sim/data';
+import { announceMasterworkZone } from '../src/sim/professions/gather_events';
 import type { Rng } from '../src/sim/rng';
 import { Sim } from '../src/sim/sim';
-import type { SimEvent } from '../src/sim/types';
+import type { Entity, SimEvent } from '../src/sim/types';
 
 const RECIPE_ID = 'recipe_eastbrook_ritual_vestments';
 const ITEM_ID = 'eastbrook_ritual_vestments';
@@ -178,5 +204,119 @@ describe('online ClientWorld host', () => {
     // A personal masterwork event afterwards assigns the mirror as before.
     feed(client, { type: 'masterwork', recipeId: RECIPE_ID, itemId: ITEM_ID, crafter: 9, pid: 9 });
     expect(client.lastMasterwork).toEqual({ recipeId: RECIPE_ID, itemId: ITEM_ID, crafter: 9 });
+  });
+});
+
+// Live GameServer wire routing (Phase 6 QA): the emit suite above pins the
+// craft -> announceMasterworkZone integration (hunted seed) and the parity
+// golden pins the crafter's own copy, but nothing pinned that each pid-scoped
+// zone copy actually reaches ITS session, and only that session, over the
+// REAL server pump (sim.tick() returning the buffered events, then
+// routeEvents fanning per session). This is the two-session online probe the
+// QA file asks for, at the GameServer level (the corpse_harvest_sim
+// hcb broadcast-suite precedent): the nearby session receives the copy, the
+// other-zone session receives nothing, and the wire payload is exactly the
+// text-free id/value set (no English rides the wire).
+function fakeWs(): { sent: { t: string; list?: SimEvent[] }[]; ws: unknown } {
+  const sent: { t: string; list?: SimEvent[] }[] = [];
+  return {
+    sent,
+    ws: { readyState: 1, send: (payload: string) => sent.push(JSON.parse(payload)) },
+  };
+}
+
+function joinServer(
+  server: GameServer,
+  fc: ReturnType<typeof fakeWs>,
+  id: number,
+  name: string,
+): ClientSession {
+  const session = server.join(fc.ws as never, id, id, name, 'warrior', null);
+  if ('error' in session) throw new Error(session.error);
+  session.blockListLoaded = true;
+  return session;
+}
+
+describe('masterworkZone over the live GameServer wire (session routing)', () => {
+  it('routes each pid-scoped copy to its own session only: nearby yes, other zone no', () => {
+    const server = new GameServer();
+    const fcCrafter = fakeWs();
+    const fcNearby = fakeWs();
+    const fcFar = fakeWs();
+    const sc = joinServer(server, fcCrafter, 91, 'Crafter');
+    const sn = joinServer(server, fcNearby, 92, 'Nearby');
+    const sf = joinServer(server, fcFar, 93, 'Farhand');
+    const entities = (server.sim as unknown as { entities: Map<number, Entity> }).entities;
+    const crafterE = entities.get(sc.pid)!;
+    const zoneId = zoneAt(crafterE.pos.z).id;
+    // Park the far player in a different overworld zone (the z-scan idiom from
+    // the emit suite above: layout-agnostic, so a zone reshuffle cannot
+    // silently turn them into an in-zone recipient).
+    const farE = entities.get(sf.pid)!;
+    let z = farE.pos.z;
+    for (let i = 0; i < 400 && zoneAt(z).id === zoneId; i++) z += 50;
+    if (zoneAt(z).id === zoneId) {
+      z = farE.pos.z;
+      for (let i = 0; i < 400 && zoneAt(z).id === zoneId; i++) z -= 50;
+    }
+    expect(zoneAt(z).id).not.toBe(zoneId);
+    farE.pos.z = z;
+    farE.prevPos = { ...farE.prevPos, z };
+
+    // Fan out on the LIVE server sim (the craft trigger itself is pinned by the
+    // emit suite; this suite owns the wire routing), then run the real pump.
+    announceMasterworkZone(
+      (server.sim as unknown as { ctx: Parameters<typeof announceMasterworkZone>[0] }).ctx,
+      sc.pid,
+      'Crafter',
+      { recipeId: RECIPE_ID, itemId: ITEM_ID, crafter: sc.pid },
+    );
+    const events = server.sim.tick();
+    (server as unknown as { routeEvents(events: SimEvent[]): void }).routeEvents(events);
+
+    const zoneEvsOf = (sent: { t: string; list?: SimEvent[] }[]) =>
+      sent
+        .filter((m) => m.t === 'events')
+        .flatMap((m) => m.list ?? [])
+        .filter((ev) => ev.type === 'masterworkZone');
+    const copyFor = (pid: number) => ({
+      type: 'masterworkZone',
+      pid,
+      crafterPid: sc.pid,
+      crafterName: 'Crafter',
+      itemId: ITEM_ID,
+      recipeId: RECIPE_ID,
+      zoneId,
+    });
+    // Each in-zone session got exactly ITS copy (recipient pid, not the
+    // crafter's), the other-zone session got nothing, and the payload is the
+    // exact text-free key set.
+    expect(zoneEvsOf(fcCrafter.sent)).toEqual([copyFor(sc.pid)]);
+    expect(zoneEvsOf(fcNearby.sent)).toEqual([copyFor(sn.pid)]);
+    expect(zoneEvsOf(fcFar.sent)).toEqual([]);
+  });
+});
+
+// The HUD arm contract for the zone copy (no test instantiates the full Hud,
+// so the render rules are source-pinned): every recipient logs the localized
+// line in the epic quality color, and NOBODY gets an audio cue from this arm
+// (the crafter's own celebration sound rides the personal masterwork plan).
+import { readFileSync } from 'node:fs';
+
+describe('hud masterworkZone arm (source pins)', () => {
+  const hud = readFileSync(new URL('../src/ui/hud.ts', import.meta.url), 'utf8');
+  const arm = hud.slice(
+    hud.indexOf("case 'masterworkZone': {"),
+    hud.indexOf('break;', hud.indexOf("case 'masterworkZone': {")),
+  );
+
+  it('logs the localized zone line in the epic color', () => {
+    expect(arm).toContain("t('hudChrome.crafting.masterworkZoneLine'");
+    expect(arm).toContain('QUALITY_COLOR.epic');
+  });
+
+  it('plays no audio cue for the zone copy (the personal plan owns the sound)', () => {
+    expect(arm).not.toContain('audio.');
+    expect(arm).not.toContain('playSound');
   });
 });

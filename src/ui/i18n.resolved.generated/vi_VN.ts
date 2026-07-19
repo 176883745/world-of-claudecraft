@@ -2170,6 +2170,7 @@ export const vi_VN: EnTranslations = {
       "comboNotAttuned": "Hãy chọn một đôi kiểu mẫu trước.",
       "comboWrongPair": "Hãy kích hoạt đúng đôi này để chế tác nó.",
       "comboTierUnmet": "Hãy nâng cả hai kỹ nghệ chuyên ngành lên bậc yêu cầu.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Lựa chọn nghề nghiệp",
       "noProfessionChoice": "Hiện không có lựa chọn nghề nghiệp hợp lệ nào.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

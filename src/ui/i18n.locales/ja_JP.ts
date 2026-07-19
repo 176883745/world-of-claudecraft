@@ -6288,6 +6288,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.comboNotAttuned': '先にアーキタイプの組み合わせを選んでください。',
   'hudChrome.crafting.comboWrongPair': '製作するには、この組み合わせを有効にしてください。',
   'hudChrome.crafting.comboTierUnmet': '両方の主専攻を必要ティアまで上げてください。',
+  'hudChrome.crafting.comboTierUnmetNamed': '{crafts}をティア {tier} まで上げてください。',
   'hudChrome.crafting.professionChoice': '職業の選択',
   'hudChrome.crafting.noProfessionChoice': '現在選択できる職業はありません。',
   'hudChrome.crafting.attunementPreview':

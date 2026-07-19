@@ -2170,6 +2170,7 @@ export const ja_JP: EnTranslations = {
       "comboNotAttuned": "先にアーキタイプの組み合わせを選んでください。",
       "comboWrongPair": "製作するには、この組み合わせを有効にしてください。",
       "comboTierUnmet": "両方の主専攻を必要ティアまで上げてください。",
+      "comboTierUnmetNamed": "{crafts}をティア {tier} まで上げてください。",
       "professionChoice": "職業の選択",
       "noProfessionChoice": "現在選択できる職業はありません。",
       "pairOptionLabel": "{pair}（{craftA} + {craftB}）",

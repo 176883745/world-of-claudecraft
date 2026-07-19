@@ -572,7 +572,19 @@ tables, i18n key namespaces, files created)
   the shared multiplier, masterwork_zone_broadcast + inspect_instances
   liveness suites, snapshots eqi round-trip + data-minimization pin,
   item_instance_tooltip + craft_celebration_view unit suites, bank_view
-  instance passthrough pin.
+  instance passthrough pin. Phase 6 QA additions (2026-07-19, PASS with
+  fixes, zero blocking): tier_unmet now names the under-tier craft(s)
+  via hudChrome.crafting.comboTierUnmetNamed ({crafts} + {tier}; the
+  param-less comboTierUnmet stays the defensive fallback, M16 fills in
+  the five non-Latin overlays); the tier-up armed drain window is the
+  pure step observeCraftSkillsForTierUps (+
+  CRAFT_TIER_UP_DRAIN_WINDOW) in craft_celebration_view.ts, hud.ts a
+  thin consumer; masterwork_zone_broadcast gained a live GameServer
+  session-routing suite (the hcb broadcast-suite precedent) and hud
+  zone-arm source pins; threading pins landed for the bags forwarding
+  call site, the char_window self-mirror closure, the openInspect slot
+  rows, and hud.itemTooltip composition order; plan.motion consumer and
+  station-repaint liveness are source-pinned.
 - Phase 7: (planned) trend detection module; Guild letter content; S3 scan
   list gains src/sim/quests/quest_commands.ts.
 - Phase 8: (planned) station registry (typed stations, multi-zone); master

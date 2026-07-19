@@ -93,7 +93,6 @@ import {
   materialCostMultiplier,
   tierCapability,
   tierForSkill,
-  tierProgressMultiplier,
 } from './wheel';
 
 // One flat craft-skill point per successful common-tier craft (the free-floor

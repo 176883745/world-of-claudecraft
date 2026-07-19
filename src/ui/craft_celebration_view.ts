@@ -39,6 +39,57 @@ export function computeCraftTierUps(
   return ups;
 }
 
+/** Drains the post-craftResult observation window stays armed for (the HUD
+ *  arms it in the craftResult event arm): online the cprof mirror can land a
+ *  few snapshots after the event, so the diff below stays armed for a bounded
+ *  run of drains instead of polling every frame. */
+export const CRAFT_TIER_UP_DRAIN_WINDOW = 100;
+
+/** One observation step's outcome: the crossings to celebrate, the snapshot
+ *  to carry (the SAME object once initialized: values are carried forward in
+ *  place, no per-drain allocation), and the drains left in the window. */
+export interface CraftTierUpObservation {
+  tierUps: CraftTierUp[];
+  prev: Record<string, number> | null;
+  drains: number;
+}
+
+const NO_TIER_UPS: CraftTierUp[] = [];
+
+/**
+ * The HUD's per-drain tier-up observation step, pure so the armed-window
+ * rules are Node-testable (tests/craft_celebration_view.test.ts): craft
+ * skills only ever change on a craft, so the diff runs only while `prev` is
+ * uninitialized or the post-craftResult window is armed (`drains > 0`),
+ * never as a per-frame poll. Guarded on `synced`: the pre-cprof {} mirror
+ * must never register as a baseline, or the first real value would toast the
+ * player's whole history. The first synced observation initializes silently
+ * (the null-prev contract in computeCraftTierUps). Any OBSERVED change
+ * disarms the window (drains 0); an unchanged armed drain decrements it. A
+ * crossing that outlives the window is reported at the next armed window
+ * (the prev diff still sees it), a deliberate bounded-window trade-off.
+ */
+export function observeCraftSkillsForTierUps(
+  synced: boolean,
+  prev: Record<string, number> | null,
+  next: Readonly<Record<string, number>>,
+  drains: number,
+): CraftTierUpObservation {
+  if (!synced || (prev !== null && drains <= 0)) return { tierUps: NO_TIER_UPS, prev, drains };
+  if (prev === null) return { tierUps: NO_TIER_UPS, prev: { ...next }, drains };
+  const tierUps = computeCraftTierUps(prev, next);
+  // Carry values forward in place (skills only ever climb, keys never
+  // leave), avoiding a per-drain snapshot allocation.
+  let changed = false;
+  for (const craftId in next) {
+    if (prev[craftId] !== next[craftId]) {
+      prev[craftId] = next[craftId];
+      changed = true;
+    }
+  }
+  return { tierUps, prev, drains: changed ? 0 : drains - 1 };
+}
+
 /** The single banner slot's occupant: masterwork outranks tier-up, and among
  *  tier-ups the LAST crossing wins (the log carries every line). */
 export type CraftCelebrationBanner =

@@ -2170,6 +2170,7 @@ export const ko_KR: EnTranslations = {
       "comboNotAttuned": "먼저 원형 기술 조합을 선택하세요.",
       "comboWrongPair": "제작하려면 이 정확한 조합을 활성화하세요.",
       "comboTierUnmet": "두 주 전공을 모두 필요한 티어까지 올리세요.",
+      "comboTierUnmetNamed": "{crafts}을(를) 티어 {tier}까지 올리세요.",
       "professionChoice": "전문 기술 선택",
       "noProfessionChoice": "현재 선택할 수 있는 전문 기술이 없습니다.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

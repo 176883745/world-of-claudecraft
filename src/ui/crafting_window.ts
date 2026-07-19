@@ -104,18 +104,29 @@ export function renderCraftingWindow(
             tier: formatNumber(row.comboRequirement.minTier, { maximumFractionDigits: 0 }),
           })
         : '';
+      // tier_unmet names ONLY the under-tier craft(s) (the acceptance
+      // criterion: the player can tell WHICH craft to raise from the row
+      // alone); the localized names join like the reagent list above. The
+      // param-less comboTierUnmet stays the defensive fallback for an
+      // eligibility result that names no craft.
       const comboStatus = row.comboRequirement
-        ? t(
-            row.comboRequirement.reason === null
-              ? 'hudChrome.crafting.comboMet'
-              : row.comboRequirement.reason === 'syncing'
-                ? 'hudChrome.crafting.comboSyncing'
-                : row.comboRequirement.reason === 'not_attuned'
-                  ? 'hudChrome.crafting.comboNotAttuned'
-                  : row.comboRequirement.reason === 'wrong_pair'
-                    ? 'hudChrome.crafting.comboWrongPair'
-                    : 'hudChrome.crafting.comboTierUnmet',
-          )
+        ? row.comboRequirement.reason === 'tier_unmet' &&
+          row.comboRequirement.unmetCrafts.length > 0
+          ? t('hudChrome.crafting.comboTierUnmetNamed', {
+              crafts: row.comboRequirement.unmetCrafts.map((c) => craftNameText(c)).join(', '),
+              tier: formatNumber(row.comboRequirement.minTier, { maximumFractionDigits: 0 }),
+            })
+          : t(
+              row.comboRequirement.reason === null
+                ? 'hudChrome.crafting.comboMet'
+                : row.comboRequirement.reason === 'syncing'
+                  ? 'hudChrome.crafting.comboSyncing'
+                  : row.comboRequirement.reason === 'not_attuned'
+                    ? 'hudChrome.crafting.comboNotAttuned'
+                    : row.comboRequirement.reason === 'wrong_pair'
+                      ? 'hudChrome.crafting.comboWrongPair'
+                      : 'hudChrome.crafting.comboTierUnmet',
+            )
         : '';
       const comboAccessible = comboLine ? `. ${comboLine} ${comboStatus}` : '';
 

@@ -2170,6 +2170,7 @@ export const da_DK: EnTranslations = {
       "comboNotAttuned": "Vælg først et arketypepar.",
       "comboWrongPair": "Aktiver dette præcise par for at fremstille det.",
       "comboTierUnmet": "Hav begge håndværksfag på det krævede niveau.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Erhvervsvalg",
       "noProfessionChoice": "Intet gyldigt erhvervsvalg er tilgængeligt i øjeblikket.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

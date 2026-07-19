@@ -6398,6 +6398,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.comboNotAttuned': 'Сначала выберите пару архетипа.',
   'hudChrome.crafting.comboWrongPair': 'Для создания предмета активируйте именно эту пару.',
   'hudChrome.crafting.comboTierUnmet': 'Повысьте оба главных ремесла до нужного ранга.',
+  'hudChrome.crafting.comboTierUnmetNamed': 'Повысьте {crafts} до ранга {tier}.',
   'hudChrome.crafting.professionChoice': 'Выбор профессии',
   'hudChrome.crafting.noProfessionChoice': 'Сейчас нет доступного выбора профессии.',
   'hudChrome.crafting.attunementPreview':

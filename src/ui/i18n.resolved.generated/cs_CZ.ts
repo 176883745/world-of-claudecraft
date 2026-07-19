@@ -2170,6 +2170,7 @@ export const cs_CZ: EnTranslations = {
       "comboNotAttuned": "Nejprve zvol pár archetypů.",
       "comboWrongPair": "Pro výrobu aktivuj přesně tento pár.",
       "comboTierUnmet": "Dostaň oba hlavní obory na požadovanou úroveň.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Volba profese",
       "noProfessionChoice": "V tuto chvíli není dostupná žádná platná volba profese.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

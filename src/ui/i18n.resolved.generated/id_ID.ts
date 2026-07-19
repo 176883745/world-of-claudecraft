@@ -2170,6 +2170,7 @@ export const id_ID: EnTranslations = {
       "comboNotAttuned": "Pilih pasangan arketipe terlebih dahulu.",
       "comboWrongPair": "Aktifkan pasangan yang tepat ini untuk membuatnya.",
       "comboTierUnmet": "Naikkan kedua kerajinan utama ke tingkat yang disyaratkan.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Pilihan profesi",
       "noProfessionChoice": "Tidak ada pilihan profesi yang tersedia saat ini.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

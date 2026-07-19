@@ -83,3 +83,35 @@ describe('item_instance_tooltip', () => {
     expect(itemStatName('weird')).toBe('Weird');
   });
 });
+
+// Composition ORDER inside hud.itemTooltip (the builders are pinned above,
+// the composed placement is hud.ts glue): badges under the soulbound line,
+// baked bonus stats after the def's own stat lines, the maker's mark near the
+// bottom (after the set block, before the sell price).
+import { readFileSync } from 'node:fs';
+
+describe('hud.itemTooltip composition order (source pins)', () => {
+  const hud = readFileSync(new URL('../src/ui/hud.ts', import.meta.url), 'utf8');
+  const badges = hud.indexOf('instanceBadgeLines(instance)');
+  const bonus = hud.indexOf('instanceBonusStatLines(instance)');
+  const mark = hud.indexOf('instanceMakersMarkLine(instance)');
+  const soulbound = hud.indexOf("t('hudChrome.itemSoulbound')");
+  const setBlock = hud.indexOf('this.itemSetBlock(item)');
+
+  it('composes all three instance line sets exactly once each', () => {
+    expect(badges).toBeGreaterThan(-1);
+    expect(bonus).toBeGreaterThan(-1);
+    expect(mark).toBeGreaterThan(-1);
+    expect(hud.indexOf('instanceBadgeLines(instance)', badges + 1)).toBe(-1);
+    expect(hud.indexOf('instanceBonusStatLines(instance)', bonus + 1)).toBe(-1);
+    expect(hud.indexOf('instanceMakersMarkLine(instance)', mark + 1)).toBe(-1);
+  });
+
+  it('orders them badge lines, then bonus stats, then the makers mark', () => {
+    expect(soulbound).toBeGreaterThan(-1);
+    expect(badges).toBeGreaterThan(soulbound);
+    expect(bonus).toBeGreaterThan(badges);
+    expect(mark).toBeGreaterThan(bonus);
+    expect(mark).toBeGreaterThan(setBlock);
+  });
+});

@@ -2170,6 +2170,7 @@ export const en_XA: EnTranslations = {
       "comboNotAttuned": "[Çĥóóšé áñ áŕçĥéţýþé þáíŕ ƒíŕšţ.]",
       "comboWrongPair": "[Áçţíʋáţé ţĥíš éẋáçţ þáíŕ ţó çŕáƒţ íţ.]",
       "comboTierUnmet": "[Ŕáíšé ƀóţĥ ɱáĵóŕ çŕáƒţš ţó ţĥé ŕéɋúíŕéð ţíéŕ.]",
+      "comboTierUnmetNamed": "[Ŕáíšé {crafts} ţó ţíéŕ {tier}.]",
       "professionChoice": "[Þŕóƒéššíóñ çĥóíçé]",
       "noProfessionChoice": "[Ñó ʋáļíð þŕóƒéššíóñ çĥóíçé íš çúŕŕéñţļý áʋáíļáƀļé.]",
       "pairOptionLabel": "[{pair} ({craftA} + {craftB})]",

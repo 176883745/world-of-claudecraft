@@ -4870,6 +4870,7 @@ export type TranslationKeyFlat =
   | 'hudChrome.crafting.comboRequires'
   | 'hudChrome.crafting.comboSyncing'
   | 'hudChrome.crafting.comboTierUnmet'
+  | 'hudChrome.crafting.comboTierUnmetNamed'
   | 'hudChrome.crafting.comboWrongPair'
   | 'hudChrome.crafting.craft'
   | 'hudChrome.crafting.craftedToast'

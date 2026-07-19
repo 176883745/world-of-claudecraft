@@ -239,3 +239,21 @@ describe('server authority over instance payloads', () => {
     expect(server.sim.meta(a.pid)?.inventory.some((s) => s.itemId === 'linen_scrap')).toBe(false);
   });
 });
+
+// The last link of the inspect chain is hud.ts DOM glue no suite instantiates
+// (openInspect -> buildInspectSlotRow -> the widened itemTooltip), so the
+// threading is source-pinned: the eqi wire and mirror above are liveness-
+// tested, and these pins keep the rendered row actually consuming them.
+import { readFileSync } from 'node:fs';
+
+describe('hud openInspect instance threading (source pins)', () => {
+  const hud = readFileSync(new URL('../src/ui/hud.ts', import.meta.url), 'utf8');
+
+  it('threads the inspected entity payload per slot into both paperdoll columns', () => {
+    expect(hud).toContain('buildInspectSlotRow(cell, e.equippedInstances[cell.slot])');
+  });
+
+  it('the slot row forwards the instance into the tooltip builder', () => {
+    expect(hud).toContain('this.attachTooltip(row, () => this.itemTooltip(item, true, instance))');
+  });
+});

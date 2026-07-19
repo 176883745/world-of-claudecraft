@@ -2170,6 +2170,7 @@ export const zh_TW: EnTranslations = {
       "comboNotAttuned": "請先選擇一個原型組合。",
       "comboWrongPair": "啟用這個確切組合才能製作。",
       "comboTierUnmet": "將兩項主修技藝提升到所需階級。",
+      "comboTierUnmetNamed": "將{crafts}提升到階級 {tier}。",
       "professionChoice": "專業選擇",
       "noProfessionChoice": "目前沒有可用的專業選擇。",
       "pairOptionLabel": "{pair}（{craftA} + {craftB}）",

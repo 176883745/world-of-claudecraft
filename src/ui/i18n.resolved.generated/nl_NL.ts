@@ -2170,6 +2170,7 @@ export const nl_NL: EnTranslations = {
       "comboNotAttuned": "Kies eerst een archetype-paar.",
       "comboWrongPair": "Activeer precies dit paar om het te maken.",
       "comboTierUnmet": "Breng beide hoofdambachten naar de vereiste rang.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Beroepskeuze",
       "noProfessionChoice": "Er is momenteel geen geldige beroepskeuze beschikbaar.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

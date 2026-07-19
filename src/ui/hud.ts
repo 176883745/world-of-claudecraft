@@ -75,7 +75,6 @@ import type {
   PetMode,
   PlayerClass,
   ResourceType,
-  Stats,
 } from '../sim/types';
 import {
   type AbilityEffect,
@@ -163,8 +162,9 @@ import { type CardinalId, compassView } from './compass';
 import { formatMinimapCoords } from './coords';
 import {
   buildCraftCelebrationPlan,
+  CRAFT_TIER_UP_DRAIN_WINDOW,
   type CraftTierUp,
-  computeCraftTierUps,
+  observeCraftSkillsForTierUps,
 } from './craft_celebration_view';
 import { buildCraftingView } from './crafting_view';
 import { renderCraftingWindow } from './crafting_window';
@@ -8695,7 +8695,7 @@ export class Hud {
           // craft, and online the cprof mirror can land a few snapshots after
           // this event, so the diff stays armed for a bounded drain window
           // instead of polling every frame.
-          this.craftTierUpDrains = 100;
+          this.craftTierUpDrains = CRAFT_TIER_UP_DRAIN_WINDOW;
           if (ev.ok && ev.itemId) {
             const item = ITEMS[ev.itemId];
             const name = item ? itemDisplayName(item) : ev.itemId;
@@ -9718,39 +9718,20 @@ export class Hud {
     if (deedUnlocks.length > 0) this.handleDeedUnlocks(deedUnlocks);
     // Craft tier crossings are STATE-driven, not event-driven: online the
     // cprof mirror can land a snapshot after (or without) this drain's
-    // events, so the diff reads the live craftSkills rather than an event
-    // payload. But skills only ever change on a craft, so the diff only runs
-    // inside a bounded post-craftResult drain window (armed in the arm above,
-    // disarmed the moment a change is observed or the window expires), never
-    // as a per-frame poll. Guarded on the synced flag: the pre-cprof {}
-    // mirror must not register as a baseline, or the first real value would
-    // toast the player's whole history. The first synced observation
-    // initializes silently (null prev contract in computeCraftTierUps).
-    let tierUps: CraftTierUp[] = [];
-    if (
-      sim.craftingIdentity.synced &&
-      (this.prevCraftSkills === null || this.craftTierUpDrains > 0)
-    ) {
-      const next = sim.craftSkills;
-      const prev = this.prevCraftSkills;
-      if (prev === null) {
-        this.prevCraftSkills = { ...next };
-      } else {
-        tierUps = computeCraftTierUps(prev, next);
-        // Carry values forward in place (skills only ever climb, keys never
-        // leave), avoiding a per-drain snapshot allocation.
-        let changed = false;
-        for (const craftId in next) {
-          if (prev[craftId] !== next[craftId]) {
-            prev[craftId] = next[craftId];
-            changed = true;
-          }
-        }
-        this.craftTierUpDrains = changed ? 0 : this.craftTierUpDrains - 1;
-      }
-    }
-    if (masterworkItemId !== null || tierUps.length > 0)
-      this.handleCraftCelebrations(masterworkItemId, tierUps);
+    // events, so the observation reads the live craftSkills rather than an
+    // event payload. The armed-window rules (bounded post-craftResult drains,
+    // the synced guard, the silent first init, disarm-on-change) live in the
+    // pure step observeCraftSkillsForTierUps (craft_celebration_view.ts).
+    const obs = observeCraftSkillsForTierUps(
+      sim.craftingIdentity.synced,
+      this.prevCraftSkills,
+      sim.craftSkills,
+      this.craftTierUpDrains,
+    );
+    this.prevCraftSkills = obs.prev;
+    this.craftTierUpDrains = obs.drains;
+    if (masterworkItemId !== null || obs.tierUps.length > 0)
+      this.handleCraftCelebrations(masterworkItemId, obs.tierUps);
   }
 
   // The crafted earned moment, planned purely (craft_celebration_view) so the

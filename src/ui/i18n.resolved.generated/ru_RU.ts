@@ -2170,6 +2170,7 @@ export const ru_RU: EnTranslations = {
       "comboNotAttuned": "Сначала выберите пару архетипа.",
       "comboWrongPair": "Для создания предмета активируйте именно эту пару.",
       "comboTierUnmet": "Повысьте оба главных ремесла до нужного ранга.",
+      "comboTierUnmetNamed": "Повысьте {crafts} до ранга {tier}.",
       "professionChoice": "Выбор профессии",
       "noProfessionChoice": "Сейчас нет доступного выбора профессии.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

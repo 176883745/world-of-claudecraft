@@ -451,3 +451,63 @@ grid painters still pass the def only where no instance exists on the
 row (correct today); the online two-banner corner (masterwork and
 tier-up can land in separate drains online, each keeps its own banner,
 cosmetic only).
+
+Phase 6 QA (2026-07-19): PASS with fixes. QA diff 0a4fd8078..206b0ffe7
+(the PR 2150 merge, linear, eight commits). The whole validation matrix
+ran green at the untouched tip first (tsc, the seventeen matched
+suites, the mobile guard trio, i18n:gen plus completeness), so every
+audit agent got already-verified ground instead of re-running suites.
+Eight-agent fan-out (three packet audits plus the five matched dispatch
+rows: frontend-seam, cross-platform-sync, architecture,
+privacy-security, qa-checklist), all eight complete first try under
+hard tool-call budgets with schema-forced structured output. Zero
+blocking findings. Landed from the audit: tier_unmet now names the
+unmet craft(s) (the acceptance criterion the painter missed: the view
+threaded unmetCrafts but the status line rendered the generic
+both-crafts sentence; the new comboTierUnmetNamed key renders only the
+under-tier craft names with the required tier, the param-less key stays
+the defensive fallback so no existing locale fill goes stale or loses a
+placeholder, M16 fills in the five non-Latin overlays, jsdom pins for
+the single, multi, and fallback arms); the tier-up armed drain window
+moved from hud.ts into observeCraftSkillsForTierUps beside the plan
+builder (four reviewers converged on the untested state machine; the
+Phase 5 painter-to-core precedent; hud is now a three-line consumer
+with identical behavior and the armed-window edges are unit-pinned,
+including the delayed-toast contract for a crossing that outlives the
+window); a live GameServer masterworkZone routing suite (three
+sessions, the real sim.tick into routeEvents pump, each in-zone session
+receives exactly its own recipient-pid copy, the other-zone session
+receives nothing; the hcb broadcast-suite precedent, standing in for
+the two-browser online probe since no local Postgres exists); threading
+pins for the bags forwarding call site, the char_window self-mirror
+closure, the openInspect slot rows, and the hud.itemTooltip composition
+order; plan.motion consumer pins (banner-no-motion and the never-gated
+ARIA announcer); DOM pins for the none band, the in-range station
+badge, and the hover-tooltip sentence; dead imports dropped
+(tierProgressMultiplier in crafting.ts, Stats in hud.ts) and the
+emitToZonePlayers export comment corrected. Live verification: an
+18-check puppeteer probe over the real dev client, all green (21 recipe
+rows with skill line, difficulty text, and aria fold-in; 9 station
+badges, every out-of-range row with its inline reason note; the three
+difficulty bands driven live including the free floor and the unattuned
+ceiling arm; a real tier-up crossing through the armed-window path at
+the 25 and 50 boundaries with banner and chat line; reduced motion
+keeping the text while setting banner-no-motion; masterwork and
+legacy-signed tooltips over the real bags surface). Deferred with
+reasons: the station out-of-range copy omits the level arm of the
+predicate (Phase 8 retires CRAFTING_HUB_MIN_LEVEL, revisit with the
+masters rework); the bounded 100-drain window can delay a toast past
+severe mirror lag until the next armed window (deliberate, no per-frame
+poll); the pre-cprof difficulty label transient (documented,
+presentation-neutral); two procs in one drain coalesce to one
+masterworkToast log line (zone and loot lines still per proc); the
+crafter's third-person zone line beside their own toast (deliberate,
+parity-pinned); eqi cosmetic payloads reach every interest-scoped
+client like eq (identity-record semantics); the server eqi build shares
+a live rolled reference (JSON-snapshotted per broadcast, server-owned,
+no leak); the #ffd100 seal literal (matches the soulbound idiom,
+tokenization is DESIGN.md territory) and the rule-less
+tt-instance-bonus hook class; the guide.ts reword leaving Latin overlay
+fills stale until the release-tier refill (standard workflow);
+archetypeCeilingFor computed twice per resolveCraftForRecipe
+(behavior-neutral).

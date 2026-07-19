@@ -2170,6 +2170,7 @@ export const sv_SE: EnTranslations = {
       "comboNotAttuned": "Välj ett arketyppar först.",
       "comboWrongPair": "Aktivera detta exakta par för att tillverka det.",
       "comboTierUnmet": "Höj båda hantverksämnena till den krävda nivån.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Yrkesval",
       "noProfessionChoice": "Inget giltigt yrkesval är för närvarande tillgängligt.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",

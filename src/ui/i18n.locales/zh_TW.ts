@@ -6010,6 +6010,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.comboNotAttuned': '請先選擇一個原型組合。',
   'hudChrome.crafting.comboWrongPair': '啟用這個確切組合才能製作。',
   'hudChrome.crafting.comboTierUnmet': '將兩項主修技藝提升到所需階級。',
+  'hudChrome.crafting.comboTierUnmetNamed': '將{crafts}提升到階級 {tier}。',
   'hudChrome.crafting.professionChoice': '專業選擇',
   'hudChrome.crafting.noProfessionChoice': '目前沒有可用的專業選擇。',
   'hudChrome.crafting.attunementPreview':

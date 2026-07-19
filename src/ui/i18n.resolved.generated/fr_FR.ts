@@ -2170,6 +2170,7 @@ export const fr_FR: EnTranslations = {
       "comboNotAttuned": "Choisissez d'abord une paire d'archétype.",
       "comboWrongPair": "Activez cette paire exacte pour le fabriquer.",
       "comboTierUnmet": "Élevez les deux métiers majeurs au palier requis.",
+      "comboTierUnmetNamed": "Raise {crafts} to tier {tier}.",
       "professionChoice": "Choix de profession",
       "noProfessionChoice": "Aucun choix de profession valide n'est disponible en ce moment.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
