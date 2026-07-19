@@ -1,0 +1,25 @@
+{
+  "serverUrl": "http://127.0.0.1:8787",
+  "logLevel": "info",
+  "tickInterval": 50,
+  "reconnect": {
+    "maxAttempts": 10,
+    "baseDelayMs": 1000,
+    "maxDelayMs": 30000
+  },
+  "accounts": [
+    {
+      "name": "bot1",
+      "username": "your_bot_username",
+      "password": "your_bot_password",
+      "behavior": "grinder",
+      "enableAIChat": false
+    }
+  ],
+  "ai": {
+    "apiEndpoint": "https://api.openai.com/v1",
+    "apiKey": "your_api_key_here",
+    "model": "gpt-4o-mini",
+    "systemPrompt": "You are a helpful MMO game player. Respond naturally and briefly to chat messages."
+  }
+}

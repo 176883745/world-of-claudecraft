@@ -75,6 +75,8 @@
     "server": "npm run build:server && node dist-server/server.cjs",
     "build:bot": "node scripts/build_bot.mjs",
     "bot": "npm run build:bot && node dist-bot/bot.cjs",
+    "build:aibot": "node scripts/build_aibot.mjs",
+    "aibot": "npm run build:aibot && node dist-aibot/aibot.cjs",
     "realms": "npm run build:server && node scripts/dev-realms.mjs",
     "admin:grant": "node scripts/grant_admin.mjs",
     "voices:gen": "node scripts/gen_npc_voices.mjs",

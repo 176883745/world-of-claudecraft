@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["aibot/**/*.ts", "aibot/**/*.json"],
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist-aibot",
+    "tsBuildInfoFile": "dist-aibot/.tsbuildinfo"
+  }
+}

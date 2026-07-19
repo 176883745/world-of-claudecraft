@@ -1,0 +1,25 @@
+{
+  "serverUrl": "http://21.40.186.35:8787",
+  "logLevel": "info",
+  "tickInterval": 50,
+  "reconnect": {
+    "maxAttempts": 10,
+    "baseDelayMs": 1000,
+    "maxDelayMs": 30000
+  },
+  "accounts": [
+    {
+      "name": "warlock",
+      "username": "gaopengpp5",
+      "password": "pp521521",
+      "behavior": "social",
+      "enableAIChat": true
+    }
+  ],
+  "ai": {
+    "apiEndpoint": "http://10.193.200.210:1025/v1",
+    "apiKey": "your_api_key_here",
+    "model": "gdeepseek-v4-flash",
+    "systemPrompt": "You are a helpful MMO game player. Respond naturally and briefly to chat messages."
+  }
+}
