@@ -8244,6 +8244,210 @@ export const en_XA: EnTranslations = {
       "silverleaf_herb": {
         "name": "[Šíļʋéŕļéáƒ Ĥéŕƀ]"
       },
+      "rough_hide": {
+        "name": "[Ŕóúĝĥ Ĥíðé]"
+      },
+      "spider_silk": {
+        "name": "[Šþíðéŕ Šíļķ]"
+      },
+      "venom_gland": {
+        "name": "[Ʋéñóɱ Ĝļáñð]"
+      },
+      "game_meat": {
+        "name": "[Ĝáɱé Ɱéáţ]"
+      },
+      "homespun_cloth": {
+        "name": "[Ĥóɱéšþúñ Çļóţĥ]"
+      },
+      "pristine_hide": {
+        "name": "[Þŕíšţíñé Ĥíðé]"
+      },
+      "pristine_silk": {
+        "name": "[Þŕíšţíñé Šíļķ]"
+      },
+      "pristine_venom_gland": {
+        "name": "[Þŕíšţíñé Ʋéñóɱ Ĝļáñð]"
+      },
+      "prime_cut": {
+        "name": "[Þŕíɱé Çúţ]"
+      },
+      "smithing_flux": {
+        "name": "[Šɱíţĥíñĝ Ƒļúẋ]"
+      },
+      "spool_of_thread": {
+        "name": "[Šþóóļ óƒ Ţĥŕéáð]"
+      },
+      "tanning_agent": {
+        "name": "[Ţáññíñĝ Áĝéñţ]"
+      },
+      "cooking_salt": {
+        "name": "[Çóóķíñĝ Šáļţ]"
+      },
+      "glass_vial": {
+        "name": "[Ĝļášš Ʋíáļ]"
+      },
+      "copper_bearded_axe": {
+        "name": "[Çóþþéŕ Ɓéáŕðéð Áẋé]"
+      },
+      "copper_flanged_mace": {
+        "name": "[Çóþþéŕ Ƒļáñĝéð Ɱáçé]"
+      },
+      "ironbark_boar_spear": {
+        "name": "[Íŕóñƀáŕķ Ɓóáŕ Šþéáŕ]"
+      },
+      "ironedge_longsword": {
+        "name": "[Íŕóñéðĝé Ļóñĝšŵóŕð]"
+      },
+      "ironshod_maul": {
+        "name": "[Íŕóñšĥóð Ɱáúļ]"
+      },
+      "whetted_iron_dirk": {
+        "name": "[Ŵĥéţţéð Íŕóñ Ðíŕķ]"
+      },
+      "thorium_warblade": {
+        "name": "[Ţĥóŕíúɱ Ŵáŕƀļáðé]"
+      },
+      "arcanite_war_axe": {
+        "name": "[Áŕçáñíţé Ŵáŕ Áẋé]"
+      },
+      "elderwood_battle_staff": {
+        "name": "[Éļðéŕŵóóð Ɓáţţļé Šţáƒƒ]"
+      },
+      "riveted_copper_girdle": {
+        "name": "[Ŕíʋéţéð Çóþþéŕ Ĝíŕðļé]"
+      },
+      "coppermail_sabatons": {
+        "name": "[Çóþþéŕɱáíļ Šáƀáţóñš]"
+      },
+      "coppermail_gauntlets": {
+        "name": "[Çóþþéŕɱáíļ Ĝáúñţļéţš]"
+      },
+      "ironlink_hauberk": {
+        "name": "[Íŕóñļíñķ Ĥáúƀéŕķ]"
+      },
+      "ironlink_legguards": {
+        "name": "[Íŕóñļíñķ Ļéĝĝúáŕðš]"
+      },
+      "ironlink_spaulders": {
+        "name": "[Íŕóñļíñķ Šþáúļðéŕš]"
+      },
+      "thoriumscale_greathelm": {
+        "name": "[Ţĥóŕíúɱšçáļé Ĝŕéáţĥéļɱ]"
+      },
+      "thoriumscale_cuirass": {
+        "name": "[Ţĥóŕíúɱšçáļé Çúíŕášš]"
+      },
+      "thoriumscale_leggings": {
+        "name": "[Ţĥóŕíúɱšçáļé Ļéĝĝíñĝš]"
+      },
+      "homespun_hood": {
+        "name": "[Ĥóɱéšþúñ Ĥóóð]"
+      },
+      "homespun_mitts": {
+        "name": "[Ĥóɱéšþúñ Ɱíţţš]"
+      },
+      "silverthread_slippers": {
+        "name": "[Šíļʋéŕţĥŕéáð Šļíþþéŕš]"
+      },
+      "goldweave_robe": {
+        "name": "[Ĝóļðŵéáʋé Ŕóƀé]"
+      },
+      "goldweave_leggings": {
+        "name": "[Ĝóļðŵéáʋé Ļéĝĝíñĝš]"
+      },
+      "silkspun_satchel": {
+        "name": "[Šíļķšþúñ Šáţçĥéļ]"
+      },
+      "silkbinders_raiment": {
+        "name": "[Šíļķƀíñðéŕ'š Ŕáíɱéñţ]"
+      },
+      "sunweave_mantle": {
+        "name": "[Šúñŵéáʋé Ɱáñţļé]"
+      },
+      "sunweave_treads": {
+        "name": "[Šúñŵéáʋé Ţŕéáðš]"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "[Ƒéñƀŕíðĝé Ĥíðé Ļéĝĝíñĝš]"
+      },
+      "fenbridge_hide_boots": {
+        "name": "[Ƒéñƀŕíðĝé Ĥíðé Ɓóóţš]"
+      },
+      "fenbridge_hide_belt": {
+        "name": "[Ƒéñƀŕíðĝé Ĥíðé Ɓéļţ]"
+      },
+      "marshstalker_jerkin": {
+        "name": "[Ɱáŕšĥšţáļķéŕ Ĵéŕķíñ]"
+      },
+      "marshstalker_hood": {
+        "name": "[Ɱáŕšĥšţáļķéŕ Ĥóóð]"
+      },
+      "marshstalker_spaulders": {
+        "name": "[Ɱáŕšĥšţáļķéŕ Šþáúļðéŕš]"
+      },
+      "mirewarden_jerkin": {
+        "name": "[Ɱíŕéŵáŕðéñ Ĵéŕķíñ]"
+      },
+      "mirewarden_leggings": {
+        "name": "[Ɱíŕéŵáŕðéñ Ļéĝĝíñĝš]"
+      },
+      "mirewarden_treads": {
+        "name": "[Ɱíŕéŵáŕðéñ Ţŕéáðš]"
+      },
+      "pan_seared_perch": {
+        "name": "[Þáñ-Šéáŕéð Ŕíʋéŕ Þéŕçĥ]"
+      },
+      "hunters_game_skewer": {
+        "name": "[Ĥúñţéŕ'š Ĝáɱé Šķéŵéŕ]"
+      },
+      "herbed_marsh_pike": {
+        "name": "[Ĥéŕƀéð Ɱáŕšĥ Þíķé]"
+      },
+      "ashwood_smoked_eel": {
+        "name": "[Ášĥŵóóð Šɱóķéð Ééļ]"
+      },
+      "goldleaf_game_stew": {
+        "name": "[Ĝóļðļéáƒ Ĝáɱé Šţéŵ]"
+      },
+      "frostgill_chowder": {
+        "name": "[Ƒŕóšţĝíļļ Çĥóŵðéŕ]"
+      },
+      "silvered_carp_supper": {
+        "name": "[Šíļʋéŕéð Çáŕþ Šúþþéŕ]"
+      },
+      "anglers_feast_platter": {
+        "name": "[Áñĝļéŕ'š Ƒéášţ Þļáţţéŕ]"
+      },
+      "marlows_grand_roast": {
+        "name": "[Ɱáŕļóŵ'š Ĝŕáñð Ŕóášţ]"
+      },
+      "silverleaf_healing_draught": {
+        "name": "[Šíļʋéŕļéáƒ Ĥéáļíñĝ Ðŕáúĝĥţ]"
+      },
+      "silverleaf_mana_draught": {
+        "name": "[Šíļʋéŕļéáƒ Ɱáñá Ðŕáúĝĥţ]"
+      },
+      "elixir_of_the_boar": {
+        "name": "[Éļíẋíŕ óƒ ţĥé Ɓóáŕ]"
+      },
+      "goldleaf_healing_draught": {
+        "name": "[Ĝóļðļéáƒ Ĥéáļíñĝ Ðŕáúĝĥţ]"
+      },
+      "goldleaf_mana_draught": {
+        "name": "[Ĝóļðļéáƒ Ɱáñá Ðŕáúĝĥţ]"
+      },
+      "venomfire_elixir": {
+        "name": "[Ʋéñóɱƒíŕé Éļíẋíŕ]"
+      },
+      "sunpetal_healing_draught": {
+        "name": "[Šúñþéţáļ Ĥéáļíñĝ Ðŕáúĝĥţ]"
+      },
+      "sunpetal_mana_draught": {
+        "name": "[Šúñþéţáļ Ɱáñá Ðŕáúĝĥţ]"
+      },
+      "elixir_of_the_serpent": {
+        "name": "[Éļíẋíŕ óƒ ţĥé Šéŕþéñţ]"
+      },
       "conjured_water4": {
         "name": "[Çóñĵúŕéð Šþŕíñĝŵáţéŕ]"
       },
