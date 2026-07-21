@@ -127,11 +127,11 @@ export class BotManager {
   }
 
   /** Handle game events for AI responses. */
-  private handleGameEvent(instance: BotInstance, event: { kind: string; [key: string]: unknown }): void {
+  private handleGameEvent(instance: BotInstance, event: { type: string; [key: string]: unknown }): void {
     if (!instance.ai) return;
 
-    if (event.kind === 'chat') {
-      const { senderName, channel, message } = event as unknown as { senderName: string; channel: string; message: string };
+    if (event.type === 'chat') {
+      const { from: senderName, channel, message } = event as unknown as { from: string; channel: string; message: string };
 
       // Don't respond to own messages
       if (senderName === instance.account.name) return;
@@ -177,6 +177,8 @@ export class BotManager {
       if (state.connected) {
         const perception = parsePerception(state);
         instance.brain.tick(perception);
+        // Events are consumed after the brain has had a chance to react.
+        instance.client.clearEvents();
       }
 
       setTimeout(tick, this.config.tickInterval);

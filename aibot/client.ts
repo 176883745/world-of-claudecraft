@@ -47,6 +47,11 @@ export interface BotClientOptions {
   onEvent?: (event: BotClientEvent) => void;
 }
 
+const DEFAULT_TIMEOUT_MS = 15000;
+const LOGIN_RETRY_DELAY_MS = 3000;
+const WS_RETRY_DELAY_MS = 5000;
+const MAX_RECONNECT_ATTEMPTS = 10;
+
 /**
  * BotClient - A minimal game client for AI bots.
  *
@@ -102,16 +107,26 @@ export class BotClient {
     return this.state;
   }
 
-  /** Connect to the game server. */
+  /** Connect to the game server. Retries on transient failures. */
   async connect(): Promise<void> {
     this.log('connecting...');
 
-    // 1. Login via REST API
-    const token = await this.login();
+    // 1. Login via REST API (with retries)
+    const token = await this.withRetry(
+      () => this.login(),
+      MAX_RECONNECT_ATTEMPTS,
+      LOGIN_RETRY_DELAY_MS,
+      'login',
+    );
     this.token = token;
 
     // 2. Get characters
-    const characters = await this.getCharacters();
+    const characters = await this.withRetry(
+      () => this.getCharacters(),
+      3,
+      LOGIN_RETRY_DELAY_MS,
+      'getCharacters',
+    );
     if (characters.length === 0) {
       throw new Error('No characters available');
     }
@@ -120,8 +135,13 @@ export class BotClient {
     const charId = this.account.characterId || characters[0].id;
     this.log(`using character ${charId}`);
 
-    // 4. Open WebSocket
-    await this.openWebSocket(charId);
+    // 4. Open WebSocket (with retries)
+    await this.withRetry(
+      () => this.openWebSocket(charId),
+      MAX_RECONNECT_ATTEMPTS,
+      WS_RETRY_DELAY_MS,
+      'WebSocket',
+    );
   }
 
   /** Disconnect from the game server. */
@@ -134,6 +154,11 @@ export class BotClient {
     }
     this.state.connected = false;
     this.emit({ type: 'disconnected', reason: 'client disconnect' });
+  }
+
+  /** Clear processed events. */
+  clearEvents(): void {
+    this.state.events = [];
   }
 
   /** Set movement input. */
@@ -153,9 +178,18 @@ export class BotClient {
 
   /** Send a command to the server. */
   sendCommand(cmd: string, payload: Record<string, unknown> = {}): void {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      this.log(`cannot send command ${cmd}: WebSocket not open`);
+      return;
+    }
     const msg: CommandMessage = { t: 'cmd', cmd, ...payload };
+    this.log(`sending command: ${cmd}`);
     this.ws.send(JSON.stringify(msg));
+  }
+
+  /** Send a chat message or slash command (e.g. /follow, /assist). */
+  sendChat(text: string): void {
+    this.sendCommand('chat', { text });
   }
 
   // -------------------------------------------------------------------------
@@ -163,9 +197,14 @@ export class BotClient {
   // -------------------------------------------------------------------------
 
   private async login(): Promise<string> {
-    const res = await fetch(`${this.config.serverUrl}/api/auth/login`, {
+    // Send an Origin whose host matches the request Host so the web-login guard accepts us.
+    const origin = this.config.serverUrl;
+    const res = await this.fetchWithTimeout(`${this.config.serverUrl}/api/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Origin: origin,
+      },
       body: JSON.stringify({
         username: this.account.username,
         password: this.account.password,
@@ -185,7 +224,7 @@ export class BotClient {
   private async getCharacters(): Promise<CharacterSummary[]> {
     if (!this.token) throw new Error('not logged in');
 
-    const res = await fetch(`${this.config.serverUrl}/api/characters`, {
+    const res = await this.fetchWithTimeout(`${this.config.serverUrl}/api/characters`, {
       headers: { Authorization: `Bearer ${this.token}` },
     });
 
@@ -195,6 +234,37 @@ export class BotClient {
 
     const data = await res.json();
     return data.characters || [];
+  }
+
+  private fetchWithTimeout(url: string, init: RequestInit = {}): Promise<Response> {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+    return fetch(url, { ...init, signal: controller.signal }).finally(() => clearTimeout(id));
+  }
+
+  private async withRetry<T>(
+    fn: () => Promise<T>,
+    maxAttempts: number,
+    delayMs: number,
+    operation: string,
+  ): Promise<T> {
+    let lastError: Error | undefined;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        return await fn();
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+        if (attempt < maxAttempts) {
+          this.log(`${operation} failed (attempt ${attempt}/${maxAttempts}): ${lastError.message}. Retrying in ${delayMs}ms...`);
+          await this.sleep(delayMs);
+        }
+      }
+    }
+    throw new Error(`${operation} failed after ${maxAttempts} attempts: ${lastError?.message}`);
+  }
+
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   // -------------------------------------------------------------------------
@@ -209,8 +279,9 @@ export class BotClient {
 
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
+        this.ws?.close();
         reject(new Error('WebSocket connection timeout'));
-      }, 10000);
+      }, DEFAULT_TIMEOUT_MS);
 
       this.ws!.onopen = () => {
         clearTimeout(timeout);
@@ -232,7 +303,7 @@ export class BotClient {
 
       this.ws!.onclose = (event) => {
         clearTimeout(timeout);
-        this.handleClose(event.code, event.reason);
+        this.handleClose(event.code, event.reason, characterId);
       };
 
       this.ws!.onerror = (error) => {
@@ -326,46 +397,52 @@ export class BotClient {
       }
     }
 
-    // Clear events after snapshot (they've been processed)
+    // Note: events are NOT cleared here. The brain reads them during its tick
+    // and then calls clearEvents() after processing, so transient events like
+    // party invites are not lost between snapshots.
     const events = [...this.state.events];
-    this.state.events = [];
 
     this.emit({ type: 'snapshot', state: { ...this.state, events } });
   }
 
   private handleEvents(msg: ServerMessage & { t: 'events' }): void {
-    for (const event of msg.events) {
+    const list = msg.list ?? [];
+    for (const event of list) {
       this.state.events.push(event);
       this.emit({ type: 'event', event });
     }
   }
 
-  private handleClose(code: number, reason: string): void {
+  private characterIdForReconnect: number | null = null;
+
+  private handleClose(code: number, reason: string, characterId: number): void {
     this.clearTimers();
     this.state.connected = false;
+    this.characterIdForReconnect = characterId;
 
-    this.log(`WebSocket closed: ${code} ${reason}`);
+    this.log(`WebSocket closed: ${code} ${reason || '(no reason)'}`);
 
     // Check if we should reconnect
     if (this.reconnectAttempts < this.config.reconnect.maxAttempts) {
-      this.scheduleReconnect();
+      this.scheduleReconnect(characterId);
     } else {
       this.emit({ type: 'disconnected', reason: reason || 'connection lost' });
     }
   }
 
-  private scheduleReconnect(): void {
+  private scheduleReconnect(characterId: number): void {
     this.reconnectAttempts++;
     const delay = Math.min(
       this.config.reconnect.baseDelayMs * Math.pow(2, this.reconnectAttempts - 1),
       this.config.reconnect.maxDelayMs,
     );
 
-    this.log(`reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`);
+    this.log(`reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.config.reconnect.maxAttempts})`);
 
     this.reconnectTimer = setTimeout(() => {
-      this.connect().catch((err) => {
-        this.log('reconnect failed:', err);
+      this.openWebSocket(characterId).catch((err) => {
+        this.log('reconnect failed:', err instanceof Error ? err.message : err);
+        this.scheduleReconnect(characterId);
       });
     }, delay);
   }

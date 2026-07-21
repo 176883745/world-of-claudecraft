@@ -165,6 +165,10 @@ function finalizeConfig(file) {
 }
 
 // aibot/client.ts
+var DEFAULT_TIMEOUT_MS = 15e3;
+var LOGIN_RETRY_DELAY_MS = 3e3;
+var WS_RETRY_DELAY_MS = 5e3;
+var MAX_RECONNECT_ATTEMPTS = 10;
 var BotClient = class {
   account;
   config;
@@ -201,18 +205,33 @@ var BotClient = class {
   getState() {
     return this.state;
   }
-  /** Connect to the game server. */
+  /** Connect to the game server. Retries on transient failures. */
   async connect() {
     this.log("connecting...");
-    const token = await this.login();
+    const token = await this.withRetry(
+      () => this.login(),
+      MAX_RECONNECT_ATTEMPTS,
+      LOGIN_RETRY_DELAY_MS,
+      "login"
+    );
     this.token = token;
-    const characters = await this.getCharacters();
+    const characters = await this.withRetry(
+      () => this.getCharacters(),
+      3,
+      LOGIN_RETRY_DELAY_MS,
+      "getCharacters"
+    );
     if (characters.length === 0) {
       throw new Error("No characters available");
     }
     const charId = this.account.characterId || characters[0].id;
     this.log(`using character ${charId}`);
-    await this.openWebSocket(charId);
+    await this.withRetry(
+      () => this.openWebSocket(charId),
+      MAX_RECONNECT_ATTEMPTS,
+      WS_RETRY_DELAY_MS,
+      "WebSocket"
+    );
   }
   /** Disconnect from the game server. */
   disconnect() {
@@ -224,6 +243,10 @@ var BotClient = class {
     }
     this.state.connected = false;
     this.emit({ type: "disconnected", reason: "client disconnect" });
+  }
+  /** Clear processed events. */
+  clearEvents() {
+    this.state.events = [];
   }
   /** Set movement input. */
   setMoveInput(input) {
@@ -239,17 +262,29 @@ var BotClient = class {
   }
   /** Send a command to the server. */
   sendCommand(cmd, payload = {}) {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      this.log(`cannot send command ${cmd}: WebSocket not open`);
+      return;
+    }
     const msg = { t: "cmd", cmd, ...payload };
+    this.log(`sending command: ${cmd}`);
     this.ws.send(JSON.stringify(msg));
+  }
+  /** Send a chat message or slash command (e.g. /follow, /assist). */
+  sendChat(text) {
+    this.sendCommand("chat", { text });
   }
   // -------------------------------------------------------------------------
   // REST API
   // -------------------------------------------------------------------------
   async login() {
-    const res = await fetch(`${this.config.serverUrl}/api/auth/login`, {
+    const origin = this.config.serverUrl;
+    const res = await this.fetchWithTimeout(`${this.config.serverUrl}/api/login`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Origin: origin
+      },
       body: JSON.stringify({
         username: this.account.username,
         password: this.account.password
@@ -265,7 +300,7 @@ var BotClient = class {
   }
   async getCharacters() {
     if (!this.token) throw new Error("not logged in");
-    const res = await fetch(`${this.config.serverUrl}/api/characters`, {
+    const res = await this.fetchWithTimeout(`${this.config.serverUrl}/api/characters`, {
       headers: { Authorization: `Bearer ${this.token}` }
     });
     if (!res.ok) {
@@ -273,6 +308,29 @@ var BotClient = class {
     }
     const data = await res.json();
     return data.characters || [];
+  }
+  fetchWithTimeout(url, init = {}) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+    return fetch(url, { ...init, signal: controller.signal }).finally(() => clearTimeout(id));
+  }
+  async withRetry(fn, maxAttempts, delayMs, operation) {
+    let lastError;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        return await fn();
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+        if (attempt < maxAttempts) {
+          this.log(`${operation} failed (attempt ${attempt}/${maxAttempts}): ${lastError.message}. Retrying in ${delayMs}ms...`);
+          await this.sleep(delayMs);
+        }
+      }
+    }
+    throw new Error(`${operation} failed after ${maxAttempts} attempts: ${lastError?.message}`);
+  }
+  sleep(ms) {
+    return new Promise((resolve2) => setTimeout(resolve2, ms));
   }
   // -------------------------------------------------------------------------
   // WebSocket
@@ -283,8 +341,9 @@ var BotClient = class {
     this.ws = new WebSocket(wsUrl);
     return new Promise((resolve2, reject) => {
       const timeout = setTimeout(() => {
+        this.ws?.close();
         reject(new Error("WebSocket connection timeout"));
-      }, 1e4);
+      }, DEFAULT_TIMEOUT_MS);
       this.ws.onopen = () => {
         clearTimeout(timeout);
         this.log("WebSocket connected, authenticating...");
@@ -301,7 +360,7 @@ var BotClient = class {
       };
       this.ws.onclose = (event) => {
         clearTimeout(timeout);
-        this.handleClose(event.code, event.reason);
+        this.handleClose(event.code, event.reason, characterId);
       };
       this.ws.onerror = (error) => {
         clearTimeout(timeout);
@@ -374,35 +433,38 @@ var BotClient = class {
       }
     }
     const events = [...this.state.events];
-    this.state.events = [];
     this.emit({ type: "snapshot", state: { ...this.state, events } });
   }
   handleEvents(msg) {
-    for (const event of msg.events) {
+    const list = msg.list ?? [];
+    for (const event of list) {
       this.state.events.push(event);
       this.emit({ type: "event", event });
     }
   }
-  handleClose(code, reason) {
+  characterIdForReconnect = null;
+  handleClose(code, reason, characterId) {
     this.clearTimers();
     this.state.connected = false;
-    this.log(`WebSocket closed: ${code} ${reason}`);
+    this.characterIdForReconnect = characterId;
+    this.log(`WebSocket closed: ${code} ${reason || "(no reason)"}`);
     if (this.reconnectAttempts < this.config.reconnect.maxAttempts) {
-      this.scheduleReconnect();
+      this.scheduleReconnect(characterId);
     } else {
       this.emit({ type: "disconnected", reason: reason || "connection lost" });
     }
   }
-  scheduleReconnect() {
+  scheduleReconnect(characterId) {
     this.reconnectAttempts++;
     const delay = Math.min(
       this.config.reconnect.baseDelayMs * Math.pow(2, this.reconnectAttempts - 1),
       this.config.reconnect.maxDelayMs
     );
-    this.log(`reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`);
+    this.log(`reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.config.reconnect.maxAttempts})`);
     this.reconnectTimer = setTimeout(() => {
-      this.connect().catch((err) => {
-        this.log("reconnect failed:", err);
+      this.openWebSocket(characterId).catch((err) => {
+        this.log("reconnect failed:", err instanceof Error ? err.message : err);
+        this.scheduleReconnect(characterId);
       });
     }, delay);
   }
@@ -739,16 +801,18 @@ function parsePerception(state) {
   const pendingInvites = [];
   const chatMessages = [];
   for (const event of events) {
-    if (event.kind === "partyInvite") {
-      pendingInvites.push({ type: "party", from: event.inviter, name: event.inviterName });
-    } else if (event.kind === "tradeRequest") {
-      pendingInvites.push({ type: "trade", from: event.requester, name: event.requesterName });
-    } else if (event.kind === "duelRequest") {
-      pendingInvites.push({ type: "duel", from: event.requester, name: event.requesterName });
-    } else if (event.kind === "chat") {
+    console.log(`[Perception] event type=${event.type} keys=${Object.keys(event).join(",")}`);
+    if (event.type === "partyInvite") {
+      console.log(`[Perception] partyInvite from ${event.fromName} (pid=${event.fromPid})`);
+      pendingInvites.push({ type: "party", from: event.fromPid, name: event.fromName });
+    } else if (event.type === "tradeRequest") {
+      pendingInvites.push({ type: "trade", from: event.fromPid, name: event.fromName });
+    } else if (event.type === "duelRequest") {
+      pendingInvites.push({ type: "duel", from: event.fromPid, name: event.fromName });
+    } else if (event.type === "chat") {
       chatMessages.push({
-        sender: event.sender,
-        senderName: event.senderName,
+        sender: event.fromPid,
+        senderName: event.from,
         channel: event.channel,
         message: event.message
       });
@@ -901,8 +965,13 @@ var Brain = class {
   buffTarget = null;
   pendingBuff = null;
   lastBuffCheck = 0;
+  lastStatusLog = 0;
   lastStateChange = Date.now();
   stateData = {};
+  leaderCombatTarget = null;
+  followTargetId = null;
+  lastFollowAttempt = 0;
+  lastAssistAttempt = 0;
   client;
   handlers = /* @__PURE__ */ new Map();
   constructor(client) {
@@ -917,7 +986,6 @@ var Brain = class {
     this.handlers.set("socializing", this.handleSocializing.bind(this));
     this.handlers.set("healing_ally", this.handleHealingAlly.bind(this));
     this.handlers.set("buffing_ally", this.handleBuffingAlly.bind(this));
-    this.handlers.set("following_leader", this.handleFollowingLeader.bind(this));
   }
   /** Get current state. */
   getState() {
@@ -925,6 +993,10 @@ var Brain = class {
   }
   /** Main tick - called every game tick to update behavior. */
   tick(perception) {
+    this.processPendingInvites(perception);
+    this.trackLeaderCombatTarget(perception);
+    this.updateFollowAndAssist(perception);
+    this.logStatus(perception);
     const ctx = {
       client: this.client,
       perception,
@@ -939,6 +1011,36 @@ var Brain = class {
     if (transition) {
       this.transition(transition);
     }
+  }
+  processPendingInvites(perception) {
+    if (perception.pendingInvites.length === 0) return;
+    for (const invite of perception.pendingInvites) {
+      console.log(`[${this.client.account.name}] handling invite: ${invite.type} from ${invite.name} (pid=${invite.from})`);
+      if (invite.type === "party") {
+        console.log(`[${this.client.account.name}] auto-accepting party invite`);
+        this.client.sendCommand("paccept");
+      } else if (invite.type === "duel") {
+        console.log(`[${this.client.account.name}] auto-declining duel request`);
+        this.client.sendCommand("pdecline");
+      }
+    }
+  }
+  logStatus(perception) {
+    const now = Date.now();
+    if (now - this.lastStatusLog < 2e3) return;
+    this.lastStatusLog = now;
+    const self = perception.self;
+    if (!self) {
+      console.log(`[${this.client.account.name}] status: no self info`);
+      return;
+    }
+    const party = self.partyInfo;
+    const leader = party ? this.findPartyLeader(perception) : null;
+    const leaderDist = leader ? this.distanceToLeader(self, leader) : null;
+    const hasPet = this.hasPet(perception);
+    console.log(
+      `[${this.client.account.name}] status: state=${this.state} class=${self.class}/${self.spec ?? "none"} role=${self.role ?? "none"} pos=(${self.position.x.toFixed(1)},${self.position.z.toFixed(1)}) party=${party ? `${party.leader}:[${party.members.map((m) => m.pid).join(",")}]` : "none"} leader=${leader ? this.getLeaderId(leader) : "none"} dist=${leaderDist?.toFixed(1) ?? "n/a"} pet=${hasPet}`
+    );
   }
   transition(transition) {
     const oldState = this.state;
@@ -959,9 +1061,6 @@ var Brain = class {
     if (!perception.self) return null;
     const self = perception.self;
     const role = self.role ?? "dps";
-    if (perception.pendingInvites.length > 0) {
-      return { nextState: "socializing" };
-    }
     if (role === "healer") {
       const woundedAlly = this.findWoundedPartyMember(perception);
       if (woundedAlly) {
@@ -985,30 +1084,36 @@ var Brain = class {
       }
     }
     const nearestHostile = findNearestHostile(perception);
-    if (nearestHostile) {
-      if (role === "tank") {
-        this.target = nearestHostile;
-        return {
-          nextState: "engaging",
-          action: () => this.client.sendCommand("target", { target: nearestHostile.id })
-        };
-      }
-      if (nearestHostile.targetId === self.id || nearestHostile.distance < 8) {
-        this.target = nearestHostile;
-        return {
-          nextState: "engaging",
-          action: () => this.client.sendCommand("target", { target: nearestHostile.id })
-        };
-      }
+    if (nearestHostile && nearestHostile.targetId === self.id) {
+      this.target = nearestHostile;
+      return {
+        nextState: "engaging",
+        action: () => this.engageTarget(self, nearestHostile)
+      };
     }
     const leader = this.findPartyLeader(perception);
     if (leader && this.getLeaderId(leader) !== self.id) {
-      const distance = this.distanceToLeader(self, leader);
-      if (distance > 25) {
-        return { nextState: "following_leader" };
+      const leaderTarget = this.getLeaderTarget(perception);
+      if (leaderTarget && !leaderTarget.isDead) {
+        console.log(`[${this.client.account.name}] idle: assisting leader on target ${leaderTarget.id}`);
+        this.target = leaderTarget;
+        return {
+          nextState: "engaging",
+          action: () => this.engageTarget(self, leaderTarget)
+        };
+      } else {
+        console.log(`[${this.client.account.name}] idle: no leader target (tracked=${this.leaderCombatTarget})`);
       }
+    } else if (perception.self.partyInfo) {
+      console.log(`[${this.client.account.name}] idle: no leader found (leaderId=${perception.self.partyInfo.leader}, selfId=${self.id})`);
     }
     return null;
+  }
+  engageTarget(self, target) {
+    this.client.sendCommand("target", { target: target.id });
+    if (this.isPetClass(self)) {
+      this.sendPetAttack(target.id);
+    }
   }
   handleEngaging(ctx) {
     const { perception } = ctx;
@@ -1027,8 +1132,8 @@ var Brain = class {
         return { nextState: "healing_ally", action: () => this.client.stopMoving() };
       }
     }
-    const meleeRange = role === "tank" ? 5 : 3;
-    if (isInRange(self, target, meleeRange)) {
+    const combatRange = role === "tank" ? 5 : this.isRangedRole(self) ? 30 : 3;
+    if (isInRange(self, target, combatRange)) {
       return { nextState: "fighting" };
     }
     this.moveTowardsEntity(ctx, target);
@@ -1040,10 +1145,25 @@ var Brain = class {
   }
   handleFighting(ctx) {
     const { perception } = ctx;
-    const target = this.target;
+    let target = this.target;
     if (!perception.self) return { nextState: "idle" };
     const self = perception.self;
     const role = self.role ?? "dps";
+    if (target) {
+      const currentTarget = target;
+      const updatedTarget = perception.entities.find((e) => e.id === currentTarget.id);
+      if (updatedTarget) {
+        target = updatedTarget;
+        this.target = updatedTarget;
+      } else {
+        console.log(`[${this.client.account.name}] target ${currentTarget.id} no longer visible, dropping combat`);
+        this.target = null;
+        return { nextState: "idle" };
+      }
+    }
+    if (!target) {
+      return { nextState: "idle" };
+    }
     if (role === "healer") {
       const woundedAlly = this.findWoundedPartyMember(perception);
       if (woundedAlly) {
@@ -1140,69 +1260,10 @@ var Brain = class {
     this.pendingBuff = null;
     return { nextState: "idle" };
   }
-  handleFollowingLeader(ctx) {
-    const { perception } = ctx;
-    if (!perception.self) return { nextState: "idle" };
-    const self = perception.self;
-    const role = self.role ?? "dps";
-    if (perception.pendingInvites.length > 0) {
-      return { nextState: "socializing" };
-    }
-    if (role === "healer") {
-      const woundedAlly = this.findWoundedPartyMember(perception);
-      if (woundedAlly) {
-        this.healTarget = woundedAlly;
-        return { nextState: "healing_ally" };
-      }
-    }
-    const buffNeed = this.findBuffNeed(perception);
-    if (buffNeed) {
-      this.buffTarget = buffNeed.member;
-      this.pendingBuff = buffNeed.buff;
-      this.stateData["buffSelfOnly"] = buffNeed.selfOnly;
-      return { nextState: "buffing_ally" };
-    }
-    if (isLowHealth(self, 0.2)) {
-      return { nextState: "resting" };
-    }
-    if (!this.hasPet(perception)) {
-      if (this.trySummonPet(self)) {
-        return null;
-      }
-    }
-    const nearestHostile = findNearestHostile(perception);
-    if (nearestHostile) {
-      if (role === "tank") {
-        this.target = nearestHostile;
-        return {
-          nextState: "engaging",
-          action: () => this.client.sendCommand("target", { target: nearestHostile.id })
-        };
-      }
-      if (nearestHostile.targetId === self.id || nearestHostile.distance < 8) {
-        this.target = nearestHostile;
-        return {
-          nextState: "engaging",
-          action: () => this.client.sendCommand("target", { target: nearestHostile.id })
-        };
-      }
-    }
-    const leader = this.findPartyLeader(perception);
-    if (!leader || this.getLeaderId(leader) === self.id) {
-      return { nextState: "idle" };
-    }
-    const distance = this.distanceToLeader(self, leader);
-    if (distance <= 10) {
-      this.client.stopMoving();
-      return { nextState: "idle" };
-    }
-    this.moveTowardsLeader(ctx, leader);
-    return null;
-  }
   handleLooting(ctx) {
     const { perception } = ctx;
     this.stateData["petModeSet"] = false;
-    const lootEvents = perception.events.filter((e) => e.kind === "loot");
+    const lootEvents = perception.events.filter((e) => e.type === "loot");
     if (lootEvents.length === 0) {
       return { nextState: "idle" };
     }
@@ -1236,7 +1297,9 @@ var Brain = class {
     const { perception } = ctx;
     if (perception.pendingInvites.length > 0) {
       const invite = perception.pendingInvites[0];
+      console.log(`[${this.client.account.name}] handling invite: ${invite.type} from ${invite.name}`);
       if (invite.type === "party") {
+        console.log(`[${this.client.account.name}] auto-accepting party invite`);
         this.client.sendCommand("paccept");
       } else if (invite.type === "duel") {
         this.client.sendCommand("pdecline");
@@ -1267,26 +1330,130 @@ var Brain = class {
     if (!perception.self || !perception.self.partyInfo) return null;
     const leaderId = perception.self.partyInfo.leader;
     if (leaderId === perception.self.id) return null;
+    const nearby = perception.nearbyFriendlies.find((e) => e.id === leaderId);
+    if (nearby) {
+      return nearby;
+    }
     const member = perception.self.partyInfo.members.find((m) => m.pid === leaderId);
-    if (member) return member;
-    return perception.nearbyFriendlies.find((e) => e.id === leaderId) ?? null;
+    if (member) {
+      return member;
+    }
+    console.log(`[${this.client.account.name}] findPartyLeader: not found (leaderId=${leaderId}, members=${perception.self.partyInfo.members.map((m) => m.pid).join(",")})`);
+    return null;
   }
   getLeaderId(leader) {
     return "pid" in leader ? leader.pid : leader.id;
   }
-  distanceToLeader(self, leader) {
-    if ("position" in leader) {
-      const dx2 = leader.position.x - self.position.x;
-      const dz2 = leader.position.z - self.position.z;
-      return Math.sqrt(dx2 * dx2 + dz2 * dz2);
+  getLeaderTarget(perception) {
+    const leader = this.findPartyLeader(perception);
+    if (!leader) return null;
+    const leaderId = this.getLeaderId(leader);
+    const nearbyLeader = perception.nearbyFriendlies.find((e) => e.id === leaderId);
+    if (nearbyLeader?.targetId) {
+      this.leaderCombatTarget = nearbyLeader.targetId;
+      return perception.entities.find((e) => e.id === nearbyLeader.targetId && !e.isDead) ?? null;
     }
-    const dx = leader.x - self.position.x;
-    const dz = leader.z - self.position.z;
-    return Math.sqrt(dx * dx + dz * dz);
+    if (this.leaderCombatTarget) {
+      const target = perception.entities.find(
+        (e) => e.id === this.leaderCombatTarget && !e.isDead
+      );
+      if (target) {
+        console.log(`[${this.client.account.name}] getLeaderTarget: using tracked target ${target.id}`);
+        return target;
+      }
+      console.log(`[${this.client.account.name}] getLeaderTarget: tracked target ${this.leaderCombatTarget} not visible or dead`);
+    }
+    return null;
   }
-  moveTowardsLeader(ctx, leader) {
-    const self = ctx.perception.self;
-    if (!self) return;
+  trackLeaderCombatTarget(perception) {
+    const leader = this.findPartyLeader(perception);
+    if (!leader) return;
+    const leaderId = this.getLeaderId(leader);
+    for (const event of perception.events) {
+      if (event.type === "death" && event.target === this.leaderCombatTarget) {
+        console.log(`[${this.client.account.name}] leader combat target died, clearing`);
+        this.leaderCombatTarget = null;
+        continue;
+      }
+      let sourceId;
+      let targetId;
+      if (event.type === "damage" || event.type === "heal") {
+        const e = event;
+        sourceId = e.source;
+        targetId = e.target;
+      } else if (event.type === "abilityUsed") {
+        const e = event;
+        sourceId = e.source;
+        targetId = e.target;
+      } else if (event.type === "targetChanged") {
+        const e = event;
+        sourceId = e.entity;
+        targetId = e.target;
+      } else if (event.type === "spellfx") {
+        const e = event;
+        sourceId = typeof e.sourceId === "number" ? e.sourceId : void 0;
+        targetId = typeof e.targetId === "number" ? e.targetId : void 0;
+      }
+      if (sourceId === leaderId && typeof targetId === "number") {
+        console.log(`[${this.client.account.name}] tracked leader combat target: ${targetId} (event=${event.type})`);
+        this.leaderCombatTarget = targetId;
+      }
+    }
+  }
+  getLeaderName(perception) {
+    const leader = this.findPartyLeader(perception);
+    if (!leader) return null;
+    return leader.name ?? null;
+  }
+  /**
+   * Use server slash commands to follow and assist the party leader.
+   * /follow makes the server auto-walk after the leader (like a pet).
+   * /assist snaps our target to the leader's target.
+   * We track follow state locally because the bot wire does not expose followTargetId.
+   */
+  updateFollowAndAssist(perception) {
+    if (!perception.self) return;
+    const self = perception.self;
+    if (self.inCombat && this.followTargetId !== null) {
+      console.log(`[${this.client.account.name}] follow broken by combat`);
+      this.followTargetId = null;
+    }
+    const leader = this.findPartyLeader(perception);
+    if (!leader) {
+      this.followTargetId = null;
+      return;
+    }
+    const leaderId = this.getLeaderId(leader);
+    const leaderName = this.getLeaderName(perception);
+    if (!leaderName) return;
+    const leaderTarget = this.getLeaderTarget(perception);
+    if (leaderTarget && !leaderTarget.isDead) {
+      const now = Date.now();
+      if (now - this.lastAssistAttempt > 3e3) {
+        this.lastAssistAttempt = now;
+        if (self.targetId !== leaderTarget.id) {
+          console.log(`[${this.client.account.name}] /assist ${leaderName} -> target ${leaderTarget.id}`);
+          this.client.sendChat(`/assist ${leaderName}`);
+        }
+      }
+    }
+    if (!self.inCombat) {
+      const distance = this.distanceToLeader(self, leader);
+      const now = Date.now();
+      if (distance > 55) {
+        this.followTargetId = null;
+        this.moveTowardsLeader(self, leader);
+        return;
+      }
+      if (distance > 10 && now - this.lastFollowAttempt > 5e3) {
+        this.lastFollowAttempt = now;
+        this.followTargetId = leaderId;
+        console.log(`[${this.client.account.name}] /follow ${leaderName} (dist=${distance.toFixed(1)})`);
+        this.client.sendChat(`/follow ${leaderName}`);
+      }
+    }
+  }
+  moveTowardsLeader(self, leader) {
     const targetX = "position" in leader ? leader.position.x : leader.x;
     const targetZ = "position" in leader ? leader.position.z : leader.z;
     const dx = targetX - self.position.x;
@@ -1299,6 +1466,20 @@ var Brain = class {
     } else {
       this.client.stopMoving();
     }
+  }
+  isPetClass(self) {
+    const cls = self.class.toLowerCase();
+    return cls === "hunter" || cls === "warlock";
+  }
+  distanceToLeader(self, leader) {
+    if ("position" in leader) {
+      const dx2 = leader.position.x - self.position.x;
+      const dz2 = leader.position.z - self.position.z;
+      return Math.sqrt(dx2 * dx2 + dz2 * dz2);
+    }
+    const dx = leader.x - self.position.x;
+    const dz = leader.z - self.position.z;
+    return Math.sqrt(dx * dx + dz * dz);
   }
   findBuffNeed(perception) {
     if (!perception.self) return null;
@@ -1344,6 +1525,10 @@ var Brain = class {
   trySummonPet(self) {
     const rotation = getRotation(self.class, self.spec);
     const summonActions = rotation.summonPet ?? [];
+    if (summonActions.length === 0) {
+      return false;
+    }
+    console.log(`[${this.client.account.name}] trySummonPet: class=${self.class}/${self.spec} actions=[${summonActions.join(",")}]`);
     for (const action of summonActions) {
       if (action === "pet_revive") {
         const now = Date.now();
@@ -1561,8 +1746,15 @@ var AIModule = class {
         shouldRespond: true
       };
     } catch (error) {
-      console.error(`[${this.botName}] AI error:`, error);
-      return null;
+      const errMsg = error instanceof Error ? error.message : String(error);
+      if (errMsg.includes("404")) {
+        console.warn(
+          `[${this.botName}] AI chat skipped: LLM endpoint returned 404. Check your ai.apiEndpoint in config (current: ${this.config.apiEndpoint}). Using fallback response.`
+        );
+      } else {
+        console.warn(`[${this.botName}] AI chat skipped: ${errMsg}. Using fallback response.`);
+      }
+      return this.fallbackResponse(senderName, message);
     }
   }
   buildPrompt(senderName, channel, message, context) {
@@ -1574,8 +1766,30 @@ Player ${senderName} says in ${channel}: "${message}"
 Respond briefly and naturally as if you're a real player. Keep responses under 2 sentences.
 If the message doesn't require a response, reply with [no response].`;
   }
+  resolveChatEndpoint() {
+    const base = this.config.apiEndpoint.replace(/\/$/, "");
+    if (base.endsWith("/chat/completions")) return base;
+    if (base.endsWith("/v1")) return `${base}/chat/completions`;
+    return `${base}/chat/completions`;
+  }
+  fallbackResponse(senderName, message) {
+    const lower = message.toLowerCase();
+    const greetings = ["hi", "hello", "hey", "sup", "yo"];
+    const questions = ["how", "what", "where", "why", "can", "do you"];
+    let reply = null;
+    if (greetings.some((g) => lower.includes(g))) {
+      reply = `hey ${senderName}!`;
+    } else if (questions.some((q) => lower.startsWith(q))) {
+      reply = `not sure, ${senderName}.`;
+    } else if (lower.includes("bot")) {
+      reply = `I'm just here to play, ${senderName}.`;
+    }
+    if (!reply) return null;
+    return { message: reply, shouldRespond: true };
+  }
   async callLLM(prompt) {
-    const response = await fetch(`${this.config.apiEndpoint}/chat/completions`, {
+    const endpoint = this.resolveChatEndpoint();
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -1713,8 +1927,8 @@ var BotManager = class {
   /** Handle game events for AI responses. */
   handleGameEvent(instance, event) {
     if (!instance.ai) return;
-    if (event.kind === "chat") {
-      const { senderName, channel, message } = event;
+    if (event.type === "chat") {
+      const { from: senderName, channel, message } = event;
       if (senderName === instance.account.name) return;
       this.generateAndSendChatResponse(instance, senderName, channel, message);
     }
@@ -1746,6 +1960,7 @@ var BotManager = class {
       if (state.connected) {
         const perception = parsePerception(state);
         instance.brain.tick(perception);
+        instance.client.clearEvents();
       }
       setTimeout(tick, this.config.tickInterval);
     };

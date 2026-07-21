@@ -56,8 +56,17 @@ export class AIModule {
         shouldRespond: true,
       };
     } catch (error) {
-      console.error(`[${this.botName}] AI error:`, error);
-      return null;
+      const errMsg = error instanceof Error ? error.message : String(error);
+      if (errMsg.includes('404')) {
+        console.warn(
+          `[${this.botName}] AI chat skipped: LLM endpoint returned 404. ` +
+            `Check your ai.apiEndpoint in config (current: ${this.config.apiEndpoint}). ` +
+            `Using fallback response.`,
+        );
+      } else {
+        console.warn(`[${this.botName}] AI chat skipped: ${errMsg}. Using fallback response.`);
+      }
+      return this.fallbackResponse(senderName, message);
     }
   }
 
@@ -84,8 +93,34 @@ Respond briefly and naturally as if you're a real player. Keep responses under 2
 If the message doesn't require a response, reply with [no response].`;
   }
 
+  private resolveChatEndpoint(): string {
+    const base = this.config.apiEndpoint.replace(/\/$/, '');
+    if (base.endsWith('/chat/completions')) return base;
+    if (base.endsWith('/v1')) return `${base}/chat/completions`;
+    return `${base}/chat/completions`;
+  }
+
+  private fallbackResponse(senderName: string, message: string): AIResponse | null {
+    const lower = message.toLowerCase();
+    const greetings = ['hi', 'hello', 'hey', 'sup', 'yo'];
+    const questions = ['how', 'what', 'where', 'why', 'can', 'do you'];
+
+    let reply: string | null = null;
+    if (greetings.some(g => lower.includes(g))) {
+      reply = `hey ${senderName}!`;
+    } else if (questions.some(q => lower.startsWith(q))) {
+      reply = `not sure, ${senderName}.`;
+    } else if (lower.includes('bot')) {
+      reply = `I'm just here to play, ${senderName}.`;
+    }
+
+    if (!reply) return null;
+    return { message: reply, shouldRespond: true };
+  }
+
   private async callLLM(prompt: string): Promise<string | null> {
-    const response = await fetch(`${this.config.apiEndpoint}/chat/completions`, {
+    const endpoint = this.resolveChatEndpoint();
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

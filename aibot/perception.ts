@@ -114,16 +114,18 @@ export function parsePerception(state: WorldState): Perception {
   const chatMessages: Perception['chatMessages'] = [];
 
   for (const event of events) {
-    if (event.kind === 'partyInvite') {
-      pendingInvites.push({ type: 'party', from: event.inviter as number, name: event.inviterName as string });
-    } else if (event.kind === 'tradeRequest') {
-      pendingInvites.push({ type: 'trade', from: event.requester as number, name: event.requesterName as string });
-    } else if (event.kind === 'duelRequest') {
-      pendingInvites.push({ type: 'duel', from: event.requester as number, name: event.requesterName as string });
-    } else if (event.kind === 'chat') {
+    console.log(`[Perception] event type=${event.type} keys=${Object.keys(event).join(',')}`);
+    if (event.type === 'partyInvite') {
+      console.log(`[Perception] partyInvite from ${event.fromName} (pid=${event.fromPid})`);
+      pendingInvites.push({ type: 'party', from: event.fromPid as number, name: event.fromName as string });
+    } else if (event.type === 'tradeRequest') {
+      pendingInvites.push({ type: 'trade', from: event.fromPid as number, name: event.fromName as string });
+    } else if (event.type === 'duelRequest') {
+      pendingInvites.push({ type: 'duel', from: event.fromPid as number, name: event.fromName as string });
+    } else if (event.type === 'chat') {
       chatMessages.push({
-        sender: event.sender as number,
-        senderName: event.senderName as string,
+        sender: event.fromPid as number,
+        senderName: event.from as string,
         channel: event.channel as string,
         message: event.message as string,
       });

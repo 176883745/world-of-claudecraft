@@ -1,5 +1,5 @@
 {
-  "serverUrl": "http://21.40.186.35:8787",
+  "serverUrl": "http://121.40.186.35",
   "logLevel": "info",
   "tickInterval": 50,
   "reconnect": {
@@ -9,7 +9,7 @@
   },
   "accounts": [
     {
-      "name": "warlock",
+      "name": "PP",
       "username": "gaopengpp5",
       "password": "pp521521",
       "behavior": "social",

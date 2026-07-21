@@ -16,8 +16,7 @@ export type BotState =
   | 'resting'
   | 'socializing'
   | 'healing_ally'
-  | 'buffing_ally'
-  | 'following_leader';
+  | 'buffing_ally';
 
 export interface BotContext {
   client: BotClient;
@@ -51,8 +50,13 @@ export class Brain {
   private buffTarget: PartyMemberInfo | null = null;
   private pendingBuff: string | null = null;
   private lastBuffCheck = 0;
+  private lastStatusLog = 0;
   private lastStateChange = Date.now();
   private stateData: Record<string, unknown> = {};
+  private leaderCombatTarget: number | null = null;
+  private followTargetId: number | null = null;
+  private lastFollowAttempt = 0;
+  private lastAssistAttempt = 0;
 
   private client: BotClient;
   private handlers: Map<BotState, StateHandler> = new Map();
@@ -71,7 +75,6 @@ export class Brain {
     this.handlers.set('socializing', this.handleSocializing.bind(this));
     this.handlers.set('healing_ally', this.handleHealingAlly.bind(this));
     this.handlers.set('buffing_ally', this.handleBuffingAlly.bind(this));
-    this.handlers.set('following_leader', this.handleFollowingLeader.bind(this));
   }
 
   /** Get current state. */
@@ -81,6 +84,13 @@ export class Brain {
 
   /** Main tick - called every game tick to update behavior. */
   tick(perception: Perception): void {
+    // React to transient social events immediately, before the state handler
+    // runs and before the manager clears events at the end of the tick.
+    this.processPendingInvites(perception);
+    this.trackLeaderCombatTarget(perception);
+    this.updateFollowAndAssist(perception);
+    this.logStatus(perception);
+
     const ctx: BotContext = {
       client: this.client,
       perception,
@@ -97,6 +107,45 @@ export class Brain {
     if (transition) {
       this.transition(transition);
     }
+  }
+
+  private processPendingInvites(perception: Perception): void {
+    if (perception.pendingInvites.length === 0) return;
+
+    for (const invite of perception.pendingInvites) {
+      console.log(`[${this.client.account.name}] handling invite: ${invite.type} from ${invite.name} (pid=${invite.from})`);
+      if (invite.type === 'party') {
+        console.log(`[${this.client.account.name}] auto-accepting party invite`);
+        this.client.sendCommand('paccept');
+      } else if (invite.type === 'duel') {
+        console.log(`[${this.client.account.name}] auto-declining duel request`);
+        this.client.sendCommand('pdecline');
+      }
+    }
+  }
+
+  private logStatus(perception: Perception): void {
+    const now = Date.now();
+    if (now - this.lastStatusLog < 2000) return;
+    this.lastStatusLog = now;
+
+    const self = perception.self;
+    if (!self) {
+      console.log(`[${this.client.account.name}] status: no self info`);
+      return;
+    }
+
+    const party = self.partyInfo;
+    const leader = party ? this.findPartyLeader(perception) : null;
+    const leaderDist = leader ? this.distanceToLeader(self, leader) : null;
+    const hasPet = this.hasPet(perception);
+
+    console.log(
+      `[${this.client.account.name}] status: state=${this.state} class=${self.class}/${self.spec ?? 'none'} role=${self.role ?? 'none'} ` +
+        `pos=(${self.position.x.toFixed(1)},${self.position.z.toFixed(1)}) ` +
+        `party=${party ? `${party.leader}:[${party.members.map(m => m.pid).join(',')}]` : 'none'} ` +
+        `leader=${leader ? this.getLeaderId(leader) : 'none'} dist=${leaderDist?.toFixed(1) ?? 'n/a'} pet=${hasPet}`,
+    );
   }
 
   private transition(transition: StateTransition): void {
@@ -123,11 +172,6 @@ export class Brain {
 
     const self = perception.self;
     const role = self.role ?? 'dps';
-
-    // Check for pending invites first
-    if (perception.pendingInvites.length > 0) {
-      return { nextState: 'socializing' };
-    }
 
     // Healers: look for wounded party members before anything else
     if (role === 'healer') {
@@ -160,36 +204,43 @@ export class Brain {
       }
     }
 
-    // Tanks actively pull nearby hostiles; DPS only react to attackers
+    // Defend ourselves if something is actively attacking us
     const nearestHostile = findNearestHostile(perception);
-    if (nearestHostile) {
-      if (role === 'tank') {
-        this.target = nearestHostile;
-        return {
-          nextState: 'engaging',
-          action: () => this.client.sendCommand('target', { target: nearestHostile.id }),
-        };
-      }
-      if (nearestHostile.targetId === self.id || nearestHostile.distance < 8) {
-        this.target = nearestHostile;
-        return {
-          nextState: 'engaging',
-          action: () => this.client.sendCommand('target', { target: nearestHostile.id }),
-        };
-      }
+    if (nearestHostile && nearestHostile.targetId === self.id) {
+      this.target = nearestHostile;
+      return {
+        nextState: 'engaging',
+        action: () => this.engageTarget(self, nearestHostile),
+      };
     }
 
-    // Follow the party leader if we are not the leader and they are far away
+    // In a party: assist the leader's target. Following is handled server-side via /follow.
     const leader = this.findPartyLeader(perception);
     if (leader && this.getLeaderId(leader) !== self.id) {
-      const distance = this.distanceToLeader(self, leader);
-      if (distance > 25) {
-        return { nextState: 'following_leader' };
+      const leaderTarget = this.getLeaderTarget(perception);
+      if (leaderTarget && !leaderTarget.isDead) {
+        console.log(`[${this.client.account.name}] idle: assisting leader on target ${leaderTarget.id}`);
+        this.target = leaderTarget;
+        return {
+          nextState: 'engaging',
+          action: () => this.engageTarget(self, leaderTarget),
+        };
+      } else {
+        console.log(`[${this.client.account.name}] idle: no leader target (tracked=${this.leaderCombatTarget})`);
       }
+    } else if (perception.self.partyInfo) {
+      console.log(`[${this.client.account.name}] idle: no leader found (leaderId=${perception.self.partyInfo.leader}, selfId=${self.id})`);
     }
 
     // Nothing to do - stay idle
     return null;
+  }
+
+  private engageTarget(self: SelfInfo, target: Entity): void {
+    this.client.sendCommand('target', { target: target.id });
+    if (this.isPetClass(self)) {
+      this.sendPetAttack(target.id);
+    }
   }
 
   private handleEngaging(ctx: BotContext): StateTransition | null {
@@ -214,9 +265,9 @@ export class Brain {
       }
     }
 
-    // Check if we're in combat range
-    const meleeRange = role === 'tank' ? 5 : 3;
-    if (isInRange(self, target, meleeRange)) {
+    // Check if we're in combat range (ranged classes can fight from afar)
+    const combatRange = role === 'tank' ? 5 : this.isRangedRole(self) ? 30 : 3;
+    if (isInRange(self, target, combatRange)) {
       return { nextState: 'fighting' };
     }
 
@@ -234,11 +285,29 @@ export class Brain {
 
   private handleFighting(ctx: BotContext): StateTransition | null {
     const { perception } = ctx;
-    const target = this.target;
+    let target = this.target;
 
     if (!perception.self) return { nextState: 'idle' };
     const self = perception.self;
     const role = self.role ?? 'dps';
+
+    // Sync target with fresh perception; if it disappeared, treat as lost.
+    if (target) {
+      const currentTarget = target;
+      const updatedTarget = perception.entities.find(e => e.id === currentTarget.id);
+      if (updatedTarget) {
+        target = updatedTarget;
+        this.target = updatedTarget;
+      } else {
+        console.log(`[${this.client.account.name}] target ${currentTarget.id} no longer visible, dropping combat`);
+        this.target = null;
+        return { nextState: 'idle' };
+      }
+    }
+
+    if (!target) {
+      return { nextState: 'idle' };
+    }
 
     // Healers prioritize wounded allies over dealing damage
     if (role === 'healer') {
@@ -385,81 +454,6 @@ export class Brain {
     return { nextState: 'idle' };
   }
 
-  private handleFollowingLeader(ctx: BotContext): StateTransition | null {
-    const { perception } = ctx;
-    if (!perception.self) return { nextState: 'idle' };
-
-    const self = perception.self;
-    const role = self.role ?? 'dps';
-
-    // Higher priority interrupts
-    if (perception.pendingInvites.length > 0) {
-      return { nextState: 'socializing' };
-    }
-
-    if (role === 'healer') {
-      const woundedAlly = this.findWoundedPartyMember(perception);
-      if (woundedAlly) {
-        this.healTarget = woundedAlly;
-        return { nextState: 'healing_ally' };
-      }
-    }
-
-    const buffNeed = this.findBuffNeed(perception);
-    if (buffNeed) {
-      this.buffTarget = buffNeed.member;
-      this.pendingBuff = buffNeed.buff;
-      this.stateData['buffSelfOnly'] = buffNeed.selfOnly;
-      return { nextState: 'buffing_ally' };
-    }
-
-    if (isLowHealth(self, 0.2)) {
-      return { nextState: 'resting' };
-    }
-
-    // Pet classes: summon/revive pet if missing
-    if (!this.hasPet(perception)) {
-      if (this.trySummonPet(self)) {
-        return null;
-      }
-    }
-
-    // Tanks may pull hostiles while moving to the leader
-    const nearestHostile = findNearestHostile(perception);
-    if (nearestHostile) {
-      if (role === 'tank') {
-        this.target = nearestHostile;
-        return {
-          nextState: 'engaging',
-          action: () => this.client.sendCommand('target', { target: nearestHostile.id }),
-        };
-      }
-      if (nearestHostile.targetId === self.id || nearestHostile.distance < 8) {
-        this.target = nearestHostile;
-        return {
-          nextState: 'engaging',
-          action: () => this.client.sendCommand('target', { target: nearestHostile.id }),
-        };
-      }
-    }
-
-    // Locate leader
-    const leader = this.findPartyLeader(perception);
-    if (!leader || this.getLeaderId(leader) === self.id) {
-      return { nextState: 'idle' };
-    }
-
-    const distance = this.distanceToLeader(self, leader);
-    if (distance <= 10) {
-      this.client.stopMoving();
-      return { nextState: 'idle' };
-    }
-
-    // Move towards leader
-    this.moveTowardsLeader(ctx, leader);
-    return null;
-  }
-
   private handleLooting(ctx: BotContext): StateTransition | null {
     const { perception } = ctx;
 
@@ -467,7 +461,7 @@ export class Brain {
     this.stateData['petModeSet'] = false;
 
     // Check for loot events
-    const lootEvents = perception.events.filter(e => e.kind === 'loot');
+    const lootEvents = perception.events.filter(e => e.type === 'loot');
     if (lootEvents.length === 0) {
       // No loot, return to idle
       return { nextState: 'idle' };
@@ -522,8 +516,10 @@ export class Brain {
     // Handle pending invites
     if (perception.pendingInvites.length > 0) {
       const invite = perception.pendingInvites[0];
+      console.log(`[${this.client.account.name}] handling invite: ${invite.type} from ${invite.name}`);
       // Auto-accept party invites (configurable)
       if (invite.type === 'party') {
+        console.log(`[${this.client.account.name}] auto-accepting party invite`);
         this.client.sendCommand('paccept');
       } else if (invite.type === 'duel') {
         // Auto-decline duels (they're risky)
@@ -570,16 +566,181 @@ export class Brain {
     const leaderId = perception.self.partyInfo.leader;
     if (leaderId === perception.self.id) return null; // We are the leader
 
-    // First try to find leader in detailed party member info
-    const member = perception.self.partyInfo.members.find(m => m.pid === leaderId);
-    if (member) return member;
+    // Prefer the live nearby entity copy because snapshot positions update every tick.
+    // Party wire positions can be stale when the leader is moving.
+    const nearby = perception.nearbyFriendlies.find(e => e.id === leaderId);
+    if (nearby) {
+      return nearby;
+    }
 
-    // Fallback: search nearby friendly entities
-    return perception.nearbyFriendlies.find(e => e.id === leaderId) ?? null;
+    // Fallback: party member info
+    const member = perception.self.partyInfo.members.find(m => m.pid === leaderId);
+    if (member) {
+      return member;
+    }
+
+    console.log(`[${this.client.account.name}] findPartyLeader: not found (leaderId=${leaderId}, members=${perception.self.partyInfo.members.map(m => m.pid).join(',')})`);
+    return null;
   }
 
   private getLeaderId(leader: PartyMemberInfo | Entity): number {
     return 'pid' in leader ? leader.pid : leader.id;
+  }
+
+  private getLeaderTarget(perception: Perception): Entity | null {
+    const leader = this.findPartyLeader(perception);
+    if (!leader) return null;
+
+    const leaderId = this.getLeaderId(leader);
+
+    // Prefer the live nearby entity copy of the leader (it carries targetId).
+    const nearbyLeader = perception.nearbyFriendlies.find(e => e.id === leaderId);
+    if (nearbyLeader?.targetId) {
+      this.leaderCombatTarget = nearbyLeader.targetId;
+      return perception.entities.find(e => e.id === nearbyLeader.targetId && !e.isDead) ?? null;
+    }
+
+    // Fall back to the most recent combat target we observed from events.
+    if (this.leaderCombatTarget) {
+      const target = perception.entities.find(
+        e => e.id === this.leaderCombatTarget && !e.isDead,
+      );
+      if (target) {
+        console.log(`[${this.client.account.name}] getLeaderTarget: using tracked target ${target.id}`);
+        return target;
+      }
+      console.log(`[${this.client.account.name}] getLeaderTarget: tracked target ${this.leaderCombatTarget} not visible or dead`);
+    }
+
+    return null;
+  }
+
+  private trackLeaderCombatTarget(perception: Perception): void {
+    const leader = this.findPartyLeader(perception);
+    if (!leader) return;
+
+    const leaderId = this.getLeaderId(leader);
+    for (const event of perception.events) {
+      if (event.type === 'death' && event.target === this.leaderCombatTarget) {
+        console.log(`[${this.client.account.name}] leader combat target died, clearing`);
+        this.leaderCombatTarget = null;
+        continue;
+      }
+
+      let sourceId: number | undefined;
+      let targetId: number | undefined;
+
+      if (event.type === 'damage' || event.type === 'heal') {
+        const e = event as { source: number; target: number };
+        sourceId = e.source;
+        targetId = e.target;
+      } else if (event.type === 'abilityUsed') {
+        const e = event as { source: number; target?: number };
+        sourceId = e.source;
+        targetId = e.target;
+      } else if (event.type === 'targetChanged') {
+        const e = event as { entity: number; target?: number };
+        sourceId = e.entity;
+        targetId = e.target;
+      } else if (event.type === 'spellfx') {
+        // spellfx is not part of the base protocol union; treat it as a custom event.
+        const e = event as Record<string, unknown>;
+        sourceId = typeof e.sourceId === 'number' ? e.sourceId : undefined;
+        targetId = typeof e.targetId === 'number' ? e.targetId : undefined;
+      }
+
+      if (sourceId === leaderId && typeof targetId === 'number') {
+        console.log(`[${this.client.account.name}] tracked leader combat target: ${targetId} (event=${event.type})`);
+        this.leaderCombatTarget = targetId;
+      }
+    }
+  }
+
+  private getLeaderName(perception: Perception): string | null {
+    const leader = this.findPartyLeader(perception);
+    if (!leader) return null;
+    return leader.name ?? null;
+  }
+
+  /**
+   * Use server slash commands to follow and assist the party leader.
+   * /follow makes the server auto-walk after the leader (like a pet).
+   * /assist snaps our target to the leader's target.
+   * We track follow state locally because the bot wire does not expose followTargetId.
+   */
+  private updateFollowAndAssist(perception: Perception): void {
+    if (!perception.self) return;
+    const self = perception.self;
+
+    // Combat breaks /follow on the server; clear our local tracking.
+    if (self.inCombat && this.followTargetId !== null) {
+      console.log(`[${this.client.account.name}] follow broken by combat`);
+      this.followTargetId = null;
+    }
+
+    const leader = this.findPartyLeader(perception);
+    if (!leader) {
+      this.followTargetId = null;
+      return;
+    }
+
+    const leaderId = this.getLeaderId(leader);
+    const leaderName = this.getLeaderName(perception);
+    if (!leaderName) return;
+
+    // Assist the leader's target whenever we can observe one.
+    const leaderTarget = this.getLeaderTarget(perception);
+    if (leaderTarget && !leaderTarget.isDead) {
+      const now = Date.now();
+      if (now - this.lastAssistAttempt > 3000) {
+        this.lastAssistAttempt = now;
+        // Only send /assist when our target differs from the leader's target.
+        if (self.targetId !== leaderTarget.id) {
+          console.log(`[${this.client.account.name}] /assist ${leaderName} -> target ${leaderTarget.id}`);
+          this.client.sendChat(`/assist ${leaderName}`);
+        }
+      }
+    }
+
+    // Out of combat: ask the server to follow the leader.
+    if (!self.inCombat) {
+      const distance = this.distanceToLeader(self, leader);
+      const now = Date.now();
+
+      // /follow only works up to 60 yards; beyond 55 yards close the gap manually.
+      if (distance > 55) {
+        this.followTargetId = null;
+        this.moveTowardsLeader(self, leader);
+        return;
+      }
+
+      if (distance > 10 && now - this.lastFollowAttempt > 5000) {
+        this.lastFollowAttempt = now;
+        this.followTargetId = leaderId;
+        console.log(`[${this.client.account.name}] /follow ${leaderName} (dist=${distance.toFixed(1)})`);
+        this.client.sendChat(`/follow ${leaderName}`);
+      }
+    }
+  }
+
+  private moveTowardsLeader(self: SelfInfo, leader: PartyMemberInfo | Entity): void {
+    const targetX = 'position' in leader ? leader.position.x : leader.x;
+    const targetZ = 'position' in leader ? leader.position.z : leader.z;
+    const dx = targetX - self.position.x;
+    const dz = targetZ - self.position.z;
+    const distance = Math.sqrt(dx * dx + dz * dz);
+    if (distance > 1) {
+      const facing = Math.atan2(dx, dz);
+      this.client.setFacing(facing);
+      this.client.setMoveInput({ f: 1 });
+    } else {
+      this.client.stopMoving();
+    }
+  }
+
+  private isPetClass(self: SelfInfo): boolean {
+    const cls = self.class.toLowerCase();
+    return cls === 'hunter' || cls === 'warlock';
   }
 
   private distanceToLeader(self: SelfInfo, leader: PartyMemberInfo | Entity): number {
@@ -591,26 +752,6 @@ export class Brain {
     const dx = leader.x - self.position.x;
     const dz = leader.z - self.position.z;
     return Math.sqrt(dx * dx + dz * dz);
-  }
-
-  private moveTowardsLeader(ctx: BotContext, leader: PartyMemberInfo | Entity): void {
-    const self = ctx.perception.self;
-    if (!self) return;
-
-    const targetX = 'position' in leader ? leader.position.x : leader.x;
-    const targetZ = 'position' in leader ? leader.position.z : leader.z;
-
-    const dx = targetX - self.position.x;
-    const dz = targetZ - self.position.z;
-    const distance = Math.sqrt(dx * dx + dz * dz);
-
-    if (distance > 1) {
-      const facing = Math.atan2(dx, dz);
-      this.client.setFacing(facing);
-      this.client.setMoveInput({ f: 1 });
-    } else {
-      this.client.stopMoving();
-    }
   }
 
   private findBuffNeed(perception: Perception): { member: PartyMemberInfo; buff: string; selfOnly: boolean } | null {
@@ -670,6 +811,12 @@ export class Brain {
   private trySummonPet(self: SelfInfo): boolean {
     const rotation = getRotation(self.class, self.spec);
     const summonActions = rotation.summonPet ?? [];
+
+    if (summonActions.length === 0) {
+      return false;
+    }
+
+    console.log(`[${this.client.account.name}] trySummonPet: class=${self.class}/${self.spec} actions=[${summonActions.join(',')}]`);
 
     for (const action of summonActions) {
       // Hunter pet revival is a server command, not an ability

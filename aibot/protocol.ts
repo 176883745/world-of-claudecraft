@@ -56,7 +56,7 @@ export interface SnapshotMessage {
 
 export interface EventsMessage {
   t: 'events';
-  events: SimEventWire[];
+  list: SimEventWire[];
 }
 
 export interface SocialMessage {
@@ -240,29 +240,29 @@ export interface ArenaInfoWire {
 // ---------------------------------------------------------------------------
 
 export type SimEventWire =
-  | { kind: 'damage'; source: number; target: number; amount: number; ability?: string }
-  | { kind: 'heal'; source: number; target: number; amount: number; ability?: string }
-  | { kind: 'death'; target: number; killer?: number }
-  | { kind: 'loot'; item: string; count: number; quality?: number }
-  | { kind: 'xp'; amount: number; source?: string }
-  | { kind: 'levelUp'; level: number }
-  | { kind: 'chat'; sender: number; senderName: string; channel: string; message: string }
-  | { kind: 'emote'; entity: number; emote: string }
-  | { kind: 'abilityUsed'; source: number; ability: string; target?: number }
-  | { kind: 'auraApplied'; target: number; aura: string; stacks?: number }
-  | { kind: 'auraRemoved'; target: number; aura: string }
-  | { kind: 'questProgress'; quest: string; stage: string }
-  | { kind: 'questComplete'; quest: string }
-  | { kind: 'targetChanged'; entity: number; target?: number }
-  | { kind: 'partyInvite'; inviter: number; inviterName: string }
-  | { kind: 'tradeRequest'; requester: number; requesterName: string }
-  | { kind: 'duelRequest'; requester: number; requesterName: string }
-  | { kind: 'resourceChanged'; entity: number; resource: string; current: number; max: number }
-  | { kind: 'combatStart' }
-  | { kind: 'combatEnd' }
-  | { kind: 'spawn'; entity: number }
-  | { kind: 'despawn'; entity: number }
-  | { kind: string; [key: string]: unknown }; // Allow custom events
+  | { type: 'damage'; source: number; target: number; amount: number; ability?: string }
+  | { type: 'heal'; source: number; target: number; amount: number; ability?: string }
+  | { type: 'death'; target: number; killer?: number }
+  | { type: 'loot'; item: string; count: number; quality?: number }
+  | { type: 'xp'; amount: number; source?: string }
+  | { type: 'levelUp'; level: number }
+  | { type: 'chat'; fromPid: number; from: string; channel: string; message: string }
+  | { type: 'emote'; entity: number; emote: string }
+  | { type: 'abilityUsed'; source: number; ability: string; target?: number }
+  | { type: 'auraApplied'; target: number; aura: string; stacks?: number }
+  | { type: 'auraRemoved'; target: number; aura: string }
+  | { type: 'questProgress'; quest: string; stage: string }
+  | { type: 'questComplete'; quest: string }
+  | { type: 'targetChanged'; entity: number; target?: number }
+  | { type: 'partyInvite'; fromPid: number; fromName: string }
+  | { type: 'tradeRequest'; fromPid: number; fromName: string }
+  | { type: 'duelRequest'; fromPid: number; fromName: string }
+  | { type: 'resourceChanged'; entity: number; resource: string; current: number; max: number }
+  | { type: 'combatStart' }
+  | { type: 'combatEnd' }
+  | { type: 'spawn'; entity: number }
+  | { type: 'despawn'; entity: number }
+  | { type: string; [key: string]: unknown }; // Allow custom events
 
 // ---------------------------------------------------------------------------
 // Social
