@@ -3,14 +3,30 @@
 
 FROM node:22-alpine AS build
 WORKDIR /app
-COPY package.json package-lock.json ./
-# 安装系统级 ffmpeg
-RUN apk add --no-cache ffmpeg
+
+# 安装必要的工具（wget, tar, xz 用于下载和解压 ffmpeg）
+RUN apk add --no-cache wget tar xz
+
+# 手动下载并安装 ffmpeg
+RUN wget -O /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz && \
+    tar -xvJf /tmp/ffmpeg.tar.xz -C /tmp && \
+    cp /tmp/ffmpeg-*-static/ffmpeg /usr/local/bin/ && \
+    cp /tmp/ffmpeg-*-static/ffprobe /usr/local/bin/ && \
+    chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
+    rm -rf /tmp/ffmpeg*
+
+# 验证 ffmpeg 安装
+RUN ffmpeg -version
+
 # 设置 npm 镜像源为淘宝镜像
 RUN npm config set registry https://registry.npmmirror.com && \
     npm config set fetch-timeout 120000 && \
     npm config set fetch-retry-mintimeout 20000 && \
     npm config set fetch-retry-maxtimeout 120000
+# 跳过 ffmpeg-static 的下载（因为系统已安装）
+ENV FFMPEG_BINARIES_SKIP_DOWNLOAD=1
+
+COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY .browserslistrc tsconfig.json vite.config.ts svelte.config.js index.html admin.html play.html guide.html editor.html wallet-handoff.html ./
 COPY src ./src
@@ -38,8 +54,16 @@ RUN VITE_TURNSTILE_SITEKEY="$VITE_TURNSTILE_SITEKEY" \
 FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production
-# 运行阶段也需要 ffmpeg
-RUN apk add --no-cache ffmpeg
+
+# 在运行阶段也安装 ffmpeg
+RUN apk add --no-cache wget tar xz && \
+    wget -O /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz && \
+    tar -xvJf /tmp/ffmpeg.tar.xz -C /tmp && \
+    cp /tmp/ffmpeg-*-static/ffmpeg /usr/local/bin/ && \
+    cp /tmp/ffmpeg-*-static/ffprobe /usr/local/bin/ && \
+    chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
+    rm -rf /tmp/ffmpeg*
+    
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/media-build ./media-build
 COPY --from=build /app/dist-server ./dist-server
