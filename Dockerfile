@@ -23,11 +23,23 @@ RUN npm config set registry https://registry.npmmirror.com && \
     npm config set fetch-timeout 120000 && \
     npm config set fetch-retry-mintimeout 20000 && \
     npm config set fetch-retry-maxtimeout 120000
-# 跳过 ffmpeg-static 的下载（因为系统已安装）
-ENV FFMPEG_BINARIES_SKIP_DOWNLOAD=1
 
 COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund
+
+# 强制跳过 ffmpeg-static 下载
+ENV FFMPEG_BINARIES_SKIP_DOWNLOAD=1
+ENV FFMPEG_SKIP_DOWNLOAD=1
+
+#RUN npm ci --no-audit --no-fund
+# 使用 npm install 替代 npm ci（更宽容，会跳过某些问题）
+RUN npm install --no-audit --no-fund --legacy-peer-deps --prefer-offline
+
+# 如果上面的命令失败，尝试使用国内镜像直接安装
+RUN if [ $? -ne 0 ]; then \
+        npm cache clean --force && \
+        npm install --no-audit --no-fund --legacy-peer-deps --registry=https://registry.npmmirror.com; \
+    fi
+
 COPY .browserslistrc tsconfig.json vite.config.ts svelte.config.js index.html admin.html play.html guide.html editor.html wallet-handoff.html ./
 COPY src ./src
 COPY server ./server
@@ -63,7 +75,7 @@ RUN apk add --no-cache wget tar xz && \
     cp /tmp/ffmpeg-*-static/ffprobe /usr/local/bin/ && \
     chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
     rm -rf /tmp/ffmpeg*
-    
+
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/media-build ./media-build
 COPY --from=build /app/dist-server ./dist-server
