@@ -61,7 +61,7 @@ ARG VITE_WALLET_DISABLED=""
 RUN VITE_TURNSTILE_SITEKEY="$VITE_TURNSTILE_SITEKEY" \
     VITE_REOWN_PROJECT_ID="$VITE_REOWN_PROJECT_ID" \
     VITE_WALLET_DISABLED="$VITE_WALLET_DISABLED" \
-    npm run build && cp -a dist/media ./media-build && rm -rf dist/media && npm run build:server && npm run build:bot
+    NODE_OPTIONS="--max-old-space-size=2048" npm run build && cp -a dist/media ./media-build && rm -rf dist/media && NODE_OPTIONS="--max-old-space-size=2048" npm run build:server && NODE_OPTIONS="--max-old-space-size=2048" npm run build:bot
 
 FROM node:22-alpine
 WORKDIR /app
