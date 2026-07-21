@@ -4,6 +4,8 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
+# 安装系统级 ffmpeg
+RUN apk add --no-cache ffmpeg
 # 设置 npm 镜像源为淘宝镜像
 RUN npm config set registry https://registry.npmmirror.com && \
     npm config set fetch-timeout 120000 && \
@@ -36,6 +38,8 @@ RUN VITE_TURNSTILE_SITEKEY="$VITE_TURNSTILE_SITEKEY" \
 FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production
+# 运行阶段也需要 ffmpeg
+RUN apk add --no-cache ffmpeg
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/media-build ./media-build
 COPY --from=build /app/dist-server ./dist-server
