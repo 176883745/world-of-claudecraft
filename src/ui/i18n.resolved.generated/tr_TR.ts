@@ -317,7 +317,11 @@ export const tr_TR: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "Cesedinin Başında Diril",
       "resurrectAtHealer": "Solgun Bekçi (Bekçinin Bedeli)",
-      "spiritHealerAlive": "Solgun Bekçi ölüleri gözetir. Sen hâlâ yaşayanlar arasındasın."
+      "spiritHealerAlive": "Solgun Bekçi ölüleri gözetir. Sen hâlâ yaşayanlar arasındasın.",
+      "healerConfirmTitle": "Bekçinin Bedelini kabul ediyor musunuz?",
+      "healerConfirmBody": "Solgun Bekçi sizi burada canlandıracak, ancak Bekçinin Bedeli, daha yüksek seviyelerde 10 dakikaya kadar tüm niteliklerinizi %75 azaltır. Ruhunuzu cesedinize geri götürmek sizi hiçbir ceza almadan canlandırır.",
+      "healerConfirmAccept": "Beni Canlandır",
+      "healerConfirmCancel": "İptal etmek"
     },
     "fct": {
       "absorbed": "{amount} soğuruldu",
@@ -750,6 +754,7 @@ export const tr_TR: EnTranslations = {
       "leaderboard": "Sıralama",
       "dailyRewards": "Mağaza",
       "deeds": "Yiğitlikler",
+      "professions": "Meslekler",
       "nameplates": "İsimler",
       "haptics": "Dokunsal Geri Bildirim",
       "hapticsOff": "Dokunsal Kapalı",
@@ -1039,6 +1044,7 @@ export const tr_TR: EnTranslations = {
       "itemLevelLine": "Eşya Seviyesi {level}",
       "itemScoreLine": "Puan {score}",
       "showSecondaryActionBar": "İkincil Eylem Çubuğunu Göster",
+      "showThirdActionBar": "Üçüncü Eylem Çubuğunu Göster",
       "showTargetOfTarget": "Hedefin Hedefini Göster",
       "showAttackButton": "Saldırı Düğmesini Göster",
       "showDailyRewardsChest": "Günlük Ödül Sandığını Göster",
@@ -1468,7 +1474,8 @@ export const tr_TR: EnTranslations = {
       "watchTwitch": "Twitch'te izle",
       "watchX": "X'te görüntüle",
       "watchKick": "Kick'te izle",
-      "watchYouTube": "YouTube'da izle"
+      "watchYouTube": "YouTube'da izle",
+      "streamerBadgeTitle": "Doğrulanmış yayıncı"
     },
     "lootSettings": {
       "title": "Ganimet Ayarları",
@@ -2082,7 +2089,9 @@ export const tr_TR: EnTranslations = {
       "mining": "Madencilik",
       "logging": "Ağaç kesme",
       "herbalism": "Bitkicilik",
-      "notReady": "Bu kaynak noktası senin için henüz yeniden oluşmadı."
+      "notReady": "Bu kaynak noktası senin için henüz yeniden oluşmadı.",
+      "gatherLine": "Topladığınız şey: {name}.",
+      "gatherLineQty": "Şunu toplarsınız: {name} x{qty}."
     },
     "archetypeTitle": {
       "label": "Unvan",
@@ -2113,6 +2122,42 @@ export const tr_TR: EnTranslations = {
       "tailoring": "Terzilik",
       "leatherworking": "Deri İşleme"
     },
+    "professions": {
+      "title": "Meslekler",
+      "close": "Meslekleri kapat",
+      "ringAria": "Zanaat tekerleği",
+      "skillsHeader": "Zanaat becerileri",
+      "gatheringHeader": "Toplama",
+      "perksHeader": "Avantajlar",
+      "identityHeader": "Kimlik",
+      "roleMajor": "Ana",
+      "roleHobby": "Hobi",
+      "roleDormant": "uykuda",
+      "roleUnattuned": "Uyumsuz",
+      "ceilingUnlimited": "Yetki sınırı yok",
+      "ceilingRare": "Nadir kapak",
+      "ceilingCommon": "Ortak sınır",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "Seviye {tier}",
+      "nextUnlockTier": "{points} bir sonraki aşamaya işaret ediyor: şaheser olma ihtimali artıyor",
+      "nextUnlockSpecialized": "{points} Uzmanlaşmış'a işaret ediyor: malzeme maliyetlerinde düşüş",
+      "nextUnlockMax": "Maksimum beceride",
+      "perkSpecializedLine": "{craft}: Uzmanlaşmış, malzeme maliyetleri -{pct}%",
+      "perkSpecializedAt": "{threshold} becerisinde uzmanlaşmıştır",
+      "switchCost": "Bir sonraki arketip değişikliği {cost} kefaret puanına mal olur",
+      "syncing": "Diyardan meslek bilgilerinizi bekliyorum.",
+      "tutorialLine": "İlk seviyenizin kilidini açmak için herhangi bir zanaatta {target} becerisine ulaşın.",
+      "ctaHeader": "Sonraki adım",
+      "ctaRaise": "{craft}'yi yükseltmeye devam edin: {points} bir sonraki aşamaya daha fazla puan kazandırır.",
+      "ctaStart": "Başlamak için herhangi bir meslekle zanaat yapın veya toplayın.",
+      "unattunedIdentity": "Henüz bir arketipe uyum sağlamadınız. El sanatlarınızı yükseltin ve çiftinizi seçmek için bir uyumlamayı tamamlayın.",
+      "nudgeNearTier": "{craft}: {points} sonraki seviyeden puanlar",
+      "nudgeDormant": "{craft} bilginiz uykuda",
+      "hobbyLabel": "Hobi: {craft}",
+      "majorsLabel": "Ana dallar: {a} ve {b}",
+      "pairsHeld": "Düzenlenen çiftler: {count}",
+      "returnsLabel": "İade: {count}"
+    },
     "crafting": {
       "title": "işçiliği",
       "close": "İşçiliği kapat",
@@ -2131,6 +2176,7 @@ export const tr_TR: EnTranslations = {
       "comboNotAttuned": "Önce bir arketip çifti seç.",
       "comboWrongPair": "Onu yapmak için bu tam çifti etkinleştir.",
       "comboTierUnmet": "Her iki ana zanaatı da gerekli kademeye yükselt.",
+      "comboTierUnmetNamed": "{crafts}'yi {tier} kademesine yükseltin.",
       "professionChoice": "Meslek seçimi",
       "noProfessionChoice": "Şu anda geçerli bir meslek seçimi mevcut değil.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const tr_TR: EnTranslations = {
         "nearTier": "{craft}, bir sonraki kademeye {points} beceri uzaklıkta.",
         "dormantKnowledge": "{craft} bilgisi korunuyor ancak çifti veya hobisi etkin olana kadar eylemsiz kalacak."
       },
-      "notAtHub": "Bunu üretmek için zanaat merkezinde ve gereken kademede olmalısın.",
+      "stationRequired": "Bunu yapmak için {station}'de olmanız gerekir.",
+      "stationName": {
+        "forge": "Demirhane",
+        "kitchens": "Mutfaklar",
+        "apothecary": "Eczacı",
+        "tannery": "Tabakhane",
+        "loom": "Tezgah",
+        "toolworks": "Alet Atölyesi"
+      },
       "throttled": "Çok hızlı üretiyorsun. Bir an bekle ve tekrar dene.",
-      "recipeNotLearned": "Bu tarifi henüz öğrenmedin."
+      "recipeNotLearned": "Bu tarifi henüz öğrenmedin.",
+      "skillReqLine": "{craft} {skill} gerektirir",
+      "difficultyFull": "Tam beceri kazanımı",
+      "difficultyReduced": "Azaltılmış beceri kazanımı",
+      "difficultyNone": "Beceri kazanımı yok",
+      "stationBadge": "Üretim Tezgâhı",
+      "stationOutOfRangeNamed": "Bunu yapmak için {station}'ye gidin.",
+      "masterworkToast": "Şaheser! {name}",
+      "masterworkZoneLine": "{crafter} bir şaheser {name} yarattı!",
+      "tierUpToast": "{craft}, {tier} seviyesine yükseldi!",
+      "makersMark": "{name} tarafından hazırlanmıştır",
+      "masterworkSeal": "Şaheser",
+      "enchantedLine": "Büyülü"
+    },
+    "training": {
+      "title": "Eğitim: {name}",
+      "close": "Eğitimi kapat",
+      "empty": "Bu ustanın öğretecek hiçbir şeyi yok.",
+      "free": "Özgür",
+      "stateKnown": "Bilinen",
+      "stateTeachable": "Mevcut",
+      "stateLocked": "Kilitli",
+      "requirement": "{craft} {skill}'da okudu",
+      "trainAria": "{fee} için {name}'yi öğrenin",
+      "dialogOption": "Eğitim",
+      "dialogOptionAria": "{name}'deki eğitime göz atın",
+      "learned": "Öğrenilen tarif: {recipe}",
+      "tierUnmet": "Bu tarifi öğrenmek için {craft} {skill}'ye ihtiyacınız var.",
+      "cannotAfford": "Bu eğitime paranız yetmiyor.",
+      "notTaughtHere": "O tarif burada öğretilmiyor.",
+      "alreadyKnown": "Bu tarifi zaten biliyorsunuz.",
+      "outOfRange": "Antrenman yapmak için istasyonda olmanız gerekmektedir."
     },
     "finder": {
       "title": "Zindan Bulucu",
@@ -2331,6 +2416,11 @@ export const tr_TR: EnTranslations = {
       "broadcastsLabel": "Kazanılan yiğitlikleri lonca ve arkadaşlarınla paylaş",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder} bozulmamış bir damara çarptı!",
+    "ancientHeartwood": "{finder} eski bir öz odunu kesti!",
+    "moonlitBloom": "{finder} ay ışığının aydınlattığı bir çiçek keşfetti!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const tr_TR: EnTranslations = {
       "ice_lance": "Don tetiklemeleri harcamaya yarayan anlık bir kıymık; donmuş hedefe çok daha sert vurur.",
       "flurry": "Hedefi soğutan ve bir sonraki don vuruşlarının donmuşmuş gibi isabet etmesini sağlayan üç hızlı ok.",
       "fingers_of_frost": "Buz okların zaman zaman bir Ice Lance'e hedef donmuş gibi vurma gücü verir.",
-      "brain_freeze": "Buz okların zaman zaman bir sonraki Winterlash'i anlık ve daha sert yapar.",
+      "brain_freeze": "Donma oklarınız bazen bir sonraki Flurry'yi anında yapar ve bekleme süresini atlar.",
       "shatter": "Büyülerin donmuş hedeflere karşı çok daha sık kritik vurur.",
-      "frozen_orb": "Grubun içinden yavaş bir küre geçirerek her şeyi soğutur ve don tetiklemelerini besler.",
+      "frozen_orb": "Düşmanları soğutan ve buz sarkıtlarını savuşturan, sürünün içinde yavaş bir küre yuvarlar.",
       "blizzard": "Tüm bir grubu yıpratmak ve yavaşlatmak için alanı buzla kaplar.",
       "blink": "Sizi kısa bir mesafe ileriye ışınlayarak kökleri koparır.",
       "conjure_water": "Mana yenileyen içecekler çağırır, böylece akınlar arasında dolum yapabilirsin.",
@@ -4529,7 +4619,11 @@ export const tr_TR: EnTranslations = {
   },
   "heroicShop": {
     "balance": "Kahramanca Nişanlar: {count}",
-    "buyAria": "{item} ürününü {marks} Kahramanca Nişan karşılığında satın al"
+    "buyAria": "{item} ürününü {marks} Kahramanca Nişan karşılığında satın al",
+    "buyConfirmTitle": "Satın Alma İşlemini Onayla",
+    "buyConfirmBody": "{marks} Heroic Marks için {item} satın mı alacaksınız? Mark satın alımları iade edilemez.",
+    "buyConfirmAccept": "Satın almak",
+    "buyConfirmCancel": "İptal etmek"
   },
   "cardDuel": {
     "title": "Kart Düellosu",
@@ -4582,7 +4676,11 @@ export const tr_TR: EnTranslations = {
       "buyAria": "{item} ürününü {marks} Mağara Nişanı karşılığında satın al",
       "reqHeroic": "Bir Kahramanca temizleme gerektirir",
       "reqClears": "{count} temizleme gerektirir",
-      "empty": "Stokta bir şey yok."
+      "empty": "Stokta bir şey yok.",
+      "buyConfirmTitle": "Satın Alma İşlemini Onayla",
+      "buyConfirmBody": "{item}, {marks} Mağara Nişanı karşılığında satın alınsın mı? Nişan satın alımları iade edilemez.",
+      "buyConfirmAccept": "Satın almak",
+      "buyConfirmCancel": "İptal etmek"
     },
     "tracker": {
       "title": "Mağara",
@@ -4971,6 +5069,11 @@ export const tr_TR: EnTranslations = {
     "discordCommunity": "World of ClaudeCraft Discord topluluğuna katıl",
     "donateProject": "World of ClaudeCraft'a destek olmak için bağış yap"
   },
+  "entryGuard": {
+    "title": "Grafikler düşürüldü",
+    "body": "Dünyaya girerken oyun beklenmedik şekilde kapandı, bu yüzden grafikler artık {preset} olarak ayarlandı. Bunu aşağıdaki grafik seçicisinden veya oyun içi seçeneklerden değiştirebilirsiniz.",
+    "dismiss": "Kapat"
+  },
   "loading": {
     "world": "Dünya yükleniyor...",
     "worldProgress": "Dünya yükleniyor... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const tr_TR: EnTranslations = {
     "rendererFailed": "Görüntüleyici başlatılamadı: yeniden yüklemeyi deneyin. {error}",
     "enterTimeout": "Dünyaya girilemedi. Bağlantı zaman aşımına uğradı. Oyun sunucusu çalışıyor mu?",
     "connectionLost": "Sunucuyla bağlantı koptu.",
-    "reconnecting": "Bağlantı kesildi. Yeniden bağlanılıyor...",
+    "reconnectingAttempt": "Bağlantı kesildi. Yeniden bağlanılıyor... (deneme {attempt}/{maxAttempts}, {seconds} sn. içinde yeniden denenecek)",
+    "reconnectingNow": "Bağlantı kesildi. Şimdi yeniden bağlanılıyor... ({attempt}/{maxAttempts}'yi deneyin)",
+    "slowConnection": "Bu normalden daha uzun sürüyor. İnternet bağlantınızı kontrol edin.",
     "connectionRejected": "Sunucu bağlantıyı kapattı.",
     "realmFull": "Bu dünya şu an dolu. Lütfen birkaç dakika sonra tekrar dene.",
     "tooManyConnections": "Ağından bu dünyaya çok fazla bağlantı geliyor. Lütfen fazladan oyun pencerelerini kapat ya da birkaç dakika sonra tekrar dene.",
@@ -6083,6 +6188,7 @@ export const tr_TR: EnTranslations = {
       "rarityUncommon": "Az Bulunur",
       "rarityRare": "Nadir",
       "rarityEpic": "Destansı",
+      "rarityLegendary": "Efsanevi",
       "merchantStock": "Tüccar stoğu",
       "stackCount": "x{count}",
       "each": "tanesi {money}",
@@ -6283,7 +6389,7 @@ export const tr_TR: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "Alevli Bariyer",
-        "description": "Kendini alevlerle sararak 60 sn. boyunca 130 hasarı soğurursun. (Ateş)"
+        "description": "Kendini alevlerle sararak 60 sn. boyunca {damage} hasarı soğurursun. (Ateş)"
       },
       "cold_snap": {
         "name": "Kışın Çağrısı",
@@ -6335,11 +6441,11 @@ export const tr_TR: EnTranslations = {
       },
       "flurry": {
         "name": "Winterlash",
-        "description": "Her biri {damage} Don hasarı veren üç buz oku fırlat ve hedefe Kışın Üşümesi'ni uygula: bir sonraki 2 uyumlu büyü onu donmuş gibi değerlendirir. Brain Freeze, Winterlash'i anlık, %30 daha sert yapar ve bekleme süresini atlatır. (Don)"
+        "description": "Her biri {damage} Frost hasarı veren üç buz mermisi fırlatın ve hedefe Winter's Chill'i uygulayın: sonraki 2 uyumlu büyü hedefi donmuş sayar. Brain Freeze, Winterlash'yi anında yapar ve bekleme süresini atlar. (Don)"
       },
       "frozen_orb": {
         "name": "Frozen Orb",
-        "description": "Yakındaki düşmanlara her saniye {damage} Don hasarı vererek ve onları %30 yavaşlatarak 8 saniye ileri süzülen dönen bir buz küre bırak. Vuruşları Donmuş Parmaklar üretir. (Don)"
+        "description": "8 saniye boyunca ileri doğru sürüklenen, dönen bir buz küresi salarak yakındaki düşmanlara her saniye {damage} Frost hasarı verir ve onları %30 yavaşlatır. Her çarpan darbe bir Buz Saçağı üretir. (Don)"
       },
       "blizzard": {
         "name": "Blizzard",
@@ -6363,11 +6469,11 @@ export const tr_TR: EnTranslations = {
       },
       "brain_freeze": {
         "name": "Brain Freeze",
-        "description": "Ayaz Mızrağı'nın bir sonraki Winterlash'i anlık, %30 daha sert ve bekleme süresiz yapma ihtimali %20'dir. (Don)"
+        "description": "Ayaz Mızrağı'nin bir sonraki Winterlash'nizi anında ve bekleme süresinden kurtulması için %20 şansı vardır. (Don)"
       },
       "shatter": {
         "name": "Brittle Ruin",
-        "description": "Büyülerin donmuş hedeflere karşı %50 kritik vuruş şansı kazanır ve bu kritik vuruşlar %20 daha fazla hasar verir. Donmuş Parmaklar ve Kışın Üşümesi donmuş sayılır. (Don)"
+        "description": "Büyüleriniz donmuş hedeflere karşı %50 kritik vuruş şansı kazanır. Fingers of Frost ve Kış Soğuğu donmuş sayılır. (Don)"
       },
       "conjure_water": {
         "name": "Su Bağlama",
@@ -6391,7 +6497,7 @@ export const tr_TR: EnTranslations = {
       },
       "frost_nova": {
         "name": "Buz Bağı",
-        "description": "Yakındaki tüm düşmanları 8 saniyeye kadar yerinde dondurur ve {damage} Ayaz hasarı verir."
+        "description": "Yakındaki tüm düşmanları 8 saniyeye kadar yerinde dondurur ve {damage} Ayaz hasarı verir. Köklenme etkisi, hedefin azami sağlığının %15’ine eşit toplam hasar aldıktan sonra kırılır; bu değer en az 20, en fazla 60 hasardır."
       },
       "arcane_explosion": {
         "name": "Aether Patlaması",
@@ -8138,6 +8244,222 @@ export const tr_TR: EnTranslations = {
       "emberglass_warstaff": {
         "name": "Korgözlü Savaş Asası"
       },
+      "copper_ore": {
+        "name": "Bakır Cevheri"
+      },
+      "iron_ore": {
+        "name": "Demir cevheri"
+      },
+      "ironbark_log": {
+        "name": "Demirkabuk Kütüğü"
+      },
+      "silverleaf_herb": {
+        "name": "Gümüşyaprak Otu"
+      },
+      "rough_hide": {
+        "name": "Kaba Post"
+      },
+      "spider_silk": {
+        "name": "Örümcek İpeği"
+      },
+      "venom_gland": {
+        "name": "Zehir Bezi"
+      },
+      "game_meat": {
+        "name": "Av Eti"
+      },
+      "homespun_cloth": {
+        "name": "Ev Dokumasız Kumaş"
+      },
+      "pristine_hide": {
+        "name": "Bozulmamış Post"
+      },
+      "pristine_silk": {
+        "name": "Bozulmamış İpek"
+      },
+      "pristine_venom_gland": {
+        "name": "Bozulmamış Zehir Bezi"
+      },
+      "prime_cut": {
+        "name": "Başbakan Kesim"
+      },
+      "smithing_flux": {
+        "name": "Demircilik Akısı"
+      },
+      "spool_of_thread": {
+        "name": "İplik Makarası"
+      },
+      "tanning_agent": {
+        "name": "Tabaklama Maddesi"
+      },
+      "cooking_salt": {
+        "name": "Pişirme Tuzu"
+      },
+      "glass_vial": {
+        "name": "Cam Flakon"
+      },
+      "copper_bearded_axe": {
+        "name": "Bakır Sakallı Balta"
+      },
+      "copper_flanged_mace": {
+        "name": "Bakır Flanşlı Topuz"
+      },
+      "ironbark_boar_spear": {
+        "name": "Demir Kabuğu Domuzu Mızrağı"
+      },
+      "ironedge_longsword": {
+        "name": "Demir Kenarlı Uzun Kılıç"
+      },
+      "ironshod_maul": {
+        "name": "Demir Kaplı Savaş Çekici"
+      },
+      "whetted_iron_dirk": {
+        "name": "Bilenmiş Demir Hançer"
+      },
+      "thorium_warblade": {
+        "name": "Toryum Savaş Kılıcı"
+      },
+      "arcanite_war_axe": {
+        "name": "Arcanite Savaş Baltası"
+      },
+      "elderwood_battle_staff": {
+        "name": "Elderwood Savaş Asası"
+      },
+      "riveted_copper_girdle": {
+        "name": "Perçinli Bakır Kuşak"
+      },
+      "coppermail_sabatons": {
+        "name": "Bakır Zırh Sabatonları"
+      },
+      "coppermail_gauntlets": {
+        "name": "Bakır Zırh Eldivenleri"
+      },
+      "ironlink_hauberk": {
+        "name": "Demir Bağlantı Hauberk"
+      },
+      "ironlink_legguards": {
+        "name": "Ironlink Bacak Korumaları"
+      },
+      "ironlink_spaulders": {
+        "name": "Demir Bağlantı Spaulders"
+      },
+      "thoriumscale_greathelm": {
+        "name": "Toryumpulu Büyük Miğfer"
+      },
+      "thoriumscale_cuirass": {
+        "name": "Toryum ölçekli Zırh"
+      },
+      "thoriumscale_leggings": {
+        "name": "Toryum Ölçekli Tayt"
+      },
+      "homespun_hood": {
+        "name": "Ev Yapımı Başlık"
+      },
+      "homespun_mitts": {
+        "name": "Evde dokunmuş eldivenler"
+      },
+      "silverthread_slippers": {
+        "name": "Gümüş İplik Terlik"
+      },
+      "goldweave_robe": {
+        "name": "Altın Dokuma Elbise"
+      },
+      "goldweave_leggings": {
+        "name": "Goldweave Tayt"
+      },
+      "silkspun_satchel": {
+        "name": "İpek ipli çanta"
+      },
+      "silkbinders_raiment": {
+        "name": "Silkbinder'ın Elbisesi"
+      },
+      "sunweave_mantle": {
+        "name": "Güneş Dokuma Manto"
+      },
+      "sunweave_treads": {
+        "name": "Güneş Dokuma Basamakları"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "Fenbridge Deri Tozlukları"
+      },
+      "fenbridge_hide_boots": {
+        "name": "Fenbridge Deri Çizmeleri"
+      },
+      "fenbridge_hide_belt": {
+        "name": "Fenbridge Deri Kemeri"
+      },
+      "marshstalker_jerkin": {
+        "name": "Bataklık Avcısı Yeleği"
+      },
+      "marshstalker_hood": {
+        "name": "Bataklık Avcısı Başlığı"
+      },
+      "marshstalker_spaulders": {
+        "name": "Bataklık Avcısı Omuzlukları"
+      },
+      "mirewarden_jerkin": {
+        "name": "Bataklık Muhafızı Yeleği"
+      },
+      "mirewarden_leggings": {
+        "name": "Mirewarden Tayt"
+      },
+      "mirewarden_treads": {
+        "name": "Mirewarden Adımları"
+      },
+      "pan_seared_perch": {
+        "name": "Tavada Pişmiş Nehir Levreği"
+      },
+      "hunters_game_skewer": {
+        "name": "Avcı'nin Oyun Şişi"
+      },
+      "herbed_marsh_pike": {
+        "name": "Otlu Bataklık Pike"
+      },
+      "ashwood_smoked_eel": {
+        "name": "Ashwood Füme Yılan Balığı"
+      },
+      "goldleaf_game_stew": {
+        "name": "Goldleaf Oyun Yahnisi"
+      },
+      "frostgill_chowder": {
+        "name": "Donma Çorbası"
+      },
+      "silvered_carp_supper": {
+        "name": "Gümüş Sazan Yemeği"
+      },
+      "anglers_feast_platter": {
+        "name": "Balıkçının Ziyafet Tabağı"
+      },
+      "marlows_grand_roast": {
+        "name": "Marlow'un Büyük Kızartması"
+      },
+      "silverleaf_healing_draught": {
+        "name": "Gümüşyaprak Şifa İksiri"
+      },
+      "silverleaf_mana_draught": {
+        "name": "Gümüşyaprak Mana İksiri"
+      },
+      "elixir_of_the_boar": {
+        "name": "Domuz İksiri"
+      },
+      "goldleaf_healing_draught": {
+        "name": "Altınyaprak Şifa İksiri"
+      },
+      "goldleaf_mana_draught": {
+        "name": "Altınyaprak Mana İksiri"
+      },
+      "venomfire_elixir": {
+        "name": "Zehirateşi İksiri"
+      },
+      "sunpetal_healing_draught": {
+        "name": "Güneşyaprağı Şifa İksiri"
+      },
+      "sunpetal_mana_draught": {
+        "name": "Güneşyaprağı Mana İksiri"
+      },
+      "elixir_of_the_serpent": {
+        "name": "Yılan İksiri"
+      },
       "conjured_water4": {
         "name": "Sihirle Yaratılmış Kaynak Suyu"
       },
@@ -9395,6 +9717,36 @@ export const tr_TR: EnTranslations = {
         "title": "Zirveler Vakayinamesi",
         "greeting": "Dağ hiçbir şeyi unutmaz, {playerName}; ben de unutmam. Bakalım sen neler yapmışsın."
       },
+      "forgemistress_darva": {
+        "name": "Dövme Ustası Darva",
+        "title": "Demirci Ustası",
+        "greeting": "Demirhane bana cevap veriyor: {className}. İyi cevher getir, o da sana cevap verecektir."
+      },
+      "cook_marlow": {
+        "name": "Marlow'u pişir",
+        "title": "Mutfakların Efendisi",
+        "greeting": "Hiçbir şey mutfaklarımı yarı pişmiş bırakmıyor, {className}. Otur, yemek ye, sonra oraya geri dön."
+      },
+      "weaver_ottilie": {
+        "name": "Dokumacı Ottilie",
+        "title": "Tezgahın Efendisi",
+        "greeting": "Konulara dikkat edin, {className}. Tezgahtaki sağlam bir el, güçlü olanı yener."
+      },
+      "tinker_gizzel": {
+        "name": "Tamirci Gizzel",
+        "title": "Alet İşlerinin Ustası",
+        "greeting": "Yaylar, dişliler ve keskin kenarlar, {className}: Ellerinizde eksik olan her şey takım tezgahında mevcuttur."
+      },
+      "tanner_hesk": {
+        "name": "Sepici Hesk",
+        "title": "Tabakhane Ustası",
+        "greeting": "Bir deri yalnızca bronzlaşması kadar iyidir, {className}. Siz hazır olduğunuzda fıçılar hazırdır."
+      },
+      "alchemist_verane": {
+        "name": "Simyacı Verane",
+        "title": "Eczacı Ustası",
+        "greeting": "İki kez ölçün ve bir kez dökün, {className}. Eczacının dökülen reaktiflere karşı sabrı yoktur."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Gelgit Gözcüsü",
@@ -10464,6 +10816,56 @@ export const tr_TR: EnTranslations = {
         "sender": "Kahraman levazım subayı",
         "subject": "Kahramanlık Nişanların",
         "body": "Birliğin kahramanlık sınavını temizlerken sen arka saflarda savaşıyor ya da yerde yatıyordun. Kilidin yine de kaydedildi, bu yüzden Kahramanlık Nişanlarından payın kaybolmak yerine buraya gönderildi. Onları iyi kullan.\n\n- Kahraman levazım subayı"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "Üretim Loncası",
+        "subject": "Mühendislik ve Simya alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nMühendislik ve Simya'daki çalışmalarınızın Lonca'ya ulaştığı haberi: Yükler ölçülmüş ve reaktifler tartılmış, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Bu ikiliyi birbirine bağlayanlar zamanla Bombacı adını kazanırlar. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "Üretim Loncası",
+        "subject": "Simya ve Aşçılık alanındaki çalışmalarınız",
+        "body": "Zanaatkâr,\n\nSimya ve Aşçılık alanındaki çalışmalarınızın haberi Lonca'ya ulaşır: İksirler kaynatılır ve yemekler baharatlanır, iki zanaat birbirini besler. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Bu ikiliyi birbirine bağlayanlar zamanla Eczacı adını kazanırlar. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "Üretim Loncası",
+        "subject": "Aşçılık ve Deri İşleme alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nAşçılık ve Deri İşçiliği alanındaki çalışmalarınızın Lonca'ya ulaştığı haberi: Tabaklanmış yemekler ve kurutulmuş deriler, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "Üretim Loncası",
+        "subject": "Deri İşleme ve Terzilik alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nDeri işleme ve terzilik alanındaki çalışmalarınızın Lonca'ya ulaştığı haberi: deri kesimi ve kumaş kenar kesimi, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Bu ikiliyi birbirine bağlayanlar zamanla Donatımcı adını kazanırlar. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "Üretim Loncası",
+        "subject": "Terzilik ve Yazıt alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nTerzilik ve Yazıttaki çalışmalarınızın haberi Lonca'ya ulaşıyor: dikilmiş dikişler ve mürekkepli glifler, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "Üretim Loncası",
+        "subject": "Yazıtçılık ve Büyücülükteki çalışmanız",
+        "body": "Esnaf,\n\nYazıt ve Büyücülük'deki çalışmalarınızın haberi Lonca'ya ulaşır: harfli parşömenler ve tılsımlar dokunur, iki zanaat birbirini besler. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "Üretim Loncası",
+        "subject": "Büyüleme ve Mücevher İşçiliği alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nBüyücülük ve Mücevher İşçiliği alanındaki çalışmalarınızın Lonca'ya ulaştığı haberi: muskalar bağlandı ve taşlar cilalandı, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "Üretim Loncası",
+        "subject": "Mücevher İşçiliği ve Silah İşçiliği alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nMücevher İşçiliği ve Silah İşçiliği alanındaki çalışmalarınızın Lonca'ya ulaştığı haberi: mücevherler yerleştirilmiş ve kenarları taşlanmış, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "Üretim Loncası",
+        "subject": "Silah Üretimi ve Zırh Üretimi alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nSilah Üretimi ve Zırh Üretimi alanındaki çalışmalarınızın Lonca'ya ulaştığı haberi: bıçaklar sertleştirildi ve plakalar takıldı, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Bu ikiliyi birbirine bağlayanlar zamanla Demirci adını kazanırlar. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "Üretim Loncası",
+        "subject": "Zırh Üretimi ve Mühendislik alanındaki çalışmalarınız",
+        "body": "Esnaf,\n\nZırh Üretimi ve Mühendislik alanındaki çalışmalarınızın Lonca'ya ulaştığı haberi: plakalar perçinlendi ve dişliler doğrulandı, iki zanaat birbirini besliyor. Birlikte çalışan komşu el sanatları, uyumlanmaya hazır bir elin işaretidir. Eastbrook'un zırhçısı Demirci Haldren'i arayın: şimdilik ustalar adına konuşuyor. Kendi ellerinizle zanaatınızı ona kanıtlayın, o da iki dalınızın uyumlu olduğunu görecektir.\n\nSaygılarımızla,\nÜretim Loncası"
       }
     },
     "itemSets": {

@@ -33,8 +33,6 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.blizzard.description':
     'Triệu gọi bão tuyết xuống khu vực mục tiêu trong 6 giây, gây {damage} sát thương Băng mỗi giây và làm chậm kẻ thù 40%. Mỗi kẻ thù bị đánh trúng rút ngắn 0,5 giây của Frozen Orb, tối đa 3 giây mỗi lần thi triển. (Băng)',
   'entities.abilities.blizzard.name': 'Blizzard',
-  'entities.abilities.brain_freeze.description':
-    'Thương Băng Giá có 20% xác suất khiến Winterlash tiếp theo của bạn lập tức, mạnh hơn 30% và không có thời gian hồi chiêu. (Băng)',
   'entities.abilities.brain_freeze.name': 'Brain Freeze',
   'entities.abilities.dragons_breath.description':
     'Giữ để tích tụ làn hơi thở lửa ngày càng rộng, rồi thả ra thành hình nón. Tích tụ lâu hơn sẽ đạt xa hơn và gây nhiều sát thương hơn. Kẻ thù bị trúng sẽ mất định hướng và sát thương sẽ phá vỡ hiệu ứng; tích tụ tối đa luôn chí mạng và tính một lần vào Hot Streak. (Lửa)',
@@ -45,11 +43,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.fireball_form.description':
     'Biến thành than hồng rực cháy, tăng tốc độ di chuyển lên {buff}%. Bạn không thể tấn công hay thi triển phép trong khi biến đổi. Thi triển lại để trở về dạng bình thường.',
   'entities.abilities.fireball_form.name': 'Ember Form',
-  'entities.abilities.flurry.description':
-    'Phóng ba mũi tên băng gây {damage} sát thương Băng mỗi mũi và gắn Cơn Lạnh Mùa Đông lên mục tiêu: 2 phép thi triển hợp lệ tiếp theo sẽ coi mục tiêu như đang đóng băng. Brain Freeze khiến Winterlash lập tức, mạnh hơn 30% và bỏ qua thời gian hồi chiêu. (Băng)',
   'entities.abilities.flurry.name': 'Winterlash',
-  'entities.abilities.frozen_orb.description':
-    'Phóng ra một quả cầu xoáy băng giá trôi về phía trước trong 8 giây, gây {damage} sát thương Băng mỗi giây cho các kẻ thù lân cận và làm chậm chúng 30%. Các cú đánh của nó tạo ra Fingers of Frost. (Băng)',
   'entities.abilities.frozen_orb.name': 'Frozen Orb',
   'entities.abilities.glacial_front.description':
     'Giữ để tích tụ màn băng giá ngày càng rộng, rồi thả ra thành hình nón. Tích tụ lâu hơn sẽ đạt xa hơn và gây nhiều sát thương hơn. Tất cả kẻ thù bị trúng sẽ bị làm chậm 50% trong 4 giây; tích tụ tối đa còn cố định chúng trong 1 giây. (Băng)',
@@ -63,8 +57,6 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.abilities.perfect_moment.description':
     'Chớp lấy khoảnh khắc hoàn hảo của bạn: lập tức nhận 4 Điện Tích Bí Thuật và trong 10 giây Phi Tiêu Ê-te không tiêu hao chúng. (Thời Thuật)',
   'entities.abilities.perfect_moment.name': 'Perfect Moment',
-  'entities.abilities.shatter.description':
-    'Phép của bạn có thêm 50% xác suất chí mạng với mục tiêu đang đóng băng, và những cú chí mạng đó gây thêm 20% sát thương. Fingers of Frost và Cơn Lạnh Mùa Đông được tính là đóng băng. (Băng)',
   'entities.abilities.shatter.name': 'Brittle Ruin',
   'entities.abilities.temporal_acceleration.description':
     'Tăng tốc dòng chảy thời gian cho nhóm hoặc đột kích của bạn, tăng tốc độ tấn công, thi triển phép và kênh phép lên 30% trong 15 giây. Đồng minh vừa bị ảnh hưởng bởi Tăng Tốc Thời Gian hoặc Trống Chiến sẽ quá kiệt sức để nhận lợi ích. (Thời Thuật)',
@@ -122,16 +114,12 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'guide.abilityHook.blink':
     'Dịch chuyển bạn một đoạn ngắn về phía trước, phá vỡ các hiệu ứng cố định khi thoát ra.',
   'guide.abilityHook.blizzard': 'Phủ băng lên một khu vực để làm hao mòn và làm chậm cả bầy.',
-  'guide.abilityHook.brain_freeze':
-    'Đôi khi các mũi tên băng của bạn khiến Winterlash tiếp theo lập tức và mạnh hơn.',
   'guide.abilityHook.fingers_of_frost':
     'Đôi khi các mũi tên băng của bạn tăng cường Ice Lance để đánh như thể mục tiêu đang đóng băng.',
   'guide.abilityHook.fireball_form':
     'Trở thành tia lửa sống để vượt qua địa hình trống với tốc độ cao.',
   'guide.abilityHook.flurry':
     'Ba mũi tên nhanh làm lạnh mục tiêu để các cú đánh băng tiếp theo của bạn đánh như thể nó đang đóng băng.',
-  'guide.abilityHook.frozen_orb':
-    'Lăn một quả cầu chậm qua bầy, làm lạnh mọi thứ và tạo ra các hiệu ứng băng của bạn.',
   'guide.abilityHook.ice_lance':
     'Một mảnh lập tức để tiêu hao hiệu ứng băng, đánh mạnh hơn nhiều với mục tiêu đang đóng băng.',
   'guide.abilityHook.shatter':
@@ -426,6 +414,10 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
     'Chỉ số trúng đòn từ trang bị và các chỉ số bộ của bạn, giảm tần suất tấn công bị hụt và phép thuật bị kháng, đặc biệt khi đối mặt với kẻ địch cấp cao hơn. Khoảng 10 chỉ số cho 1% trúng đòn.',
   'hudChrome.statInfo.names.hitRating': 'Chỉ Số Trúng Đòn',
   'abilityUi.actionBar.attackRemoveHint': 'Nhấp chuột phải để gỡ khỏi thanh và giải phóng ô trống.',
+  'entryGuard.body':
+    'Trò chơi đã đóng đột ngột khi vào thế giới, nên đồ họa hiện được đặt ở mức {preset}. Bạn có thể thay đổi trong bộ chọn đồ họa bên dưới hoặc trong tùy chọn trong trò chơi.',
+  'entryGuard.dismiss': 'Đóng',
+  'entryGuard.title': 'Đã hạ đồ họa',
   'loading.realmFull': 'Thế giới này đang đầy người chơi. Vui lòng thử lại sau vài phút.',
   'loading.tooManyConnections':
     'Có quá nhiều kết nối đến thế giới này từ mạng của bạn. Vui lòng đóng bớt cửa sổ trò chơi hoặc thử lại sau vài phút.',
@@ -2352,7 +2344,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
     'Bao bọc bạn trong băng giá, tăng giáp thêm {buff} trong 30 phút.',
   'entities.abilities.frost_armor.name': 'Áo Choàng Sương Giá',
   'entities.abilities.frost_nova.description':
-    'Đóng băng tất cả kẻ địch xung quanh tại chỗ trong tối đa 8 giây, gây {damage} sát thương Băng.',
+    'Đóng băng tất cả kẻ địch xung quanh tại chỗ trong tối đa 8 giây, gây {damage} sát thương Băng. Hiệu ứng trói chân bị phá vỡ sau khi nhận tổng sát thương bằng 15% máu tối đa của mục tiêu, tối thiểu 20 và tối đa 60 sát thương.',
   'entities.abilities.frost_nova.name': 'Trói Băng',
   'entities.abilities.frost_shock.description':
     'Lập tức giáng băng giá vào mục tiêu gây {damage} sát thương Băng và làm chậm di chuyển của nó 50% trong 8 giây.',
@@ -7074,7 +7066,6 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'download.linuxCta': 'Tải xuống cho Linux',
   'download.windowsCta': 'Tải xuống cho Windows',
   'download.linuxHint': 'AppImage: làm cho nó có thể thực thi được rồi chạy nó. Không cần cài đặt.',
-  'loading.reconnecting': 'Mất kết nối. Đang kết nối lại...',
   'guide.nav.settings': 'Cài đặt & Hiệu suất',
   'guide.settingsPage.advancedBody':
     'Nâng cao bắt đầu từ cấp High và mở khóa bốn bộ chọn bổ sung, do đó bạn có thể sử dụng khung hình của mình ở nơi bạn thực sự chú ý đến chúng: Chi tiết địa hình, Mật độ tán lá, Hiệu ứng & Ánh sáng và Chất lượng bóng. Giống như Chất lượng đồ họa, chúng được áp dụng sau khi tải lại.',
@@ -7261,8 +7252,6 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.increasePct.armor': 'Tăng giáp thêm {pct}%',
   'hudChrome.auraEffect.increasePct.int': 'Tăng Trí Tuệ thêm {pct}%',
   'hudChrome.auraEffect.increasePct.sta': 'Tăng Thể Lực thêm {pct}%',
-  'hudChrome.crafting.notAtHub':
-    'Bạn phải ở trung tâm chế tác, đạt cấp yêu cầu, mới chế tạo được thứ đó.',
   'hudChrome.crafting.recipeNotLearned': 'Bạn chưa học công thức đó.',
   'hudChrome.crafting.throttled': 'Bạn đang chế tạo quá nhanh. Hãy chờ một lát rồi thử lại.',
   'hudChrome.mobile.chatPlaceholder': 'Nói gì đó...',
@@ -8018,7 +8007,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'game.talents.rowUnlocks': 'Mở khóa ở cấp {level}',
   'entities.abilities.blazing_barrier.name': 'Lá Chắn Rực Lửa',
   'entities.abilities.blazing_barrier.description':
-    'Bao bọc bản thân trong lửa, hấp thụ 130 sát thương trong 60 giây. (Lửa)',
+    'Bao bọc bản thân trong lửa, hấp thụ {damage} sát thương trong 60 giây. (Lửa)',
   'entities.abilities.cold_snap.name': 'Tiếng Gọi Mùa Đông',
   'entities.abilities.cold_snap.description':
     'Hoàn tất thời gian hồi của Bước Chớp, Màn Sương Giá và Tàng Hình Cao Cấp. (tài năng pháp sư)',
@@ -8230,4 +8219,268 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.options.mouseoverCast': 'Thi Triển Khi Rê Chuột Trên Khung Tổ Đội',
   'hudChrome.options.showTargetOfTarget': 'Hiện Mục Tiêu Của Mục Tiêu',
   'hudChrome.unitFrame.targetOfTargetLabel': 'Mục Tiêu Của Mục Tiêu',
+  'itemUi.market.rarityLegendary': 'Huyền thoại',
+  'loading.reconnectingAttempt':
+    'Mất kết nối. Đang kết nối lại... (thử {attempt}/{maxAttempts}, thử lại trong {seconds})',
+  'loading.reconnectingNow':
+    'Mất kết nối. Đang kết nối lại ngay bây giờ... (thử {attempt}/{maxAttempts})',
+  'loading.slowConnection':
+    'Quá trình này mất nhiều thời gian hơn bình thường. Kiểm tra kết nối internet của bạn.',
+  'delveUi.shop.buyConfirmAccept': 'Mua',
+  'delveUi.shop.buyConfirmBody':
+    'Mua {item} với giá {marks} Huy Hiệu Hang Sâu? Giao dịch mua huy hiệu không thể hoàn lại.',
+  'delveUi.shop.buyConfirmCancel': 'Hủy bỏ',
+  'delveUi.shop.buyConfirmTitle': 'Xác nhận mua hàng',
+  'entities.abilities.brain_freeze.description':
+    'Thương Băng Giá có 20% cơ hội biến Winterlash tiếp theo của bạn ngay lập tức và không bị hồi chiêu. (Sương giá)',
+  'entities.abilities.flurry.description':
+    "Phóng ba luồng băng giá, mỗi luồng gây {damage} sát thương băng giá, và đặt Winter's Chill lên mục tiêu: 2 phép thuật tương thích tiếp theo sẽ coi mục tiêu đó như bị đóng băng. Brain Freeze khiến Winterlash được thi triển ngay lập tức và bỏ qua thời gian hồi chiêu. (Sương giá)",
+  'entities.abilities.frozen_orb.description':
+    'Phóng ra một quả cầu băng xoáy bay về phía trước trong 8 giây, gây sát thương {damage} Băng mỗi giây cho kẻ địch ở gần và làm chậm chúng đi 30%. Mỗi xung đập tạo ra một Băng. (Sương giá)',
+  'entities.abilities.shatter.description':
+    "Phép thuật của bạn có 50% cơ hội tấn công chí mạng vào các mục tiêu bị đóng băng. Fingers of Frost và Winter's Chill được tính là bị đóng băng. (Sương giá)",
+  'entities.items.anglers_feast_platter.name': 'Đĩa tiệc của người câu cá',
+  'entities.items.arcanite_war_axe.name': 'Rìu chiến Arcanite',
+  'entities.items.ashwood_smoked_eel.name': 'Lươn hun khói tro',
+  'entities.items.cooking_salt.name': 'Muối nấu ăn',
+  'entities.items.copper_bearded_axe.name': 'Rìu râu đồng',
+  'entities.items.copper_flanged_mace.name': 'Chùy mặt bích đồng',
+  'entities.items.copper_ore.name': 'Quặng đồng',
+  'entities.items.coppermail_gauntlets.name': 'Găng tay thư đồng',
+  'entities.items.coppermail_sabatons.name': 'Sabaton thư đồng',
+  'entities.items.elderwood_battle_staff.name': 'Gậy Chiến Đấu Elderwood',
+  'entities.items.elixir_of_the_boar.name': 'Thuốc tiên của heo rừng',
+  'entities.items.elixir_of_the_serpent.name': 'Thuốc tiên của con rắn',
+  'entities.items.fenbridge_hide_belt.name': 'Thắt lưng da Fenbridge',
+  'entities.items.fenbridge_hide_boots.name': 'Ủng da Fenbridge',
+  'entities.items.fenbridge_hide_leggings.name': 'Quần da Fenbridge',
+  'entities.items.frostgill_chowder.name': 'Chowder Frostgill',
+  'entities.items.game_meat.name': 'Thịt thú rừng',
+  'entities.items.glass_vial.name': 'lọ thủy tinh',
+  'entities.items.goldleaf_game_stew.name': 'Trò chơi lá vàng hầm',
+  'entities.items.goldleaf_healing_draught.name': 'Thuốc hồi máu Lá Vàng',
+  'entities.items.goldleaf_mana_draught.name': 'Thuốc mana Lá Vàng',
+  'entities.items.goldweave_leggings.name': 'Xà cạp Goldweave',
+  'entities.items.goldweave_robe.name': 'Áo choàng dệt vàng',
+  'entities.items.herbed_marsh_pike.name': 'Cá chó đầm lầy ướp thảo mộc',
+  'entities.items.homespun_cloth.name': 'Vải dệt tại nhà',
+  'entities.items.homespun_hood.name': 'Mũ trùm đầu',
+  'entities.items.homespun_mitts.name': 'Găng tay dệt tại nhà',
+  'entities.items.hunters_game_skewer.name': 'Trò chơi xiên của Thợ Săn',
+  'entities.items.iron_ore.name': 'Quặng sắt',
+  'entities.items.ironbark_boar_spear.name': 'Ngọn giáo lợn vỏ sắt',
+  'entities.items.ironbark_log.name': 'Khúc gỗ Vỏ Sắt',
+  'entities.items.ironedge_longsword.name': 'Thanh kiếm dài Ironedge',
+  'entities.items.ironlink_hauberk.name': 'Áo giáp xích sắt',
+  'entities.items.ironlink_legguards.name': 'Quần bảo vệ chân Ironlink',
+  'entities.items.ironlink_spaulders.name': 'Spaulders Ironlink',
+  'entities.items.ironshod_maul.name': 'vồ sắt',
+  'entities.items.marlows_grand_roast.name': 'Món quay thịnh soạn của Marlow',
+  'entities.items.marshstalker_hood.name': 'Mũ trùm đầu Marshstalker',
+  'entities.items.marshstalker_jerkin.name': 'Áo giáp da của Kẻ săn đầm lầy',
+  'entities.items.marshstalker_spaulders.name': 'Giáp vai của Kẻ săn đầm lầy',
+  'entities.items.mirewarden_jerkin.name': 'Áo giáp da của Người gác đầm lầy',
+  'entities.items.mirewarden_leggings.name': 'Quần legging Mirewarden',
+  'entities.items.mirewarden_treads.name': 'Giày Mirewarden',
+  'entities.items.pan_seared_perch.name': 'Cá rô sông áp chảo',
+  'entities.items.prime_cut.name': 'Cắt Prime',
+  'entities.items.pristine_hide.name': 'Da nguyên vẹn',
+  'entities.items.pristine_silk.name': 'Tơ lụa nguyên sơ',
+  'entities.items.pristine_venom_gland.name': 'Tuyến nọc độc nguyên sơ',
+  'entities.items.riveted_copper_girdle.name': 'Dầm đồng đinh tán',
+  'entities.items.rough_hide.name': 'Da thô',
+  'entities.items.silkbinders_raiment.name': 'Trang phục của Silkbinder',
+  'entities.items.silkspun_satchel.name': 'Túi lụa',
+  'entities.items.silvered_carp_supper.name': 'Bữa tối cá chép bạc',
+  'entities.items.silverleaf_healing_draught.name': 'Thuốc hồi máu Lá Bạc',
+  'entities.items.silverleaf_herb.name': 'Thảo dược lá bạc',
+  'entities.items.silverleaf_mana_draught.name': 'Thuốc mana Lá Bạc',
+  'entities.items.silverthread_slippers.name': 'Dép sợi bạc',
+  'entities.items.smithing_flux.name': 'Thông lượng rèn',
+  'entities.items.spider_silk.name': 'Tơ nhện',
+  'entities.items.spool_of_thread.name': 'Ống chỉ',
+  'entities.items.sunpetal_healing_draught.name': 'Thuốc hồi máu Cánh Mặt Trời',
+  'entities.items.sunpetal_mana_draught.name': 'Thuốc mana Cánh Mặt Trời',
+  'entities.items.sunweave_mantle.name': 'Áo choàng nắng',
+  'entities.items.sunweave_treads.name': 'Tread Sunweave',
+  'entities.items.tanning_agent.name': 'Chất thuộc da',
+  'entities.items.thorium_warblade.name': 'Thanh kiếm Thorium',
+  'entities.items.thoriumscale_cuirass.name': 'Cuirass vảy Thori',
+  'entities.items.thoriumscale_greathelm.name': 'Mũ bảo hiểm quy mô Thorium',
+  'entities.items.thoriumscale_leggings.name': 'Xà cạp vảy Thorium',
+  'entities.items.venom_gland.name': 'Tuyến nọc độc',
+  'entities.items.venomfire_elixir.name': 'Thuốc độc lửa',
+  'entities.items.whetted_iron_dirk.name': 'Dao găm sắt mài sắc',
+  'entities.letters.guild_trend_alchemy_cooking.body':
+    'nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Thuật giả kim và Nấu ăn: các món nấu chín và các món ăn được tẩm gia vị, hai nghề thủ công này nuôi dưỡng lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp đôi này sẽ sớm nhận được danh hiệu Dược sĩ. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_alchemy_cooking.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_alchemy_cooking.subject':
+    'Công việc của bạn trong thuật giả kim và nấu ăn',
+  'entities.letters.guild_trend_armorcrafting_engineering.body':
+    'nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong lĩnh vực Chế tạo áo giáp và Kỹ thuật: các tấm được tán đinh và các bánh răng được căn chỉnh, hai nghề này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_armorcrafting_engineering.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_armorcrafting_engineering.subject':
+    'Công việc của bạn trong lĩnh vực Chế tạo áo giáp và Kỹ thuật',
+  'entities.letters.guild_trend_cooking_leatherworking.body':
+    'nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Nấu ăn và Làm đồ da: các món ăn được bày biện và da được thuộc, hai nghề thủ công cho nhau ăn. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_cooking_leatherworking.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_cooking_leatherworking.subject':
+    'Công việc của bạn trong lĩnh vực Nấu ăn và Làm đồ da',
+  'entities.letters.guild_trend_enchanting_jewelcrafting.body':
+    'nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong lĩnh vực Bùa mê và Chế tác trang sức: bùa được buộc và đá được đánh bóng, hai nghề thủ công này nuôi dưỡng lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_enchanting_jewelcrafting.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_enchanting_jewelcrafting.subject':
+    'Công việc của bạn trong mê hoặc và chế tác trang sức',
+  'entities.letters.guild_trend_engineering_alchemy.body':
+    'nghệ nhân,\n\nTin tức đến tai Hiệp hội về công việc của bạn trong Kỹ thuật và Giả kim thuật: đo điện tích và cân thuốc thử, hai nghề này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp đôi này sẽ được đặt tên là Pháo thủ. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_engineering_alchemy.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_engineering_alchemy.subject':
+    'Công việc của bạn trong Kỹ thuật và Giả kim thuật',
+  'entities.letters.guild_trend_inscription_enchanting.body':
+    'nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Dòng chữ và Bùa mê: những cuộn giấy có chữ và bùa dệt, hai nghề thủ công nuôi dưỡng lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_inscription_enchanting.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_inscription_enchanting.subject':
+    'Công việc của bạn trong dòng chữ và mê hoặc',
+  'entities.letters.guild_trend_jewelcrafting_weaponcrafting.body':
+    'nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Chế tạo đồ trang sức và Chế tạo vũ khí: đá quý được đặt và mài cạnh, hai nghề thủ công này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_jewelcrafting_weaponcrafting.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_jewelcrafting_weaponcrafting.subject':
+    'Công việc của bạn trong chế tạo đồ trang sức và chế tạo vũ khí',
+  'entities.letters.guild_trend_leatherworking_tailoring.body':
+    'nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong ngành Da và May đo: cắt da và viền vải, hai nghề thủ công này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp này sẽ sớm nhận được tên của Thợ trang phục. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_leatherworking_tailoring.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_leatherworking_tailoring.subject':
+    'Công việc của bạn trong ngành Da và May đo',
+  'entities.letters.guild_trend_tailoring_inscription.body':
+    'nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong lĩnh vực May đo và Khắc chữ: các đường nối được khâu và các nét vẽ được in bằng mực, hai nghề thủ công này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_tailoring_inscription.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_tailoring_inscription.subject':
+    'Công việc của bạn trong lĩnh vực May đo và Khắc chữ',
+  'entities.letters.guild_trend_weaponcrafting_armorcrafting.body':
+    'nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong Chế tạo vũ khí và Chế tạo áo giáp: lưỡi dao được tôi luyện và các tấm được trang bị, hai nghề này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp này sẽ kịp thời nhận được danh hiệu Thợ rèn. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo',
+  'entities.letters.guild_trend_weaponcrafting_armorcrafting.sender': 'Hội chế tạo',
+  'entities.letters.guild_trend_weaponcrafting_armorcrafting.subject':
+    'Công việc của bạn trong chế tạo vũ khí và chế tạo áo giáp',
+  'entities.npcs.alchemist_verane.greeting':
+    'Đo hai lần và đổ một lần, {className}. Người bào chế thuốc không có kiên nhẫn với thuốc thử bị đổ.',
+  'entities.npcs.alchemist_verane.name': 'Nhà giả kim Verane',
+  'entities.npcs.alchemist_verane.title': 'Bậc thầy của nhà bào chế thuốc',
+  'entities.npcs.cook_marlow.greeting':
+    'Không có gì khiến nhà bếp của tôi chưa chín một nửa, {className}. Ngồi ăn đi rồi lại ra ngoài.',
+  'entities.npcs.cook_marlow.name': 'nấu Marlow',
+  'entities.npcs.cook_marlow.title': 'Bậc thầy của nhà bếp',
+  'entities.npcs.forgemistress_darva.greeting':
+    'Lò rèn trả lời tôi là {className}. Mang quặng tốt và nó cũng sẽ trả lời bạn.',
+  'entities.npcs.forgemistress_darva.name': 'Nữ thợ rèn Darva',
+  'entities.npcs.forgemistress_darva.title': 'Bậc thầy của lò rèn',
+  'entities.npcs.tanner_hesk.greeting':
+    'Da chỉ tốt bằng khả năng thuộc da của nó, {className}. Các thùng đã sẵn sàng khi bạn sẵn sàng.',
+  'entities.npcs.tanner_hesk.name': 'Thợ thuộc da Hesk',
+  'entities.npcs.tanner_hesk.title': 'Bậc thầy của xưởng thuộc da',
+  'entities.npcs.tinker_gizzel.greeting':
+    'Lò xo, đĩa xích và các cạnh sắc, {className}: bộ dụng cụ có mọi thứ mà tay bạn thiếu.',
+  'entities.npcs.tinker_gizzel.name': 'Thợ máy Gizzel',
+  'entities.npcs.tinker_gizzel.title': 'Bậc thầy của công cụ',
+  'entities.npcs.weaver_ottilie.greeting':
+    'Hãy chú ý đến chủ đề, {className}. Một bàn tay vững chắc ở khung dệt sẽ đánh bại một bàn tay mạnh mẽ.',
+  'entities.npcs.weaver_ottilie.name': 'Thợ dệt Ottilie',
+  'entities.npcs.weaver_ottilie.title': 'Bậc thầy của máy dệt',
+  'gatherEvent.ancientHeartwood': '{finder} đã đốn hạ một tâm gỗ cổ xưa!',
+  'gatherEvent.moonlitBloom': '{finder} phát hiện ra hoa nở dưới ánh trăng!',
+  'gatherEvent.pristineVein': '{finder} đánh vào mạch máu nguyên sơ!',
+  'guide.abilityHook.brain_freeze':
+    'Các tia sương giá của bạn đôi khi tạo ra Flurry tiếp theo ngay lập tức và bỏ qua thời gian hồi chiêu của nó.',
+  'guide.abilityHook.frozen_orb':
+    'Lăn một quả cầu chậm xuyên qua bầy đàn khiến kẻ địch ớn lạnh và tích tụ Băng Băng.',
+  'heroicShop.buyConfirmAccept': 'Mua',
+  'heroicShop.buyConfirmBody':
+    'Mua {item} để lấy Dấu ấn Anh hùng {marks}? Việc mua điểm không thể được hoàn lại.',
+  'heroicShop.buyConfirmCancel': 'Hủy bỏ',
+  'heroicShop.buyConfirmTitle': 'Xác nhận mua hàng',
+  'hudChrome.crafting.comboTierUnmetNamed': 'Nâng {crafts} lên cấp {tier}.',
+  'hudChrome.crafting.difficultyFull': 'Đạt được kỹ năng đầy đủ',
+  'hudChrome.crafting.difficultyNone': 'Không đạt được kỹ năng',
+  'hudChrome.crafting.difficultyReduced': 'Giảm khả năng nhận được kỹ năng',
+  'hudChrome.crafting.enchantedLine': 'mê hoặc',
+  'hudChrome.crafting.makersMark': 'Được chế tạo bởi {name}',
+  'hudChrome.crafting.masterworkSeal': 'Kiệt tác',
+  'hudChrome.crafting.masterworkToast': 'Tuyệt tác! {name}',
+  'hudChrome.crafting.masterworkZoneLine': '{crafter} đã tạo ra một kiệt tác {name}!',
+  'hudChrome.crafting.skillReqLine': 'Yêu cầu {craft} {skill}',
+  'hudChrome.crafting.stationBadge': 'Bàn chế tác',
+  'hudChrome.crafting.stationName.apothecary': 'bào chế thuốc',
+  'hudChrome.crafting.stationName.forge': 'lò rèn',
+  'hudChrome.crafting.stationName.kitchens': 'Bếp',
+  'hudChrome.crafting.stationName.loom': 'khung cửi',
+  'hudChrome.crafting.stationName.tannery': 'Xưởng thuộc da',
+  'hudChrome.crafting.stationName.toolworks': 'Xưởng dụng cụ',
+  'hudChrome.crafting.stationOutOfRangeNamed': 'Di chuyển đến {station} để chế tạo cái này.',
+  'hudChrome.crafting.stationRequired': 'Bạn phải có mặt tại {station} để chế tạo món đồ đó.',
+  'hudChrome.crafting.tierUpToast': '{craft} đã thăng cấp lên cấp {tier}!',
+  'hudChrome.death.healerConfirmAccept': 'Hồi sinh tôi',
+  'hudChrome.death.healerConfirmBody':
+    'Người Canh Giữ Nhợt Nhạt sẽ hồi sinh bạn tại đây, nhưng Cái Giá của Người Canh Giữ sẽ giảm 75% tất cả thuộc tính của bạn trong tối đa 10 phút ở cấp độ cao hơn. Đưa linh hồn của bạn trở lại xác chết sẽ hồi sinh bạn mà không bị phạt.',
+  'hudChrome.death.healerConfirmCancel': 'Hủy bỏ',
+  'hudChrome.death.healerConfirmTitle': 'Chấp nhận Cái Giá của Người Canh Giữ?',
+  'hudChrome.gathering.gatherLine': 'Bạn tập hợp: {name}.',
+  'hudChrome.gathering.gatherLineQty': 'Bạn tập hợp: {name} x{qty}.',
+  'hudChrome.mobile.professions': 'Nghề nghiệp',
+  'hudChrome.options.showThirdActionBar': 'Hiển thị thanh hành động thứ ba',
+  'hudChrome.playerMenu.streamerBadgeTitle': 'Người phát trực tiếp đã được xác minh',
+  'hudChrome.professions.ceilingCommon': 'Mũ chung',
+  'hudChrome.professions.ceilingRare': 'Mũ hiếm',
+  'hudChrome.professions.ceilingUnlimited': 'Không có giới hạn trao quyền',
+  'hudChrome.professions.close': 'Đóng ngành nghề',
+  'hudChrome.professions.ctaHeader': 'Bước tiếp theo',
+  'hudChrome.professions.ctaRaise':
+    'Tiếp tục nâng cao {craft}: {points} có thêm điểm lên cấp tiếp theo.',
+  'hudChrome.professions.ctaStart': 'Hãy bắt đầu thủ công hoặc tập hợp bất kỳ ngành nghề nào.',
+  'hudChrome.professions.gatheringHeader': 'Tập hợp',
+  'hudChrome.professions.hobbyLabel': 'Sở thích: {craft}',
+  'hudChrome.professions.identityHeader': 'Danh tính',
+  'hudChrome.professions.majorsLabel': 'Chuyên ngành: {a} và {b}',
+  'hudChrome.professions.nextUnlockMax': 'Ở kỹ năng tối đa',
+  'hudChrome.professions.nextUnlockSpecialized':
+    '{points} chỉ vào Chuyên ngành: giảm chi phí nguyên vật liệu',
+  'hudChrome.professions.nextUnlockTier':
+    '{points} chỉ ra cấp độ tiếp theo: tỷ lệ thành công được cải thiện',
+  'hudChrome.professions.nudgeDormant': 'Kiến thức {craft} của bạn không hoạt động',
+  'hudChrome.professions.nudgeNearTier': '{craft}: Điểm {points} từ cấp tiếp theo',
+  'hudChrome.professions.pairsHeld': 'Các cặp được tổ chức: {count}',
+  'hudChrome.professions.perkSpecializedAt': 'Chuyên về kỹ năng {threshold}',
+  'hudChrome.professions.perkSpecializedLine': '{craft}: Chi phí chuyên môn, vật tư -{pct}%',
+  'hudChrome.professions.perksHeader': 'đặc quyền',
+  'hudChrome.professions.returnsLabel': 'Trả về: {count}',
+  'hudChrome.professions.ringAria': 'Bánh xe thủ công',
+  'hudChrome.professions.roleDormant': 'Nằm im',
+  'hudChrome.professions.roleHobby': 'Sở thích',
+  'hudChrome.professions.roleMajor': 'Lớn lao',
+  'hudChrome.professions.roleUnattuned': 'không được điều chỉnh',
+  'hudChrome.professions.skillValue': '{skill} / {max}',
+  'hudChrome.professions.skillsHeader': 'Kỹ năng thủ công',
+  'hudChrome.professions.switchCost': 'Lần đổi nguyên mẫu tiếp theo tốn {cost} điểm chuộc lỗi',
+  'hudChrome.professions.syncing': 'Đang chờ dữ liệu nghề nghiệp của bạn từ vương quốc.',
+  'hudChrome.professions.tierPipAria': 'Cấp {tier}',
+  'hudChrome.professions.title': 'Nghề nghiệp',
+  'hudChrome.professions.tutorialLine':
+    'Đạt được kỹ năng {target} trong bất kỳ nghề thủ công nào để mở khóa cấp độ đầu tiên của bạn.',
+  'hudChrome.professions.unattunedIdentity':
+    'Bạn vẫn chưa hòa hợp được với một nguyên mẫu. Nâng cao kỹ năng thủ công của bạn và hoàn thành việc điều chỉnh để chọn cặp của bạn.',
+  'hudChrome.training.alreadyKnown': 'Bạn đã biết công thức đó rồi.',
+  'hudChrome.training.cannotAfford': 'Bạn không đủ khả năng chi trả cho việc đào tạo đó.',
+  'hudChrome.training.close': 'Đóng đào tạo',
+  'hudChrome.training.dialogOption': 'Đào tạo',
+  'hudChrome.training.dialogOptionAria': 'Duyệt đào tạo từ {name}',
+  'hudChrome.training.empty': 'Bậc thầy này không có gì để dạy.',
+  'hudChrome.training.free': 'Miễn phí',
+  'hudChrome.training.learned': 'Công thức đã học: {recipe}',
+  'hudChrome.training.notTaughtHere': 'Công thức đó không được dạy ở đây.',
+  'hudChrome.training.outOfRange': 'Bạn phải ở nhà ga để đào tạo.',
+  'hudChrome.training.requirement': 'Đã học tại {craft} {skill}',
+  'hudChrome.training.stateKnown': 'Đã biết',
+  'hudChrome.training.stateLocked': 'Đã khóa',
+  'hudChrome.training.stateTeachable': 'Có sẵn',
+  'hudChrome.training.tierUnmet': 'Bạn cần {craft} {skill} để tìm hiểu công thức đó.',
+  'hudChrome.training.title': 'Đào tạo: {name}',
+  'hudChrome.training.trainAria': 'Tìm hiểu {name} cho {fee}',
 };

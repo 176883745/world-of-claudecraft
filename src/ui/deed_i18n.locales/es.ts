@@ -686,7 +686,7 @@ export const table: DeedLocaleTable = {
   },
   prog_tools_of_the_trade: {
     name: 'Las herramientas del oficio',
-    desc: 'Completa una fabricación ligada a una estación en el centro de artesanía de Highwatch.',
+    desc: 'Completa una fabricación en una estación de artesanía.',
   },
   dgn_nythraxis_crypt: {
     name: 'Lo que guardaba la cripta',

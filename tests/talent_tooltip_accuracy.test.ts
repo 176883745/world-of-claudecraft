@@ -136,6 +136,27 @@ describe('talent tooltip accuracy (all 9 classes x 3 specs)', () => {
     expect(mastery).toContain('auto-attacks are 5% faster');
     expect(mastery).toContain('at least 20%');
   });
+
+  it('renders Warded source-health scaling in non-English tooltips', async () => {
+    const warded = CHOICE_ROWS.mage.rows
+      .flatMap((row) => [...row.options])
+      .find((choice) => choice.id === 'mag_r8_warded');
+    if (!warded) throw new Error('missing mag_r8_warded');
+
+    await ensureLocaleLoaded('es');
+    setLanguage('es');
+    try {
+      const rendered = tTalent({
+        kind: 'talentChoice',
+        choice: warded,
+        field: 'description',
+      });
+      expect(rendered).toContain('+10\u00a0% salud máxima');
+      expect(rendered).not.toContain('+0 Sanación');
+    } finally {
+      setLanguage('en');
+    }
+  });
 });
 
 // Talent descriptions are generated from effect data outside English. English remains
@@ -190,6 +211,7 @@ const PCT_FIELDS = new Set([
   'chance',
   // Phase-2 defensive pass: pct-of-max-health proc responses.
   'amountPctMaxHp',
+  'amountPctSourceMaxHp',
   'healPctMaxHp',
   // Thuggery mastery: the Sword Specialization extra-attack chance.
   'extraAttackPct',
@@ -240,10 +262,10 @@ function expectedTokens(effect: unknown): string[] {
       if (typeof value === 'number') {
         if (value === 0) continue;
         if (key === 'battleRhythm') continue;
-        // Temporal Rift / Blink While Casting / Elemental Convergence (mage
-        // choice rows) are picked/not-picked flags like battleRhythm; their
-        // timings are stated as durations, not this 1.
-        if (key === 'temporalRift' || key === 'blinkCast' || key === 'convergence') continue;
+        // Blink While Casting / Elemental Convergence (mage choice rows) are
+        // picked/not-picked flags like battleRhythm; their timings are stated
+        // as durations, not this 1.
+        if (key === 'blinkCast' || key === 'convergence') continue;
         // A +50% spell or heal crit-damage mastery lifts the 1.5x base to 2.0x, which the
         // hand-written descriptions phrase as "double" rather than "50%".
         if ((key === 'critDmgSpellPct' || key === 'critDmgHealPct') && value === 0.5) {
@@ -307,10 +329,9 @@ function legitNumbers(effect: unknown): Set<number> {
       if (typeof value === 'number') {
         if (key === 'battleRhythm') {
           // Battle Rhythm is a picked/not-picked flag; the every-third-cast
-          // empowerment values live in effect_dispatch.ts (buff_rage_gen 0.2,
-          // buff_dmg_done 0.05), so the stated 20% and 5% are intrinsic.
+          // empowerment value lives in effect_dispatch.ts (buff_rage_gen 0.2),
+          // so the stated 20% is intrinsic.
           out.add(20);
-          out.add(5);
           continue;
         }
         add(value, PCT_FIELDS.has(key));

@@ -104,6 +104,19 @@ export type {
   DeedStats,
   OverheadEmoteId,
 } from './sim/types';
+
+// Snapshot timer wire capability shared by the browser mirror and authoritative
+// server. Keep the version exact so rolling deploys can negotiate fail-closed.
+export const STABLE_TIMER_WIRE_VERSION = 2 as const;
+export type StableTimerWireVersion = typeof STABLE_TIMER_WIRE_VERSION;
+
+// Absolute cooldown schedule in server simulation seconds. A number is the
+// expiry for 1x recovery. The tuple adds a temporary recovery-rate segment;
+// after acceleratedUntil, recovery continues at 1x until expiresAt.
+export type StableCooldownWire =
+  | number
+  | readonly [expiresAt: number, recoveryRate: number, acceleratedUntil: number];
+
 // --- facet aux-type + value re-exports (each travels with its facet file) ---
 export type { BankBonusSource, BankInfo } from './world_api/bank';
 export type { CardMinigameInfo } from './world_api/card_minigame';
@@ -274,6 +287,7 @@ export const COMMAND_NAMES = [
   'sell_all_junk',
   'harvest_node',
   'craft_item',
+  'place_mobile_station',
   'change_skin',
   'unequip_mech_chroma',
   'claim_event_skin',
@@ -411,6 +425,9 @@ export const COMMAND_NAMES = [
   // Append-only protocol addition for the canonical Talents V2 row mutation.
   'selectTalentRow',
   'resurrect_respond',
+  // Recipe training (Professions 2.0 Phase 9): learn a trainer-taught recipe
+  // at its craft's station (Sim.trainRecipe via professions/training.ts).
+  'train_recipe',
 ] as const;
 
 // The union both the send path (`online.ts`) and the dispatch switch

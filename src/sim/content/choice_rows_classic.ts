@@ -101,29 +101,34 @@ export const MAGE_CHOICE_ROWS: ClassChoiceRows = {
           id: 'mag_r8_warded',
           name: 'Warded',
           description:
-            'While your personal barrier is up you take 15% less damage, and it heals you for 39 when it breaks after absorbing.',
+            'While your personal barrier is up you take 15% less damage, and it heals its bearer for 10% of your maximum health when it breaks after absorbing.',
           icon: 'warded',
           effect: {
             global: { barrierDrPct: 0.15 },
-            // The heal is 30% of the shield's absorb budget (130), a flat 39:
-            // the shield only ever breaks after soaking its full amount.
+            // Percentage scaling keeps the break heal proportional while the
+            // personal barriers grow through their leveling ranks.
             // 'personal_barrier' is the SLOT sentinel: Frostveil for Frost,
-            // Blazing Barrier for Fire (owner barrier-slot rule).
+            // Blazing Barrier for Fire, or Temporal Barrier for Chronomancy.
+            // Source scaling prevents an allied tank's HP pool from amplifying it.
             proc: {
               id: 'mag_warded',
               name: 'Warded',
               trigger: { on: 'shieldConsumed', ability: 'personal_barrier' },
-              responses: [{ kind: 'heal', amount: 39 }],
+              responses: [{ kind: 'heal', amountPctSourceMaxHp: 0.1 }],
             },
           },
         },
         {
           id: 'mag_r8_temporal_rift',
-          name: 'Temporal Rift',
-          description:
-            'Every 20 sec, the next stun, root or silence to hit you is cleansed instantly.',
+          name: 'Shifting Ward',
+          description: 'Casting your personal barrier breaks roots affecting you.',
           icon: 'temporal_rift',
-          effect: { global: { temporalRift: 1 } },
+          effect: {
+            ability: [
+              { ability: 'ice_barrier', addEffects: [{ type: 'breakRoots' }] },
+              { ability: 'blazing_barrier', addEffects: [{ type: 'breakRoots' }] },
+            ],
+          },
         },
         {
           id: 'mag_r8_greater_invis',

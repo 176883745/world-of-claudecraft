@@ -22,7 +22,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
   es: {
     mag_r5_blink_cast: 'Puedes usar Paso Fugaz en mitad de un lanzamiento sin interrumpirlo.',
     mag_r8_temporal_rift:
-      'Cada 20 s, el siguiente aturdimiento, inmovilización o silencio que te impacte se limpia al instante.',
+      'Lanzar tu barrera personal elimina los efectos de inmovilización que te afectan.',
     mag_r17_convergence:
       'Alternar un hechizo de Fuego y uno de Escarcha abre una oleada de poder de 8 s, una vez cada 30 s.',
     mag_r20_overflowing_power:
@@ -35,15 +35,14 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Tus ataques automáticos generan un 10 % más de ira y tus habilidades, un 5 % más.',
     war_row_blood_offering:
       'Tus actitudes obtienen efectos adicionales. Actitud de Batalla: los golpes críticos de tus habilidades infligen un 15 % más de daño. Actitud Rabiosa: tus ataques automáticos son un 5 % más rápidos. Actitud en Guardia: un golpe que te quitaría al menos un 20 % de tu salud máxima inflige un 15 % menos de daño.',
-    war_row_battle_rhythm:
-      'Cada tercera habilidad que utilizas genera un 20 % más de ira e inflige un 5 % más de daño.',
+    war_row_battle_rhythm: 'Cada tercera habilidad que utilizas genera un 20 % más de ira.',
     war_row_colossal_might:
       'Cada punto de ira que gastas reduce en 0,1 s el tiempo de reutilización de tus grandes habilidades ofensivas, hasta 10 s cada 30 s.',
   },
   es_ES: {
     mag_r5_blink_cast: 'Puedes usar Paso Fugaz en mitad de un lanzamiento sin interrumpirlo.',
     mag_r8_temporal_rift:
-      'Cada 20 s, el siguiente aturdimiento, inmovilización o silencio que te impacte se limpia al instante.',
+      'Lanzar tu barrera personal elimina los efectos de inmovilización que te afectan.',
     mag_r17_convergence:
       'Alternar un hechizo de Fuego y uno de Escarcha abre una oleada de poder de 8 s, una vez cada 30 s.',
     mag_r20_overflowing_power:
@@ -56,8 +55,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Tus ataques automáticos generan un 10 % más de ira y tus habilidades, un 5 % más.',
     war_row_blood_offering:
       'Tus actitudes obtienen efectos adicionales. Actitud de Batalla: los golpes críticos de tus habilidades infligen un 15 % más de daño. Actitud Rabiosa: tus ataques automáticos son un 5 % más rápidos. Actitud en Guardia: un golpe que te quitaría al menos un 20 % de tu salud máxima inflige un 15 % menos de daño.',
-    war_row_battle_rhythm:
-      'Cada tercera habilidad que utilizas genera un 20 % más de ira e inflige un 5 % más de daño.',
+    war_row_battle_rhythm: 'Cada tercera habilidad que utilizas genera un 20 % más de ira.',
     war_row_colossal_might:
       'Cada punto de ira que gastas reduce en 0,1 s el tiempo de reutilización de tus grandes habilidades ofensivas, hasta 10 s cada 30 s.',
   },
@@ -65,7 +63,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       "Vous pouvez utiliser Pas scintillant au milieu d'une incantation sans l'interrompre.",
     mag_r8_temporal_rift:
-      'Toutes les 20 s, le prochain étourdissement, immobilisation ou silence qui vous frappe est dissipé instantanément.',
+      "Lancer votre barrière personnelle dissipe les effets d'immobilisation qui vous affectent.",
     mag_r17_convergence:
       'Alterner un sort de Feu et un sort de Givre déclenche une poussée de puissance de 8 s, une fois toutes les 30 s.',
     mag_r20_overflowing_power:
@@ -78,8 +76,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Vos attaques automatiques génèrent 10 % de rage en plus et vos techniques 5 % de plus.',
     war_row_blood_offering:
       'Vos postures gagnent des effets supplémentaires. Posture de combat : les coups critiques de vos techniques infligent 15 % de dégâts supplémentaires. Posture berserker : vos attaques automatiques sont 5 % plus rapides. Posture de garde : un coup qui vous retirerait au moins 20 % de votre maximum de points de vie inflige 15 % de dégâts en moins.',
-    war_row_battle_rhythm:
-      'Chaque troisième technique utilisée génère 20 % de rage en plus et inflige 5 % de dégâts supplémentaires.',
+    war_row_battle_rhythm: 'Chaque troisième technique utilisée génère 20 % de rage en plus.',
     war_row_colossal_might:
       "Chaque point de rage dépensé réduit de 0,1 s le temps de recharge de vos grandes capacités offensives, jusqu'à 10 s toutes les 30 s.",
   },
@@ -87,7 +84,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       "Vous pouvez utiliser Pas scintillant au milieu d'une incantation sans l'interrompre.",
     mag_r8_temporal_rift:
-      'Toutes les 20 s, le prochain étourdissement, immobilisation ou silence qui vous frappe est dissipé instantanément.',
+      "Lancer votre barrière personnelle dissipe les effets d'immobilisation qui vous affectent.",
     mag_r17_convergence:
       'Alterner un sort de Feu et un sort de Givre déclenche une poussée de puissance de 8 s, une fois toutes les 30 s.',
     mag_r20_overflowing_power:
@@ -100,15 +97,14 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Vos attaques automatiques génèrent 10 % de rage en plus et vos techniques 5 % de plus.',
     war_row_blood_offering:
       'Vos postures gagnent des effets supplémentaires. Posture de combat : les coups critiques de vos techniques infligent 15 % de dégâts supplémentaires. Posture berserker : vos attaques automatiques sont 5 % plus rapides. Posture de garde : un coup qui vous retirerait au moins 20 % de votre maximum de points de vie inflige 15 % de dégâts en moins.',
-    war_row_battle_rhythm:
-      'Chaque troisième technique utilisée génère 20 % de rage en plus et inflige 5 % de dégâts supplémentaires.',
+    war_row_battle_rhythm: 'Chaque troisième technique utilisée génère 20 % de rage en plus.',
     war_row_colossal_might:
       "Chaque point de rage dépensé réduit de 0,1 s le temps de recharge de vos grandes capacités offensives, jusqu'à 10 s toutes les 30 s.",
   },
   it_IT: {
     mag_r5_blink_cast: 'Puoi usare Passo Baleno nel mezzo di un incantesimo senza interromperlo.',
     mag_r8_temporal_rift:
-      'Ogni 20 secondi, il prossimo stordimento, immobilizzazione o silenzio che ti colpisce viene rimosso istantaneamente.',
+      'Lanciare la tua barriera personale rimuove gli effetti di immobilizzazione che ti affliggono.',
     mag_r17_convergence:
       "Alternare un incantesimo di Fuoco e uno di Gelo apre un'ondata di potere di 8 secondi, una volta ogni 30 secondi.",
     mag_r20_overflowing_power:
@@ -120,8 +116,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'I tuoi attacchi automatici generano il 10% di rabbia in più e le tue abilità il 5% in più.',
     war_row_blood_offering:
       'Le tue posizioni ottengono effetti aggiuntivi. Posizione di Battaglia: i colpi critici delle tue abilità infliggono il 15% di danni in più. Posizione del Berserker: i tuoi attacchi automatici sono più rapidi del 5%. Posizione Guardinga: un colpo che ti sottrarrebbe almeno il 20% della salute massima infligge il 15% di danni in meno.',
-    war_row_battle_rhythm:
-      'Ogni terza abilità usata genera il 20% di rabbia in più e infligge il 5% di danni in più.',
+    war_row_battle_rhythm: 'Ogni terza abilità usata genera il 20% di rabbia in più.',
     war_row_colossal_might:
       'Ogni punto di rabbia speso riduce di 0,1 secondi il tempo di recupero delle tue grandi abilità offensive, fino a 10 secondi ogni 30 secondi.',
   },
@@ -129,7 +124,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       'Du kannst Flimmerschritt mitten in einem Zaubervorgang einsetzen, ohne ihn zu unterbrechen.',
     mag_r8_temporal_rift:
-      'Alle 20 Sek. wird die nächste Betäubung, Verwurzelung oder Stille, die dich trifft, sofort aufgehoben.',
+      'Das Wirken deiner persönlichen Barriere entfernt Verwurzelungseffekte von dir.',
     mag_r17_convergence:
       'Wenn du abwechselnd einen Feuer- und einen Frost-Zauber wirkst, entfachst du einmal alle 30 Sek. einen 8 Sek. anhaltenden Machtschub.',
     mag_r20_overflowing_power:
@@ -142,15 +137,14 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Deine automatischen Angriffe erzeugen 10 % mehr Wut und deine Fähigkeiten 5 % mehr.',
     war_row_blood_offering:
       'Deine Haltungen erhalten zusätzliche Effekte. Kampfhaltung: Kritische Treffer deiner Fähigkeiten verursachen 15 % mehr Schaden. Berserkerhaltung: Deine automatischen Angriffe sind 5 % schneller. Wehrhafte Haltung: Ein Treffer, der dir mindestens 20 % deiner maximalen Gesundheit nehmen würde, verursacht 15 % weniger Schaden.',
-    war_row_battle_rhythm:
-      'Jede dritte eingesetzte Fähigkeit erzeugt 20 % mehr Wut und verursacht 5 % mehr Schaden.',
+    war_row_battle_rhythm: 'Jede dritte eingesetzte Fähigkeit erzeugt 20 % mehr Wut.',
     war_row_colossal_might:
       'Jeder verbrauchte Wutpunkt verkürzt die Abklingzeit deiner wichtigsten Angriffsfähigkeiten um 0,1 Sek., maximal 10 Sek. alle 30 Sek.',
   },
   pt_BR: {
     mag_r5_blink_cast: 'Você pode usar Passo Cintilante durante uma conjuração sem interrompê-la.',
     mag_r8_temporal_rift:
-      'A cada 20 s, o próximo atordoamento, imobilização ou silêncio que atingir você é removido instantaneamente.',
+      'Conjurar sua barreira pessoal remove efeitos de imobilização que afetam você.',
     mag_r17_convergence:
       'Alternar entre uma magia de Fogo e uma de Gelo abre uma rajada de poder de 8 s, uma vez a cada 30 s.',
     mag_r20_overflowing_power:
@@ -162,8 +156,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Seus ataques automáticos geram 10% mais raiva e suas habilidades geram 5% mais.',
     war_row_blood_offering:
       'Suas posturas recebem efeitos adicionais. Postura de Batalha: acertos críticos das suas habilidades causam 15% a mais de dano. Postura de Berserker: seus ataques automáticos ficam 5% mais rápidos. Postura de Guarda: um golpe que tiraria pelo menos 20% da sua vida máxima causa 15% a menos de dano.',
-    war_row_battle_rhythm:
-      'Cada terceira habilidade usada gera 20% mais raiva e causa 5% a mais de dano.',
+    war_row_battle_rhythm: 'Cada terceira habilidade usada gera 20% mais raiva.',
     war_row_colossal_might:
       'Cada ponto de raiva gasto reduz em 0,1 s a recarga das suas principais habilidades ofensivas, até 10 s a cada 30 s.',
   },
@@ -171,7 +164,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       'Вы можете использовать Мерцающий шаг в процессе применения заклинания, не прерывая его.',
     mag_r8_temporal_rift:
-      'Каждые 20 сек. следующее оглушение, обездвиживание или немота, которые поразят вас, немедленно снимаются.',
+      'Применение личного барьера снимает действующие на вас эффекты обездвиживания.',
     mag_r17_convergence:
       'Чередование заклинания Огня и заклинания Льда открывает 8-секундный прилив силы, не чаще одного раза в 30 сек.',
     mag_r20_overflowing_power:
@@ -185,14 +178,13 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_blood_offering:
       'Ваши стойки получают дополнительные эффекты. Боевая стойка: критические удары способностей наносят на 15% больше урона. Стойка берсерка: автоматические атаки совершаются на 5% быстрее. Стойка стража: удар, который отнял бы не менее 20% максимального здоровья, наносит на 15% меньше урона.',
     war_row_battle_rhythm:
-      'Каждая третья использованная способность генерирует на 20% больше ярости и наносит на 5% больше урона.',
+      'Каждая третья использованная способность генерирует на 20% больше ярости.',
     war_row_colossal_might:
       'Каждая единица ярости, которую вы тратите, сокращает время восстановления ваших основных атакующих способностей на 0,1 сек., не более 10 сек. каждые 30 сек.',
   },
   cs_CZ: {
     mag_r5_blink_cast: 'Mihokrok můžeš použít uprostřed sesílání kouzla, aniž by bylo přerušeno.',
-    mag_r8_temporal_rift:
-      'Každých 20 s je nejbližší omráčení, ukotvení nebo umlčení, které tě zasáhne, okamžitě vyčištěno.',
+    mag_r8_temporal_rift: 'Seslání osobní bariéry z tebe odstraní účinky ukotvení.',
     mag_r17_convergence:
       'Střídání ohnivého a mrazivého kouzla otevře 8 s trvající příval moci, nejvýše jednou za 30 s.',
     mag_r20_overflowing_power:
@@ -204,8 +196,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Vaše automatické útoky generují o 10 % více zuřivosti a vaše schopnosti o 5 % více.',
     war_row_blood_offering:
       'Vaše postoje získávají další účinky. Bojový postoj: kritické zásahy schopností způsobují o 15 % vyšší poškození. Postoj berserka: automatické útoky jsou o 5 % rychlejší. Krytý postoj: zásah, který by vám odebral alespoň 20 % maximálního zdraví, způsobí o 15 % nižší poškození.',
-    war_row_battle_rhythm:
-      'Každá třetí použitá schopnost generuje o 20 % více zuřivosti a způsobuje o 5 % vyšší poškození.',
+    war_row_battle_rhythm: 'Každá třetí použitá schopnost generuje o 20 % více zuřivosti.',
     war_row_colossal_might:
       'Každý bod zuřivosti, který utratíš, zkracuje cooldown tvých hlavních útočných schopností o 0,1 s, nejvýše 10 s každých 30 s.',
   },
@@ -213,7 +204,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       'Je kunt Flikkerstap gebruiken midden in een bezwering zonder die te onderbreken.',
     mag_r8_temporal_rift:
-      'Elke 20 sec wordt de eerstvolgende verdoving, wortel of stilte die je treft onmiddellijk gereinigd.',
+      'Het gebruiken van je persoonlijke barrière verwijdert worteleffecten die op je werken.',
     mag_r17_convergence:
       'Een Vuur- en een Vorstbezwering afwisselen opent een krachtsopstoot van 8 sec, maximaal eens per 30 sec.',
     mag_r20_overflowing_power:
@@ -225,8 +216,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Je automatische aanvallen genereren 10% meer woede en je vaardigheden 5% meer.',
     war_row_blood_offering:
       'Je houdingen krijgen extra effecten. Strijdhouding: kritieke treffers van je vaardigheden richten 15% meer schade aan. Berserkerhouding: je automatische aanvallen zijn 5% sneller. Bewaakte Houding: een treffer die minstens 20% van je maximale gezondheid zou kosten, richt 15% minder schade aan.',
-    war_row_battle_rhythm:
-      'Elke derde gebruikte vaardigheid genereert 20% meer woede en richt 5% meer schade aan.',
+    war_row_battle_rhythm: 'Elke derde gebruikte vaardigheid genereert 20% meer woede.',
     war_row_colossal_might:
       'Elk punt woede dat je uitgeeft verkort de herlaaditijd van je grote aanvalsvaardigheden met 0,1 sec, tot maximaal 10 sec elke 30 sec.',
   },
@@ -234,7 +224,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       'Możesz użyć Migotliwego Kroku w trakcie rzucania czaru, nie przerywając go.',
     mag_r8_temporal_rift:
-      'Co 20 sek. następne ogłuszenie, unieruchomienie lub uciszenie, które cię dosięgnie, zostaje natychmiast oczyszczone.',
+      'Rzucenie osobistej bariery usuwa działające na ciebie efekty unieruchomienia.',
     mag_r17_convergence:
       'Naprzemienne użycie czaru Ognia i czaru Mrozu otwiera 8-sekundowy przypływ mocy, co najwyżej raz na 30 sek.',
     mag_r20_overflowing_power:
@@ -246,8 +236,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Twoje automatyczne ataki generują o 10% więcej szału, a umiejętności o 5% więcej.',
     war_row_blood_offering:
       'Twoje postawy zyskują dodatkowe efekty. Postawa bojowa: trafienia krytyczne umiejętności zadają o 15% więcej obrażeń. Postawa berserkera: automatyczne ataki są o 5% szybsze. Czujna postawa: cios, który odebrałby co najmniej 20% maksymalnego zdrowia, zadaje o 15% mniej obrażeń.',
-    war_row_battle_rhythm:
-      'Co trzecia użyta umiejętność generuje o 20% więcej szału i zadaje o 5% więcej obrażeń.',
+    war_row_battle_rhythm: 'Co trzecia użyta umiejętność generuje o 20% więcej szału.',
     war_row_colossal_might:
       'Każdy wydany punkt szału skraca czas odnowienia twoich głównych umiejętności ofensywnych o 0,1 sek., maksymalnie 10 sek. co 30 sek.',
   },
@@ -255,7 +244,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       'Kamu dapat menggunakan Langkah Kilat di tengah rapalan tanpa mengganggunya.',
     mag_r8_temporal_rift:
-      'Setiap 20 dtk, efek stun, akar, atau bungkam berikutnya yang mengenaimu akan langsung dibersihkan.',
+      'Merapalkan penghalang pribadimu menghapus efek akar yang sedang memengaruhimu.',
     mag_r17_convergence:
       'Bergantian menggunakan mantra Api dan Beku membuka lonjakan kekuatan selama 8 dtk, satu kali setiap 30 dtk.',
     mag_r20_overflowing_power:
@@ -268,15 +257,14 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_blood_offering:
       'Kuda-kudamu memperoleh efek tambahan. Kuda-kuda Tempur: serangan kritis kemampuanmu menghasilkan 15% lebih banyak kerusakan. Kuda-kuda Berserker: serangan otomatismu 5% lebih cepat. Kuda-kuda Waspada: serangan yang akan mengurangi setidaknya 20% nyawa maksimummu menghasilkan 15% lebih sedikit kerusakan.',
     war_row_battle_rhythm:
-      'Setiap kemampuan ketiga yang kamu gunakan menghasilkan 20% lebih banyak amarah dan 5% lebih banyak kerusakan.',
+      'Setiap kemampuan ketiga yang kamu gunakan menghasilkan 20% lebih banyak amarah.',
     war_row_colossal_might:
       'Setiap poin amarah yang kamu habiskan mempersingkat waktu pemulihan kemampuan ofensif utamamu sebesar 0,1 dtk, hingga 10 dtk setiap 30 dtk.',
   },
   tr_TR: {
     mag_r5_blink_cast:
       "Titreşim Adımı'nı bir büyüyü kesmeden kanalizasyon ortasında kullanabilirsin.",
-    mag_r8_temporal_rift:
-      'Her 20 saniyede bir, sana çarpan ilk sersemletme, köklenme veya susturma anında temizlenir.',
+    mag_r8_temporal_rift: 'Kişisel bariyerini kullanmak üzerindeki köklenme etkilerini kaldırır.',
     mag_r17_convergence:
       'Bir Ateş ve bir Buz büyüsünü art arda atmak, 30 saniyede bir olmak kaydıyla 8 saniyelik bir güç dalgası açar.',
     mag_r20_overflowing_power:
@@ -287,15 +275,13 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_anger_management: 'Otomatik saldırıların %10, yeteneklerin %5 daha fazla öfke üretir.',
     war_row_blood_offering:
       'Duruşların ek etkiler kazanır. Savaş Duruşu: yeteneklerinin kritik vuruşları %15 daha fazla hasar verir. Berserker Duruşu: otomatik saldırıların %5 daha hızlıdır. Korumalı Duruş: azami sağlığının en az %20’sini götürecek bir darbe %15 daha az hasar verir.',
-    war_row_battle_rhythm:
-      'Kullandığın her üçüncü yetenek %20 daha fazla öfke üretir ve %5 daha fazla hasar verir.',
+    war_row_battle_rhythm: 'Kullandığın her üçüncü yetenek %20 daha fazla öfke üretir.',
     war_row_colossal_might:
       'Harcadığın her öfke puanı, büyük saldırı yeteneklerinin bekleme süresini 0,1 saniye kısaltır; 30 saniyede en fazla 10 saniye.',
   },
   sv_SE: {
     mag_r5_blink_cast: 'Du kan använda Flimmersteg mitt i en besvärjelse utan att avbryta den.',
-    mag_r8_temporal_rift:
-      'Var 20:e sekund rensas nästa bedövning, rotning eller tystnad som träffar dig omedelbart.',
+    mag_r8_temporal_rift: 'När du kastar din personliga barriär bryts rotningseffekter på dig.',
     mag_r17_convergence:
       'Att växelvis kasta en Eld- och en Frost-besvärjelse öppnar ett 8 sek långt kraftflöde, högst en gång var 30:e sek.',
     mag_r20_overflowing_power:
@@ -307,8 +293,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Dina automatiska attacker genererar 10 % mer raseri och dina förmågor 5 % mer.',
     war_row_blood_offering:
       'Dina ställningar får ytterligare effekter. Stridsställning: kritiska träffar med förmågor gör 15 % mer skada. Bärsärkaställning: dina automatiska attacker är 5 % snabbare. Gardställning: en träff som skulle ta minst 20 % av din maximala hälsa gör 15 % mindre skada.',
-    war_row_battle_rhythm:
-      'Var tredje förmåga du använder genererar 20 % mer raseri och gör 5 % mer skada.',
+    war_row_battle_rhythm: 'Var tredje förmåga du använder genererar 20 % mer raseri.',
     war_row_colossal_might:
       'Varje raserienhet du förbrukar kortar ned nedkylningen på dina stora anfallsförmågor med 0,1 sek, högst 10 sek var 30:e sek.',
   },
@@ -316,7 +301,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     mag_r5_blink_cast:
       'Bạn có thể dùng Bước Chớp giữa chừng một lượt niệm phép mà không làm gián đoạn nó.',
     mag_r8_temporal_rift:
-      'Cứ 20 giây, hiệu ứng choáng, cố định hoặc câm lặng tiếp theo nhắm vào bạn sẽ bị tẩy sạch ngay lập tức.',
+      'Thi triển lá chắn cá nhân sẽ xóa các hiệu ứng cố định đang ảnh hưởng đến bạn.',
     mag_r17_convergence:
       'Xen kẽ một phép Lửa và một phép Băng Giá kích hoạt 8 giây bùng phát sức mạnh, mỗi 30 giây một lần.',
     mag_r20_overflowing_power:
@@ -327,15 +312,14 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_anger_management: 'Đòn đánh tự động tạo thêm 10% nộ và kỹ năng tạo thêm 5% nộ.',
     war_row_blood_offering:
       'Các thế của bạn nhận thêm hiệu ứng. Thế Công: đòn chí mạng từ kỹ năng gây thêm 15% sát thương. Thế Cuồng Chiến: đòn đánh tự động nhanh hơn 5%. Thế Thủ: một đòn đánh vốn lấy đi ít nhất 20% máu tối đa của bạn sẽ gây ít hơn 15% sát thương.',
-    war_row_battle_rhythm:
-      'Mỗi kỹ năng thứ ba bạn sử dụng tạo thêm 20% nộ và gây thêm 5% sát thương.',
+    war_row_battle_rhythm: 'Mỗi kỹ năng thứ ba bạn sử dụng tạo thêm 20% nộ.',
     war_row_colossal_might:
       'Mỗi điểm nộ bạn tiêu tốn rút ngắn 0,1 giây thời gian hồi chiêu của các kỹ năng tấn công chủ lực, tối đa 10 giây mỗi 30 giây.',
   },
   da_DK: {
     mag_r5_blink_cast: 'Du kan bruge Flimmertrin midt i en besværgelse uden at afbryde den.',
     mag_r8_temporal_rift:
-      'Hvert 20. sek. renses den næste bedøvelse, rodfæstelse eller tavshed der rammer dig, øjeblikkeligt.',
+      'Når du kaster din personlige barriere, fjernes rodfæstelseseffekter på dig.',
     mag_r17_convergence:
       'At veksle mellem en Ild- og en Frosttroldom åbner et kraftudbrud på 8 sek., maks. én gang pr. 30 sek.',
     mag_r20_overflowing_power:
@@ -347,14 +331,13 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
       'Dine autoangreb genererer 10 % mere raseri, og dine evner genererer 5 % mere.',
     war_row_blood_offering:
       'Dine stillinger får yderligere effekter. Kampstilling: kritiske træffere med evner giver 15 % mere skade. Berserkerstilling: dine autoangreb er 5 % hurtigere. Værgende Stilling: et træf, der ville tage mindst 20 % af dit maksimale helbred, giver 15 % mindre skade.',
-    war_row_battle_rhythm:
-      'Hver tredje evne, du bruger, genererer 20 % mere raseri og giver 5 % mere skade.',
+    war_row_battle_rhythm: 'Hver tredje evne, du bruger, genererer 20 % mere raseri.',
     war_row_colossal_might:
       'Hvert raserispunkt du bruger, reducerer afkølingen på dine store angrebsevner med 0,1 sek., op til 10 sek. hvert 30. sek.',
   },
   zh_CN: {
     mag_r5_blink_cast: '你可以在施法过程中使用闪烁步，而不会打断当前施法。',
-    mag_r8_temporal_rift: '每隔 20 秒，下一个命中你的昏迷、定身或沉默效果将被立即驱散。',
+    mag_r8_temporal_rift: '施放你的个人屏障会移除影响你的定身效果。',
     mag_r17_convergence:
       '交替施放一个火焰法术和一个冰霜法术，将触发 8 秒的力量爆发，每 30 秒最多触发一次。',
     mag_r20_overflowing_power:
@@ -364,13 +347,13 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_anger_management: '你的自动攻击产生的怒气提高10%，技能产生的怒气提高5%。',
     war_row_blood_offering:
       '你的姿态获得额外效果。战斗姿态：你的技能暴击造成的伤害提高15%。狂暴姿态：你的自动攻击加快5%。戒备姿态：若一次命中会使你损失至少20%的最大生命值，则该次伤害降低15%。',
-    war_row_battle_rhythm: '你每使用第三个技能时，该技能产生的怒气提高20%，造成的伤害提高5%。',
+    war_row_battle_rhythm: '你每使用第三个技能时，该技能产生的怒气提高20%。',
     war_row_colossal_might:
       '你每消耗1点怒气，主要进攻技能的冷却时间缩短0.1秒，每30秒最多减少10秒。',
   },
   zh_TW: {
     mag_r5_blink_cast: '你可以在施法過程中使用閃爍步，而不會打斷詠唱。',
-    mag_r8_temporal_rift: '每隔20秒，下一個命中你的昏迷、定身或沉默效果將被立即淨化。',
+    mag_r8_temporal_rift: '施放你的個人屏障會移除影響你的定身效果。',
     mag_r17_convergence:
       '交替施放火焰系與冰霜系法術，可觸發持續8秒的力量湧現，每30秒最多觸發一次。',
     mag_r20_overflowing_power:
@@ -381,13 +364,13 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_anger_management: '你的自動攻擊產生的怒氣提高10%，技能產生的怒氣提高5%。',
     war_row_blood_offering:
       '你的姿態獲得額外效果。戰鬥姿態：你的技能致命一擊造成的傷害提高15%。狂暴姿態：你的自動攻擊加快5%。戒備姿態：若一次命中會使你損失至少20%的最大生命值，則該次傷害降低15%。',
-    war_row_battle_rhythm: '你每使用第三個技能時，該技能產生的怒氣提高20%，造成的傷害提高5%。',
+    war_row_battle_rhythm: '你每使用第三個技能時，該技能產生的怒氣提高20%。',
     war_row_colossal_might:
       '你每消耗1點怒氣，主要進攻技能的冷卻時間縮短0.1秒，每30秒最多縮短10秒。',
   },
   ja_JP: {
     mag_r5_blink_cast: '詠唱の途中でも、それを中断せずに瞬き歩みを使用できます。',
-    mag_r8_temporal_rift: '20秒ごとに、次にあなたに当たるスタン、拘束、沈黙を即座に浄化します。',
+    mag_r8_temporal_rift: '自身のバリアを発動すると、自分にかかっている移動不能効果を解除します。',
     mag_r17_convergence:
       '炎と氷の呪文を交互に使用すると、30秒ごとに最大1回、8秒間の魔力の奔流が開きます。',
     mag_r20_overflowing_power:
@@ -398,13 +381,13 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_anger_management: '自動攻撃の怒気生成量が10%、アビリティの怒気生成量が5%増加します。',
     war_row_blood_offering:
       '各スタンスに追加効果を与えます。バトルスタンス：アビリティのクリティカルダメージが15%増加します。バーサーカースタンス：自動攻撃が5%速くなります。ガーデッドスタンス：最大体力の20%以上を失う攻撃のダメージが15%減少します。',
-    war_row_battle_rhythm: '3回目に使用するアビリティは、怒気生成量が20%、ダメージが5%増加します。',
+    war_row_battle_rhythm: '3回目に使用するアビリティは、怒気生成量が20%増加します。',
     war_row_colossal_might:
       '消費した怒気1ポイントごとに、主要な攻撃アビリティのクールダウンが0.1秒短縮されます。30秒ごとに最大10秒まで。',
   },
   ko_KR: {
     mag_r5_blink_cast: '시전 도중에도 섬광걸음을 사용할 수 있으며, 시전이 끊기지 않습니다.',
-    mag_r8_temporal_rift: '20초마다, 다음으로 적중하는 기절, 속박, 침묵 효과를 즉시 해제합니다.',
+    mag_r8_temporal_rift: '개인 보호막을 시전하면 자신에게 걸린 이동 불가 효과가 해제됩니다.',
     mag_r17_convergence:
       '화염 주문과 냉기 주문을 번갈아 사용하면 8초간 마력이 분출됩니다. 30초마다 한 번 발동합니다.',
     mag_r20_overflowing_power:
@@ -415,7 +398,7 @@ export const RETAINED_ROW_DESCRIPTION_OVERRIDES: Partial<
     war_row_anger_management: '자동 공격의 분노 생성량이 10%, 능력의 분노 생성량이 5% 증가합니다.',
     war_row_blood_offering:
       '각 태세에 추가 효과가 부여됩니다. 전투 태세: 능력의 치명타 피해가 15% 증가합니다. 광전사 태세: 자동 공격이 5% 빨라집니다. 방어 태세: 최대 생명력의 20% 이상을 잃게 할 공격의 피해가 15% 감소합니다.',
-    war_row_battle_rhythm: '세 번째로 사용하는 능력은 분노 생성량이 20%, 피해가 5% 증가합니다.',
+    war_row_battle_rhythm: '세 번째로 사용하는 능력은 분노 생성량이 20% 증가합니다.',
     war_row_colossal_might:
       '소비한 분노 1포인트마다 주요 공격 기술의 재사용 대기시간이 0.1초 단축됩니다. 30초마다 최대 10초까지 줄어듭니다.',
   },

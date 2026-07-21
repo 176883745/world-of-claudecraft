@@ -317,7 +317,11 @@ export const sv_SE: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "Återuppstå vid liket",
       "resurrectAtHealer": "Den bleka väktaren (Väktartullen)",
-      "spiritHealerAlive": "Den bleka väktaren vakar över de döda. Du är fortfarande bland de levande."
+      "spiritHealerAlive": "Den bleka väktaren vakar över de döda. Du är fortfarande bland de levande.",
+      "healerConfirmTitle": "Acceptera Väktartullen?",
+      "healerConfirmBody": "Den bleka väktaren återupplivar dig här, men Väktartullen minskar alla dina egenskaper med 75 % i upp till 10 minuter på högre nivåer. Går du som ande tillbaka till din kropp återupplivas du utan påföljd.",
+      "healerConfirmAccept": "Återuppliva mig",
+      "healerConfirmCancel": "Avbryt"
     },
     "fct": {
       "absorbed": "{amount} absorberat",
@@ -750,6 +754,7 @@ export const sv_SE: EnTranslations = {
       "leaderboard": "Ranking",
       "dailyRewards": "Butik",
       "deeds": "Bedrifter",
+      "professions": "Yrken",
       "nameplates": "Namn",
       "haptics": "Haptik",
       "hapticsOff": "Haptik av",
@@ -1039,6 +1044,7 @@ export const sv_SE: EnTranslations = {
       "itemLevelLine": "Föremålsnivå {level}",
       "itemScoreLine": "Poäng {score}",
       "showSecondaryActionBar": "Visa sekundärt handlingsfält",
+      "showThirdActionBar": "Visa tredje åtgärdsfältet",
       "showTargetOfTarget": "Visa målets mål",
       "showAttackButton": "Visa attackknapp",
       "showDailyRewardsChest": "Visa kistan för dagliga belöningar",
@@ -1468,7 +1474,8 @@ export const sv_SE: EnTranslations = {
       "watchTwitch": "Titta på Twitch",
       "watchX": "Visa på X",
       "watchKick": "Titta på Kick",
-      "watchYouTube": "Titta på YouTube"
+      "watchYouTube": "Titta på YouTube",
+      "streamerBadgeTitle": "Verifierad streamer"
     },
     "lootSettings": {
       "title": "Byteinställningar",
@@ -2082,7 +2089,9 @@ export const sv_SE: EnTranslations = {
       "mining": "Gruvdrift",
       "logging": "Skogsavverkning",
       "herbalism": "Örtkunskap",
-      "notReady": "Den här resursnoden har inte återspawnats för dig ännu."
+      "notReady": "Den här resursnoden har inte återspawnats för dig ännu.",
+      "gatherLine": "Du samlar: {name}.",
+      "gatherLineQty": "Du samlar in: {name} x{qty}."
     },
     "archetypeTitle": {
       "label": "Titel",
@@ -2113,6 +2122,42 @@ export const sv_SE: EnTranslations = {
       "tailoring": "Skrädderi",
       "leatherworking": "Läderhantverkeri"
     },
+    "professions": {
+      "title": "Yrken",
+      "close": "Stäng yrken",
+      "ringAria": "Hantverkshjul",
+      "skillsHeader": "Hantverksfärdigheter",
+      "gatheringHeader": "Insamling",
+      "perksHeader": "Förmåner",
+      "identityHeader": "Identitet",
+      "roleMajor": "Huvudyrke",
+      "roleHobby": "Hobby",
+      "roleDormant": "Vilande kunskap",
+      "roleUnattuned": "Oinriktad",
+      "ceilingUnlimited": "Ingen förstärkningsgräns",
+      "ceilingRare": "Sällsynt gräns",
+      "ceilingCommon": "Vanlig gräns",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "Nivå {tier}",
+      "nextUnlockTier": "{points} poäng till nästa nivå: mästerverksodds förbättras",
+      "nextUnlockSpecialized": "{points} poäng till Specialiserad: materialkostnaderna sjunker",
+      "nextUnlockMax": "Med maximal skicklighet",
+      "perkSpecializedLine": "{craft}: Specialiserade, materialkostnader -{pct}%",
+      "perkSpecializedAt": "Specialiserad på {threshold} skicklighet",
+      "switchCost": "Nästa arketypbyte kostar {cost} botgöringspoäng",
+      "syncing": "Väntar på dina yrkesdata från riket.",
+      "tutorialLine": "Nå {target} skicklighet i vilket hantverk som helst för att låsa upp din första nivå.",
+      "ctaHeader": "Nästa steg",
+      "ctaRaise": "Fortsätt höja {craft}: {points} poäng till nästa nivå.",
+      "ctaStart": "Hantverk eller samla med vilket yrke som helst för att börja.",
+      "unattunedIdentity": "Du är ännu inte inställd på en arketyp. Lyft ditt hantverk och slutför en inställning för att välja ditt par.",
+      "nudgeNearTier": "{craft}: {points} poäng från nästa nivå",
+      "nudgeDormant": "Din {craft} kunskap ligger vilande",
+      "hobbyLabel": "Hobby: {craft}",
+      "majorsLabel": "Huvudämnen: {a} och {b}",
+      "pairsHeld": "Par som hålls: {count}",
+      "returnsLabel": "Returnerar: {count}"
+    },
     "crafting": {
       "title": "Hantverk",
       "close": "Nära hantverk",
@@ -2131,6 +2176,7 @@ export const sv_SE: EnTranslations = {
       "comboNotAttuned": "Välj ett arketyppar först.",
       "comboWrongPair": "Aktivera detta exakta par för att tillverka det.",
       "comboTierUnmet": "Höj båda hantverksämnena till den krävda nivån.",
+      "comboTierUnmetNamed": "Höj {crafts} till nivå {tier}.",
       "professionChoice": "Yrkesval",
       "noProfessionChoice": "Inget giltigt yrkesval är för närvarande tillgängligt.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const sv_SE: EnTranslations = {
         "nearTier": "{craft} är {points} färdighetspoäng från nästa nivå.",
         "dormantKnowledge": "{craft}-kunskap bibehålls men är vilande tills dess par eller hobby är aktivt."
       },
-      "notAtHub": "Du måste vara vid hantverksplatsen, på rätt nivå, för att tillverka det.",
+      "stationRequired": "Du måste vara vid {station} för att skapa det.",
+      "stationName": {
+        "forge": "Smedja",
+        "kitchens": "Kök",
+        "apothecary": "Apotekare",
+        "tannery": "Garveri",
+        "loom": "Vävstol",
+        "toolworks": "Verktygsverkstad"
+      },
       "throttled": "Du tillverkar för snabbt. Vänta ett ögonblick och försök igen.",
-      "recipeNotLearned": "Du har inte lärt dig det receptet än."
+      "recipeNotLearned": "Du har inte lärt dig det receptet än.",
+      "skillReqLine": "Kräver {craft} {skill}",
+      "difficultyFull": "Full skicklighetsvinst",
+      "difficultyReduced": "Minskad färdighetsvinst",
+      "difficultyNone": "Ingen färdighetsvinst",
+      "stationBadge": "Station",
+      "stationOutOfRangeNamed": "Flytta till {station} för att skapa detta.",
+      "masterworkToast": "Mästerverk! {name}",
+      "masterworkZoneLine": "{crafter} skapade ett mästerverk {name}!",
+      "tierUpToast": "{craft} avancerat till nivå {tier}!",
+      "makersMark": "Skapad av {name}",
+      "masterworkSeal": "Mästerverk",
+      "enchantedLine": "Förtrollad"
+    },
+    "training": {
+      "title": "Utbildning: {name}",
+      "close": "Stäng utbildning",
+      "empty": "Den här mästaren har ingenting att lära ut.",
+      "free": "Gratis",
+      "stateKnown": "Känd",
+      "stateTeachable": "Tillgänglig",
+      "stateLocked": "Låst",
+      "requirement": "Undervisade på {craft} {skill}",
+      "trainAria": "Lär dig {name} för {fee}",
+      "dialogOption": "Utbildning",
+      "dialogOptionAria": "Bläddra bland utbildningar från {name}",
+      "learned": "Lärt recept: {recipe}",
+      "tierUnmet": "Du behöver {craft} {skill} för att lära dig det receptet.",
+      "cannotAfford": "Du har inte råd med den utbildningen.",
+      "notTaughtHere": "Det receptet lärs inte ut här.",
+      "alreadyKnown": "Det receptet känner du redan till.",
+      "outOfRange": "Du måste vara på stationen för att träna."
     },
     "finder": {
       "title": "Fängelsehålsletaren",
@@ -2331,6 +2416,11 @@ export const sv_SE: EnTranslations = {
       "broadcastsLabel": "Dela fullbordade bedrifter med gille och vänner",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder} träffade en orörd ådra!",
+    "ancientHeartwood": "{finder} fällde en gammal kärnved!",
+    "moonlitBloom": "{finder} upptäckte en månbelyst blomning!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const sv_SE: EnTranslations = {
       "ice_lance": "En omedelbar bit för att förbruka frostprocsar, träffar mycket hårdare på ett fryst mål.",
       "flurry": "Tre snabba bultar som kyler målet så dina nästa frostträffar landar som om det vore fryst.",
       "fingers_of_frost": "Dina frostbultar stärker ibland en Ice Lance att slå som om målet vore fryst.",
-      "brain_freeze": "Dina frostbultar gör ibland nästa Flurry omedelbar och hårdare träffande.",
+      "brain_freeze": "Dina frostbesvärjelser gör ibland nästa Winterlash omedelbar och hoppar över dess nedkylning.",
       "shatter": "Dina besvärjelser kritikträffar mycket oftare mot frysta mål.",
-      "frozen_orb": "Rullar en långsam kula genom flocken som kyler allt och matar dina frostprocsar.",
+      "frozen_orb": "Rullar ett långsamt klot genom gruppen som kyler fiender och lagrar istappar.",
       "blizzard": "Täcker ett område med is för att nöta ner och sakta en hel flock.",
       "blink": "Teleporterar dig ett kort stycke framåt och bryter rötter på vägen ut.",
       "conjure_water": "Frammanar drycker som återställer mana, så du kan fylla på mellan anstormningarna.",
@@ -4529,7 +4619,11 @@ export const sv_SE: EnTranslations = {
   },
   "heroicShop": {
     "balance": "Heroiska märken: {count}",
-    "buyAria": "Köp {item} för {marks} heroiska märken"
+    "buyAria": "Köp {item} för {marks} heroiska märken",
+    "buyConfirmTitle": "Bekräfta köp",
+    "buyConfirmBody": "Köp {item} för {marks} heroiska märken? Köp med märken kan inte återbetalas.",
+    "buyConfirmAccept": "Köp",
+    "buyConfirmCancel": "Avbryt"
   },
   "cardDuel": {
     "title": "Kortduell",
@@ -4582,7 +4676,11 @@ export const sv_SE: EnTranslations = {
       "buyAria": "Köp {item} för {marks} Delve-märken",
       "reqHeroic": "Kräver en heroisk rensning",
       "reqClears": "Kräver {count} rensningar",
-      "empty": "Inget i lager."
+      "empty": "Inget i lager.",
+      "buyConfirmTitle": "Bekräfta köp",
+      "buyConfirmBody": "Köp {item} för {marks} Delve-märken? Köp med märken kan inte återbetalas.",
+      "buyConfirmAccept": "Köp",
+      "buyConfirmCancel": "Avbryt"
     },
     "tracker": {
       "title": "Delve",
@@ -4971,6 +5069,11 @@ export const sv_SE: EnTranslations = {
     "discordCommunity": "Gå med i World of ClaudeCraft-gemenskapen på Discord",
     "donateProject": "Donera för att stödja World of ClaudeCraft"
   },
+  "entryGuard": {
+    "title": "Grafik sänkt",
+    "body": "Spelet stängdes oväntat när du gick in i världen, så grafiken är nu inställd på {preset}. Du kan ändra detta i grafikväljaren nedan eller i alternativen i spelet.",
+    "dismiss": "Stäng"
+  },
   "loading": {
     "world": "Läser in världen...",
     "worldProgress": "Läser in världen... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const sv_SE: EnTranslations = {
     "rendererFailed": "Kunde inte starta renderaren: försök läsa om sidan. {error}",
     "enterTimeout": "Kunde inte gå in i världen. Anslutningen tog för lång tid. Körs spelservern?",
     "connectionLost": "Anslutningen till servern bröts.",
-    "reconnecting": "Anslutning förlorad. Återansluter...",
+    "reconnectingAttempt": "Anslutning förlorad. Återansluter... (försök {attempt}/{maxAttempts}, försöker igen om {seconds}s)",
+    "reconnectingNow": "Anslutning förlorad. Återansluter nu... (försök {attempt}/{maxAttempts})",
+    "slowConnection": "Detta tar längre tid än vanligt. Kontrollera din internetanslutning.",
     "connectionRejected": "Servern stängde anslutningen.",
     "realmFull": "Denna värld är full just nu. Försök igen om några minuter.",
     "tooManyConnections": "För många anslutningar till denna värld kommer från ditt nätverk. Stäng extra spelfönster eller försök igen om några minuter.",
@@ -6083,6 +6188,7 @@ export const sv_SE: EnTranslations = {
       "rarityUncommon": "Ovanlig",
       "rarityRare": "Sällsynt",
       "rarityEpic": "Episk",
+      "rarityLegendary": "Legendarisk",
       "merchantStock": "Köpmannens lager",
       "stackCount": "x{count}",
       "each": "{money} styck",
@@ -6283,7 +6389,7 @@ export const sv_SE: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "Flammande barriär",
-        "description": "Svep in dig i lågor och absorbera 130 skada i 60 sek. (Eld)"
+        "description": "Svep in dig i lågor och absorbera {damage} skada i 60 sek. (Eld)"
       },
       "cold_snap": {
         "name": "Vinterns kallelse",
@@ -6335,11 +6441,11 @@ export const sv_SE: EnTranslations = {
       },
       "flurry": {
         "name": "Winterlash",
-        "description": "Avfyrar tre isiga bultar för {damage} Frost-skada var och en och planterar Vinterkyla på målet: dess nästa 2 inkommande kompatibla besvärjelser behandlar det som fryst. Brain Freeze gör Winterlash omedelbar, 30% hårdare och hoppar över dess nedkylning. (Frost)"
+        "description": "Avfyra tre isprojektiler som vardera orsakar {damage} frostskada och lägger Vinterkyla på målet: de nästa 2 kompatibla besvärjelserna mot det behandlar det som fruset. Brain Freeze gör Winterlash omedelbar och hoppar över dess nedkylning. (Frost)"
       },
       "frozen_orb": {
         "name": "Frozen Orb",
-        "description": "Skjuter ut en kula av virvelande frost som glider framåt i 8 sek, orsakar {damage} Frost-skada varje sekund på närliggande fiender och saktar ner dem med 30%. Kulans slag ger Fingers of Frost. (Frost)"
+        "description": "Släpp ett klot av virvlande frost som driver framåt i 8 sekunder, orsakar {damage} frostskada varje sekund på fiender i närheten och saktar ner dem med 30 %. Varje träffande puls skapar en istapp. (Frost)"
       },
       "blizzard": {
         "name": "Blizzard",
@@ -6363,11 +6469,11 @@ export const sv_SE: EnTranslations = {
       },
       "brain_freeze": {
         "name": "Brain Freeze",
-        "description": "Rimlans har 20% chans att göra nästa Winterlash omedelbar, 30% hårdare och fri från dess nedkylning. (Frost)"
+        "description": "Rimlans har 20 % chans att göra din nästa Winterlash omedelbar och utan nedkylning. (Frost)"
       },
       "shatter": {
         "name": "Brittle Ruin",
-        "description": "Dina besvärjelser får 50% kritisk träffchans mot frysta mål, och dessa kritiska slag gör 20% mer skada. Fingers of Frost och Vinterkyla räknas som fryst. (Frost)"
+        "description": "Dina besvärjelser får 50 % högre kritisk träffchans mot frysta mål. Fingers of Frost och Vinterkyla räknas som frusna. (Frost)"
       },
       "conjure_water": {
         "name": "Vattenbindning",
@@ -6391,7 +6497,7 @@ export const sv_SE: EnTranslations = {
       },
       "frost_nova": {
         "name": "Isbindning",
-        "description": "Fryser fast alla närliggande fiender på platsen i upp till 8 sek och vållar {damage} frostskada."
+        "description": "Fryser fast alla närliggande fiender på platsen i upp till 8 sek och vållar {damage} frostskada. Fasthållningen bryts efter sammanlagd skada motsvarande 15 % av målets maximala hälsa, dock minst 20 och högst 60 skada."
       },
       "arcane_explosion": {
         "name": "Etersalva",
@@ -8138,6 +8244,222 @@ export const sv_SE: EnTranslations = {
       "emberglass_warstaff": {
         "name": "Glödglas-Krigsstav"
       },
+      "copper_ore": {
+        "name": "Kopparmalm"
+      },
+      "iron_ore": {
+        "name": "Järnmalm"
+      },
+      "ironbark_log": {
+        "name": "Järnbarksstock"
+      },
+      "silverleaf_herb": {
+        "name": "Silverbladsört"
+      },
+      "rough_hide": {
+        "name": "Grovt skinn"
+      },
+      "spider_silk": {
+        "name": "Spindelsilke"
+      },
+      "venom_gland": {
+        "name": "Giftkörtel"
+      },
+      "game_meat": {
+        "name": "Viltkött"
+      },
+      "homespun_cloth": {
+        "name": "Hemspunnet tyg"
+      },
+      "pristine_hide": {
+        "name": "Orört skinn"
+      },
+      "pristine_silk": {
+        "name": "Orörd siden"
+      },
+      "pristine_venom_gland": {
+        "name": "Orörd giftkörtel"
+      },
+      "prime_cut": {
+        "name": "Förstklassig styckdetalj"
+      },
+      "smithing_flux": {
+        "name": "Smidesfluss"
+      },
+      "spool_of_thread": {
+        "name": "Trådrulle"
+      },
+      "tanning_agent": {
+        "name": "Garvningsmedel"
+      },
+      "cooking_salt": {
+        "name": "Matlagningssalt"
+      },
+      "glass_vial": {
+        "name": "Glasflaska"
+      },
+      "copper_bearded_axe": {
+        "name": "Koppar skäggyxa"
+      },
+      "copper_flanged_mace": {
+        "name": "Kopparflänsad stridsklubba"
+      },
+      "ironbark_boar_spear": {
+        "name": "Järnbarks vildsvinsspjut"
+      },
+      "ironedge_longsword": {
+        "name": "Järneggat långsvärd"
+      },
+      "ironshod_maul": {
+        "name": "Järnskodd stridshammare"
+      },
+      "whetted_iron_dirk": {
+        "name": "Brynt järndolk"
+      },
+      "thorium_warblade": {
+        "name": "Toriumkrigsklinga"
+      },
+      "arcanite_war_axe": {
+        "name": "Arkanitkrigsyxa"
+      },
+      "elderwood_battle_staff": {
+        "name": "Äldreskogens stridsstav"
+      },
+      "riveted_copper_girdle": {
+        "name": "Nitad koppargördel"
+      },
+      "coppermail_sabatons": {
+        "name": "Kopparbrynjestövlar"
+      },
+      "coppermail_gauntlets": {
+        "name": "Kopparbrynjehandskar"
+      },
+      "ironlink_hauberk": {
+        "name": "Järnlänksbrynja"
+      },
+      "ironlink_legguards": {
+        "name": "Järnlänksbenskydd"
+      },
+      "ironlink_spaulders": {
+        "name": "Järnlänksskuldror"
+      },
+      "thoriumscale_greathelm": {
+        "name": "Toriumfjällstorhjälm"
+      },
+      "thoriumscale_cuirass": {
+        "name": "Toriumfjällharnesk"
+      },
+      "thoriumscale_leggings": {
+        "name": "Toriumfjällsbyxor"
+      },
+      "homespun_hood": {
+        "name": "Hemspunnen huva"
+      },
+      "homespun_mitts": {
+        "name": "Hemspunna vantar"
+      },
+      "silverthread_slippers": {
+        "name": "Silvertrådiga tofflor"
+      },
+      "goldweave_robe": {
+        "name": "Guldvävsrock"
+      },
+      "goldweave_leggings": {
+        "name": "Guldvävda byxor"
+      },
+      "silkspun_satchel": {
+        "name": "Silkespunna väska"
+      },
+      "silkbinders_raiment": {
+        "name": "Silkbinders klädsel"
+      },
+      "sunweave_mantle": {
+        "name": "Solvävd mantel"
+      },
+      "sunweave_treads": {
+        "name": "Solvävda stövlar"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "Fenbridge-läderbyxor"
+      },
+      "fenbridge_hide_boots": {
+        "name": "Fenbridge-läderstövlar"
+      },
+      "fenbridge_hide_belt": {
+        "name": "Fenbridge-läderbälte"
+      },
+      "marshstalker_jerkin": {
+        "name": "Myrjägarjacka"
+      },
+      "marshstalker_hood": {
+        "name": "Myrjägarhuva"
+      },
+      "marshstalker_spaulders": {
+        "name": "Myrjägarskuldror"
+      },
+      "mirewarden_jerkin": {
+        "name": "Myrväktarjacka"
+      },
+      "mirewarden_leggings": {
+        "name": "Myrväktarbyxor"
+      },
+      "mirewarden_treads": {
+        "name": "Myrväktarstövlar"
+      },
+      "pan_seared_perch": {
+        "name": "Pannstekt flodabborre"
+      },
+      "hunters_game_skewer": {
+        "name": "Jägarens viltspett"
+      },
+      "herbed_marsh_pike": {
+        "name": "Örtad kärrgädda"
+      },
+      "ashwood_smoked_eel": {
+        "name": "Askvedsrökt ål"
+      },
+      "goldleaf_game_stew": {
+        "name": "Guldblads viltgryta"
+      },
+      "frostgill_chowder": {
+        "name": "Frostgälsgryta"
+      },
+      "silvered_carp_supper": {
+        "name": "Middag på silverkarp"
+      },
+      "anglers_feast_platter": {
+        "name": "Fiskarens festfat"
+      },
+      "marlows_grand_roast": {
+        "name": "Marlows feststek"
+      },
+      "silverleaf_healing_draught": {
+        "name": "Silverblads läkande brygd"
+      },
+      "silverleaf_mana_draught": {
+        "name": "Silverblads manabrygd"
+      },
+      "elixir_of_the_boar": {
+        "name": "Galtens elixir"
+      },
+      "goldleaf_healing_draught": {
+        "name": "Guldblads läkande brygd"
+      },
+      "goldleaf_mana_draught": {
+        "name": "Guldblads manabrygd"
+      },
+      "venomfire_elixir": {
+        "name": "Gifteldselixir"
+      },
+      "sunpetal_healing_draught": {
+        "name": "Solblads läkande brygd"
+      },
+      "sunpetal_mana_draught": {
+        "name": "Solblads manabrygd"
+      },
+      "elixir_of_the_serpent": {
+        "name": "Ormens elixir"
+      },
       "conjured_water4": {
         "name": "Frambesvärjt källvatten"
       },
@@ -9395,6 +9717,36 @@ export const sv_SE: EnTranslations = {
         "title": "Topparnas krönika",
         "greeting": "Berget glömmer ingenting, {playerName}, och det gör inte jag heller. Låt oss se vad du har uträttat."
       },
+      "forgemistress_darva": {
+        "name": "Smedmästarinnan Darva",
+        "title": "Smedjans mästare",
+        "greeting": "Smedjan svarar till mig, {className}. Ta med god malm så svarar det dig också."
+      },
+      "cook_marlow": {
+        "name": "Kocken Marlow",
+        "title": "Kökens mästare",
+        "greeting": "Inget lämnar mitt kök halvkokt, {className}. Sitt, ät och gå sedan ut igen."
+      },
+      "weaver_ottilie": {
+        "name": "Väver Ottilie",
+        "title": "Vävstolens mästare",
+        "greeting": "Tänk på trådarna, {className}. En stadig hand vid vävstolen slår en stark."
+      },
+      "tinker_gizzel": {
+        "name": "Fixare Gizzel",
+        "title": "Verktygsverkets mästare",
+        "greeting": "Fjädrar, kedjehjul och vassa kanter, {className}: verktygsverket har vad dina händer saknar."
+      },
+      "tanner_hesk": {
+        "name": "Garvare Hesk",
+        "title": "Mästaren på garveriet",
+        "greeting": "En hud är bara så bra som dess garvning, {className}. Karen är klara när du är."
+      },
+      "alchemist_verane": {
+        "name": "Alkemisten Verane",
+        "title": "Apotekerns mästare",
+        "greeting": "Mät två gånger och häll en gång, {className}. Apotekaren har inget tålamod för utspillda reagenser."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Tidvattenväktare",
@@ -10464,6 +10816,56 @@ export const sv_SE: EnTranslations = {
         "sender": "Heroisk kvartermästare",
         "subject": "Dina heroiska märken",
         "body": "Din grupp klarade den heroiska prövningen medan du kämpade i eftertruppen eller låg fallen. Din låsning registrerades ändå, så din andel heroiska märken skickades hit i stället för att gå förlorad. Använd dem väl.\n\n- Heroisk kvartermästare"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom teknik och alkemi",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete inom teknik och alkemi: laddningar mäts och reagenser vägs, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. De som binder detta par får namnet bombardör i tid. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom alkemi och matlagning",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i alkemi och matlagning: brygder puttrade och rätter kryddade, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. De som binder detta par får namnet apotekare i tid. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom matlagning och läderbearbetning",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i matlagning och läderbearbetning: upplagda måltider och garvade hudar, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom läderbearbetning och skrädderi",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i läderbearbetning och skrädderi: läder skuren och tyg fållad, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. De som binder detta par får namnet utrustare i tid. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom Skrädderi och Inskription",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i Skräddarsy och Inskription: sömmar sydda och glyfer färgade, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete i inskription och förtrollning",
+        "body": "Hantverkare,\n\nBud når gillet om ditt arbete i inskription och förtrollning: rullar med bokstäver och berlocker vävda, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom förtrollande och smyckeskonst",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i Förtrollande och juvelslipning: berlocker bundna och stenar polerade, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom juvelslipning och vapensmide",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i juvelslipning och vapensmide: ädelstenar sitter och kanter slipade, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete inom vapen- och pansarslöjd",
+        "body": "Hantverkare,\n\nBud når gilleten för ditt arbete inom vapenhantverk och pansarslöjd: blad härdat och plåtar monterade, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. De som binder detta par får namnet smed i tid. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "Hantverksgillet",
+        "subject": "Ditt arbete med rustningssmide och ingenjörskonst",
+        "body": "Hantverkare,\n\nBud når gillet av ditt arbete i rustningssmide och ingenjörskonst: plåtar nitade och kugghjul satta, de två hantverken matar varandra. Närliggande hantverk som arbetats tillsammans markerar en hand redo för inställning. Sök upp Smed Haldren, rustningsmannen i Eastbrook: han talar för mästarna för tillfället. Bevisa ditt hantverk för honom med arbete av dina egna händer, och han kommer att se dina två huvudyrken anpassade.\n\nI god ställning,\nHantverksgillet"
       }
     },
     "itemSets": {

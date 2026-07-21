@@ -317,7 +317,11 @@ export const it_IT: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "Risorgi al cadavere",
       "resurrectAtHealer": "Il Custode Pallido (Mal di resurrezione)",
-      "spiritHealerAlive": "Il Custode Pallido veglia sui morti. Tu sei ancora tra i vivi."
+      "spiritHealerAlive": "Il Custode Pallido veglia sui morti. Tu sei ancora tra i vivi.",
+      "healerConfirmTitle": "Accettare il Mal di resurrezione?",
+      "healerConfirmBody": "Il Custode Pallido ti farà rivivere qui, ma il Mal di resurrezione riduce tutti i tuoi attributi del 75%, per un massimo di 10 minuti ai livelli più alti. Riportare il tuo spirito al tuo cadavere ti fa rivivere senza penalità.",
+      "healerConfirmAccept": "Ravvivami",
+      "healerConfirmCancel": "Annulla"
     },
     "fct": {
       "absorbed": "Assorbito {amount}",
@@ -750,6 +754,7 @@ export const it_IT: EnTranslations = {
       "leaderboard": "Classifica",
       "dailyRewards": "Negozio",
       "deeds": "Imprese",
+      "professions": "Professioni",
       "nameplates": "Nomi",
       "haptics": "Vibrazione",
       "hapticsOff": "Vibrazione disattivata",
@@ -1039,6 +1044,7 @@ export const it_IT: EnTranslations = {
       "itemLevelLine": "Livello oggetto {level}",
       "itemScoreLine": "Punteggio {score}",
       "showSecondaryActionBar": "Mostra la barra delle azioni secondaria",
+      "showThirdActionBar": "Mostra la terza barra delle azioni",
       "showTargetOfTarget": "Mostra il bersaglio del bersaglio",
       "showAttackButton": "Mostra Pulsante Attacco",
       "showDailyRewardsChest": "Mostra forziere delle ricompense giornaliere",
@@ -1468,7 +1474,8 @@ export const it_IT: EnTranslations = {
       "watchTwitch": "Guarda su Twitch",
       "watchX": "Vedi su X",
       "watchKick": "Guarda su Kick",
-      "watchYouTube": "Guarda su YouTube"
+      "watchYouTube": "Guarda su YouTube",
+      "streamerBadgeTitle": "Streamer verificato"
     },
     "lootSettings": {
       "title": "Impostazioni Bottino",
@@ -2082,7 +2089,9 @@ export const it_IT: EnTranslations = {
       "mining": "Estrazione mineraria",
       "logging": "Taglio del legname",
       "herbalism": "Erbalismo",
-      "notReady": "Questo nodo di risorse non e ancora rispawnato per te."
+      "notReady": "Questo nodo di risorse non e ancora rispawnato per te.",
+      "gatherLine": "Raccogli: {name}.",
+      "gatherLineQty": "Raccogli: {name} x {qty}."
     },
     "archetypeTitle": {
       "label": "Titolo",
@@ -2113,6 +2122,42 @@ export const it_IT: EnTranslations = {
       "tailoring": "Sartoria",
       "leatherworking": "Lavorazione del Cuoio"
     },
+    "professions": {
+      "title": "Professioni",
+      "close": "Chiudi professioni",
+      "ringAria": "Ruota artigianale",
+      "skillsHeader": "Abilità artigianali",
+      "gatheringHeader": "Raccolta",
+      "perksHeader": "Vantaggi",
+      "identityHeader": "Identità",
+      "roleMajor": "Maggiore",
+      "roleHobby": "Hobby",
+      "roleDormant": "Dormiente",
+      "roleUnattuned": "Non sintonizzato",
+      "ceilingUnlimited": "Nessun limite di potenziamento",
+      "ceilingRare": "Limite raro",
+      "ceilingCommon": "Limite comune",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "Livello {tier}",
+      "nextUnlockTier": "{points} punta al livello successivo: le probabilità di capolavori migliorano",
+      "nextUnlockSpecialized": "{points} punti alla specializzazione: i costi dei materiali diminuiscono",
+      "nextUnlockMax": "Alla massima abilità",
+      "perkSpecializedLine": "{craft}: costi materiali specializzati -{pct}%",
+      "perkSpecializedAt": "Specializzato nell'abilità {threshold}",
+      "switchCost": "Il prossimo cambio di archetipo costa {cost} punti di espiazione",
+      "syncing": "Aspetto i dati sulla tua professione dal regno.",
+      "tutorialLine": "Raggiungi l'abilità {target} in qualsiasi mestiere per sbloccare il tuo primo livello.",
+      "ctaHeader": "Prossimo passo",
+      "ctaRaise": "Continua ad aumentare {craft}: {points} più punti al livello successivo.",
+      "ctaStart": "Crea o riunisciti con qualsiasi professione per iniziare.",
+      "unattunedIdentity": "Non sei ancora in sintonia con un archetipo. Migliora le tue abilità e completa un'armonizzazione per scegliere la tua coppia.",
+      "nudgeNearTier": "{craft}: punti {points} dal livello successivo",
+      "nudgeDormant": "La tua conoscenza di {craft} è dormiente",
+      "hobbyLabel": "Hobby: {craft}",
+      "majorsLabel": "Maggiori: {a} e {b}",
+      "pairsHeld": "Coppie detenute: {count}",
+      "returnsLabel": "Restituisce: {count}"
+    },
     "crafting": {
       "title": "Creazione",
       "close": "Chiudi la lavorazione",
@@ -2131,6 +2176,7 @@ export const it_IT: EnTranslations = {
       "comboNotAttuned": "Scegli prima una coppia archetipo.",
       "comboWrongPair": "Attiva questa coppia esatta per crearlo.",
       "comboTierUnmet": "Porta entrambi i mestieri principali al livello richiesto.",
+      "comboTierUnmetNamed": "Aumenta {crafts} al livello {tier}.",
       "professionChoice": "Scelta professione",
       "noProfessionChoice": "Nessuna scelta di professione valida è attualmente disponibile.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const it_IT: EnTranslations = {
         "nearTier": "{craft} dista {points} punti competenza dal prossimo livello.",
         "dormantKnowledge": "La conoscenza di {craft} viene mantenuta ma è dormiente finché la sua coppia o il passatempo non è attivo."
       },
-      "notAtHub": "Devi trovarti alla postazione artigiana, al livello richiesto, per fabbricarlo.",
+      "stationRequired": "Devi essere al {station} per realizzarlo.",
+      "stationName": {
+        "forge": "Forgia",
+        "kitchens": "Cucine",
+        "apothecary": "Farmacista",
+        "tannery": "Conceria",
+        "loom": "Telaio",
+        "toolworks": "Officina degli attrezzi"
+      },
       "throttled": "Stai fabbricando troppo in fretta. Aspetta un momento e riprova.",
-      "recipeNotLearned": "Non hai ancora imparato quella ricetta."
+      "recipeNotLearned": "Non hai ancora imparato quella ricetta.",
+      "skillReqLine": "Richiede {craft} {skill}",
+      "difficultyFull": "Guadagno completo di abilità",
+      "difficultyReduced": "Guadagno di abilità ridotto",
+      "difficultyNone": "Nessun guadagno di abilità",
+      "stationBadge": "Stazione",
+      "stationOutOfRangeNamed": "Passa a {station} per crearlo.",
+      "masterworkToast": "Capolavoro! {name}",
+      "masterworkZoneLine": "{crafter} ha realizzato un capolavoro {name}!",
+      "tierUpToast": "{craft} è avanzato al livello {tier}!",
+      "makersMark": "Realizzato da {name}",
+      "masterworkSeal": "Capolavoro",
+      "enchantedLine": "Incantato"
+    },
+    "training": {
+      "title": "Formazione: {name}",
+      "close": "Chiudi formazione",
+      "empty": "Questo maestro non ha nulla da insegnare.",
+      "free": "Gratuito",
+      "stateKnown": "Conosciuto",
+      "stateTeachable": "Disponibile",
+      "stateLocked": "Bloccato",
+      "requirement": "Insegnato a {craft} {skill}",
+      "trainAria": "Impara {name} per {fee}",
+      "dialogOption": "Formazione",
+      "dialogOptionAria": "Sfoglia la formazione da {name}",
+      "learned": "Ricetta appresa: {recipe}",
+      "tierUnmet": "Hai bisogno di {craft} {skill} per imparare quella ricetta.",
+      "cannotAfford": "Non puoi permetterti quella formazione.",
+      "notTaughtHere": "Quella ricetta non viene insegnata qui.",
+      "alreadyKnown": "Conosci già quella ricetta.",
+      "outOfRange": "Devi essere alla stazione per allenarti."
     },
     "finder": {
       "title": "Cercatore di Dungeon",
@@ -2331,6 +2416,11 @@ export const it_IT: EnTranslations = {
       "broadcastsLabel": "Condividi le imprese ottenute con la gilda e gli amici",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder} ha colpito una vena incontaminata!",
+    "ancientHeartwood": "{finder} ha abbattuto un antico durame!",
+    "moonlitBloom": "{finder} ha scoperto una fioritura illuminata dalla luna!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const it_IT: EnTranslations = {
       "ice_lance": "Un frammento istantaneo per spendere le abilità da Gelo, colpisce molto più forte su un bersaglio congelato.",
       "flurry": "Tre dardi rapidi che gelano il bersaglio cosicché i prossimi colpi da gelo lo colpiscano come se fosse congelato.",
       "fingers_of_frost": "I tuoi dardi gelidi a volte potenziano una Ice Lance per colpire come se il bersaglio fosse congelato.",
-      "brain_freeze": "I tuoi dardi gelidi a volte rendono il prossimo Winterlash istantaneo e più potente.",
+      "brain_freeze": "I tuoi dardi gelidi a volte rendono istantaneo il prossimo Raffica e ne saltano il tempo di recupero.",
       "shatter": "I tuoi incantesimi vanno in critico molto più spesso contro i bersagli congelati.",
-      "frozen_orb": "Fa rotolare lentamente un globo nel gruppo nemico che gela i bersagli e alimenta le tue abilità da Gelo.",
+      "frozen_orb": "Lancia una sfera lenta attraverso lo zaino che raffredda i nemici e spinge i ghiaccioli.",
       "blizzard": "Copre un'area di ghiaccio per logorare e rallentare un intero gruppo di nemici.",
       "blink": "Ti teletrasporta a breve distanza in avanti, liberandoti dalle radici nel farlo.",
       "conjure_water": "Evoca bevande che ripristinano il mana, così puoi rifornirti tra un pull e l'altro.",
@@ -4529,7 +4619,11 @@ export const it_IT: EnTranslations = {
   },
   "heroicShop": {
     "balance": "Marchi Eroici: {count}",
-    "buyAria": "Compra {item} per {marks} Marchi Eroici"
+    "buyAria": "Compra {item} per {marks} Marchi Eroici",
+    "buyConfirmTitle": "Conferma acquisto",
+    "buyConfirmBody": "Acquista {item} per {marks} Marchi eroici? Gli acquisti di Marchi non possono essere rimborsati.",
+    "buyConfirmAccept": "Acquista",
+    "buyConfirmCancel": "Annulla"
   },
   "cardDuel": {
     "title": "Duello di Carte",
@@ -4582,7 +4676,11 @@ export const it_IT: EnTranslations = {
       "buyAria": "Compra {item} per {marks} Sigilli d'Incursione",
       "reqHeroic": "Richiede un'incursione eroica completata",
       "reqClears": "Richiede {count} incursioni completate",
-      "empty": "Niente in magazzino."
+      "empty": "Niente in magazzino.",
+      "buyConfirmTitle": "Conferma acquisto",
+      "buyConfirmBody": "Acquista {item} per {marks} Sigilli d’Incursione? Gli acquisti di Marchi non possono essere rimborsati.",
+      "buyConfirmAccept": "Acquista",
+      "buyConfirmCancel": "Annulla"
     },
     "tracker": {
       "title": "Incursione",
@@ -4971,6 +5069,11 @@ export const it_IT: EnTranslations = {
     "discordCommunity": "Entra nella community Discord di World of ClaudeCraft",
     "donateProject": "Fai una donazione per sostenere World of ClaudeCraft"
   },
+  "entryGuard": {
+    "title": "Grafica ridotta",
+    "body": "Il gioco si è chiuso in modo imprevisto entrando nel mondo, quindi la grafica è ora impostata su {preset}. Puoi cambiarla nel selettore della grafica qui sotto o nelle opzioni di gioco.",
+    "dismiss": "Chiudi"
+  },
   "loading": {
     "world": "Caricamento del mondo...",
     "worldProgress": "Caricamento del mondo... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const it_IT: EnTranslations = {
     "rendererFailed": "Impossibile avviare il renderer: ricarica la pagina. {error}",
     "enterTimeout": "Impossibile entrare nel mondo. La connessione è scaduta. Il server di gioco è in esecuzione?",
     "connectionLost": "Connessione al server persa.",
-    "reconnecting": "Connessione persa. Riconnessione...",
+    "reconnectingAttempt": "Connessione persa. Riconnessione in corso... (tentare {attempt}/{maxAttempts}, riprovando in {seconds})",
+    "reconnectingNow": "Connessione persa. Ci stiamo ricollegando ora... (tentativo {attempt}/{maxAttempts})",
+    "slowConnection": "L'operazione sta richiedendo più tempo del solito. Controlla la tua connessione Internet.",
     "connectionRejected": "Il server ha chiuso la connessione.",
     "realmFull": "Questo mondo e al completo in questo momento. Riprova tra qualche minuto.",
     "tooManyConnections": "Troppe connessioni a questo mondo provengono dalla tua rete. Chiudi le finestre di gioco extra o riprova tra qualche minuto.",
@@ -6083,6 +6188,7 @@ export const it_IT: EnTranslations = {
       "rarityUncommon": "Non comune",
       "rarityRare": "Raro",
       "rarityEpic": "Epico",
+      "rarityLegendary": "Leggendario",
       "merchantStock": "Scorte del Mercante",
       "stackCount": "x{count}",
       "each": "{money} ciascuno",
@@ -6283,7 +6389,7 @@ export const it_IT: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "Barriera ardente",
-        "description": "Ti avvolge nelle fiamme, assorbendo 130 danni per 60 s. (Fuoco)"
+        "description": "Ti avvolge nelle fiamme, assorbendo {damage} danni per 60 s. (Fuoco)"
       },
       "cold_snap": {
         "name": "Richiamo dell'inverno",
@@ -6335,11 +6441,11 @@ export const it_IT: EnTranslations = {
       },
       "flurry": {
         "name": "Winterlash",
-        "description": "Scocca tre dardi gelidi che infliggono {damage} danni da Gelo ciascuno e applica Gelo Invernale al bersaglio: i prossimi 2 incantesimi compatibili in arrivo lo trattano come congelato. Brain Freeze rende Winterlash istantaneo, il 30% più potente e salta il suo recupero. (Gelo)"
+        "description": "Scatena tre dardi ghiacciati per {damage} danni da gelo ciascuno e pianta Gelo invernale sul bersaglio: i suoi prossimi 2 incantesimi compatibili in arrivo lo considerano congelato. Brain Freeze rende Winterlash istantaneo e salta il suo tempo di recupero. (Gelo)"
       },
       "frozen_orb": {
         "name": "Frozen Orb",
-        "description": "Lancia un globo di gelo vorticante che avanza per 8 secondi, infliggendo {damage} danni da Gelo al secondo ai nemici vicini e rallentandoli del 30%. I suoi colpi generano Fingers of Frost. (Gelo)"
+        "description": "Rilascia una sfera di gelo vorticoso che si sposta in avanti per 8 sec, infliggendo a {damage} danni da gelo ogni secondo ai nemici vicini e rallentandoli del 30%. Ogni impulso che colpisce genera un ghiacciolo. (Gelo)"
       },
       "blizzard": {
         "name": "Blizzard",
@@ -6363,11 +6469,11 @@ export const it_IT: EnTranslations = {
       },
       "brain_freeze": {
         "name": "Brain Freeze",
-        "description": "Lancia di Brina ha il 20% di probabilità di rendere il prossimo Winterlash istantaneo, il 30% più potente e senza tempo di recupero. (Gelo)"
+        "description": "Rimelance ha una probabilità del 20% di rendere il tuo prossimo Winterlash istantaneo e privo di tempo di recupero. (Gelo)"
       },
       "shatter": {
         "name": "Brittle Ruin",
-        "description": "I tuoi incantesimi guadagnano il 50% di probabilità di colpo critico contro i bersagli congelati, e tali colpi critici infliggono il 20% di danni in più. Fingers of Frost e Gelo Invernale contano come congelati. (Gelo)"
+        "description": "I tuoi incantesimi ottengono il 50% di probabilità di colpo critico contro bersagli congelati. Dita di Gelo e Gelo dell'Inverno contano come congelati. (Gelo)"
       },
       "conjure_water": {
         "name": "Vincolo dell'Acqua",
@@ -6391,7 +6497,7 @@ export const it_IT: EnTranslations = {
       },
       "frost_nova": {
         "name": "Vincolo di Ghiaccio",
-        "description": "Congela sul posto tutti i nemici vicini per un massimo di 8 s e infligge {damage} danni da Gelo."
+        "description": "Congela sul posto tutti i nemici vicini per un massimo di 8 s e infligge {damage} danni da Gelo. L’immobilizzazione si interrompe dopo aver subito danni cumulativi pari al 15% della salute massima del bersaglio, con un minimo di 20 e un massimo di 60 danni."
       },
       "arcane_explosion": {
         "name": "Scoppio d'Etere",
@@ -8138,6 +8244,222 @@ export const it_IT: EnTranslations = {
       "emberglass_warstaff": {
         "name": "Bastone da Guerra Vetrobrace"
       },
+      "copper_ore": {
+        "name": "Minerale di rame"
+      },
+      "iron_ore": {
+        "name": "Minerale di ferro"
+      },
+      "ironbark_log": {
+        "name": "Tronco di corteccia di ferro"
+      },
+      "silverleaf_herb": {
+        "name": "Erba foglia d'argento"
+      },
+      "rough_hide": {
+        "name": "Pelle ruvida"
+      },
+      "spider_silk": {
+        "name": "Seta di ragno"
+      },
+      "venom_gland": {
+        "name": "Ghiandola del veleno"
+      },
+      "game_meat": {
+        "name": "Carne di selvaggina"
+      },
+      "homespun_cloth": {
+        "name": "Panno filato in casa"
+      },
+      "pristine_hide": {
+        "name": "Pelle incontaminata"
+      },
+      "pristine_silk": {
+        "name": "Seta incontaminata"
+      },
+      "pristine_venom_gland": {
+        "name": "Ghiandola del veleno incontaminata"
+      },
+      "prime_cut": {
+        "name": "Taglio primo"
+      },
+      "smithing_flux": {
+        "name": "Flusso di forgiatura"
+      },
+      "spool_of_thread": {
+        "name": "Rocchetto di filo"
+      },
+      "tanning_agent": {
+        "name": "Agente conciante"
+      },
+      "cooking_salt": {
+        "name": "Sale da cucina"
+      },
+      "glass_vial": {
+        "name": "Fiala di vetro"
+      },
+      "copper_bearded_axe": {
+        "name": "Ascia barbuta in rame"
+      },
+      "copper_flanged_mace": {
+        "name": "Mazza flangiata in rame"
+      },
+      "ironbark_boar_spear": {
+        "name": "Lancia di cinghiale di corteccia di ferro"
+      },
+      "ironedge_longsword": {
+        "name": "Spada lunga di Ironedge"
+      },
+      "ironshod_maul": {
+        "name": "Maglio ferrato"
+      },
+      "whetted_iron_dirk": {
+        "name": "Pugnale di ferro affilato"
+      },
+      "thorium_warblade": {
+        "name": "Lama da guerra al torio"
+      },
+      "arcanite_war_axe": {
+        "name": "Ascia da guerra dell'Arcanite"
+      },
+      "elderwood_battle_staff": {
+        "name": "Bastone da battaglia di Elderwood"
+      },
+      "riveted_copper_girdle": {
+        "name": "Cintura in rame rivettata"
+      },
+      "coppermail_sabatons": {
+        "name": "Calzari di maglia di rame"
+      },
+      "coppermail_gauntlets": {
+        "name": "Guanti di maglia di rame"
+      },
+      "ironlink_hauberk": {
+        "name": "Ironlink Usbergo"
+      },
+      "ironlink_legguards": {
+        "name": "Gambali di Ironlink"
+      },
+      "ironlink_spaulders": {
+        "name": "Spallacci di Ferrolink"
+      },
+      "thoriumscale_greathelm": {
+        "name": "Grande elmo di scaglie di torio"
+      },
+      "thoriumscale_cuirass": {
+        "name": "Corazza a scaglie di torio"
+      },
+      "thoriumscale_leggings": {
+        "name": "Gambiere di scaglie di torio"
+      },
+      "homespun_hood": {
+        "name": "Cappuccio fatto in casa"
+      },
+      "homespun_mitts": {
+        "name": "Guanti fatti in casa"
+      },
+      "silverthread_slippers": {
+        "name": "Pantofole di filo d'argento"
+      },
+      "goldweave_robe": {
+        "name": "Veste di Tessitura d'Oro"
+      },
+      "goldweave_leggings": {
+        "name": "Gambiere di Tessitura d'Oro"
+      },
+      "silkspun_satchel": {
+        "name": "Borsa in tessuto di seta"
+      },
+      "silkbinders_raiment": {
+        "name": "Vesti di Vincolaseta"
+      },
+      "sunweave_mantle": {
+        "name": "Mantello di Tessitura Solare"
+      },
+      "sunweave_treads": {
+        "name": "Battistrada in tessuto solare"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "Leggings in pelle Fenbridge"
+      },
+      "fenbridge_hide_boots": {
+        "name": "Stivali in pelle Fenbridge"
+      },
+      "fenbridge_hide_belt": {
+        "name": "Cintura in pelle Fenbridge"
+      },
+      "marshstalker_jerkin": {
+        "name": "Jerkin il Cacciatore di Paludi"
+      },
+      "marshstalker_hood": {
+        "name": "Cappuccio del Cacciatore di Paludi"
+      },
+      "marshstalker_spaulders": {
+        "name": "Guardaspalle del Cacciatore di Paludi"
+      },
+      "mirewarden_jerkin": {
+        "name": "Giaco del Guardiano delle Paludi"
+      },
+      "mirewarden_leggings": {
+        "name": "Gambali del Mirewarden"
+      },
+      "mirewarden_treads": {
+        "name": "Mirewarden cammina"
+      },
+      "pan_seared_perch": {
+        "name": "Pesce persico del fiume scottato in padella"
+      },
+      "hunters_game_skewer": {
+        "name": "Spiedino di gioco del cacciatore"
+      },
+      "herbed_marsh_pike": {
+        "name": "Luccio di palude alle erbe"
+      },
+      "ashwood_smoked_eel": {
+        "name": "Anguilla affumicata in frassino"
+      },
+      "goldleaf_game_stew": {
+        "name": "Stufato di selvaggina Foglia d'oro"
+      },
+      "frostgill_chowder": {
+        "name": "Zuppa di branchie gelide"
+      },
+      "silvered_carp_supper": {
+        "name": "Cena con carpa argentata"
+      },
+      "anglers_feast_platter": {
+        "name": "Piatto del banchetto del pescatore"
+      },
+      "marlows_grand_roast": {
+        "name": "Il Gran Arrosto di Marlow"
+      },
+      "silverleaf_healing_draught": {
+        "name": "Pozione curativa di Foglia d’Argento"
+      },
+      "silverleaf_mana_draught": {
+        "name": "Pozione di mana di Foglia d’Argento"
+      },
+      "elixir_of_the_boar": {
+        "name": "Elisir del Cinghiale"
+      },
+      "goldleaf_healing_draught": {
+        "name": "Pozione curativa di Foglia d’Oro"
+      },
+      "goldleaf_mana_draught": {
+        "name": "Pozione di mana di Foglia d’Oro"
+      },
+      "venomfire_elixir": {
+        "name": "Elisir del fuoco velenoso"
+      },
+      "sunpetal_healing_draught": {
+        "name": "Pozione curativa di Petalo Solare"
+      },
+      "sunpetal_mana_draught": {
+        "name": "Pozione di mana di Petalo Solare"
+      },
+      "elixir_of_the_serpent": {
+        "name": "Elisir del Serpente"
+      },
       "conjured_water4": {
         "name": "Acqua sorgiva evocata"
       },
@@ -9395,6 +9717,36 @@ export const it_IT: EnTranslations = {
         "title": "La Cronaca delle Vette",
         "greeting": "La montagna non dimentica nulla, {playerName}, e nemmeno io. Vediamo che cosa hai compiuto."
       },
+      "forgemistress_darva": {
+        "name": "Maestra della Forgia Darva",
+        "title": "Maestro della Forgia",
+        "greeting": "La fucina mi risponde, {className}. Porta del buon minerale e risponderà anche a te."
+      },
+      "cook_marlow": {
+        "name": "Cuoco Marlow",
+        "title": "Maestro delle cucine",
+        "greeting": "Niente lascia le mie cucine a metà cottura, {className}. Siediti, mangia e poi torna là fuori."
+      },
+      "weaver_ottilie": {
+        "name": "Tessitrice Ottilia",
+        "title": "Maestro del telaio",
+        "greeting": "Attenzione ai thread, {className}. Una mano ferma al telaio batte una mano forte."
+      },
+      "tinker_gizzel": {
+        "name": "Armeggiatore Gizzel",
+        "title": "Maestro degli Attrezzi",
+        "greeting": "Molle, ruote dentate e spigoli vivi, {className}: il toolworks ha tutto ciò che manca alle tue mani."
+      },
+      "tanner_hesk": {
+        "name": "Conciatore Hesk",
+        "title": "Maestro della Conceria",
+        "greeting": "Una pelle è buona quanto la sua concia, {className}. Le vasche sono pronte quando lo sei tu."
+      },
+      "alchemist_verane": {
+        "name": "L'alchimista Verane",
+        "title": "Maestro dello speziale",
+        "greeting": "Misura due volte e versa una volta, {className}. Il farmacista non ha pazienza per i reagenti versati."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Guardamarea",
@@ -10464,6 +10816,56 @@ export const it_IT: EnTranslations = {
         "sender": "Quartiermastro eroico",
         "subject": "I tuoi Marchi eroici",
         "body": "Il tuo gruppo ha superato la prova eroica mentre combattevi nelle retrovie o giacevi a terra. Anche il tuo vincolo è stato registrato, quindi la tua parte di Marchi eroici è arrivata qui invece di andare perduta. Usali bene.\n\n- Quartiermastro eroico"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro in Ingegneria e Alchimia",
+        "body": "Artigiano,\n\nAlla Gilda arriva la voce del tuo lavoro in Ingegneria e Alchimia: cariche misurate e reagenti pesati, i due mestieri si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Coloro che legano questa coppia si guadagnano col tempo il nome di Bombardiere. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro in Alchimia e Cucina",
+        "body": "Artigiano,\n\nLa voce raggiunge la Gilda del tuo lavoro in Alchimia e Cucina: pozioni sobbollite e piatti conditi, i due mestieri si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Coloro che legano questa coppia guadagnano col tempo il nome di Speziale. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro nella cucina e nella lavorazione della pelle",
+        "body": "Artigiano,\n\nAlla Gilda giungono voci del tuo lavoro nella cucina e nella lavorazione della pelle: pasti cucinati e pelli conciate, i due mestieri che si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro nella lavorazione della pelle e nella sartoria",
+        "body": "Artigiano,\n\nLa voce raggiunge la Gilda del tuo lavoro nella lavorazione della pelle e nella sartoria: taglio della pelle e orlatura della stoffa, i due mestieri che si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Coloro che legano questa coppia guadagnano col tempo il nome di Sarto da Campo. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro in Sartoria e Iscrizione",
+        "body": "Artigiano,\n\nLa voce raggiunge la Gilda del tuo lavoro in Sartoria e Iscrizione: cuciture cucite e glifi inchiostrati, i due mestieri che si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro in Iscrizione e Incantesimo",
+        "body": "Artigiano,\n\nLa voce raggiunge la Gilda del tuo lavoro in Iscrizione e Incantamento: pergamene scritte e incantesimi intrecciati, i due mestieri che si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro nell'incantamento e nell'oreficeria",
+        "body": "Artigiano,\n\nAlla Corporazione arriva la voce del tuo lavoro nell'incantamento e nell'oreficeria: ciondoli legati e pietre lucidate, i due mestieri che si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro nell'oreficeria e nell'artigianato delle armi",
+        "body": "Artigiano,\n\nLa voce raggiunge la Gilda del tuo lavoro nell'oreficeria e nell'artigianato delle armi: gemme incastonate e bordi rettificati, i due mestieri si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro nell'artigianato delle armi e nell'artigianato delle armature",
+        "body": "Artigiano,\n\nAlla Gilda arriva la notizia del tuo lavoro nell'artigianato delle armi e nell'artigianato delle armature: lame temprate e piastre montate, i due mestieri si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Coloro che legano questa coppia guadagnano col tempo il nome di Fabbro. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "La Gilda degli Artigiani",
+        "subject": "Il tuo lavoro nell'artigianato e nell'ingegneria delle armature",
+        "body": "Artigiano,\n\nAlla Gilda arriva la voce del tuo lavoro nell'ingegneria e nell'artigianato delle armature: piastre rivettate e ingranaggi centrati, le due arti si alimentano a vicenda. Mestieri vicini lavorati insieme segnano una mano pronta per la sintonizzazione. Cerca il Fabbro Haldren, l'armaiolo di Eastbrook: per ora parla a nome dei maestri. Dimostragli la tua abilità con il lavoro delle tue mani e vedrà le tue due specializzazioni in sintonia.\n\nIn regola,\nLa Gilda degli Artigiani"
       }
     },
     "itemSets": {

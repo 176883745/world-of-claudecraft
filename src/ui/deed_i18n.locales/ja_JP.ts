@@ -549,7 +549,7 @@ export const table: DeedLocaleTable = {
   },
   prog_tools_of_the_trade: {
     name: '商売道具',
-    desc: 'ハイウォッチの製作拠点で、設備の必要な製作を完了する。',
+    desc: '製作拠点で製作を1回完了する。',
   },
   dgn_nythraxis_crypt: {
     name: '墓所が守りしもの',

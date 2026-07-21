@@ -201,6 +201,14 @@ export const en = {
   },
   game: gameStrings,
   hudChrome: hudChromeStrings,
+  // Rare gather events (Professions 2.0 Phase 4): the zone-broadcast lines
+  // rendered from the id-based gatherRareEvent SimEvent; {finder} is the
+  // harvester's player name and splices verbatim.
+  gatherEvent: {
+    pristineVein: '{finder} struck a pristine vein!',
+    ancientHeartwood: '{finder} felled an ancient heartwood!',
+    moonlitBloom: '{finder} discovered a moonlit bloom!',
+  },
   apiError: apiErrorStrings,
   guide: guideStrings,
   editor: editorStrings,
@@ -775,6 +783,12 @@ export const en = {
     // delve-shop keys; only the marks-specific strings live here.
     balance: 'Heroic Marks: {count}',
     buyAria: 'Buy {item} for {marks} Heroic Marks',
+    // Confirm dialog gating each purchase: marks purchases record no buyback,
+    // so a mis-tap would be unrefundable without it.
+    buyConfirmTitle: 'Confirm Purchase',
+    buyConfirmBody: 'Buy {item} for {marks} Heroic Marks? Marks purchases cannot be refunded.',
+    buyConfirmAccept: 'Buy',
+    buyConfirmCancel: 'Cancel',
   },
   // The Card Master window (Card Duel minigame): queue join/leave affordance
   // plus the in-match hand strip + round-score panel.
@@ -830,6 +844,12 @@ export const en = {
       reqHeroic: 'Requires a Heroic clear',
       reqClears: 'Requires {count} clears',
       empty: 'Nothing in stock.',
+      // Confirm dialog gating each purchase: marks purchases record no buyback,
+      // so a mis-tap would be unrefundable without it.
+      buyConfirmTitle: 'Confirm Purchase',
+      buyConfirmBody: 'Buy {item} for {marks} Delve Marks? Marks purchases cannot be refunded.',
+      buyConfirmAccept: 'Buy',
+      buyConfirmCancel: 'Cancel',
     },
     tracker: {
       title: 'Delve',

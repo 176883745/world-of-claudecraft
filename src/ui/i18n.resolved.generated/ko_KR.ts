@@ -317,7 +317,11 @@ export const ko_KR: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "시신에서 부활",
       "resurrectAtHealer": "영혼 치유사 (부활의 후유증)",
-      "spiritHealerAlive": "영혼 치유사는 죽은 자를 지킵니다. 당신은 아직 산 자입니다."
+      "spiritHealerAlive": "영혼 치유사는 죽은 자를 지킵니다. 당신은 아직 산 자입니다.",
+      "healerConfirmTitle": "부활의 후유증을 감수하시겠습니까?",
+      "healerConfirmBody": "영혼 치유사가 이 자리에서 부활시켜 주지만, 부활의 후유증으로 모든 능력치가 75% 감소하며 높은 레벨에서는 최대 10분간 지속됩니다. 영혼이 시신까지 걸어가서 부활하면 아무런 불이익이 없습니다.",
+      "healerConfirmAccept": "부활",
+      "healerConfirmCancel": "취소"
     },
     "fct": {
       "absorbed": "{amount} 흡수",
@@ -750,6 +754,7 @@ export const ko_KR: EnTranslations = {
       "leaderboard": "순위",
       "dailyRewards": "상점",
       "deeds": "업적",
+      "professions": "전문 기술",
       "nameplates": "이름표",
       "haptics": "진동",
       "hapticsOff": "진동 꺼짐",
@@ -1039,6 +1044,7 @@ export const ko_KR: EnTranslations = {
       "itemLevelLine": "아이템 레벨 {level}",
       "itemScoreLine": "점수 {score}",
       "showSecondaryActionBar": "보조 액션 바 표시",
+      "showThirdActionBar": "세 번째 액션 바 표시",
       "showTargetOfTarget": "대상의 대상 표시",
       "showAttackButton": "공격 버튼 표시",
       "showDailyRewardsChest": "일일 보상 보물상자 표시",
@@ -1468,7 +1474,8 @@ export const ko_KR: EnTranslations = {
       "watchTwitch": "Twitch에서 시청",
       "watchX": "X에서 보기",
       "watchKick": "Kick에서 시청",
-      "watchYouTube": "YouTube에서 시청"
+      "watchYouTube": "YouTube에서 시청",
+      "streamerBadgeTitle": "인증된 스트리머"
     },
     "lootSettings": {
       "title": "전리품 설정",
@@ -2082,7 +2089,9 @@ export const ko_KR: EnTranslations = {
       "mining": "채광",
       "logging": "벌목",
       "herbalism": "약초학",
-      "notReady": "이 자원 채집지는 아직 당신을 위해 재생성되지 않았습니다."
+      "notReady": "이 자원 채집지는 아직 당신을 위해 재생성되지 않았습니다.",
+      "gatherLine": "{name}을(를) 채집했습니다.",
+      "gatherLineQty": "{name}을(를) {qty}개 채집했습니다."
     },
     "archetypeTitle": {
       "label": "칭호",
@@ -2113,6 +2122,42 @@ export const ko_KR: EnTranslations = {
       "tailoring": "재봉",
       "leatherworking": "가죽세공"
     },
+    "professions": {
+      "title": "전문 기술",
+      "close": "전문 기술 닫기",
+      "ringAria": "기술의 수레바퀴",
+      "skillsHeader": "제작 기술",
+      "gatheringHeader": "채집",
+      "perksHeader": "특전",
+      "identityHeader": "정체성",
+      "roleMajor": "주 전공",
+      "roleHobby": "취미",
+      "roleDormant": "비활성",
+      "roleUnattuned": "미조율",
+      "ceilingUnlimited": "강화 상한 없음",
+      "ceilingRare": "희귀 상한",
+      "ceilingCommon": "일반 상한",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "티어 {tier}",
+      "nextUnlockTier": "다음 티어까지 숙련도 {points} 남음: 걸작 확률이 높아집니다",
+      "nextUnlockSpecialized": "전문화까지 숙련도 {points} 남음: 재료 소모가 줄어듭니다",
+      "nextUnlockMax": "최대 숙련도입니다",
+      "perkSpecializedLine": "{craft}: 전문화, 재료 소모 -{pct}%",
+      "perkSpecializedAt": "숙련도 {threshold}에서 전문화됩니다",
+      "switchCost": "다음 원형 전환에는 속죄 {cost}이 필요합니다",
+      "syncing": "서버에서 전문 기술 정보를 불러오고 있습니다.",
+      "tutorialLine": "아무 기술이나 숙련도 {target}까지 올리면 첫 티어가 열립니다.",
+      "ctaHeader": "다음 단계",
+      "ctaRaise": "{craft}를 계속 올리세요. 다음 티어까지 숙련도 {points} 남았습니다.",
+      "ctaStart": "아무 전문 기술로 제작하거나 채집하면 시작됩니다.",
+      "unattunedIdentity": "아직 원형에 조율되지 않았습니다. 기술을 올리고 조율을 완료하여 조합을 선택하세요.",
+      "nudgeNearTier": "{craft}: 다음 티어까지 숙련도 {points}",
+      "nudgeDormant": "{craft} 지식이 비활성 상태입니다",
+      "hobbyLabel": "취미: {craft}",
+      "majorsLabel": "주 전공: {a}, {b}",
+      "pairsHeld": "보유한 조합: {count}",
+      "returnsLabel": "복귀: {count}"
+    },
     "crafting": {
       "title": "제작",
       "close": "제작 닫기",
@@ -2131,6 +2176,7 @@ export const ko_KR: EnTranslations = {
       "comboNotAttuned": "먼저 원형 기술 조합을 선택하세요.",
       "comboWrongPair": "제작하려면 이 정확한 조합을 활성화하세요.",
       "comboTierUnmet": "두 주 전공을 모두 필요한 티어까지 올리세요.",
+      "comboTierUnmetNamed": "{crafts}을(를) 티어 {tier}까지 올리세요.",
       "professionChoice": "전문 기술 선택",
       "noProfessionChoice": "현재 선택할 수 있는 전문 기술이 없습니다.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const ko_KR: EnTranslations = {
         "nearTier": "{craft}는 다음 티어까지 숙련도 {points}이 필요합니다.",
         "dormantKnowledge": "{craft} 지식은 유지되지만 해당 조합이나 취미가 활성화될 때까지 비활성 상태입니다."
       },
-      "notAtHub": "그것을 제작하려면 필요한 레벨로 제작 거점에 있어야 합니다.",
+      "stationRequired": "그것을 제작하려면 {station}에 있어야 합니다.",
+      "stationName": {
+        "forge": "대장간",
+        "kitchens": "주방",
+        "apothecary": "약방",
+        "tannery": "무두질 작업장",
+        "loom": "베틀",
+        "toolworks": "공작소"
+      },
       "throttled": "너무 빨리 제작하고 있습니다. 잠시 후 다시 시도하세요.",
-      "recipeNotLearned": "아직 그 제작법을 배우지 않았습니다."
+      "recipeNotLearned": "아직 그 제작법을 배우지 않았습니다.",
+      "skillReqLine": "{craft} {skill} 필요",
+      "difficultyFull": "숙련도 전량 상승",
+      "difficultyReduced": "숙련도 상승 감소",
+      "difficultyNone": "숙련도 상승 없음",
+      "stationBadge": "제작 거점",
+      "stationOutOfRangeNamed": "{station}(으)로 이동하여 제작하세요.",
+      "masterworkToast": "걸작! {name}",
+      "masterworkZoneLine": "{crafter}님이 걸작 {name}을(를) 제작했습니다!",
+      "tierUpToast": "{craft} 티어 {tier} 달성!",
+      "makersMark": "제작자: {name}",
+      "masterworkSeal": "걸작",
+      "enchantedLine": "마법부여됨"
+    },
+    "training": {
+      "title": "훈련: {name}",
+      "close": "훈련 닫기",
+      "empty": "이 장인은 가르칠 제조법이 없습니다.",
+      "free": "무료",
+      "stateKnown": "습득함",
+      "stateTeachable": "습득 가능",
+      "stateLocked": "잠김",
+      "requirement": "{craft} {skill}에서 전수",
+      "trainAria": "{fee}(으)로 {name} 습득",
+      "dialogOption": "훈련",
+      "dialogOptionAria": "{name}에게 훈련 받기",
+      "learned": "제조법을 습득했습니다: {recipe}",
+      "tierUnmet": "그 제조법을 배우려면 {craft} {skill}이(가) 필요합니다.",
+      "cannotAfford": "훈련 비용을 지불할 수 없습니다.",
+      "notTaughtHere": "그 제조법은 여기서 가르치지 않습니다.",
+      "alreadyKnown": "이미 알고 있는 제조법입니다.",
+      "outOfRange": "훈련하려면 작업대 옆에 있어야 합니다."
     },
     "finder": {
       "title": "던전 찾기",
@@ -2331,6 +2416,11 @@ export const ko_KR: EnTranslations = {
       "broadcastsLabel": "업적 달성을 길드와 친구에게 공유",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder}님이 순수한 광맥을 발견했습니다!",
+    "ancientHeartwood": "{finder}님이 고대 심목을 베어냈습니다!",
+    "moonlitBloom": "{finder}님이 달빛 꽃을 발견했습니다!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const ko_KR: EnTranslations = {
       "ice_lance": "냉기 발동 효과를 소모하는 즉시 시전 얼음 파편으로, 얼어붙은 대상에게 훨씬 큰 피해를 줍니다.",
       "flurry": "얼음 화살 세 발을 빠르게 날려, 다음 냉기 공격이 대상을 얼어붙은 것으로 간주하게 합니다.",
       "fingers_of_frost": "냉기 화살이 때때로 얼음창을 강화해 대상을 얼어붙은 것으로 간주하게 합니다.",
-      "brain_freeze": "냉기 화살이 때때로 다음 겨울의 채찍을 즉시 시전하게 하고 피해를 증가시킵니다.",
+      "brain_freeze": "냉기 화살이 때때로 다음 겨울의 채찍을 즉시 시전하게 하고 재사용 대기시간을 무시합니다.",
       "shatter": "얼어붙은 대상에 대한 주문의 치명타 확률이 크게 증가합니다.",
-      "frozen_orb": "느리게 움직이는 얼음 구슬을 적 무리에 굴려, 주변을 얼리고 냉기 발동 효과를 생성합니다.",
+      "frozen_orb": "느리게 움직이는 얼음 구슬을 적 무리에 굴려 적을 둔화시키고 고드름을 축적합니다.",
       "blizzard": "지역을 얼음으로 뒤덮어 적 무리에게 피해를 주고 이동 속도를 감소시킵니다.",
       "blink": "짧은 거리를 앞으로 순간이동하며 이동 불가 효과를 해제합니다.",
       "conjure_water": "마나를 회복시켜 주는 음료를 창조하여 전투 사이에 채울 수 있습니다.",
@@ -3383,13 +3473,13 @@ export const ko_KR: EnTranslations = {
       "craftHowTitle": "제작 창",
       "craftHowBody": "제작 창(기본 키 T)을 열면 여러분이 아는 모든 제작법과 각각에 필요한 재료, 그리고 지금 지닌 재료를 볼 수 있다. 재료가 갖춰져 있으면 클릭 한 번으로 제작된다. 일반적인 제작법은 세계 어디에서나 만들 수 있다. 다만 상위 도구와 희귀한 시전자 방어구를 비롯한 몇몇 고급 제작법은 하이워치의 제작 거점에 서 있어야 한다.",
       "craftMasteryTitle": "숙련도와 통달",
-      "craftMasteryBody": "제작에 성공하면 해당 전문직의 숙련도가 오르며, 숙련도가 제작법을 잠가 두는 일은 결코 없다. 제작법을 알고 그 재료를 지녔다면 언제든 시도할 수 있다. 숙련도가 대신 안겨 주는 것은 품질이니, 손에 익은 솜씨일수록 더 뛰어난 결과물을 내놓는다. 유일한 예외는 조합 제작법으로, 열리기 전에 두 전문직 모두에서 실력을 입증하기를 요구한다.",
+      "craftMasteryBody": "제작에 성공하면 해당 전문직의 숙련도가 오르며, 숙련도가 제작법을 잠가 두는 일은 결코 없다. 제작법을 알고 그 재료를 지녔다면 언제든 시도할 수 있다. 모든 제작법은 약속한 그대로의 결과물을 내놓지만, 손에 익은 솜씨는 이따금 걸작을 만들어 낸다. 같은 물건이되 마무리가 더 정교하고, 약간의 추가 힘이 깃들어 있다. 유일한 예외는 조합 제작법으로, 두 전문직을 잇는 원형에 조율하고 두 전문직 모두에서 검증된 실력을 갖춘 제작자에게만 열린다.",
       "craftComboTitle": "조합 제작법",
       "craftComboBody": "단일 전문직 자체의 제작법 목록을 넘어, 이 원환은 인접한 두 전문직을 동시에 필요로 하는 조합 제작법도 지원하여, 고립된 하나의 전문직이 아니라 원환 위에서 인접한 전문직들에 투자한 캐릭터에게 보상을 준다. 제작자는 두 전문직을 모두 스스로 지녀야 하며, 파트너의 숙련도가 어느 한쪽을 대신할 수는 없다.",
       "archetypeTitle": "열 가지 원형",
       "archetypeIntro": "열 가지 전문직은 각각 원형도 상징하며, 단순히 그 전문직에 종사하는 것을 넘어서는 더 넓은 정체성을 받아들일 수 있다. 당신의 현재 원형은 한 번에 하나뿐이며 목록이 아니다: 당신은 하나를 지니며, 원한다면 나중에 다른 것으로 바꿀 수 있다.",
       "archetypeChooseTitle": "원형 선택하기",
-      "archetypeChooseBody": "원형을 선언하는 것은 하나의 이야기 장면이 될 것이다: 그 정체성으로 당신을 공식적으로 받아들이는 퀘스트다. 그 길은 아직 만들어지는 중이므로, 지금은 모든 캐릭터가 그 선택을 앞에 둔 채 세계를 걷고 있으며, 그동안 모든 제작은 희귀 품질 등급까지 나아간다.",
+      "archetypeChooseBody": "원형을 선언하는 것은 하나의 이야기 장면이다: 그 정체성으로 당신을 공식적으로 받아들이는 퀘스트다. 선언하기 전에는 모든 전문직의 숙련도가 희귀 티어까지 오를 수 있다. 한 쌍을 받아들이면 그 두 전문직은 끝까지 열리고, 수레바퀴 반대편의 한 전문직은 취미로 곁에 남아 여전히 희귀 티어까지 쓸 수 있으며, 그 정체성을 지니는 동안 나머지 모든 전문직은 일반 티어에 머문다.",
       "archetypeSwitchTitle": "마음을 바꾸기",
       "archetypeSwitchBody": "선언이 종신형이 되는 일도 없을 것이다. 계획은 새 원형을 받아들이기 전에 옛 전문직에 속죄하는 반복 가능한 절차이며, 바꿀 때마다 그 속죄는 조금씩 더 무거워져, 선택이 대가 없는 것이 아니라 늘 의미 있는 것으로 남는다. 선언 그 자체와 마찬가지로, 이 역시 아직 오는 중이다.",
       "archetypeIdentityTitle": "당신의 원형이 의미하는 것",
@@ -4529,7 +4619,11 @@ export const ko_KR: EnTranslations = {
   },
   "heroicShop": {
     "balance": "영웅의 징표: {count}",
-    "buyAria": "영웅의 징표 {marks}개로 {item} 구매"
+    "buyAria": "영웅의 징표 {marks}개로 {item} 구매",
+    "buyConfirmTitle": "구매 확인",
+    "buyConfirmBody": "영웅의 징표 {marks}개로 {item}을(를) 구매하시겠습니까? 징표 구매는 환불되지 않습니다.",
+    "buyConfirmAccept": "구매",
+    "buyConfirmCancel": "취소"
   },
   "cardDuel": {
     "title": "카드 대결",
@@ -4582,7 +4676,11 @@ export const ko_KR: EnTranslations = {
       "buyAria": "탐굴 증표 {marks}개로 {item} 구매",
       "reqHeroic": "영웅 난이도 클리어 필요",
       "reqClears": "{count}회 클리어 필요",
-      "empty": "재고가 없습니다."
+      "empty": "재고가 없습니다.",
+      "buyConfirmTitle": "구매 확인",
+      "buyConfirmBody": "탐굴 증표 {marks}개로 {item}을(를) 구매하시겠습니까? 증표 구매는 환불되지 않습니다.",
+      "buyConfirmAccept": "구매",
+      "buyConfirmCancel": "취소"
     },
     "tracker": {
       "title": "탐굴",
@@ -4971,6 +5069,11 @@ export const ko_KR: EnTranslations = {
     "discordCommunity": "World of ClaudeCraft Discord 커뮤니티 참여",
     "donateProject": "World of ClaudeCraft 후원하기"
   },
+  "entryGuard": {
+    "title": "그래픽 낮춤",
+    "body": "월드 입장 중 게임이 예기치 않게 종료되어 그래픽이 {preset}(으)로 설정되었습니다. 아래 그래픽 선택기나 게임 내 옵션에서 변경할 수 있습니다.",
+    "dismiss": "닫기"
+  },
   "loading": {
     "world": "세계 불러오는 중...",
     "worldProgress": "세계 불러오는 중... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const ko_KR: EnTranslations = {
     "rendererFailed": "렌더러를 시작할 수 없습니다. 새로고침해 보세요. {error}",
     "enterTimeout": "세계에 입장할 수 없습니다. 연결 시간이 초과되었습니다. 게임 서버가 실행 중인가요?",
     "connectionLost": "서버와의 연결이 끊어졌습니다.",
-    "reconnecting": "연결이 끊어졌습니다. 다시 연결하는 중...",
+    "reconnectingAttempt": "연결이 끊어졌습니다. 다시 연결하는 중...(시도 {attempt}/{maxAttempts}, {seconds}초 후 재시도)",
+    "reconnectingNow": "연결이 끊어졌습니다. 지금 다시 연결하는 중...(시도 {attempt}/{maxAttempts})",
+    "slowConnection": "로딩이 평소보다 오래 걸리고 있습니다. 인터넷 연결을 확인하세요.",
     "connectionRejected": "서버가 연결을 종료했습니다.",
     "realmFull": "이 월드는 현재 포화 상태입니다. 몇 분 후에 다시 시도해 주세요.",
     "tooManyConnections": "사용 중인 네트워크에서 이 월드로 연결이 너무 많습니다. 추가 게임 창을 닫거나 몇 분 후에 다시 시도해 주세요.",
@@ -6083,6 +6188,7 @@ export const ko_KR: EnTranslations = {
       "rarityUncommon": "고급",
       "rarityRare": "희귀",
       "rarityEpic": "영웅",
+      "rarityLegendary": "전설",
       "merchantStock": "상인 재고",
       "stackCount": "x{count}",
       "each": "개당 {money}",
@@ -6283,7 +6389,7 @@ export const ko_KR: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "이글거리는 방벽",
-        "description": "자신을 불길로 감싸 130의 피해를 흡수합니다. 60초 동안 지속됩니다. (화염)"
+        "description": "자신을 불길로 감싸 {damage}의 피해를 흡수합니다. 60초 동안 지속됩니다. (화염)"
       },
       "cold_snap": {
         "name": "겨울의 부름",
@@ -6335,11 +6441,11 @@ export const ko_KR: EnTranslations = {
       },
       "flurry": {
         "name": "겨울의 채찍",
-        "description": "얼음 화살 세 발을 날려 각각 {damage}의 냉기 피해를 입히고 대상에게 혹한의 추위를 부여합니다. 다음 2회의 호환 주문은 대상을 얼어붙은 것으로 간주합니다. 두뇌 빙결이 발동하면 즉시 시전되고 피해가 30% 증가하며 재사용 대기시간을 무시합니다. (냉기)"
+        "description": "얼음 화살 세 발을 날려 각각 {damage}의 냉기 피해를 입히고 대상에게 혹한의 추위를 부여합니다. 다음 2회의 호환 주문은 대상을 얼어붙은 것으로 간주합니다. 두뇌 빙결이 발동하면 즉시 시전되고 재사용 대기시간을 무시합니다. (냉기)"
       },
       "frozen_orb": {
         "name": "얼어붙은 구슬",
-        "description": "소용돌이치는 얼음 구슬을 방출해 8초 동안 전방으로 이동시킵니다. 주변 적에게 매초 {damage}의 냉기 피해를 입히고 이동 속도를 30% 감소시킵니다. 적중할 때마다 서리의 손가락을 생성합니다. (냉기)"
+        "description": "소용돌이치는 얼음 구슬을 방출해 8초 동안 전방으로 이동시킵니다. 주변 적에게 매초 {damage}의 냉기 피해를 입히고 이동 속도를 30% 감소시킵니다. 적중한 파동마다 고드름 1개를 생성합니다. (냉기)"
       },
       "blizzard": {
         "name": "눈보라",
@@ -6363,11 +6469,11 @@ export const ko_KR: EnTranslations = {
       },
       "brain_freeze": {
         "name": "두뇌 빙결",
-        "description": "서리끝 창이 20% 확률로 다음 겨울의 채찍을 즉시 시전하게 하고 피해를 30% 증가시키며 재사용 대기시간을 무시하게 합니다. (냉기)"
+        "description": "서리끝 창이 20% 확률로 다음 겨울의 채찍을 즉시 시전하게 하고 재사용 대기시간을 무시하게 합니다. (냉기)"
       },
       "shatter": {
         "name": "바스라지는 파멸",
-        "description": "얼어붙은 대상에 대한 주문의 치명타 확률이 50% 증가하고, 해당 치명타의 피해가 20% 증가합니다. 서리의 손가락과 혹한의 추위도 대상을 얼어붙은 것으로 간주합니다. (냉기)"
+        "description": "얼어붙은 대상에 대한 주문의 치명타 확률이 50% 증가합니다. 서리의 손가락과 혹한의 추위도 대상을 얼어붙은 것으로 간주합니다. (냉기)"
       },
       "conjure_water": {
         "name": "물 창조",
@@ -6391,7 +6497,7 @@ export const ko_KR: EnTranslations = {
       },
       "frost_nova": {
         "name": "얼음 속박",
-        "description": "주위 모든 적을 최대 8초 동안 제자리에 얼리고 {damage}의 냉기 피해를 입힙니다."
+        "description": "주위 모든 적을 최대 8초 동안 제자리에 얼리고 {damage}의 냉기 피해를 입힙니다. 이동 불가 효과는 대상 최대 생명력의 15%에 해당하는 누적 피해를 받으면 해제되며, 피해 기준은 최소 20, 최대 60입니다."
       },
       "arcane_explosion": {
         "name": "에테르 폭발",
@@ -8138,6 +8244,222 @@ export const ko_KR: EnTranslations = {
       "emberglass_warstaff": {
         "name": "불씨유리 전투지팡이"
       },
+      "copper_ore": {
+        "name": "구리 광석"
+      },
+      "iron_ore": {
+        "name": "철 광석"
+      },
+      "ironbark_log": {
+        "name": "무쇠껍질나무 통나무"
+      },
+      "silverleaf_herb": {
+        "name": "은빛잎 약초"
+      },
+      "rough_hide": {
+        "name": "거친 가죽"
+      },
+      "spider_silk": {
+        "name": "거미 비단"
+      },
+      "venom_gland": {
+        "name": "독샘"
+      },
+      "game_meat": {
+        "name": "야생 고기"
+      },
+      "homespun_cloth": {
+        "name": "손으로 짠 천"
+      },
+      "pristine_hide": {
+        "name": "완벽한 가죽"
+      },
+      "pristine_silk": {
+        "name": "완벽한 거미 비단"
+      },
+      "pristine_venom_gland": {
+        "name": "완벽한 독샘"
+      },
+      "prime_cut": {
+        "name": "최상급 고기"
+      },
+      "smithing_flux": {
+        "name": "제련용 융제"
+      },
+      "spool_of_thread": {
+        "name": "실타래"
+      },
+      "tanning_agent": {
+        "name": "무두질 약품"
+      },
+      "cooking_salt": {
+        "name": "요리용 소금"
+      },
+      "glass_vial": {
+        "name": "유리병"
+      },
+      "copper_bearded_axe": {
+        "name": "구리 수염 도끼"
+      },
+      "copper_flanged_mace": {
+        "name": "구리 날개 철퇴"
+      },
+      "ironbark_boar_spear": {
+        "name": "무쇠껍질나무 멧돼지 창"
+      },
+      "ironedge_longsword": {
+        "name": "무쇠날 대검"
+      },
+      "ironshod_maul": {
+        "name": "무쇠 대형 망치"
+      },
+      "whetted_iron_dirk": {
+        "name": "날카로운 무쇠 단검"
+      },
+      "thorium_warblade": {
+        "name": "토륨 전투검"
+      },
+      "arcanite_war_axe": {
+        "name": "비전 전투도끼"
+      },
+      "elderwood_battle_staff": {
+        "name": "고대 딱총나무 전투 지팡이"
+      },
+      "riveted_copper_girdle": {
+        "name": "리벳 구리 허리띠"
+      },
+      "coppermail_sabatons": {
+        "name": "구리 사슬 사바톤"
+      },
+      "coppermail_gauntlets": {
+        "name": "구리 사슬 건틀릿"
+      },
+      "ironlink_hauberk": {
+        "name": "무쇠사슬 갑옷"
+      },
+      "ironlink_legguards": {
+        "name": "무쇠사슬 다리보호구"
+      },
+      "ironlink_spaulders": {
+        "name": "무쇠사슬 어깨보호구"
+      },
+      "thoriumscale_greathelm": {
+        "name": "토륨 비늘 대형 투구"
+      },
+      "thoriumscale_cuirass": {
+        "name": "토륨 비늘 흉갑"
+      },
+      "thoriumscale_leggings": {
+        "name": "토륨 비늘 각반"
+      },
+      "homespun_hood": {
+        "name": "손으로 짠 두건"
+      },
+      "homespun_mitts": {
+        "name": "손으로 짠 벙어리장갑"
+      },
+      "silverthread_slippers": {
+        "name": "은실 슬리퍼"
+      },
+      "goldweave_robe": {
+        "name": "황금직조 로브"
+      },
+      "goldweave_leggings": {
+        "name": "황금직조 각반"
+      },
+      "silkspun_satchel": {
+        "name": "실크 방적 가방"
+      },
+      "silkbinders_raiment": {
+        "name": "실크결속의 의복"
+      },
+      "sunweave_mantle": {
+        "name": "태양직조 망토"
+      },
+      "sunweave_treads": {
+        "name": "태양직조 발보호구"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "펜브릿지 가죽 각반"
+      },
+      "fenbridge_hide_boots": {
+        "name": "펜브릿지 가죽 장화"
+      },
+      "fenbridge_hide_belt": {
+        "name": "펜브릿지 가죽 허리띠"
+      },
+      "marshstalker_jerkin": {
+        "name": "늪추적자 웃옷"
+      },
+      "marshstalker_hood": {
+        "name": "늪추적자 두건"
+      },
+      "marshstalker_spaulders": {
+        "name": "늪추적자 어깨보호구"
+      },
+      "mirewarden_jerkin": {
+        "name": "진흙수호자 웃옷"
+      },
+      "mirewarden_leggings": {
+        "name": "진흙수호자 각반"
+      },
+      "mirewarden_treads": {
+        "name": "진흙수호자 발보호구"
+      },
+      "pan_seared_perch": {
+        "name": "강농어 팬구이"
+      },
+      "hunters_game_skewer": {
+        "name": "사냥꾼의 야생 고기 꼬치"
+      },
+      "herbed_marsh_pike": {
+        "name": "허브 늪지 강꼬치고기"
+      },
+      "ashwood_smoked_eel": {
+        "name": "잿빛나무 훈제 뱀장어"
+      },
+      "goldleaf_game_stew": {
+        "name": "금빛잎 야생 고기 스튜"
+      },
+      "frostgill_chowder": {
+        "name": "서리아가미 차우더"
+      },
+      "silvered_carp_supper": {
+        "name": "은빛 잉어 만찬"
+      },
+      "anglers_feast_platter": {
+        "name": "낚시꾼의 성찬 접시"
+      },
+      "marlows_grand_roast": {
+        "name": "마를로의 대형 구이"
+      },
+      "silverleaf_healing_draught": {
+        "name": "은빛잎 치유 물약"
+      },
+      "silverleaf_mana_draught": {
+        "name": "은빛잎 마나 물약"
+      },
+      "elixir_of_the_boar": {
+        "name": "멧돼지의 비약"
+      },
+      "goldleaf_healing_draught": {
+        "name": "금빛잎 치유 물약"
+      },
+      "goldleaf_mana_draught": {
+        "name": "금빛잎 마나 물약"
+      },
+      "venomfire_elixir": {
+        "name": "독화의 비약"
+      },
+      "sunpetal_healing_draught": {
+        "name": "태양꽃잎 치유 물약"
+      },
+      "sunpetal_mana_draught": {
+        "name": "태양꽃잎 마나 물약"
+      },
+      "elixir_of_the_serpent": {
+        "name": "뱀의 비약"
+      },
       "conjured_water4": {
         "name": "창조된 샘물"
       },
@@ -9395,6 +9717,36 @@ export const ko_KR: EnTranslations = {
         "title": "쏜피크 고지 연대기",
         "greeting": "산은 아무것도 잊지 않네, {playerName}. 나도 마찬가지지. 자네가 이룬 일을 보여 주게."
       },
+      "forgemistress_darva": {
+        "name": "단조사 다르바",
+        "title": "대장간의 주인",
+        "greeting": "화로는 내 말을 따르지, {className}. 좋은 광석을 가져오면 네 말도 따르게 될 거다."
+      },
+      "cook_marlow": {
+        "name": "요리사 말로우",
+        "title": "주방의 주인",
+        "greeting": "내 주방에서 설익은 채 나가는 것은 없다, {className}. 앉아서 먹고, 다시 나가라."
+      },
+      "weaver_ottilie": {
+        "name": "직조공 오틸리에",
+        "title": "베틀의 주인",
+        "greeting": "실을 조심해라, {className}. 베틀 앞에서는 힘센 손보다 흔들리지 않는 손이 낫지."
+      },
+      "tinker_gizzel": {
+        "name": "땜장이 기즐",
+        "title": "공방의 주인",
+        "greeting": "용수철에 톱니바퀴에 날카로운 날까지, {className}. 네 손에 부족한 것은 이 공방에 다 있지."
+      },
+      "tanner_hesk": {
+        "name": "무두장이 헤스크",
+        "title": "무두질장의 주인",
+        "greeting": "가죽은 무두질이 전부다, {className}. 무두통은 준비됐으니 너만 오면 된다."
+      },
+      "alchemist_verane": {
+        "name": "연금술사 베레인",
+        "title": "약방의 주인",
+        "greeting": "두 번 재고 한 번에 부어라, {className}. 약방에서는 쏟은 시약을 봐주지 않는다."
+      },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",
         "title": "조수지기",
@@ -10464,6 +10816,56 @@ export const ko_KR: EnTranslations = {
         "sender": "영웅 병참장교",
         "subject": "당신의 영웅의 징표",
         "body": "당신이 후방에서, 혹은 쓰러진 채로 싸우는 동안 당신의 부대가 영웅 시련을 돌파했습니다. 잠금은 똑같이 적용되었으니, 당신 몫의 영웅의 징표는 사라지지 않고 이곳으로 날아왔습니다. 잘 쓰십시오.\n\n- 영웅 병참장교"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "제작 길드",
+        "subject": "기계공학과 연금술 솜씨에 관하여",
+        "body": "장인에게,\n\n기계공학과 연금술에 힘쓰는 그대의 소문이 길드에 닿았습니다. 장약을 재고 시약을 달며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이 짝을 맺은 이는 언젠가 폭격수의 이름을 얻습니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "제작 길드",
+        "subject": "연금술과 요리 솜씨에 관하여",
+        "body": "장인에게,\n\n연금술과 요리에 힘쓰는 그대의 소문이 길드에 닿았습니다. 물약을 달이고 요리에 간을 맞추며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이 짝을 맺은 이는 언젠가 약제사의 이름을 얻습니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "제작 길드",
+        "subject": "요리와 가죽세공 솜씨에 관하여",
+        "body": "장인에게,\n\n요리와 가죽세공에 힘쓰는 그대의 소문이 길드에 닿았습니다. 음식을 차려 내고 가죽을 무두질하며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "제작 길드",
+        "subject": "가죽세공과 재봉 솜씨에 관하여",
+        "body": "장인에게,\n\n가죽세공과 재봉에 힘쓰는 그대의 소문이 길드에 닿았습니다. 가죽을 마름질하고 천을 꿰매며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이 짝을 맺은 이는 언젠가 의복 장인의 이름을 얻습니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "제작 길드",
+        "subject": "재봉과 각인 솜씨에 관하여",
+        "body": "장인에게,\n\n재봉과 각인에 힘쓰는 그대의 소문이 길드에 닿았습니다. 솔기를 다듬고 문양을 새기며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "제작 길드",
+        "subject": "각인과 마법부여 솜씨에 관하여",
+        "body": "장인에게,\n\n각인과 마법부여에 힘쓰는 그대의 소문이 길드에 닿았습니다. 두루마리에 글을 새기고 마력을 엮으며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "제작 길드",
+        "subject": "마법부여와 보석세공 솜씨에 관하여",
+        "body": "장인에게,\n\n마법부여와 보석세공에 힘쓰는 그대의 소문이 길드에 닿았습니다. 마력을 불어넣고 보석을 갈고닦으며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "제작 길드",
+        "subject": "보석세공과 무기 제작 솜씨에 관하여",
+        "body": "장인에게,\n\n보석세공과 무기 제작에 힘쓰는 그대의 소문이 길드에 닿았습니다. 보석을 물리고 날을 갈며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "제작 길드",
+        "subject": "무기 제작과 방어구 제작 솜씨에 관하여",
+        "body": "장인에게,\n\n무기 제작과 방어구 제작에 힘쓰는 그대의 소문이 길드에 닿았습니다. 칼날을 벼리고 판금을 맞추며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이 짝을 맺은 이는 언젠가 대장장이의 이름을 얻습니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "제작 길드",
+        "subject": "방어구 제작과 기계공학 솜씨에 관하여",
+        "body": "장인에게,\n\n방어구 제작과 기계공학에 힘쓰는 그대의 소문이 길드에 닿았습니다. 판금에 못을 박고 톱니를 맞추며 두 기술이 서로를 키워 주고 있다지요. 이웃한 두 기술을 함께 갈고닦는 손은 조율할 준비가 되었다는 증표입니다. 이스트브룩의 대장장이 할드렌을 찾아가십시오. 지금은 그가 장인들을 대신해 말합니다. 자신의 손으로 해낸 결과물로 솜씨를 증명하면, 그가 그 두 기술을 그대의 주 전공으로 조율해 줄 것입니다.\n\n경의를 담아,\n제작 길드"
       }
     },
     "itemSets": {

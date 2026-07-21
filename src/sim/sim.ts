@@ -44,7 +44,14 @@ import {
   spendResource as spendResourceImpl,
   updateCasting as updateCastingImpl,
 } from './combat/casting_lifecycle';
-import { isLockedOut, isRooted, isSilenced, isStunned } from './combat/cc';
+import {
+  hasUnbreakableMovementLock,
+  isLockedOut,
+  isRooted,
+  isSilenced,
+  isStunned,
+  isUnbreakableControlAura,
+} from './combat/cc';
 import { aetherSurgeCostMult, echoVisibleTo } from './combat/chronomancy';
 import {
   dealDamage as dealDamageImpl,
@@ -233,6 +240,7 @@ import { NYTHRAXIS_SPIRIT_MENDING_CAST_ID } from './mob/healer_channel';
 import * as lifecycle from './mob/lifecycle';
 import { resetEvadingMob as resetEvadingMobFn, updateMob as updateMobFn } from './mob/locomotion';
 import { runMobSwingAffixes } from './mob/mob_swing';
+import { findNearbyAllies } from './mob/nearby_allies';
 import {
   createMobScanCounters,
   type MobScanCounters,
@@ -286,6 +294,7 @@ import {
   isEnchantedInstance,
 } from './professions/enchanting';
 import * as professionsFocus from './professions/focus';
+import { announceMasterworkZone } from './professions/gather_events';
 import {
   drainGatheringGrants,
   emptyGatheringProficiency,
@@ -295,8 +304,15 @@ import {
   isNodeHarvestableBy,
   normalizeGatheringProficiency,
 } from './professions/gathering';
+import { updateGuildTrendLetters } from './professions/guild_letter';
 import type { MasterworkProc } from './professions/masterwork';
+import {
+  isStationActive,
+  type MobileCraftingStation,
+  placeMobileStationForPlayer,
+} from './professions/mobile_station';
 import { type SalvageResult, salvageItem as salvageItemImpl } from './professions/salvage';
+import { grandfatherKnownRecipes, resolveTrain, type TrainResult } from './professions/training';
 import type { ProfessionRecipeRecord as RecipeDef } from './professions/types';
 import {
   craftSkillsFor,
@@ -991,6 +1007,12 @@ export interface PlayerMeta {
   // toast/log line off, without deciding the outcome itself. Null until the
   // player's first craft attempt.
   lastCraftResult: CraftResult | null;
+  // Outcome of this player's most recent trainRecipe command (Professions 2.0
+  // Phase 9), same session-only probe shape as lastCraftResult above: never
+  // persisted, null until the player's first train attempt. Denials are
+  // recorded here too (the single-surface doctrine: the trainResult event and
+  // this probe, never a ctx.error toast).
+  lastTrainResult: TrainResult | null;
   // This player's most recent masterwork proc (Professions 2.0 Phase 2), same
   // session-only shape as lastCraftResult above: never persisted into
   // CharacterState. Null until the player's first masterwork proc this
@@ -1103,17 +1125,34 @@ export interface PlayerMeta {
   // grandfathered (see professions/crafting.ts isRecipeKnown) and never needs
   // to appear here. Persisted in CharacterState as a plain string array.
   knownRecipes: Set<string>;
+  // One-time Phase 9 grandfather normalize already applied (the mailWelcomed
+  // idiom): true from creation for new characters; a loaded pre-Phase-9 save
+  // (flag absent/false) gets PRE_TRAINING_RECIPE_IDS unioned into
+  // knownRecipes exactly once (professions/training.ts
+  // grandfatherKnownRecipes), then persists true. Persisted in CharacterState.
+  recipesGrandfathered: boolean;
   // Craft output throttle (#1301): a rolling window of successful crafts,
   // any recipe. Session-only (like nodeHarvestReadyAt above), never
   // persisted: a fresh login gets a fresh window rather than carrying a
   // logout-time cooldown across sessions.
   craftThrottle: { windowStart: number; count: number };
+  // The player's own placed mobile crafting station (#1134, wired live in
+  // Professions 2.0 Phase 8: see professions/mobile_station.ts). TRANSIENT:
+  // never serialized to the character save (CharacterState has no field for
+  // it and serializeCharacter never writes one), and defaults to null at
+  // construction AND on load, because its expiry is tick-domain
+  // (expiresAtTick) and tick counts are not restart-safe.
+  mobileStation: MobileCraftingStation | null;
   // Active-archetype state and quest-gated switching (#1129, superseded scope: see
   // professions/archetype.ts). Never touches craftSkills. Persisted in CharacterState.
   archetype: ArchetypeState;
   // One-time Ravenpost welcome letter sent (persisted in CharacterState, so
   // existing characters get the service announcement exactly once).
   mailWelcomed: boolean;
+  // One-time Guild trend letter sent (Professions 2.0 Phase 7): flipped when
+  // the craft-trend sweep books the letter (professions/guild_letter.ts).
+  // Persisted in CharacterState so no later load can re-send it.
+  guildLetterSent: boolean;
   // Delve meta progression (persisted in CharacterState).
   delveMarks: number;
   delveClears: Record<string, number>;
@@ -1285,6 +1324,9 @@ export interface CharacterState {
   // Ravenpost welcome letter already sent (optional so pre-mail saves load
   // cleanly and receive the announcement letter once on their next login).
   mailWelcomed?: boolean;
+  // Guild trend letter already sent (optional so pre-phase-7 saves load
+  // cleanly and receive at most one letter when their crafts qualify).
+  guildLetterSent?: boolean;
   // World-boss loot lockouts now ride `raidLockouts` (keyed worldboss:<mobId>). The
   // legacy per-day `worldBossDaily` field is intentionally dropped: pre-migration saves
   // that still carry it just ignore it (a player locked at deploy may loot once more, a
@@ -1299,6 +1341,11 @@ export interface CharacterState {
   // Recipe acquisition (#1299; JSONB, additive back-compat: absent on older
   // saves loads as an empty set, i.e. no learned non-grandfathered recipes).
   knownRecipes?: string[];
+  // Phase 9 grandfather normalize already applied (JSONB, additive
+  // back-compat, the mailWelcomed idiom): absent/false on a pre-Phase-9 save
+  // triggers the one-time PRE_TRAINING_RECIPE_IDS union on load, then true
+  // is persisted so it never re-runs (it is idempotent anyway).
+  recipesGrandfathered?: boolean;
   townFocus?: Record<string, number>;
   // Active-archetype state (#1129, superseded scope; JSONB, back-compat: absent on
   // older saves loads as emptyArchetypeState, see normalizeArchetypeState).
@@ -2035,6 +2082,7 @@ export class Sim {
       pendingGatherGrants: [],
       nodeHarvestReadyAt: {},
       lastCraftResult: null,
+      lastTrainResult: null,
       lastMasterwork: null,
       lastSalvageResult: null,
       lastDisenchantResult: null,
@@ -2076,9 +2124,17 @@ export class Sim {
       marketFilter: '',
       craftSkills: emptyCraftSkills(),
       knownRecipes: new Set(),
+      // A NEW character is born past the Phase 9 grandfather cut: it learns
+      // trainer-taught recipes the normal way, never via the load-time union
+      // (a saved character's real flag is restored below).
+      recipesGrandfathered: true,
       craftThrottle: { windowStart: 0, count: 0 },
+      // Transient (never persisted; see the PlayerMeta field doc): stays null
+      // on load too, since savedState carries no mobile-station field.
+      mobileStation: null,
       marketQuery: defaultMarketQuery(),
       mailWelcomed: false,
+      guildLetterSent: false,
       archetype: emptyArchetypeState(),
       delveMarks: 0,
       delveClears: {},
@@ -2189,8 +2245,18 @@ export class Sim {
       }
       meta.craftSkills = normalizeCraftSkills(s.craftSkills);
       if (s.knownRecipes) meta.knownRecipes = new Set(s.knownRecipes);
+      // Phase 9 grandfather normalize (one shared load path for offline saves
+      // AND server-persisted state): a pre-Phase-9 save (flag absent/false)
+      // gets the pre-training recipe ids unioned in exactly once, then the
+      // returned true persists via serializeCharacter. Deterministic and
+      // idempotent (professions/training.ts).
+      meta.recipesGrandfathered = grandfatherKnownRecipes(
+        meta.knownRecipes,
+        s.recipesGrandfathered === true,
+      );
       meta.archetype = normalizeArchetypeState(s.archetype, meta.craftSkills);
       meta.mailWelcomed = s.mailWelcomed === true;
+      meta.guildLetterSent = s.guildLetterSent === true;
       meta.delveMarks = s.delveMarks ?? 0;
       meta.delveClears = { ...(s.delveClears ?? {}) };
       meta.companionUpgrades = { ...(s.companionUpgrades ?? {}) };
@@ -2834,6 +2900,7 @@ export class Sim {
       pendingSkinItemId: meta.pendingSkinItemId,
       craftSkills: { ...meta.craftSkills },
       knownRecipes: [...meta.knownRecipes],
+      recipesGrandfathered: meta.recipesGrandfathered,
       archetype: { ...meta.archetype, attunedPairs: [...meta.archetype.attunedPairs] },
       delveMarks: meta.delveMarks,
       delveClears: { ...meta.delveClears },
@@ -2846,6 +2913,7 @@ export class Sim {
       },
       heroicDaily: { date: meta.heroicDaily.date, marked: [...meta.heroicDaily.marked] },
       mailWelcomed: meta.mailWelcomed,
+      guildLetterSent: meta.guildLetterSent,
       townFocus: { ...meta.townFocus },
       // World-boss lockouts serialize via raidLockouts (above), not a separate field.
       // Book of Deeds: every field conditional (absent while empty/null/zero)
@@ -3935,6 +4003,8 @@ export class Sim {
       marketListingBelongsTo: (listing, meta) => sim.market.marketListingBelongsTo(listing, meta),
       queueQuestLetter: (questId, pid) => sim.postOffice.queueQuestLetter(questId, pid),
       mailHeroicMarks: (pid, itemId, count) => sim.postOffice.mailHeroicMarks(pid, itemId, count),
+      mailAuthoredLetter: (meta, letter) =>
+        sim.postOffice.sendLetter(sim.postOffice.mailKeyFor(meta), meta.name, letter, 'system'),
       // Book of Deeds seam callbacks (owned by deeds.ts). Late-bound arrows so
       // sim.ctx resolves at call time (the Q1 pattern).
       bumpDeedStat: (meta, stat, delta) => deedsMod.bumpDeedStat(sim.ctx, meta, stat, delta),
@@ -4326,6 +4396,12 @@ export class Sim {
     this.market.update();
     lap?.('market');
     this.postOffice.update();
+    // The Guild trend letter sweep (Professions 2.0 Phase 7): the single 1 Hz
+    // chokepoint that watches every craft-skill mutation path plus the load
+    // backfill case. Draws ZERO rng and emits nothing itself (it only books a
+    // letter via ctx.mailAuthoredLetter), so appending it inside the mail
+    // phase cannot fork the draw order.
+    updateGuildTrendLetters(this.ctx);
     lap?.('postOffice');
     drainDelayedEvents(this.ctx);
     lap?.('delayedEv');
@@ -4370,7 +4446,8 @@ export class Sim {
   }
   private updateFearMovement(e: Entity): boolean {
     const aura = this.fearAura(e);
-    if (!aura || e.auras.some((a) => a.kind === 'root')) return false;
+    if (!aura || e.auras.some((a) => a.kind === 'root') || hasUnbreakableMovementLock(e, aura))
+      return false;
     const angle = Number.isFinite(aura.value) ? aura.value : e.facing;
     const dest = this.groundPos(e.pos.x + Math.sin(angle) * 10, e.pos.z + Math.cos(angle) * 10);
     this.moveToward(e, dest, this.fleeMoveSpeed(e));
@@ -4404,16 +4481,12 @@ export class Sim {
     );
   }
   // Nythraxis CC-immunity predicates moved to encounters/nythraxis.ts (N1); Sim keeps
-  // thin delegates because the hot applyAura immunity path reads them via this.X
-  // (isNythraxisControlAura routes back through ctx.isControlAura, which stays on Sim).
+  // thin delegates because the hot applyAura immunity path reads them via this.X.
   private isNythraxisControlAura(kind: AuraKind): boolean {
     return nythraxis.isNythraxisControlAura(this.ctx, kind);
   }
   private isNythraxisRaidEnemy(target: Entity): boolean {
     return nythraxis.isNythraxisRaidEnemy(target);
-  }
-  private isNythraxisScriptedControl(target: Entity, aura: Aura): boolean {
-    return nythraxis.isNythraxisScriptedControl(target, aura);
   }
   // L1 loot distribution moved to loot/loot_roll.ts (behind SimContext). Sim keeps a
   // thin delegate for partyLootCandidatesForMob because dead_party_loot.test.ts reaches
@@ -4976,7 +5049,8 @@ export class Sim {
     if (
       this.isIceBlocked(target) &&
       this.isIceBlockCrowdControlAura(aura.kind) &&
-      aura.sourceId !== target.id
+      aura.sourceId !== target.id &&
+      !isUnbreakableControlAura(aura)
     )
       return;
     if (
@@ -4984,7 +5058,7 @@ export class Sim {
       !nythraxis.isNythraxisControllableAdd(target) && // priest + stalker are meant to be CC'd
       this.isNythraxisControlAura(aura.kind) &&
       aura.sourceId !== target.id &&
-      !this.isNythraxisScriptedControl(target, aura)
+      !isUnbreakableControlAura(aura)
     )
       return;
     if (
@@ -4992,7 +5066,7 @@ export class Sim {
       (MOBS[target.templateId]?.ccImmune || target.ccImmune) &&
       this.isControlAura(aura.kind) &&
       aura.sourceId !== target.id &&
-      !this.isNythraxisScriptedControl(target, aura)
+      !isUnbreakableControlAura(aura)
     )
       return;
     // Slow immunity is separate from ccImmune: snares (kind 'slow') are not control auras,
@@ -5003,39 +5077,17 @@ export class Sim {
       target.kind === 'mob' &&
       (MOBS[target.templateId]?.slowImmune || target.slowImmune) &&
       aura.kind === 'slow' &&
-      aura.sourceId !== target.id
+      aura.sourceId !== target.id &&
+      !isUnbreakableControlAura(aura)
     )
       return;
-    // Temporal Rift (mage choice row): every 20 sec the next stun, root or
-    // silence to land on the wearer is cleansed instantly, i.e. never applied.
-    // The ICD rides an 'internal_cd' aura (no new entity field enters the
-    // parity state hash) that the player can watch tick down. Draws no rng.
+    const replacementConflicts = auraReplacementConflicts(target.auras, aura);
     if (
-      target.kind === 'player' &&
-      (aura.kind === 'stun' || aura.kind === 'root' || aura.kind === 'silence') &&
-      aura.sourceId !== target.id
-    ) {
-      const riftMeta = this.players.get(target.id);
-      if (
-        riftMeta &&
-        this.playerMods(riftMeta).global.temporalRift > 0 &&
-        !target.auras.some((a) => a.id === 'temporal_rift_cd')
-      ) {
-        this.applyAura(target, {
-          id: 'temporal_rift_cd',
-          name: 'Temporal Rift',
-          kind: 'internal_cd',
-          value: 0,
-          remaining: 20,
-          duration: 20,
-          sourceId: target.id,
-          school: 'arcane',
-        });
-        this.emit({ type: 'aura', targetId: target.id, name: aura.name, gained: false });
-        return;
-      }
-    }
-    for (const existing of auraReplacementConflicts(target.auras, aura)) {
+      !isUnbreakableControlAura(aura) &&
+      replacementConflicts.some((index) => isUnbreakableControlAura(target.auras[index]))
+    )
+      return;
+    for (const existing of replacementConflicts) {
       this.applyNonPlayerStatAura(target, target.auras[existing], -1);
       target.auras.splice(existing, 1);
     }
@@ -5065,6 +5117,7 @@ export class Sim {
     id: string,
     duration: number,
     school: Aura['school'],
+    breakThreshold?: number,
   ): void {
     const remaining = this.diminishedCrowdControlDuration(source, target, 'root', duration);
     if (remaining === null) return;
@@ -5077,6 +5130,7 @@ export class Sim {
       value: 0,
       sourceId: source.id,
       school,
+      ...(breakThreshold !== undefined ? { breaksOnDamage: true, breakThreshold } : {}),
     });
   }
 
@@ -6047,13 +6101,12 @@ export class Sim {
       mob.mendTimer -= DT;
       if (mob.mendTimer <= 0) {
         mob.mendTimer = tmpl.mendAlly.every;
-        const wounded: Entity[] = [];
-        for (const ally of this.entities.values()) {
-          if (ally.kind !== 'mob' || ally.dead || ally.ownerId !== null) continue; // skip players, pets, corpses
-          if (ally.hostile !== mob.hostile || ally.hp >= ally.maxHp) continue; // only wounded same-faction mobs
-          if (dist2d(ally.pos, mob.pos) > tmpl.mendAlly.radius) continue;
-          wounded.push(ally);
-        }
+        const wounded = findNearbyAllies(
+          this.grid,
+          mob,
+          tmpl.mendAlly.radius,
+          (ally) => ally.hp < ally.maxHp, // only wounded same-faction mobs
+        );
         if (wounded.length > 0) {
           const school = tmpl.mendAlly.school ?? 'nature';
           this.emit({ type: 'spellfx', sourceId: mob.id, targetId: mob.id, school, fx: 'nova' });
@@ -6081,13 +6134,7 @@ export class Sim {
       mob.wardTimer -= DT;
       if (mob.wardTimer <= 0) {
         mob.wardTimer = tmpl.wardAllies.every;
-        const allies: Entity[] = [];
-        for (const ally of this.entities.values()) {
-          if (ally.kind !== 'mob' || ally.dead || ally.ownerId !== null) continue; // skip players, pets, corpses
-          if (ally.hostile !== mob.hostile) continue; // same-faction mobs only
-          if (dist2d(ally.pos, mob.pos) > tmpl.wardAllies.radius) continue;
-          allies.push(ally);
-        }
+        const allies = findNearbyAllies(this.grid, mob, tmpl.wardAllies.radius);
         if (allies.length > 0) {
           const school = tmpl.wardAllies.school ?? 'holy';
           this.emit({ type: 'spellfx', sourceId: mob.id, targetId: mob.id, school, fx: 'nova' });
@@ -6149,11 +6196,14 @@ export class Sim {
         mob.channelTimer -= DT;
         if (mob.channelTimer <= 0) {
           mob.channelTimer = ch.every;
+          const candidates = findNearbyAllies(
+            this.grid,
+            mob,
+            ch.radius,
+            (ally) => ally.id !== mob.id, // same-faction, not self
+          );
           let protectee: Entity | null = null;
-          for (const ally of this.entities.values()) {
-            if (ally.kind !== 'mob' || ally.dead || ally.ownerId !== null) continue; // skip players, pets, corpses
-            if (ally.hostile !== mob.hostile || ally.id === mob.id) continue; // same-faction, not self
-            if (dist2d(ally.pos, mob.pos) > ch.radius) continue;
+          for (const ally of candidates) {
             if (!protectee || ally.maxHp > protectee.maxHp) protectee = ally; // the boss = biggest pool
           }
           if (protectee && protectee.hp < protectee.maxHp) {
@@ -6197,13 +6247,7 @@ export class Sim {
       mob.rallyTimer -= DT;
       if (mob.rallyTimer <= 0) {
         mob.rallyTimer = tmpl.rally.every;
-        const allies: Entity[] = [];
-        for (const ally of this.entities.values()) {
-          if (ally.kind !== 'mob' || ally.dead || ally.ownerId !== null) continue; // skip players, pets, corpses
-          if (ally.hostile !== mob.hostile) continue; // only same-faction mobs
-          if (dist2d(ally.pos, mob.pos) > tmpl.rally.radius) continue;
-          allies.push(ally);
-        }
+        const allies = findNearbyAllies(this.grid, mob, tmpl.rally.radius);
         if (allies.length > 0) {
           const school = tmpl.rally.school ?? 'physical';
           this.emit({ type: 'spellfx', sourceId: mob.id, targetId: mob.id, school, fx: 'nova' });
@@ -6236,13 +6280,7 @@ export class Sim {
       mob.warcryTimer -= DT;
       if (mob.warcryTimer <= 0) {
         mob.warcryTimer = tmpl.warcry.every;
-        const allies: Entity[] = [];
-        for (const ally of this.entities.values()) {
-          if (ally.kind !== 'mob' || ally.dead || ally.ownerId !== null) continue; // skip players, pets, corpses
-          if (ally.hostile !== mob.hostile) continue; // same-faction only
-          if (dist2d(ally.pos, mob.pos) > tmpl.warcry.radius) continue;
-          allies.push(ally);
-        }
+        const allies = findNearbyAllies(this.grid, mob, tmpl.warcry.radius);
         if (allies.length > 0) {
           const school = tmpl.warcry.school ?? 'physical';
           const auraId = `warcry_${mob.templateId}`;
@@ -6803,6 +6841,10 @@ export class Sim {
       };
       meta.lastMasterwork = proc;
       this.emit({ type: 'masterwork', ...proc, pid: meta.entityId });
+      // Zone-wide celebration copy (Phase 6): the professions module owns the
+      // fanout and the instance-space exclusion; draws no rng, runs after the
+      // personal emit.
+      announceMasterworkZone(this.ctx, meta.entityId, meta.name, proc);
     }
   }
 
@@ -6816,6 +6858,59 @@ export class Sim {
   // recent masterwork proc, or null before their first proc this session.
   get lastMasterwork(): MasterworkProc | null {
     return this.players.get(this.primaryId)?.lastMasterwork ?? null;
+  }
+
+  // Mobile crafting station command (Professions 2.0 Phase 8, wiring #1134):
+  // a thin delegate onto professions/mobile_station.ts, resolved on the
+  // deterministic tick the command arrives on, same shape as craftItem
+  // above. Specialization-gated inside the impl; a failed placement is a
+  // silent no-op (the crafting window's station row already communicates
+  // range, and the server re-validates the gate on every craft).
+  placeMobileStation(craftId: string, pid?: number): void {
+    placeMobileStationForPlayer(this.ctx, craftId, pid);
+  }
+
+  // Recipe-training command (Professions 2.0 Phase 9): a thin entry beside
+  // craftItem/placeMobileStation above. resolveTrain
+  // (professions/training.ts) is the pure validator; on ok the fee is charged
+  // EXACTLY once (a pure gold sink against the same meta.copper purse the
+  // #1301 craft sink debits), then acquireRecipe grants, then the personal
+  // trainResult event emits. A duplicate command re-resolves to
+  // train_already_known and never re-charges. Denials surface ONLY through
+  // the event plus the lastTrainResult probe (the craftItem single-surface
+  // doctrine: no ctx.error toast, or the deny would print twice).
+  trainRecipe(recipeId: string, pid?: number): void {
+    const r = this.ctx.resolve(pid);
+    if (!r) return;
+    const result = resolveTrain(r.meta, r.e.pos, recipeId);
+    if (result.ok) {
+      r.meta.copper -= result.fee;
+      acquireRecipeImpl(this.ctx, r.meta.entityId, recipeId, 'trainer');
+    }
+    r.meta.lastTrainResult = result;
+    this.emit({
+      type: 'trainResult',
+      ok: result.ok,
+      recipeId: result.recipeId,
+      reason: result.reason,
+      pid: r.meta.entityId,
+    });
+  }
+
+  // IWorld read surface (IWorldProfessions, Phase 8): the craft id of the
+  // local viewer's own ACTIVE mobile station, or null when none is placed or
+  // the placed one has expired (tick-domain expiry, checked live).
+  get activeMobileStationCraft(): string | null {
+    return this.activeMobileStationCraftFor(this.primaryId);
+  }
+
+  /** Per-player form of `activeMobileStationCraft`, for the server's `mst`
+   *  self-delta (server/game.ts): the expiry check runs server-side against
+   *  this sim's own tickCount, so the client mirrors a server-authoritative
+   *  value and never reasons about tick domains. */
+  activeMobileStationCraftFor(pid: number): string | null {
+    const station = this.players.get(pid)?.mobileStation;
+    return station && isStationActive(station, this.tickCount) ? station.craftId : null;
   }
 
   // Recipe acquisition command (#1299): a thin delegate onto
@@ -8917,6 +9012,10 @@ export class Sim {
       switchCount: state.switchCount,
       amendsProgress: state.amendsProgress,
       amendsRequired: requiredAmendsProgress(state.switchCount),
+      // SORTED so the view's JSON form is a stable signature: the server's
+      // cprof delta diff (server/game.ts maybe()) re-emits exactly when the
+      // set actually changes, never on Set iteration order.
+      knownRecipes: [...(this.players.get(pid)?.knownRecipes ?? [])].sort(),
     };
   }
 

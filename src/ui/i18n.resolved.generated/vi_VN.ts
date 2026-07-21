@@ -317,7 +317,11 @@ export const vi_VN: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "Hồi Sinh Tại Xác Chết",
       "resurrectAtHealer": "Người Canh Giữ Nhợt Nhạt (Cái Giá của Người Canh Giữ)",
-      "spiritHealerAlive": "Người Canh Giữ Nhợt Nhạt trông nom kẻ chết. Bạn vẫn còn ở giữa cõi sống."
+      "spiritHealerAlive": "Người Canh Giữ Nhợt Nhạt trông nom kẻ chết. Bạn vẫn còn ở giữa cõi sống.",
+      "healerConfirmTitle": "Chấp nhận Cái Giá của Người Canh Giữ?",
+      "healerConfirmBody": "Người Canh Giữ Nhợt Nhạt sẽ hồi sinh bạn tại đây, nhưng Cái Giá của Người Canh Giữ sẽ giảm 75% tất cả thuộc tính của bạn trong tối đa 10 phút ở cấp độ cao hơn. Đưa linh hồn của bạn trở lại xác chết sẽ hồi sinh bạn mà không bị phạt.",
+      "healerConfirmAccept": "Hồi sinh tôi",
+      "healerConfirmCancel": "Hủy bỏ"
     },
     "fct": {
       "absorbed": "Đã hấp thụ {amount}",
@@ -750,6 +754,7 @@ export const vi_VN: EnTranslations = {
       "leaderboard": "Xếp Hạng",
       "dailyRewards": "Cửa hàng",
       "deeds": "Kỳ Công",
+      "professions": "Nghề nghiệp",
       "nameplates": "Tên",
       "haptics": "Phản Hồi Rung",
       "hapticsOff": "Tắt Phản Hồi Rung",
@@ -1039,6 +1044,7 @@ export const vi_VN: EnTranslations = {
       "itemLevelLine": "Cấp Vật Phẩm {level}",
       "itemScoreLine": "Điểm {score}",
       "showSecondaryActionBar": "Hiện Thanh Hành Động Phụ",
+      "showThirdActionBar": "Hiển thị thanh hành động thứ ba",
       "showTargetOfTarget": "Hiện Mục Tiêu Của Mục Tiêu",
       "showAttackButton": "Hiển Thị Nút Tấn Công",
       "showDailyRewardsChest": "Hiện Rương Phần Thưởng Hằng Ngày",
@@ -1468,7 +1474,8 @@ export const vi_VN: EnTranslations = {
       "watchTwitch": "Xem trên Twitch",
       "watchX": "Xem trên X",
       "watchKick": "Xem trên Kick",
-      "watchYouTube": "Xem trên YouTube"
+      "watchYouTube": "Xem trên YouTube",
+      "streamerBadgeTitle": "Người phát trực tiếp đã được xác minh"
     },
     "lootSettings": {
       "title": "Cài Đặt Chiến Lợi Phẩm",
@@ -2082,7 +2089,9 @@ export const vi_VN: EnTranslations = {
       "mining": "Khai mỏ",
       "logging": "Đốn gỗ",
       "herbalism": "Thảo dược học",
-      "notReady": "Điểm tài nguyên này chưa hồi sinh lại dành cho bạn."
+      "notReady": "Điểm tài nguyên này chưa hồi sinh lại dành cho bạn.",
+      "gatherLine": "Bạn tập hợp: {name}.",
+      "gatherLineQty": "Bạn tập hợp: {name} x{qty}."
     },
     "archetypeTitle": {
       "label": "Danh hiệu",
@@ -2113,6 +2122,42 @@ export const vi_VN: EnTranslations = {
       "tailoring": "May Vá",
       "leatherworking": "Thuộc Da"
     },
+    "professions": {
+      "title": "Nghề nghiệp",
+      "close": "Đóng ngành nghề",
+      "ringAria": "Bánh xe thủ công",
+      "skillsHeader": "Kỹ năng thủ công",
+      "gatheringHeader": "Tập hợp",
+      "perksHeader": "đặc quyền",
+      "identityHeader": "Danh tính",
+      "roleMajor": "Lớn lao",
+      "roleHobby": "Sở thích",
+      "roleDormant": "Nằm im",
+      "roleUnattuned": "không được điều chỉnh",
+      "ceilingUnlimited": "Không có giới hạn trao quyền",
+      "ceilingRare": "Mũ hiếm",
+      "ceilingCommon": "Mũ chung",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "Cấp {tier}",
+      "nextUnlockTier": "{points} chỉ ra cấp độ tiếp theo: tỷ lệ thành công được cải thiện",
+      "nextUnlockSpecialized": "{points} chỉ vào Chuyên ngành: giảm chi phí nguyên vật liệu",
+      "nextUnlockMax": "Ở kỹ năng tối đa",
+      "perkSpecializedLine": "{craft}: Chi phí chuyên môn, vật tư -{pct}%",
+      "perkSpecializedAt": "Chuyên về kỹ năng {threshold}",
+      "switchCost": "Lần đổi nguyên mẫu tiếp theo tốn {cost} điểm chuộc lỗi",
+      "syncing": "Đang chờ dữ liệu nghề nghiệp của bạn từ vương quốc.",
+      "tutorialLine": "Đạt được kỹ năng {target} trong bất kỳ nghề thủ công nào để mở khóa cấp độ đầu tiên của bạn.",
+      "ctaHeader": "Bước tiếp theo",
+      "ctaRaise": "Tiếp tục nâng cao {craft}: {points} có thêm điểm lên cấp tiếp theo.",
+      "ctaStart": "Hãy bắt đầu thủ công hoặc tập hợp bất kỳ ngành nghề nào.",
+      "unattunedIdentity": "Bạn vẫn chưa hòa hợp được với một nguyên mẫu. Nâng cao kỹ năng thủ công của bạn và hoàn thành việc điều chỉnh để chọn cặp của bạn.",
+      "nudgeNearTier": "{craft}: Điểm {points} từ cấp tiếp theo",
+      "nudgeDormant": "Kiến thức {craft} của bạn không hoạt động",
+      "hobbyLabel": "Sở thích: {craft}",
+      "majorsLabel": "Chuyên ngành: {a} và {b}",
+      "pairsHeld": "Các cặp được tổ chức: {count}",
+      "returnsLabel": "Trả về: {count}"
+    },
     "crafting": {
       "title": "Chế tạo",
       "close": "Đóng chế tạo",
@@ -2131,6 +2176,7 @@ export const vi_VN: EnTranslations = {
       "comboNotAttuned": "Hãy chọn một đôi kiểu mẫu trước.",
       "comboWrongPair": "Hãy kích hoạt đúng đôi này để chế tác nó.",
       "comboTierUnmet": "Hãy nâng cả hai kỹ nghệ chuyên ngành lên bậc yêu cầu.",
+      "comboTierUnmetNamed": "Nâng {crafts} lên cấp {tier}.",
       "professionChoice": "Lựa chọn nghề nghiệp",
       "noProfessionChoice": "Hiện không có lựa chọn nghề nghiệp hợp lệ nào.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const vi_VN: EnTranslations = {
         "nearTier": "{craft} còn {points} kỹ năng nữa là đến bậc tiếp theo.",
         "dormantKnowledge": "Kiến thức {craft} được giữ lại nhưng không hoạt động cho đến khi đôi hoặc sở thích của nó được kích hoạt."
       },
-      "notAtHub": "Bạn phải ở trung tâm chế tác, đạt cấp yêu cầu, mới chế tạo được thứ đó.",
+      "stationRequired": "Bạn phải có mặt tại {station} để chế tạo món đồ đó.",
+      "stationName": {
+        "forge": "lò rèn",
+        "kitchens": "Bếp",
+        "apothecary": "bào chế thuốc",
+        "tannery": "Xưởng thuộc da",
+        "loom": "khung cửi",
+        "toolworks": "Xưởng dụng cụ"
+      },
       "throttled": "Bạn đang chế tạo quá nhanh. Hãy chờ một lát rồi thử lại.",
-      "recipeNotLearned": "Bạn chưa học công thức đó."
+      "recipeNotLearned": "Bạn chưa học công thức đó.",
+      "skillReqLine": "Yêu cầu {craft} {skill}",
+      "difficultyFull": "Đạt được kỹ năng đầy đủ",
+      "difficultyReduced": "Giảm khả năng nhận được kỹ năng",
+      "difficultyNone": "Không đạt được kỹ năng",
+      "stationBadge": "Bàn chế tác",
+      "stationOutOfRangeNamed": "Di chuyển đến {station} để chế tạo cái này.",
+      "masterworkToast": "Tuyệt tác! {name}",
+      "masterworkZoneLine": "{crafter} đã tạo ra một kiệt tác {name}!",
+      "tierUpToast": "{craft} đã thăng cấp lên cấp {tier}!",
+      "makersMark": "Được chế tạo bởi {name}",
+      "masterworkSeal": "Kiệt tác",
+      "enchantedLine": "mê hoặc"
+    },
+    "training": {
+      "title": "Đào tạo: {name}",
+      "close": "Đóng đào tạo",
+      "empty": "Bậc thầy này không có gì để dạy.",
+      "free": "Miễn phí",
+      "stateKnown": "Đã biết",
+      "stateTeachable": "Có sẵn",
+      "stateLocked": "Đã khóa",
+      "requirement": "Đã học tại {craft} {skill}",
+      "trainAria": "Tìm hiểu {name} cho {fee}",
+      "dialogOption": "Đào tạo",
+      "dialogOptionAria": "Duyệt đào tạo từ {name}",
+      "learned": "Công thức đã học: {recipe}",
+      "tierUnmet": "Bạn cần {craft} {skill} để tìm hiểu công thức đó.",
+      "cannotAfford": "Bạn không đủ khả năng chi trả cho việc đào tạo đó.",
+      "notTaughtHere": "Công thức đó không được dạy ở đây.",
+      "alreadyKnown": "Bạn đã biết công thức đó rồi.",
+      "outOfRange": "Bạn phải ở nhà ga để đào tạo."
     },
     "finder": {
       "title": "Tìm Hầm Ngục",
@@ -2331,6 +2416,11 @@ export const vi_VN: EnTranslations = {
       "broadcastsLabel": "Chia sẻ kỳ công vừa lập với bang hội và bạn bè",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder} đánh vào mạch máu nguyên sơ!",
+    "ancientHeartwood": "{finder} đã đốn hạ một tâm gỗ cổ xưa!",
+    "moonlitBloom": "{finder} phát hiện ra hoa nở dưới ánh trăng!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const vi_VN: EnTranslations = {
       "ice_lance": "Một mảnh lập tức để tiêu hao hiệu ứng băng, đánh mạnh hơn nhiều với mục tiêu đang đóng băng.",
       "flurry": "Ba mũi tên nhanh làm lạnh mục tiêu để các cú đánh băng tiếp theo của bạn đánh như thể nó đang đóng băng.",
       "fingers_of_frost": "Đôi khi các mũi tên băng của bạn tăng cường Ice Lance để đánh như thể mục tiêu đang đóng băng.",
-      "brain_freeze": "Đôi khi các mũi tên băng của bạn khiến Winterlash tiếp theo lập tức và mạnh hơn.",
+      "brain_freeze": "Các tia sương giá của bạn đôi khi tạo ra Flurry tiếp theo ngay lập tức và bỏ qua thời gian hồi chiêu của nó.",
       "shatter": "Phép của bạn có tỷ lệ chí mạng cao hơn nhiều với mục tiêu đang đóng băng.",
-      "frozen_orb": "Lăn một quả cầu chậm qua bầy, làm lạnh mọi thứ và tạo ra các hiệu ứng băng của bạn.",
+      "frozen_orb": "Lăn một quả cầu chậm xuyên qua bầy đàn khiến kẻ địch ớn lạnh và tích tụ Băng Băng.",
       "blizzard": "Phủ băng lên một khu vực để làm hao mòn và làm chậm cả bầy.",
       "blink": "Dịch chuyển bạn một đoạn ngắn về phía trước, phá vỡ các hiệu ứng cố định khi thoát ra.",
       "conjure_water": "Tạo ra đồ uống hồi mana, để bạn nạp lại giữa các đợt kéo quái.",
@@ -4529,7 +4619,11 @@ export const vi_VN: EnTranslations = {
   },
   "heroicShop": {
     "balance": "Dấu Ấn Anh Hùng: {count}",
-    "buyAria": "Mua {item} với giá {marks} Dấu Ấn Anh Hùng"
+    "buyAria": "Mua {item} với giá {marks} Dấu Ấn Anh Hùng",
+    "buyConfirmTitle": "Xác nhận mua hàng",
+    "buyConfirmBody": "Mua {item} để lấy Dấu ấn Anh hùng {marks}? Việc mua điểm không thể được hoàn lại.",
+    "buyConfirmAccept": "Mua",
+    "buyConfirmCancel": "Hủy bỏ"
   },
   "cardDuel": {
     "title": "Đấu Bài",
@@ -4582,7 +4676,11 @@ export const vi_VN: EnTranslations = {
       "buyAria": "Mua {item} với giá {marks} Huy Hiệu Hang Sâu",
       "reqHeroic": "Yêu cầu một lần dọn sạch Anh Hùng",
       "reqClears": "Yêu cầu {count} lần dọn sạch",
-      "empty": "Hết hàng."
+      "empty": "Hết hàng.",
+      "buyConfirmTitle": "Xác nhận mua hàng",
+      "buyConfirmBody": "Mua {item} với giá {marks} Huy Hiệu Hang Sâu? Giao dịch mua huy hiệu không thể hoàn lại.",
+      "buyConfirmAccept": "Mua",
+      "buyConfirmCancel": "Hủy bỏ"
     },
     "tracker": {
       "title": "Hang Sâu",
@@ -4971,6 +5069,11 @@ export const vi_VN: EnTranslations = {
     "discordCommunity": "Tham gia cộng đồng Discord của World of ClaudeCraft",
     "donateProject": "Quyên góp ủng hộ World of ClaudeCraft"
   },
+  "entryGuard": {
+    "title": "Đã hạ đồ họa",
+    "body": "Trò chơi đã đóng đột ngột khi vào thế giới, nên đồ họa hiện được đặt ở mức {preset}. Bạn có thể thay đổi trong bộ chọn đồ họa bên dưới hoặc trong tùy chọn trong trò chơi.",
+    "dismiss": "Đóng"
+  },
   "loading": {
     "world": "Đang tải thế giới...",
     "worldProgress": "Đang tải thế giới... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const vi_VN: EnTranslations = {
     "rendererFailed": "Không thể khởi động bộ kết xuất: thử tải lại. {error}",
     "enterTimeout": "Không thể vào thế giới. Kết nối đã quá thời gian. Máy chủ trò chơi có đang chạy không?",
     "connectionLost": "Đã mất kết nối tới máy chủ.",
-    "reconnecting": "Mất kết nối. Đang kết nối lại...",
+    "reconnectingAttempt": "Mất kết nối. Đang kết nối lại... (thử {attempt}/{maxAttempts}, thử lại trong {seconds})",
+    "reconnectingNow": "Mất kết nối. Đang kết nối lại ngay bây giờ... (thử {attempt}/{maxAttempts})",
+    "slowConnection": "Quá trình này mất nhiều thời gian hơn bình thường. Kiểm tra kết nối internet của bạn.",
     "connectionRejected": "Máy chủ đã đóng kết nối.",
     "realmFull": "Thế giới này đang đầy người chơi. Vui lòng thử lại sau vài phút.",
     "tooManyConnections": "Có quá nhiều kết nối đến thế giới này từ mạng của bạn. Vui lòng đóng bớt cửa sổ trò chơi hoặc thử lại sau vài phút.",
@@ -6083,6 +6188,7 @@ export const vi_VN: EnTranslations = {
       "rarityUncommon": "Khác Thường",
       "rarityRare": "Hiếm",
       "rarityEpic": "Sử Thi",
+      "rarityLegendary": "Huyền thoại",
       "merchantStock": "Hàng của Thương Nhân",
       "stackCount": "x{count}",
       "each": "{money} mỗi món",
@@ -6283,7 +6389,7 @@ export const vi_VN: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "Lá Chắn Rực Lửa",
-        "description": "Bao bọc bản thân trong lửa, hấp thụ 130 sát thương trong 60 giây. (Lửa)"
+        "description": "Bao bọc bản thân trong lửa, hấp thụ {damage} sát thương trong 60 giây. (Lửa)"
       },
       "cold_snap": {
         "name": "Tiếng Gọi Mùa Đông",
@@ -6335,11 +6441,11 @@ export const vi_VN: EnTranslations = {
       },
       "flurry": {
         "name": "Winterlash",
-        "description": "Phóng ba mũi tên băng gây {damage} sát thương Băng mỗi mũi và gắn Cơn Lạnh Mùa Đông lên mục tiêu: 2 phép thi triển hợp lệ tiếp theo sẽ coi mục tiêu như đang đóng băng. Brain Freeze khiến Winterlash lập tức, mạnh hơn 30% và bỏ qua thời gian hồi chiêu. (Băng)"
+        "description": "Phóng ba luồng băng giá, mỗi luồng gây {damage} sát thương băng giá, và đặt Winter's Chill lên mục tiêu: 2 phép thuật tương thích tiếp theo sẽ coi mục tiêu đó như bị đóng băng. Brain Freeze khiến Winterlash được thi triển ngay lập tức và bỏ qua thời gian hồi chiêu. (Sương giá)"
       },
       "frozen_orb": {
         "name": "Frozen Orb",
-        "description": "Phóng ra một quả cầu xoáy băng giá trôi về phía trước trong 8 giây, gây {damage} sát thương Băng mỗi giây cho các kẻ thù lân cận và làm chậm chúng 30%. Các cú đánh của nó tạo ra Fingers of Frost. (Băng)"
+        "description": "Phóng ra một quả cầu băng xoáy bay về phía trước trong 8 giây, gây sát thương {damage} Băng mỗi giây cho kẻ địch ở gần và làm chậm chúng đi 30%. Mỗi xung đập tạo ra một Băng. (Sương giá)"
       },
       "blizzard": {
         "name": "Blizzard",
@@ -6363,11 +6469,11 @@ export const vi_VN: EnTranslations = {
       },
       "brain_freeze": {
         "name": "Brain Freeze",
-        "description": "Thương Băng Giá có 20% xác suất khiến Winterlash tiếp theo của bạn lập tức, mạnh hơn 30% và không có thời gian hồi chiêu. (Băng)"
+        "description": "Thương Băng Giá có 20% cơ hội biến Winterlash tiếp theo của bạn ngay lập tức và không bị hồi chiêu. (Sương giá)"
       },
       "shatter": {
         "name": "Brittle Ruin",
-        "description": "Phép của bạn có thêm 50% xác suất chí mạng với mục tiêu đang đóng băng, và những cú chí mạng đó gây thêm 20% sát thương. Fingers of Frost và Cơn Lạnh Mùa Đông được tính là đóng băng. (Băng)"
+        "description": "Phép thuật của bạn có 50% cơ hội tấn công chí mạng vào các mục tiêu bị đóng băng. Fingers of Frost và Winter's Chill được tính là bị đóng băng. (Sương giá)"
       },
       "conjure_water": {
         "name": "Kết Nước",
@@ -6391,7 +6497,7 @@ export const vi_VN: EnTranslations = {
       },
       "frost_nova": {
         "name": "Trói Băng",
-        "description": "Đóng băng tất cả kẻ địch xung quanh tại chỗ trong tối đa 8 giây, gây {damage} sát thương Băng."
+        "description": "Đóng băng tất cả kẻ địch xung quanh tại chỗ trong tối đa 8 giây, gây {damage} sát thương Băng. Hiệu ứng trói chân bị phá vỡ sau khi nhận tổng sát thương bằng 15% máu tối đa của mục tiêu, tối thiểu 20 và tối đa 60 sát thương."
       },
       "arcane_explosion": {
         "name": "Nổ Ê-te",
@@ -8138,6 +8244,222 @@ export const vi_VN: EnTranslations = {
       "emberglass_warstaff": {
         "name": "Chiến Trượng Emberglass"
       },
+      "copper_ore": {
+        "name": "Quặng đồng"
+      },
+      "iron_ore": {
+        "name": "Quặng sắt"
+      },
+      "ironbark_log": {
+        "name": "Khúc gỗ Vỏ Sắt"
+      },
+      "silverleaf_herb": {
+        "name": "Thảo dược lá bạc"
+      },
+      "rough_hide": {
+        "name": "Da thô"
+      },
+      "spider_silk": {
+        "name": "Tơ nhện"
+      },
+      "venom_gland": {
+        "name": "Tuyến nọc độc"
+      },
+      "game_meat": {
+        "name": "Thịt thú rừng"
+      },
+      "homespun_cloth": {
+        "name": "Vải dệt tại nhà"
+      },
+      "pristine_hide": {
+        "name": "Da nguyên vẹn"
+      },
+      "pristine_silk": {
+        "name": "Tơ lụa nguyên sơ"
+      },
+      "pristine_venom_gland": {
+        "name": "Tuyến nọc độc nguyên sơ"
+      },
+      "prime_cut": {
+        "name": "Cắt Prime"
+      },
+      "smithing_flux": {
+        "name": "Thông lượng rèn"
+      },
+      "spool_of_thread": {
+        "name": "Ống chỉ"
+      },
+      "tanning_agent": {
+        "name": "Chất thuộc da"
+      },
+      "cooking_salt": {
+        "name": "Muối nấu ăn"
+      },
+      "glass_vial": {
+        "name": "lọ thủy tinh"
+      },
+      "copper_bearded_axe": {
+        "name": "Rìu râu đồng"
+      },
+      "copper_flanged_mace": {
+        "name": "Chùy mặt bích đồng"
+      },
+      "ironbark_boar_spear": {
+        "name": "Ngọn giáo lợn vỏ sắt"
+      },
+      "ironedge_longsword": {
+        "name": "Thanh kiếm dài Ironedge"
+      },
+      "ironshod_maul": {
+        "name": "vồ sắt"
+      },
+      "whetted_iron_dirk": {
+        "name": "Dao găm sắt mài sắc"
+      },
+      "thorium_warblade": {
+        "name": "Thanh kiếm Thorium"
+      },
+      "arcanite_war_axe": {
+        "name": "Rìu chiến Arcanite"
+      },
+      "elderwood_battle_staff": {
+        "name": "Gậy Chiến Đấu Elderwood"
+      },
+      "riveted_copper_girdle": {
+        "name": "Dầm đồng đinh tán"
+      },
+      "coppermail_sabatons": {
+        "name": "Sabaton thư đồng"
+      },
+      "coppermail_gauntlets": {
+        "name": "Găng tay thư đồng"
+      },
+      "ironlink_hauberk": {
+        "name": "Áo giáp xích sắt"
+      },
+      "ironlink_legguards": {
+        "name": "Quần bảo vệ chân Ironlink"
+      },
+      "ironlink_spaulders": {
+        "name": "Spaulders Ironlink"
+      },
+      "thoriumscale_greathelm": {
+        "name": "Mũ bảo hiểm quy mô Thorium"
+      },
+      "thoriumscale_cuirass": {
+        "name": "Cuirass vảy Thori"
+      },
+      "thoriumscale_leggings": {
+        "name": "Xà cạp vảy Thorium"
+      },
+      "homespun_hood": {
+        "name": "Mũ trùm đầu"
+      },
+      "homespun_mitts": {
+        "name": "Găng tay dệt tại nhà"
+      },
+      "silverthread_slippers": {
+        "name": "Dép sợi bạc"
+      },
+      "goldweave_robe": {
+        "name": "Áo choàng dệt vàng"
+      },
+      "goldweave_leggings": {
+        "name": "Xà cạp Goldweave"
+      },
+      "silkspun_satchel": {
+        "name": "Túi lụa"
+      },
+      "silkbinders_raiment": {
+        "name": "Trang phục của Silkbinder"
+      },
+      "sunweave_mantle": {
+        "name": "Áo choàng nắng"
+      },
+      "sunweave_treads": {
+        "name": "Tread Sunweave"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "Quần da Fenbridge"
+      },
+      "fenbridge_hide_boots": {
+        "name": "Ủng da Fenbridge"
+      },
+      "fenbridge_hide_belt": {
+        "name": "Thắt lưng da Fenbridge"
+      },
+      "marshstalker_jerkin": {
+        "name": "Áo giáp da của Kẻ săn đầm lầy"
+      },
+      "marshstalker_hood": {
+        "name": "Mũ trùm đầu Marshstalker"
+      },
+      "marshstalker_spaulders": {
+        "name": "Giáp vai của Kẻ săn đầm lầy"
+      },
+      "mirewarden_jerkin": {
+        "name": "Áo giáp da của Người gác đầm lầy"
+      },
+      "mirewarden_leggings": {
+        "name": "Quần legging Mirewarden"
+      },
+      "mirewarden_treads": {
+        "name": "Giày Mirewarden"
+      },
+      "pan_seared_perch": {
+        "name": "Cá rô sông áp chảo"
+      },
+      "hunters_game_skewer": {
+        "name": "Trò chơi xiên của Thợ Săn"
+      },
+      "herbed_marsh_pike": {
+        "name": "Cá chó đầm lầy ướp thảo mộc"
+      },
+      "ashwood_smoked_eel": {
+        "name": "Lươn hun khói tro"
+      },
+      "goldleaf_game_stew": {
+        "name": "Trò chơi lá vàng hầm"
+      },
+      "frostgill_chowder": {
+        "name": "Chowder Frostgill"
+      },
+      "silvered_carp_supper": {
+        "name": "Bữa tối cá chép bạc"
+      },
+      "anglers_feast_platter": {
+        "name": "Đĩa tiệc của người câu cá"
+      },
+      "marlows_grand_roast": {
+        "name": "Món quay thịnh soạn của Marlow"
+      },
+      "silverleaf_healing_draught": {
+        "name": "Thuốc hồi máu Lá Bạc"
+      },
+      "silverleaf_mana_draught": {
+        "name": "Thuốc mana Lá Bạc"
+      },
+      "elixir_of_the_boar": {
+        "name": "Thuốc tiên của heo rừng"
+      },
+      "goldleaf_healing_draught": {
+        "name": "Thuốc hồi máu Lá Vàng"
+      },
+      "goldleaf_mana_draught": {
+        "name": "Thuốc mana Lá Vàng"
+      },
+      "venomfire_elixir": {
+        "name": "Thuốc độc lửa"
+      },
+      "sunpetal_healing_draught": {
+        "name": "Thuốc hồi máu Cánh Mặt Trời"
+      },
+      "sunpetal_mana_draught": {
+        "name": "Thuốc mana Cánh Mặt Trời"
+      },
+      "elixir_of_the_serpent": {
+        "name": "Thuốc tiên của con rắn"
+      },
       "conjured_water4": {
         "name": "Nước Suối Được Tạo Phép"
       },
@@ -9395,6 +9717,36 @@ export const vi_VN: EnTranslations = {
         "title": "Biên Niên Sử Đỉnh Núi",
         "greeting": "Ngọn núi không quên bất cứ điều gì, {playerName}, và ta cũng vậy. Để xem ngươi đã làm nên những gì nào."
       },
+      "forgemistress_darva": {
+        "name": "Nữ thợ rèn Darva",
+        "title": "Bậc thầy của lò rèn",
+        "greeting": "Lò rèn trả lời tôi là {className}. Mang quặng tốt và nó cũng sẽ trả lời bạn."
+      },
+      "cook_marlow": {
+        "name": "nấu Marlow",
+        "title": "Bậc thầy của nhà bếp",
+        "greeting": "Không có gì khiến nhà bếp của tôi chưa chín một nửa, {className}. Ngồi ăn đi rồi lại ra ngoài."
+      },
+      "weaver_ottilie": {
+        "name": "Thợ dệt Ottilie",
+        "title": "Bậc thầy của máy dệt",
+        "greeting": "Hãy chú ý đến chủ đề, {className}. Một bàn tay vững chắc ở khung dệt sẽ đánh bại một bàn tay mạnh mẽ."
+      },
+      "tinker_gizzel": {
+        "name": "Thợ máy Gizzel",
+        "title": "Bậc thầy của công cụ",
+        "greeting": "Lò xo, đĩa xích và các cạnh sắc, {className}: bộ dụng cụ có mọi thứ mà tay bạn thiếu."
+      },
+      "tanner_hesk": {
+        "name": "Thợ thuộc da Hesk",
+        "title": "Bậc thầy của xưởng thuộc da",
+        "greeting": "Da chỉ tốt bằng khả năng thuộc da của nó, {className}. Các thùng đã sẵn sàng khi bạn sẵn sàng."
+      },
+      "alchemist_verane": {
+        "name": "Nhà giả kim Verane",
+        "title": "Bậc thầy của nhà bào chế thuốc",
+        "greeting": "Đo hai lần và đổ một lần, {className}. Người bào chế thuốc không có kiên nhẫn với thuốc thử bị đổ."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Người Canh Thủy Triều",
@@ -10464,6 +10816,56 @@ export const vi_VN: EnTranslations = {
         "sender": "Quân nhu Anh Hùng",
         "subject": "Dấu Ấn Anh Hùng của bạn",
         "body": "Đội của bạn đã vượt qua thử thách Anh Hùng khi bạn chiến đấu ở hậu tuyến hoặc đã ngã xuống. Khóa lượt của bạn vẫn được ghi nhận, vì vậy phần Dấu Ấn Anh Hùng của bạn được gửi đến đây thay vì thất lạc. Hãy sử dụng chúng thật tốt.\n\n- Quân nhu Anh Hùng"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong Kỹ thuật và Giả kim thuật",
+        "body": "nghệ nhân,\n\nTin tức đến tai Hiệp hội về công việc của bạn trong Kỹ thuật và Giả kim thuật: đo điện tích và cân thuốc thử, hai nghề này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp đôi này sẽ được đặt tên là Pháo thủ. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong thuật giả kim và nấu ăn",
+        "body": "nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Thuật giả kim và Nấu ăn: các món nấu chín và các món ăn được tẩm gia vị, hai nghề thủ công này nuôi dưỡng lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp đôi này sẽ sớm nhận được danh hiệu Dược sĩ. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong lĩnh vực Nấu ăn và Làm đồ da",
+        "body": "nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Nấu ăn và Làm đồ da: các món ăn được bày biện và da được thuộc, hai nghề thủ công cho nhau ăn. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong ngành Da và May đo",
+        "body": "nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong ngành Da và May đo: cắt da và viền vải, hai nghề thủ công này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp này sẽ sớm nhận được tên của Thợ trang phục. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong lĩnh vực May đo và Khắc chữ",
+        "body": "nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong lĩnh vực May đo và Khắc chữ: các đường nối được khâu và các nét vẽ được in bằng mực, hai nghề thủ công này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong dòng chữ và mê hoặc",
+        "body": "nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Dòng chữ và Bùa mê: những cuộn giấy có chữ và bùa dệt, hai nghề thủ công nuôi dưỡng lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong mê hoặc và chế tác trang sức",
+        "body": "nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong lĩnh vực Bùa mê và Chế tác trang sức: bùa được buộc và đá được đánh bóng, hai nghề thủ công này nuôi dưỡng lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong chế tạo đồ trang sức và chế tạo vũ khí",
+        "body": "nghệ nhân,\n\nTin tức đến với Hiệp hội về công việc của bạn trong Chế tạo đồ trang sức và Chế tạo vũ khí: đá quý được đặt và mài cạnh, hai nghề thủ công này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong chế tạo vũ khí và chế tạo áo giáp",
+        "body": "nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong Chế tạo vũ khí và Chế tạo áo giáp: lưỡi dao được tôi luyện và các tấm được trang bị, hai nghề này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Những người ràng buộc cặp này sẽ kịp thời nhận được danh hiệu Thợ rèn. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "Hội chế tạo",
+        "subject": "Công việc của bạn trong lĩnh vực Chế tạo áo giáp và Kỹ thuật",
+        "body": "nghệ nhân,\n\nHiệp hội biết đến công việc của bạn trong lĩnh vực Chế tạo áo giáp và Kỹ thuật: các tấm được tán đinh và các bánh răng được căn chỉnh, hai nghề này hỗ trợ lẫn nhau. Những nghề thủ công lân cận cùng nhau làm việc đánh dấu một bàn tay sẵn sàng hòa hợp. Hãy tìm kiếm Thợ Rèn Haldren, thợ chế tác giáp của Eastbrook: hiện tại anh ấy đang đại diện cho các bậc thầy. Hãy chứng minh kỹ năng của bạn với anh ấy bằng chính tay bạn làm, và anh ấy sẽ thấy hai chuyên ngành của bạn hòa hợp với nhau.\n\nTrân trọng,\nHội chế tạo"
       }
     },
     "itemSets": {

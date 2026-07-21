@@ -102,7 +102,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
     // Miring Pounce: the prowler drags its prey into the sucking mire, slowing
     // the victim's swings (+30% swing interval) for 8s.
     slowStrike: { chance: 0.3, mult: 1.3, duration: 8, name: 'Miring Pounce', school: 'physical' },
-    componentTags: ['hide', 'claw'],
+    componentTags: ['hide', 'claw', 'meat'],
   },
   deepfen_murloc: {
     id: 'deepfen_murloc',
@@ -401,6 +401,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
     hex: { chance: 0.3, reductionPct: 0.2, duration: 10, name: 'Weakening Hex', school: 'shadow' },
     scale: 1.0,
     color: 0x6c3483,
+    componentTags: ['cloth'],
   },
   gravecaller_summoner: {
     id: 'gravecaller_summoner',
@@ -428,6 +429,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
     ],
     scale: 1.0,
     color: 0x884ea0,
+    componentTags: ['cloth'],
   },
   gravecaller_mender: {
     id: 'gravecaller_mender',
@@ -706,6 +708,28 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
     color: 0x3fa66b, // fen teal: the chronicler tint is his identity (shared mage visual)
     questIds: [],
     greeting: 'Mind the damp on the pages, $N. The fen eats more books than readers ever will.',
+  },
+  // Crafting-station master (Professions 2.0 Phase 8): stands beside the
+  // Fenbridge tannery (content/professions.ts STATIONS), on the northwest
+  // edge of town with a guard-safe camp margin.
+  tanner_hesk: {
+    id: 'tanner_hesk',
+    name: 'Tanner Hesk',
+    title: 'Master of the Tannery',
+    pos: { x: -11, z: 315.5 },
+    facing: 2.3,
+    color: 0x8a5a2a,
+    questIds: [],
+    // Phase 9 station stocking: thorium_ore is the premium reagent the
+    // tannery station's own recipe (recipe_duskhide_wraps) consumes.
+    vendorItems: [
+      'travelers_knapsack',
+      'tough_jerky',
+      'smoked_eel',
+      'tanning_agent',
+      'thorium_ore',
+    ],
+    greeting: 'A hide is only as good as its tanning, $C. The vats are ready when you are.',
   },
 };
 

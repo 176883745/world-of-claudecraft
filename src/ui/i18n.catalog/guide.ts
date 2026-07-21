@@ -671,10 +671,9 @@ export const guideStrings = {
       'Three quick bolts that chill the target so your next frost hits land as if it were frozen.',
     fingers_of_frost:
       'Your frost bolts sometimes empower an Ice Lance to strike as if the target were frozen.',
-    brain_freeze: 'Your frost bolts sometimes make the next Flurry instant and harder-hitting.',
+    brain_freeze: 'Your frost bolts sometimes make the next Flurry instant and skip its cooldown.',
     shatter: 'Your spells crit far more often against frozen targets.',
-    frozen_orb:
-      'Rolls a slow orb through the pack that chills everything and feeds your frost procs.',
+    frozen_orb: 'Rolls a slow orb through the pack that chills enemies and banks Icicles.',
     blizzard: 'Blankets an area in ice to wear down and slow a whole pack.',
     blink: 'Teleports you a short distance forward, breaking roots on the way out.',
     conjure_water: 'Conjures drinks that restore mana, so you can refill between pulls.',
@@ -1396,7 +1395,7 @@ export const guideStrings = {
 
     craftMasteryTitle: 'Skill and mastery',
     craftMasteryBody:
-      "Crafting successfully builds skill in that trade, and skill never locks a craft's recipes away: if you know a recipe and hold its materials, you can attempt it. What skill buys you instead is quality, a practiced hand turns out finer work. The one exception is combination recipes, which open only to a crafter attuned to the archetype that joins their two crafts, with proven skill in both.",
+      "Crafting successfully builds skill in that trade, and skill never locks a craft's recipes away: if you know a recipe and hold its materials, you can attempt it. Every recipe turns out exactly the piece it promises, and a practiced hand sometimes produces a masterwork: the same piece finished finer, with a little extra power worked in. The one exception is combination recipes, which open only to a crafter attuned to the archetype that joins their two crafts, with proven skill in both.",
 
     craftComboTitle: 'Combination recipes',
     craftComboBody:
@@ -1409,7 +1408,7 @@ export const guideStrings = {
 
     archetypeChooseTitle: 'Choosing your archetype',
     archetypeChooseBody:
-      'Declaring an archetype is a story moment: a quest that formally accepts you into that identity. Until you declare, every craft advances to the rare quality tier. Once you take up a pair, its two trades open all the way, a craft from the far side of the wheel stays with you as a hobby that still works to the rare tier, and every other trade rests at the common tier while you carry that identity.',
+      "Declaring an archetype is a story moment: a quest that formally accepts you into that identity. Until you declare, every craft's skill advances as far as the rare tier. Once you take up a pair, its two trades open all the way, a craft from the far side of the wheel stays with you as a hobby that still works to the rare tier, and every other trade rests at the common tier while you carry that identity.",
 
     archetypeSwitchTitle: 'Changing your mind',
     archetypeSwitchBody:

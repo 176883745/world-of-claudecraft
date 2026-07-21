@@ -317,7 +317,11 @@ export const da_DK: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "Genopstå ved liget",
       "resurrectAtHealer": "Den Blege Vogter (Vogterens Klokke)",
-      "spiritHealerAlive": "Den Blege Vogter våger over de døde. Du er stadig blandt de levende."
+      "spiritHealerAlive": "Den Blege Vogter våger over de døde. Du er stadig blandt de levende.",
+      "healerConfirmTitle": "Vil du acceptere Vogterens Klokke?",
+      "healerConfirmBody": "Den Blege Vogter genopliver dig her, men Vogterens Klokke reducerer alle dine egenskaber med 75 % i op til 10 minutter på højere niveauer. Går du som ånd tilbage til dit lig, genoplives du uden straf.",
+      "healerConfirmAccept": "Genopliv mig",
+      "healerConfirmCancel": "Annuller"
     },
     "fct": {
       "absorbed": "{amount} absorberet",
@@ -750,6 +754,7 @@ export const da_DK: EnTranslations = {
       "leaderboard": "Rangliste",
       "dailyRewards": "Butik",
       "deeds": "Bedrifter",
+      "professions": "Erhverv",
       "nameplates": "Navne",
       "haptics": "Haptik",
       "hapticsOff": "Haptik fra",
@@ -1039,6 +1044,7 @@ export const da_DK: EnTranslations = {
       "itemLevelLine": "Genstandsniveau {level}",
       "itemScoreLine": "Score {score}",
       "showSecondaryActionBar": "Vis sekundær handlingslinje",
+      "showThirdActionBar": "Vis tredje handlingslinje",
       "showTargetOfTarget": "Vis målets mål",
       "showAttackButton": "Vis angrebsknap",
       "showDailyRewardsChest": "Vis kisten med daglige belønninger",
@@ -1468,7 +1474,8 @@ export const da_DK: EnTranslations = {
       "watchTwitch": "Se på Twitch",
       "watchX": "Vis på X",
       "watchKick": "Se på Kick",
-      "watchYouTube": "Se på YouTube"
+      "watchYouTube": "Se på YouTube",
+      "streamerBadgeTitle": "Verificeret streamer"
     },
     "lootSettings": {
       "title": "Bytteindstillinger",
@@ -2082,7 +2089,9 @@ export const da_DK: EnTranslations = {
       "mining": "Minedrift",
       "logging": "Skovhugst",
       "herbalism": "Urtekundskab",
-      "notReady": "Denne ressourcekilde er endnu ikke genskabt for dig."
+      "notReady": "Denne ressourcekilde er endnu ikke genskabt for dig.",
+      "gatherLine": "Du samler: {name}.",
+      "gatherLineQty": "Du samler: {name} x{qty}."
     },
     "archetypeTitle": {
       "label": "Titel",
@@ -2113,6 +2122,42 @@ export const da_DK: EnTranslations = {
       "tailoring": "Skræderi",
       "leatherworking": "Læderhåndværk"
     },
+    "professions": {
+      "title": "Erhverv",
+      "close": "Luk erhverv",
+      "ringAria": "Håndværkshjul",
+      "skillsHeader": "Håndværksfærdigheder",
+      "gatheringHeader": "Indsamling",
+      "perksHeader": "Frynsegoder",
+      "identityHeader": "Identitet",
+      "roleMajor": "Hovedfag",
+      "roleHobby": "Hobby",
+      "roleDormant": "Inaktiv viden",
+      "roleUnattuned": "Ikke indstillet",
+      "ceilingUnlimited": "Ingen forstærkningsbegrænsning",
+      "ceilingRare": "Sjælden begrænsning",
+      "ceilingCommon": "Almindelig begrænsning",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "Niveau {tier}",
+      "nextUnlockTier": "{points} point til næste niveau: mesterværk odds forbedres",
+      "nextUnlockSpecialized": "{points} point til Specialiseret: materialeomkostningerne falder",
+      "nextUnlockMax": "Ved maksimal dygtighed",
+      "perkSpecializedLine": "{craft}: Specialiseret, materialeomkostninger -{pct}%",
+      "perkSpecializedAt": "Specialiseret i {threshold} færdigheder",
+      "switchCost": "Næste arketypeskift koster {cost} bodspoint",
+      "syncing": "Venter på dine professionsdata fra riget.",
+      "tutorialLine": "Opnå {target} færdigheder i ethvert håndværk for at låse op for dit første niveau.",
+      "ctaHeader": "Næste skridt",
+      "ctaRaise": "Fortsæt med at hæve {craft}: {points} point mere til næste niveau.",
+      "ctaStart": "Fremstil eller indsaml med et hvilket som helst erhverv for at begynde.",
+      "unattunedIdentity": "Du er endnu ikke indstillet på en arketype. Hæv dit håndværk og fuldfør en afstemning for at vælge dit par.",
+      "nudgeNearTier": "{craft}: {points} point fra næste niveau",
+      "nudgeDormant": "Din {craft} viden ligger i dvale",
+      "hobbyLabel": "Hobby: {craft}",
+      "majorsLabel": "Hovedfag: {a} og {b}",
+      "pairsHeld": "Afholdte par: {count}",
+      "returnsLabel": "Returnerer: {count}"
+    },
     "crafting": {
       "title": "Håndværk",
       "close": "Tæt håndværk",
@@ -2131,6 +2176,7 @@ export const da_DK: EnTranslations = {
       "comboNotAttuned": "Vælg først et arketypepar.",
       "comboWrongPair": "Aktiver dette præcise par for at fremstille det.",
       "comboTierUnmet": "Hav begge håndværksfag på det krævede niveau.",
+      "comboTierUnmetNamed": "Hæv {crafts} til niveau {tier}.",
       "professionChoice": "Erhvervsvalg",
       "noProfessionChoice": "Intet gyldigt erhvervsvalg er tilgængeligt i øjeblikket.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const da_DK: EnTranslations = {
         "nearTier": "{craft} er {points} færdigheder fra sit næste niveau.",
         "dormantKnowledge": "{craft}-viden bevares men er inaktiv, indtil dens par eller hobby er aktiv."
       },
-      "notAtHub": "Du skal være ved håndværksstationen og på det krævede niveau for at lave det.",
+      "stationRequired": "Du skal være ved {station} for at lave det.",
+      "stationName": {
+        "forge": "Smedje",
+        "kitchens": "Køkkener",
+        "apothecary": "Apoteker",
+        "tannery": "Garveri",
+        "loom": "væv",
+        "toolworks": "Værktøjsværker"
+      },
       "throttled": "Du laver ting for hurtigt. Vent et øjeblik, og prøv igen.",
-      "recipeNotLearned": "Du har ikke lært den opskrift endnu."
+      "recipeNotLearned": "Du har ikke lært den opskrift endnu.",
+      "skillReqLine": "Kræver {craft} {skill}",
+      "difficultyFull": "Fuld færdighedsforøgelse",
+      "difficultyReduced": "Reduceret færdighedsforøgelse",
+      "difficultyNone": "Ingen færdighedsforøgelse",
+      "stationBadge": "Station",
+      "stationOutOfRangeNamed": "Flyt til {station} for at lave dette.",
+      "masterworkToast": "Mesterværk! {name}",
+      "masterworkZoneLine": "{crafter} lavede et mesterværk {name}!",
+      "tierUpToast": "{craft} avanceret til niveau {tier}!",
+      "makersMark": "Udformet af {name}",
+      "masterworkSeal": "Mesterværk",
+      "enchantedLine": "Fortryllet"
+    },
+    "training": {
+      "title": "Træning: {name}",
+      "close": "Luk træning",
+      "empty": "Denne mester har intet at lære.",
+      "free": "Gratis",
+      "stateKnown": "Kendt",
+      "stateTeachable": "Tilgængelig",
+      "stateLocked": "Låst",
+      "requirement": "Undervist på {craft} {skill}",
+      "trainAria": "Lær {name} for {fee}",
+      "dialogOption": "Uddannelse",
+      "dialogOptionAria": "Gennemse træning fra {name}",
+      "learned": "Opskrift lært: {recipe}",
+      "tierUnmet": "Du skal bruge {craft} {skill} for at lære den opskrift.",
+      "cannotAfford": "Du har ikke råd til den træning.",
+      "notTaughtHere": "Den opskrift er ikke undervist her.",
+      "alreadyKnown": "Den opskrift kender du allerede.",
+      "outOfRange": "Du skal være på stationen for at træne."
     },
     "finder": {
       "title": "Fangekældersfinder",
@@ -2331,6 +2416,11 @@ export const da_DK: EnTranslations = {
       "broadcastsLabel": "Del nye bedrifter med laug og venner",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder} ramte en uberørt åre!",
+    "ancientHeartwood": "{finder} fældet et gammelt kernetræ!",
+    "moonlitBloom": "{finder} opdagede en måneskin opblomstring!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const da_DK: EnTranslations = {
       "ice_lance": "En øjeblikkelig skarv til at bruge frostudløsere, den rammer langt hårdere mod et frosset mål.",
       "flurry": "Tre hurtige pile der køler målet, så dine næste frostramninger lander, som om det var frosset.",
       "fingers_of_frost": "Dine frostpile styrker sommetider en Ice Lance til at ramme, som om målet var frosset.",
-      "brain_freeze": "Dine frostpile gør sommetider dit næste Winterlash øjeblikkeligt og hårdere.",
+      "brain_freeze": "Dine frostbolte gør nogle gange den næste Winterlash øjeblikkelig og springer dens nedkøling over.",
       "shatter": "Dine trolddomme får langt oftere kritisk chance mod frosne mål.",
-      "frozen_orb": "Ruller en langsom kugle gennem flokken, der køler alt ned og giver dine frostudløsere næring.",
+      "frozen_orb": "Ruller en langsom kugle gennem flokken, som nedkøler fjender og oplagrer istapper.",
       "blizzard": "Dækker et område med is for at nedslide og sætte farten ned på en hel flok.",
       "blink": "Teleporterer dig en kort afstand fremad og bryder rodfæstning ved udgangen.",
       "conjure_water": "Frembringer drikke der genopretter mana, så du kan fylde op mellem kampene.",
@@ -4529,7 +4619,11 @@ export const da_DK: EnTranslations = {
   },
   "heroicShop": {
     "balance": "Heroiske Mærker: {count}",
-    "buyAria": "Køb {item} for {marks} Heroiske Mærker"
+    "buyAria": "Køb {item} for {marks} Heroiske Mærker",
+    "buyConfirmTitle": "Bekræft køb",
+    "buyConfirmBody": "Køb {item} for {marks} Heroiske Mærker? Køb med mærker kan ikke refunderes.",
+    "buyConfirmAccept": "Køb",
+    "buyConfirmCancel": "Annuller"
   },
   "cardDuel": {
     "title": "Kortduel",
@@ -4582,7 +4676,11 @@ export const da_DK: EnTranslations = {
       "buyAria": "Køb {item} for {marks} Delve-Mærker",
       "reqHeroic": "Kræver en Heroisk gennemførelse",
       "reqClears": "Kræver {count} gennemførelser",
-      "empty": "Intet på lager."
+      "empty": "Intet på lager.",
+      "buyConfirmTitle": "Bekræft køb",
+      "buyConfirmBody": "Køb {item} for {marks} Delve-Mærker? Køb med mærker kan ikke refunderes.",
+      "buyConfirmAccept": "Køb",
+      "buyConfirmCancel": "Annuller"
     },
     "tracker": {
       "title": "Delve",
@@ -4971,6 +5069,11 @@ export const da_DK: EnTranslations = {
     "discordCommunity": "Deltag i World of ClaudeCraft Discord-fællesskabet",
     "donateProject": "Donér for at støtte World of ClaudeCraft"
   },
+  "entryGuard": {
+    "title": "Grafik sænket",
+    "body": "Spillet lukkede uventet, mens du trådte ind i verdenen, så grafikken er nu sat til {preset}. Du kan ændre det i grafikvælgeren nedenfor eller i indstillingerne i spillet.",
+    "dismiss": "Afvis"
+  },
   "loading": {
     "world": "Indlæser verden...",
     "worldProgress": "Indlæser verden... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const da_DK: EnTranslations = {
     "rendererFailed": "Kunne ikke starte gengiveren: prøv at genindlæse. {error}",
     "enterTimeout": "Kunne ikke komme ind i verdenen. Forbindelsen fik timeout. Kører spilserveren?",
     "connectionLost": "Forbindelsen til serveren gik tabt.",
-    "reconnecting": "Forbindelse mistet. Genopretter forbindelse...",
+    "reconnectingAttempt": "Forbindelse mistet. Genopretter forbindelse... (forsøg {attempt}/{maxAttempts}, prøver igen om {seconds}s)",
+    "reconnectingNow": "Forbindelse mistet. Genopretter forbindelse nu... (forsøg {attempt}/{maxAttempts})",
+    "slowConnection": "Dette tager længere tid end normalt. Tjek din internetforbindelse.",
     "connectionRejected": "Serveren lukkede forbindelsen.",
     "realmFull": "Denne verden er fuld i øjeblikket. Prøv igen om et par minutter.",
     "tooManyConnections": "Der kommer for mange forbindelser til denne verden fra dit netværk. Luk ekstra spilvinduer, eller prøv igen om et par minutter.",
@@ -6083,6 +6188,7 @@ export const da_DK: EnTranslations = {
       "rarityUncommon": "Ualmindelig",
       "rarityRare": "Sjælden",
       "rarityEpic": "Episk",
+      "rarityLegendary": "Legendarisk",
       "merchantStock": "Købmandens lager",
       "stackCount": "x{count}",
       "each": "{money} stykket",
@@ -6283,7 +6389,7 @@ export const da_DK: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "Flammende barriere",
-        "description": "Indhyl dig i flammer og absorber 130 skade i 60 sek. (Ild)"
+        "description": "Indhyl dig i flammer og absorber {damage} skade i 60 sek. (Ild)"
       },
       "cold_snap": {
         "name": "Vinterens kalden",
@@ -6335,11 +6441,11 @@ export const da_DK: EnTranslations = {
       },
       "flurry": {
         "name": "Winterlash",
-        "description": "Affyr tre ispile der gør {damage} Frost-skade hver og påfører Vinterkulden på målet: dets næste 2 indkommende kompatible trolddomme behandler det som frosset. Brain Freeze gør Winterlash øjeblikkeligt, 30% hårdere og springer dets nedkøling over. (Frost)"
+        "description": "Affyr tre iskolde projektiler, der hver giver {damage} frostskade, og påfør målet Vinterkulde: de næste 2 kompatible besværgelser mod det behandler det som frossent. Brain Freeze gør Winterlash øjeblikkelig og springer dens nedkøling over. (Frost)"
       },
       "frozen_orb": {
         "name": "Frozen Orb",
-        "description": "Udslip en kugle af hvirvlende frost, der driver fremad i 8 sek. og gør {damage} Frost-skade hvert sekund på nærliggende fjender og sætter dem ned med 30%. Dens slag genererer Fingers of Frost. (Frost)"
+        "description": "Slip en kule af hvirvlende frost, der driver fremad i 8 sekunder, og giver {damage} frostskade hvert sekund til nærliggende fjender og bremser dem med 30%. Hver slående puls genererer en istap. (Frost)"
       },
       "blizzard": {
         "name": "Blizzard",
@@ -6363,11 +6469,11 @@ export const da_DK: EnTranslations = {
       },
       "brain_freeze": {
         "name": "Brain Freeze",
-        "description": "Rimlanse har 20% chance for at gøre dit næste Winterlash øjeblikkeligt, 30% hårdere og fri for dets nedkøling. (Frost)"
+        "description": "Rimlanse har 20 % chance for at gøre din næste Winterlash øjeblikkelig og fri for dens nedkøling. (Frost)"
       },
       "shatter": {
         "name": "Brittle Ruin",
-        "description": "Dine trolddomme får 50% kritisk chance mod frosne mål, og disse kritiske slag gør 20% mere skade. Fingers of Frost og Vinterkulden tæller som frosset. (Frost)"
+        "description": "Dine besværgelser får 50 % chance for kritiske træffere mod frosne mål. Fingers of Frost og Vinterkulde tæller som frosne. (Frost)"
       },
       "conjure_water": {
         "name": "Vandbinding",
@@ -6391,7 +6497,7 @@ export const da_DK: EnTranslations = {
       },
       "frost_nova": {
         "name": "Isbinding",
-        "description": "Fryser alle nærliggende fjender fast i op til 8 sek og volder {damage} frostskade."
+        "description": "Fryser alle nærliggende fjender fast i op til 8 sek og volder {damage} frostskade. Fastfrysningen brydes efter samlet skade svarende til 15 % af målets maksimale helbred, dog mindst 20 og højst 60 skade."
       },
       "arcane_explosion": {
         "name": "Æterudbrud",
@@ -8138,6 +8244,222 @@ export const da_DK: EnTranslations = {
       "emberglass_warstaff": {
         "name": "Glødeglas-Krigsstav"
       },
+      "copper_ore": {
+        "name": "Kobbermalm"
+      },
+      "iron_ore": {
+        "name": "Jernmalm"
+      },
+      "ironbark_log": {
+        "name": "Jernbarkstamme"
+      },
+      "silverleaf_herb": {
+        "name": "Sølvbladsurt"
+      },
+      "rough_hide": {
+        "name": "Groft skind"
+      },
+      "spider_silk": {
+        "name": "Edderkoppesilke"
+      },
+      "venom_gland": {
+        "name": "Giftkirtel"
+      },
+      "game_meat": {
+        "name": "Vildt kød"
+      },
+      "homespun_cloth": {
+        "name": "Hjemmespundet klæde"
+      },
+      "pristine_hide": {
+        "name": "Uberørt skind"
+      },
+      "pristine_silk": {
+        "name": "Uberørt silke"
+      },
+      "pristine_venom_gland": {
+        "name": "Uberørt giftkirtel"
+      },
+      "prime_cut": {
+        "name": "Førsteklasses udskæring"
+      },
+      "smithing_flux": {
+        "name": "Smedefluss"
+      },
+      "spool_of_thread": {
+        "name": "Trådspole"
+      },
+      "tanning_agent": {
+        "name": "Garvemiddel"
+      },
+      "cooking_salt": {
+        "name": "Madlavningssalt"
+      },
+      "glass_vial": {
+        "name": "Hætteglas af glas"
+      },
+      "copper_bearded_axe": {
+        "name": "Kobberskægøkse"
+      },
+      "copper_flanged_mace": {
+        "name": "Kobberflanget stridskølle"
+      },
+      "ironbark_boar_spear": {
+        "name": "Jernbarks ornespyd"
+      },
+      "ironedge_longsword": {
+        "name": "Jernægget langsværd"
+      },
+      "ironshod_maul": {
+        "name": "Jernbeslået stridshammer"
+      },
+      "whetted_iron_dirk": {
+        "name": "Slebet jerndolk"
+      },
+      "thorium_warblade": {
+        "name": "Thoriumkrigsklinge"
+      },
+      "arcanite_war_axe": {
+        "name": "Arkanitkrigsøkse"
+      },
+      "elderwood_battle_staff": {
+        "name": "Olderskovs kampstav"
+      },
+      "riveted_copper_girdle": {
+        "name": "Nittet kobberbælte"
+      },
+      "coppermail_sabatons": {
+        "name": "Kobberbrynjestøvler"
+      },
+      "coppermail_gauntlets": {
+        "name": "Kobberbrynjehandsker"
+      },
+      "ironlink_hauberk": {
+        "name": "Jernledsbrynje"
+      },
+      "ironlink_legguards": {
+        "name": "Jernledsbenbeskyttere"
+      },
+      "ironlink_spaulders": {
+        "name": "Jernledsskulderplader"
+      },
+      "thoriumscale_greathelm": {
+        "name": "Thoriumskæl-storhjelm"
+      },
+      "thoriumscale_cuirass": {
+        "name": "Thoriumskælbrystplade"
+      },
+      "thoriumscale_leggings": {
+        "name": "Thoriumskæl-benklæder"
+      },
+      "homespun_hood": {
+        "name": "Hjemmespundet hætte"
+      },
+      "homespun_mitts": {
+        "name": "Hjemmespundne luffer"
+      },
+      "silverthread_slippers": {
+        "name": "Hjemmesko med sølvtråd"
+      },
+      "goldweave_robe": {
+        "name": "Guldvævet kappe"
+      },
+      "goldweave_leggings": {
+        "name": "Guldvævede bukser"
+      },
+      "silkspun_satchel": {
+        "name": "Silkespundet taske"
+      },
+      "silkbinders_raiment": {
+        "name": "Silkebinderdragt"
+      },
+      "sunweave_mantle": {
+        "name": "Solvævet skulderkappe"
+      },
+      "sunweave_treads": {
+        "name": "Solvævede støvler"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "Fenbridge-læderbukser"
+      },
+      "fenbridge_hide_boots": {
+        "name": "Fenbridge-læderstøvler"
+      },
+      "fenbridge_hide_belt": {
+        "name": "Fenbridge-læderbælte"
+      },
+      "marshstalker_jerkin": {
+        "name": "Marskjægerjakke"
+      },
+      "marshstalker_hood": {
+        "name": "Marskjægerhætte"
+      },
+      "marshstalker_spaulders": {
+        "name": "Marskjægerskulderplader"
+      },
+      "mirewarden_jerkin": {
+        "name": "Mosevogterjakke"
+      },
+      "mirewarden_leggings": {
+        "name": "Mosevogterbukser"
+      },
+      "mirewarden_treads": {
+        "name": "Mosevogterstøvler"
+      },
+      "pan_seared_perch": {
+        "name": "Pandesteget flodaborre"
+      },
+      "hunters_game_skewer": {
+        "name": "Jægerens vildtspyd"
+      },
+      "herbed_marsh_pike": {
+        "name": "Krydret mosegedde"
+      },
+      "ashwood_smoked_eel": {
+        "name": "Asketræ røget ål"
+      },
+      "goldleaf_game_stew": {
+        "name": "Guldblads vildtgryde"
+      },
+      "frostgill_chowder": {
+        "name": "Frostgællesuppe"
+      },
+      "silvered_carp_supper": {
+        "name": "Middag af sølvkarpe"
+      },
+      "anglers_feast_platter": {
+        "name": "Lystfiskerfestfad"
+      },
+      "marlows_grand_roast": {
+        "name": "Marlows feststeg"
+      },
+      "silverleaf_healing_draught": {
+        "name": "Sølvblads helbredelsesdrik"
+      },
+      "silverleaf_mana_draught": {
+        "name": "Sølvblads manadrik"
+      },
+      "elixir_of_the_boar": {
+        "name": "Ornes eliksir"
+      },
+      "goldleaf_healing_draught": {
+        "name": "Guldblads helbredelsesdrik"
+      },
+      "goldleaf_mana_draught": {
+        "name": "Guldblads manadrik"
+      },
+      "venomfire_elixir": {
+        "name": "Giftildseliksir"
+      },
+      "sunpetal_healing_draught": {
+        "name": "Solblads helbredelsesdrik"
+      },
+      "sunpetal_mana_draught": {
+        "name": "Solblads manadrik"
+      },
+      "elixir_of_the_serpent": {
+        "name": "Slangens eliksir"
+      },
       "conjured_water4": {
         "name": "Fremmanet kildevand"
       },
@@ -9395,6 +9717,36 @@ export const da_DK: EnTranslations = {
         "title": "Tindernes Krønike",
         "greeting": "Bjerget glemmer intet, {playerName}, og det gør jeg heller ikke. Lad os se, hvad du har udrettet."
       },
+      "forgemistress_darva": {
+        "name": "Smedemester Darva",
+        "title": "Smedjens mester",
+        "greeting": "Smedjen svarer mig, {className}. Medbring god malm, og det vil også svare dig."
+      },
+      "cook_marlow": {
+        "name": "Kok Marlow",
+        "title": "Køkkenmesteren",
+        "greeting": "Intet efterlader mit køkken halvt tilberedt, {className}. Sid, spis, og kom så derud igen."
+      },
+      "weaver_ottilie": {
+        "name": "Væver Ottilie",
+        "title": "Vævens mester",
+        "greeting": "Pas på trådene, {className}. En fast hånd ved væven slår en stærk."
+      },
+      "tinker_gizzel": {
+        "name": "Tinker Gizel",
+        "title": "Mester af værktøjsværket",
+        "greeting": "Fjedre, tandhjul og skarpe kanter, {className}: værktøjsværket har, hvad dine hænder mangler."
+      },
+      "tanner_hesk": {
+        "name": "Garver Hesk",
+        "title": "Garveriets mester",
+        "greeting": "Et skind er kun så godt som dets garvning, {className}. Karene er klar, når du er."
+      },
+      "alchemist_verane": {
+        "name": "Alkymisten Verane",
+        "title": "Apothekermester",
+        "greeting": "Mål to gange og hæld én gang, {className}. Apotekeren har ingen tålmodighed med spildte reagenser."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Tidevogter",
@@ -10464,6 +10816,56 @@ export const da_DK: EnTranslations = {
         "sender": "Heroisk kvartermester",
         "subject": "Dine heroiske mærker",
         "body": "Din gruppe klarede den heroiske prøve, mens du kæmpede i bagtroppen eller lå faldet. Din låsning blev også registreret, så din andel af de heroiske mærker blev sendt hertil i stedet for at gå tabt. Brug dem godt.\n\n- Heroisk kvartermester"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde inden for teknik og alkymi",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde inden for teknik og alkymi: ladninger målt og reagenser vejet, de to håndværk fodrer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. De, der binder dette par, får navnet bombardér med tiden. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde med alkymi og madlavning",
+        "body": "håndværker,\n\nOrd når lauget af dit arbejde i Alkymi og madlavning: bryg simrede og retter krydret, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. De, der binder dette par, får navnet apoteker med tiden. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde inden for madlavning og læderbearbejdning",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i madlavning og læderbearbejdning: måltider anrettet og skind garvet, de to håndværk fodrer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde inden for læderbearbejdning og skrædderarbejde",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i læderbearbejdning og skrædderarbejde: læder skåret og stofsømt, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. De, der binder dette par, får navnet udstyrsmager i tide. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde inden for skrædderarbejde og indskrivning",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i skrædderarbejdeet og inskription: sømme syet og glyffer sværtet, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde i inskription og fortryllelse",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i inskription og fortryllelse: ruller med bogstaver og amuletter vævet, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde med fortryllende og smykkekunst",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i fortryllelse og juvelslibning: amuletter bundet og sten poleret, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde i juvelslibning og våbenarbejde",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i juvelslibning og våbenarbejde: ædelstene siddende og kanter slebet, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde inden for våben- og rustningsarbejde",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde i våben- og panserarbejde: klinger hærdet og plader monteret, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. De, der binder dette par, får navnet smed med tiden. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "Håndværkerlauget",
+        "subject": "Dit arbejde inden for rustning og teknik",
+        "body": "håndværker,\n\nBud når lauget af dit arbejde inden for rustning og teknik: plader nittet og tandhjul justeret, de to håndværk nærer hinanden. Nabohåndværk, der arbejdes sammen, markerer en hånd, der er klar til afstemning. Opsøg Smed Haldren, rustningsmanden fra Eastbrook: han taler for mestrene for nu. Bevis dit håndværk for ham med arbejde af dine egne hænder, og han vil se dine to hovedfag afstemt.\n\nMed venlig hilsen,\nHåndværkerlauget"
       }
     },
     "itemSets": {

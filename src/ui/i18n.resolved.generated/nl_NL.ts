@@ -317,7 +317,11 @@ export const nl_NL: EnTranslations = {
     "death": {
       "resurrectAtCorpse": "Herrijs bij je lijk",
       "resurrectAtHealer": "De Bleke Hoeder (Tol van de Hoeder)",
-      "spiritHealerAlive": "De Bleke Hoeder waakt over de doden. Jij bent nog onder de levenden."
+      "spiritHealerAlive": "De Bleke Hoeder waakt over de doden. Jij bent nog onder de levenden.",
+      "healerConfirmTitle": "De Tol van de Hoeder accepteren?",
+      "healerConfirmBody": "De Bleke Hoeder wekt je hier tot leven, maar de Tol van de Hoeder vermindert al je eigenschappen met 75%, op hogere niveaus tot wel 10 minuten lang. Loop je als geest terug naar je lichaam, dan herleef je zonder straf.",
+      "healerConfirmAccept": "Breng mij weer tot leven",
+      "healerConfirmCancel": "Annuleren"
     },
     "fct": {
       "absorbed": "{amount} geabsorbeerd",
@@ -750,6 +754,7 @@ export const nl_NL: EnTranslations = {
       "leaderboard": "Ranglijst",
       "dailyRewards": "Winkel",
       "deeds": "Daden",
+      "professions": "Beroepen",
       "nameplates": "Namen",
       "haptics": "Haptiek",
       "hapticsOff": "Haptiek uit",
@@ -1039,6 +1044,7 @@ export const nl_NL: EnTranslations = {
       "itemLevelLine": "Itemniveau {level}",
       "itemScoreLine": "Score {score}",
       "showSecondaryActionBar": "Secundaire actiebalk tonen",
+      "showThirdActionBar": "Derde actiebalk tonen",
       "showTargetOfTarget": "Doelwit van doelwit tonen",
       "showAttackButton": "Aanvalsknop Tonen",
       "showDailyRewardsChest": "Kist met dagelijkse beloningen tonen",
@@ -1468,7 +1474,8 @@ export const nl_NL: EnTranslations = {
       "watchTwitch": "Bekijken op Twitch",
       "watchX": "Bekijken op X",
       "watchKick": "Bekijken op Kick",
-      "watchYouTube": "Bekijken op YouTube"
+      "watchYouTube": "Bekijken op YouTube",
+      "streamerBadgeTitle": "Geverifieerde streamer"
     },
     "lootSettings": {
       "title": "Buitinstellingen",
@@ -2082,7 +2089,9 @@ export const nl_NL: EnTranslations = {
       "mining": "Mijnbouw",
       "logging": "Houtkap",
       "herbalism": "Kruidenkunde",
-      "notReady": "Dit grondstoffenpunt is voor jou nog niet teruggekeerd."
+      "notReady": "Dit grondstoffenpunt is voor jou nog niet teruggekeerd.",
+      "gatherLine": "Jij verzamelt: {name}.",
+      "gatherLineQty": "Je verzamelt: {name} x{qty}."
     },
     "archetypeTitle": {
       "label": "Titel",
@@ -2113,6 +2122,42 @@ export const nl_NL: EnTranslations = {
       "tailoring": "Kleermaken",
       "leatherworking": "Leerbewerken"
     },
+    "professions": {
+      "title": "Beroepen",
+      "close": "Sluit beroepen",
+      "ringAria": "Ambachtelijk wiel",
+      "skillsHeader": "Ambachtelijke vaardigheden",
+      "gatheringHeader": "Verzamelen",
+      "perksHeader": "Voordelen",
+      "identityHeader": "Identiteit",
+      "roleMajor": "Hoofdambacht",
+      "roleHobby": "Liefhebberij",
+      "roleDormant": "Slapende kennis",
+      "roleUnattuned": "Niet afgestemd",
+      "ceilingUnlimited": "Geen versterkingsbegrenzing",
+      "ceilingRare": "Zeldzame begrenzing",
+      "ceilingCommon": "Gewone begrenzing",
+      "skillValue": "{skill} / {max}",
+      "tierPipAria": "Niveau {tier}",
+      "nextUnlockTier": "Nog {points} punten tot het volgende niveau: de kans op meesterwerk stijgt",
+      "nextUnlockSpecialized": "Nog {points} punten tot Gespecialiseerd: materiaalkosten dalen",
+      "nextUnlockMax": "Op maximale vaardigheid",
+      "perkSpecializedLine": "{craft}: Gespecialiseerd, materiaalkosten -{pct}%",
+      "perkSpecializedAt": "Gespecialiseerd in {threshold} vaardigheid",
+      "switchCost": "De volgende archetypewissel kost {cost} boetepunten",
+      "syncing": "Wachten op uw beroepsgegevens uit het rijk.",
+      "tutorialLine": "Bereik de vaardigheid {target} in een willekeurig vak om je eerste niveau te ontgrendelen.",
+      "ctaHeader": "Volgende stap",
+      "ctaRaise": "Blijf {craft} verhogen: {points} extra punten naar het volgende niveau.",
+      "ctaStart": "Maak of verzamel met elk beroep om te beginnen.",
+      "unattunedIdentity": "Je bent nog niet afgestemd op een archetype. Verhoog uw ambachten en voltooi een afstemming om uw paar te kiezen.",
+      "nudgeNearTier": "{craft}: {points} punten van het volgende niveau",
+      "nudgeDormant": "Je {craft}-kennis sluimert",
+      "hobbyLabel": "Hobby: {craft}",
+      "majorsLabel": "Hoofdvakken: {a} en {b}",
+      "pairsHeld": "Behouden paren: {count}",
+      "returnsLabel": "Teruggaven: {count}"
+    },
     "crafting": {
       "title": "Knutselen",
       "close": "Sluit het maken",
@@ -2131,6 +2176,7 @@ export const nl_NL: EnTranslations = {
       "comboNotAttuned": "Kies eerst een archetype-paar.",
       "comboWrongPair": "Activeer precies dit paar om het te maken.",
       "comboTierUnmet": "Breng beide hoofdambachten naar de vereiste rang.",
+      "comboTierUnmetNamed": "Verhoog {crafts} naar niveau {tier}.",
       "professionChoice": "Beroepskeuze",
       "noProfessionChoice": "Er is momenteel geen geldige beroepskeuze beschikbaar.",
       "pairOptionLabel": "{pair} ({craftA} + {craftB})",
@@ -2161,9 +2207,48 @@ export const nl_NL: EnTranslations = {
         "nearTier": "{craft} mist {points} vaardigheid voor zijn volgende rang.",
         "dormantKnowledge": "{craft}-kennis wordt behouden maar is slapend tot zijn paar of liefhebberij actief is."
       },
-      "notAtHub": "Je moet bij de werkbank zijn, op het vereiste niveau, om dat te maken.",
+      "stationRequired": "Je moet bij de {station} zijn om dat te kunnen maken.",
+      "stationName": {
+        "forge": "Smederij",
+        "kitchens": "Keukens",
+        "apothecary": "Apotheker",
+        "tannery": "Looierij",
+        "loom": "Weefgetouw",
+        "toolworks": "Gereedschapswerkplaats"
+      },
       "throttled": "Je maakt te snel. Wacht even en probeer het opnieuw.",
-      "recipeNotLearned": "Je hebt dat recept nog niet geleerd."
+      "recipeNotLearned": "Je hebt dat recept nog niet geleerd.",
+      "skillReqLine": "Vereist {craft} {skill}",
+      "difficultyFull": "Volledige vaardigheidswinst",
+      "difficultyReduced": "Verminderde vaardigheidswinst",
+      "difficultyNone": "Geen vaardigheidswinst",
+      "stationBadge": "Station",
+      "stationOutOfRangeNamed": "Ga naar {station} om dit te maken.",
+      "masterworkToast": "Meesterwerk! {name}",
+      "masterworkZoneLine": "{crafter} heeft het meesterwerk {name} gemaakt!",
+      "tierUpToast": "{craft} is doorgegaan naar niveau {tier}!",
+      "makersMark": "Gemaakt door {name}",
+      "masterworkSeal": "Meesterwerk",
+      "enchantedLine": "Betoverd"
+    },
+    "training": {
+      "title": "Opleiding: {name}",
+      "close": "Sluit opleiding",
+      "empty": "Deze meester heeft niets te leren.",
+      "free": "Gratis",
+      "stateKnown": "Bekend",
+      "stateTeachable": "Beschikbaar",
+      "stateLocked": "Vergrendeld",
+      "requirement": "Geleerd bij {craft} {skill}",
+      "trainAria": "Leer {name} voor {fee}",
+      "dialogOption": "Opleiding",
+      "dialogOptionAria": "Bekijk trainingen van {name}",
+      "learned": "Recept geleerd: {recipe}",
+      "tierUnmet": "Je hebt {craft} {skill} nodig om dat recept te leren.",
+      "cannotAfford": "Die opleiding kun je niet betalen.",
+      "notTaughtHere": "Dat recept wordt hier niet geleerd.",
+      "alreadyKnown": "Dat recept ken je al.",
+      "outOfRange": "Je moet bij het werkstation zijn om te trainen."
     },
     "finder": {
       "title": "Kerkerzoekmachine",
@@ -2331,6 +2416,11 @@ export const nl_NL: EnTranslations = {
       "broadcastsLabel": "Deel behaalde daden met je gilde en vrienden",
       "titledName": "{name} [{title}]"
     }
+  },
+  "gatherEvent": {
+    "pristineVein": "{finder} raakte een ongerepte ader!",
+    "ancientHeartwood": "{finder} heeft een oud kernhout gekapt!",
+    "moonlitBloom": "{finder} ontdekte een maanverlichte bloei!"
   },
   "apiError": {
     "validation": {
@@ -2936,9 +3026,9 @@ export const nl_NL: EnTranslations = {
       "ice_lance": "Een directe scherf om vorstprocs mee te verbruiken, raakt veel harder op een bevroren doelwit.",
       "flurry": "Drie snelle boutten die het doelwit koelen zodat je volgende vorsttreffers landen alsof het bevroren is.",
       "fingers_of_frost": "Je vorstboutten geven een Ice Lance soms de kracht om te treffen alsof het doelwit bevroren is.",
-      "brain_freeze": "Je vorstboutten maken de volgende Winterlash soms direct en harder rakend.",
+      "brain_freeze": "Je vorstspreuken maken de volgende Winterlash soms onmiddellijk en slaan de afkoelperiode over.",
       "shatter": "Je spreuken criten veel vaker tegen bevroren doelwitten.",
-      "frozen_orb": "Rolt een langzame bol door de troep die alles verkilt en je vorstprocs voedt.",
+      "frozen_orb": "Rolt een langzame bol door de groep die vijanden verkoelt en ijspegels opslaat.",
       "blizzard": "Bedekt een gebied met ijs om een heel roedel te slijten en te vertragen.",
       "blink": "Teleporteert je een korte afstand vooruit en verbreekt onderweg wortels.",
       "conjure_water": "Roept drank op die mana herstelt, zodat je tussen pulls kunt bijvullen.",
@@ -4529,7 +4619,11 @@ export const nl_NL: EnTranslations = {
   },
   "heroicShop": {
     "balance": "Heroïsche Merken: {count}",
-    "buyAria": "Koop {item} voor {marks} Heroïsche Merken"
+    "buyAria": "Koop {item} voor {marks} Heroïsche Merken",
+    "buyConfirmTitle": "Bevestig aankoop",
+    "buyConfirmBody": "{item} kopen voor {marks} Heroïsche Merken? Aankopen met merken kunnen niet worden terugbetaald.",
+    "buyConfirmAccept": "Kopen",
+    "buyConfirmCancel": "Annuleren"
   },
   "cardDuel": {
     "title": "Kaartduel",
@@ -4582,7 +4676,11 @@ export const nl_NL: EnTranslations = {
       "buyAria": "Koop {item} voor {marks} Delve-Tekens",
       "reqHeroic": "Vereist een Heroïsche voltooiing",
       "reqClears": "Vereist {count} voltooiingen",
-      "empty": "Niets op voorraad."
+      "empty": "Niets op voorraad.",
+      "buyConfirmTitle": "Bevestig aankoop",
+      "buyConfirmBody": "{item} kopen voor {marks} Delve-Tekens? Aankopen met tekens kunnen niet worden terugbetaald.",
+      "buyConfirmAccept": "Kopen",
+      "buyConfirmCancel": "Annuleren"
     },
     "tracker": {
       "title": "Delve",
@@ -4971,6 +5069,11 @@ export const nl_NL: EnTranslations = {
     "discordCommunity": "Word lid van de World of ClaudeCraft Discord-community",
     "donateProject": "Doneer om World of ClaudeCraft te steunen"
   },
+  "entryGuard": {
+    "title": "Grafische kwaliteit verlaagd",
+    "body": "Het spel is onverwacht afgesloten bij het betreden van de wereld, dus de grafische kwaliteit staat nu op {preset}. Je kunt dit wijzigen in de grafische keuzelijst hieronder of in de opties in het spel.",
+    "dismiss": "Sluiten"
+  },
   "loading": {
     "world": "Wereld laden...",
     "worldProgress": "Wereld laden... {done}/{total}",
@@ -4980,7 +5083,9 @@ export const nl_NL: EnTranslations = {
     "rendererFailed": "Kon de renderer niet starten: probeer opnieuw te laden. {error}",
     "enterTimeout": "Kon de wereld niet betreden. De verbinding is verlopen. Draait de gameserver?",
     "connectionLost": "De verbinding met de server is verbroken.",
-    "reconnecting": "Verbinding verbroken. Opnieuw verbinding maken...",
+    "reconnectingAttempt": "Verbinding verbroken. Opnieuw verbinding maken... (poging {attempt}/{maxAttempts}, opnieuw proberen over {seconds}s)",
+    "reconnectingNow": "Verbinding verbroken. Er wordt nu opnieuw verbinding gemaakt... (poging {attempt}/{maxAttempts})",
+    "slowConnection": "Dit duurt langer dan normaal. Controleer uw internetverbinding.",
     "connectionRejected": "De server heeft de verbinding gesloten.",
     "realmFull": "Deze wereld is op dit moment vol. Probeer het over een paar minuten opnieuw.",
     "tooManyConnections": "Er komen te veel verbindingen naar deze wereld vanuit jouw netwerk. Sluit extra spelvensters of probeer het over een paar minuten opnieuw.",
@@ -6083,6 +6188,7 @@ export const nl_NL: EnTranslations = {
       "rarityUncommon": "Ongewoon",
       "rarityRare": "Zeldzaam",
       "rarityEpic": "Episch",
+      "rarityLegendary": "Legendarisch",
       "merchantStock": "Voorraad van de handelaar",
       "stackCount": "x{count}",
       "each": "{money} per stuk",
@@ -6283,7 +6389,7 @@ export const nl_NL: EnTranslations = {
       },
       "blazing_barrier": {
         "name": "Vlammende barrière",
-        "description": "Omhul jezelf met vlammen en absorbeer 130 schade gedurende 60 sec. (Vuur)"
+        "description": "Omhul jezelf met vlammen en absorbeer {damage} schade gedurende 60 sec. (Vuur)"
       },
       "cold_snap": {
         "name": "Roep van de winter",
@@ -6335,11 +6441,11 @@ export const nl_NL: EnTranslations = {
       },
       "flurry": {
         "name": "Winterlash",
-        "description": "Schiet drie ijsboutten af die elk {damage} Vorstschade toebrengen en Winterskil op het doelwit leggen: de volgende 2 binnenkomende compatibele spreuken behandelen het als bevroren. Brain Freeze maakt Winterlash direct, 30% harder, en slaat de afkoeltijd over. (Vorst)"
+        "description": "Vuur drie ijsprojectielen af die elk {damage} vorstschade veroorzaken en leg Winterkou op het doelwit: de volgende 2 compatibele spreuken behandelen het als bevroren. Brain Freeze maakt Winterlash onmiddellijk en slaat de afkoelperiode over. (Vorst)"
       },
       "frozen_orb": {
         "name": "Frozen Orb",
-        "description": "Laat een bol van wervelende vorst los die 8 sec naar voren drijft, per seconde {damage} Vorstschade toebrengt aan nabije vijanden en ze 30% vertraagt. Zijn treffers genereren Fingers of Frost. (Vorst)"
+        "description": "Laat een bol van wervelende vorst los die 8 seconden lang naar voren drijft, waarbij hij elke seconde {damage} vorstschade toebrengt aan vijanden in de buurt en ze met 30% vertraagt. Elke opvallende puls genereert één ijspegel. (Vorst)"
       },
       "blizzard": {
         "name": "Blizzard",
@@ -6363,11 +6469,11 @@ export const nl_NL: EnTranslations = {
       },
       "brain_freeze": {
         "name": "Brain Freeze",
-        "description": "Rijplans heeft 20% kans om je volgende Winterlash direct, 30% harder en vrij van zijn afkoeltijd te maken. (Vorst)"
+        "description": "Rijplans heeft 20% kans om je volgende Winterlash onmiddellijk te maken en de afkoelperiode over te slaan. (Vorst)"
       },
       "shatter": {
         "name": "Brittle Ruin",
-        "description": "Je spreuken krijgen 50% kritieke trefkans tegen bevroren doelwitten, en die kritieke treffers brengen 20% meer schade toe. Fingers of Frost en Winterskil tellen als bevroren. (Vorst)"
+        "description": "Je spreuken krijgen 50% extra kans op een kritieke treffer tegen bevroren doelen. Fingers of Frost en Winterkou gelden als bevroren. (Vorst)"
       },
       "conjure_water": {
         "name": "Waterbinding",
@@ -6391,7 +6497,7 @@ export const nl_NL: EnTranslations = {
       },
       "frost_nova": {
         "name": "IJsboei",
-        "description": "Bevriest alle nabije vijanden ter plaatse gedurende maximaal 8 sec en brengt {damage} Vorstschade toe."
+        "description": "Bevriest alle nabije vijanden ter plaatse gedurende maximaal 8 sec en brengt {damage} Vorstschade toe. Het worteleffect breekt na cumulatieve schade gelijk aan 15% van de maximale gezondheid van het doelwit, met een minimum van 20 en een maximum van 60 schade."
       },
       "arcane_explosion": {
         "name": "Aetherbarst",
@@ -8138,6 +8244,222 @@ export const nl_NL: EnTranslations = {
       "emberglass_warstaff": {
         "name": "Sintelglazen Oorlogsstaf"
       },
+      "copper_ore": {
+        "name": "Kopererts"
+      },
+      "iron_ore": {
+        "name": "Ijzererts"
+      },
+      "ironbark_log": {
+        "name": "IJzerschorsstam"
+      },
+      "silverleaf_herb": {
+        "name": "Zilverbladig kruid"
+      },
+      "rough_hide": {
+        "name": "Ruwe huid"
+      },
+      "spider_silk": {
+        "name": "Spinnenzijde"
+      },
+      "venom_gland": {
+        "name": "Gifklier"
+      },
+      "game_meat": {
+        "name": "Wildvlees"
+      },
+      "homespun_cloth": {
+        "name": "Huisgesponnen doek"
+      },
+      "pristine_hide": {
+        "name": "Ongerepte huid"
+      },
+      "pristine_silk": {
+        "name": "Ongerepte zijde"
+      },
+      "pristine_venom_gland": {
+        "name": "Ongerepte gifklier"
+      },
+      "prime_cut": {
+        "name": "Eerste snit"
+      },
+      "smithing_flux": {
+        "name": "Smeedvloeimiddel"
+      },
+      "spool_of_thread": {
+        "name": "Spoel van draad"
+      },
+      "tanning_agent": {
+        "name": "Looimiddel"
+      },
+      "cooking_salt": {
+        "name": "Keukenzout"
+      },
+      "glass_vial": {
+        "name": "Glazen flesje"
+      },
+      "copper_bearded_axe": {
+        "name": "Koperen baardbijl"
+      },
+      "copper_flanged_mace": {
+        "name": "Koperen flensknots"
+      },
+      "ironbark_boar_spear": {
+        "name": "Ijzerschors zwijnenspeer"
+      },
+      "ironedge_longsword": {
+        "name": "IJzerlemmet-langzwaard"
+      },
+      "ironshod_maul": {
+        "name": "IJzerbeslagen strijdhamer"
+      },
+      "whetted_iron_dirk": {
+        "name": "Geslepen ijzeren dolk"
+      },
+      "thorium_warblade": {
+        "name": "Thorium Oorlogszwaard"
+      },
+      "arcanite_war_axe": {
+        "name": "Arcanitische oorlogsbijl"
+      },
+      "elderwood_battle_staff": {
+        "name": "Oudhout-strijdstaf"
+      },
+      "riveted_copper_girdle": {
+        "name": "Geklonken koperen gordel"
+      },
+      "coppermail_sabatons": {
+        "name": "Kopermalieschoenen"
+      },
+      "coppermail_gauntlets": {
+        "name": "Kopermaliehandschoenen"
+      },
+      "ironlink_hauberk": {
+        "name": "IJzerschakelborstharnas"
+      },
+      "ironlink_legguards": {
+        "name": "IJzerschakelbeenbeschermers"
+      },
+      "ironlink_spaulders": {
+        "name": "IJzerschakelschouderstukken"
+      },
+      "thoriumscale_greathelm": {
+        "name": "Thoriumschaal Groothelm"
+      },
+      "thoriumscale_cuirass": {
+        "name": "Thoriumschaal kuras"
+      },
+      "thoriumscale_leggings": {
+        "name": "Thoriumschaal legging"
+      },
+      "homespun_hood": {
+        "name": "Huisgesponnen capuchon"
+      },
+      "homespun_mitts": {
+        "name": "Zelfgesponnen wanten"
+      },
+      "silverthread_slippers": {
+        "name": "Zilverdraad pantoffels"
+      },
+      "goldweave_robe": {
+        "name": "Goudgeweven mantel"
+      },
+      "goldweave_leggings": {
+        "name": "Goudgeweven legging"
+      },
+      "silkspun_satchel": {
+        "name": "Zijdegesponnen tas"
+      },
+      "silkbinders_raiment": {
+        "name": "Zijdebinderskleding"
+      },
+      "sunweave_mantle": {
+        "name": "Zonnegeweven mantel"
+      },
+      "sunweave_treads": {
+        "name": "Zonneweefsellaarzen"
+      },
+      "fenbridge_hide_leggings": {
+        "name": "Fenbridge-leren broek"
+      },
+      "fenbridge_hide_boots": {
+        "name": "Fenbridge-leren laarzen"
+      },
+      "fenbridge_hide_belt": {
+        "name": "Fenbridge huidriem"
+      },
+      "marshstalker_jerkin": {
+        "name": "Moerasjagerwambuis"
+      },
+      "marshstalker_hood": {
+        "name": "Moerasjagerkap"
+      },
+      "marshstalker_spaulders": {
+        "name": "Moerasjagerschouderstukken"
+      },
+      "mirewarden_jerkin": {
+        "name": "Moeraswachterwambuis"
+      },
+      "mirewarden_leggings": {
+        "name": "Moeraswachterbroek"
+      },
+      "mirewarden_treads": {
+        "name": "Moeraswachterlaarzen"
+      },
+      "pan_seared_perch": {
+        "name": "In de pan gebakken rivierbaars"
+      },
+      "hunters_game_skewer": {
+        "name": "De wildspies van Jager"
+      },
+      "herbed_marsh_pike": {
+        "name": "Gekruide moerassnoek"
+      },
+      "ashwood_smoked_eel": {
+        "name": "Op essenhout gerookte paling"
+      },
+      "goldleaf_game_stew": {
+        "name": "Goudblad Wildstoofpot"
+      },
+      "frostgill_chowder": {
+        "name": "Vorstkieuw-vissoep"
+      },
+      "silvered_carp_supper": {
+        "name": "Avondmaal van zilverkarper"
+      },
+      "anglers_feast_platter": {
+        "name": "Vissers feestschotel"
+      },
+      "marlows_grand_roast": {
+        "name": "Marlows feestgebraad"
+      },
+      "silverleaf_healing_draught": {
+        "name": "Zilverblad-genezingsdrank"
+      },
+      "silverleaf_mana_draught": {
+        "name": "Zilverblad-manadrank"
+      },
+      "elixir_of_the_boar": {
+        "name": "Elixer van het zwijn"
+      },
+      "goldleaf_healing_draught": {
+        "name": "Goudblad-genezingsdrank"
+      },
+      "goldleaf_mana_draught": {
+        "name": "Goudblad-manadrank"
+      },
+      "venomfire_elixir": {
+        "name": "Venomfire-elixer"
+      },
+      "sunpetal_healing_draught": {
+        "name": "Zonneblad-genezingsdrank"
+      },
+      "sunpetal_mana_draught": {
+        "name": "Zonneblad-manadrank"
+      },
+      "elixir_of_the_serpent": {
+        "name": "Elixer van de slang"
+      },
       "conjured_water4": {
         "name": "Getoverd bronwater"
       },
@@ -9395,6 +9717,36 @@ export const nl_NL: EnTranslations = {
         "title": "De Toppenkroniek",
         "greeting": "De berg vergeet niets, {playerName}, en ik evenmin. Laten we eens kijken wat je hebt gedaan."
       },
+      "forgemistress_darva": {
+        "name": "Smeedmeesteres Darva",
+        "title": "Meester van de Smidse",
+        "greeting": "De smederij antwoordt mij: {className}. Breng goed erts mee en het zal ook aan jou beantwoorden."
+      },
+      "cook_marlow": {
+        "name": "Kok Marlow",
+        "title": "Meester van de keukens",
+        "greeting": "Niets laat mijn keuken half gaar achter, {className}. Ga zitten, eet en ga dan weer naar buiten."
+      },
+      "weaver_ottilie": {
+        "name": "Wever Ottilie",
+        "title": "Meester van het weefgetouw",
+        "greeting": "Let op de draden, {className}. Een vaste hand aan het weefgetouw verslaat een sterke."
+      },
+      "tinker_gizzel": {
+        "name": "Knutselaar Gizzel",
+        "title": "Meester van de gereedschapswerken",
+        "greeting": "Veren, tandwielen en scherpe randen, {className}: de gereedschapmakerij heeft alles wat uw handen missen."
+      },
+      "tanner_hesk": {
+        "name": "Leerlooier Hesk",
+        "title": "Meester van de leerlooierij",
+        "greeting": "Een huid is slechts zo goed als zijn bruining, {className}. De vaten zijn klaar als jij dat bent."
+      },
+      "alchemist_verane": {
+        "name": "Alchemist Verane",
+        "title": "Meester van de apotheek",
+        "greeting": "Meet twee keer en giet één keer, {className}. De apotheker heeft geen geduld voor gemorste reagentia."
+      },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
         "title": "Tijwachter",
@@ -10464,6 +10816,56 @@ export const nl_NL: EnTranslations = {
         "sender": "Heroïsche kwartiermeester",
         "subject": "Je heroïsche marken",
         "body": "Je groep heeft de heroïsche beproeving doorstaan terwijl jij in de achterhoede vocht of verslagen op de grond lag. Ook jouw binding is vastgelegd, dus je aandeel heroïsche marken is hierheen gestuurd in plaats van verloren te gaan. Gebruik ze goed.\n\n- Heroïsche kwartiermeester"
+      },
+      "guild_trend_engineering_alchemy": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in techniek en alchemie",
+        "body": "Ambachtelijk,\n\nHet bericht bereikt het Gilde over je werk in techniek en alchemie: de ladingen worden gemeten en de reagentia worden gewogen, terwijl de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Degenen die dit paar binden, verdienen na verloop van tijd de naam Bombardier. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_alchemy_cooking": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in Alchemie en Koken",
+        "body": "Ambachtelijk,\n\nHet nieuws bereikt de gilde van jouw werk in alchemie en koken: dranken staan te pruttelen en de gerechten worden gekruid, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Degenen die dit paar binden, verdienen na verloop van tijd de naam Apotheker. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_cooking_leatherworking": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in koken en leerbewerking",
+        "body": "Ambachtelijk,\n\nHet bericht bereikt het Gilde over jouw werk in Koken en Leerbewerking: maaltijden opgemaakt en huiden gezouten, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_leatherworking_tailoring": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in leerbewerking en maatwerk",
+        "body": "Ambachtelijk,\n\nWoord bereikt het Gilde van uw werk in leerbewerking en kleermakerij: leer gesneden en met stof omzoomd, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Degenen die dit paar binden, verdienen op tijd de naam uitrustingsmaker. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_tailoring_inscription": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in maatwerk en inscriptie",
+        "body": "Ambachtelijk,\n\nWoord bereikt het Gilde van je werk in kleermakerij en inscriptie: naden gestikt en glyphs geïnkt, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_inscription_enchanting": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in Inscriptie en Betovering",
+        "body": "Ambachtelijk,\n\nWoord bereikt de Gilde van je werk in inscriptie en betovering: rollen met letters en geweven charmes, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_enchanting_jewelcrafting": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in Betoveren en Sieraden maken",
+        "body": "Ambachtelijk,\n\nHet bericht bereikt het Gilde van jouw werk in Betoveren en Sieraden maken: bedels gebonden en gepolijste stenen, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_jewelcrafting_weaponcrafting": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in het maken van juwelen en wapens",
+        "body": "Ambachtelijk,\n\nWoord bereikt het gilde van je werk in edelsmeden en wapensmeden: edelstenen zitten en randen worden geslepen, de twee ambachten voeden elkaar. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_weaponcrafting_armorcrafting": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in wapen- en pantserbouw",
+        "body": "Ambachtelijk,\n\nHet bericht bereikt het Gilde over je werk in wapensmeden en pantserbewerking: geharde bladen en aangebrachte platen, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Degenen die dit paar binden, verdienen op tijd de naam smid. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
+      },
+      "guild_trend_armorcrafting_engineering": {
+        "sender": "Het Ambachtsgilde",
+        "subject": "Jouw werk in pantserbewerking en techniek",
+        "body": "Ambachtelijk,\n\nHet bericht bereikt de gilde van jouw werk in pantserbewerking en techniek: platen geklonken en tandwielen uitgelijnd, waarbij de twee ambachten elkaar voeden. Naburige ambachten die samenwerken, markeren een hand die klaar is voor afstemming. Zoek Smid Haldren, de pantsersmid van Eastbrook: hij spreekt voorlopig namens de meesters. Bewijs hem uw vak met uw eigen handen, en hij zal zien dat uw twee hoofdvakken op elkaar zijn afgestemd.\n\nMet achting,\nHet Ambachtsgilde"
       }
     },
     "itemSets": {

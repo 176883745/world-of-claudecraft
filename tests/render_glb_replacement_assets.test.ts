@@ -5,6 +5,7 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { artisanRowPreloadInternalsForTest } from '../src/render/artisan_row_props';
 import { MEDIA_ASSETS } from '../src/render/assets/manifest.generated';
 import { critterPreloadInternalsForTest } from '../src/render/critters';
 import { marshDressingPreloadInternalsForTest } from '../src/render/delve_marsh_dressing';
@@ -14,6 +15,7 @@ import { fishPreloadInternalsForTest } from '../src/render/fish';
 import { gatherNodePreloadInternalsForTest } from '../src/render/gather_nodes';
 import { mailboxPreloadInternalsForTest } from '../src/render/mailbox';
 import { questObjectPreloadInternalsForTest } from '../src/render/quest_objects';
+import { stationsPreloadInternalsForTest } from '../src/render/stations';
 import { yumiMazePreloadInternalsForTest } from '../src/render/yumi_maze';
 
 const publicDir = path.join(__dirname, '..', 'public');
@@ -72,6 +74,18 @@ describe('GLB-replacement asset preload sets resolve to real, manifested files',
 
   it('quest object assets', () => {
     for (const url of Object.values(questObjectPreloadInternalsForTest.questObjectUrl)) {
+      expectAssetExistsAndManifested(url);
+    }
+  });
+
+  it('artisan row prop assets', () => {
+    for (const url of Object.values(artisanRowPreloadInternalsForTest.assetUrl)) {
+      expectAssetExistsAndManifested(url);
+    }
+  });
+
+  it('crafting station prop assets (Professions 2.0 Phase 9)', () => {
+    for (const url of Object.values(stationsPreloadInternalsForTest.assetUrl)) {
       expectAssetExistsAndManifested(url);
     }
   });
